@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Data Groups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Sample Data Groups — Modbus Only</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Groups.htm">Data Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Sample Data Groups</span>
+        </div>
+        <h2>Sample Data Groups — Modbus Only</h2>
+        <p>The following are sample Modbus data groups. Your needs determine exactly how the data groups are defined.</p>
+        <h3>Default Data Group — Non-ordinalized</h3>
+        <p>Default data groups can be defined in a template file. </p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;defDataGroups&gt;</p>
+                    <p class="Code2">&lt;Version/&gt;</p>
+                    <p class="Code2">&lt;BasicPoll/&gt;</p>
+                    <p class="Code2">&lt;AnlgScale/&gt;</p>
+                    <p class="Code2">&lt;PlungerCtl/&gt;</p>
+                    <p class="Code">&lt;/defDataGroups&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Default Data Group — Ordinalized</h3>
+        <p>Default data groups can be defined in a template file. </p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;defDataGroups&gt;</p>
+                    <p class="Code2">&lt;Gas ordinal="1" niceName="Gas Analysis Run #1"/&gt;</p>
+                    <p class="Code2">&lt;Gas ordinal="2" niceName="Gas Analysis Run #2"/&gt;</p>
+                    <p class="Code2">&lt;Gas ordinal="3" niceName="Gas Analysis Run #3"/&gt;</p>
+                    <p class="Code2">&lt;Gas ordinal="4" niceName="Gas Analysis Run #4"/&gt;</p>
+                    <p class="Code">&lt;/defDataGroups&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Contiguous Registers</h3>
+        <p>Register numbers are contiguous, so all data can be returned in a single read block.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">Data is a read-only group.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;AnlgInput niceName="Analog Inputs"&gt;</p>
+                    <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="r4"&gt;</p>
+                    <p class="Code3">&lt;AI1 desc="Analog #1" regNum="9501"/&gt;</p>
+                    <p class="Code3">&lt;AI2 desc="Analog #2" regNum="9502"/&gt;</p>
+                    <p class="Code3">&lt;AI3 desc="Analog #3" regNum="9503"/&gt;</p>
+                    <p class="Code3">&lt;AI4 desc="Analog #4" regNum="9504"/&gt;</p>
+                    <p class="Code3">&lt;AI5 desc="Analog #5" regNum="9505"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks&gt;</p>
+                    <p class="Code3">&lt;block1 regNum="9501" regCnt="5" funcCode="3" regOff="0" regByteLen="4"/&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code">&lt;/AnlgInput&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Multiple Read Blocks</h3>
+        <p>Multiple read blocks are required for two reasons:  1) the byte count exceeds 250; or 2) multiple function codes are required.</p>
+        <p class="Example">Example </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Inst niceName="Instant Data" baseOrd="1" maxCnt="4" forceSave="true"&gt;</p>
+                    <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="r4"&gt;</p>
+                    <p class="Code3">&lt;DayFlRt desc="Daily Flow Rate" regDef="1:0"/&gt;</p>
+                    <p class="Code3">&lt;BattVolt desc="Battery Voltage" regNum="6102"/&gt;</p>
+                    <p class="Code3">&lt;DP desc="Differential Pressure" regDef="3:0"/&gt;</p>
+                    <p class="Code3">&lt;SP desc="Static Pressure" regDef="3:1"/&gt;</p>
+                    <p class="Code3">&lt;Temp desc="Temperature" regDef="3:2"/&gt;</p>
+                    <p class="Code3">&lt;InstRate desc="Instantaneous Flow Rate" regDef="3:3"/&gt;</p>
+                    <p class="Code3">&lt;ToFlow desc="Today's Flow" regDef="3:4"/&gt;</p>
+                    <p class="Code3">&lt;ToEner desc="Today's Energy" regDef="3:5"/&gt;</p>
+                    <p class="Code3">&lt;Totaliz desc="Totalizer" regDef="3:6"/&gt;</p>
+                    <p class="Code3">&lt;YestFlow desc="Yesterday's Flow" regDef="3:7"/&gt;</p>
+                    <p class="Code3">&lt;UncTot desc="Uncorrected Total" regDef="3:8"/&gt;</p>
+                    <p class="Code3">&lt;SqrtExt desc="Square Root Ext" regDef="3:9"/&gt;</p>
+                    <p class="Code3">&lt;Beta desc="Beta" regDef="3:10"/&gt;</p>
+                    <p class="Code3">&lt;FPV desc="FPV" regDef="3:11"/&gt;</p>
+                    <p class="Code3">&lt;FnFr desc="Fn/Fr" regDef="3:12"/&gt;</p>
+                    <p class="Code3">&lt;FslFr desc="Fsl/Fr E/d" regDef="3:13"/&gt;</p>
+                    <p class="Code3">&lt;FcFr desc="Fc/Fr K" regDef="3:14"/&gt;</p>
+                    <p class="Code3">&lt;Red desc="ReD/Fb" regDef="3:15"/&gt;</p>
+                    <p class="Code3">&lt;Fg desc="Fg" regDef="3:16"/&gt;</p>
+                    <p class="Code3">&lt;Y1 desc="Y1/Fa" regDef="3:17"/&gt;</p>
+                    <p class="Code3">&lt;Ftf desc="Ftf" regDef="3:18"/&gt;</p>
+                    <p class="Code3">&lt;Fpb desc="Fpb" regDef="3:19"/&gt;</p>
+                    <p class="Code3">&lt;Ftb desc="Ftb" regDef="3:20"/&gt;</p>
+                    <p class="Code3">&lt;SpExpY desc="Spare/EXP Y" regDef="3:21"/&gt;</p>
+                    <p class="Code3">&lt;SpY desc="Spare/Y Sub" regDef="3:22"/&gt;</p>
+                    <p class="Code3">&lt;Zb desc="Zb" regDef="3:23"/&gt;</p>
+                    <p class="Code3">&lt;Zf desc="Zf/GAMMA" regDef="3:24"/&gt;</p>
+                    <p class="Code3">&lt;Zs desc="Zs/SIGMA3" regDef="3:25"/&gt;</p>
+                    <p class="Code3">&lt;SpEps desc="Spare/Epsilon" regDef="3:26"/&gt;</p>
+                    <p class="Code3">&lt;DayEnRt desc="Daily Energy Rate" regDef="1:1"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks regByteLen="4"&gt;</p>
+                    <p class="Code3">&lt;block1 regNum_ord1="21003" regNum_ord2="21015" regNum_ord3="21027" regNum_ord4="21039" regCnt="2" funcCode="3"/&gt;</p>
+                    <p class="Code3">&lt;block2 regNum="6102" regCnt="1" funcCode="3"/&gt;</p>
+                    <p class="Code3">&lt;block3 regNum_ord1="8001" regNum_ord2="8101" regNum_ord3="8201" regNum_ord4="8301" regCnt="27" funcCode="3"/&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code">&lt;/Inst&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Single Element Read/Write Group</h3>
+        <p>Data group with a single element.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">Group is a read/write group.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;TankLvl niceName="Tank Level" udcCat="UDCALL" maxCnt="1" canSend="true" uccSend="true"&gt;</p>
+                    <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="boolean"&gt;</p>
+                    <p class="Code3">&lt;di3 desc="Tank Level High" regNum="99"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks regOff="-1"&gt;</p>
+                    <p class="Code3">&lt;block1 regNum="99" regCnt="1" funcCode="1" regBitLen="1"/&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code2">&lt;modbusWriteBlocks regOff="-1"&gt;</p>
+                    <p class="Code3">&lt;block1 regNum="99" regCnt="1" funcCode="5" regBitLen="1"/&gt;</p>
+                    <p class="Code2">&lt;/modbusWriteBlocks&gt;</p>
+                    <p class="Code">&lt;/TankLvl&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Reference</h3>
+        <p>One data group element contains a reference to another data group element.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The element <b>ClkTm</b> references <b>ClkTimRaw</b> for its value.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ClkTmRaw desc="Click Time Raw" regNum="40001"/&gt;</p>
+                    <p class="Code">&lt;ClkTm desc="Click Time" type="r4" ref="ClkTmRaw" scaleFactor="0.1"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Enumerated Data</h3>
+        <p>Enumerated data. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The data is retrieved for the element <b>TapLocRaw</b>. This element is hidden. The element <b>TapLoc</b> references <b>TapLocRaw</b> for the data. The <b>mapVal</b> attribute defines the element that contains the conversion values, which in this example is <b>TapLocOptions</b>. </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;TapLocRaw desc="Tap Location Raw Data" regNum="99" hidden="true"/&gt;</p>
+                    <p class="Code">&lt;TapLoc desc="Tap Location" ref="TapLocRaw" mapVal="TapLocOptions"&gt;</p>
+                    <p class="Code2">&lt;TapLocOptions&gt;</p>
+                    <p class="Code3">&lt;e0 value="Downstream"/&gt;</p>
+                    <p class="Code3">&lt;e1 value="Upstream"/&gt;</p>
+                    <p class="Code2">&lt;/TapLocOptions&gt;</p>
+                    <p class="Code">&lt;/TapLoc&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Bit Position</h3>
+        <p>Bit position. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The elements derive their data from the bits of register 40100.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;TrndARaw desc="Trend Analogs" regNum="40100" dMask="0x%08X"/&gt;</p>
+                    <p class="Code">&lt;TaCp desc="Trend CP" type="boolean" ref="TrndARaw" bPos="0"/&gt;</p>
+                    <p class="Code">&lt;TaTp desc="Trend TP" type="boolean" ref="TrndARaw" bPos="1"/&gt;</p>
+                    <p class="Code">&lt;TaIp desc="Trend IP" type="boolean" ref="TrndARaw" bPos="2"/&gt;</p>
+                    <p class="Code">&lt;TaDp desc="Trend DP" type="boolean" ref="TrndARaw" bPos="3"/&gt;</p>
+                    <p class="Code">&lt;TaLp desc="Trend LP" type="boolean" ref="TrndARaw" bPos="4"/&gt;</p>
+                    <p class="Code">&lt;TaLt desc="Trend LT" type="boolean" ref="TrndARaw" bPos="5"/&gt;</p>
+                    <p class="Code">&lt;TaUt desc="Trend ST" type="boolean" ref="TrndARaw" bPos="6"/&gt;</p>
+                    <p class="Code">&lt;TaAl desc="Trend AL" type="boolean" ref="TrndARaw" bPos="7"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">The elements derive their data from the bits of register 40223.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;StatusBits desc="StatusBits" regNum="40223" type="r4"/&gt;</p>
+                    <p class="Code">&lt;bCutOff desc="Meter Below Cutoff flag" type="boolean" bPos="0" ref="StatusBits"/&gt;</p>
+                    <p class="Code">&lt;bCalcOn desc="Calc Enabled Flag" type="boolean" bPos="4" ref="StatusBits"/&gt;</p>
+                    <p class="Code">&lt;bAGAErr desc="AGA 8 Error flag" type="boolean" bPos="6" ref="StatusBits"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Data Group — Ordinalized Data Group</h3>
+        <p>The <b>regDef</b> attribute of the data group element defines the read block and the offset to the starting register (<i>Block#</i>:<i>RegisterOffset#</i>). </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The read block attribute <b>regNum_ord#</b> defines the starting register for the # instance of the group.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FlowVals niceName="Flow Values" devDG="true" maxCnt="2"  baseOrd="1"&gt;</p>
+                    <p class="Code2">&lt;dgElements byteOrder="BigEndian" secLev="4" type="i2"&gt;</p>
+                    <p class="Code3">&lt;SP desc="Static Pressure" regDef="1:00"/&gt;</p>
+                    <p class="Code3">&lt;DP desc="Diff Pressure" regDef="1:01"/&gt;</p>
+                    <p class="Code3">&lt;Temp desc="Gas Temp" regDef="1:02"/&gt;</p>
+                    <p class="Code3">&lt;FlowRate desc="Flow Rate" regDef="1:03"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks&gt;</p>
+                    <p class="Code3">&lt;block1 regCnt="4" funcCode="3" regNum_ord1="710" regNum_ord2="910" regOff="0" regByteLen="2"/&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code">&lt;/FlowVals&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">Multiple read blocks can be defined, if necessary.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FlowVals niceName="Flow Values" devDG="true" maxCnt="2"  baseOrd="1"&gt;</p>
+                    <p class="Code2">&lt;dgElements byteOrder="BigEndian" secLev="4" type="i2"&gt;</p>
+                    <p class="Code3">&lt;SP desc="Static Pressure" regDef="1:00"/&gt;</p>
+                    <p class="Code3">&lt;DP desc="Diff Pressure" regDef="1:01"/&gt;</p>
+                    <p class="Code3">&lt;Temp desc="Gas Temp" regDef="1:02"/&gt;</p>
+                    <p class="Code3">&lt;FlowRate desc="Flow Rate" regDef="1:03"/&gt;</p>
+                    <p class="Code3">&lt;EnRate desc="Energy Rate" regDef="2:00"/&gt;</p>
+                    <p class="Code3">&lt;FlowTdy desc="Flow Time Today" regDef="3:00"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks&gt;</p>
+                    <p class="Code3">&lt;block1 regCnt="4" funcCode="3" regNum_ord1="710" regNum_ord2="910" regOff="0" regByteLen="2"/&gt;</p>
+                    <p class="Code3">&lt;block2 regCnt="1" funcCode="3" regNum_ord1="751" regNum_ord2="951" regOff="0" regByteLen="2"/&gt;</p>
+                    <p class="Code3">&lt;block3 regCnt="1" funcCode="3" regNum_ord1="803" regNum_ord2="1003" regOff="0" regByteLen="2"/&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code">&lt;/FlowVals&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">Alternatively, use <b>regNum</b> + <b>ordIncrement</b> to define ordinalized data groups.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FlowVals niceName="Flow Values" devDG="true" maxCnt="2" baseOrd="1"&gt;</p>
+                    <p class="Code2">&lt;dgElements byteOrder="BigEndian" secLev="4" type="i2"&gt;</p>
+                    <p class="Code3">&lt;SP desc="Static Pressure" regDef="1:00"/&gt;</p>
+                    <p class="Code3">&lt;DP desc="Diff Pressure" regDef="1:01"/&gt;</p>
+                    <p class="Code3">&lt;Temp desc="Gas Temp" regDef="1:02"/&gt;</p>
+                    <p class="Code3">&lt;FlowRate desc="Flow Rate" regDef="1:03"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks regByteLen="2"/&gt;</p>
+                    <p class="Code3">&lt;block1 regNum="11001" ordIncrement="4" regCnt="4" funcCode="3"/&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code">&lt;/FlowVals&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

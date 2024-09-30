@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Admin Menu">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Validation Processing</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Admin Menu.htm">Admin Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Validation Processing</span>
+        </div>
+        <h2>Managing Validation Engines</h2>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Validation16.png" /> Use the <b>Validation</b> button on the <b>Admin</b> menu  to access options to manage validation engines and their component rules. You can <a href="#Creating" class="selected">add</a>, view or <a href="#Viewing" class="selected">edit</a>, <a href="#Deleting" class="selected">delete</a> or <a href="#Copying" class="selected">copy</a> estimation engines via this interface. 
+ </p>
+        <p>The CygNet Measurement system supports the configuration of multiple validation engines, which check that measurement data conforms to specification. Set up multiple validation engines to ensure that different validation handling processes can be applied to specified Nodes and circumstances. The validation process will quickly  identify data of suspect quality, by verifying the data against discrete values, historical values, and/or station totals, and will then make the results available for user analysis and closing. Data records failing the validation process will generate exceptions, which can be viewed and handled via the <a href="Using the Exceptions Control.htm">Exceptions Control</a>.</p>
+        <p>You must have proper security authorization to perform these actions. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#ACCESS">ACCESS</a> security event) for information about configuring security access to validation engines and rules.</p>
+        <h3>Validation Engines and Rules</h3>
+        <p>Multiple validation rules can be grouped together into a validation engine with well-defined applicability triggers. Within each engine, you can configure rules and related parameters accordingly. Each component validation rule can be customized and configured by an authorized user to activate for specified times (e.g. day(s) of the week, or a time window), and applied using a preferred time schedule. If a device resolves to multiple validation engines, then all the component rules will be used according to their individual settings. </p>
+        <p>Validation engines can be configured on a group or device level. Because an engine can be defined and assigned to a group Node, the engine and its component rules apply indirectly to the multiple devices within the group.  However, you can modify the group-level rules for a device by also applying different validation engines to specific device Nodes that belong to the group.  When the system needs to validate data for a device, it will use the rules from as many engines as are configured for the given device. For example, if the device belongs to five groups, each with configured validation engines containing associated rules, plus has an engine configured directly for the device, then FMS will validate all six sets of rules. If multiple engines are evaluated that contain the same validation rule, then that rule will be tested by each of the validation engines containing it.</p>
+        <p>Gas records are automatically assigned a data quality flag from the validation engine as data comes into the system. The purpose of the flag is to indicate the level of confidence in the validity of the data. Each validation rule can have an associated data quality level set, to be assigned if the data fails the rule.  If multiple validation rules are failed, then the data quality of the affected records will be set to the lowest of the configured values.</p>
+        <p>Exceptions are generated for the records that are affected by the invalid data. Each time a record fails a validation rule, a related exception will be generated. Any given record can generate one or more exceptions.</p>
+        <h3>Managing Validation Engines</h3>
+        <p>Validation engines are configured via the <b>Admin</b> menu in FMS Explorer. Click <b>Validation</b> on the Admin ribbon to access the <b>Validation Engines</b> dialog box. </p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Validation_Engine_List_598x213.png" style="width: 598;height: 213;" />
+        </p>
+        <p>The <b>Validation Engines</b> dialog box lists all defined validation engines in the measurement system. Each row displays a configured validation engine name, details about the Node to which it applies, the active begin and end times, and whether or not the engine is currently enabled. Results can be filtered by the values of any column. You can also access options to <a href="#Creating" class="selected">add</a>, view or <a href="#Viewing" class="selected">edit</a>, <a href="#Deleting" class="selected">delete</a>, or <a href="#Copying" class="selected">copy</a> validation engines and rules from this dialog box.</p>
+        <p>The properties for the <b>Validation Engines</b> dialog box are described below.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 450px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">[Validation Engine list]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Engine</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The name of the validation engine</p>
+                    <p>Valid characters for names are as follows.</p>
+                    <p><b>A</b>-<b>Z</b>, <b>a</b>-<b>z</b>, <b>0</b>-<b>9</b>, <b>.</b> (period), <b>#</b>, <b>$</b>, <b>&amp;</b>, <b>(</b>, <b>)</b>, <b>+</b>, <b>-</b>, <b>\</b>, <b>/</b>, <b>:</b>, <b>&lt;</b>, <b>&gt;</b>, <b>=</b>, <b>@</b>, <b>[</b>, <b>]</b>, <b>^</b>, <b>{</b>, <b>}</b>, <b>_</b> (underscore), <b>!</b>, <b>~</b> (tilde). Spaces are acceptable, when they are not leading or trailing.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Node</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the Node to which this validation engine applies</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Node Desc</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The description of the Node to which this validation engine applies</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Node Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The type of the Node to which this validation engine applies, e.g. Gas Device, General Group, Station Meter, etc.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Active Begin</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The date application of this validation engine begins</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Active End</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The date application of this validation engine ends</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Enabled</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates whether  or not this validation engine is currently enabled</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Add</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to add a new validation engine. The <b>Create New Validation Engine</b> dialog box will appear. </p>
+                    <p>See <a href="#Creating" class="selected">Creating Validation Engines</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Edit</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to edit the selected validation engine. </p>
+                    <p>See <a href="#Viewing" class="selected">Viewing or Editing Validation Engines</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Delete</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to delete the selected validation engine. The <b>Delete Validation Engine</b> dialog box will appear, where you can select whether to delete the engine from a Point in Time, or purge it from your system entirely. Only one engine can be deleted at a time.</p>
+                    <p>See <a href="#Deleting" class="selected">Deleting Validation Engines</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Copy</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to copy an existing validation engine. The duplicate validation engine will be created in the list. The engine name will be prefixed with <b>*copy*</b> and the new engine will contain all the properties of its source, until edited.</p>
+                    <p>See <a href="#Copying" class="selected">Copying Validation Engines</a> below.</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Creating"></a>Creating Validation Engines</h4>
+        <p>Use the  <b>Add</b> button to add a new validation engine in your system via the <b>Create New Validation Engine</b> dialog box.</p>
+        <p>The <b>Create New Validation Engine</b> dialog box accommodates configuration of all validation rules and properties necessary to define a new validation engine. Each row will display a configured validation rule name, details about  the category and type of rule, the severity level to assign to data records that fail the rule, and the activation schedule to assign to the rule. The list can be filtered by the values of any column. You can access options to add a rule, delete a rule, or schedule activation of a rule from this dialog box. Configure all of the rules and properties that will comprise the new validation engine via this dialog box.</p>
+        <p>The properties  in this dialog box are similar to  the properties in the <b>Validation Engine Properties</b> dialog box (with the exception of the historization navigator),  and are described in the <a href="#Validati" class="selected">Validation Engine Properties</a> table below.</p>
+        <p class="HeadingProcedure">To Create a New Validation Engine</p>
+        <ol>
+            <li value="1">
+                <p>On the <b>Validation Engines</b> list, click <b>Add</b> to access the <b>Create New Validation Engine</b> dialog box.</p>
+                <p>
+                    <img src="../../Resources/Images/CygNet Measurement/Validation_Engine_Create_600x274.png" style="width: 600;height: 274;" />
+                </p>
+            </li>
+            <li value="2">On the <b>Create New Validation Engine</b> dialog box, define the engine and its Node assignment. See <a href="#Validati" class="selected">Validation Engine Properties</a> for more information.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Enter a <b>Name</b> for the new engine.   </li>
+            <li value="2"> Click to select/clear the <b>Enabled</b> check box.</li>
+            <li value="3">Select the <b>Node</b> to which the validation engine will be assigned.</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Configure new validation rules for the engine. See <a href="Configuring Validation Rules.htm">Configuring Validation Rules</a> for more information.</li>
+            <li value="4">When all rules and properties for the new validation engine are configured, click <b>Create</b>.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Viewing"></a>Viewing or Editing Validation Engines</h4>
+        <p>Use the <b>Edit</b> button to modify or view the properties for an existing validation engine, or to view its historized records, via the <b>Validation Engine Properties</b> dialog box. </p>
+        <p>The <b>Validation Engine Properties</b> dialog box displays all of the validation rules and properties comprising an existing validation engine. Each row displays a configured validation rule name, details about  the category and type of rule, the severity level assigned to failure of the rule, and its activation schedule. Results can be sorted by the values of any column. Click to select a validation rule to view or edit its properties.  You can also access options to add a rule, delete a rule, view historical rule details, or schedule activation of a rule from this dialog box.  View or edit all of the rules and properties comprising an existing validation engine via this dialog box.</p>
+        <p>The properties in this dialog box are described in the <a href="#Validati" class="selected">Validation Engine Properties</a> table below, and are similar to the properties in the <b>Create New Validation Engine</b> dialog box.</p>
+        <p class="HeadingProcedure">To View or Edit a Validation Engine</p>
+        <ol>
+            <li value="1">
+                <p>On the <b>Validation Engines</b> list, click to select an existing engine and then click <b>Edit</b> to access the <b>Validation Engine Properties</b> dialog box.</p>
+                <p>
+                    <img src="../../Resources/Images/CygNet Measurement/Validation_Engine_Edit_599x373.png" style="width: 599;height: 373;" />
+                </p>
+            </li>
+            <li value="2">On the <b>Validation Engine Properties</b> dialog box, you can view or edit properties defining the engine and its Node assignment. See <a href="#Validati" class="selected">Validation Engine Properties</a> for more information.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Optionally edit the engine <b>Name</b>.   </li>
+            <li value="2"> Optionally click to select/clear the <b>Enabled</b> check box.</li>
+            <li value="3">Optionally reassign the <b>Node</b> to which the validation engine applies.</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Optionally create or edit validation rules belonging to the engine. See <a href="Configuring Validation Rules.htm">Configuring Validation Rules</a> for more information.</li>
+            <li value="4">Click <b>Apply</b> and repeat the process for additional engines, or click <b>OK</b> when all desired edits  have been made.</li>
+        </ol>
+        <h5><a name="Validati"></a>Validation Engine Properties</h5>
+        <p>The properties for the <b>Validation Engine Properties</b> dialog box, and for the similar <b>Create New Validation Engine</b> dialog box, are described below. </p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 450px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Type in a name for the validation engine.</p>
+                    <p>Valid characters for names are as follows.</p>
+                    <p><b>A</b>-<b>Z</b>, <b>a</b>-<b>z</b>, <b>0</b>-<b>9</b>, <b>.</b> (period), <b>#</b>, <b>$</b>, <b>&amp;</b>, <b>(</b>, <b>)</b>, <b>+</b>, <b>-</b>, <b>\</b>, <b>/</b>, <b>:</b>, <b>&lt;</b>, <b>&gt;</b>, <b>=</b>, <b>@</b>, <b>[</b>, <b>]</b>, <b>^</b>, <b>{</b>, <b>}</b>, <b>_</b> (underscore), <b>!</b>, <b>~</b> (tilde). Spaces are acceptable, when they are not leading or trailing.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Enabled</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to select/clear the check box to determine whether  or not to  enable this validation engine.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Node</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click <b>...</b> to select the Node to which this validation engine applies. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">[Rule list]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Rule Name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Lists the rule name for each rule belonging to the currently selected validation engine. Names initially default to the name of the rule type selected, but can be edited to better suit your usage. Click the cell to type in a new name.</p>
+                    <p>Valid characters for names are as follows.</p>
+                    <p><b>A</b>-<b>Z</b>, <b>a</b>-<b>z</b>, <b>0</b>-<b>9</b>, <b>.</b> (period), <b>#</b>, <b>$</b>, <b>&amp;</b>, <b>(</b>, <b>)</b>, <b>+</b>, <b>-</b>, <b>\</b>, <b>/</b>, <b>:</b>, <b>&lt;</b>, <b>&gt;</b>, <b>=</b>, <b>@</b>, <b>[</b>, <b>]</b>, <b>^</b>, <b>{</b>, <b>}</b>, <b>_</b> (underscore), <b>!</b>, <b>~</b> (tilde). Spaces are acceptable, when they are not leading or trailing.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Rule Category</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Lists the rule category for each rule belonging to the selected validation engine. Click to access the drop-down menu to select a category to apply to the rule.</p>
+                    <p>Possible rule categories are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Device</li>
+                        <li value="2">Configuration Data</li>
+                        <li value="3">Gas Analysis Data</li>
+                        <li value="4">Gas Metering History</li>
+                        <li value="5">Gas Quality History</li>
+                        <li value="6">Historical Data</li>
+                        <li value="7">Station</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When you change the Rule Category, the corresponding Rule Name and Rule Type options will also change.</p>
+                    </div>
+                    <p>See <a href="FMS Validation Rules.htm">FMS Validation Rules</a> for a complete list of all the rule categories and types provided in the measurement system.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Rule Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Lists the rule type for each rule belonging to the selected validation engine. Click to access the drop-down menu to select the  rule type desired. </p>
+                    <p>Rule type options displayed in the drop-down menu depend on the rule category selected. The rule type  you select determines the configurable properties displayed in the <b>Rule details</b> section. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When you change the Rule Type, the corresponding Rule Name will also change.</p>
+                    </div>
+                    <p>See <a href="FMS Validation Rules.htm">FMS Validation Rules</a> for a complete list of all the rule categories and types provided in the measurement system.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Severity</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Lists the severity level assigned to  each rule belonging to the selected validation engine. Click to access the drop-down menu to select a severity level to associate with the rule.</p>
+                    <p>The severity level selected will be assigned to the exception generated when the validation rule fails. Options include <b>Low</b>, <b>Medium</b> and <b>High</b>. Severity is displayed on the <a href="Using the Exceptions Control.htm">Exceptions Control</a> and is provided as a mechanism to help you organize exceptions hierarchically.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Schedule</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Lists the schedule applied to  each rule belonging to the selected validation engine. Click to access the drop-down menu to select or create a schedule to apply to the rule.</p>
+                    <p>See <a href="Configuring Validation Rules.htm#Managing">Configuring Validation Rules</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Add</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to add a new rule to the validation engine. A new rule will appear in the list, populated with default values. Configure the rule properties and details as desired. </p>
+                    <p>See <a href="Configuring Validation Rules.htm#Rule">Configuring Validation Rules</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Delete</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to delete a selected rule from the validation engine.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Details</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to access the <b>Record Details</b> dialog box to view details about changes made to the selected rule.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Only applies to rules that have already been saved.</p>
+                    </div>
+                    <p>See <a href="Viewing Record Details.htm">Viewing Record Details</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Schedules</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to access the <b>Manage Schedules</b> dialog box to configure schedule details for activation of the selected rule. </p>
+                    <p>See <a href="Configuring Validation Rules.htm#Managing">Configuring Validation Rules</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">Rule details</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Type</p>
+                    <p class="Indent">Description</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>When you click a validation rule in the list, the <b>Type</b> and <b>Description</b> of the selected rule will appear on the left side of the <b>Rule details</b> section. </p>
+                    <p>See <a href="Configuring Validation Rules.htm#Rule2">Configuring Validation Rules</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">[Parameters]</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>When you click a validation rule in the list, the configurable parameters required for the selected rule will appear on the right side of the <b>Rule details</b> section. </p>
+                    <p>See <a href="Configuring Validation Rules.htm#Rule2">Configuring Validation Rules</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">Historization Navigator</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Record details</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Where applicable, click <b>Record details</b> in the <a href="#Historiz" class="selected">historization navigator</a> to view sequential historized records for the selected validation engine.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Audit history</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Where applicable, click <b>Audit history</b> in the <a href="#Historiz" class="selected">historization navigator</a> to view detailed history of audit trail data changes for the selected validation engine.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Deleting"></a>Deleting Validation Engines</h4>
+        <p>Use the <b>Delete</b> button to either delete a Validation Engine from a point in time, or to completely purge a Validation Engine from the system. You can only take this action for one validation engine at a time.</p>
+        <p class="HeadingProcedure">To Delete a Validation Engine</p>
+        <ol>
+            <li value="1">
+                <p>On the <b>Validation Engines</b> list, click to select an existing engine name and then click <b>Delete</b> to access the <b>Delete Validation Engine </b> dialog box.</p>
+                <p>
+                    <img src="../../Resources/Images/CygNet Measurement/Validation_Engine_Delete.png" />
+                </p>
+            </li>
+            <li value="2">
+                <p>On the <b>Delete Validation Engine</b> dialog box, select whether to delete the validation engine from a Point in Time, or to completely purge the validation engine from the system, and then click the radio button corresponding to your selection.  </p>
+                <ul>
+                    <li value="1"><b>Delete from a Point in Time</b> removes (effectively deactivates) the selected Validation Engine record from a specified Point in Time (in Contract time, (C)), and historizes the change. The Validation Engine still exists in the system, and its properties can still be edited. Selecting this option causes the action button at the bottom of the dialog box to read <b>Delete</b>. <p>If you select to delete from a Point in Time, also specify the PIT using the date/time selector provided. See <a href="Using the Home Menu.htm">Using the Home Menu</a> for more information  about PIT.</p></li>
+                </ul>
+                <ul>
+                    <li value="1"><b>Purge from system</b> removes the selected Validation Engine and its data records from the system entirely. Selecting this option causes the action button at the bottom of the dialog box to read <b>Purge</b>.</li>
+                </ul>
+                <div class="Note">
+                    <p><span class="NoteHeading">Note:</span> Be certain of your selection, as there is NO "undo" for this action.</p>
+                </div>
+            </li>
+        </ol>
+        <ol start="3">
+            <li value="3">Click <b>Delete</b> or <b>Purge</b>.</li>
+            <li value="4">A message will appear asking you to confirm that you wish to delete/purge the selected Validation Engine from your system. Select <b>Yes</b> or <b>No</b>.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Copying"></a>Copying Validation Engines</h4>
+        <p>Use the <b>Copy</b> button to make a new validation engine exactly like an existing engine, and then alter it to meet a new purpose.</p>
+        <p>You will be prompted to save a record of the action, requiring you to enter effective dates, audit category, and comments. (You will be prompted to enter this information again once you save any edits you make to the copied validation engine.) See <a href="#Save" class="selected">Save FMS Record</a> for more information.</p>
+        <p>The new validation engine will contain all the properties of its source. Click the *copy* name and then click <b>Edit</b> to assign a new engine name, Node,  and/or edit the engine properties, as desired. See <a href="#Viewing" class="selected">Viewing or Editing Validation Engines</a> for more information.</p>
+        <p class="HeadingProcedure">To Copy a Validation Engine</p>
+        <ol>
+            <li value="1">On the <b>Validation Engines</b> list, click an existing engine name and then click <b>Copy</b> to duplicate the existing validation engine.</li>
+            <li value="2">The  <b>Save FMS Record</b> dialog box will appear. Configure the date and audit information requested to historize the creation of the new engine in your system, and then click <b>Save</b>. See <a href="#Save" class="selected">Save FMS Record</a> for more information.</li>
+            <li value="3">
+                <p>The duplicate validation engine will be created at the top of the list, and the new engine name will be the existing engine name, prefixed with <b>*copy*</b>. The  new engine will initially contain all the properties of its source engine.</p>
+                <p>
+                    <img src="../../Resources/Images/CygNet Measurement/Validation_Engine_Copy_599x216.png" style="width: 599;height: 216;" />
+                </p>
+            </li>
+            <li value="4">Click to select the newly created <b>*copy*</b> validation engine in the list, and then click <b>Edit</b> to access the <b>Validation Engine Properties</b> dialog box to edit the default properties (name, status, Node assignment, rules) as desired. See <a href="#Viewing" class="selected">Viewing or Editing Validation Engines</a> for more information.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Historiz"></a>Historization Navigator</h3>
+        <p>The <b>Validation Engine Properties</b> dialog box contains a historization navigator. Use the historization navigator to access sequential historized records for the selected validation engine, where applicable.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Historization_Navigator.png" />
+        </p>
+        <p>The following fields are displayed in the historization navigator.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Field</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>&lt;&lt;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click <b>&lt;&lt;</b> to navigate to the previous historized validation engine record, if applicable.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>[Begin date]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Displays the effective begin date, in Contract time (C), of the historized validation engine record currently selected</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>[End date]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Displays the effective end date, in Contract time (C), of the historized validation engine record currently selected</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>&gt;&gt;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <b>&gt;&gt;</b> to navigate to the next historized validation engine record, if applicable.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Record details</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Use the <b>&lt;&lt;</b> and <b>&gt;&gt;</b> navigation buttons to select a historized validation engine record date span, in Contract time (C), for which you want to view record details. Next, click <b>Record details</b> to view details of the record such as who made the change, the date and time it was made, and optionally the audit category and/or any comments entered regarding the change. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Audit history</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Click <b>Audit history</b> to view detailed history of audit trail value changes for the selected validation engine in its entirety. </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Save"></a>Save FMS Record</h3>
+        <p>After creating or editing a validation engine or rule, you'll be asked to save your changes via the  <b>Save FMS Record</b> dialog box. Configure the date and audit information requested to historize the changes in your system.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Save_FMS_Record_Change_End.png" />
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Change begin</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Set the effective date and time for the record change to begin.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Indefinite:</b> Click to make the record change begin date and time effective for an undefined amount of time. Effectively, it means all time.</li>
+                            <li value="2"><b>Choose date/time:</b> Click to make the record change begin date and time effective for a specific date and time. Use the date/time selector to select the specific begin date and time.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Change end</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Set the effective date and time for the record change to end. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Indefinite:</b> Click to make the record change end date and time effective for an undefined amount of time. Effectively, it means all time.</li>
+                            <li value="2"><b>Choose date/time:</b> Click to make the record change end date and time effective for a specific date and time. Use the date/time selector to select the specific end date and time.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Audit category</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select an appropriate <b>Audit category</b> from the drop-down menu.  The audit category type for this kind of edit is <b>Configuration Change</b>. </p>
+                        <p>Audit categories are configured on the <b>Admin</b> menu. See <a href="Configuring Audit Categories.htm">Configuring Audit Categories</a> for more information. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Comments</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Type <b>Comments</b> regarding creation or modification of the rule or Node in the text box. Although comments are optional, they become part of the record and can be helpful when auditing or reviewing records.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring Validation Rules.htm" class="More">Configuring Validation Rules</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="FMS Validation Rules.htm" class="More">FMS Validation Rules</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

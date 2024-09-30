@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Security|Implementing Security">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using Active Directory with the ACS</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Security.htm">Security</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Implementing Security.htm">Implementing Security</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using Active Directory with the ACS</span>
+        </div>
+        <h2>Using Active Directory with the ACS</h2>
+        <p>By default, a CygNet service operates under the Windows Local System account. Local System has privileges on the machine itself but does not have privileges outside the local system (unless the Local System account is on a domain controller). CygNet recommends that services be run using a domain account. A domain account can be given access to network resources such as LDAP (Lightweight Directory Access Protocol) queries, read/write access of network drives for backups and reports, printers, etc. See <a href="../Services/Service Operational Mode.htm#Windows">Windows Service Mode</a>.</p>
+        <h3>Active Directory Credentials</h3>
+        <p>When using Active Directory with the ACS, the login ID that is used to run CygNet services must have read permission for LDAP queries on the target domain in order to access and maintain distributed directory information services over an IP network.</p>
+        <p>If CygNet services are not run as a service or the domain account used to run them does not have read permission for LDAP queries, you must include the required login credentials in the ACS configuration file. The ACS keywords for login credentials are <a href="../Service Configuration Keywords/ACS Configuration File Keywords.htm#Active">ACTIVE_DIRECTORY_USER</a> and <a href="../Service Configuration Keywords/ACS Configuration File Keywords.htm#Active">ACTIVE_DIRECTORY_PASSWORD.</a></p>
+        <h3>Server Name</h3>
+        <p>In the ACS configuration file you can also specify the name of the domain controller’s server. This keyword is required when using Active Directory so that the login ID that is used to run the services can find the path to the domain controller. This may be the case if the services are operating using the Local System account or a Local ID account (that is, a user account only on the machine and not on the domain). The keyword is <a href="../Service Configuration Keywords/ACS Configuration File Keywords.htm#Active">ACTIVE_DIRECTORY_SERVER_NAME</a>.</p>
+        <p>
+            <img src="../../Resources/Images/Security/ActiveDir_keywords.png" title="Active Directory example" alt="Active Directory example" />
+        </p>
+        <h3><a name="Active"></a>Active Directory Group or User Naming Information</h3>
+        <p>Every group and user account in Active Directory is considered an object. Each object has a full canonical name. This name is basically composed of the domain information and the group or user information. See <a href="Permissions.htm#Active">Active Directory ID</a>.</p>
+        <p>You can specify the domain information in the ACS configuration file using the keyword <a href="../Service Configuration Keywords/ACS Configuration File Keywords.htm#Active">ACTIVE_DIRECTORY_NAMING_CONTEXT.</a> When you do this, you do not have to include the information in the <b>User</b> or <b>Group ID</b> field in the <b>Group Member Properties</b> dialog box in the ACS. This can be helpful since in CygNet, Active Directory IDs are limited to 64 characters.</p>
+        <h3>Adding an Active Directory Record in the ACS</h3>
+        <p>When you add an Active Directory group or user ID in the ACS, the <b>Type</b> must be set to <b>AD - Active Directory</b> and the <b>User</b> must be set to the name of the Active Directory group or user. See <a href="Configuring CygNet Groups.htm">Configuring CygNet Groups</a>.</p>
+        <p>
+            <img src="../../Resources/Images/Security/GrpMbrProps.png" title="Add an Active Directory Record" alt="Add an Active Directory Record" />
+        </p>
+        <p>You do not have to include the domain information in the ID field if: 1) it is the same as that of the login used to run the services; or 2) it is specified in the configuration file using the ACTIVE_DOMAIN_NAMING_CONTEXT keyword.</p>
+        <h4>CygNet Group vs. Permission</h4>
+        <p>Be sure to use the correct <b>ID Type</b>. If the type is <b>CG</b>, that tells the service to reference a CygNet Group. If the type is <b>AD</b>, that means the user ID is an Active Directory user or group.</p>
+        <p>In the image below, the Group is <b>ADMINS</b>. The ADMINS Group contains two IDs, one for a user (<b>US</b>) and one for an Active Directory (<b>AD</b>) group. The permission references the ADMINS Group.</p>
+        <p>
+            <img src="../../Resources/Images/Security/GroupvPermissions.png" title="ID Type" alt="ID Type" />
+        </p>
+        <h3>ACS Shutdown and Active Directory Users</h3>
+        <p>The ACS has a memory-only cache. If the ACS shuts down it clears its cache and no longer has a copy of user groups and IDs from the Active Directory server. Upon reboot it must connect to an Active Directory domain controller to rebuild the cache of IDs for log-on authorizations. When the ACS starts up it begins a background thread to obtain just the Active Directory information for which it has references. If a request comes in during that brief startup time, the ACS will immediately query the Active Directory for the data before responding to the request. This could also happen if a new ACS entry is made referring to an Active Directory ID that wasn’t in the cache. If an Active Directory group is modified on the Active Directory server it may take a few minutes for the ACS cache to catch up with the change. </p>
+        <p>If the ACS is unable to build the Active Directory memory cache it cannot authenticate Active Directory users. This is required to use Active Directory users. In such an instance it is recommended you have an administrator set up with both Active Directory and CygNet groups. This would give administrator access to the CygNet site if communication is lost to the domain controller. If a connection to the Active Directory server is severed and not repaired after 30 minutes, Active Directory users will not have access to the CygNet site.</p>
+        <h3>Troubleshooting</h3>
+        <p>When you use the Active Directory option, have your system administrator turn on NetLogon logging, look for the account for the host server, and see how the domain controller is handling it. If the host server does not show up in the log file, then the request is not getting to the domain controller.</p>
+        <p>If the ACS log file shows the error "Failed to Open AD Group or User" then the user ID used to run the services or specified in the ACS configuration file does not have rights to run an LDAP read query on the target domain.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

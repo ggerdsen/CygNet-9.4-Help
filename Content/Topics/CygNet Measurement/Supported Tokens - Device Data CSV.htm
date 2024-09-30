@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands|Export: Device Data CSV">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Supported Tokens for Device Data CSV Exports</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Command Parameters - Export Device Data CSV.htm">Export: Device Data CSV</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Supported Tokens</span>
+        </div>
+        <h2>Supported Tokens for Device Data CSV Exports</h2>
+        <p>In general, tokens supported for the export definition file used to define <a href="Command Parameters - Export Device Data CSV.htm">Device Data CSV exports</a> are equivalent to the data item tokens (Data Table Tokens) supported for Device QTR, Gas Device Raw QTR, or Liquid Device Raw QTR reports, but there are  differences in both content and format. Some tokens are supported in one format and not the other. Also, whereas the QTR reports recognize valid token names enclosed in brackets <b>[</b><i>TokenName</i><b>]</b>, the EDF files recognize equivalent valid token names enclosed in quotation marks <b>"</b><i>TokenName</i><b>"</b>. </p>
+        <p>Additionally, different token sets are supported depending on whether you are exporting normalized or raw (gas or liquid) data. For more information about valid token names for normalized or raw data, see the following:</p>
+        <ul>
+            <li class="HyperlinkList" value="1">For normalized data, see the <a href="#Normaliz" class="selected">Normalized Data Tokens</a> table below, or see tokens listed for: </li>
+        </ul>
+        <ul class="Circle">
+            <li class="HyperlinkList" value="1"><a href="Gas Device QTR Report Templates.htm#Configur2">Configuring the Report Sheet</a> in the (Gas) Device QTR Report Templates topic</li>
+        </ul>
+        <ul>
+            <li class="HyperlinkList" value="1">For raw data, see the <a href="#Raw" class="selected">Raw Data Tokens</a> table below, or see tokens listed for: </li>
+        </ul>
+        <ul class="Circle">
+            <li class="HyperlinkList" value="1"><a href="Gas Device Raw QTR Report Templates.htm#Configur2">Configuring the Report Sheet</a> in the Gas Device Raw QTR Report Templates topic</li>
+            <li class="HyperlinkList" value="2"><a href="Liquid Device Raw QTR Report Templates.htm#Configur2">Configuring the Report Sheet</a> in the Liquid Device Raw QTR Report Templates topic</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">Valid token for QTR reports = <b>[</b><i>TokenName</i><b>]</b></p>
+        <p class="Indent">Valid token for EDF = <b>"</b><i>TokenName</i><b>"</b></p>
+        <p>See <a href="Command Parameters - Export Device Data CSV.htm">Export: Device Data CSV</a> for more information about preparing and exporting .csv files that utilize an .edf file.</p>
+        <h3><a name="Displayi"></a>Displaying Beginning or Ending Values for a Record</h3>
+        <p>Some data item tokens (for normalized data) have variants you can use to display the beginning or ending values for a record. Append <b>_Begin</b> to the token text to show the beginning value for the record period. Append <b>_End</b> to the token text to show the ending value for the record period. You can then view data values or configuration settings in effect at either the beginning or end of each record span (e.g. hourly, daily) as desired. Examples of valid appended tokens are listed in the <a href="#ConfigItems" class="selected">Configuration Item</a>, <a href="#GasQuality" class="selected">Gas Quality Item</a>, and <a href="#LiquidPeriodicMetering" class="selected">Liquid Periodic Metering PV Item</a> sections of the tables below.</p>
+        <h3><a name="Displayi2"></a>Displaying Flow-Weighted Average Values for a Record</h3>
+        <p>Some tokens for gas metering process variable values (for normalized data) have a variant you can use to display the flow-weighted average value for records in your report.  Tokens utilizing this version are valid for <b>[Energy_Average_FW]</b>, <b>[Mass_Average_FW]</b>, <b>[Volume_Average_FW]</b>, and are listed in the table, below.</p>
+        <h3>Supported Data Item Tokens</h3>
+        <p>Supported data items depend on the data type, whether normalized or raw.</p>
+        <h4><a name="Normaliz"></a>Normalized Data Tokens</h4>
+        <p>Supported data items for normalized data can be described by the following  tokens when configuring device data files for export to CSV. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">General Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"NodeDesc"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"NodeName"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"NodePollingFacilityId"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node's polling facility ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"NodePollingSiteService"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node's polling <i>Site.Service</i></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"NodeReportingFacilityId"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node's reporting facility ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"NodeReportingSiteService"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node's reporting <i>Site.Service</i></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"BeginDate"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Start date, in Contract day (C), of the time range for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"BeginTime"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Start time of the time range for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"DataSource"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Source of data for the record, e.g. polling engine, device import, other</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"GasQualitySource"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Source of gas quality data for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"DataQualityDesc"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Description of the data quality setting</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"DataQualityName"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Name of the data quality setting</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Acceptability"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Numerical percentage value indicating the relative validity of the data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"AuditCategory"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Category of the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"AuditComment"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Comments regarding the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"AuditDate_Host"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Date of the change, relative to the host computer</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"AuditUserName"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Name of the user that made the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"ExceptionCount"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Total number of exceptions for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"LinkExceptionCount"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Number of linked exceptions for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"OpenExceptionCount"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Number of open exceptions for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"RecordsInSpan"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Number of  gas device summary records for the time span</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"IsEdited"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>User-edited status of the data. </p>
+                    <p>Possible values are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>Yes</b> - any data user-edited, e.g. some (hourly) or all (hourly or daily) records</li>
+                        <li value="2"><b>No</b> - all data not user-edited</li>
+                    </ul>
+                    <p>Any edit to the record produces a value of Yes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"EditState"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Edit state of the record in the system. </p>
+                    <p>Possible values are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>Open</b>
+                        </li>
+                        <li value="2"><b>Closed</b>
+                        </li>
+                        <li value="3"><b>PPA</b>
+                        </li>
+                        <li value="4"><b>Mixed</b>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"GMCollectionStatus"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Data state of gas metering records</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"GQCollectionStatus"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Data state of gas quality records</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"EventCollectionStatus"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Data state of event records</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"AlarmCollectionStatus"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Data state of alarm records</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Dp"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Differential pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Energy"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Energy value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Energy_Average_FW"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Energy value: <a href="#Displayi2" class="selected">flow-weighted average</a></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"FlowRate"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Flow rate</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"FlowTime"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Flow time</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"FlowTimePercent"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Flow time percentage</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"IMV"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Integral Multiplier Value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"IV"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Integral Value Definition</p>
+                    <p>Defines the calculation variables used, where applicable</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"KFactorMass"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">K Factor - Mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"KFactorVolume"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">K Factor - Volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Mass"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Mass value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Mass_Average_FW"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Mass value: <a href="#Displayi2" class="selected">flow-weighted average</a></p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"PulseCount"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Pulse count</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Sp"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Static pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Temp"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Temperature</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"UncorrectedVolume"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Uncorrected volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"VCF"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Volume Correction Factor </p>
+                    <p>See <a href="CygNet Measurement Data Calculation.htm#Data2">Data Aggregation</a> for more information about how this factor is averaged.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Volume"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Volume value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Volume_Average_FW"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Volume value: <a href="#Displayi2" class="selected">flow-weighted average</a></p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Custom Gas Metering PV Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGM1"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined GM process variable 1</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGM2"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined GM process variable 2</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGM3"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined GM process variable 3</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGM4"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined GM process variable 4</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGM5"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined GM process variable 5</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><a name="ConfigItems"></a><b>Configuration Item Tokens</b>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> You can append <b>_Begin</b> or <b>_End</b> to any of the following configuration item tokens, in order to display the first or last value for the record. See <a href="#Displayi" class="selected">Displaying Beginning or Ending Values for a Record</a> for more information.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConfigExceptionCnt"</p>
+                    <p>"ConfigExceptionCnt_Begin"</p>
+                    <p>"ConfigExceptionCnt_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Number of configuration exceptions for the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConfigLogAuditCategory"</p>
+                    <p>"ConfigLogAuditCategory_Begin"</p>
+                    <p>"ConfigLogAuditCategory_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Category for the configuration log audit record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConfigLogAuditComment"</p>
+                    <p>"ConfigLogAuditComment_Begin"</p>
+                    <p>"ConfigLogAuditComment_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Comment for the configuration log audit record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConfigLogAuditUserName"</p>
+                    <p>"ConfigLogAuditUserName_Begin"</p>
+                    <p>"ConfigLogAuditUserName_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>User name for the configuration log audit record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConfigLogDateTime"</p>
+                    <p>"ConfigLogDateTime_Begin"</p>
+                    <p>"ConfigLogDateTime_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Date/time of the configuration log</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConfigLogSource"</p>
+                    <p>"ConfigLogSource_Begin"</p>
+                    <p>"ConfigLogSource_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Source of the configuration log</p>
+                    <p>See <a href="Using the Configuration Control.htm#Configuration">Configure Filter</a> in the Using the Configuration Control topic for more information about configuration log source types.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"AGA3ExpandedRange"</p>
+                    <p>"AGA3ExpandedRange_Begin"</p>
+                    <p>"AGA3ExpandedRange_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="74" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 4px;padding-bottom: 4px;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">
+                    <p rowspan="66">See <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for descriptions of these items.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"AGA8ExpandedRange"</p>
+                    <p>"AGA8ExpandedRange_Begin"</p>
+                    <p>"AGA8ExpandedRange_End"</p>
+                    <p>See <a href="CygNet Measurement Data Calculation - AGA 8.htm">AGA 8 Data Ranges</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"AtmosphericPressure"</p>
+                    <p>"AtmosphericPressure_Begin"</p>
+                    <p>"AtmosphericPressure_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"BaseCompressibilityOfAir"</p>
+                    <p>"BaseCompressibilityOfAir_Begin"</p>
+                    <p>"BaseCompressibilityOfAir_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"BasePressure"</p>
+                    <p>"BasePressure_Begin"</p>
+                    <p>"BasePressure_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"BaseTemperature"</p>
+                    <p>"BaseTemperature_Begin"</p>
+                    <p>"BaseTemperature_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CalibrationFactor"
+</p>
+                    <p>"CalibrationFactor_Begin"
+</p>
+                    <p>"CalibrationFactor_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConeCoefficientThermalExpansion"
+</p>
+                    <p>"ConeCoefficientThermalExpansion_Begin"
+</p>
+                    <p>"ConeCoefficientThermalExpansion_End"                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConeDiameter"</p>
+                    <p>"ConeDiameter_Begin"</p>
+                    <p>"ConeDiameter_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConeMaterial"</p>
+                    <p>"ConeMaterial_Begin"</p>
+                    <p>"ConeMaterial_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConeRefTemp"</p>
+                    <p>"ConeRefTemp_Begin"</p>
+                    <p>"ConeRefTemp_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ContractHour"
+</p>
+                    <p>"ContractHour_Begin"
+</p>
+                    <p>"ContractHour_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CoriolisCalibrationPressure"</p>
+                    <p>"CoriolisCalibrationPressure_Begin"</p>
+                    <p>"CoriolisCalibrationPressure_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CoriolisPressureEffect"</p>
+                    <p>"CoriolisPressureEffect_Begin"</p>
+                    <p>"CoriolisPressureEffect_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DeviceDesc"
+</p>
+                    <p>"DeviceDesc_Begin"
+</p>
+                    <p>"DeviceDesc_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DeviceName"
+</p>
+                    <p>"DeviceName_Begin"
+</p>
+                    <p>"DeviceName_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DeviceType"
+</p>
+                    <p>"DeviceType_Begin"
+</p>
+                    <p>"DeviceType_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DischargeCoefficient"
+</p>
+                    <p>"DischargeCoefficient_Begin"
+</p>
+                    <p>"DischargeCoefficient_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DischargeCoefficientCalc"
+</p>
+                    <p>"DischargeCoefficientCalc_Begin"
+</p>
+                    <p>"DischargeCoefficientCalc_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpAlarmHigh"</p>
+                    <p>"DpAlarmHigh_Begin"</p>
+                    <p>"DpAlarmHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpAlarmLow"</p>
+                    <p>"DpAlarmLow_Begin"</p>
+                    <p>"DpAlarmLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpBackflowAlarm"
+</p>
+                    <p>"DpBackflowAlarm_Begin"
+</p>
+                    <p>"DpBackflowAlarm_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpCalibrateHigh"</p>
+                    <p>"DpCalibrateHigh_Begin"</p>
+                    <p>"DpCalibrateHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpCalibrateLow"</p>
+                    <p>"DpCalibrateLow_Begin"</p>
+                    <p>"DpCalibrateLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpTapsType"
+</p>
+                    <p>"DpTapsType_Begin"
+</p>
+                    <p>"DpTapsType_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpTransducerRangeLow"</p>
+                    <p>"DpTransducerRangeLow_Begin"</p>
+                    <p>"DpTransducerRangeLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpTransducerRangeHigh"</p>
+                    <p>"DpTransducerRangeHigh_Begin"</p>
+                    <p>"DpTransducerRangeHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Elevation"</p>
+                    <p>"Elevation_Begin"</p>
+                    <p>"Elevation_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"FixedTemp"
+</p>
+                    <p>"FixedTemp_Begin"
+</p>
+                    <p>"FixedTemp_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"FlowRateAlarmHigh"</p>
+                    <p>"FlowRateAlarmHigh_Begin"</p>
+                    <p>"FlowRateAlarmHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"FlowRateAlarmLow"</p>
+                    <p>"FlowRateAlarmLow_Begin"</p>
+                    <p>"FlowRateAlarmLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"FluidType"</p>
+                    <p>"FluidType_Begin"</p>
+                    <p>"FluidType_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"FpvCalc"</p>
+                    <p>"FpvCalc_Begin"</p>
+                    <p>"FpvCalc_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"GasExpansionFactorCalc"
+</p>
+                    <p>"GasExpansionFactorCalc_Begin"
+</p>
+                    <p>"GasExpansionFactorCalc_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"HeatingValueBasis"</p>
+                    <p>"HeatingValueBasis_Begin"</p>
+                    <p>"HeatingValueBasis_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"HvCalc"</p>
+                    <p>"HvCalc_Begin"</p>
+                    <p>"HvCalc_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"IntegralValueVariables"
+</p>
+                    <p>"IntegralValueVariables_Begin"
+</p>
+                    <p>"IntegralValueVariables_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"IsentropicExponent"</p>
+                    <p>"IsentropicExponent_Begin"</p>
+                    <p>"IsentropicExponent_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"KFactorMass"</p>
+                    <p>"KFactorMass_Begin"</p>
+                    <p>"KFactorMass_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"KFactorVolume"</p>
+                    <p>"KFactorVolume_Begin"</p>
+                    <p>"KFactorVolume_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"LinearCurveType"</p>
+                    <p>"LinearCurveType_Begin"</p>
+                    <p>"LinearCurveType_End"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"LowFlowCutoffDp"
+</p>
+                    <p>"LowFlowCutoffDp_Begin"
+</p>
+                    <p>"LowFlowCutoffDp_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"LowFlowCutoffFlowRate"</p>
+                    <p>"LowFlowCutoffFlowRate_Begin"</p>
+                    <p>"LowFlowCutoffFlowRate_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"LowFlowCutoffMass"</p>
+                    <p>"LowFlowCutoffMass_Begin"</p>
+                    <p>"LowFlowCutoffMass_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"LowFlowCutoffPulseInterval"</p>
+                    <p>"LowFlowCutoffPulseInterval_Begin"</p>
+                    <p>"LowFlowCutoffPulseInterval_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"MeterFactor"
+</p>
+                    <p>"MeterFactor_Begin"
+</p>
+                    <p>"MeterFactor_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"MeterTubeInsideDiameter"</p>
+                    <p>"MeterTubeInsideDiameter_Begin"</p>
+                    <p>"MeterTubeInsideDiameter_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"MeterTubeMaterial"</p>
+                    <p>"MeterTubeMaterial_Begin"</p>
+                    <p>"MeterTubeMaterial_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"MeterTubeRefTemp"</p>
+                    <p>"MeterTubeRefTemp_Begin"</p>
+                    <p>"MeterTubeRefTemp_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"OrificeCoefficientThermalExpansion"</p>
+                    <p>"OrificeCoefficientThermalExpansion_Begin"</p>
+                    <p>"OrificeCoefficientThermalExpansion_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"OrificePlateBoreSize"</p>
+                    <p>"OrificePlateBoreSize_Begin"</p>
+                    <p>"OrificePlateBoreSize_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"OrificePlateMaterial"</p>
+                    <p>"OrificePlateMaterial_Begin"</p>
+                    <p>"OrificePlateMaterial_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"OrificePlateRefTemp"</p>
+                    <p>"OrificePlateRefTemp_Begin"</p>
+                    <p>"OrificePlateRefTemp_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"PipeCoefficientThermalExpansion"
+</p>
+                    <p>"PipeCoefficientThermalExpansion_Begin"
+</p>
+                    <p>"PipeCoefficientThermalExpansion_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"PrimaryCalc"
+</p>
+                    <p>"PrimaryCalc_Begin"
+</p>
+                    <p>"PrimaryCalc_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpAlarmHigh"</p>
+                    <p>"SpAlarmHigh_Begin"</p>
+                    <p>"SpAlarmHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpAlarmLow"</p>
+                    <p>"SpAlarmLow_Begin"</p>
+                    <p>"SpAlarmLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpCalibrateHigh"</p>
+                    <p>"SpCalibrateHigh_Begin"</p>
+                    <p>"SpCalibrateHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpCalibrateLow"</p>
+                    <p>"SpCalibrateLow_Begin"</p>
+                    <p>"SpCalibrateLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpTapLocation"
+</p>
+                    <p>"SpTapLocation_Begin"
+</p>
+                    <p>"SpTapLocation_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpTransducerRangeHigh"</p>
+                    <p>"SpTransducerRangeHigh_Begin"</p>
+                    <p>"SpTransducerRangeHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpTransducerRangeLow"</p>
+                    <p>"SpTransducerRangeLow_Begin"</p>
+                    <p>"SpTransducerRangeLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpType"
+</p>
+                    <p>"SpType_Begin"
+</p>
+                    <p>"SpType_End"
+                </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempAlarmHigh"</p>
+                    <p>"TempAlarmHigh_Begin"</p>
+                    <p>"TempAlarmHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TempAlarmLow"</p>
+                    <p>"TempAlarmLow_Begin"</p>
+                    <p>"TempAlarmLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempCalibrateHigh"</p>
+                    <p>"TempCalibrateHigh_Begin"</p>
+                    <p>"TempCalibrateHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TempCalibrateLow"</p>
+                    <p>"TempCalibrateLow_Begin"</p>
+                    <p>"TempCalibrateLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempCalibrateZero"</p>
+                    <p>"TempCalibrateZero_Begin"</p>
+                    <p>"TempCalibrateZero_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TempTransducerRangeHigh"</p>
+                    <p>"TempTransducerRangeHigh_Begin"</p>
+                    <p>"TempTransducerRangeHigh_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempTransducerRangeLow"</p>
+                    <p>"TempTransducerRangeLow_Begin"</p>
+                    <p>"TempTransducerRangeLow_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"UseCoriolisPressureEffect"</p>
+                    <p>"UseCoriolisPressureEffect_Begin"</p>
+                    <p>"UseCoriolisPressureEffect_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"UseLiveTemp"</p>
+                    <p>"UseLiveTemp_Begin"</p>
+                    <p>"UseLiveTemp_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"WaterVaporCorrectionFactor"</p>
+                    <p>"WaterVaporCorrectionFactor_Begin"</p>
+                    <p>"WaterVaporCorrectionFactor_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"WellStreamFactor"</p>
+                    <p>"WellStreamFactor_Begin"</p>
+                    <p>"WellStreamFactor_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Custom Configuration Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig1"</p>
+                    <p>"CustomConfig1_Begin"</p>
+                    <p>"CustomConfig1_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="10">
+                    <p>Custom-defined FMS configuration items</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig2"</p>
+                    <p>"CustomConfig2_Begin"</p>
+                    <p>"CustomConfig2_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig3"</p>
+                    <p>"CustomConfig3_Begin"</p>
+                    <p>"CustomConfig3_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig4"</p>
+                    <p>"CustomConfig4_Begin"</p>
+                    <p>"CustomConfig4_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig5"</p>
+                    <p>"CustomConfig5_Begin"</p>
+                    <p>"CustomConfig5_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig6"</p>
+                    <p>"CustomConfig6_Begin"</p>
+                    <p>"CustomConfig6_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig7"</p>
+                    <p>"CustomConfig7_Begin"</p>
+                    <p>"CustomConfig7_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig8"</p>
+                    <p>"CustomConfig8_Begin"</p>
+                    <p>"CustomConfig8_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig9"</p>
+                    <p>"CustomConfig9_Begin"</p>
+                    <p>"CustomConfig9_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig10"</p>
+                    <p>"CustomConfig10_Begin"</p>
+                    <p>"CustomConfig10_End"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><a name="GasQuality"></a><b>Gas Quality Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Methane"</p>
+                    <p>"Methane_Begin"</p>
+                    <p>"Methane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Methane (C1)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Ethane"</p>
+                    <p>"Ethane_Begin"</p>
+                    <p>"Ethane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Ethane (C2)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Propane"</p>
+                    <p>"Propane_Begin"</p>
+                    <p>"Propane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Propane (C3)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Butane"</p>
+                    <p>"n-Butane_Begin"</p>
+                    <p>"n-Butane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Butane (C4)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Isobutane"</p>
+                    <p>"Isobutane_Begin"</p>
+                    <p>"Isobutane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Isobutane (isoC4)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Pentane"</p>
+                    <p>"n-Pentane_Begin"</p>
+                    <p>"n-Pentane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Pentane (C5)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Isopentane"</p>
+                    <p>"Isopentane_Begin"</p>
+                    <p>"Isopentane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Isopentane (isoC5)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Neopentane"</p>
+                    <p>"Neopentane_Begin"</p>
+                    <p>"Neopentane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Neopentane (neoC5)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-Hexane"</p>
+                    <p>"n-Hexane_Begin"</p>
+                    <p>"n-Hexane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>n-Hexane (C6)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Heptane"</p>
+                    <p>"n-Heptane_Begin"</p>
+                    <p>"n-Heptane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Heptane (C7)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-Octane"</p>
+                    <p>"n-Octane_Begin"</p>
+                    <p>"n-Octane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>n-Octane (C8)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Nonane"</p>
+                    <p>"n-Nonane_Begin"</p>
+                    <p>"n-Nonane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Nonane (C9)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-Decane"</p>
+                    <p>"n-Decane_Begin"</p>
+                    <p>"n-Decane_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>n-Decane (C10)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Argon"</p>
+                    <p>"Argon_Begin"</p>
+                    <p>"Argon_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Argon (Ar)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CarbonDioxide"</p>
+                    <p>"CarbonDioxide_Begin"</p>
+                    <p>"CarbonDioxide_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Carbon dioxide (CO2)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CarbonMonoxide"</p>
+                    <p>"CarbonMonoxide_Begin"</p>
+                    <p>"CarbonMonoxide_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Carbon monoxide (CO)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Helium"</p>
+                    <p>"Helium_Begin"</p>
+                    <p>"Helium_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Helium (He)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Hydrogen"</p>
+                    <p>"Hydrogen_Begin"</p>
+                    <p>"Hydrogen_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Hydrogen (H2)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"HydrogenSulfide"</p>
+                    <p>"HydrogenSulfide_Begin"</p>
+                    <p>"HydrogenSulfide_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Hydrogen sulfide (H2S)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Nitrogen"</p>
+                    <p>"Nitrogen_Begin"</p>
+                    <p>"Nitrogen_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Nitrogen (N2)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Oxygen"</p>
+                    <p>"Oxygen_Begin"</p>
+                    <p>"Oxygen_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Oxygen (O2)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Water"</p>
+                    <p>"Water_Begin"</p>
+                    <p>"Water_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Water (H2O)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Compressibility"</p>
+                    <p>"Compressibility_Begin"</p>
+                    <p>"Compressibility_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Compressibility</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DewPoint"</p>
+                    <p>"DewPoint_Begin"</p>
+                    <p>"DewPoint_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Dew point </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"HeatingValueMass"</p>
+                    <p>"HeatingValueMass_Begin"</p>
+                    <p>"HeatingValueMass_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Heating value mass</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"HeatingValueVolume"
+</p>
+                    <p>"HeatingValueVolume_Begin"
+</p>
+                    <p>"HeatingValueVolume_End"
+                </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Heating value volume</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"RelativeDensity"
+</p>
+                    <p>"RelativeDensity_Begin"
+</p>
+                    <p>"RelativeDensity_End"
+                </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Relative density</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Viscosity"
+</p>
+                    <p>"Viscosity_Begin"
+</p>
+                    <p>"Viscosity_End"
+                </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Viscosity</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Custom Gas Quality Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGQ1"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="5">
+                    <p>Custom-defined GQ process variables</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGQ2"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGQ3"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGQ4"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGQ5"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="GasQuality"></a><b>Gas Analysis Item Tokens</b> - liquid content</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"EthaneLC"</p>
+                    <p>"EthaneLC_Begin"</p>
+                    <p>"EthaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Ethane (C2) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"PropaneLC"</p>
+                    <p>"PropaneLC_Begin"</p>
+                    <p>"PropaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Propane (C3) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-ButaneLC"</p>
+                    <p>"n-ButaneLC_Begin"</p>
+                    <p>"n-ButaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Butane (C4) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"IsobutaneLC"</p>
+                    <p>"IsobutaneLC_Begin"</p>
+                    <p>"IsobutaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Isobutane (isoC4) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-PentaneLC"</p>
+                    <p>"n-PentaneLC_Begin"</p>
+                    <p>"n-PentaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Pentane (C5) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"IsopentaneLC"</p>
+                    <p>"IsopentaneLC_Begin"</p>
+                    <p>"IsopentaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Isopentane (isoC5) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-HexaneLC"</p>
+                    <p>"n-HexaneLC_Begin"</p>
+                    <p>"n-HexaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Hexane (C6) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-HeptaneLC"</p>
+                    <p>"n-HeptaneLC_Begin"</p>
+                    <p>"n-HeptaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>n-Heptane (C7) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-OctaneLC"</p>
+                    <p>"n-OctaneLC_Begin"</p>
+                    <p>"n-OctaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Octane (C8) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-NonaneLC"</p>
+                    <p>"n-NonaneLC_Begin"</p>
+                    <p>"n-NonaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>n-Nonane (C9) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-DecaneLC"</p>
+                    <p>"n-DecaneLC_Begin"</p>
+                    <p>"n-DecaneLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>n-Decane (C10) liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CondensateLC"</p>
+                    <p>"CondensateLC_Begin"</p>
+                    <p>"CondensateLC_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Condensate liquid content</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"H2SPPM"</p>
+                    <p>"H2SPPM_Begin"</p>
+                    <p>"H2SPPM_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Hydrogen sulfide</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TotalH2SPPM"</p>
+                    <p>"TotalH2SPPM_Begin"</p>
+                    <p>"TotalH2SPPM_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Total Hydrogen sulfide</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"COSPPM"</p>
+                    <p>"COSPPM_Begin"</p>
+                    <p>"COSPPM_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Carbonyl sulfide</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"MESHPPM"</p>
+                    <p>"MESHPPM_Begin"</p>
+                    <p>"MESHPPM_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Methanethiol</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ETSHPPM"</p>
+                    <p>"ETSHPPM_Begin"</p>
+                    <p>"ETSHPPM_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Ethanethiol</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DMSPPM"</p>
+                    <p>"DMSPPM_Begin"</p>
+                    <p>"DMSPPM_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Dimethyl sulfide</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Raw"></a>Raw Data Tokens</h4>
+        <p>Supported data items for raw data can be described by the following  tokens when configuring device data files for export to CSV. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">General Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"NodeDesc"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"NodeName"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"NodePollingFacilityId"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node polling facility ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"NodePollingSiteService"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node polling <i>Site.Service</i></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"NodeReportingFacilityId"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node reporting facility ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"NodeReportingSiteService"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node reporting <i>Site.Service</i></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"BeginNormalizedDateTime"</p>
+                    <p>"BeginNormalizedDateTime_Begin"</p>
+                    <p>"BeginNormalizedDateTime_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Beginning date/time (normalized) of the raw record, in Device time (D)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"BeginDateTime"</p>
+                    <p>"BeginDateTime_Begin"</p>
+                    <p>"BeginDateTime_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Start date/time, in Contract time (C), of the time range for the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"EndDateTime"</p>
+                    <p>"EndDateTime_Begin"</p>
+                    <p>"EndDateTime_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>End date/time, in Contract time (C), of the time range for the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DataSource"</p>
+                    <p>"DataSource_Begin"</p>
+                    <p>"DataSource_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Source of metering data for the record, e.g. polling engine, device import, other</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"GasQualitySource"</p>
+                    <p>"GasQualitySource_Begin"</p>
+                    <p>"GasQualitySource_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Source of gas quality data for the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"GasMetering_AuditCategory"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Category of the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"GasMetering_AuditComments"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Comments regarding the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"GasMetering_AuditDate_Host"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Date of the change, relative to the host computer</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"GasMetering_AuditUserName"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Name of the user that made the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"GasQuality_AuditCategory"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Category of the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"GasQuality_AuditComments"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Comments regarding the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"GasQuality_AuditDate_Host"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Date of the change, relative to the host computer</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"GasQuality_AuditUserName"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Name of the user that made the change</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Gas or Shared Periodic Metering PV Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Dp"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Differential pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Energy"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Energy value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"FlowRate"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Flow rate</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"FlowTime"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Flow time</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"IMV"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Integral Multiplier Value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"IV"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Integral Value Definition</p>
+                    <p>Defines the calculation variables used, where applicable</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"KFactorMass"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">K Factor - Mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"KFactorVolume"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">K Factor - Volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Mass"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Mass value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"MeterFactor"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Meter factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"PulseCount"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Pulse count</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"Sp"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Static pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Temp"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Temperature</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"UncorrectedVolume"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Uncorrected volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Volume"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Volume value</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Custom Gas Periodic Metering PV Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGM1"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined GM process variable 1</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGM2"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined GM process variable 2</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGM3"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined GM process variable 3</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGM4"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined GM process variable 4</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGM5"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined GM process variable 5</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Liquid Periodic Metering PV Item Tokens - Correction Factors</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"CSW"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Sediment and Water correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"CTL"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Temperature correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"CPL"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Pressure correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"CTPL"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Temperature and Pressure correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"CCF"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Combined correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"DCF"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Density correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><a name="LiquidPeriodicMetering"></a><b>Liquid Periodic Metering PV Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"BaseDensity"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Base density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"DensityPressure"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Density pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"DensityTemperature"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Density temperature</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Ethylene"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Ethylene</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"EVP"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Equilibrium Vapor Pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"FlowRate"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Flow rate</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"FlowTime"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Flow time</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"MeterPressure"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Meter Pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"MeterTemperature"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Meter Temperature</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"CoriolisDriveGain"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Coriolis drive gain</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"ObservedDensity"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Observed density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"ObservedDensityInAPIDegrees"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Observed density - in API degrees
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">"ObservedDensityInRelativeDensity"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Observed density - in relative density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"Propylene"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Propylene</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p rowspan="3">"Pulses" </p>
+                    <p rowspan="3">"Pulses_Begin" </p>
+                    <p rowspan="3">"Pulses_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Pulse count </p>
+                    <p>Pulse count at the beginning of the record </p>
+                    <p>Pulse count at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"UncorrectedDensity"</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Uncorrected density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p rowspan="3">"IV" </p>
+                    <p rowspan="3">"IV_Begin" </p>
+                    <p rowspan="3">"IV_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicated Volume  </p>
+                    <p>Indicated Volume  at the beginning of the record </p>
+                    <p>Indicated Volume at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p rowspan="3">"GV" </p>
+                    <p rowspan="3">"GV_Begin" </p>
+                    <p rowspan="3">"GV_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Gross Volume </p>
+                    <p>Gross Volume  at the beginning of the record </p>
+                    <p>Gross Volume at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p rowspan="3">"GSV" </p>
+                    <p rowspan="3">"GSV_Begin" </p>
+                    <p rowspan="3">"GSV_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Gross Standard Volume </p>
+                    <p>Gross Standard Volume  at the beginning of the record </p>
+                    <p>Gross Standard Volume at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p rowspan="3">"NSV" </p>
+                    <p rowspan="3">"NSV_Begin" </p>
+                    <p rowspan="3">"NSV_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Net Standard Volume </p>
+                    <p>Net Standard Volume  at the beginning of the record </p>
+                    <p>Net Standard Volume at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p rowspan="3">"Mass" </p>
+                    <p rowspan="3">"Mass_Begin" </p>
+                    <p rowspan="3">"Mass_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Mass </p>
+                    <p>Mass  at the beginning of the record </p>
+                    <p>Mass at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SWPercent"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Sediment and Water percentage</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p rowspan="3">"SWV" </p>
+                    <p rowspan="3">"SWV_Begin" </p>
+                    <p rowspan="3">"SWV_End"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Sediment and Water volume </p>
+                    <p>Sediment and Water volume  at the beginning of the record </p>
+                    <p>Sediment and Water volume at the end of the record</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Custom Liquid Periodic Metering PV Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomPM1"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined PM process variable 1</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomPM2"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined PM process variable 2</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomPM3"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined PM process variable 3</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomPM4"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined PM process variable 4</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomPM5"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined PM process variable 5</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomPM6"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined PM process variable 6</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomPM7"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined PM process variable 7</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomPM8"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined PM process variable 8</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomPM9"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Custom-defined PM process variable 9</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomPM10"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Custom-defined PM process variable 10</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="ConfigItems"></a><b>Configuration Item Tokens</b>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> You can append <b>_Begin</b> or <b>_End</b> to any of the following configuration item tokens, in order to display the first or last value for the record. See <a href="#Displayi" class="selected">Displaying Beginning or Ending Values for a Record</a> for more information.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConfigLogDateTime"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Date/time of the configuration log</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConfigLogSource"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Source of the configuration log</p>
+                    <p>See <a href="Using the Configuration Control.htm#Configuration">Configure Filter</a> in the Using the Configuration Control topic for more information about configuration log source types.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"AGA3ExpandedRange"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="73" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 4px;padding-bottom: 4px;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">
+                    <p rowspan="66">See <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for descriptions of these items.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"AGA8ExpandedRange"</p>
+                    <p>See <a href="CygNet Measurement Data Calculation - AGA 8.htm">AGA 8 Data Ranges</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"AtmosphericPressure"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"BaseCompressibilityOfAir"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"BasePressure"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"BaseTemperature"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CalibrationFactor"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConeCoefficientThermalExpansion"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConeDiameter"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ConeMaterial"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"ConeRefTemp"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"ContractHour"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CoriolisCalibrationPressure"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CoriolisPressureEffect"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DeviceDesc"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DeviceName"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DeviceType"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DischargeCoefficient"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DischargeCoefficientCalc"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpAlarmHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpAlarmLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpBackflowAlarm"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpCalibrateHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpCalibrateLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpTapsType"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"DpTransducerRangeLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DpTransducerRangeHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Elevation"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"FixedTemp"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"FlowRateAlarmHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"FlowRateAlarmLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"FluidType"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"FpvCalc"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"GasExpansionFactorCalc"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"HvCalc"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"IntegralValueVariables"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"IsentropicExponent"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"KFactorMass"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"KFactorVolume"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"LinearCurveType"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"LowFlowCutoffDp"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"LowFlowCutoffFlowRate"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"LowFlowCutoffMass"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"LowFlowCutoffPulseInterval"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"MeterFactor"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"MeterTubeInsideDiameter"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"MeterTubeMaterial"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"MeterTubeRefTemp"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"OrificeCoefficientThermalExpansion"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"OrificePlateBoreSize"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"OrificePlateMaterial"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"OrificePlateRefTemp"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"PipeCoefficientThermalExpansion"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"PrimaryCalc"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpAlarmHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpAlarmLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpCalibrateHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpCalibrateLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpTapLocation"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpTransducerRangeHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"SpTransducerRangeLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"SpType"
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempAlarmHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TempAlarmLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempCalibrateHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TempCalibrateLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempCalibrateZero"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"TempTransducerRangeHigh"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"TempTransducerRangeLow"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"UseCoriolisPressureEffect"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"UseLiveTemp"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"WaterVaporCorrectionFactor"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"WellStreamFactor"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Liquid-Specific Configuration Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Ethylene"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="3">
+                    <p rowspan="3">See <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for descriptions of these items.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Propylene"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">"TotalizerDigits"</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Custom Configuration Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig1"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="10">
+                    <p>Custom-defined FMS configuration items</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig2"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig3"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig4"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig5"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig6"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig7"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig8"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomConfig9"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomConfig10"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Gas Quality Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Methane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Methane (C1)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Ethane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Ethane (C2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Propane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Propane (C3)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Butane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Butane (C4)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Isobutane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Isobutane (isoC4)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Pentane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Pentane (C5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Isopentane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Isopentane (isoC5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Neopentane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Neopentane (neoC5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-Hexane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Hexane (C6)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Heptane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Heptane (C7)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-Octane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Octane (C8)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"n-Nonane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Nonane (C9)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"n-Decane"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Decane (C10)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Argon"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Argon (Ar)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CarbonDioxide"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Carbon dioxide (CO2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CarbonMonoxide"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Carbon monoxide (CO)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Helium"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Helium (He)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Hydrogen"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Hydrogen (H2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"HydrogenSulfide"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Hydrogen sulfide (H2S)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Nitrogen"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Nitrogen (N2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Oxygen"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Oxygen (O2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"Water"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Water (H2O)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Compressibility"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Compressibility</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"DewPoint"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Dew point </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"HeatingValueBasis"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Heating value basis (Wet, Dry, or As delivered)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"HeatingValueMass"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Heating value mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"HeatingValueVolume"
+</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Heating value volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"RelativeDensity"
+</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Relative density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"Viscosity"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Viscosity</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Custom Gas Quality Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGQ1"</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="5">
+                    <p>Custom-defined GQ process variables</p>
+                    <p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGQ2"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGQ3"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>"CustomGQ4"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>"CustomGQ5"</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

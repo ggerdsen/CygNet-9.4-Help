@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Universal Interface Service|UIS Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Message Processing</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Universal Interface Service.htm">Universal Interface Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="UIS Overview.htm">UIS Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Message Processing</span>
+        </div>
+        <h2>Message Processing</h2>
+        <p>These properties are used by the communication device for transaction processing. Once processing is complete, the transaction is marked as succeeded or failed.</p>
+        <p>If a remote device is configured for more than one poll attempt and an attempt returns an error, then this is marked as an attempt and not a transaction failure. For example, if a remote device is configured for 2 poll attempts and the first attempt returns data with a bad Cyclic Redundancy Check (CRC), this is considered an attempt. The transaction is marked as failed only if the second attempt is unsuccessful, too.</p>
+        <p>Message processing is illustrated in the diagram below.</p>
+        <p>
+            <img src="../../Resources/Images/Universal Interface Service/Message Processing.png" alt="Messaging Processing" title="Messaging Processing" />
+        </p>
+        <h3>UIS Command Processing</h3>
+        <p>The data groups that compose a UIS Command go through the same processing as if they were initiated from a DDS editor. The data groups are read/sent in the order they are listed in the command properties box. Each data group goes through the normal messaging processing.</p>
+        <p>If a data group fails, the command is marked as “failed.” The processing on all pending data groups, if applicable, is stopped. For example, if the command is composed of 3 data groups and the first data group fails, the system will not attempt the second and third data groups.</p>
+        <p>Be aware, however, if a data group succeeds it succeeds even though subsequent groups may fail. If a data group was successful reading data, that new data is now in the system. If the data group was successful in sending data, the field device now has the new data. For example, the first data group in a command succeeds in sending an analog output value to the field device. The next data group that is going to read the data fails. The analog value is set although the read failed.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

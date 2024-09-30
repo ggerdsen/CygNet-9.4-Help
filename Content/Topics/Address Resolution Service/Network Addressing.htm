@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Address Resolution Service">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ARS Network Addressing</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Address Resolution Service.htm">Address Resolution Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">ARS Network Addressing</span>
+        </div>
+        <h2>ARS Network Addressing</h2>
+        <p>CygNet services use standard TCP/IP network addressing. Clients establish communication with the Address Resolution Service (ARS) to obtain the TCP/IP network addresses of the CygNet services. All client and service computers must be configured with an IP address and a subnet mask. If communication between subnets is required, the machines must also be configured with a gateway during installation.</p>
+        <h3>IP Addresses</h3>
+        <p>Every computer that has an ARS must have a static IP address. The IP address is required for effective client-to-service and service-to-service communication.</p>
+        <h4>Client-to-Service Communication</h4>
+        <p>The ARS is responsible for client-to-service communication. When a client needs to communicate with a service, it contacts the ARS to find out if the service is operational and, if so, what its IP address is. Once the IP address is obtained, the client computer caches the address in memory and communicates directly with the service. In between connects, if a service’s IP address changes, the client will timeout when re-attempting to establish communication with the service. After the timeout, the client will obtain the service’s new address from the ARS. </p>
+        <p>The client attempts to locate an ARS by 1) contacting the ARS addresses listed in the computer registry. If multiple ARSs are listed and the first ARS does not respond, the client will works its way down list. If this method fails, the client will attempt to locate an ARS by 2)* using host name resolution (Domain Name Server or Hosts file) for the name "SVCDIR." And, if that fails the client will attempt to locate an ARS by 3) attempting a subnet broadcast. If the broadcast is unsuccessful (which would be the case if the ARS is on a different subnet) the <a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection Utility</a> can be used to connect the client computer to the ARS. Once successful communications are established, the name and IP address of the ARS is written to the client computer’s registry.</p>
+        <div class="Note">
+            <p>
+			*<span class="NoteHeading">Note:</span> The second option, host name resolution, is not recommended as it requires manual manipulation of the DNS or Hosts file on each client computer.
+			</p>
+        </div>
+        <h4>Service-to-Service Communication</h4>
+        <p>Service-to-service communication is the same as client-to-service communication. In the case of service-to-service communication the initiating service acts as a client and contacts the ARS for the operational status and IP address of the service for which it wants to communicate.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

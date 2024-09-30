@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Gateway|Gateway Client Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Gateway Client Installation</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Gateway.htm">Enterprise Gateway</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Gateway Client.htm">Gateway Client Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installation</span>
+        </div>
+        <h2>Gateway Client Installation</h2>
+        <p>The Gateway Client utility can be installed on a system meeting current system requirements for CygNet software installations.</p>
+        <p>The Gateway Client utility files (GatewayClient.exe and GatewayClient.exe.config) are stored in the <b>CygNet\Utilities</b> directory on the host server.</p>
+        <p class="HeadingProcedure">To Install the Gateway Client</p>
+        <ol start="1">
+            <li value="1">Copy the files GatewayClient.exe and GatewayClient.exe.config to a folder.</li>
+            <li value="2">Edit the GatewayClient.exe.config file:</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">For the <b>endpoint</b> nodes, set the <b>address</b> attribute to that of the IP address (or fully qualified domain name) of the machine that is hosting the Enterprise Gateway Service.</li>
+            <li value="2">For the <b>servicePrincipalName</b>, set the <b>value</b> attribute to that of the server that the requests are being sent from. This must be the fully qualified name of the client computer.</li>
+            <li value="3">If an Administrator changes the account that the Enterprise Gateway Service runs as from LocalSystem or NetworkService to any other account, clients will need to add the element <b>&lt;userPrincipalName value="domain\username"/&gt;</b> under the &lt;identity&gt; section for each endpoint in the GatewayClient.exe.config that the Gateway Client will be referencing, where "domain\username" refers to the account that the Enterprise Gateway Service will be running as.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> There are two nodes for both the Enterprise Gateway and diagnostics. The <b>contract</b> attribute in the <b>endpoint</b> node contains the name of the item. Be sure to configure both of them. If you want the Diagnostics and the Enterprise Operation requests to go to the same CygNet server, set the values of both couplets the same. </p>
+            </div>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;configuration&gt;</p>
+                    <p class="Code2">&lt;configSections&gt;</p>
+                    <p class="Code2">&lt;/configSections&gt;</p>
+                    <p class="Code2">&lt;system.serviceModel&gt;</p>
+                    <p class="Code3">&lt;bindings&gt;</p>
+                    <p class="Code4">&lt;basicHttpBinding&gt;</p>
+                    <p class="Code5">&lt;binding name="BasicHttpBinding_EnterpriseGateway" closeTimeout="00:20:00" openTimeout="00:20:00" receiveTimeout="00:20:00" sendTimeout="00:20:00" allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard" maxBufferSize="65536" maxBufferPoolSize="524288" maxReceivedMessageSize="65536" messageEncoding="Text" textEncoding="utf-8" transferMode="Buffered" useDefaultWebProxy="true"&gt;</p>
+                    <p class="Code6">&lt;readerQuotas maxDepth="32" maxStringContentLength="8192" maxArrayLength="16384" maxBytesPerRead="4096" maxNameTableCharCount="16384"/&gt;</p>
+                    <p class="Code6">&lt;security mode="TransportCredentialOnly"&gt;</p>
+                    <p class="Code7">&lt;transport clientCredentialType="Windows" proxyCredentialType="None" realm=""/&gt;</p>
+                    <p class="Code7">&lt;message clientCredentialType="UserName" algorithmSuite="Default"/&gt;</p>
+                    <p class="Code6">&lt;/security&gt;</p>
+                    <p class="Code5">&lt;/binding&gt;</p>
+                    <p class="Code5">&lt;binding name="BasicHttpBinding_EnterpriseGatewayDiagnostics" closeTimeout="00:20:00" openTimeout="00:20:00" receiveTimeout="00:20:00" sendTimeout="00:20:00" allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard" maxBufferSize="65536" maxBufferPoolSize="524288" maxReceivedMessageSize="65536" messageEncoding="Text" textEncoding="utf-8" transferMode="Buffered" useDefaultWebProxy="true"&gt;</p>
+                    <p class="Code6">&lt;readerQuotas maxDepth="32" maxStringContentLength="8192" maxArrayLength="16384" maxBytesPerRead="4096" maxNameTableCharCount="16384"/&gt;</p>
+                    <p class="Code6">&lt;security mode="TransportCredentialOnly"&gt;</p>
+                    <p class="Code7">&lt;transport clientCredentialType="Windows" proxyCredentialType="None" realm=""/&gt;</p>
+                    <p class="Code7">&lt;message clientCredentialType="UserName" algorithmSuite="Default"/&gt;</p>
+                    <p class="Code6">&lt;/security&gt;</p>
+                    <p class="Code5">&lt;/binding&gt;</p>
+                    <p class="Code4">&lt;/basicHttpBinding&gt;</p>
+                    <p class="Code4">&lt;wsHttpBinding&gt;</p>
+                    <p class="Code5">&lt;binding name="WSHttpBinding_EnterpriseGateway" closeTimeout="00:20:00" openTimeout="00:20:00" receiveTimeout="00:20:00" sendTimeout="00:20:00" bypassProxyOnLocal="false" transactionFlow="false" hostNameComparisonMode="StrongWildcard" maxBufferPoolSize="10000000" maxReceivedMessageSize="10000000" messageEncoding="Text" textEncoding="utf-8" useDefaultWebProxy="true" allowCookies="false"&gt;</p>
+                    <p class="Code6">&lt;readerQuotas maxDepth="32" maxStringContentLength="10000000" maxArrayLength="16384" maxBytesPerRead="4096" maxNameTableCharCount="16384"/&gt;</p>
+                    <p class="Code6">&lt;reliableSession ordered="true" inactivityTimeout="00:20:00" enabled="false"/&gt;</p>
+                    <p class="Code6">&lt;security mode="Message"&gt;</p>
+                    <p class="Code7">&lt;transport clientCredentialType="Windows" proxyCredentialType="None" realm=""/&gt;</p>
+                    <p class="Code7">&lt;message clientCredentialType="Windows" negotiateServiceCredential="true" algorithmSuite="Default" establishSecurityContext="true"/&gt;</p>
+                    <p class="Code6">&lt;/security&gt;</p>
+                    <p class="Code5">&lt;/binding&gt;</p>
+                    <p class="Code5">&lt;binding name="WSHttpBinding_EnterpriseGatewayDiagnostics" closeTimeout="00:20:00" openTimeout="00:20:00" receiveTimeout="00:20:00" sendTimeout="00:20:00" bypassProxyOnLocal="false" transactionFlow="false" hostNameComparisonMode="StrongWildcard" maxBufferPoolSize="10000000" maxReceivedMessageSize="10000000" messageEncoding="Text" textEncoding="utf-8" useDefaultWebProxy="true" allowCookies="false"&gt;</p>
+                    <p class="Code6">&lt;readerQuotas maxDepth="32" maxStringContentLength="10000000" maxArrayLength="16384" maxBytesPerRead="4096" maxNameTableCharCount="16384"/&gt;</p>
+                    <p class="Code6">&lt;reliableSession ordered="true" inactivityTimeout="00:20:00" enabled="false"/&gt;</p>
+                    <p class="Code6">&lt;security mode="Message"&gt;</p>
+                    <p class="Code7">&lt;transport clientCredentialType="Windows" proxyCredentialType="None" realm=""/&gt;</p>
+                    <p class="Code7">&lt;message clientCredentialType="Windows" negotiateServiceCredential="true" algorithmSuite="Default" establishSecurityContext="true"/&gt;</p>
+                    <p class="Code6">&lt;/security&gt;</p>
+                    <p class="Code5">&lt;/binding&gt;</p>
+                    <p class="Code4">&lt;/wsHttpBinding&gt;</p>
+                    <p class="Code3">&lt;/bindings&gt;</p>
+                    <p class="Code3">&lt;client&gt;</p>
+                    <p class="Code4">&lt;endpoint address=<span style="background-color: #b0c4de;">"http://127.0.0.1/"</span> binding="wsHttpBinding" bindingConfiguration="WSHttpBinding_EnterpriseGateway" contract="EnterpriseGatewayService.EnterpriseGateway" name="WSHttpBinding_EnterpriseGateway"&gt;</p>
+                    <p class="Code5">&lt;identity&gt;</p>
+                    <p class="Code6">&lt;servicePrincipalName value=<span style="background-color: #b0c4de;">"host/fully.qualified.machine.domain.name"</span>/&gt;</p>
+                    <p class="Code6">&lt;!-- If your Gateway service requires network access to file shares and uses a domain login --&gt;</p>
+                    <p class="Code6">&lt;!-- you must specify it here or your request will fail security. --&gt;</p>
+                    <p class="Code6">&lt;!--&lt;userPrincipalName value="domain\servicelogin" /&gt;--&gt;</p>
+                    <p class="Code5">&lt;/identity&gt;</p>
+                    <p class="Code4">&lt;/endpoint&gt;</p>
+                    <p class="Code4">&lt;endpoint address=<span style="background-color: #b0c4de;">"http://127.0.0.1/"</span> binding="wsHttpBinding" bindingConfiguration="WSHttpBinding_EnterpriseGatewayDiagnostics" contract="EnterpriseGatewayService.EnterpriseGatewayDiagnostics" name="WSHttpBinding_EnterpriseGatewayDiagnostics"&gt;</p>
+                    <p class="Code5">&lt;identity&gt;</p>
+                    <p class="Code6">&lt;servicePrincipalName value=<span style="background-color: #b0c4de;">"host/fully.qualified.machine.domain.name"</span>/&gt;</p>
+                    <p class="Code6">&lt;!-- If your Gateway service requires network access to file shares and uses a domain login --&gt;</p>
+                    <p class="Code6">&lt;!-- you must specify it here or your request will fail security. --&gt;</p>
+                    <p class="Code6">&lt;!--&lt;userPrincipalName value="domain\servicelogin" /&gt;--&gt;</p>
+                    <p class="Code5">&lt;/identity&gt;</p>
+                    <p class="Code4">&lt;/endpoint&gt;</p>
+                    <p class="Code4">&lt;!--</p>
+                    <p class="Code4">&lt;endpoint address="http://127.0.0.1/EnterpriseGateway" binding="wsHttpBinding"</p>
+                    <p class="Code5">bindingConfiguration="WSHttpBinding_EnterpriseGateway" contract="EnterpriseGatewayService.EnterpriseGateway"</p>
+                    <p class="Code5">name="WSHttpBinding_EnterpriseGateway1"&gt;</p>
+                    <p class="Code5">&lt;identity&gt;</p>
+                    <p class="Code6">&lt;servicePrincipalName value="host/fully.qualified.machine.domain.name" /&gt;</p>
+                    <p class="Code6">&lt;userPrincipalName value="domain\servicelogin" /&gt;</p>
+                    <p class="Code5">&lt;/identity&gt;</p>
+                    <p class="Code4">&lt;/endpoint&gt;</p>
+                    <p class="Code4">&lt;endpoint address="http://127.0.0.1/EnterpriseGateway" binding="wsHttpBinding"</p>
+                    <p class="Code5">bindingConfiguration="WSHttpBinding_EnterpriseGatewayDiagnostics"</p>
+                    <p class="Code5">contract="EnterpriseGatewayService.EnterpriseGatewayDiagnostics"</p>
+                    <p class="Code5">name="WSHttpBinding_EnterpriseGatewayDiagnostics1"&gt;</p>
+                    <p class="Code5">&lt;identity&gt;</p>
+                    <p class="Code6">&lt;servicePrincipalName value="host/fully.qualified.machine.domain.name" /&gt;</p>
+                    <p class="Code6">&lt;userPrincipalName value="domain\servicelogin" /&gt;</p>
+                    <p class="Code5">&lt;/identity&gt;</p>
+                    <p class="Code4">&lt;/endpoint&gt;</p>
+                    <p class="Code4">&lt;endpoint address="http://127.0.0.1/EnterpriseGatewayBasic"</p>
+                    <p class="Code5">binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_EnterpriseGateway"</p>
+                    <p class="Code5">contract="EnterpriseGatewayService.EnterpriseGateway" name="BasicHttpBinding_EnterpriseGateway" /&gt;</p>
+                    <p class="Code4">&lt;endpoint address="http://127.0.0.1/EnterpriseGatewayBasic"</p>
+                    <p class="Code5">binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_EnterpriseGatewayDiagnostics"</p>
+                    <p class="Code5">contract="EnterpriseGatewayService.EnterpriseGatewayDiagnostics"</p>
+                    <p class="Code5">name="BasicHttpBinding_EnterpriseGatewayDiagnostics" /&gt;</p>
+                    <p class="Code5">--&gt;</p>
+                    <p class="Code3">&lt;/client&gt;</p>
+                    <p class="Code2">&lt;/system.serviceModel&gt;</p>
+                    <p class="Code">&lt;startup&gt;&lt;supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0,Profile=Client"/&gt;&lt;/startup&gt;&lt;/configuration&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Import Gas Quality CSV Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Import: Gas Quality CSV</span>
+        </div>
+        <h2>Import: Gas Quality CSV</h2>
+        <p><b>Import: Gas Quality CSV</b> (<b>IFCFGGQCSV</b> via script) is a system-level command that triggers the service to import gas quality data via .csv files,  according to the defined parameters, and send that  information directly to the device. </p>
+        <p>In conjunction with the .csv file, an import definition file (.idf) can be used to  customize the import. The .idf file defines details about how to import and format the data items in your .csv file. See <a href="Using an Import Definition File.htm">Using an Import Definition File</a> for more information about configuring this file.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Device (name) column is required; it can be located in any position.</p>
+        </div>
+        <p>This command does not automatically update the FMS database with the imported gas quality information. To also import the data into FMS, do one of the following to request the data from the device.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"> Automatically poll the device for configuration data - Prior to execution of the Import Gas Quality CSV command, set the <a href="#Request" class="selected">Request config after successful send</a> parameter to <b>Yes</b> to automatically poll the device for configuration data (including the gas quality data sent via the import) after the file import command succeeds.</li>
+            <li class="HyperlinkList" value="2"> Manually request configuration data from the device - After successful completion of the Import Gas Quality CSV command, execute a <a href="Command Parameters - Request Current Configuration.htm">Request Current Configuration</a> command to request configuration data from the device (including the gas quality data sent via the import). </li>
+        </ul>
+        <p>You must have proper security authorization to execute this command. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CMDSYS">CMDSYS</a> security event) for information about configuring security access for FMS commands.</p>
+        <p>See <a href="Configuring File Import Commands - Gas Quality CSV.htm">Configuring File Import Commands: Gas Quality CSV</a> and <a href="Running File Import Commands.htm">Running File Import Commands</a> for more information about using this command via FMS Explorer.</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3>Command Definition Properties</h3>
+        <p>The following command definition properties apply to <b>Import: Gas Quality CSV</b> commands, when scheduling, creating, or editing commands via CygNet Explorer.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">FMS service</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select a <i>Site.Service</i> for the command from the available <b>FMS service</b> list in the drop-down menu.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command</b> name from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command via the MSS service in CygNet Explorer. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer or via the FMS service in CygNet Explorer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Command Parameters</h3>
+        <p>The following command parameters apply to <b>Import: Gas Quality CSV</b> commands, when scheduling, creating, or editing commands via CygNet Explorer or scripting.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Usage Notes</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ImpPath</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Import file directory</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">File Directory</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Double-click to access the <b>Enter Report File Directory</b> dialog box. </p>
+                    <p>Type the directory location from which to import the file into the text box or click <b>...</b> to access the <b>Browse for Folder</b> dialog box, browse to the directory location.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The directory specified is  relative to the computer hosting the FMS service.</p>
+                    </div>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ImpMask</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Import file mask</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, double-click to access the <b>Enter Import File Mask</b> dialog box. </p>
+                    <p>Type an import file mask name into the text box. Default file mask value is "<b>*</b>" (multiple character wildcard).</p>
+                    <p>If specified, only files meeting the file mask will be considered for import.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ImpClrPrc</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Processed files retention (days)</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Integer</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If used, double-click to access the <b>Enter Processed Files Retention (Days)</b> dialog box. </p>
+                    <p>Type the number of days to retain the processed files into the text box.   </p>
+                    <p>If specified, the files that have been processed will be deleted after the specified number of days. If not specified, processed files will never be deleted.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">RptUnitSet</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unit set</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Dynamic String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, double-click to access the <b>Unit Set</b> dialog box. </p>
+                    <p>Select the name of the unit set in which to read the raw data. </p>
+                    <p>The list is populated by the unit sets defined in the service. </p>
+                    <p>See <a href="Configuring Unit Set Definitions.htm">Configuring Unit Set Definitions</a> for more information.</p>
+                    <p>This parameter is optional.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">*Notes:</span> <![CDATA[ ]]></p>
+                        <p class="TableNote">If you do not specify the unit set with this parameter, units for each included value must be specified using an .idf file.</p>
+                        <p class="TableNote">If you specify the unit set with this parameter AND in the .idf file, the value specified in the .idf file prevails, and overrides this setting. In this way, you may override individual unit values by setting them in the .idf file.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">StatPtUdc</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Status point UDC</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If used, double-click to access the <b>Enter Status Point UDC</b> dialog box. </p>
+                    <p>Specify the UDC of the status point that monitors the status of the command. (The command will run whether or not it is monitored by a status point.) </p>
+                    <p>Type the status point UDC into the text box. The UDC will be combined with the field device Facility ID. </p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="ImpGetCon"></a>ImpGetCon</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="Request"></a>Request config after successful send</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Double-click to access the <b>Request Config After Successful Send</b> dialog box. </p>
+                    <p>Select whether or not to automatically request current configuration for the device once the gas quality data  has been successfully sent.</p>
+                    <p>Options are as follows. </p>
+                    <ul class="table">
+                        <li value="1"><b>Yes</b> (<b>YES</b> via script)</li>
+                        <li value="2"><b>No</b> (<b>NO</b> via script)</li>
+                    </ul>
+                    <p>Select <b>Yes</b> if you also want to automatically import the configuration data contained in the .csv file into FMS.</p>
+                    <p>Select <b>No</b> if you do not want to import the  configuration data contained in the .csv file into FMS, or if you want to do so manually.</p>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ImpMxRun</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Max runtime (minutes)</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Integer</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Double-click to access the <b>Enter Max Run Time (minutes)</b> dialog box. </p>
+                    <p>Enter the number of minutes to allow the command to run before the import will timeout. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Entering a value of <b>0</b> causes the command to run indefinitely.</p>
+                    </div>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ImpRtrCnt</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Communication attempt count</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Integer</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Double-click to access the <b>Enter Communication Attempt Count</b> dialog box. </p>
+                    <p>Enter the number of times to attempt the import before it will fail. </p>
+                    <p>This parameter is optional.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">*Notes:</span> <![CDATA[ ]]></p>
+                        <p class="Note">If you specify <b>0</b> for this value, the import will be attempted until it succeeds.</p>
+                        <p class="Note">If you do not specify a number, the default value is <b>1</b>.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="ImpGroup"></a>ImpGroup</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Add devices to group</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If used, double-click to access the <b>Enter Add Devices to Group</b> dialog box. </p>
+                    <p>Type the name of the group to which the imported devices will be added into the text box. </p>
+                    <p>If specified, devices will be added to this group when both of the following are true.</p>
+                    <ul class="table">
+                        <li value="1">The gas quality data send was successful</li>
+                        <li value="2">If the value of <a href="#ImpGetCon" class="selected">ImpGetCon</a> is <b>Yes</b>, the configuration poll was successful</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Nodes added to this group are added  for the entire span of the Node or group (whichever is less).</p>
+                    </div>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ImpClrGrp</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Clear existing group entries</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, double-click to access the <b>Clear Existing Group Entries</b> dialog box. </p>
+                    <p>Select one of the following options. </p>
+                    <ul class="table">
+                        <li value="1"><b>Yes</b> (<b>YES</b> via script)</li>
+                        <li value="2"><b>No</b> (<b>NO</b> via script)</li>
+                    </ul>
+                    <p>If set to <b>Yes</b>, and a value has been specified for <a href="#ImpGroup" class="selected">ImpGroup</a>, any existing entries will be removed from the specified group before executing the command. </p>
+                    <p>If set to <b>No</b>, the existing group entries will be retained when executing the command.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Nodes cleared from this group are cleared  for the entire span of the Node or group.</p>
+                    </div>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

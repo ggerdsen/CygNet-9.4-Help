@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication|VHS Replication">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How VHS Replication Works</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Replication.htm">VHS Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How VHS Replication Works</span>
+        </div>
+        <h2>How VHS Replication Works</h2>
+        <p>When replication is enabled, any new value (whether the value is the result of an edit, addition, or delete) is written to the <a href="../History/VHS Change Queue.htm">change queue</a> (VhsChangeQueue.dat) of the VHS source service. Each item in the queue is given a unique sequence number by the source service. The replicated service keeps track of the sequence number of the last record it received. If the sequence numbers match it indicates that the replicated service is up to date with the source service. If the sequence numbers of the most recent records are different, it indicates that there have been new changes to the source service. This triggers the replicated service to retrieve the new value from the source service and commit it to its own database.</p>
+        <p>If a replicated service is shut down, it writes the last sequence number it has processed to the file ReplicationPersist.dat in the service data folder. This allows it to resume replication from the point it left off when the service starts back up. If the change queue rolls over or the ReplicationPersist.dat file is deleted while the replicated service is stopped, upon startup it will begin replicating at the beginning of the change queue. If this occurs, it is possible that the replicated VHS will miss changes that have occurred in the source service.</p>
+        <p>Unlike other CygNet services, a replicated VHS does not ever perform a full resynchronization against the source VHS. The size of a typical VHS database and the sheer number of values does not make this a feasible option. Replicated VHS(s) can only begin committing incremental changes if the source VHS is writing its changes to its incremental change queue. For this reason the source and replicating VHS(s) may not have identical contents. The source VHS may have older data in it that was never put on the change queue, or a replicated service may have its own older data from before it started replicating data.</p>
+        <p>A source service and its replicated service can get out of sync if the source service’s change queue is too small; the replicated service is not running while the source service is running; or if the source service loses its change queue. With other types of services, if the source and replicated service get out of sync, a complete resynchronization is performed. This is not possible with the VHS due to the sheer number of records. If a source VHS and its replicated service get out of sync, the only option to determine the missing date range and attempt to recover values in that range. See <a href="VHS Replication - Missed Change Events.htm">Replication Missed Change Events</a> for information about determining the missing data date/time range.</p>
+        <h3>Sample Implementation</h3>
+        <p>Replicated services can be run in parallel from the same source or they can be chained together as illustrated below.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Replication/VHS_Replication_Example.png" />
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

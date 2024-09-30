@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Modbus Omni EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Modbus Omni EIE – Ordinalized Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Modbus Omni EIE.htm">Modbus Omni EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Ordinalized Data Group</span>
+        </div>
+        <h2>Ordinalized Data Group</h2>
+        <p>Modbus devices support two kinds of ordinalized data groups.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Data" class="selected">Data Group Ordinals and Blocks</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Data2" class="selected">Data Group Ordinals and Register Ordinals</a>
+            </li>
+        </ul>
+        <h3><a name="Data"></a>Data Group Ordinals and Blocks</h3>
+        <p>Blocks must be defined for every valid data group ordinal. Data group ordinals must correspond to the range defined by the combination of <b>baseOrd</b> and <b>maxCnt</b> attributes. Best practice recommends that you always define the <b>maxCnt</b> attribute. If <b>maxCnt</b> is left undefined, <b>regNum</b> or <b>regNum</b> + <b> ordIncrement</b> attributes must be used to define your ordinalized data groups. The <b>regNum_ord#</b> attribute is illogical if used in conjunction with an undefined <b>maxCnt</b>.</p>
+        <p style="font-weight: normal;">See also <a href="DataGroup Element.htm"><i style="font-weight: normal; font-style: normal;">DataGroup</i></a> and <a href="block1.htm"><i style="font-weight: normal; font-style: normal;">block</i></a>.</p>
+        <p class="HeadingProcedure">To Define Data Group Ordinal Blocks with regNum</p>
+        <p>Use the <b>regNum</b> attribute when there is only one data group ordinal, or when one register supplies data to all data group ordinals.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The single data group begins reading at register 9501 and reads for 5 registers: 9501, 9502, 9503, 9504, and 9505. In this example, each register included supplies data to a separate data group element.</p>
+        <table class="Code">
+            <col style="width: 624px;" />
+            <tr>
+                <td>
+                    <p class="Code">&lt;modbusReadBlocks&gt;</p>
+                    <p class="Code2">&lt;block1 <span style="background-color: #b0c4de;">regNum="9501"</span> regCnt="5" funcCode="3" regOff="0" regByteLen="4"/&gt;</p>
+                    <p class="Code">&lt;/modbusReadBlocks&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">To Define Data Group Ordinal Blocks with  regNum_ord#</p>
+        <p>Use the <b>regNum_ord#</b> attribute to specify the data group ordinal number and corresponding starting register for that ordinal. Optionally, use <b>regNum</b> + <b>ordIncrement</b>. <b>regNum_ord#</b> never pairs with <b>regNum</b> or <b>ordIncrement</b>.</p>
+        <p class="Example">Example</p>
+        <p class="Indent"><code>maxCnt="2"</code> indicates that two instances of a data group are required. For the data group assigned ordinal 1, the data is retrieved from registers 9501-9504. For the data group assigned ordinal 2, the data is retrieved from registers 9701-9704.</p>
+        <table class="Code">
+            <col style="width: 624px;" />
+            <tr>
+                <td>
+                    <p class="Code">&lt;modbusReadBlocks&gt;</p>
+                    <p class="Code2">&lt;block1 <span style="background-color: #b0c4de;">regCnt="4"</span> funcCode="3" <span style="background-color: #b0c4de;">regNum_ord1="9501"regNum_ord2="9701"</span> regOff="0" regByteLen="2"/&gt;</p>
+                    <p class="Code">&lt;/modbusReadBlocks&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">To Define Data Group Ordinal Blocks with regNum + ordIncrement</p>
+        <p>Use the <b>regNum</b> + <b>ordIncrement</b> attributes to establish a starting register number and then to define the increments of groups of registers that correspond to data group ordinals. <b>ordIncrement</b> must be a static number. Optionally, use <b>regNum_ord#</b>. <b>ordIncrement</b> always depends on <b>regNum</b>, but <b>regNum</b> does not depend on <b>ordIncrement</b>.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The first ordinalized data group begins at register 9501 and proceeds in incremental groups of 22 registers per data group ordinal. Ordinal 1 reads from 9501 to 9522, ordinal 2 reads from 9523 to 9544, ordinal 3 reads from 9545 to 9566, and so on.</p>
+        <table class="Code">
+            <col style="width: 624px;" />
+            <tr>
+                <td>
+                    <p class="Code">&lt;modbusReadBlocks regByteLen="4"&gt;</p>
+                    <p class="Code3">&lt;block1 <span style="background-color: #b0c4de;">regNum="9501"ordIncrement="22"</span> regCnt="22" funcCode="3"/&gt;</p>
+                    <p class="Code">&lt;/modbusReadBlocks&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Data2"></a>Data Group Ordinals and Register Ordinals</h3>
+        <p>Modbus-based EIEs include several data groups whose <b>Data Group Properties</b> dialog box includes both a data group ordinal field (for example, <b>Run#</b> in the image below) and a <b>Modbus Register Ord</b> field. The data group ordinal field can be used to ordinalize a data group in a number of ways; in the image below, it associates a data group with its respective meter run. The <b>Modbus Register Ord</b> field associates a data group with its respective registers as they are defined within a device template file. The <b>Modbus Register Ord</b> field applies to any ordinalized data group that includes Modbus register information. This will exclude all FMS data groups. </p>
+        <p>You must assign the data group a data group ordinal. However, the data group might or might not need to be assigned a <b>Modbus Register Ord</b> number. If the data group ordinal  for a data group is not the same as the Modbus register ordinal that represents the source of the data group's data, specify a <b>Modbus Register Ord</b> value. Otherwise, leave  <b>Modbus Register Ord</b> blank to default to the value  assigned to the data group ordinal.</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/modbus_run_ordinal_register.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="404" data-mc-height="475" src="../../Resources/Images/EIEs - Remote Devices/modbus_run_ordinal_register_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p>See also <a href="modbusReadBlocks, modbusWriteBlocks Element.htm">modbusReadBlocks, modbusWriteBlocks</a>.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">Imagine you have 3 meter runs. Meter run 1 has a <b>Run#</b> value of "1," Meter run 2 has a  <b>Run#</b> value of "2," Meter run 3 has a <b>Run#</b> value of "3." Meter runs 1 and 2 are orifice. Meter run 3 is turbine. Each meter run requires its own daily history data group, which means that the register locations corresponding to each data group vary. However, meter runs 1 and 2 are orifice, so their daily history registers are in close proximity to one another. Meter run 3 is turbine, so  its daily history registers are not near those of an orifice meter.</p>
+        <p class="Indent">Map meter run 1 to the first register ordinal used for orifice meter daily history. Map meter run 2 to the second register ordinal used for orifice meter daily history. Map  meter run 3 to the <u>first</u> register ordinal used for turbine meter daily history however, because turbine daily history registers are in a different register area than orifice daily history registers. So meter run 3 would require you to enter "1" in its <b>Modbus Register Ord</b> field, not "3."</p>
+        <p class="Indent">The following diagram illustrates the example described above:</p>
+        <p class="Indent"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/run_register_ordinals.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="517" data-mc-height="487" src="../../Resources/Images/EIEs - Remote Devices/run_register_ordinals_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p class="Indent">See also your sample Modbus template file for applied examples.</p>
+        <p class="HeadingProcedure">To Hide the Modbus Register Ord Field</p>
+        <p>For several Modbus devices (for example, <b>Realflo</b>, <b>Omni</b>, <b>Prosoft</b>, <b>Micro1c</b>), the registers for meter-based data are organized strictly by meter number. Therefore when the ordinal number in CygNet represents a meter number, it will always be the same as the block ordinal. Because the values are always the same, use the <b>showBlockOrd</b> attribute to hide the <b>Modbus Register Ord</b> field in the <b>Data Group Properties</b> dialog box. See <a href="DataGroup Element.htm#showBlockOrd">showBlockOrd</a>.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <col style="width: 624px;" />
+            <tr>
+                <td>
+                    <p class="Code">&lt;dataGroups udcCat="~UDCALL" canRecv="true" canSend="false" uccRecv="true" uccSend="false" udcDefFac="true" devDG="false" baseOrd="0" maxCnt="1" ordLabel="Run#" <span style="background-color: #b0c4de;">showBlockOrd="false"</span>&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Contrast that with <b>Thermo</b> devices, where registers are organized first by meter type, then instance (for example, the first orifice meter or the first turbine meter). In this case, while the ordinal number in CygNet represents a meter number, the block ordinal reflects the instance within a meter type (for example, meter 1 may be the first orifice meter, while meter 2 may be the first turbine meter).</p>
+        <p>If not included in the template file, the <b>showBlockOrd</b> attribute defaults to "true" to show the <b>Modbus Register Ord</b> field.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

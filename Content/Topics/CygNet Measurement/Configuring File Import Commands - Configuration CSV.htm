@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Running File Import Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Import: Configuration CSV Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Running File Import Commands.htm">Running File Import Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Import: Configuration CSV</span>
+        </div>
+        <h2>Configuring Import: Configuration CSV  Commands</h2>
+        <p>Use the <b>Import File: Configuration CSV</b> command to import comma-separated values (.csv) files containing configuration data into FMS. The imported configuration data can be applied to the device Node record for a specified date/time or for a date/time range. Prior to executing the import, you also have the option to configure and edit  the .csv file to prepare it for successful importation into your CygNet Measurement system.</p>
+        <p>See <a href="FMS Commands.htm">FMS Commands</a> and <a href="Command Parameters - Import File - Configuration CSV.htm">Import: Configuration CSV</a> for more information about this command.</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3>Preparing the CSV Import File</h3>
+        <p>Include the appropriate column(s) to apply imported configuration records to a specified date/time or to a date/time range, as follows.</p>
+        <ul>
+            <li value="1">To apply imported records for a specified date/time, use only the <a href="#DateTime" class="selected">ConfigDateTime</a>  column.</li>
+            <li value="2">To apply imported records for a date/time range, use both the <a href="#DateTime" class="selected">ConfigDateTime</a>  and the <a href="#EndDateTime" class="selected">EndDateTime</a> columns.
+        <div class="Note"><p><span class="NoteHeading">Note:</span> When a date/time range is defined, the import creates a new configuration record only when it finds that configuration data item values have changed.</p></div></li>
+        </ul>
+        <p>Imported configuration data is applied in the following manner, depending on the date/time(s) defined in the .csv file and the records present in the device.</p>
+        <ul>
+            <li value="1">If a specific date/time is defined, the new configuration record is created at the specified date/time.</li>
+            <li value="2">If a date/time range is defined, and no configuration records exist within the specified range, the new configuration record (equal to the most recent configuration record) is created at the beginning of the specified range.</li>
+            <li value="3">If a date/time range is defined, and configuration records already exist within the specified range, all configuration records within the specified range will be updated.</li>
+            <li value="4">If a date/time range is defined, and a configuration record exists that is more recent than the specified range, the new configuration record is created at the end of the specified range.</li>
+        </ul>
+        <h4>Customizing the CSV Import File</h4>
+        <p>You can also use an import definition file (.idf) to define details about how the items in your configuration .csv file are imported into FMS and how they will appear in the file. To do this, customize the column and data source settings using an .idf. See <a href="Using an Import Definition File.htm">Using an Import Definition File</a> for more information.</p>
+        <h3>Command Definition Properties</h3>
+        <p>The following command definition properties apply to Configuration CSV File Import commands. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Command type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>For system commands, this property will be read-only and will display the selected command type.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Priority</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Logging</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command in the MSS. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Command Parameters</h3>
+        <p>The following command parameters apply to <b>Import: Configuration CSV</b> commands, when creating or editing commands in FMS. See <a href="#Configur" class="selected">Configuration Import CSV Files</a> for more information about setting up your configuration .csv file for import.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Import file directory</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Enter the directory location from which to import the file. </p>
+                        <p>Type in the value or click <b>...</b> to access the <b>Browse for Folder</b> dialog box, and browse to the directory location.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The directory specified is relative to the computer hosting the FMS service.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Import file mask</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If specified, only files meeting the file mask will be considered for import. </p>
+                        <p>Type the file mask name.</p>
+                        <p>Default file mask value is "<b>*</b>" (multiple character wildcard).</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Processed files retention (days) </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If specified, the files that have been processed will be deleted after the specified number of days. If not specified, processed files will never be deleted. </p>
+                        <p>Type the number of days.</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unit set</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If specified, select a unit set in which to view the data. </p>
+                        <p>Options appear in the drop-down menu, which is populated by the unit sets defined in the service.</p>
+                        <p>See <a href="Configuring Unit Set Definitions.htm">Configuring Unit Set Definitions</a> for more information.</p>
+                        <p>This parameter is optional.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                            <p class="TableNote">If you do not specify the unit set with this parameter, units for each included value must be specified using an .idf file.</p>
+                            <p class="TableNote">If you specify the unit set with this parameter AND in the .idf file, the value specified in the .idf file prevails, and overrides this setting.  In this way, you may override individual unit values by setting them in the .idf file.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Recalculate affected history records</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select whether or not to recalculate history records affected by the configuration value change. </p>
+                        <p>Options are as follows. </p>
+                        <ul class="table">
+                            <li value="1"><b>Yes</b>
+                            </li>
+                            <li value="2"><b>No</b>
+                            </li>
+                            <li value="3"><b>Energy only</b>
+                            </li>
+                        </ul>
+                        <p>If set to <b>Yes</b>, the system will automatically recalculate  energy, volume and/or mass values for any historical records affected  by the configuration change. </p>
+                        <p>If set to <b>No</b>, the system will not recalculate any historical records, but configuration value changes will be saved.</p>
+                        <p>If set to <b>Energy only</b>, the system will automatically recalculate energy values only, for any historical records affected by the configuration change, while preserving previous history edits.</p>
+                        <p>If no historical records are affected, this parameter will be ignored.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="Add"></a>Add devices to group</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If specified, all devices with imported data will be added to the group. Type the name of the group to which the imported devices will be added.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Nodes added to this group are added  for the entire span of the Node or group (whichever is less).</p>
+                        </div>
+                        <p class="Example">Example</p>
+                        <p class="Indent">In the case of a gas quality import, you could execute a <b>Send Gas Quality</b> command to send GQ data from all imported files to the devices.</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Clear existing group entries</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If specified, options are <b>Yes</b> or <b>No</b>.</p>
+                        <p>If set to <b>Yes</b>, and a value has been specified for <a href="#Add" class="selected">Add devices to group</a>, any existing entries will be removed from the specified group before executing the command.</p>
+                        <p>If set to <b>No</b>, the existing group entries will be retained when executing the command.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Nodes cleared from this group are cleared  for the entire span of the Node or group.</p>
+                        </div>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Comments</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>If specified, the comments will be part of the audit record for the file import. Type comments regarding the import.</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Configur"></a>Configuration Import CSV Files</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Prior to importing a configuration .csv file,
+the following conditions must be met for each Node for which you are importing data.</p>
+        </div>
+        <ul>
+            <li value="1">
+                <p class="Note">The device Node must exist in your FMS system. See <a href="Using the Nodes Menu.htm">Using the Nodes Menu</a> for more information about creating FMS Nodes.</p>
+            </li>
+        </ul>
+        <p>Use the following procedure to prepare a configuration import .csv file   for import  into FMS.  </p>
+        <p class="HeadingProcedure">To Configure and Edit a Configuration Import CSV File</p>
+        <p>Once generated, you can  edit the configuration import .csv file as follows, prior to importing it into FMS.</p>
+        <ol>
+            <li value="1"><b>Open</b> a .csv file for your configuration import.</li>
+            <li value="2">Insert  required (as noted) columns into your file, using your .csv editor. All <a href="#Required" class="selected">required</a> configuration import .csv columns are noted in the table below.</li>
+            <li value="3">Insert <a href="#Addition" class="selected">additional</a> columns into your file, as desired. All available configuration import .csv columns are described or referenced in the tables below.</li>
+            <li value="4">Edit any configuration items desired (e.g. description, etc.) at this time, in preparation for importing the file to FMS. </li>
+            <li value="5"><b>Save</b> and <b>Close</b> the .csv file when you are done.</li>
+        </ol>
+        <h4>Configuration Import CSV Columns</h4>
+        <h5><a name="Required"></a>Required Configuration Import CSV Columns</h5>
+        <p>The following table lists the  columns for which values must exist in the configuration import .csv file (as noted in each description)  in order for the FMS import to succeed. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Column</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Device</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The device name</p>
+                    <p>This column is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="DateTime"></a>ConfigDateTime</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The date/time for which to import and update the configuration record</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When <a href="#EndDateTime" class="selected">EndDateTime</a> is also defined, this value functions as the beginning date/time of a date range  for which to update all records found.</p>
+                    </div>
+                    <p>This column is required. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CALC_METHOD_PRIMARY</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The primary calculation method</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - AGA 3 1985</li>
+                        <li value="2"><b>2</b> - AGA 3 1992</li>
+                        <li value="3"><b>3</b> - AGA 7</li>
+                        <li value="4">5 - AGA 9  (not supported)</li>
+                        <li value="5"><b>6</b> - AGA 11</li>
+                        <li value="6"><b>7</b> - VCone</li>
+                        <li value="7">8 - AGA 5  (not supported)</li>
+                        <li value="8">9 - ISO 9951  (not supported) </li>
+                        <li value="9">10 - ISO 5167  (not supported)</li>
+                        <li value="10"><b>11</b> - Wafer Cone</li>
+                        <li value="11"><b>12</b> - AGA 3 2013</li>
+                    </ul>
+                    <p>This column is required. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you already have this  configuration value imported, this field may not be required.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METER_TYPE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The device type</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Orifice</li>
+                        <li value="2"><b>2</b> - Positive  (supported for liquid devices)</li>
+                        <li value="3"><b>3</b> - Turbine</li>
+                        <li value="4"><b>4</b> - Ultrasonic</li>
+                        <li value="5">5 - Liquids  (not supported)</li>
+                        <li value="6"><b>6</b> - Cone</li>
+                        <li value="7"><b>7</b> - Coriolis</li>
+                    </ul>
+                    <p>This column is required. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you already have this  configuration value imported, this field may not be required.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[as specified in an .idf]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>In the import definition file (.idf), additional columns may be identified as <b>required="true"</b> in order to perform the import.</p>
+                    <p>See <a href="Using an Import Definition File.htm">Using an Import Definition File</a> for more information.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h5><a name="Addition"></a>Additional Configuration Import CSV Columns</h5>
+        <p>Additional column headers can optionally be included in the configuration import .csv file. Columns can be included for any supported FMS configuration items for which you have data in your system.  </p>
+        <p>The following table lists options for column headers that may be contained in your  .csv file. The list is not complete; it is provided only for reference. See <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for a complete list of configuration items which could also appear as column headers in your configuration import .csv file. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Column</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="EndDateTime"></a>EndDateTime</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The ending date/time of a date range. Any records that exist within the defined date range will be updated with the new configuration data.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When specified, this value functions in conjunction with <a href="#DateTime" class="selected">ConfigDateTime</a> to define a date range for which to update all records found.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CALC_METHOD_FPV</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Compressibility Calc Method</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - AGA 8 Gross 1</li>
+                        <li value="2"><b>2</b> - AGA 8 Gross 2</li>
+                        <li value="3"><b>3</b> - AGA 8 Detail</li>
+                        <li value="4"><b>4</b> - NX 19 GCN</li>
+                        <li value="5"><b>5</b> - NX 19 Complete</li>
+                        <li value="6"><b>6</b> - None</li>
+                        <li value="7">7 - GERG  (not supported)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CALC_METHOD_DISCHARGE_COEFFICIENT</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Discharge Coefficient Calc Method</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - None</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CALC_METHOD_GAS_EXPANSION_FACTOR</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Gas Expansion Factor Method</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - None</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_METER_TUBE_MATERIAL</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Meter Tube Material</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Stainless steel (unspecified type)</li>
+                        <li value="2"><b>2</b> - Monel (valid for AGA 3 1985 or 1992 only)</li>
+                        <li value="3"><b>3</b> - Carbon steel</li>
+                        <li value="4"><b>4</b> - Unspecified</li>
+                        <li value="5"><b>5</b> - Stainless steel 304 (valid for AGA 3 2013 only)</li>
+                        <li value="6"><b>6</b> - Stainless steel 316 (valid for AGA 3 2013 only)</li>
+                        <li value="7"><b>7</b> - Monel 400 (valid for AGA 3 2013 only)</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This field is "Unspecified" for devices that do not return a material type value. In these cases, a (non-zero) thermal expansion coefficient value (eFMS_CFG_PIPE_COEFFICIENT_THERMAL_EXPANSION) is required for calculation to succeed. </p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_ORIFICE_PLATE_MATERIAL*</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Orifice Plate Material*</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Stainless steel (unspecified type)</li>
+                        <li value="2"><b>2</b> - Monel (valid for AGA 3 1985 or 1992 only)</li>
+                        <li value="3"><b>3</b> - Carbon steel</li>
+                        <li value="4"><b>4</b> - Unspecified</li>
+                        <li value="5"><b>5</b> - Stainless steel 304 (valid for AGA 3 2013 only)</li>
+                        <li value="6"><b>6</b> - Stainless steel 316 (valid for AGA 3 2013 only)</li>
+                        <li value="7"><b>7</b> - Monel 400 (valid for AGA 3 2013 only)</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This field is "Unspecified" for devices that do not return a material type value. In these cases, a (non-zero) thermal expansion coefficient value (eFMS_CFG_ORIFICE_COEFFICIENT_THERMAL_EXPANSION) is required for calculation to succeed. </p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CONE_MATERIAL</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Cone Material</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Stainless steel</li>
+                        <li value="2"><b>2</b> - Monel</li>
+                        <li value="3"><b>3</b> - Carbon steel</li>
+                        <li value="4"><b>4</b> - Unspecified</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This field is "Unspecified" for devices that do not return a material type value. In these cases, a (non-zero) thermal expansion coefficient value (eFMS_CFG_CONE_COEFFICIENT_THERMAL_EXPANSION) is required for calculation to succeed.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_DP_TAPS_TYPE*</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>DP Taps Type*</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Flange</li>
+                        <li value="2"><b>2</b> - Pipe</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_SP_TAP_LOCATION</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>SP Tap Location</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Upstream</li>
+                        <li value="2"><b>2</b> - Downstream</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_SP_SENSOR_TYPE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>SP Sensor Type</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Absolute</li>
+                        <li value="2"><b>2</b> - Gauge </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_INTEGRAL_VALUE_VARIABLES</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Variables included in IV</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - (FT*DP[inh2o]*SP[psia])</li>
+                        <li value="2"><b>2</b> - (FT*DP[inh2o]*SP[psia])/T[R]</li>
+                        <li value="3"><b>3</b> - (FT*DP[inh2o]*SP[psia])/Gr</li>
+                        <li value="4"><b>4</b> - (FT*DP[inh2o]*SP[psia])/(T[R]*Gr))</li>
+                        <li value="5"><b>5</b> - None</li>
+                        <li value="6"><b>6</b> - (FT*DP[mBar]*SP[bar])</li>
+                        <li value="7"><b>7</b> - (FT*DP[mBar]*SP[bar])/T[K]</li>
+                        <li value="8"><b>8</b> - (DP[inh2o]*SP[psia])</li>
+                        <li value="9"><b>9</b> - (DP[inh2o]*SP[psia])/T[R]</li>
+                        <li value="10"><b>10</b> - (DP[inh2o]*SP[psia])/Gr</li>
+                        <li value="11"><b>11</b> - (DP[inh2o]*SP[psia])/(T[R]*Gr)</li>
+                        <li value="12"><b>12</b> - (DP[mBar]*SP[bar])</li>
+                        <li value="13"><b>13</b> - (DP[mBar]*SP[bar])/T[K]</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_HEATING_VALUE_BASIS</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Heating Value Basis</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Wet</li>
+                        <li value="2"><b>2</b> - Dry</li>
+                        <li value="3"><b>3</b> - As delivered</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_FLUID_TYPE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Fluid Type</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>1</b> - Compressible</li>
+                        <li value="2"><b>2</b> - Noncompressible</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_USE_LIVE_TEMP</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use Live Temperature</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>0</b> - No</li>
+                        <li value="2"><b>1</b> - Yes</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_AGA3_EXPANDED_RANGE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>AGA 3 Expanded Range</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>0</b> - No</li>
+                        <li value="2"><b>1</b> - Yes</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_AGA8_EXPANDED_RANGE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>AGA 8 Expanded Range</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>0</b> - No</li>
+                        <li value="2"><b>1</b> - Yes</li>
+                    </ul>
+                    <p>See <a href="CygNet Measurement Data Calculation - AGA 8.htm">AGA 8 Data Ranges</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CUSTOM1</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="10">
+                    <p><i>10 Custom configuration items are available to be mapped to supported items as desired.</i>
+                    </p>
+                    <p>See <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a> for a complete list of all supported configuration items.</p>
+                    <p>See <a href="Configuring Custom Device Data.htm">Configuring Custom Device Data</a> for more information about the configuration process.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CUSTOM2</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CUSTOM3</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CUSTOM4</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CUSTOM5</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CUSTOM6</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CUSTOM7</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CUSTOM8</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CUSTOM9</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CUSTOM10</td>
+            </tr>
+        </table>
+        <p><i>*Orifice</i>
+        </p>
+        <p><i>**Turbine</i>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

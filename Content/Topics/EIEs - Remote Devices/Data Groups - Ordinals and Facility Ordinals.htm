@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Data Groups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Data Group Ordinals and Facility Ordinals</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Groups.htm">Data Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Data Group Ordinals and Facility Ordinals</span>
+        </div>
+        <h2>Data Group Ordinals and Facility Ordinals</h2>
+        <p>In CygNet, a remote device includes two sets of ordinals: the data group ordinal and the facility ordinal.</p>
+        <p>Each CygNet data group added to a remote device is identified by a number called an ordinal. The ordinal is specified on the <b>Data Group Properties</b> page of the remote device editor. If a remote device requires multiple instances of a data group, the group is defined only once in the template, but multiple instances of the data group, each with a unique ordinal, can be added in the device in the DDS.</p>
+        <p>Additional facilities that are associated with the original remote device facility must be created in or chosen from the <a href="../Facilities/Facility Service.htm">Facility Service</a> (FAC).  Although CygNet automatically configures ordinal numbers in the sequence in which you add new facilities to a remote device, you can change the ordinal number to suit your requirements.</p>
+        <p>When you add a data group to a remote device, you must identify the facility with which the data group is associated. While data groups must reference the facility that the instance of the data group is associated with, the data group ordinal does not have a direct relationship with the facility ordinal. It is the Facility ID associated with the data group that defines the relationship. In the example below, there are several different data group ordinals that are associated with the facility CYGSITE8_WELL00. The first "Production Valve Open/Close" data group happens to have an ordinal of 0 (the first number assigned in this case) but the "S/W Analog Input Record" data group has several ordinals for its instances.</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Remote Devices/Ordinals_600x434.png" style="width: 600;height: 434;" title="Data Group Ordinal example" alt="Data Group Ordinal example" />
+        </p>
+        <p>Because the data group ordinal does not have a direct relationship with the facility ordinal, it is important that you associate the correct facility ID with the data group.</p>
+        <p>When you add a data group, the DDS assigns the next sequential number to the data group ordinal. If the first time you add a data group, the ordinal is 1, then the next addition of that data group will be ordinal 2. If you delete the data group with ordinal 2 and add another, the next data group will be ordinal 3, since ordinal 2 was already used. Although the data group default may begin with ordinal 1, it can be changed before you commit the data group. Once the data group is saved, you cannot change the ordinal.</p>
+        <p>When you have data groups that are "sets," then the ordinal of each data group in the set should be the same, as should the facility assigned to the group. Examples of sets are the various FMS data groups ("FMS Configuration", "FMS Events", etc.). In the example below, the FMS data groups that have the same data group ordinal (1) are considered a "set." In this case, the <i>facility ordinal</i> for EMERSON_FB_107_M1 is 0. It is the <i>Facility ID</i>, not the facility ordinal, that links the facility to the data groups. The key is that you assign the correct Facility ID to the data group. When adding data groups, the ID of the facility is important, not the ordinal of the facility.</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Remote Devices/Data_Group_Sets_599x478.png" style="width: 599;height: 478;" title="Data Group Ordinal Sets" alt="Data Group Ordinal Sets" />
+        </p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Remote Devices/Facility Ordinal_599x335.png" style="width: 599;height: 335;" title="Facility Ordinals" alt="Facility Ordinals" />
+        </p>
+        <p>When copying a device, the facility ordinal has a relationship to the data group, but the relationship is purely for name resolution. When you copy, the new device will have new linked facility IDs. As such, the only way to show the relationship between the new name and the old name is the facility ordinal. For more information, see <a href="Copying a Remote Device.htm">Copying a Remote Device</a> and <a href="../Devices/CygNet DDS Data Group Copy Utility.htm">DDS Data Group Copy Utility</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

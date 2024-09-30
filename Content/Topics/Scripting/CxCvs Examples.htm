@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxCvs">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CxCvs Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxCvs.htm">CxCvs</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CxCvs Examples</span>
+        </div>
+        <h2>CxCvs Examples</h2>
+        <p>The following example gets a single value for point RD_SYCMDSTAT from [5410]MYSITE.UIS.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'Enum CxValueType</p>
+                    <p class="Code2">Const typeDouble = 3</p>
+                    <p class="Code2">Const typeLong = 2</p>
+                    <p class="Code2">Const typeString = 1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'Enum CxTimeStampType</p>
+                    <p class="Code2">Const typeFILETIME = 1</p>
+                    <p class="Code2">Const typeUTC = 2</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim CvsL,CvsR,res,GetReq,GetReqResp,RtREx, SetRtrExReq, objRtrEx</p>
+                    <p class="Code">Dim Rval,Lvali,Lvalii,resii</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">' CxCvs Objects</p>
+                    <p class="Code">Set CvsL = CreateObject("CxCvs.CvsClient")</p>
+                    <p class="Code">Set CvsR = CreateObject("CxCvs.CvsClient")</p>
+                    <p class="Code">Set GetReq = CreateObject("CxCvsLib.GetNamedRtRexReq")</p>
+                    <p class="Code">Set GetReqResp = CreateObject("CxCvsLib.GetNamedRtRExResp")</p>
+                    <p class="Code">Set RtREX = CreateObject("CxCvsLib.RtREx")</p>
+                    <p class="Code">Set SetRtrExReq = CreateObject("CxCvsLib.SetRtRExReq")</p>
+                    <p class="Code">Set objRtrEx = CreateObject("CxCvsLib.RtrEx")</p>
+                    <p class="Code">Dim objCvsClient : Set objCvsClient = CreateObject("CxCvsLib.CvsClient")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim strSITE : strSITE = "[5410]MYSITE.UIS"</p>
+                    <p class="Code">Dim strLongPoint : strLongPoint = "RD_SYCMDSTAT"</p>
+                    <p class="Code">Dim dblValue : dblValue = 0.0</p>
+                    <p class="Code">Dim datTimeStamp : datTimeStamp = Now()</p>
+                    <p class="Code">Dim intStatus : intStatus = 0</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub  CxCvsExample1()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">' Connect to a remote UIS</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">res = CvsR.Connect(strSITE)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If(Not res)Then ' 0 is "Connected"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code3">' We're connected, so let's go</p>
+                    <p class="Code3">' We're grabbing a single value (1 value)</p>
+                    <p class="Code3">GetReq.Count = 1</p>
+                    <p class="Code3">GetReq.PointIdLong(0) = strLongPoint</p>
+                    <p class="Code3">GetReq.TimeStampType = typeUTC</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">res = CvsR.GetNamedRtREx(GetReq,GetReqResp)</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">If(Not res)Then ' 0 is "Success"</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code4">dblValue = GetReqResp.RtRex(0).Value</p>
+                    <p class="Code4">datTimeStamp = GetReqResp.RtREx(0).TimeStamp</p>
+                    <p class="Code4">intStatus = GetReqResp.RtREx(0).Status</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">' you could do whatever you want with these variables...</p>
+                    <p class="Code4">MsgBox "Point = " &amp; CStr(strLongPoint) &amp; vbCrLf &amp; _</p>
+                    <p class="Code5">"Value = " &amp; CStr(dblValue) &amp; vbCrLf &amp; _</p>
+                    <p class="Code5">"TimeStamp = " &amp; CStr(datTimeStamp) &amp; vbCrLf &amp; _</p>
+                    <p class="Code5">"Status = " &amp; CStr(intStatus)</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">Else</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code4">MsgBox "Failed to grab the value..."</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code3">MsgBox "Failed to connect to service...exiting"</p>
+                    <p class="Code3">Exit Sub</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">MsgBox "Done with example 1"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Call CxCvsExample1()</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example sets a point value.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'Enum CxValueType</p>
+                    <p class="Code2">Const typeDouble = 3</p>
+                    <p class="Code2">Const typeLong = 2</p>
+                    <p class="Code2">Const typeString = 1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'Enum CxTimeStampType</p>
+                    <p class="Code2">Const typeFILETIME = 1</p>
+                    <p class="Code2">Const typeUCT = 2</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objCvsClient</p>
+                    <p class="Code">Set objCvsClient = CreateObject("CxCvsLib.CvsClient")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">On Error Resume Next</p>
+                    <p class="Code">Dim iRet</p>
+                    <p class="Code">'iRet = objCvsClient.Connect("[5411]MYSITE.UIS")</p>
+                    <p class="Code">'iRet = objCvsClient.Connect("[5410]WESC.UIS")</p>
+                    <p class="Code">iRet = objCvsClient.Connect("[5410]MYSITE.UIS")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">If Err.Number &lt;&gt; 0 Then</p>
+                    <p class="Code2">WScript.Echo "Connect error: " &amp; Err.Description</p>
+                    <p class="Code">Else</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim arrPointIdLong</p>
+                    <p class="Code2">'	arrPointIdLong = Array("100_AAAA", _</p>
+                    <p class="Code5">'						   "90210_WCOND", _</p>
+                    <p class="Code5">'						   "90210_WFEELSLK", _</p>
+                    <p class="Code5">'						   "90210_WLOC")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">arrPointIdLong = Array("RD_SYCMDSTAT", "RD_SYCSAPRT")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">On Error Goto 0</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim setRtrExReq</p>
+                    <p class="Code2">Set setRtrExReq = CreateObject("CxCvsLib.SetRtRExReq")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">setRtrExReq.TimeStampType = typeUCT</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim objRtrEx</p>
+                    <p class="Code2">Set objRtrEx = CreateObject("CxCvsLib.RtrEx")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Const iVALUE_CNT = 10000</p>
+                    <p class="Code2">Dim iValueStep</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim iRecordCount : iRecordCount = 0</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim strLongId</p>
+                    <p class="Code2">For Each strLongId In arrPointIdLong</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code3">objRtrEx.PointIdLong = strLongId</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">For iValueStep = 1 To iVALUE_CNT</p>
+                    <p class="Code4">Dim strValue</p>
+                    <p class="Code4">strValue = FormatCygNetValue(iValueStep, 2)</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">objRtrEx.Status = 3	' status of 3 sets the "updated" and "initialized" bits</p>
+                    <p class="Code4">objRtrEx.UserStatus = 0</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">' not setting the time results in current client time to the millisecond</p>
+                    <p class="Code4">'objRtrEx.TimeStampType = typeUCT</p>
+                    <p class="Code4">'objRtrEx.TimeStamp = Now()</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">objRtrEx.ValueType = typeString</p>
+                    <p class="Code4">objRtrEx.Value = strValue</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">setRtrExReq.RtrEx(iRecordCount) = objRtrEx</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">iRecordCount = iRecordCount + 1</p>
+                    <p class="Code4">setRtrExReq.RecordCount = iRecordCount</p>
+                    <p class="Code4">&#160;</p>
+                    <p class="Code4">If iRecordCount &gt;= setRtrExReq.Count Then</p>
+                    <p class="Code5">Call SendValues(setRtrExReq)</p>
+                    <p class="Code5">iRecordCount = 0</p>
+                    <p class="Code4">End If</p>
+                    <p class="Code3">Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If iRecordCount &gt; 0 Then</p>
+                    <p class="Code3">Call SendValues(setRtrExReq)</p>
+                    <p class="Code3">iRecordCount = 0</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End If</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Function FormatCygNetValue(dValue, iDecimalPlaces)</p>
+                    <p class="Code2">Dim strValuePad : strValuePad = "                " ' 16 spaces</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim strCygNetValue</p>
+                    <p class="Code2">strCygNetValue = FormatNumber(dValue, iDecimalPlaces, False, False, False)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">strCygNetValue = _</p>
+                    <p class="Code3">Left(strValuePad, Len(strValuePad)-Len(strCygNetValue)) &amp; strCygNetValue</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">FormatCygNetValue = strCygNetValue</p>
+                    <p class="Code">End Function</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Function SendValues(ByRef setRtrExReq)</p>
+                    <p class="Code2">SendValues = True</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim setRtrExResp</p>
+                    <p class="Code2">Set setRtrExResp = CreateObject("CxCvsLib.SetRtRExResp")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim iRetryCount : iRetryCount = 10</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Do While iRetryCount &gt; 0</p>
+                    <p class="Code3">iRet = objCvsClient.SetRtREx(setRtrExReq, setRtrExResp)</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">If iRet = 0 and setRtrExResp.Error = 11001 Then</p>
+                    <p class="Code4">' CVS setpoint queue is full so give it a chance to drain</p>
+                    <p class="Code4">iRetryCount = iRetryCount -1</p>
+                    <p class="Code4">WScript.Echo "SetPoint queue full (" &amp; iRetryCount &amp; ")"</p>
+                    <p class="Code4">WScript.Sleep 100</p>
+                    <p class="Code3">Else</p>
+                    <p class="Code4">iRetryCount = 0</p>
+                    <p class="Code3">End If</p>
+                    <p class="Code2">Loop</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If iRet &lt;&gt; 0 Or setRtrExResp.Error &lt;&gt; 0 Then</p>
+                    <p class="Code3">SendValues = False</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">'WScript.Echo "SetRtREx error: " &amp; iRet &amp; ", " &amp; setRtrExResp.Error</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code3">Dim iPointErrorStep</p>
+                    <p class="Code3">For iPointErrorStep = 0 To setRtrExResp.Count-1</p>
+                    <p class="Code4">If setRtrExResp.PointError(iPointErrorStep) &lt;&gt; 0 Then</p>
+                    <p class="Code4">'WScript.Echo "SetRtREx point(" &amp; iPointErrorStep &amp; ") error: " &amp; setRtrExResp.PointError(iPointErrorStep)</p>
+                    <p class="Code4">End If</p>
+                    <p class="Code3">Next</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Function</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">MsgBox "Done"</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Unit Conversion Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Unit Conversion Examples</span>
+        </div>
+        <h2><a name="Unit"></a>Unit Conversion Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf. For a list of available units, see <a href="../Points/PNT Engineering Units.htm">PNT Engineering Units</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Unit2" class="selected">Unit Conversion (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Units" class="selected">Unit Conversion (B)</a>
+            </li>
+        </ul>
+        <p>For information about example data group elements and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="Unit2"></a>Unit Conversion (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">rawDur</a> and converts the value from seconds to minutes ("min"). The result is 24.25 because 1455 is divided by 60.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;UnitA desc="Units Sec to Min Method A" readOnly="true" type="r4" ref="rawDur" units="min"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#units">units</a>.</p>
+        <h3><a name="Units"></a>Unit Conversion (B)</h3>
+        <p>The following example uses two child elements to compute a unit conversion. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">rawDur</a> to assign the current value of <b>rawDur</b> as the initial value for <b>UnitB</b>. The second child element references the operation <a href="Available Reference Operations.htm#opUnitConversion">opUnitConversion</a> to convert the initial value from its source units (seconds) to destination units (minutes). The result is 24.25 because 1455 is divided by 60.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;UnitB desc="Units Sec to Min Method B" readOnly="true" type="r4" units="min" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="rawDur"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opUnitConversion" srcUnits="sec" destUnits="min"/&gt;</p>
+                    <p class="Code">&lt;/UnitB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="DataGroupElement Element.htm#units">units</a>, 
+			<a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, <a href="ref.htm#value">value</a>, <a href="ref.htm#srcUnits">srcUnits</a>, and <a href="ref.htm#destUnits">destUnits</a>. 
+			A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

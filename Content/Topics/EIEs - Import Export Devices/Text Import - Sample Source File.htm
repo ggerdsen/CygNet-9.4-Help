@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Import/Export Devices|Text Import EIE (TextImport)">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Sample Source File and Import File Format</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Import Export Devices.htm">Import/Export Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Text Import EIE (TextImport).htm">Text Import EIE (TextImport)</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Sample Source File and Import File Format</span>
+        </div>
+        <h2>Sample Source File and Import File Format</h2>
+        <h3>Example 1 — One Tag per Row</h3>
+        <p>The source file below contains values for three tags. Each row contains data for just one tag. </p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Import Export Devices/TextImportExampleSource1_OneTag.png" title="One Tag per Row" alt="One Tag per Row" />
+        </p>
+        <p>The column mapping would be:</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Import Export Devices/TextImportColumnMappingSample1.png" title="Column Mapping" alt="Column Mapping" />
+        </p>
+        <h3>Example 2 — Three Tags per Row</h3>
+        <p>In the source file below, each row represents a facility and contains data for three items (Differential Pressure, Temperature, Yesterday MCF). Since there are 3 rows (facilities), importing the data for each item for each facility would result in the creation/update of nine tags.</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Import Export Devices/TextImportExampleSource2_ThreeTags.png" title="Three tags per row" alt="Three tags per row" />
+        </p>
+        <p>The column mapping would be:</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Import Export Devices/TextImportColumnMappingSample2.png" title="Column mapping " alt="Column mapping" />
+        </p>
+        <p>The UDCs used to represent the data items are: PDIFF (Differential Pressure), TGAS (Gas Temperature), and VGY (Volume Gas Yesterday).</p>
+        <p>Because the source file contains data for three tags on a single row, this mapping contains components for three tags (specified in the Tag # column as 1, 2, and 3). Tag # 0 indicates that the component is shared across all tags: for example, the Facility ID for all tags is found in column 1. </p>
+        <p>The Long Point ID specifies the tag to which the data belongs. The Long Point ID is identified using a formula that concatenates the facility ID (contained in column 1) with an underscore and Uniform Data Code (added as text).</p>
+        <p>The date and time are in columns 3 and 4; because the same timestamp applies to all tags on the row, the Tag # column is set to 0. The formula for the "Timestamp" component contains a space between the columns because CygNet timestamps are MM/DD/YY hh:mm:ss. If the space weren't included in the formula, the timestamp would not be valid.</p>
+        <p>The values for the three tags are contained in columns 5 (differential pressure), 6 (gas temperature), and 7 (volume gas yesterday).</p>
+        <p>The resulting data in the UIS would be:</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>12345-67_PDIFF</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>4/6/2010 0:00:00</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>0</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>12345-67_TGAS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>4/6/2010 0:00:00</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>44.75</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>12345-67_VGY</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>4/6/2010 0:00:00</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>77.29</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>34567-89_PDIFF</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>4/7/2010 22:10:03</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>3.84</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>34567-89_TGAS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>4/7/2010 22:10:03</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>53.47</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>34567-89_VGY</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>4/7/2010 22:10:03</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>56.92</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>78901-23_PDIFF</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>4/6/2010 1:30:26</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>15.66</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>78901-23_TGAS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>4/6/2010 1:30:26</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>52.94</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>78901-23_VGY</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>4/6/2010 1:30:26</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>30.79</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Example 3 - Blank or Empty Columns</h3>
+        <p>In the source file below, cell 4:D is blank. The table below illustrates how the import results will be affected by using different <b>Processing Blank or Empty Columns</b> choices. See <a href="Text Import - Column Mapping Tab.htm#Processi">Processing Blank or Empty Columns</a> for an explanation of the settings.</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Import Export Devices/TextImportExampleSource3_Blanks.png" title="Processing Blank or Empty Columns example" alt="Processing Blank or Empty Columns example" />
+        </p>
+        <p>The column mapping would be:</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Import Export Devices/TextImportColumnMappingSample3.png" title="Column mapping" alt="Column mapping" />
+        </p>
+        <p>The resulting data in the UIS for the three settings would be:</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Blank or Empty Column Choice</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Outcome</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Include blank value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Any existing current value for METER1_PDIFF would be overwritten with a blank and the timestamp would be updated according to the source file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Reject entry for this component</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Any existing current value for METER1_PDIFF would not be overwritten. The timestamp would be updated according to the source file.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> In the example above, the existing current value for METER1_PDIFF would be not be overwritten.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Reject all entries for this Tag #</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The entire tag would be rejected. No value would be updated or overwritten, including the timestamp.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

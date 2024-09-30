@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations|CygNet Native Operations">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>History Operations</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations.htm">Enterprise Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Native Operations.htm">CygNet Native Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">History</span>
+        </div>
+        <h2>History Operations</h2>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Read Operations</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="#GetHistoryValues" class="selected">GetHistoryValues</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Returns value history records for specified points, based on parameters. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="#GetHistoryRecordSet" class="selected">GetHistoryRecordSet</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns point value data for a set of history records associated with a specified set of reference times. The returned record set will show if no data is available for one of the specified reference times within the tolerance range, and indicate where the closest values are located, for troubleshooting purposes.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="GetHistoryValues"></a>GetHistoryValues</h3>
+        <p>Given a service name (VHS, UIS or CVS), a point tag, optional beginning/end times and/or rollup specifications, and a list of historical point attributes to return,&#160; this operation will return an XML response containing a list of history entry timestamps, each with the point attributes requested.&#160;Because the list of history entries may be lengthy, a maximum number of entries can be specified to limit the size of the response XML.&#160;If the number of matching entries exceeds the maximum specified, the response XML will include the timestamp and optional ordinal (necessary if there is more than one entry at the same timestamp) of the next entry. To continue the operation, the same request must then be repeated, with the additional inclusion of the timestamp/ordinal from the last request. The return XML will indicate success or failure.</p>
+        <h4>Usage</h4>
+        <p>The following table lists and describes all of the child elements of the request node (&lt;<i>GetHistoryValuesReq</i>&gt;).</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SvcName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <i>Site.Service</i> to which to connect.&#160; This parameter must specify the name of a VHS, UIS, or CVS <i>Site.Service</i>. If a UIS or CVS is specified, the service will resolve to its associated VHS.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Tag</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The point tag for which to retrieve history.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>HistoryParameters</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A set of parameters which specify the maximum number of entries to return, the time range for alarms to retrieve, rollup information, and, if applicable, the time of the next entry to retrieve (if the request is a continuation from a previous request).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AttrsToExport</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates which attribute values to include for each history value in the response. Values include:</p>
+                    <ul class="table">
+                        <li value="1">PointValue</li>
+                        <li value="2">PointPriValue</li>
+                        <li value="3">PointTimestamp</li>
+                        <li value="4">PointAlarmPriorityCategory</li>
+                        <li value="5">PointScheme</li>
+                        <li value="6">PointDataType</li>
+                        <li value="7">PointDataTypeDesc</li>
+                        <li value="8">PointIs_Unreliable_Set</li>
+                        <li value="9">PointIs_ExternalValue_Set</li>
+                        <li value="10">PointIs_CfgBit01_Set - PointIs_CfgBit15_Set</li>
+                        <li value="11">PointIs_UserBit01_Set - PointIs_UserBit16_Set</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If “&lt;AttrsToExport&gt;” is left empty, it will return &lt;PointValue&gt; and &lt;PointTimestamp&gt; by default.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h5>Target Services</h5>
+        <p>The service name node (&lt;<i>SvcName</i>&gt;) must specify the name of a VHS, UIS, or CVS <i>Site.Service</i>. If a UIS or CVS is specified, the service will resolve to its associated VHS.</p>
+        <h4>Examples</h4>
+        <h5>Request</h5>
+        <p>The following example represents the first request in a series of continuations.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;GetHistoryValuesReq&gt;</p>
+                    <p class="Code3">&lt;SvcName&gt;CYGDEMO.SVCMON&lt;/SvcName&gt;</p>
+                    <p class="Code3">&lt;Tag&gt;CYGDEMO.SVCMON:TEST1&lt;/Tag&gt;</p>
+                    <p class="Code3">&lt;HistoryParameters&gt;</p>
+                    <p class="Code4">&lt;EarliestTime&gt;2011-09-01T00:00:00Z&lt;/EarliestTime&gt;</p>
+                    <p class="Code4">&lt;LatestTime&gt;2011-09-14T00:00:00Z&lt;/LatestTime&gt;</p>
+                    <p class="Code4">&lt;RollupType&gt;Calc Last&lt;/RollupType&gt;</p>
+                    <p class="Code4">&lt;RollupPeriod&gt;42&lt;/RollupPeriod&gt;</p>
+                    <p class="Code4">&lt;RollupUnits&gt;Hours&lt;/RollupUnits&gt;</p>
+                    <p class="Code4">&lt;MaxEntries&gt;5&lt;/MaxEntries&gt;</p>
+                    <p class="Code3">&lt;/HistoryParameters&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;PointValue/&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryValuesReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response, including a continuation element (&lt;<i>NextEntry</i>&gt;).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;GetHistoryValuesResp&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-01T19:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-01T20:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-01T21:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-01T22:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-01T23:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;NextEntry&gt;</p>
+                    <p class="Code4">&lt;Time&gt;2011-09-02T00:00:00.000Z&lt;/Time&gt;</p>
+                    <p class="Code3">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-11-10T01:36:51.137Z" exec_duration="PT0.030S" /&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryValuesResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Request</h5>
+        <p>The following example represents the next request in a series of continuations, based on the &lt;<i>NextEntry</i>&gt; element from the above response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;GetHistoryValuesReq&gt;</p>
+                    <p class="Code3">&lt;SvcName&gt;CYGDEMO.SVCMON&lt;/SvcName&gt;</p>
+                    <p class="Code3">&lt;Tag&gt;CYGDEMO.SVCMON:TEST1 &lt;/Tag&gt;</p>
+                    <p class="Code3">&lt;HistoryParameters&gt;</p>
+                    <p class="Code4">&lt;EarliestTime&gt;2011-09-01T00:00:00Z&lt;/EarliestTime&gt;</p>
+                    <p class="Code4">&lt;LatestTime&gt;2011-09-14T00:00:00Z&lt;/LatestTime&gt;</p>
+                    <p class="Code4">&lt;RollupType&gt;Calc Last&lt;/RollupType&gt;</p>
+                    <p class="Code4">&lt;RollupPeriod&gt;42&lt;/RollupPeriod&gt;</p>
+                    <p class="Code4">&lt;RollupUnits&gt;Hours&lt;/RollupUnits&gt;</p>
+                    <p class="Code4">&lt;MaxEntries&gt;5&lt;/MaxEntries&gt;</p>
+                    <p class="Code4">&lt;NextEntry&gt;</p>
+                    <p class="Code5">&lt;Time&gt;2011-09-02T00:00:00.000Z&lt;/Time&gt;</p>
+                    <p class="Code4">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;/HistoryParameters&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;PointValue/&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryValuesReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response, continuing from the time specified in the &lt;<i>NextEntry</i>&gt; element in the above request.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;GetHistoryValuesResp&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-02T00:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-02T01:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-02T02:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-02T03:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;HistoryEntry&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;139.438&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-09-02T04:00:00.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/HistoryEntry&gt;</p>
+                    <p class="Code3">&lt;NextEntry&gt;</p>
+                    <p class="Code4">&lt;Time&gt;2011-09-02T05:00:00.000Z&lt;/Time&gt;</p>
+                    <p class="Code3">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-11-10T01:36:57.810Z" exec_duration="PT0.031S" /&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryValuesResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example represents an unsuccessful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects730"&gt;</p>
+                    <p class="Code2">&lt;GetHistoryValuesResp&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="false" resp_timestamp="2011-07-30T22:13:21.196Z" exec_duration="PT0.002S"&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50003"&gt;Security check failed for ACS application ENTOPS and event ACCESS0&lt;/OperationResult&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50208"&gt;You are not permitted to execute this operation&lt;/OperationResult&gt;</p>
+                    <p class="Code3">&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryValuesResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="GetHistoryRecordSet"></a>GetHistoryRecordSet</h3>
+        <p>Given a set of reference times, tolerance range, and a set of point tags, this operation will return an XML response containing a set of point data associated with the specified reference times. If the retrieved record set contains no data for a specified reference time within the tolerance range, that information is also included in the response. Because the set of records sets may be lengthy, a maximum number of entries can be specified to limit the size of the response XML. The reference time of the record set can be specified either by low and high interval or by point tag. Reference time can be filtered by facility ID and/or point UDC, or other facility and point attributes. Point selection can be filtered by facility type and/or point UDC, or other facility and point attributes. Unreliable data can be included or excluded in the response. The return XML will indicate success or failure.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This operation was added to the v8.0.1 Enterprise Operations schema, which must be enabled on the <b>Native Operations</b> page of the <a href="Native Operations Tab.htm">Enterprise Operations EIE</a>.</p>
+        </div>
+        <h4>Usage</h4>
+        <p>The following table lists and describes the child elements of the request node (&lt;<i>GetHistoryRecordSetReq</i>&gt;).</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ReturnExtendedErrorReport</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p style="text-align: center;">No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates whether to included the times of the previous and following values for missing values in the response.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">IncludeUnreliable</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates whether to include unreliable data in the response. See <a href="#Example5" class="selected">Request Example Five</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>MaxRecs</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The maximum number of history records to return in the response.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The "history record set" is the entire set of "history records" returned in the response. The response always contains one and only one "history records set" that is composed of multiple "history records" up to the number specified in MaxRecs.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>RestartInfo</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This element indicates whether there is any more data to fetch for this request. It is necessary to pass into a second request to continue an operation that did not get all of the data requested. The contents of &lt;RestartInfo&gt; is for internal use only. See <a href="#Example6" class="selected">Response Example</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SvcName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <i>Site.Service</i> to which to connect.&#160; This parameter must specify the name of a VHS, UIS, or CVS <i>Site.Service</i>. If a UIS or CVS is specified, the service will resolve to its associated VHS.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>TimeTolerance</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The tolerance or range before or after each reference time to return in the response for the history record set. </p>
+                    <p>Tolerance can be a single value (using <i>&lt;Tolerance&gt;</i>) or a tolerance range (using <i>&lt;ToleranceRange&gt;</i> to specify a different value for before and after the reference time (using <i>&lt;LowLimit&gt;</i> and <i>&lt;HighLimit&gt;</i>). </p>
+                    <p>See the <a href="http://www.w3.org/TR/xmlschema-2#duration" target="_blank">Duration Data Type</a> for more information about specifying time intervals in XML.</p>
+                    <p class="Example"><b>Examples</b>
+                    </p>
+                    <p class="Indent"><i>&lt;Tolerance&gt;PT90S&lt;/Tolerance&gt;</i>  returns any value within 90 seconds of the reference time.</p>
+                    <p class="Indent"><i>&lt;Tolerance&gt;PT0S&lt;/Tolerance&gt;</i> returns exactly the reference time (zero seconds tolerance).</p>
+                    <p class="Indent"><i>&lt;ToleranceRange&gt;</i>
+                    </p>
+                    <p class="Indent2"><i>&lt;LowLimit&gt;PT1M&lt;/LowLimit&gt;</i>
+                    </p>
+                    <p class="Indent2"><i>&lt;HighLimit&gt;PT3M&lt;/HighLimit&gt;</i>
+                    </p>
+                    <p class="Indent"><i>&lt;/ToleranceRange&gt;</i>
+                    </p>
+                    <p class="Indent">returns any value 1 minute before or 3 minutes after the reference time.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> See the <a href="#Data" class="selected">diagram</a> and the notes that follow for more information about how values are included in a returned record set.</p>
+                    </div>
+                    <p>See <a href="#Example1" class="selected">Request Example One</a> and <a href="#Example2" class="selected">Request Example Two</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ReferenceTime</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The reference timestamp for the  history record set to return in the response. Reference time can be specified in two ways:</p>
+                    <ul class="table">
+                        <li value="1"><b>By Interval</b> — using <i>&lt;IndexReference&gt;</i> to specify a <i>&lt;LowLimit&gt;</i>, a <i>&lt;HighLimit&gt;</i>, and an <i>&lt;Interval&gt;</i>. See <a href="#Example1" class="selected">Request Example One</a> below.</li>&#160;</ul>
+                    <ul class="table">
+                        <li value="1"><b>By Point</b> — using <i>&lt;PointReference&gt;</i> to specify a <i>&lt;PointTagSpec&gt;</i> and a <i>&lt;PointTag&gt;</i>. See <a href="#Example3" class="selected">Request Example Three</a>.</li>
+                    </ul>
+                    <p class="Indent">Optionally, <b>PointReference</b>  can include a <i>&lt;TimeBound&gt;</i> element, so that the set of reference times used is the timestamps of all the values for that point within the range. <i>&lt;TimeBound&gt;</i> is specified with a <i>&lt;LowLimit&gt;</i> and a <i>&lt;HighLimit&gt;</i>, as follows:</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">&lt;PointReference&gt;</p>
+                                <p class="Code2">&lt;PointTagSpec&gt;</p>
+                                <p class="Code3">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC&lt;/PointTag&gt;</p>
+                                <p class="Code2">&lt;/PointTagSpec&gt;</p>
+                                <p class="Code2">&lt;TimeBound&gt;</p>
+                                <p class="Code3">&lt;LowLimit&gt; 2011-02-01T01:00:00-08:00&lt;/LowLimit&gt;</p>
+                                <p class="Code3">&lt;HighLimit&gt; 2011-02-06T11:00:00-08:00&lt;/HighLimit&gt;</p>
+                                <p class="Code2">&lt;/TimeBound&gt;</p>
+                                <p class="Code">&lt;/PointReference&gt;</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5>Filtering by Point</h5>
+                    <p><b>ReferenceTime</b> by point can be filtered by any facility attribute (for example, facility ID) or any point property (for example, point UDC).</p>
+                    <ul class="table">
+                        <li value="1">Facility attributes are filtered using <i>&lt;ReferenceTime&gt; &lt;PointReference&gt; &lt;PointTagSpec&gt; &lt;PointFilter&gt; &lt;FacilityFilter&gt; &lt;SingleExpr&gt;</i> to specify a facility attribute, for example, &lt;FacilityId&gt;.</li>
+                    </ul>
+                    <ul class="table">
+                        <li value="1">Point properties are filtered using <i>&lt;ReferenceTime&gt; &lt;PointReference&gt; &lt;PointTagSpec&gt; &lt;PointFilter&gt; &lt;ForEachFacilityPointFilter&gt; &lt;PointConfigFilter&gt; &lt;SingleExpr&gt;</i> to specify a point property, for example, <i>&lt;PointUniformDataCode&gt;</i>.</li>
+                    </ul>
+                    <p>See <a href="#Example4" class="selected">Request Example Four</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PointsSet</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The list of point tags for which to retrieve missing values. </p>
+                    <h5>Filtering PointSelection</h5>
+                    <p><b>PointsSet</b> can be filtered by any facility attribute (for example, facility ID) or any point property (for example, point UDC) in the same manner as <b>ReferenceTime</b>. </p>
+                    <ul class="table">
+                        <li value="1">Facility attributes are filtered using <i>&lt;PointsSet&gt; &lt;PointsSelection&gt; &lt;FacilityFilter&gt; &lt;SingleExpr&gt;</i> to specify a facility attribute, for example, &lt;FacilityId&gt;.</li>
+                    </ul>
+                    <ul class="table">
+                        <li value="1">Point properties are filtered using <i>&lt;PointsSet&gt; &lt;PointsSelection&gt;  &lt;ForEachFacilityPointFilter&gt; &lt;PointConfigFilter&gt; &lt;SingleExpr&gt;</i> to specify a point property, for example, <i>&lt;PointUniformDataCode&gt;</i>.</li>
+                    </ul>
+                    <p>See <a href="#Example5" class="selected">Request Example Five</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AttrsToExport</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates which attribute values to include for each history record in the response. Values include:</p>
+                    <ul class="table">
+                        <li value="1">PointValue</li>
+                        <li value="2">PointPriValue</li>
+                        <li value="3">PointTimestamp</li>
+                        <li value="4">PointAlarmPriorityCategory</li>
+                        <li value="5">PointScheme</li>
+                        <li value="6">PointDataType</li>
+                        <li value="7">PointDataTypeDesc</li>
+                        <li value="8">PointIs_Unreliable_Set</li>
+                        <li value="9">PointIs_ExternalValue_Set</li>
+                        <li value="10">PointIs_CfgBit01_Set - PointIs_CfgBit15_Set</li>
+                        <li value="11">PointIs_UserBit01_Set - PointIs_UserBit16_Set</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If “&lt;AttrsToExport&gt;” is left empty, it will return &lt;PointValue&gt; and &lt;PointTimestamp&gt; by default.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Data"></a>Data Examples</h3>
+        <p>The following diagram shows how values within tolerance ranges are returned for the GetHistoryRecordSet operation. See the <a href="#Diagram" class="selected">Notes</a> after the diagram for more information.</p>
+        <p>
+            <img src="../../Resources/Images/Enterprise Objects/Get History Record Set.png" />
+        </p>
+        <h4><a name="Diagram"></a>Diagram Notes</h4>
+        <p class="Indent">(a) <b>Multiple Values Qualify</b> — If two or more values fall within the requested tolerance range for a target reference time, the value in the <i>closest</i> timestamp is used, unless the value has already been used for a previous record. In the first example above, the value for 11:59:30 PM (5) is the closest, hence it is returned for the GetHistoryRecordSet operation.</p>
+        <p class="Indent">(b) <b>Two Values of Equal Distance</b> — If two values within the requested tolerance range are equal distance from the target reference time, the <i>earlier</i> value will be used. In the above example, the values for 01:59:00 AM (6) and 02:01:00 AM (3) are equal distance from the target reference time. The value for 01:59:00 AM (6) is the earlier value, hence it is returned for the GetHistoryRecordSet operation.</p>
+        <p class="Indent">(c) <b>Missing Values</b> — If no timestamps within the requested tolerance range contain values, the GetHistoryRecordSet operation returns a <i>&lt;MissingValue&gt;</i> and indicates where the closest <i>&lt;PreviousTime&gt;</i> or <i>&lt;FollowingTime&gt;</i> is located, if the <b>ReturnExtendedErrorReport</b> element was set to "true" in the request. See the <a href="#Example6" class="selected">Response Example</a> below.</p>
+        <p class="Indent">(d) <b>Overlapping Tolerances</b> — If a value falls within two overlapping tolerance ranges, the value included in the <i>first</i> tolerance range will be returned in the first record. The second record will not return that value, because the value has already been used for a previous record. In the example above, the value for 05:30:00 AM (7) falls within two tolerance ranges, but will be returned in the record for 05:00:00 AM only. The response for the 06:00:00 AM&#160;record will return a <i>&lt;MissingValue&gt;</i> and will indicate that the next <i>&lt;FollowingTime&gt;</i> is located at  06:40:00 AM (3).</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Example1"></a>Request Example One - TimeTolerance and ReferenceTime by Interval and PointsSet</h4>
+        <p>The following request illustrates the use of an equal 1-minute tolerance range for TimeTolerance (in <span style="color: #ff0000;">red</span>), ReferenceTime by Interval (in <span style="color: #008000;">green</span>) and PointsSet by PointTag (in <span style="color: #0000ff;">blue</span>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects801" &gt;</p>
+                    <p class="Code2">&lt;GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code3">&lt;MaxRecs&gt;1000&lt;/MaxRecs&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;TimeTolerance&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;ToleranceRange&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;LowLimit&gt;PT1M&lt;/LowLimit&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;HighLimit&gt;PT1M&lt;/HighLimit&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;/ToleranceRange&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;/TimeTolerance&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;ReferenceTime&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;IndexReference&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;LowLimit&gt;2011-02-01T01:00:00Z&lt;/LowLimit&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;HighLimit&gt;2011-06-01T11:00:00Z&lt;/HighLimit&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;Interval&gt;PT1H&lt;/Interval&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;/IndexReference&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;/ReferenceTime&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;PointsSet&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointsList&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC1&lt;/PointTag&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC2&lt;/PointTag&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC3&lt;/PointTag&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;/PointsList&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;/PointsSet&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport/&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Example2"></a>Request Example Two - Fixed TimeTolerance</h4>
+        <p>The following request illustrates the use of a 90-second TimeTolerance (in <span style="color: #ff0000;">red</span>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects801" &gt;</p>
+                    <p class="Code2">&lt;GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code3">&lt;MaxRecs&gt;1000&lt;/MaxRecs&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;TimeTolerance&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;Tolerance&gt;PT90S&lt;/Tolerance&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;/TimeTolerance&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;ReferenceTime&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;IndexReference&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;LowLimit&gt;2011-02-01T01:00:00Z&lt;/LowLimit&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;HighLimit&gt;2011-06-01T11:00:00Z&lt;/HighLimit&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;Interval&gt;PT1H&lt;/Interval&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;/IndexReference&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;/ReferenceTime&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;PointsSet&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointsList&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC1&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC2&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC3&lt;/PointTag&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;/PointsList&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;/PointsSet&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport/&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Example3"></a>Request Example Three - ReferenceTime by Point</h4>
+        <p>The following request   illustrates the use of a PointTag for the ReferenceTime (in <span style="color: #008000;">green</span>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects801" &gt;</p>
+                    <p class="Code2">&lt;GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code3">&lt;MaxRecs&gt;1000&lt;/MaxRecs&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;TimeTolerance&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;Tolerance&gt;PT0S&lt;/Tolerance&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;/TimeTolerance&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;ReferenceTime&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;PointReference&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;PointTagSpec&gt;</p>
+                    <p class="Code6" style="color: #008000;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC1&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;/PointTagSpec&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;/PointReference&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;/ReferenceTime&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;PointsSet&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointsList&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC1&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST2_GHRUDC2&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST3_GHRUDC3&lt;/PointTag&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;/PointsList&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;/PointsSet&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport/&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Example4"></a>Request Example Four - Filtered ReferenceTime</h4>
+        <p>The following request illustrates the use of a filter for using a point tag for the ReferenceTime (in <span style="color: #008000;">green</span>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects801" &gt;</p>
+                    <p class="Code2">&lt;GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code3">&lt;MaxRecs&gt;1000&lt;/MaxRecs&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;TimeTolerance&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;Tolerance&gt;PT0S&lt;/Tolerance&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;/TimeTolerance&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;ReferenceTime&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;PointReference&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;PointTagSpec&gt;</p>
+                    <p class="Code6" style="color: #008000;">&lt;PointFilter&gt;</p>
+                    <p class="Code7" style="color: #008000;">&lt;FacilityFilter&gt;</p>
+                    <p class="Code8" style="color: #008000;">&lt;SingleExpr compare="EQ"&gt;</p>
+                    <p class="Code9" style="color: #008000;">&lt;FacilityId&gt;GHRTEST1&lt;/FacilityId&gt;</p>
+                    <p class="Code8" style="color: #008000;">&lt;/SingleExpr&gt;</p>
+                    <p class="Code7" style="color: #008000;">&lt;/FacilityFilter&gt;</p>
+                    <p class="Code7" style="color: #008000;">&#160;</p>
+                    <p class="Code7" style="color: #008000;">&lt;ForEachFacilityPointFilter&gt;</p>
+                    <p class="Code8" style="color: #008000;">&lt;PointConfigFilter&gt;</p>
+                    <p class="Code9" style="color: #008000;">&lt;SingleExpr compare="EQ"&gt;</p>
+                    <p class="Code10" style="color: #008000;">&lt;PointUniformDataCode&gt;GHRUDC1&lt;/PointUniformDataCode&gt;</p>
+                    <p class="Code9" style="color: #008000;">&lt;/SingleExpr&gt;</p>
+                    <p class="Code8" style="color: #008000;">&lt;/PointConfigFilter&gt;</p>
+                    <p class="Code7" style="color: #008000;">&lt;/ForEachFacilityPointFilter&gt;</p>
+                    <p class="Code6" style="color: #008000;">&lt;/PointFilter&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;/PointTagSpec&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;/PointReference&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;/ReferenceTime&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;PointsSet&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointsList&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST1_GHRUDC1&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST2_GHRUDC2&lt;/PointTag&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;PointTag&gt;HOUSTON.UIS:GHRTEST3_GHRUDC3&lt;/PointTag&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;/PointsList&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;/PointsSet&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport/&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Example5"></a>Request Example Five - Filtered PointSelection</h4>
+        <p>The following request example illustrates the use of a filter for PointsSelection (in <span style="color: #0000ff;">blue</span>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects801" &gt;</p>
+                    <p class="Code2">&lt;GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code3">&lt;IncludeUnreliable&gt;true&lt;/IncludeUnreliable&gt;</p>
+                    <p class="Code3">&lt;MaxRecs&gt;1000&lt;/MaxRecs&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;TimeTolerance&gt;</p>
+                    <p class="Code4" style="color: #ff0000;">&lt;Tolerance&gt;PT90S&lt;/Tolerance&gt;</p>
+                    <p class="Code3" style="color: #ff0000;">&lt;/TimeTolerance&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;ReferenceTime&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;IndexReference&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;LowLimit&gt;2011-02-01T01:00:00Z&lt;/LowLimit&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;HighLimit&gt;2011-02-06T11:00:00Z&lt;/HighLimit&gt;</p>
+                    <p class="Code5" style="color: #008000;">&lt;Interval&gt;PT30M&lt;/Interval&gt;</p>
+                    <p class="Code4" style="color: #008000;">&lt;/IndexReference&gt;</p>
+                    <p class="Code3" style="color: #008000;">&lt;/ReferenceTime&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;PointsSet&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;PointsSelection&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;FacilityFilter&gt;</p>
+                    <p class="Code6" style="color: #0000ff;">&lt;SingleExpr compare="EQ"&gt;</p>
+                    <p class="Code7" style="color: #0000ff;">&lt;FacilityType&gt;WELL&lt;/FacilityType&gt;</p>
+                    <p class="Code6" style="color: #0000ff;">&lt;/SingleExpr&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;/FacilityFilter&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&#160;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;ForEachFacilityPointFilter&gt;</p>
+                    <p class="Code6" style="color: #0000ff;">&lt;PointConfigFilter&gt;</p>
+                    <p class="Code7" style="color: #0000ff;">&lt;SingleExpr compare="EQ"&gt;</p>
+                    <p class="Code8" style="color: #0000ff;">&lt;PointUniformDataCode&gt;GHRUDC1&lt;/PointUniformDataCode&gt;</p>
+                    <p class="Code7" style="color: #0000ff;">&lt;/SingleExpr&gt;</p>
+                    <p class="Code6" style="color: #0000ff;">&lt;/PointConfigFilter&gt;</p>
+                    <p class="Code5" style="color: #0000ff;">&lt;/ForEachFacilityPointFilter&gt;</p>
+                    <p class="Code4" style="color: #0000ff;">&lt;/PointsSelection&gt;</p>
+                    <p class="Code3" style="color: #0000ff;">&lt;/PointsSet&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;PointValue/&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryRecordSetReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Example6"></a>Response Example</h4>
+        <p>The following example represents a successful response showing point values and timestamps <i>&lt;PointValue&gt;</i> (in <span style="color: #ff0000;">red</span>) and when values are missing <i>&lt;MissingValue&gt;</i> (in <span style="color: #008000;">green</span>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects801"&gt;</p>
+                    <p class="Code2">&lt;GetHistoryRecordSetResp&gt;</p>
+                    <p class="Code4">.</p>
+                    <p class="Code4">.</p>
+                    <p class="Code4">.</p>
+                    <p class="Code4">&lt;HistoryRecord reference_time="2011-02-01T09:00:00.000Z"&gt;</p>
+                    <p class="Code5" style="color: #ff0000;">&lt;Point point_tag="HOUSTON.UIS:GHRTEST1_GHRUDC1"&gt;</p>
+                    <p class="Code6" style="color: #ff0000;">&lt;PointValue&gt;1&lt;/PointValue&gt;</p>
+                    <p class="Code6" style="color: #ff0000;">&lt;PointTimestamp&gt;2011-02-01T09:00:59.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code5" style="color: #ff0000;">&lt;/Point&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST2_GHRUDC2"&gt;</p>
+                    <p class="Code7">&lt;PointValue&gt;1&lt;/PointValue&gt;</p>
+                    <p class="Code7">&lt;PointTimestamp&gt;2011-02-01T09:00:59.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST3_GHRUDC3"&gt;</p>
+                    <p class="Code6">&lt;PointValue&gt;1&lt;/PointValue&gt;</p>
+                    <p class="Code6">&lt;PointTimestamp&gt;2011-02-01T09:00:59.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code4">&lt;/HistoryRecord&gt;</p>
+                    <p class="Code4">&lt;HistoryRecord reference_time="2011-02-01T10:00:00.000Z"&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST1_GHRUDC1"&gt;</p>
+                    <p class="Code7">&lt;PointValue&gt;2&lt;/PointValue&gt;</p>
+                    <p class="Code7">&lt;PointTimestamp&gt;2011-02-01T10:00:58.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST2_GHRUDC2"&gt;</p>
+                    <p class="Code6">&lt;PointValue&gt;2&lt;/PointValue&gt;</p>
+                    <p class="Code6">&lt;PointTimestamp&gt;2011-02-01T10:00:58.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST3_GHRUDC3"&gt;</p>
+                    <p class="Code7">&lt;PointValue&gt;2&lt;/PointValue&gt;</p>
+                    <p class="Code7">&lt;PointTimestamp&gt;2011-02-01T10:00:58.000Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code4">&lt;/HistoryRecord&gt;</p>
+                    <p class="Code4">.</p>
+                    <p class="Code4">.</p>
+                    <p class="Code4">.</p>
+                    <p class="Code4">&lt;HistoryRecord reference_time="2011-03-14T16:00:00.000Z"&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST1_GHRUDC1"&gt;</p>
+                    <p class="Code6" style="color: #008000;">&lt;MissingValue&gt;</p>
+                    <p class="Code7" style="color: #008000;">&lt;PreviousTime&gt;2011-02-06T19:00:49.000Z&lt;/PreviousTime&gt;</p>
+                    <p class="Code7" style="color: #008000;">&lt;FollowingTime&gt;&lt;/FollowingTime&gt;</p>
+                    <p class="Code6" style="color: #008000;">&lt;/MissingValue&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST2_GHRUDC2"&gt;</p>
+                    <p class="Code6">&lt;MissingValue&gt;</p>
+                    <p class="Code7">&lt;PreviousTime&gt;2011-02-06T19:00:49.000Z&lt;/PreviousTime&gt;</p>
+                    <p class="Code7">&lt;FollowingTime&gt;&lt;/FollowingTime&gt;</p>
+                    <p class="Code6">&lt;/MissingValue&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code5">&lt;Point point_tag="HOUSTON.UIS:GHRTEST3_GHRUDC3"&gt;</p>
+                    <p class="Code6">&lt;MissingValue&gt;</p>
+                    <p class="Code7">&lt;PreviousTime&gt;2011-02-06T19:00:49.000Z&lt;/PreviousTime&gt;</p>
+                    <p class="Code7">&lt;FollowingTime&gt;&lt;/FollowingTime&gt;</p>
+                    <p class="Code6">&lt;/MissingValue&gt;</p>
+                    <p class="Code5">&lt;/Point&gt;</p>
+                    <p class="Code4">&lt;/HistoryRecord&gt;</p>
+                    <p class="Code3">&lt;/HistoryRecords&gt;</p>
+                    <p class="Code3">&lt;RestartInfo complete="false" record_count="1000"&gt;</p>
+                    <p class="Code4">&lt;RestartTime&gt;40616.6666666642&lt;/RestartTime&gt;</p>
+                    <p class="Code4">&lt;RestartTime&gt;40580.7922337963&lt;/RestartTime&gt;</p>
+                    <p class="Code4">&lt;RestartTime&gt;40580.7922337963&lt;/RestartTime&gt;</p>
+                    <p class="Code4">&lt;RestartTime&gt;40580.7922337963&lt;/RestartTime&gt;</p>
+                    <p class="Code3">&lt;/RestartInfo&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-12-01T22:46:07.570Z" exec_duration="PT1.230S" /&gt;</p>
+                    <p class="Code2">&lt;/GetHistoryRecordSetResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

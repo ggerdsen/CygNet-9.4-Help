@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Well Test">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Sample Well Test Screens and Scripts</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Well Test.htm">Well Test</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Sample Well Test Screens and Scripts</span>
+        </div>
+        <h2>Sample Well Test Screens and Scripts</h2>
+        <p>There are sample well test screens and scripts included on the CygNet CD_Image. The .can files must be opened in the Canvas HMI application, are based on a sample configuration, and must be modified to work within your installation.  </p>
+        <h3>Sample Files Location</h3>
+        <p>In the CD_Image folder find the <b>Samples\Well Test</b> folder, which contains the following files:</p>
+        <ul>
+            <li class="HyperlinkList" value="1">Scripts\GetHistoricalWellTestData_Sample.vbs</li>
+            <li class="HyperlinkList" value="2">Scripts\ProcessCalculationsGeneric.vbs</li>
+            <li class="HyperlinkList" value="3">several .svg images used on the Canvas screens</li>
+            <li class="HyperlinkList" value="4"><a href="#Config" class="selected">Well Test Configuration.can</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Status" class="selected">Well Test Status.can</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Detail" class="selected">Well Test Detail.can</a>
+            </li>
+        </ul>
+        <p>Some things to consider:</p>
+        <p>The Canvas screens are configured with <i>C4PROD.BSSCAN</i> as the BSS source. You can change the site service by using the <b>Find/Replace</b> feature in Canvas. See the instructions below.</p>
+        <p>The <b>Well Test Status.can</b> Canvas screen uses the well test configuration XML. The path to the point that contains the configuration is located in the script section of the screen near the top. You will need to modify this according to your installation. See the instructions below.</p>
+        <h3>Edit the Sample Canvas Screens</h3>
+        <p>The sample Canvas screens provided use hard-coded UDCs that may not be the same as the UDCs that you are using in your installation. If that is the case, then you will need to change the configuration of the various objects to match your installation. To use the screens, perform the following steps.</p>
+        <ol>
+            <li value="1">Copy the files to your BSS under any folder you wish, e.g. WELLTEST. </li>
+            <li value="2">Change file properties from read-only to writable, if necessary.</li>
+            <li value="3">Open Canvas and navigate to the Backstage menu and select the <b>Find/Replace</b> option.</li>
+            <li value="4">Type "C4PROD.BSS\WELLTEST" in to the <b>Find</b> box.</li>
+            <li value="5">Type "MYSITE.SERVICE\FOLDERNAME" into the <b>Replace</b> box, replacing MYSITE with your site's name.</li>
+            <li value="6">Perform another <b>Find/Replace</b> action and replace "C4PROD.BSS" with "MYSITE.SERVICE"</li>
+            <li value="7">Use the <b>Manage</b> button to select all the files from the BSS folder where you copied the files to. Click <b>OK</b>.</li>
+            <li value="8">Click the <b>Replace</b> button.</li>
+            <li value="9">Open the <b>Well Test Status.can</b> screen. Switch to the <b>Script</b> view.</li>
+            <li value="10">This screen references a PNT point where the well test configuration XML is stored. In the Script section of the screen, there is line of script that says:</li>
+        </ol>
+        <blockquote>
+            <table class="Code">
+                <tr>
+                    <td>
+                        <p class="Code">string point = @"C4PROD.UIS:WELLTEST_CONFIG_V3";</p>
+                    </td>
+                </tr>
+            </table>
+        </blockquote>
+        <p class="Indent2">Change the value of 'point' to be the fully qualified point value where the configuration resides in your installation.</p>
+        <ol data-mc-continue="true">
+            <li value="11">Return to the <b>Design</b> view and run the screen.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Config"></a>Well Test Configuration</h3>
+        <p>
+            <p>The <b>Well Test Configuration</b> sample screen (<b>Well Test Configuration.can</b>) is a Canvas screen that can be used to easily load, configure, and save the XML required by the CygNet Well Test Module using a friendly user interface. The sample screen contains several Canvas controls, including a Text tool, Edit Box, Combo Box, Buttons, and a Well Test Control.</p>
+            <p>The Well Test Control (<b>CygNet.API.WellTest.Controls.dll</b>) is a plugin control assembly that is available for use in Canvas to allow the manual definition of the well test configuration XML file. This plugin provides a user-friendly method for defining the necessary elements required to execute a well test via a Canvas screen. Using the control assembly and a configuration screen you can easily define the following well test properties: point scheme, data retention value, relative facilities, UDCs, headers, wells in the well test, header templates, positions, commands, and associated actions for each command.</p>
+        </p>
+        <p>See <a href="Configuring Well Test Using Canvas.htm">Configuring Well Test Using Canvas</a> for more information about using this screen.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Well Test/Canvas_Well_Test_Configuration_600x575.png" title="Well Test Configuration" alt="Well Test Configuration" style="width: 600;height: 575;" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Canvas Well Test Configuration Sample Screen</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Status"></a>Well Test Status Screen</h3>
+        <p>The <b>Well Test Status</b> sample screen  (<b>Well Test Status.can</b>) is a Canvas screen that reads the well test configuration XML file and presents a grid of test facilities with some status information. The lower half of the screen is driven by the test facility selection in the grid. Along the left side of the screen are three process variables showing various rates for the current well in test.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Well Test/Canvas_Well_Test_Status2_800x455.png" title="Well Test Status" alt="Well Test Status" style="width: 800;height: 455;" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Canvas Well Test Status Sample Screen</td>
+            </tr>
+        </table>
+        <p>The grid on the far right of the screen (Wells) is a list of associated wells for the selected header. The test queue can be altered using the <b>Add</b>, <b>All</b>, and <b>Next</b> buttons, as follows:</p>
+        <ul>
+            <li value="1"><b>Add</b> — adds the selected well to the bottom of the queue</li>
+            <li value="2"><b>All</b> — adds all wells to the bottom of the queue</li>
+            <li value="3"><b>Next</b> — adds the selected well to the top of the queue</li>
+            <li value="4"><b>Details</b> — click to open the <a href="#Detail" class="selected">Well Test Details</a> screen, below</li>
+        </ul>
+        <p>The grid in the middle of the screen (Queue) represents the current queue. The buttons below that grid control the actions of the queue:</p>
+        <ul>
+            <li value="1"><b>Start</b> — starts processing the wells in the queue</li>
+            <li value="2"><b>Stop</b> — stops the entire well test operation</li>
+            <li value="3"><b>Abort</b> — aborts the current well in test and proceeds to the next well in the queue</li>
+            <li value="4"><b>Complete</b> — exits out of the current test state of the well and proceeds to the next action in the sequence. For example, stops the waiting and process the well test record.</li>
+            <li value="5"><b>Refresh</b> — refreshes the queue. The screen is refreshing the queue every second.</li>
+            <li value="6"><b>Clear</b> — clears the queue. This doesn’t stop the current well in test.</li>
+        </ul>
+        <p>There is a <b>Details</b> button below the associated well grid. Click the <b>Details</b> button to open the <b>Well Test Details</b> screen.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Detail"></a>Well Test Detail Screen</h3>
+        <p>The <b>Well Test Detail</b> screen  (<b>Well Test Detail .can</b>) is a Canvas screen that shows further detail about the selected well from the associated well grid.</p>
+        <p>The upper portion of the screen shows test time UDCs for the selected well: the <b>Actual Time in Test</b>, <b>Target Test Time</b>, <b>Minimum Test Time</b>, and <b>Purge Time</b>, provided they are configured. The <b>Actual Test Time</b> and <b>Target Test Time</b> are included on the chart.</p>
+        <p>The lower portion of the screen shows the raw <b>Well Test Records</b> for the selected well. The <b>Days Back</b> edit box and <b>Refresh</b> button can be used to adjust starting day of test records.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Well Test/Canvas_Well_Test_Details2_600x649.png" title="Well Test Details" alt="Well Test Details" style="width: 600;height: 649;" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Canvas Well Test Details Sample Screen
+				</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

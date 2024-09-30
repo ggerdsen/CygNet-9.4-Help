@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Energy Load Forecasting|Energy Load Forecasting Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Energy Load Forecasting</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Energy Load Forecasting root.htm">Energy Load Forecasting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Energy Load Forecasting Overview.htm">Energy Load Forecasting Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Energy Load Forecasting</span>
+        </div>
+        <h2>Energy Load Forecasting</h2>
+        <p>Once a neural network definition has been successfully trained and made available to the energy load forecasting process, the ELF system uses the trained neural network definition to generate energy load forecast values for its associated meter or meter group. Neural network definitions are used to generate “gross” forecasts based on their configured forecast inputs values associated with the meter or meter group assigned to the neural network definition. </p>
+        <h3>Forecasting Process Flow</h3>
+        <p>The diagram below shows the forecasting process flow.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Energy Load Forecasting/forecast_flow.png" />
+        </p>
+        <p>The energy load forecasting process utilizes the “gross” energy load values calculated to perform all direct forecasts, rollup forecasts, assignments from parents, aggregations from children, redistributions, and adjustments,  that are dependent upon the new “gross” energy load forecast value in the following order.</p>
+        <ol>
+            <li value="1">Identify all qualified neural network definitions for a given forecast hourly range.</li>
+            <li value="2">Verify that the specified forecast input data is available and valid for all qualified neural network definitions.</li>
+            <li value="3">Verify that proper storage is configured for all energy load forecast output values.</li>
+            <li value="4">Transform all input data based upon "lag effect" settings specified in the neural network definitions.</li>
+            <li value="5">Generate "gross" energy load forecast values for all qualified neural network definitions.</li>
+            <li value="6">Perform all relevant meter and meter group adjustments producing associated "net" energy load forecast values.</li>
+            <li value="7">Perform any relevant redistribution rules configured to run after the initial forecast step.</li>
+            <li value="8">Perform all relevant assignments from the meter groups' "net" energy load forecast values to their children's "gross" energy load forecast values.</li>
+            <li value="9">Perform all meter and meter group adjustments required by these newly assigned "gross" energy load forecast values producing associated "net" energy load forecast values.</li>
+            <li value="10">Perform any relevant redistribution rules configured to run after the assignment step.</li>
+            <li value="11">Perform all relevant aggregations from the "net" energy load forecast values of the children of meter groups to the groups' "gross" energy load forecast values.</li>
+            <li value="12">Perform all meter group adjustments required by these newly assigned "gross" energy load forecast values producing associated "net" energy load forecast values.</li>
+            <li value="13">Perform all relevant redistributions as defined in the system's redistribution rules configured to run after all other reassignments have been performed.</li>
+        </ol>
+        <h3>Value Assignment Type</h3>
+        <p>Value assignments are the different ways in which a meter or meter group can receive its forecasted values. The method of assignment is indicated by the Value Assignment Type attribute for the meter or meter group (configured on the <b>System Settings</b> page). The Value Assignment types in the ELF system are described below.</p>
+        <h4>Direct Forecast</h4>
+        <p>Direct forecast is the process by which a meter or meter group’s gross forecast value is generated by a neural network. Once the input data has been retrieved and manipulated as described above, the normalized inputs are fed into the associated neural network engine. The resulting output of the calculation will be the gross forecast value.</p>
+        <h4>Rollup Forecast</h4>
+        <p>Rollup forecast is the process where a meter group's gross forecast values can be assigned based on the rollup of the  actual historical gas load values of the group's children.</p>
+        <p>See <a href="Viewing Historical Value Rollup Rules.htm">Viewing Historical Value Rollup Rules</a> for more information.</p>
+        <h4>Assignment from Parent</h4>
+        <p>A meter or meter group can be assigned a forecast value from its parent group instead of directly forecasting its own value. In some situations it might be more useful to perform forecasting at a group level, and then assign forecast values down to child meters.</p>
+        <p>See <a href="Configuring Assignment From Parent.htm">Configuring Assignment From Parent</a> for more information.</p>
+        <h4>Aggregation from Children</h4>
+        <p>If a meter group is not directly forecasting its own forecast value, it can be assigned a value based on an aggregation of the forecasts of its children. This may be useful in displaying a forecast value for a logical grouping that does not have any meaningful associated input data, and thus no calculated forecast. An aggregation that is representative of child meter or meter groups may be useful for reporting purposes.</p>
+        <p>Group aggregation configuration is made in the form of an arithmetic expression that supports the addition, subtraction, multiplication, division, absolute value, and parenthesis operators. The operands of the expression can be a constant value term or a meter or meter group facility tags. In the case of a facility tag, the net forecast value for the meter or meter group is substituted. Any meter or meter group facility tags contained in the expression must be child facilities of the target group.</p>
+        <p>Grouping and aggregation are methods that can be used to create a multi-directional meter representation. For example, a group can be created with a receipt and delivery meter as children, and an aggregation can be setup for the group that subtracts the receipt meter’s forecast from the delivery meter’s forecast.</p>
+        <p>See <a href="Configuring Aggregation From Children.htm">Configuring Aggregation From Children</a> for more information.</p>
+        <h4>Redistribution</h4>
+        <p>Redistributions allow a meter or meter group to retrieve its gross forecast value from another meter or meter group’s net forecast value. For example, this can be useful when a newly created meter is not ready to have an associated trained neural network. For the time being, it can receive a forecast value from a meter in a similar weather location.</p>
+        <p>The ELF system support two types of redistribution: by expression and balancing.</p>
+        <ul>
+            <li value="1"><b>Expression Redistribution</b> — Expression redistribution configuration is made in the form of an arithmetic expression of the same sort as described for Aggregation. The difference for redistributions is that there is no restriction on the particular meter or meter group facilities referenced as operands in the expression. Expression redistributions can be configured to occur at various points in the order of forecasting operations: after all direct forecasting, after all assignments from parent groups, or after all group aggregation. See <a href="Configuring Expression Redistribution.htm">Configuring Expression Redistribution</a> for more information.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Balancing Redistribution</b> — Balancing Redistribution allows you to conditionally distribute a calculated forecast value for a group of meters based on whether the difference of two summed sets of meters is positive or negative. Balancing redistributions can be configured to occur at various points in the order of forecasting operations: after all direct forecasting, after all assignments from parent groups, or after all group aggregation. See <a href="Configuring Balancing Redistribution.htm">Configuring Balancing Redistribution</a> for more information.</li>
+        </ul>
+        <h3>Value Adjustments</h3>
+        <p>Value adjustments are configured on a meter or meter group basis for a specified time period. An adjustment occurs whenever a meter or meter group’s gross point value is set by any of the described Value Assignment methods. The adjustment will be applied to the gross forecast value immediately upon the gross value being assigned, and output to the meter or meter group’s net forecast point. This will ensure that all adjustments are completed before redistributions are processed.</p>
+        <p>Three adjustment types are available:</p>
+        <ol>
+            <li value="1"><b>Net = Gross</b> - Copy the gross forecast to the net forecast value.</li>
+            <li value="2"><b>Net = Linear Equation</b> - The two required parameters will be the numeric coefficients <b>A</b> and <b>B</b> in the linear formula: net = <b>A</b> * gross + <b>B</b>.</li>
+            <li value="3"><b>Net = Overridden Forecast Value</b> - It is possible to override forecasted hourly values with externally provided forecast values, so that the best gas load values for meters or meter groups with a known gas load schedule are used as the forecast. Two override sources are supported (primary and secondary), one each for Energy and Volume values, to allow for a staged override of forecast values. The override sources can be prioritized and configured to indicate the time interval to override with the lower priority source, after the higher priority source has been used for a specified time interval.</li>
+        </ol>
+        <p>See <a href="Configuring Value Adjustment.htm">Configuring Value Adjustment</a> for more information.</p>
+        <h3>Forecasting Tasks</h3>
+        <p>An energy load forecasting task is completed as an entire body of work for all effective neural network definitions. The forecast process for all neural network definitions is triggered by one of the following methods.</p>
+        <ul>
+            <li value="1">Forecasting on demand by the execution of a direct user command for all qualified neural network definitions.</li>
+            <li value="2">Forecasting can be scheduled to execute for all qualified neural network definitions.</li>
+        </ul>
+        <h3>Configuration</h3>
+        <ul>
+            <li value="1"><b>Forecasting</b> commands are configured on the <b>UIS Commands</b> page of the ELF Editor. See <a href="Configuring UIS Commands.htm">Configuring UIS Commands</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Value Assignment</b>  for a meter or meter group is configured on the <b>Meter/Groups Settings</b> dialog box. See <a href="Configuring Meter Meter Group Assignments Settings.htm">Configuring Meters/Meter Group Assignment Settings</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Direct Forecast</b>   is configured on the <b>Meter/Groups Settings</b> dialog box. See <a href="Configuring Meters and Input Owners.htm">Configuring Meters/Meter Group Assignment Settings</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Rollup Forecast</b> is configured on the <b>Edit Historical Value Rollup Rule</b> dialog box. See <a href="Viewing Historical Value Rollup Rules.htm">Viewing Historical Value Rollup</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Assignment from Parent</b> is configured on the <b>Assignment Rules for Children</b> dialog box. See <a href="Configuring Assignment From Parent.htm">Configuring Assignment From Parent</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Aggregation from Children</b> is configured on the <b>Edit Aggregation Rule</b> dialog box. See <a href="Configuring Aggregation From Children.htm">Configuring Aggregation From Children</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Redistribution</b> is configured on the <b>Edit Redistribution Rule</b> dialog box. See <a href="Configuring Expression Redistribution.htm">Configuring Expression Redistribution</a>. </li>
+        </ul>
+        <ul>
+            <li value="1"><b>Balancing Redistribution</b> is configured on the <b>Edit Balancing Redistribution Rule</b> dialog box. See <a href="Configuring Balancing Redistribution.htm">Configuring Balancing Redistribution</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Value Adjustment</b> is configured on the <b>Adjustment Rules</b> dialog box. See <a href="Configuring Value Adjustment.htm">Configuring Value Adjustment</a>.</li>
+        </ul>
+        <ul>
+            <li value="1">The <b>Forecasting</b> log can be viewed  on the <b>Device</b> page. <a href="Configuring the ELF Device.htm">Configuring the ELF Device</a>.</li>
+        </ul>
+        <p>To address questions or circumstances beyond the scope of the <span class="CygNetVariablesHelp_Product">CygNet Help</span>, <a href="../CygNet Software/Additional CygNet Resources.htm">Additional CygNet Resources</a> are available.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

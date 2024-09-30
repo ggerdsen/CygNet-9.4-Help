@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy|Redundancy Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Failover</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Redundancy Overview.htm">Redundancy Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Failover</span>
+        </div>
+        <h2>Failover</h2>
+        <p><b>Failover</b> is the process of switching  the domain on which the active server is running to a standby (or backup/redundant) server.  Failover ensures seamless operation in the event of a planned or unplanned interruption in service. The purpose of a redundant environment is to support failover. </p>
+        <p>The following example demonstrates a very simple site setup showing replication and failover from a <b>Primary Active Server</b> to a <b>Backup Standby Server</b>.</p>
+        <p>The following diagram shows a <b>Primary Active Server</b> running on domain 29999 with an RSM named MYSITE.RSM_P (for <i>Primary</i>) and a <b>Backup Standby Server</b> running on domain 30001 with an RSM named MYSITE.RSM_B (for <i>Backup</i>.) Currently these sites are set up for replication with [30001]MYSITE pulling data from [29999]MYSITE.</p>
+        <blockquote>
+            <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+                <col class="TableStyle-Caption-Column-Column1" />
+                <tr class="TableStyle-Caption-Body-Body1">
+                    <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                        <img src="../../Resources/Images/Redundancy/Failover1.png" alt="Failover Example" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-Caption-Body-Body1">
+                    <td class="TableStyle-Caption-BodyD-Column1-Body1">Replication Example
+				</td>
+                </tr>
+            </table>
+        </blockquote>
+        <p>In the failover scenario below the primary site [29999]MYSITE fails over, and the active domain is migrated from the primary server to the backup server. All services running on the standby server will seamlessly be promoted to full production mode and become the primary active server and begin polling the field devices with minimal interruption to the controller’s client HMI. During the failover process services in both zones will stop and swap zones:  the standby services will start up in the active zone, and the active services will start up in the standby zone.</p>
+        <blockquote>
+            <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+                <col class="TableStyle-Caption-Column-Column1" />
+                <tr class="TableStyle-Caption-Body-Body1">
+                    <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                        <img src="../../Resources/Images/Redundancy/Failover2.png" alt="Failover Example" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-Caption-Body-Body1">
+                    <td class="TableStyle-Caption-BodyD-Column1-Body1">Simple Local Failover Example
+
+				</td>
+                </tr>
+            </table>
+        </blockquote>
+        <h3>Manual and Automatic Failover</h3>
+        <p>Failover in the CygNet environment can be manual or automatic. <b>Manual Failover</b> is triggered via human intervention using the <a href="Redundancy Dashboard - Execute Failover.htm">Redundancy Dashboard</a> or via script to initiate and determine the failover process. <b>Automatic failover</b> is triggered without warning and occurs when a system is configured to automatically switch services from an active server to a standby server in the event of a total system compromise. Auto-failover configuration takes place in the <a href="Redundancy Editor - Auto-failover.htm">Redundancy Editor</a>.</p>
+        <h3>Visualize Failover</h3>
+        <p>We have provided a set of sample CygNet Studio screens that can be customized to monitor failover readiness, and to execute and visualize failover.</p>
+        <p>To provide visibility into the redundancy, failover and replication process, a customizable <b>CygNet Redundancy Dashboard</b> is available in CygNet Studio. The dashboard shows every service in your system, on which domain it is running, and if it is standby mode, whether it’s ready to become the active service. Other key pieces of information available on the dashboard include each service's status, the direction and status of replication, the system's readiness to execute local failover, and the system's readiness to execute data-center failover. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The <b>CygNet Redundancy Dashboard</b> comprises several sample CygNet Studio screens and script files found on the CygNet CD_Image in the <b>Samples\Redundancy Dashboard</b> folder. The Redundancy Dashboard screens utilize VBScript and the CygNet COM API to gather the necessary information from services to display on a CygNet Studio screen. These sample files are not part of the CygNet product and are provided for your convenience only. Feel free to copy and modify these files to suit the requirements of your own CygNet Redundancy environment.</p>
+        </div>
+        <p>See <a href="Redundancy Dashboard.htm">CygNet Redundancy Dashboard</a> for information about this tool. You can initiate manual failover from the <a href="Redundancy Dashboard - Execute Failover.htm">Execute Failover</a> page of the dashboard. You can also view the <a href="Redundancy Dashboard - Most Recent Failover.htm">Most Recent Failover</a> and <a href="Redundancy Dashboard - Failover History.htm">Failover History</a> (manual or auto-failover) from the dashboard.  </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

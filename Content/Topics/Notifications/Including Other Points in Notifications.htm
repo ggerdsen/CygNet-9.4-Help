@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Configuring Notifications|Using Tokens in Notifications">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Including Other Points in Notifications</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Notifications.htm">Configuring Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using Tokens in Notifications.htm">Using Tokens in Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Including Other Points in Notifications</span>
+        </div>
+        <h2>Including Other Points in Notifications</h2>
+        <p>It is possible to include other points (for instance, data values or descriptive information) in a notification message using reference point token substitution. A single point value in a notification may not always provide sufficient detail to analyze a problem. By adding current value information for points <i>other</i> than the point that triggered the notification, it is possible to add more context to your notification messages. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">Plant pressure puts a point into alarm, generating a notification, but you would also like to view the device's flow rates in the resulting notification message. The values for the other points (flow rates) can provide valuable information allowing you to troubleshoot the initial alarm more quickly.</p>
+        <p>You can include a reference point token in a notification that resolves to another point in the same CVS, or to another point in a different CVS. Implicit (meaning the same facility as the point triggering the alarm), relative, and absolute facility references are supported. A fully qualified facility reference tag is required for a facility in another CVS.</p>
+        <p>Regular <a href="Using Tokens in Notifications.htm">text tokens</a> can be used within the reference point token.</p>
+        <h3><a name="Referenc"></a>Reference Point Token Syntax</h3>
+        <p>The reference point token is color-coded to assist with readability, but the colors do not appear in the notification message. The reference point token uses the following syntax elements:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><span style="color: #0000ff; font-weight: bold;">%</span>&#160;<span style="color: #008000; font-weight: bold;">&lt;</span>&#160;<span style="color: #800080; font-weight: bold;">{ }</span>&#160;<span style="color: #008000; font-weight: bold;">&gt;</span>&#160;<span style="color: #0000ff; font-weight: bold;">value</span>&#160;<span style="color: #ff0000; font-weight: bold;">[ ]</span>&#160;<span style="color: #0000ff; font-weight: bold;">%</span>&#160;<span style="color: #ffa500;">%%</span>&#160;<span style="color: #0000ff; font-weight: bold;">%units%</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><span style="color: #0000ff; font-weight: bold;">%</span><span style="color: #008000; font-weight: bold;">&lt;CYGSITE3.UIS::</span><span style="color: #800080; font-weight: bold;">{facility_id = 'STATION_A'}</span><span style="color: #008000; font-weight: bold;">.%udc%&gt;</span><span style="color: #0000ff; font-weight: bold;">value</span><span style="color: #ff0000; font-weight: bold;">[DateTime]</span><span style="color: #0000ff; font-weight: bold;">%</span><span style="color: #ffa500;">%%</span><span style="color: #0000ff; font-weight: bold;">%units%</span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <p>which corresponds to the following:</p>
+        <h4>Token Delimiter</h4>
+        <p class="Indent">Percent signs <b style="color: #0000ff;">% %</b> enclose the whole reference point token.</p>
+        <h4>Point String</h4>
+        <p class="Indent">Angle brackets <b style="color: #008000;">&lt; &gt;</b>  indicate to use the point defined by the string enclosed within the brackets. A full SITE SERVICE FACILITY UDC tag format can be inside the brackets, but it builds up from the reverse:</p>
+        <p class="Indent2">&lt;UDC&gt;</p>
+        <p class="Indent2">&lt;FACILITY.UDC&gt;</p>
+        <p class="Indent2">&lt;SERVICE::FACILITY.UDC&gt;</p>
+        <p class="Indent2">&lt;SITE.SERVICE::FACILITY.UDC&gt;</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td style="color: #008000;font-weight: bold;">
+                    <p class="Code">&lt;PDIFF&gt;</p>
+                    <p class="Code">&lt;EMERSON800L.PDIFF&gt;</p>
+                    <p class="Code">&lt;UIS::EMERSON800L.PDIFF&gt;</p>
+                    <p class="Code">&lt;CYGSITE1.UIS::EMERSON800L.PDIFF&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">Other possible variant formats include:</p>
+        <p class="Indent2">&lt;FACILITY.&gt;</p>
+        <p class="Indent2">&lt;SITE.::FACILITY.UDC&gt;</p>
+        <p class="Indent2">&lt;SITE.::.UDC&gt;</p>
+        <p class="Indent2">&lt;SITE.SERVICE::.UDC&gt;</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td style="color: #008000;font-weight: bold;">
+                    <p class="Code">&lt;EMERSON800L.&gt;</p>
+                    <p class="Code">&lt;CYGSITE1.::EMERSON800L.PDIFF&gt;</p>
+                    <p class="Code">&lt;CYGSITE1.::.PDIFF&gt;</p>
+                    <p class="Code">&lt;CYGSITE1.UIS::.PDIFF&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5><a name="Ambient"></a><b>Ambient Value</b>
+        </h5>
+        <p class="Indent">If any part of the string is unspecified (left blank), this indicates a shortcut meaning "use the <i>ambient</i> value for that field," where <i>ambient</i> is defined as inherited from the active notification’s point.</p>
+        <p class="Indent">FACILITY is special case, in that if it resolves to a facility tag (either through direct property lookup or by rule filter functionality), it overrides the ambient site, service, and facility ID.</p>
+        <h4>Facility Rule</h4>
+        <p class="Indent">Curly brackets <b style="color: #800080;">{ }</b>  indicate to perform a query to find a facility tag that matches the attributes enclosed within the brackets. The query syntax supports all filter functionality (except for names and enabled/disabled status). </p>
+        <p class="Indent">See <a href="#Facility_Rule" class="selected">To Set Facility Rules</a> below.</p>
+        <h4> Value</h4>
+        <p class="Indent"><b style="color: #0000ff;">value</b> indicates to look up the point's value resulting from the contents of the point string (within the angle brackets) and/or the results of the facility rule (query within the curly brackets).</p>
+        <h4>Formatting</h4>
+        <p>Square brackets <span style="color: #ff0000; font-weight: bold;">[ ]</span> indicate any special display formatting to be used for the value.</p>
+        <h4>Escape Character</h4>
+        <p><span style="color: #ffa500; font-weight: bold;">%%</span> indicates that you can include an escaped percent sign in your reference point token.</p>
+        <h4>Text Token</h4>
+        <p><span style="color: #0000ff; font-weight: bold;">%units%</span> shows that you can include other text tokens adjacent to the reference point token.</p>
+        <h4>Source and Reference Attributes</h4>
+        <p>Within the reference point token (and the facility rule), each <b>Source Attribute</b> is surrounded by percent signs <b>% %</b> to indicate that the attribute comes from the point triggering the notification. Each <b>Reference Attribute</b> is shown without a wrapper to indicate that the attribute is externally sourced.</p>
+        <h3><a name="Building"></a>Building Up a Reference Point Token</h3>
+        <p>The following steps describe how to build up a Reference Tag for a point other than the active notification's point. The final format of the reference tag will be of the format described <a href="#Referenc" class="selected">above</a>. If any part of the tag is unspecified, it will be assumed to be <a href="#Ambient" class="selected">ambient</a>, or inherited from the source point.</p>
+        <p class="HeadingProcedure">To Create a Reference Tag</p>
+        <ol>
+            <li value="1">Insert a token into the <b>Edit Text</b> field.</li>
+            <li value="2">Click anywhere inside the token and click <b>Reference Tag</b> to view the <b>Reference Tag</b> dialog box.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/Notifications/Reference_Tag.png" />
+        </p>
+        <ol start="3">
+            <li value="3">Type a <b>Site</b> name, or click <b>Edit</b> to select a</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1"><b>Site</b> from the <b>Select Site</b> dialog box, or a </li>
+            <li value="2"><b>Source Attribute</b> from the <b>Select Source Attribute</b> dialog box.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Type a <b>Service</b> name, or click <b>Edit</b> to select a </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1"><b>Service</b> from the <b>Select Service</b> dialog box, or a </li>
+            <li value="2"><b>Source Attribute</b> from the <b>Select Source Attribute</b> dialog box, or a </li>
+            <li value="3"><b>Site.Service</b> from the <b>Select Service</b> dialog box. Note that you can use this option to choose both a <b>Site</b> and a <b>Service </b> with a single click.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Type a <b>Facility</b> name, or click <b>Edit</b> to select a </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1"><b>Facility</b> from the <b>Select Facility</b> dialog box, or a </li>
+            <li value="2"><b>Source Attribute</b> from the <b>Select Source Attribute</b> dialog box, or                </li>
+            <li value="3">specify a <a href="#Facility_Rule" class="selected">Facility Rule Filter</a> (see below) on the <b>Set Facility Rules</b> dialog box, or </li>
+            <li value="4">select a <b>Facility Tag</b> from the <b>Select Facility</b> dialog box. Note that you can use this option to populate or overwrite the <b>Site</b> and <b>Service</b> fields, in addition to choosing a <b>Facility Tag</b>.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Type a <b>UDC</b> , or click <b>Edit</b> to select a </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1"><b>UDC</b> from the <b>Select UDC</b> dialog box, or a </li>
+            <li value="2"><b>Source Attribute</b> from the <b>Select Source Attribute</b> dialog box, or a </li>
+            <li value="3"><b>Point</b> from the <b>Select Point</b> dialog box. Note that you can use this option to set all four fields.</li>
+        </ol>
+        <ol start="7">
+            <li value="7">Click <b>OK</b> to insert the tag into the token chooser dialog box.</li>
+            <li value="8">Click <b>OK</b> to save the token string to the <b>Messages</b> page  of the <b>Notifications Properties</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="Facility_Rule"></a>To Set Facility Rules</p>
+        <p>The facility tag portion of the reference tag can be specified using a filtered rule to perform a query against a facility attribute. See <a href="../CygNet Studio/Filter Rules - Using.htm">Using CygNet Filter Rules</a> for a general discussion of CygNet filter rules.</p>
+        <ol>
+            <li value="1">Click <b>Edit</b> next to the <b>Facility</b> text box in the <b>Reference Tag</b> dialog box.</li>
+            <li value="2">Select <b>Specify Facility Rule Filter</b> to view the <b>Set Facility Rules</b> dialog box.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/Notifications/Set_Facility_Rules.png" />
+        </p>
+        <ol start="3">
+            <li value="3">Click <b>Add</b> to create a new facility rule.</li>
+            <li value="4">Define the rule as desired by indicating the <b>Facility Attribute</b>, <b>Operator</b>, <b>Qualifier</b>, <b>Comparison Type</b>, and <b>Comparison Item</b>. See <a href="../CygNet Studio/Filter Rules - Adding Definitions.htm">Adding Filter Rule Definitions</a> for more information about these fields.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">The three <b>Comparison Types</b> available in this context include:</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1"><b>Reference Attribute</b> — Any system-defined reference facility attribute. Select the attribute in the  <b>Comparison Item</b> field.</li>
+            <li value="2"><b>Source Attribute</b> — Any system-defined source attribute. Select the attribute in the  <b>Comparison Item</b> field.</li>
+            <li value="3"><b>User Value</b> — Any user-defined value that you’d want to display or compare against. Type the actual value in the <b>Comparison Item</b> field.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/Notifications/Rule_Definition.png" />
+        </p>
+        <ol start="5">
+            <li value="5">Click to enable the rule.</li>
+            <li value="6">Click <b>OK</b> to save the rule definition.</li>
+            <li value="7">Repeat steps 3. and 4. to define a compound rule, if necessary. Define compound rule properties (AND, OR, NOT) by double-clicking on the root rule.</li>
+            <li value="8">Optionally, give the rule a <b>Name</b> by double-clicking on the root rule on the <b>Set Facility Rules</b> dialog box. Note that <i>only</i> the root rule can be named. This is useful if you plan to reference this rule in another rule in the same expression. See <a href="#Reference_Rules" class="selected">Reference Name for Rules</a> below. </li>
+            <li value="9">Click <b>OK</b> to add the facility rule to the reference tag.</li>
+            <li value="10">Click <b>OK</b> to save the reference tag to the notification message.</li>
+        </ol>
+        <h4>Facility Rule Examples</h4>
+        <p>The following table gives several facility rule examples:</p>
+        <table class="TableStyle-HelpTable2" style="width: 800px;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Rule</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_attr10 = 'TANK'}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query creates a rule whose attribute is Facility Attribute 10, doing a case-sensitive string equality comparison to the <b>User Value</b> of TANK.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{facility_attr10 = facility_attr9}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query creates a rule whose attribute is Facility Attribute 10, doing a case-sensitive string equality comparison to the <b>Reference Attribute</b> of Facility Attribute 9. Note that reference attributes are self-relative in this example.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_attr10 = %facility_attr9%}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query creates a rule whose attribute is Facility Attribute 10, doing a case-sensitive string equality comparison to the "locally sourced reference attribute" of Facility Attribute 9. In this case, %facility_attr9% comes from the object's primary point or the point triggering the notification, depending on usage.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{not (facility_site = facility_id)}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query creates a rule that would return the <i>first</i> facility where the facility site does not equal the facility ID. It is equivalent to {facility_site &lt;&gt; facility_id}, but is more useful in cases like the second one where you have a larger expression to negate.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_attr20 = %facility_tag% OR (facility_type = %facility_type%) AND (facility_attr21 = %facility_attr20%)}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query is equivalent to
+{Facility Attribute 20 equals source Facility Tag OR (Facility Type equals source Facility Type) AND (Facility Attribute 21 equals source Facility Attribute 20)}.  See <b>Truth Table</b> below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{not (facility_service = facility_service OR facility_site = facility_site AND facility_id = facility_id)}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The inner expression would return all facility IDs where the facility_service equals the facility_service OR where both the facility_site equals the facility_site and  facility_id equals the facility_id. This query would return the negative case for the inner expression. See <b>Truth Table</b> below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{(facility_service = facility_service OR facility_site = facility_site) AND facility_id = facility_id}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query is similar to the previous one, but the parentheses change the precedence of OR vs. AND. In this example, either the facility_service equals the facility_service or the facility_site equals the facility_site AND where the facility_id equals the facility_id. See <b>Truth Table</b> below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{facility_service = ToCaseInsensitive('MYSITE')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to a case-insensitive string.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_service = '10'}
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to an integer.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{facility_service = ToInteger('10')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to an integer.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_service = ToReal('10.1')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to a real number.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>{facility_service = ToDate('2010-12-20 11:30')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to a timestamp.
+</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The content of the parentheses for ToCaseInsensitive, ToInteger, ToReal,  and ToDate can be a numeric or string literal (as above), an attribute name, or an external source attribute name.</p>
+        </div>
+        <h4>Truth Table</h4>
+        <p>The following truth table may help you write Boolean queries.</p>
+        <table class="TableStyle_NoBorder" style="mc-table-style: url('../../Resources/TableStyles/NoBorder.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">
+                        <p><b>Boolean or Boolean and Boolean</b>
+                        </p>
+                        <p>False or False and False = False
+</p>
+                        <p>False or False and True = False
+</p>
+                        <p>False or True and False = False
+</p>
+                        <p>False or True and True = <b>True
+</b></p>
+                        <p>True or False and False = <b>True
+</b></p>
+                        <p>True or False and True = <b>True
+</b></p>
+                        <p>True or True and False = <b>True
+</b></p>
+                        <p>True or True and True = <b>True
+</b></p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The surrounding "not" just makes it so that the first three are true and the last five are false.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p><b>(Boolean or Boolean) and Boolean</b>
+                        </p>
+                        <p>(False or False) and False = False
+</p>
+                        <p>(False or False) and True = False
+</p>
+                        <p>(False or True) and False = False
+</p>
+                        <p>(False or True) and True = <b>True
+</b></p>
+                        <p>(True or False) and False = False
+</p>
+                        <p>(True or False) and True = <b>True
+</b></p>
+                        <p>(True or True) and False = False
+</p>
+                        <p>(True or True) and True = <b>True
+</b></p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Parentheses work "as expected" (similar to most programming languages and SQL). Similar to addition and multiplication, "OR" has lower precedence than "AND." Parentheses allow you to adjust that precedence.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4><a name="Reference_Rules"></a>Reference Names for Rules</h4>
+        <p>Rules can be configured with a <b>Name</b>, which can be referenced elsewhere in the expression. This is to avoid defining complex rules more than once in the same expression. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> O<i>nly</i> a root rule can be named; it is configured on the <b>Compound Rule Properties</b> dialog box; the "refname =" must be typed manually into your token.</p>
+        </div>
+        <p>Named and referenced rules take the following format:</p>
+        <p class="Example">Example 1</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><span style="color: #0000ff; font-weight: bold;">%</span><span style="color: #008000; font-weight: bold;">&lt;</span><span style="color: #800080; font-weight: bold;">{name = 'BOB' : facility_id = 'MARY' }</span><span style="color: #008000; font-weight: bold;">.&gt;</span><span style="color: #0000ff; font-weight: bold;">value%</span> is <span style="color: #0000ff; font-weight: bold;">%</span><span style="color: #008000; font-weight: bold;">&lt;</span><span style="color: #800080; font-weight: bold;">{refname = 'BOB' }</span><span style="color: #008000; font-weight: bold;">.&gt;</span><span style="color: #0000ff; font-weight: bold;">units</span><span style="color: #0000ff; font-weight: bold;">%</span></p>
+                </td>
+            </tr>
+        </table>
+        <p><i>where</i>
+        </p>
+        <ul>
+            <li value="1">The first rule defines a rule named 'BOB' which is equivalent to "get a facility tag where the facility_id is equal to 'MARY.'</li>
+        </ul>
+        <ul>
+            <li value="1">The second rule says "find the rule named 'BOB' and use it here."</li>
+        </ul>
+        <p class="Example">Example 2</p>
+        <p>The following expression is also allowed. A reference name (<i>refname</i>) can be used before it is defined (<i>name</i>).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><span style="color: #0000ff; font-weight: bold;">%</span><span style="color: #008000; font-weight: bold;">&lt;</span><span style="color: #800080; font-weight: bold;">{refname = 'BOB' }</span><span style="color: #008000; font-weight: bold;">.&gt;</span><span style="color: #0000ff; font-weight: bold;">value%</span> is <span style="color: #0000ff; font-weight: bold;">%</span><span style="color: #008000; font-weight: bold;">&lt;</span><span style="color: #800080; font-weight: bold;">{name = 'BOB' : facility_id = 'MARY' }</span><span style="color: #008000; font-weight: bold;">.&gt;</span><span style="color: #0000ff; font-weight: bold;">units</span><span style="color: #0000ff; font-weight: bold;">%</span></p>
+                </td>
+            </tr>
+        </table>
+        <h3>Reference Point Token Examples</h3>
+        <p>The following examples will help you understand how to format your tokens.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>%&lt;DP&gt;value%</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Replace the UDC with "DP." Look up that resulting point’s value.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>%&lt;%facility_attr9%.LEVEL&gt;value%</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Look up the value of my Facility Attribute 9, and use that to replace the Facility. Replace the UDC with "LEVEL." Look up that resulting point’s value.
+</p>
+                        <p>However, depending on what %facility_attr9% resolves to, this could also mean:</p>
+                        <p>Look up the value of my Facility Attribute 9, and use that to replace the SITE, SERVICE, and FACILITY. Replace the UDC with "LEVEL." Look up that resulting point’s value.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>%&lt;{facility_attr10 = %facility_tag% AND facility_type = 'TANK'}.LEVEL&gt;value%</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Find the <i>first</i> facility tag whose Facility Attribute 10 equals my facility_tag and whose facility type is "TANK." Use that as the facility tag to look up, and use "LEVEL" as the UDC. Look up that resulting point’s value.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>%&lt;HSS::{facility_attr10 = %facility_tag% AND facility_type = 'TANK'}.LEVEL&gt;value%</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Find the <i>first</i> facility tag whose Facility Attribute 10 equals my facility_tag and whose facility type is "TANK." Use that as the facility tag to look up, but first replace the service with "HSS," and use "LEVEL" as the UDC. Look up that resulting point’s value.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>%&lt;%site%.%service%::{facility_attr10 = %facility_tag% AND facility_type = 'TANK'}.LEVEL&gt;value%</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Find the <i>first</i> facility tag whose Facility Attribute 10 equals my facility_tag and whose facility type is "TANK." Use that as the facility tag to look up, but replace the site and service with my site and service, and use "LEVEL" as the UDC. Look up that resulting point’s value. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This example demonstrates that the <a href="#Ambient" class="selected">ambient</a> site and service remains that of the active notification's point. </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Error Messages</h3>
+        <p>If the reference tag cannot resolve to a valid point, an invalid tag error message will be displayed in the notification message. Possible error messages are shown in the following table:</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Error Message</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Displays If</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&lt;invalid reference tag, invalid rule&gt;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The rule could not be parsed correctly (or if the refname could not be found).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">&lt;invalid reference tag, failed FAC name lookup for SITE.SERVICE&gt;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The GNS could not get the facility service from the CVS.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&lt;invalid reference tag, no facility matched&gt;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The query did not resolve to any facilities.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">&lt;invalid reference tag, SOME_ERROR_MESSAGE&gt;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The tag could not be resolved and the message displays an appropriate <a href="../Error Codes/Error Codes.htm">error code</a> (for example, -9: "The CygNet service 'MYSITE.FAC' is not in service" or -14: "No reply received from CygNet service MYSITE.FAC", etc.)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&lt;invalid reference tag, invalid tag&gt;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The resolved tag produced an invalid tag. For example, if you have something like:</p>
+                        <p>%&lt;%general1%&gt;value%. On a SVCMON, %general1% is a <i>Site.Service</i> (most often). As a <i>Site.Service</i> is not a valid UDC, that won’t be able to be retrieved, and will result in the invalid tag error.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">&lt;invalid reference tag, failed to get data for RESOLVED_TAG&gt;</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>The point wasn’t found on the CVS (or the CVS was not running).</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

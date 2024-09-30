@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Data Forwarding">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How VHS Data Forwarding Works</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Data Forwarding.htm">VHS Data Forwarding</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How VHS Data Forwarding Works</span>
+        </div>
+        <h2>How VHS Data Forwarding Works</h2>
+        <p>When a source VHS is configured to forward its data, it writes the new data to its database and to the forwarding queue. The data sent to the queue is compressed and stored as a pending forwarding message. Other updates are added to the pending message until the message reaches maximum size, at which time it is sent to the destination VHS.</p>
+        <p>The queue is maintained in memory and the data in the queue is written to a file (HistoryForwardQueue_[DDDD]SITE.SERVICE.dat) in the VHS folder when the service is shut down. The purpose of the file is to persist the queue data if the VHS is stopped. When the VHS is restarted, the information from the file is written to the queue and the data forwarding operations resume.</p>
+        <p>One of the configuration keywords for data forwarding is <b>FORWARDING_INTERVAL</b>. This keyword can be used to define a "send interval" for forwarding messages. The source VHS compresses data into forward messages. Once the message is full it is sent to the destination VHS. If the message is not full by the specified "send interval" it is sent anyway. When active, the forwarding message will be sent to the destination VHS once the message is full or when the send interval is met, whichever comes first. The interval options are: s=seconds, m=minutes, h=hours, or d=day.</p>
+        <p>If the source VHS cannot communicate with the destination VHS (for example, the network is down or the destination VHS is stopped), the forwarding message will remain in the queue and attempts will be made to resend the failed message until it is purged.</p>
+        <p>If a destination VHS is not running, the messages to be sent to that service are saved in the queue. Once the destination VHS resumes operation, the source VHS will begin sending the messages stored in its queue.</p>
+        <p>The VHS also has keywords for managing the size of its queue:</p>
+        <ul>
+            <li value="1"><b>FORWARDING_QUEUE_EXPIRATION</b> defines the amount a time (seconds, minutes, hours, or days) a message will be stored in the queue. </li>
+            <li value="2"><b>FORWARDING_MAX_BACKLOG</b> defines the maximum number of messages held in the queue. If the queue becomes maxed out, messages from either the beginning or end of the queue will be deleted when a new message arrives. </li>
+            <li value="3"><b>FORWARDING_EXPIRE_TYPE</b> defines if the delete is from beginning or end.</li>
+        </ul>
+        <p>The maximum queue size and maximum queue time are set by the VHS configuration file parameters <b>FORWARDING_MAX_BACKLOG</b> and <b>FORWARDING_QUEUE_EXPIRATION</b>.</p>
+        <p>See <a href="VHS Data Forwarding Configuring.htm#Configur">VHS Data Forwarding Configuration Keywords</a> for more information.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

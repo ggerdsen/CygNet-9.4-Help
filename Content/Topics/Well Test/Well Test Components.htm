@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Well Test|Well Test Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Well Test Components</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Well Test.htm">Well Test</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Well Test Overview.htm">Well Test Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Well Test Components</span>
+        </div>
+        <h2>CygNet Well Test Components</h2>
+        <p>The CygNet Well Test Module is a complex application that integrates several components. The following diagram shows the various components of the module.</p>
+        <p>Note that this model is only applicable to <b>Host-based</b> devices. A slightly different model is needed for <b>Device-based</b> configurations. Each component is described below, with a link to more information for each. </p>
+        <p>Click the following image to see the various components of the CygNet Well Test Module:</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Well Test/CygNet_Well_Test_Components.png" data-mc-popup-alt="CygNet Well Test Components"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1009" data-mc-height="601" src="../../Resources/Images/Well Test/CygNet_Well_Test_Components_thumb_0_48.png" alt="CygNet Well Test Components" title="CygNet Well Test Components" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">CygNet Well Test Module Components</td>
+            </tr>
+        </table>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#API" class="selected">Well Test API</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Service" class="selected">Well Test Windows Service</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Setup" class="selected">CygNet Setup</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Canvas_control" class="selected">Well Test Configuration Control</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#XML" class="selected">Well Test Configuration XML</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#VB" class="selected">VB Script to Process Well Test Results</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Storage" class="selected">Well Test Record Storage</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#HMI_Screens" class="selected">Well Test Canvas Screens for HMI</a>
+            </li>
+        </ul>
+        <h3><a name="API"></a>Well Test API</h3>
+        <p>The CygNet Well Test Module requires the  <b>CygNet.API.WellTest</b> assembly, which is used by the back-end CygNet Well Test Windows Service, the well test configuration XML, the Canvas well test screens, and external systems such as ForeSite. It is located in the <b>CygNet\Bin</b> directory and is automatically version managed by Canvas.</p>
+        <p>The CygNet.API.WellTest has two helper functions that can be used to retrieve well test records:</p>
+        <ul>
+            <li value="1">The <b>GetAllWellTests</b> function is supplied with starting and ending timestamps. The well test records are returned in a jagged dictionary object.</li>
+            <li value="2">The <b>GetWellTestsForWell</b> function takes in the well facility tags along with timestamps to retrieve the well test records.</li>
+        </ul>
+        <p>See <a href="Well Test Results - Retrieving.htm">Retrieving Well Test Records</a> for an example of these functions.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Service"></a>Well Test Windows Service</h3>
+        <p>The CygNet Well Test Module requires the <b>CygNet Well Test Windows Service</b>. This Windows service monitors the well test configuration XML stored in the HyperPoint of the Header Queue point for starts and stops, value changes, and then executes the well test commands and actions. </p>
+        <p>The service requires a Windows Service config file, which points to the configuration point containing the well test configuration XML. The CygNet Well Test Windows Service Config File (WellTestServiceConfig.xml) takes the following format:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;WellTest&gt;</p>
+                    <p class="Code2">&lt;ConfigurationPoints&gt;</p>
+                    <p class="Code3">&lt;Point&gt;SITENAME.UIS:LONG_ID&lt;/Point&gt;</p>
+                    <p class="Code2">&lt;/ConfigurationPoints&gt;</p>
+                    <p class="Code">&lt;/WellTest&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The service is installed via CInstall on the host CygNet server and includes an Application Definition File (.app) and Response List File (.rsp) to facilitate version management. The service must be located on the CygNet server and utilizes the CygNet.API.WellTest. </p>
+        <h4> Well Test Persistence</h4>
+        <p>The Well Test Service uses a persistence model to ensure smooth operation of any active well tests should the service shutdown unexpectedly in the middle of a well test operation. When the service starts it reads the XML in the  HyperPoint of the configured Header Queue points. The XML  includes an &lt;ActiveWell&gt; section and an &lt;ActionQueue&gt; for the well in an active well test.</p>
+        <p>In the following example AMANDA_WL is the &lt;ActiveWell&gt; and its &lt;ActionQueue&gt; contains several well test actions to be completed. This data is kept updated as changes occur, but not when the service is triggered for shutdown. When the well test service is triggered for shutdown, a list of any remaining actions will be written to the &lt;ActionQueue&gt; element of the header point XML. A list of the remaining wells to be tested is written to the &lt;PendingQueue&gt; element (in this case: ESSEN_WL, PELICAN_WL, and VIRGINIA_WL). When the well test service is triggered to start or restart, the XML configuration will be loaded. The well test service will then look for the existence of an &lt;ActiveWell&gt;, if one exists, any remaining actions will be loaded into the Action Queue for the Well, and the Action Queue will be restarted (in this case: Test, PointValueCompare, SetPoint, and so on…).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;WellTestQueue format="2"&gt;</p>
+                    <p class="Code2">&lt;PendingQueue&gt;</p>
+                    <p class="Code3">&lt;Well tag="C4PROD.UIS::ESSEN_WL" status="Pending" /&gt;</p>
+                    <p class="Code3">&lt;Well tag="C4PROD.UIS::PELICAN_WL" status="Pending" /&gt;</p>
+                    <p class="Code3">&lt;Well tag="C4PROD.UIS::VIRGINIA_WL" status="Pending" /&gt;</p>
+                    <p class="Code2">&lt;/PendingQueue&gt;</p>
+                    <p class="Code2"><span style="background-color: #b0c4de;">&lt;ActiveWell tag="C4PROD.UIS::AMANDA_WL" request="START"&gt;</span>
+                    </p>
+                    <p class="Code3"><span style="background-color: #b0c4de;">&lt;ActionQueue&gt;</span>
+                    </p>
+                    <p class="Code4">&lt;Action type="Test" …&gt;</p>
+                    <p class="Code4">&lt;Action type="PointValueCompare" …&gt;</p>
+                    <p class="Code4">&lt;Action type="SetPoint" … /&gt;</p>
+                    <p class="Code4">&lt;Action type="Test" …&gt; … </p>
+                    <p class="Code4">&lt;Action type="SetPoint" … /&gt;</p>
+                    <p class="Code4">&lt;Action type="Test"…&gt; …</p>
+                    <p class="Code4">&lt;Action type="SetPoint" … /&gt;</p>
+                    <p class="Code4">&lt;Action type="PointValueCompare" …&gt;</p>
+                    <p class="Code4">&lt;Action type="Script" …&gt; </p>
+                    <p class="Code4">&lt;Action type="Exit" … /&gt;</p>
+                    <p class="Code4">&lt;Action type="SetPoint" … /&gt;</p>
+                    <p class="Code3"><span style="background-color: #b0c4de;">&lt;/ActionQueue&gt;</span>
+                    </p>
+                    <p class="Code2"><span style="background-color: #b0c4de;">&lt;/ActiveWell&gt;</span>
+                    </p>
+                    <p class="Code">&lt;/WellTestQueue&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Setup"></a>CygNet Setup</h3>
+        <p>The CygNet Well Test Module requires a <b>typical CygNet configuration</b>, with defined CygNet facilities, points, UDCs, UIS commands, scheduling commands, etc. </p>
+        <p>See <a href="Configuring CygNet Well Test.htm">Configuring CygNet Well Test</a> for more information.</p>
+        <h3><a name="Canvas_control"></a>Well Test Configuration Control</h3>
+        <p>The <b>CygNet.API.WellTest.Controls.dll</b> is a plugin control assembly that can be made available for use in Canvas to allow the manual configuration of the well test configuration XML file. This plugin provides a user-friendly method for defining the necessary elements required to execute a well test via a Canvas screen. Using the control assembly and a configuration screen you can easily define the following well test properties: point scheme, data retention value, relative facilities, UDCs, headers, wells in the well test, header templates, positions, commands, and associated actions for each command.</p>
+        <p>See <a href="Configuring Well Test Using Canvas.htm">Configuring Well Test Using Canvas</a> for more information.</p>
+        <h4>Configuration Headers</h4>
+        <p>The well test configuration XML contains the following important elements:</p>
+        <ul>
+            <li value="1"><b>Header Point</b> — The well test configuration XML contains a list of headers and their associated wells that will be included in the well test sequence.</li>
+            <li value="2"><b>Header Point Queue</b> — The queue is an XML string that is written to the Header point (as HyperPoint Script Text). There are multiple header queues, one for each header, and each can be modified in many ways (i.e. screens, MSS, external interface such as ForeSite, etc.). A SetPoint command is issued to the Header Point to tell the queue to do the work. For example, a value of "Start" will start the well test process on the specific header/test facility. The first enabled well in the queue is taken off, passed into the workflow, and processed according to the configuration. After that well is finished, the next enabled well in the queue is taken off the queue and processed. Other values can be set to control the processing of the queue (Abort, Stop, Complete, etc.) as the well test process unfolds.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="XML"></a>Well Test Configuration XML</h3>
+        <p>The <b>Well Test Configuration XML</b> defines the logical blocks required to perform well test actions. It includes header points, which define the associated wells to be included in the well test sequence, and the relationship of wells to the valves in various positions, and a header queue to monitor multiple headers. The well test configuration is an XML string that is manually written to a configuration point in the PNT as HyperPoint Script Text. </p>
+        <p>See <a href="Configuring Well Test Using XML.htm">Configuring Well Test Using XML</a> for more information.</p>
+        <h3><a name="VB"></a>VB Script to Process Well Test Results</h3>
+        <p>Once the well test action sequence completes, the well test contents must be generated. Since the values for the well test record can come from various locations due to the unique configurations at the field-level, a programmable approach in the form of a VB script is required.</p>
+        <p>A sample script is available to illustrate the concept of processing supplied arguments and providing the necessary output that the CygNet Well Test Module expects in order to process a well test record. The VB script will need to be customized for the user's environment.</p>
+        <p>See <a href="Well Test Results - Processing and Storing.htm">Processing and Storing Well Test Results</a> for more information.</p>
+        <h3><a name="Storage"></a>Well Test Record Storage</h3>
+        <p>Well test records are stored as XML strings in VHS entries for each configured well. After the VB script exits processing, the well test data is complete, and the appropriate output is available,  the CygNet Well Test Module will create the well test configuration XML record (an XML string) and store it as a BLOB entry in the appropriate VHS point. External systems can also consume the well test records stored in the VHS using the CygNet.API.WellTest API.</p>
+        <p>See <a href="Well Test Results - Processing and Storing.htm">Processing and Storing Well Test Results</a> and <a href="Well Test Results - Retrieving.htm">Retrieving Well Test Records</a> for more information.</p>
+        <h3><a name="HMI_Screens"></a>Well Test Canvas Screens for HMI</h3>
+        <p>CygNet Well Test Module uses <b>Canvas screens</b> to visualize well test status and detail information. The screens can also be used to initiate an on-demand well test campaign. The sample Canvas screens are included on the CD_Image in the <b>Samples\Well Test</b> folder. The screens will need to be customized for the user’s environment.</p>
+        <p>See <a href="Sample Canvas Well Test Screens.htm">Sample Well Test Screens and Scripts</a> for more information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

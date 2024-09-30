@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="OPC|CygNet OPC Servers|CygNet OPC HDA Server">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DynaCard Retrieval via the CygNet OPC HDA Server</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="OPC.htm">OPC</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet OPC Servers.htm">CygNet OPC Servers</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet OPC HDA Server.htm">CygNet OPC HDA Server</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DynaCard Retrieval via the CygNet OPC HDA Server</span>
+        </div>
+        <h2>DynaCard Retrieval via the CygNet OPC HDA Server</h2>
+        <p>The CygNet OPC HDA Server supports the retrieval of historical RRL DynaCards, including both current surface cards and calculated downhole cards, which have been stored in the CygNet VHS. Using this capability, a third-party OPC HDA client, such as an OSI PI System, could be configured to retrieve historical DynaCard data from CygNet.</p>
+        <p>The OPC HDA Server can retrieve historical data (load or position variant arrays) for a particular cycle of an RRL pump on a well from the VHS-based ForeSite DynaCard Library. Both surface cards and calculated cards are available in the ForeSite DynaCard Library, which uses the CygNet VHS as its data repository.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/OPC/OPC HDA Dynacard Retrieval.png" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample Point History and DynaCard History Retrieval Configuration
+
+				</td>
+            </tr>
+        </table>
+        <h3>System Configuration</h3>
+        <p>Setup for this feature is very configuration specific. At a minimum the following components are required:</p>
+        <ul>
+            <li value="1">CygNet Host environment with one or more VHS services and a Current Value Service (CVS) that matches the CVS specified in the DynaCard tags</li>
+            <li value="2">CygNet OPC HDA Server installation</li>
+            <li value="3">ForeSite installation</li>
+            <li value="4">ForeSite DynaCard Library configured with a CygNet VHS as its data source</li>
+            <li value="5">DynaCard Library Windows Service</li>
+        </ul>
+        <p>Additional knowledge of the specific OPC tags is required, which requires knowledge of the CygNet configuration. The specific OPC tag format is described in the next section.</p>
+        <h3>OPC Item Name String Format</h3>
+        <p>A unique tag string format is defined to distinguish DynaCard requests from CygNet point history requests. The DynaCard tag identification includes the site and service, the specific well, the card type, the location, and the measurement to be returned (load or position), all of which is encoded within the OPC Item Name String.</p>
+        <p>Note that the card consists of two discrete request tags, which must be combined to return a two-dimensional array: a load request tag (LOAD), and a position request tag (POS). These requests are tied together, since one request is useless without the other.</p>
+        <p>When requesting either load or position values, the CygNet OPC HDA Server returns a variant array of R4 values (VT_ARRAY | VT_R4).</p>
+        <p>The OPC Item Name String format is as follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">SITE.CVS::CARD:FACILITY:CARDTYPE:LOCATION:LOAD</p>
+                    <p class="Code">SITE.CVS::CARD:FACILITY:CARDTYPE:LOCATION:POS</p>
+                </td>
+            </tr>
+        </table>
+        <p>where:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Tag Element</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SITE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the name of the CygNet site.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CVS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the name of the CygNet CVS that contains the DynaCard Library, e.g.  HSS, OPCIS, SVCMON, UIS.</p>
+                    <p>The CygNet OPC HDA Server needs to consult the CVS to figure out which VHS to contact.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CARD</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies that this is a DynaCard request.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>FACILITY</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the CygNet facility representing the well.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CARDTYPE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the type of card. The card type values include:</p>
+                    <ul class="table">
+                        <li value="1"><b>CURRENT</b> — represents the most recent pump stroke</li>
+                        <li value="2"><b>FULL</b> — generated when the pump fully starts again after having been shut down</li>
+                        <li value="3"><b>PUMPOFF</b> — generated when the pump is turned off, usually to wait for the reservoir to fill</li>
+                        <li value="4"><b>ALARM</b> — generated when the pump off controller logs an alarmable event. Such a condition is typically less severe than a failure event.</li>
+                        <li value="5"><b>FAILURE</b> — generated when the pump off controller logs a catastrophic failure event</li>
+                        <li value="6"><b>IDEAL</b> — represents an ideal pump stroke that is calculated based on a set of configuration items</li>
+                        <li value="7"><b>START</b> —  stored by some controllers and represents the first stroke when the pump starts again after having been shutdown</li>
+                        <li value="8"><b>REFERENCE</b> — a card of any type that is stored for reference in the library, and sometimes on the controller itself</li>
+                        <li value="9"><b>PATTERN</b> — a card that is used to match against to determine abnormal conditions ForeSite could import a pattern card and use it to do analysis</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">LOCATION</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the location of the card. The location values include:</p>
+                    <ul class="table">
+                        <li value="1"><b>SURFACE</b> — indicates the card represents the pump stroke conditions as measured at the surface of the well</li>
+                        <li value="2"><b>DOWNHOLE</b> — indicates the card represents the pump stroke conditions as calculated at the downhole pump location</li>
+                        <li value="3"><b>GIBBS</b>— downhole card calculated by software using the Gibbs method</li>
+                        <li value="4"><b>EVERITTJENNINGS</b> — downhole card calculated by software using the Everitt-Jennings method</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">LOAD | POS</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the type of measurement request, load (LOAD) or position (POS):<br /></p>
+                    <ul class="table">
+                        <li value="1"><b>LOAD</b> — The load measured at the top of the polished rod for this particular position of the pump stroke</li>
+                        <li value="2"><b>POS</b> — The position of the polished rod as the pumping unit moves through a stroke cycle</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example Tags</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">CYGDEMO.UIS::CARD:WELL_0001:FULL:SURFACE:LOAD</p>
+                    <p class="Code">CYGDEMO.UIS::CARD:WELL_0002:CURRENT:DOWNHOLE:POS</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Historian</h3>
+        <p>The OPC HDA server can communicate with one or more VHS services, depending on the data requirements of your setup. As in the example above, the OPC HDA server could be connected to one VHS for its point data requirements, and to a different VHS connected to the ForeSite DynaCard Library for all of its DynaCard data requirements.</p>
+        <h3>A Note about CygNet Messaging</h3>
+        <p>We use CygNet Messaging to retrieve the cards from the VHS. The ForeSite DynaCard Library exposes a lot of its own API functionality that ForeSite uses, which we’ve chosen not to consume, instead relying on the power of CygNet Messaging and its own raw APIs. It is more efficient for the OPC HDA server to communicate directly with the VHS and retrieve the required DynaCard data via CygNet Messaging. Note also, that ForeSite will be writing in data using the same DynaCard Library, and CygNet is utilizing the VHS that has that data, but we’re not utilizing the DynaCard Library for communication between the OPC HDA server and the VHS.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

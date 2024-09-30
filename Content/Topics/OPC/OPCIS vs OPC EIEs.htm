@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" class="topic" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="OPC|OPC Interface Service">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>OPCIS vs OPC EIEs</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="OPC.htm">OPC</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OPC Interface Service.htm">OPC Interface Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">OPCIS vs OPC EIEs</span>
+        </div>
+        <h2>OPCIS vs OPC EIEs</h2>
+        <p style="display: none;color: #ff0000;text-align: right;">When the OPCIS&#160;in EOLd, reuse the image and content in this topic in the OPC EIEs remote devices section.</p>
+        <p>This topic compares the <b>CygNet OPCIS</b> with the <b>CygNet OPC EIEs</b> (OPC EIE, OPC Comm EIE, OPC Lufkin EIE, and OPC Weatherford EIE) to help you decide which OPC option best suits the requirements of your enterprise. See the following sections:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Intro" class="selected">Introduction</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Feature" class="selected">Feature Comparison</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Summary" class="selected">Summary</a>
+            </li>
+        </ul>
+        <h3><a name="Intro"></a>Introduction</h3>
+        <p>Historically <span class="CygNetVariablesSoftwareName">CygNet Software</span> has supported data retrieval from external OPC servers with a dedicated current value service, the OPC Interface Service (<b>OPCIS</b>), which provides connectivity with local or remote OPC servers to transfer real-time data from remote devices into the CygNet system. The service is challenging to configure and operate, requiring a complex system of point and facility attribution in order to support OPC groups and polling.</p>
+        <p>Over time customers have requested a way to use OPC to retrieve dynagraph cards from remote devices, something the OPCIS does not support. This led to the development of the <b>OPC EIE</b>, which supports a way to organize related OPC items into a CygNet data group and represent dynagraph cards, and the <b>OPC Comm EIE</b>, which performs the actual communication with the OPC server. Both EIEs have been implemented within the standard CygNet EIE architectural framework following a familiar operational model.</p>
+        <p>Further advances in OPC server technology saw third-party providers such as Matrikon and TOP Server adding  controller-specific enhancements in their servers. CygNet responded with the <b>OPC Lufkin EIE</b> and <b>OPC Weatherford EIE</b>, which are standard OPC EIEs with additional custom logic to collect surface and downhole dynagraph card data retrieved from controllers whose data is maintained by an enhanced OPC server. This device-independent functionality enables a user to view data directly in the data group editors or the CygNet Dynagraph Viewer application. A Dynagraph Card data group is used to view card details, like configurable stroke information and load/position pairs, which are used to construct a card plot. As with the OPC EIE, communication for these controller-specific EIEs is handled via the OPC Comm EIE.</p>
+        <p>The following diagram shows how the OPC EIE, the OPC Lufkin EIE, and the OPC Weatherford EIE interface with the OPC Comm EIE, a third-party OPC server containing customer-specific OPC drivers, and the remote field devices.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/EIEs - Remote Devices/OPC EIE.png" title="OPE EIE" alt="OPE EIE" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">CygNet OPC EIEs
+				</td>
+            </tr>
+        </table>
+        <h3><a name="Feature"></a>Feature Comparison</h3>
+        <p>The following table provides a feature-by-feature comparison of these technologies, showing how each feature is supported, configured, or handled by the OPCIS and the OPC EIEs.</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 10%;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 45%;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 45%;" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Item</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">CygNet OPCIS</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">CygNet OPC EIEs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Configuration</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>In the <a href="OPC Interface Service.htm">OPCIS</a>, one OPC connection represents one OPC group. The default connection/group is defined via keywords the <a href="../Service Configuration Keywords/OPCIS Configuration File Keywords.htm">OPCIS service configuration file</a> (Opcis.cfg). 
+
+							</p>
+                        <p>Additional connections/groups are optional and are defined using complex point and facility attribution.
+						</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Configuration is done in the device editor via the standard CygNet EIE model for each remote device instance:</p>
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="../EIEs - Remote Devices/OPC EIE.htm">OPC EIE</a> device</li>
+                            <li class="HyperlinkList" value="2"><a href="../EIEs - Remote Devices/OPC Lufkin EIE.htm">OPC Lufkin EIE</a> device</li>
+                            <li class="HyperlinkList" value="3"><a href="../EIEs - Remote Devices/OPC Weatherford EIE.htm">OPC Weatherford EIE</a> device</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>OPC Server Connection</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>The default OPC server connection is configured via keywords in the Opcis.cfg file, including:
+</p>
+                        <ul class="table">
+                            <li value="1">OPC server name to which to connect </li>
+                            <li value="2">OPC machine name where the OPC server is running</li>
+                            <li value="3">Health check rate for async communication – the frequency a health check is sent to the OPC server </li>
+                            <li value="4">Startup delay before sending messages to the OPC server</li>
+                        </ul>
+                        <p>Additional server connections are supported via <a href="OPCIS Groups.htm">OPC group definitions</a> in PNT tag attributes. Unique point attributes can be configured to override keyword values, including an attribute to override the OPC server name and OPC machine name for the OPC group. 
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>OPC server communication is configured in the <a href="../EIEs - Communication Devices/OPC Comm EIE.htm">OPC Comm EIE</a> device instance, including the following properties:
+</p>
+                        <ul class="table">
+                            <li value="1">OPC server name to which to connect</li>
+                            <li value="2">OPC machine name where the OPC server is running</li>
+                            <li value="3">Health check rate for async communication – the frequency a health check is sent to the OPC server</li>
+                            <li value="4">Startup delay before sending messages to the OPC server</li>
+                        </ul>
+                        <p>Multiple connections to OPC servers are supported via multiple instances of the OPC Comm EIE. In the remote/comm EIE paradigm, the comm device represents a connection to a server that can be shared among many remote devices. A single connection to an OPC server can include many OPC groups across many remote devices. 
+
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>OPC Groups</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>The default OPC group configuration is done via keywords in the Opcis.cfg file, including:
+</p>
+                        <ul class="table">
+                            <li value="1">Communication type (asynchronous or synchronous)</li>
+                            <li value="2">Maximum update rate to request data from OPC server or push changed values to the OPCIS</li>
+                        </ul>
+                        <p><a href="OPCIS Groups.htm">Additional OPC groups</a> are supported, with each OPC group representing a connection to an OPC server. OPC group definition is encapsulated in a facility record. Unique point attributes can be configured in the PNT to override keyword values, including:</p>
+                        <ul class="table">
+                            <li value="1">Communications type (asynch or sync)</li>
+                            <li value="2">Sentinel value to indicate when to retain and when to discard values</li>
+                            <li value="3">Update rate for the group is defined in the value of the OPC group definition tag</li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Supports multiple <a href="../EIEs - Remote Devices/OPC EIE Group Management.htm">OPC groups</a> representing a set of points that have a common polling/update frequency, are related by functionality, or are commonly viewed together. OPC group definitions include the following properties:
+</p>
+                        <ul class="table">
+                            <li value="1">Asynchronous callbacks enabled</li>
+                            <li value="2">Update rates to and from the OPC server</li>
+                            <li value="3">Deadband percentages – OPC server will only report value changes that exceed a defined percentage</li>
+                        </ul>
+                        <p>OPC group definition and management is very flexible:
+</p>
+                        <ul class="table">
+                            <li value="1">A <a href="../EIEs - Communication Devices/OPC Comm EIE.htm">default OPC group</a> can be configured for the Comm device that multiple remote devices can share</li>
+                            <li value="2">A <a href="../EIEs - Remote Devices/OPC Device Page Properties.htm">default OPC group</a> can be configured on the remote device that multiple data groups associated with that device can share</li>
+                            <li value="3">Data groups with similar properties can be placed in a single OPC group, conserving OPC server resources</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>OPC Server Type</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Supported by the OPCIS:
+</p>
+                        <ul class="table">
+                            <li value="1">CygNet OPC (DA) Server</li>
+                            <li value="2">Third-party OPC server (e.g. Matrikon, TOP Server) without dynagraph card logic</li>
+                        </ul>
+                        <p>Colocation of the OPCIS and the OPC server on the same computer is recommended to alleviate potential network security and configuration issues.
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Supported by the OPC Comm EIE:
+</p>
+                        <ul class="table">
+                            <li value="1">CygNet OPC (DA) Server</li>
+                            <li value="2">Third-party OPC server (e.g. Matrikon, TOP Server) with or without dynagraph card logic</li>
+                        </ul>
+                        <p>Colocation of CygNet and the OPC server is not required.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Historical Data Retrieval</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Not supported</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Not supported </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Communication Type</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Both asynchronous and synchronous are supported. In this context, "asynchronous" indicates that callbacks are enabled.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Both asynchronous and synchronous are supported. Callbacks are enabled based on an OPC group. Data group read requests can ask for data from the OPC cache (asynchronously) or from the remote device using either asynchronous or synchronous OPC calls.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Dynagraph Cards</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Not supported</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Supported in the <a href="../EIEs - Remote Devices/OPC Lufkin EIE.htm">OPC Lufkin EIE</a> and <a href="../EIEs - Remote Devices/OPC Weatherford EIE.htm">OPC Weatherford EIE</a>, which are standard CygNet OPC EIEs with custom logic with respect to how dynagraph cards are handled and communicate with remote controllers whose data is maintained by an OPC server. These EIEs communicate with a third-party OPC server containing a manufacturer-specific interface to get dynagraph card data.
+
+</p>
+                        <p>Non-Lufkin or non-Weatherford remote devices can use the standard OPC EIE to get data.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Failover</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Not supported, except via <a href="../Redundancy/Redundancy.htm">CygNet Redundancy</a> at the service level</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Supported. Uses standard CygNet EIE and UIS <a href="../EIEs - Remote Devices/Communication Device Failover.htm">failover</a> to switch to a secondary or tertiary comm device if the primary comm line fails.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Polling and Scheduling</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Writing a value to a specific point associated with an <a href="OPCIS Groups.htm">OPC group</a> facility triggers one of these actions: </p>
+                        <ul class="table">
+                            <li value="1">read all values of the group</li>
+                            <li value="2">perform a health check</li>
+                            <li value="3">register the group with the OPC server</li>
+                        </ul>
+                        <p>Another polling-related attribute that can be configured in the OPC group definition point to override a keyword value specifies whether the OPC server is to retrieve data from the OPC cache or the device. This applies to all synchronous communication.
+
+</p>
+                        <p>The MSS can be used to schedule a write to this OPC group definition point.
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Polling OPC data groups is accomplished via the standard EIE interface:
+</p>
+                        <ul class="table">
+                            <li value="1">click the <b>Get</b> button to retrieve values from the OPC server</li>
+                            <li value="2">execute UIS commands in the device editor</li>
+                            <li value="3">schedule UIS commands in the MSS</li>
+                        </ul>
+                        <p>When requesting data for a data group, the user can choose to request data from the OPC cache or the physical device, and to use a synchronous or asynchronous polling method.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Data Groups</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Not used</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>A data group in CygNet represents a related set of items. One OPC group can consist of many CygNet data groups. A data group can be defined in the template file for use across many remote devices or configured uniquely for a specific remote device.  The following types of OPC data groups are defined in the template file:
+</p>
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="../EIEs - Remote Devices/OPC EIE Array Data Group.htm">OPC Array</a> (non-historical and historical arrays)</li>
+                            <li class="HyperlinkList" value="2"><a href="../EIEs - Remote Devices/OPC EIE Configurable Data Group.htm">Configurable</a>
+                            </li>
+                            <li class="HyperlinkList" value="3"><a href="../EIEs - Remote Devices/OPC EIE Single Item Data Group.htm">Single Item</a>
+                            </li>
+                            <li class="HyperlinkList" value="4">Dynagraph Card (<a href="../EIEs - Remote Devices/OPC Lufkin Dynagraph Data Group.htm">OPC Lufkin EIE</a> &amp; <a href="../EIEs - Remote Devices/OPC Weatherford Dynagraph Card Data Groups.htm">OPC Weatherford EIE</a>)</li>
+                            <li value="5">Event Directory (<a href="../EIEs - Remote Devices/OPC Weatherford Event Directory Data Group.htm">OPC Weatherford EIE</a> only)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Quality Mapping</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Supports a method to map <a href="OPCIS Data Points.htm">OPC quality</a> values to point status bits in the PNT.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Supports a method to map <a href="../EIEs - Remote Devices/OPC EIE Quality Mapping.htm">OPC quality</a> values to point status bits in the PNT.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Alarms and Notifications</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Supported via PNT, CAS, GNS</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Supported via PNT, CAS, GNS</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Security</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Supports special <a href="../Security/OPC Interface Service OPCIS.htm">OPCIS events</a> administered via the ACS, which must be added manually when the OPCIS is first configured.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Supports standard CygNet <a href="../Security/Device Definition Service DDS.htm">DDS</a> and <u><a href="../Security/Universal Interface Service UIS.htm">UIS</a></u> events for data group and UIS command operations. No special configuration is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Point Capacity</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>As a CygNet current-value service, the OPCIS supports up to 500,000 current-value data points from an OPC server.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Interfaces with the UIS to store up to 500,000 current-value data points from an OPC server.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><b>64-bit Support</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Only 32-bit is available</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p><a href="../Devices/64-bit Device Drivers.htm">64-bit drivers</a> and editors are available, which interface with 64-bit DDS and UIS.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Summary"></a>Summary</h3>
+        <p>The OPCIS is a complex CygNet service to configure and operate, with a steep learning curve. Major limitations include the inability to organize related data within an OPC group, the inability to retrieve dynagraph cards, and the need to configure every point across the OPC server instead of relying on templated data that can be used across similarly configured remote devices.</p>
+        <p>In response <span class="CygNetVariablesSoftwareName">CygNet Software</span> has developed four OPC EIEs, which contain almost all functionality available in the OPCIS, plus support for data groups and dynagraph cards, using the standard CygNet EIE user interface. The OPC EIEs support custom OPC group configuration in the remote and comm devices, communication failover, and 64-bit drivers and editors, in a simpler, familiar configuration. </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

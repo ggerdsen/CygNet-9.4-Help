@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/points/currentValues</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/points/currentValues</h1>
+<div>
+    <p>Retrieves realtime value records for specified points</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p>Request DTO, contains list of point tags for values</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">pointTags</td>
+                    <td class="parameter-documentation">
+                        <p>List of CygNet point tags</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of string
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">updatedAfter</td>
+                    <td class="parameter-documentation">
+                        <p>Optional datetime to change the return to only values updated since this date</p>
+                    </td>
+                    <td class="parameter-type">
+                        date
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;pointTags&quot;: [
+    &quot;CYGSITE.UIS::ASH_GM.PRDIFXIN&quot;,
+    &quot;CYGSITE.UIS::JEFFERY_WL.PRCASXIN&quot;
+  ],
+  &quot;updatedAfter&quot;: null
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p>Realtime records for specified points</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">currentValues</td>
+                    <td class="parameter-documentation">
+                        <p>List of Value Pair DTOs for successful pointTag requests</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=RealtimeValuePairDTO.html">RealtimeValuePairDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">errors</td>
+                    <td class="parameter-documentation">
+                        <p>List of errors for associated pointTags</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=RealtimeErrorPairDTO.html">RealtimeErrorPairDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;currentValues&quot;: [
+    {
+      &quot;pointTag&quot;: &quot;CYGSITE.UIS::ASH_GM.PRDIFXIN&quot;,
+      &quot;record&quot;: {
+        &quot;timestamp&quot;: &quot;2018-10-11T09:17:47-07:00&quot;,
+        &quot;value&quot;: &quot;1100.851486875&quot;,
+        &quot;alternateValue&quot;: &quot;2.73935883993975&quot;,
+        &quot;status&quot;: [
+          &quot;Initialized&quot;,
+          &quot;Updated&quot;
+        ],
+        &quot;userStatus&quot;: [
+          &quot;PointScheme1&quot;,
+          &quot;ExternalValue&quot;
+        ]
+      }
+    }
+  ],
+  &quot;errors&quot;: [
+    {
+      &quot;pointTag&quot;: &quot;CYGSITE.UIS::JEFFERY_WL.PRCASXIN&quot;,
+      &quot;error&quot;: &quot;Unable to read realtime point record for &#39;CYGSITE.UIS::JEFFERY_WL.PRCASXIN&#39;&quot;
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

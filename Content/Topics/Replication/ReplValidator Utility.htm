@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ReplValidator Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">ReplValidator Utility</span>
+        </div>
+        <h2>ReplValidator Utility</h2>
+        <p>The <b>ReplValidator</b> utility validates the replication process by comparing the records of a replicated service against its source service, and determining how many records differ between the two services. This utility is a replication validator that can be used to compare all services except the ARS and the RSM. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The ReplValidator utility is only available to compare DBS-type services (ACS, APPS, AUD, BSS, DDS, ELS, ELSALM, FAC, GNS, GRP, MSS, NOTE, PNT, TRS, and VHS).
+See the note about validating the <a href="#VHS" class="selected">VHS</a>. </p>
+        </div>
+        <p>Services that receive numerous updates in short time periods are likely to reveal many inconsistencies between the source and the replicated service as a result of the inherent lag of writing new records to the replicated service. This is not expected in services that have relatively static records.</p>
+        <p>Concurrently comparing many pairs of services can negatively impact the client’s and service’s performance due to excessive loading.</p>
+        <h3>Starting ReplValidator</h3>
+        <p>The ReplValidator utility is stored in the <b>CygNet\Utilities</b> directory (ReplValidator.exe) on the host server. To start the utility, use Windows Explorer to browse to the directory and double-click the program icon. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can also set up this utility to be installed and launched (started) via <b>CygNet Client Installer</b> so that the application can be version managed. See <a href="../Version Management/Version Management Overview.htm">Version Management</a> for instructions on how to do this.</p>
+        </div>
+        <p>Click the following image to see a sample ReplValidator in a running state:</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Replication/ReplValidator.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1051" data-mc-height="764" src="../../Resources/Images/Replication/ReplValidator_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">ReplValidator Performing <br />Site Comparison</td>
+            </tr>
+        </table>
+        <h3><a name="VHS"></a>Validating non-DBS&#160;Services</h3>
+        <h4>VHS</h4>
+        <p>The ReplValidator works a little differently with the VHS. The utility does not validate that the VHS database values from a replicated service and its source service are the same. However is does validate that the statistics are consistent between the two services by performing a VHS Sync Check.</p>
+        <p>For example, [7997]CYGNET.VHS can have point A.B.C:D with one value of WAHOO at time 2019-04-02 12:15:50.000 and [7998]CYGNET.VHS can have point A.B.C:D with one value of YAHOO at time 2019-04-02 12:15:50.000 and ReplValidator will say that the services are consistent.</p>
+        <h4>CVS and CAS</h4>
+        <p>The ReplValidator performs a simple CVS Sync Check against the CVS services (HSS, OPCIS, SVCMON, and UIS) confirming the number of points in each service. The ReplValidator performs a simple CAS Sync Check against the CAS services confirming the number of alarms in each service.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - User Interface.htm">ReplValidator User Interface</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - Creating the Config File.htm">Creating the Configuration File</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - Running.htm">Running the ReplValidator Utility</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - Viewing Logs.htm">Viewing Validation Logs</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - Comparing Database Records.htm">Comparing Database Records</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - Resyncing Database Keys.htm">Resynchronizing Database Keys</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="ReplValidator - Analyzing the Results.htm">Analyzing the Results</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

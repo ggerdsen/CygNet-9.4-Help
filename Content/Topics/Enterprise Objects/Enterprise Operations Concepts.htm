@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Enterprise Operations Concepts</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations.htm">Enterprise Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Enterprise Operations Concepts</span>
+        </div>
+        <h2>Enterprise Operations Concepts</h2>
+        <p>Enterprise Operations, both CygNet Native Operations and CygNet Business Objects, are based on some common fundamental concepts. Familiarity with these concepts enhances usage of Enterprise Operations.
+ </p>
+        <p>There are additional  <a href="CygNet Native Operations Concepts.htm">CygNet Native Operations concepts</a>, and <a href="CygNet Business Object Concepts.htm">CygNet Business Object concepts</a> specific to the operation type.</p>
+        <p>Concepts common to all Enterprise Operations include the following:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Schema" class="selected">Schema and Schema Files</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Request" class="selected">Request and Response Files</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Service" class="selected">Services</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Validati" class="selected">Validation</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Attribut" class="selected">Attributes to Export</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Directiv" class="selected">Directives</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Time" class="selected">Time Adjustment</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#Partial" class="selected">Partial Failure Options</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#Errors" class="selected">Errors and Warnings</a>
+            </li>
+            <li class="HyperlinkList" value="10"><a href="#History" class="selected">History Rollups</a>
+            </li>
+        </ul>
+        <h3><a name="Schema"></a>Schema and Schema Files</h3>
+        <p>Schema files (.xsd) are provided as a reference to the schema structure, filters, and constraints for all Enterprise Operations requests.
+The CygNet Native schemas and the Business Object Interface schemas stand alone and do not reference one another. The individual XSDs are specific to the type of Enterprise Operation. <a href="CygNet Native Operations Concepts.htm#Schema">Native schema files</a>  are statically defined and are compiled into the Enterprise Operations EIE, whereas <a href="CygNet Business Object Concepts.htm#Schema">Business Object schema files</a> are dynamically created during the startup process of the Enterprise Gateway or Enterprise Operations EIE.</p>
+        <h3><a name="Request"></a>Request and Response Files</h3>
+        <p>All Enterprise Operations utilize Request and Response files to store the files containing the XML requests and the XML responses for retrieval.</p>
+        <h5>Request Files</h5>
+        <p>An Enterprise Operations request file must be a well-formed XML document that adheres to the Enterprise Operations schema. Request files are placed into a folder in the <a href="File Directories.htm">file system directory</a>.
+</p>
+        <p>A request generally includes parameters or service filters to limit the data for the operation, as well as a list of attributes to return. For example, the GetAlarmHistory request can include parameters that define the date range of alarms. Sample documents are provided. </p>
+        <p>An example of a well-formed request XML document that adheres to the Enterprise Objects schema is shown below.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects811"&gt;</p>
+                    <p class="Code3">&lt;UpdatePointReq&gt;</p>
+                    <p class="Code4">&lt;SvcName&gt;TRAIN22.UIS&lt;/SvcName&gt;</p>
+                    <p class="Code4">&lt;Tag&gt;TRAIN22.UIS:TRAIN22_METER_RFLOW&lt;/Tag&gt;</p>
+                    <p class="Code4">&lt;ConfigurationParameters&gt;</p>
+                    <p class="Code5">&lt;PointComment&gt;This is a sample comment.&lt;/PointComment&gt;</p>
+                    <p class="Code4">&lt;/ConfigurationParameters&gt;</p>
+                    <p class="Code4">&lt;RealtimeParameters&gt;</p>
+                    <p class="Code5">&lt;PointValue&gt;1234&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;/RealtimeParameters&gt;</p>
+                    <p class="Code3">&lt;/UpdatePointReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response Files</h5>
+        <p>An Enterprise Operations response file is an XML document that contains the requested data and/or information regarding the success or failure of the transaction. Response files are placed into a folder in the <a href="File Directories.htm">file system directory</a> by the Enterprise Operations EIE.</p>
+        <p>An example of a response XML document from a successful operation is shown below.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects730"&gt;</p>
+                    <p class="Code2">&lt;UpdatePointResp&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-04-07T20:02:49.703Z" exec_duration="PT0.011S" /&gt;</p>
+                    <p class="Code2">&lt;/UpdatePointResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>An example of a response XML document from a failed operation is shown below.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;UpdatePointResp&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="false" resp_timestamp="2011-04-07T20:04:16.054Z" exec_duration="PT0.010S"&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="15012"&gt;TRAIN22.PNT' returned error (15012) 'Tag not found'&lt;/OperationResult&gt;</p>
+                    <p class="Code3">&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/UpdatePointResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Request and Response files must be defined using XML and can be created using any text editor, such as Notepad, or an XML editor such as XML Shell or XML Spy. An XML editor helps catch common syntax and structure errors.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Service"></a>Services</h3>
+        <p>Enterprise Operations request files are able to be processed when the Enterprise Operations EIE has access to the Services providing the data necessary for  processing the requests. Native Operations use <a href="Operation Configuration.htm#Service">Service Filters</a>  to specify the Services that are allowed to provide data for the  requests, while Business Object Operations specify the Services in the <a href="Business Object Interfaces.htm">Business Object Interfaces</a>. The access to services is inclusive;  only those services purposely added to the Service Filter, or added to the Business Object Interface, are allowed to provide data for processing of the request. </p>
+        <p>The Service Filters and the Business Object Interfaces are defined in the Enterprise Operations device instance in the DDS.</p>
+        <h3><a name="Validati"></a>Validation</h3>
+        <p>Operations request or response documents can be configured to require validation against the Enterprise Operations XML schema definition (XSD) before the operation can be processed. The XSD is maintained by the Enterprise Operations EIE.  Enabling validation of XML requests and responses is recommended.</p>
+        <h3><a name="Attribut"></a>Attributes to Export</h3>
+        <p>Attributes to export are determined by the configurations of the enabled operations and the services allowed to provide data for processing the operation requests. Operations are enabled in the device instance in the DDS. Native Operations can be enabled on the <b>Native Operations</b> page, and Business Object Operations can be enabled on the <b>Business Objects</b> page.</p>
+        <h3><a name="Directiv"></a>Directives</h3>
+        <h4>File name Collisions</h4>
+        <p>If a new file is given a name which already exists in a directory, a file name collision will occur. The manner in which you choose to resolve the collision can be configured in the device properties.</p>
+        <h4>User ID</h4>
+        <p>The User ID can be configured to be read from the UIS, from the XML request file, or as otherwise specified in the device properties.</p>
+        <h4>Expiration</h4>
+        <p>Expiration is used to manage the size of the queue by specifying the amount of time the queue will hold operation request messages. Once a message exceeds the period specified, it will be deleted from the queue. </p>
+        <p>Expiration options allow you to express the specific time frame for which an operation is valid. Options are as follows.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExpirationSeconds</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Specifies the time the request is valid after the request file is created in the input directory, expressed in number of seconds. </p>
+                        <p>If the request is executed  after the specified time, it will be rejected.</p>
+                        <p>The default is 86,400 seconds (24 hours).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExpirationDateTime</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Includes an explicit date and time after which the request will be considered expired.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">ExpirationIgnore</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>If set to "True" the request never expires.</p>
+                        <p>The default is "False"</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Time"></a>Time Adjustment</h3>
+        <p>Point in time can be specified by including a timestamp, which can be absolute or relative. CygNet-based relative timestamps can be used for both absolute and calculated DateTime values. </p>
+        <p>An absolute timestamp is an actual date and time (for example, 04/15/2011 09:00). </p>
+        <p>A relative timestamp is days from today (date only; no time specification).</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;PointRealtimeFilter&gt;</p>
+                    <p class="Code2">&lt;SingleExpr compare="GT" qualify"Timestamp"&gt;</p>
+                    <p class="Code3">&lt;PointTimestamp&gt;d-1 H=8 M=0 S=0&lt;/PointTimestamp&gt;</p>
+                    <p class="Code2">&lt;/SingleExpr&gt;</p>
+                    <p class="Code">&lt;/PointRealtimeFilter&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>See <a href="../Date and Time/Timestamps.htm">Timestamps</a> in the Date and Time section for more information about CygNet timestamps.</p>
+        <h3><a name="Partial"></a>Partial Failure Options</h3>
+        <p>Operations which update, add, or delete multiple records must first check the existence of each record in the target work list. If one or more records do not exist (or already exist in the "add" case), the pre-check detects a "partial failure" and the default behavior is to abort the operation. </p>
+        <p>CygNet gives you the option  to continue the operation, despite a partial failure. In the operation request directives, the possible actions for AllowPartialFailure are as follows.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Action</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">AllowPartialFailure=False</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Abort before attempting any add/update/delete operation.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">AllowPartialFailure=True</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Continue with the operation and allow partial success. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Records that do not exist, or already exist in the "add" case, will generate warnings in the results.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Errors"></a>Errors and Warnings</h3>
+        <p>If the service providing data for processing the request does not have a defined relationship with the service to which the request applies, an error will occur. </p>
+        <p class="Example">Example </p>
+        <p class="Indent">If the Enterprise Operations device is running in MYSITE.UIS, and the request is to get value history records points that are served by ACME.UIS, an error will occur because MYSITE.UIS and ACME.UIS do not have a defined relationship.</p>
+        <p>Another  error that may occur is a security error. In an Enterprise Operations device, you must opt-in for all services that are authorized to provide data for processing a request. If a service has not been authorized, the request will fail. The opt-in settings are included on the <b>Options</b> page in the device properties box.</p>
+        <p>Failed operation requests generate an error message.</p>
+        <h3><a name="History"></a>History Rollups</h3>
+        <p>History Rollup attributes can be configured in some Enterprise Operations, as specified in the operation request. Business Object history rollups can be specified in the Business Object Mapping on the <b>Edit</b> page.</p>
+        <p>See <a href="../History/History Rollups.htm">History Rollups</a> in the History section for more information.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="CygNet Native Operations Concepts.htm" class="More">CygNet Native Operations Concepts</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="CygNet Business Object Concepts.htm" class="More">CygNet Business Object Concepts</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

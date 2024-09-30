@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using a Temporary VHS</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using a Temporary VHS</span>
+        </div>
+        <h2>Using a Temporary VHS</h2>
+        <p>When performing a VHS Check, it may be desirable to run a temporary VHS so that data can continued to be collected while the VHS is offline. This topic describes the steps for setting up a temporary VHS and then importing the temporary data back into the original VHS.</p>
+        <p>Each current value service is configured to report data to an associated production VHS. For example, MYSITE.UIS reports history data to MYSITE.VHS. In addition, other Historians can be configured to replicate data to a particular VHS, as shown in the following diagram:</p>
+        <p class="Image">
+            <img src="../../Resources/Images/History/VHS Name Game.png" />
+        </p>
+        <p>To eliminate the need to change many configuration files and reduce the risk of error, best practice recommends that you create a temporary VHS and let the temporary VHS assume the identity of the original production VHS during its tenure. Once the original VHS is returned to operation, the data in the temporary VHS can be imported into the production VHS.</p>
+        <h3>Create a Temporary VHS, Revert to Original VHS, and Import Data to Original VHS</h3>
+        <p>The following steps assume the name of the VHS and its folder are <b>VHS</b>.</p>
+        <p class="HeadingProcedure">To Create and Start a Temporary VHS</p>
+        <ol start="1">
+            <li value="1">Use CygNet Explorer to stop the original VHS.</li>
+            <li value="2">Use Windows Explorer to rename the VHS folder: Rename the <b>VHS</b> folder to <b>VHSORIG</b>.</li>
+            <li value="3">Create a new VHS folder:</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Using Windows Explorer, create a new folder in <b>CygNet\Services</b> and name it <b>VHS</b>. The service in this folder will be used for data collection during the outage.</li>
+            <li value="2">Copy the executable (Vhs.exe) and configuration file (Vhs.cfg) from <b>VHSORIG</b> into <b>VHS</b>.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Use a text editor to edit the Vhs.cfg file in the <b>VHS</b> folder: Assign the service a unique port number. This will be required when running both VHSs. The default port number of the VHS is 6016. For example, use port number 7016, if it is available.</li>
+            <div class="Note"><span class="NoteHeading">Note:</span> You will have to open the port on the firewall if data is being replicated to the VHS.</div>
+        </ol>
+        <ol start="5">
+            <li value="5">Use CygNet Explorer to restart the VHS. Data will now be written to the new <b>VHS</b>.</li>
+        </ol>
+        <p class="HeadingProcedure">To Check VHSORIG</p>
+        <ol start="1">
+            <li value="1">Perform the required checks on <b>VHSORIG</b> using <a href="VHS Check Utility.htm">VHS Check</a>.</li>
+        </ol>
+        <p class="HeadingProcedure">To Reinstate the Original VHS</p>
+        <ol start="1">
+            <li value="1">Use CygNet Explorer to stop the temporary VHS.</li>
+            <li value="2">Use Windows Explorer to rename the VHS: Rename the <b>VHS</b> folder to <b>VHSTEMP</b>.</li>
+            <li value="3">Use a text editor to edit the Vhs.cfg file in the <b>VHSTEMP</b> folder: Rename the service to <b>VHSTEMP</b>.</li>
+            <li value="4">Use Windows Explorer to rename the original VHS folder: Rename the <b>VHSORIG</b> folder to <b>VHS</b>.</li>
+            <li value="5">Use CygNet Explorer to restart the VHS. Data will now be written to the original VHS.</li>
+        </ol>
+        <p class="HeadingProcedure">To Import Data from VHSTEMP to VHS</p>
+        <ol start="1">
+            <li value="1">Use CygNet Explorer to:</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Add VHSTEMP to the ARS.</li>
+            <li value="2">Add VHSTEMP to the RSM.</li>
+            <li value="3">Start VHSTEMP using the RSM.</li>
+        </ol>
+        <ol start="2">
+            <li class="HyperlinkList" value="2">Run the <a href="VHS Import Export Utility.htm">VHS Import/Export</a> utility (VHSImportExport.exe in <b>CygNet\Utilities</b>). </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Set the <b>Source</b> to <b>VHSTEMP</b>. </li>
+            <li value="2">Set the <b>Destination</b> to <b>VHS</b>. </li>
+            <li value="3">Do not use any limit options.</li>
+        </ol>
+        <p class="HeadingProcedure">To Verify the Data</p>
+        <p>You can use any number of tools to verify that the data from VHSTEMP was imported into VHS:</p>
+        <ul>
+            <li value="1">Browse the data using CygNet Explorer</li>
+            <li class="HyperlinkList" value="2">Export the data using <a href="../Export Tools/CygNet Excel Export.htm">CygNet Excel Export</a> or <a href="CygNet History Export Utility.htm">CygNet Export</a></li>
+            <li class="HyperlinkList" value="3">View the data on a trend using the <a href="../CygNet Studio/Trend Tool.htm">Trend Tool</a></li>
+        </ul>
+        <p class="HeadingProcedure">To Delete the Temporary VHS</p>
+        <p>Once data verification is complete, delete the VHSTEMP from the RSM and the ARS, and delete the service folder. If you want to keep the service for future use, use Windows Explorer and delete all files from the <b>VHSTEMP</b> folder <i>except</i> Vhs.exe and Vhs.cfg.</p>
+        <ol>
+            <li value="1">Use CygNet Explorer to stop the temporary <b>VHSTEMP</b>. </li>
+            <li value="2">Remove it from the system: Delete the <b>VHSTEMP</b> from the <b>RSM</b> and the <b>ARS</b>.</li>
+            <li value="3">Use Windows Explorer to delete the <b>VHSTEMP</b> folder.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Bit Mask Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Bit Mask Examples</span>
+        </div>
+        <h2><a name="Bit2"></a>Bit Mask Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf. In this topic, methods are described that compute a value from or provide a value for <u>multiple</u> bit positions. To make a single-bit change, see <a href="Bit Position.htm#Bit">Bit Position</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Bit" class="selected">Bit Mask (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Bit3" class="selected">Bit Mask (B)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#BitAndXOrMaskFromDeid" class="selected">XOR Bit Mask (A)</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#XOR2" class="selected">XOR Bit Mask (B)</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#XOR" class="selected">XOR Bit Mask (C)</a>
+            </li>
+        </ul>
+        <p>For an example of a Bit Mask data group, see the <a href="#Sample" class="selected">Sample Data Group</a> below.</p>
+        <p>For information about example data group elements and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="Bit"></a>Bit Mask (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a bit mask of 0x000F to it. The result is 13.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitMskA desc="Bit Mask Method A" readOnly="true" type="ui2" ref="raw61" bMsk="0x000F"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a>, <a href="ref.htm#bitShift">bitShift</a>, and <a href="DataGroupElement Element.htm#bMsk">bMask</a>.</p>
+        <h3><a name="Bit3"></a>Bit Mask (B)</h3>
+        <p>The following example uses two child elements to compute a bit mask. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>BitMskB</b>. The second child element references the <a href="Available Reference Operations.htm#opBitMask">opBitMask</a> operation and applies a bit mask of 0x000F to the decimal value 61 from <b>raw61</b>. The result is the decimal value 13.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitMskB desc="Bit Mask Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opBitMask" value="0x000F" bitShift="unsigned"/&gt;</p>
+                    <p class="Code">&lt;/BitMskB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, <a href="ref.htm#bitShift">bitShift</a>, and <a href="ref.htm#value">value</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="BitAndXOrMaskFromDeid"></a>XOR Bit Mask (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a bit mask of 0x000F to it. The resulting bit mask decimal value is 13. An <b>XOR</b> operation is then applied to the decimal value 13. The result of the <b>XOR</b> mask is the decimal value 2.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitMskXA desc="XOR Bit Mask Method A" readOnly="true" type="ui2" ref="raw61" bMsk="0x000F" bXorMask="0x000F"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#bMsk">bMask</a>, and <a href="DataGroupElement Element.htm#bXorMask">bXorMask</a>.</p>
+        <h3><a name="XOR2"></a>XOR Bit Mask (B)</h3>
+        <p>The following example uses two child elements to compute an <b>XOR</b> bit mask. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>BitMskXB</b>. The second child element references the <a href="Available Reference Operations.htm#opBitMask">opBitMask</a> operation and applies a bit mask of 0x000F to the decimal value 61 from <b>raw61</b>. The result is the decimal value 13. An <b>XOR</b> bit mask of 0x000F is then applied to the decimal value 13. The result of the <b>XOR</b> mask is the decimal value 2.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitMskXB desc="XOR Bit Mask Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opBitMask" value="0x000F" bXorMask="0x000F"/&gt;</p>
+                    <p class="Code">&lt;/BitMskXB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, <a href="ref.htm#value">value</a>, and <a href="ref.htm#bXorMask">bXorMask</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="XOR"></a>XOR Bit Mask (C)</h3>
+        <p>The following example uses two child elements to compute an <b>XOR</b> bit mask. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>BitMskXC</b>. The second child element references the <a href="Available Reference Operations.htm#opBitXorMask">opBitXorMask</a> operation and applies a bit mask of 0x000F to the decimal value 61 from <b>raw61</b>. The result of the <b>XOR</b> mask is the decimal value 32.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitMskXC desc="XOR Bit Mask Method C" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opBitXorMask" value="0x000F"/&gt;</p>
+                    <p class="Code">&lt;/BitMskXC&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, and <a href="ref.htm#value">value</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Sample"></a>Sample Data Group</h3>
+        <p>The following data group example grabs a binary value from a byte  using hex masking and applies a decimal conversion. It uses two DEIDs (RAW_1 and RAW_2) and applies a bitmask of 0x8000 to bit 16 in both REF_1 and REF_2. In each of these, the first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> to assign the value of <b>RAW_&lt;&gt;</b> as the initial value for <b>REF_&lt;&gt;</b>. The second child element references the <a href="Available Reference Operations.htm#opBitMask">opBitMask</a> operation and applies a bit mask of  0x8000. The third child element references the <a href="Available Reference Operations.htm#opScaleFactor">opScaleFactor</a> operation to scale the result (0 or 1) by the <b>scaleFactor</b> attribute's value of 32768 (in decimal). Finally, it references the results of the raw data elements and sums them together using <a href="Available Reference Operations.htm#opAddId">OpAddId</a>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BmskSample niceName="Bit-Mask Sample Datagroup" maxCnt="1" baseOrd="0" ordLabel="" devDG="true"&gt;</p>
+                    <p class="Code2">&lt;dgElements secLev="4" byteOrder="bigEndian"&gt;</p>
+                    <p class="Code3">&lt;RAW_1 desc="Raw DEID 1" type="ui2" regDef="1:43" /&gt;</p>
+                    <p class="Code3">&lt;RAW_2 desc="Raw DEID 2" type="ui4" regDef="2:96" /&gt;</p>
+                    <p class="Code3">&lt;REF_1 desc="Bit 16 of 16 of RAW_1" readOnly="true" type="ui2" isRef="1" hidden="true"&gt;</p>
+                    <p class="Code4">&lt;ref prec="0" refOp="opAssignId" deid="RAW_1"/&gt;</p>
+                    <p class="Code4">&lt;ref prec="1" refOp="opBitMask" value="0x8000"/&gt;</p>
+                    <p class="Code4">&lt;ref prec="2" refOp="opScaleFactor" scaleFactor="32768"/&gt;</p>
+                    <p class="Code3">&lt;/REF_1&gt;</p>
+                    <p class="Code3">&lt;REF_2 desc="Bit 16 of 32 of RAW_2" readOnly="true" type="ui2" isRef="1" hidden="true"&gt;</p>
+                    <p class="Code4">&lt;ref prec="0" refOp="opAssignId" deid="RAW_2"/&gt;</p>
+                    <p class="Code4">&lt;ref prec="1" refOp="opBitMask" value="0x8000"/&gt;</p>
+                    <p class="Code4">&lt;ref prec="2" refOp="opScaleFactor" scaleFactor="32768"/&gt;</p>
+                    <p class="Code3">&lt;/REF_2&gt;</p>
+                    <p class="Code3">&lt;REF_SUM desc="Bit 16 of RAW_1 + bit 16 of RAW_2" readOnly="true" type="ui4" isRef="1"&gt;</p>
+                    <p class="Code4">&lt;ref prec="0" refOp="opAssignId" deid="REF_1"/&gt;</p>
+                    <p class="Code4">&lt;ref prec="1" refOp="opAddId" deid="REF_2"/&gt;</p>
+                    <p class="Code3">&lt;/REF_SUM&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;modbusReadBlocks regByteLen="2" regOff="0"&gt;</p>
+                    <p class="Code3">&lt;block1 funcCode="3" regCnt="100" regNum="8000" ordIncrement="1000" regByteLen="2" /&gt;</p>
+                    <p class="Code3">&lt;block2 funcCode="3" regCnt="100" regNum="8100" ordIncrement="1000" regByteLen="2" /&gt;</p>
+                    <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                    <p class="Code">&lt;/BmskSample&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, <a href="DataGroupElement Element.htm#scaleFactor">scaleFactor</a>, and <a href="ref.htm#value">value</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

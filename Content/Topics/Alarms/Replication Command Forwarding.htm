@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Replication Command Forwarding</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Replication Command Forwarding</span>
+        </div>
+        <h2>Replication Command Forwarding</h2>
+        <p>The Common Alarm Service (CAS) is able to pass or forward commands (such as acknowledgment requests) by writing the commands in XML format to a specified location  on the replication server.  The CAS will validate the request and if command forwarding is configured, will write out the command and the associated information to an XML file. During startup the CAS will process and delete these files as necessary. A client program such as CygNet Studio or the CAS Alarm Control will receive the same response as if the replicated CAS was not in replicated mode. Replication command forwarding details can be viewed in the service Console screen.</p>
+        <p>See the following subsections below for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Configuing" class="selected">Configuring Replication Command Forwarding</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#XML" class="selected">XML File Name Format</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#XML2" class="selected">XML File Format</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Maintenance" class="selected">Directory Maintenance</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Console" class="selected">Service Console Screen</a>
+            </li>
+        </ul>
+        <h3><a name="Configuing"></a>Configuring Replication Command Forwarding</h3>
+        <p>In order for the CAS to forward a command the following configuration conditions must be met:</p>
+        <ol>
+            <li value="1">The CAS is in replication mode.</li>
+            <li value="2">The replicated server is configured and running.</li>
+            <li value="3">The associated CAS service configuration file (Cas.cfg), on the replicated server, has the <b>REPL_FORWARD_DIRECTORY</b> keyword configured, and this will be created during startup if necessary.</li>
+            <li value="4">The CAS has the ability to write to the directory specified in the <b>REPL_FORWARD_DIRECTORY</b> keyword.</li>
+            <li value="5">The user sending the request is authorized (has appropriate security) for this request if the service was not in replication mode.</li>
+            <li value="6">If the Cas.cfg is modified the CAS must be stopped and retarted in order for the changes to take effect.</li>
+        </ol>
+        <p>Upon receiving a validated and authorized request, if the CAS is forwarding commands, the CAS will write the request to the specified directory in the XML format. </p>
+        <h4>Configuration Keywords</h4>
+        <p>The following table contains descriptions for the service configuration keywords required to enable replication command forwarding in the Cas.cfg file. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>REPL_FORWARD_DIRECTORY</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If the service is in replication mode and this keyword is defined, then a setpoint command issued to the source service will be written out as an XML file (ForwardCmds_CVS_Site.Service_######.xml) and saved in the specified directory. Note that setting this keyword does not write the value to the source service. The user will need to evaluate the command and decide whether to modify a point’s current value using a setpoint command on the source service. If this keyword is empty or commented out, then Replication Command Forwarding is disabled. See <a href="#">Replication Command Forwarding</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>REPL_FORWARD_MAX_FILES</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The maximum number of files in the directory specified by the keyword <b>REPL_FORWARD_DIRECTORY</b>. Once this number is reached, the service will attempt to begin deleting the oldest files. Must be in the range 10-1000. See <a href="#">Replication Command Forwarding</a> for more information.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="XML"></a>XML File Name Format</h3>
+        <p>Replication forwarding command file names are designed to support different service types while providing quick identification of the creating service type and name.  Forwarded commands will be stored in a file with the following name:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">ForwardCmdS_[SERVICE_TYPE]_[SITE.SERVICE]_[SEQUENCE_NUMBER][QUALIFIER].xml</p>
+                </td>
+            </tr>
+        </table>
+        <p><i>where</i>
+        </p>
+        <ul>
+            <li value="1">[SERVICE_TYPE] is the type of service, in this case "CAS."</li>
+            <li value="2">[SITE.SERVICE] is the <i>site.service</i> of the CAS.</li>
+            <li value="3">[SEQUENCE_NUMBER] is a zero-padded numerical number between 000001 and 999999.  This will either start at 1 or the next number in the forwarding directory as determined at service startup.</li>
+            <li value="4">[QUALIFIER] should never appear under normal operations, but if for some reason a file with the next sequence number already exists, this will be added in the form -# where # is a single digit in the range 1-5.</li>
+        </ul>
+        <p class="Example">For example:</p>
+        <p class="Indent">For a CAS with a name of MYSITE.CAS will create the first command file as: <code>ForwardCmds_CAS_MYSITE.CAS_000001.xml</code>, and the 123rd file as: <code>ForwardCmds_CAS_MYSITE.CAS_000123.xml</code></p>
+        <p class="Indent">If a file with the name <code>ForwardCmds_CAS_MYSITE.CAS_000123.xml</code> already exists, then the file name used would be <code>ForwardCmds_CAS_MYSITE.CAS_000123-1.xml</code>.  This should not occur in normal operations.</p>
+        <h3><a name="XML2"></a>XML File Format</h3>
+        <p>The XML format used for Replication Command Forwarding is designed to support additional service and command types. The XML takes the following format:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;<a href="#Forwardi" class="selected">ForwardingCmds</a> …&gt;</p>
+                    <p class="Code2">&lt;<a href="#CasChang" class="selected">CasChangeAlarm</a> …&gt;</p>
+                    <p class="Code3">&lt; <a href="#AlarmRec" class="selected">AlarmRec</a> …/&gt;</p>
+                    <p class="Code2">&lt;<a href="#CasChang" class="selected">CasChangeAlarm</a> …&gt;</p>
+                    <p class="Code3">&lt; <a href="#AlarmRec" class="selected">AlarmRec</a> …/&gt;</p>
+                    <p class="Code2">&lt;<a href="#CasChang" class="selected">CasChangeAlarm</a> …&gt;</p>
+                    <p class="Code3">&lt; <a href="#AlarmRec" class="selected">AlarmRec</a> …/&gt;</p>
+                    <p class="Code">&lt;/ForwardingCmds&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Forwardi"></a>ForwardingCmds Node Attributes</h4>
+        <p>This XML node is the root node of the Command Forwarding file.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 75px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 250px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CmdType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The type of commands this file contains.  Each of this nodes direct child nodes should have this node tag.	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>CasChangeAlarm</b> is the only supported command for the CAS.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Comment</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>A comment from the user.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>String</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>FromService</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The service creating the file.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>[domain]site.service</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ServiceType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The service type of the service forwarding the command.	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>String. For example "CAS for the CAS</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>TimeStampUTC</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The time the XML file was created.	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>OLE date in floating point format, UTC</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ToService</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The service the command should be forwarded to.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>[domain]site.service</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>UserId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The User Id of the user that originated the command request.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>String</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="CasChang"></a>CasChangeAlarm Node Attributes</h4>
+        <p>This XML node is the root node of the CAS Change Alarm command.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 75px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 250px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ChangeType	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The type of change requested.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>String: "ACK", "HIDE", "UNHIDE", "CLEAR", "FORCE"</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="AlarmRec"></a>AlarmRec Node Attributes</h4>
+        <p>This XML node is the root node for the current Alarm Record in the CAS at the time the command was forwarded.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 75px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 250px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>alarmack	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Is the alarm acknowledged?</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>0 = False, otherwise True</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>alarmcategory	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The alarm category from the point record.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>	The TRS entry, not the description.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>alarmcleared	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Is the alarm cleared? (always zero for CAS)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>0 = False, otherwise True</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>alarmpriority	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The priority of the alarm.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Numeric: 0-99</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>alarmprioritycat	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The priority category of the alarm.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Numeric: 0-7</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>alarmrecversion	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The version of the alarm record.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Floating point number</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>facilityid	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The facility of the point.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>String: Facility Id</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>hidden	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Is the alarm hidden?</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>0 = False, otherwise True</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>highestpriority	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The highest priority since the point was added to the CAS.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Numeric: 0-99</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>highestpriorityunack	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The highest priority since the point was last acknowledged.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Numeric: 0-99</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>pointid	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The short point id of the point.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>String</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>pointidlong	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The long point id of the point.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>String</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>reporttime	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The time the alarm was reported to the CAS.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>OLE Date in floating point format, UTC</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>service	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The service of the point.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>String</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>setreset	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The alarm is set?</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>	0 = Reset, otherwise Set</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>site	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The site of the point.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>String</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>suppression	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Is the alarm suppressed?</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>0 = False, otherwise True</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>timestamp	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The timestamp of the point Realtime record when the alarm was reported to the CAS.	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>OLE Date in floating point format, UTC</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>uniformdatacode	</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The UDC of the point.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>String</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Maintenance"></a>Directory Maintenance</h3>
+        <p>Upon startup, the CAS will attempt to create the forwarding directory if the service is in replication mode and the <b>REPL_FORWARD_DIRECTORY</b> keyword is configured.    This will only be attempted at startup.</p>
+        <p>The CAS will prevent the number of files in the forwarding directory from growing unbounded.  The maximum number of files in this directory is specified in the associated Cas.cfg with the  <b>REPL_FORWARD_MAX_FILES</b> keyword. </p>
+        <p>When the CAS runs its maintenance routine, it will check the number of files in the directory.  If the number of files exceeds the maximum number allowed, the CAS will begin to delete the oldest files until the number of files is 10% less than the maximum number of files. The Directory Maintenance routine runs at CAS startup, and after each time a command has been forwarded, unless the routine already been run in the previous 10 minutes.</p>
+        <h3><a name="Console"></a>Service Console Screen</h3>
+        <p>The CAS Service Console Screen (F2: System) provides a visual indication of the forwarding: whether replication command forwarding is configured, the command forwarding directory, the maximum amount of files for the directory, the time of the last command forwarding, and any errors encountered when writing to the directory or during directory maintenance.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

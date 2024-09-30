@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Date and Time">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Participating in Daylight Saving Time</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Date and Time.htm">Date and Time</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Daylight Saving Time</span>
+        </div>
+        <h2>Participating in Daylight Saving Time</h2>
+        <p>CygNet recommends that the field (the host server and RTUs) does not participate in Daylight Saving Time (DST). It is typical for the client computers to participate in Daylight Saving Time even though the field does not.</p>
+        <p>Regardless of your participation, however, set the CygNet host to "field" time so that the data timestamps are correctly referencing the field "contract" time when you make a time change (or not).</p>
+        <h3>Non-Participation</h3>
+        <p>If you do not participate in Daylight Saving Time, make sure that your host servers and field devices are not configured to automatically adjust for it.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> During the Daylight Saving Time period the timestamps shown on client computers that do adjust for Daylight Saving Time will be "off" by one hour since the timestamps reflect Standard Time in the field.</p>
+        </div>
+        <h3>Participation</h3>
+        <p>If you do participate in Daylight Saving Time, make sure that your host servers and field devices are configured to <b>automatically</b> adjust. </p>
+        <p>Do not manually adjust the computer clock. When you manually change the time to adjust for Daylight Saving Time, you are setting it to the wrong time for the time zone. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">09:00 Central Standard Time (CST) is 15:00 Greenwich Mean Time (GMT). If you change the clock to 10:00 CST to account for Daylight Saving Time, you have reset it to 16:00 GMT. This would be incorrect since the time is actually 15:00 GMT.</p>
+        <p>Rather, enable the computer’s automatic Daylight Saving Time adjustment option. A time zone is an offset from Coordinated Universal Time (UTC), also referred to as Greenwich Mean Time (GMT). So, when the clock shows 09:00 Central Standard Time, it is 15:00 GMT. When the computer knows it is on Daylight Saving Time and the clock shows 10:00, it is still 15:00 GMT.</p>
+        <p>If the field devices do not have a built-in mechanism for adjusting the time, you can do so by <a href="../Scheduler/Scheduler.htm">scheduling a "SETTIME" command</a> to sync the device clocks with the host clock once the host clock has adjusted.</p>
+        <p>Participation in Daylight Saving Time will result in one contract day with 25 hours (when Daylight Saving Time ends) and one contract day with 23 hours (when Daylight Saving Time starts) if the RTU supports partial records. Since CygNet stores data in UTC time, this is only problematic for archive point processing for RTUs that support and participate in Daylight Saving Time. In such instances, when the Daylight Saving Time ends, the Value History Service will have two records for the same hour for the archive history point. This is because the RTU will return data with identical timestamps. </p>
+        <p>In CygNet Measurement, there are only 24 hourly rollups for any day. When Daylight Saving Time ends, the CygNet Measurement contract day will show 24 hours (even though the RTU may show 25 hours), with one hour having 120 minutes of flow time. When Daylight Saving Time begins, the contract day will have 23 hours of data.</p>
+        <h3>Daylight Saving Time and Host Servers</h3>
+        <p>CygNet timestamps the data using the host time (unless the device also returns a timestamp) in Coordinated Universal Time (UTC) in OLE date/time format. The timestamp is shown according to the time zone settings of the user’s computer. See <a href="Timestamps.htm">Timestamps</a> for more information.</p>
+        <p>A domain can include hosts that both do and do not participate in Daylight Saving Time. It is a matter of user understanding that  the timestamps may vary when Daylight Saving Time is in effect on one host and is not in effect on another host. </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

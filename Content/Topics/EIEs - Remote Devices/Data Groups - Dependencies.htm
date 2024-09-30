@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Data Groups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Data Group Dependencies</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Groups.htm">Data Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Data Group Dependencies</span>
+        </div>
+        <h2>Data Group Dependencies</h2>
+        <p>Some data groups depend on one or more supporting data groups for some of their data. Such a relationship is known as a data group dependency. Data groups that require supporting data groups are called dependent data groups; data groups on which a dependent data group relies are called support data groups.</p>
+        <p>All possible data groups for a remote device are defined in the applicable device template file. However, it is not always enough to have defined a supporting data group in a device template file in order for the support data group to do its job. If you poll a dependent data group and its supporting data groups are not configured correctly, the poll will fail.</p>
+        <p>The following list is an overview of the various dependency relationships possible:</p>
+        <ul>
+            <li value="1">Data group with no dependencies, but must be the first data group polled on a remote device before any other data group can be used. This is typically a data group that returns device-configuration information.</li>
+            <li value="2">Data group that depends on one or more un-instantiated  support data groups. In this case, CygNet automatically retrieves the support data groups when they are required. An un-instantiated data group is simply a data group that has not been manually added to a remote device by using the remote device's editor.</li>
+            <li value="3">Data group that depends on one or more instantiated support data groups. In this case, the support data groups must be manually added to a remote device by using the remote device's editor before a poll of the dependent data group will be successful.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">All measurement data groups are dependent upon specific support data groups, consisting of the native data groups that measurement data groups use to draw their data from. Some EIEs expose their support data groups in a device template file, and they can be edited. An example of an EIE that uses a highly configurable device template file is the <b>Modbus EFM EIE</b>; support data groups are explicitly defined in its device template file. Other EIEs do not allow editing of support data groups in a device template file. Support data groups are still required for measurement data groups, but they are hard-coded in the device driver. An example of an EIE that has predefined, hard-coded support data groups is the <b>Emerson ROC EIE</b>.</p>
+        <p>For information about a device-template-file element sometimes used to define support data groups, see <a href="supportDg Element.htm">supportDg</a>.</p>
+        <p>For information about measurement data group dependencies, see data group topics in specific <a href="EIE Remote Devices.htm">remote device EIE</a> documentation.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

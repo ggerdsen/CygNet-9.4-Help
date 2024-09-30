@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Service|Replication and Data Synchronization">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring FMS Replication</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Service.htm">FMS Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Data Synchronization.htm">Replication and Data Synchronization</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring FMS Replication</span>
+        </div>
+        <h2>Configuring FMS Replication</h2>
+        <p>Replication is configured in the configuration file (<b>CygNet\Services\FMS\fms.cfg</b>) for each affected service. Depending on what role the service plays, different keywords will apply. </p>
+        <h3><a name="Required"></a>Required Configuration File Keywords for Replication</h3>
+        <p>For each involved service, its replication behavior and relationship is defined by several keywords in the FMS configuration file.</p>
+        <ul>
+            <li value="1">The details of data synchronization between services are contained in the <a href="#Required2" class="selected">Data Synchronization Keywords</a> section of the configuration file. </li>
+            <li value="2">The extent of data retention for each service is determined by the value configured in the <a href="#Required3" class="selected">Database Info Keywords</a> section of the configuration file.</li>
+        </ul>
+        <h4><a name="Required2"></a>Required Data Synchronization Keywords</h4>
+        <p>In the <b>Data Synchronization Keywords</b> section of the configuration file,  no replication is initially configured, and all data synchronization keywords in the configuration file are commented out. Uncomment only the applicable keywords necessary for each service, and enter appropriate values to define the replication relationships desired. See <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#Replicat">Data Synchronization Keywords</a> in the FMS Configuration File Keywords topic for more information.</p>
+        <p>The following is an overview of the keywords that are appropriate for each replication service role you decide to set up. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Data Synchronization Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Master FMS Service</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">DR Slave FMS Service</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Business Slave FMS Service</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_MODE">DS_MODE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Required</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Required</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Required</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_ROLES">DS_ROLES</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Required</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Required</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Required</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_REPL_MASTER">DS_REPL_MASTER</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Required</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Required</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_REPL_SLAVE">DS_REPL_SLAVE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Required in replication mode, when designating a DR Slave service</p>
+                    <p>N/A when designating Business Slave service(s); leave commented </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_CHECK_INTERVAL">DS_CHECK_INTERVAL</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Required</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Required</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_DELAY_MAX">DS_DELAY_MAX</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Required when in redundancy mode</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Required when in redundancy mode</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Required when in redundancy mode</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_QUICK_DB_COMPARE">DS_QUICK_DB_COMPARE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Optional</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Optional</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_BLACKOUT_START">DS_BLACKOUT_START</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Optional</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Optional</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_BLACKOUT_END">DS_BLACKOUT_END</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>N/A; </p>
+                    <p>leave commented</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Optional</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Optional</td>
+            </tr>
+        </table>
+        <h4><a name="Required3"></a>Required Database Info Keywords</h4>
+        <p>In the <b>Database Info Keywords</b> section of the configuration file, the <b>DATA_RETENTION</b> keyword must also be properly specified. </p>
+        <ul>
+            <li value="1"> For the <b>Master</b> service,  the DATA_RETENTION keyword value determines how many days of data will be retained in the service, when expired data is purged via database maintenance commands. </li>
+            <li value="2">For the  <b>DR Slave</b> service, the Master service determines its retention value,  since their data must match exactly.</li>
+            <li value="3">For <b>Business Slave</b> service(s),   the DATA_RETENTION keyword value determines how many days of data will be replicated from the Master service. A Business Slave service may have a different DATA_RETENTION keyword value specified than the Master service, since their data requirements may be quite different. When the Master and Business Slave services have different keyword values, the system will use the smaller of the two values to determine days of data replicated to the Business Slave service.
+        <p class="Example">Example </p><p class="Indent">If the Master service has a 180 day retention period, and the Business Slave service has a 5 year retention period, then only the most recent 180 days of data in the slave service can be validated.</p></li>
+        </ul>
+        <p>See <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DatabaseInfoKeywords">Database Info Keywords</a> in the FMS Configuration File Keywords topic for more information.</p>
+        <p>The following is an overview of what the DATA_RETENTION keyword values mean for each replication service role you decide to set up. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Data Synchronization Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Master FMS Service</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">DR Slave FMS Service</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Business Slave FMS Service</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DATA">DATA_RETENTION</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Required</p>
+                    <p>Specifies the number of days of data to be retained in the database, when expired device data is purged during database maintenance.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Required</p>
+                    <p>Specifies the number of days of data to be replicated from the Master service to the DR Slave service.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The value must equal the value set for the Master FMS Service.</p>
+                    </div>
+                    <p>Also specifies the number of days of data to be retained in the database, when expired device data is purged during database maintenance.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Required</p>
+                    <p>Specifies the number of days of data to be replicated from the Master service to the Business Slave service.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If the value is different from the value of the Master FMS Service, the system will use the smaller of the two values.</p>
+                    </div>
+                    <p>Also specifies the number of days of data to be retained in the database, when expired device data is purged during database maintenance.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Using"></a>Using the Quick Database Comparison Feature</h3>
+        <p>You may optionally decide to copy the Master service database over to a Slave service prior to setting up replication, and then use the quick database comparison feature to save time.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Use this keyword with caution, as it is possible to get a false positive on two databases that aren’t exactly the same.</p>
+        </div>
+        <p>Beginning replication from an existing FMS service could take a prohibitively long time, to run a line-by-line comparison against the potentially large size of an existing FMS database. If desired, to shorten the initial synchronization time for the replicated service, the database of the Master FMS service can be duplicated over to the replicated (Slave) site before starting the replicated service. You can then choose to enable the quick database comparison feature in the replicated service's configuration file, to allow the service to make a quick comparison and start the service. </p>
+        <p class="HeadingProcedure">To Enable Quick Database Comparison in a Replicated Slave Service</p>
+        <ol>
+            <li value="1">On your host server, locate the configuration file for the FMS service(s) that will be your DR Slave or Business Slave service(s). Open the <b>CygNet\Services\FMS</b> folder and locate the <b>fms.cfg</b> file. </li>
+            <li value="2">Open the configuration file <b>fms.cfg</b> for the Slave service, locate the <b>Data Synchronization Keywords</b> section, and set the value of the <b>DS_QUICK_DB_COMPARE</b> keyword to <b>TRUE</b>.</li>
+        </ol>
+        <p>Once the replicated service starts, a quick validation check will be done to verify that the two databases (Master and Slave) are equal. This will prevent a full row by row comparison of the two databases, which may take a long time on a large database. </p>
+        <h3>Enabling Replication</h3>
+        <p>Replication must be enabled and defined in the configuration file for each service that is part of the FMS replication relationship.</p>
+        <p class="HeadingProcedure">To Enable Replication</p>
+        <ol>
+            <li value="1">On your host server, locate the configuration file for each service involved in the replication relationship. Open the <b>CygNet\Services\FMS</b> folder and locate the <b>fms.cfg</b> file.</li>
+            <li value="2">Master service - Open the configuration file <b>fms.cfg</b> of the Master service and, in the Data synchronization Keywords section, do the following. </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Set the value field of the <b>DS_MODE</b> keyword to <b>REPLICATION</b>.</li>
+            <li value="2">Set the value of <b>DS_ROLES</b> to <b>REPL_MASTER</b>. </li>
+            <li value="3">If you are defining a disaster recovery slave, set the value of the <b>DS_REPL_SLAVE</b> keyword. Type  the [Domain]<i>Site.Service</i> for the DR Slave service into the value field. </li>
+            <li value="4">Set the value of the <b>DS_CHECK_INTERVAL</b> keyword to define the frequency at which the Master service will check for changes in the DR Slave service. Type the desired check interval value (in seconds) into the value field. This field cannot be left blank; it requires a value between 10 and 36000 seconds. </li>
+        </ol>
+        <ol start="3">
+            <li value="3">DR Slave service - Open the configuration file <b>fms.cfg</b> of the DR Slave service and, in the Data synchronization Keywords section, do the following. </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Set the value field of the <b>DS_MODE</b> keyword to <b>REPLICATION</b>.</li>
+            <li value="2">Set the value of the <b>DS_ROLES</b> keyword to <b>REPL_SLAVE_DR</b>. </li>
+            <li value="3">Set the value of  the <b>DS_REPL_MASTER</b> keyword.  Type  the [Domain]<i>Site.Service</i> for the Master service identified in step 2 into the value field. </li>
+            <li value="4">Set the value of the <b>DS_CHECK_INTERVAL</b> keyword to define the frequency at which the DR Slave service will check for changes in the Master service.  Type the desired check interval value (in seconds) into the value field. This field cannot be left blank; it requires a value between 10 and 36000 seconds.</li>
+            <li value="5">If you want to enable the quick database comparison feature, set the value of the <b>DS_QUICK_DB_COMPARE</b> keyword to <b>TRUE</b>. If not specified, the default value will be <b>FALSE</b>. See <a href="#Using" class="selected">Using the Quick Database Comparison Feature</a> for more information.</li>
+            <li value="6">If you want to define a blackout period, during which no replication occurs, set the values for the <b>DS_BLACKOUT_START</b> and <b>DS_BLACKOUT_END</b> keywords. See <a href="#Blacking" class="selected">Blacking Out Replication</a> for more information.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Business Slave service - Open the configuration file <b>fms.cfg</b> of <i>each</i> Business Slave service and, in the Data synchronization Keywords section, do the following. </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Set the value field of the <b>DS_MODE</b> keyword to <b>REPLICATION</b>.</li>
+            <li value="2">Set the value of <b>DS_ROLES</b> to <b>REPL_SLAVE_BUSINESS</b>. </li>
+            <li value="3">Set the value of  the <b>DS_REPL_MASTER</b> keyword.  Type  the [Domain]<i>Site.Service</i> for the Master service identified in step 2 into the value field. </li>
+            <li value="4">Set the value of the <b>DS_CHECK_INTERVAL</b> keyword to define the frequency at which the Business Slave service will check for changes in the Master service.  Type the desired check interval value (in seconds) into the value field. This field cannot be left blank; it requires a value between 10 and 36000 seconds.</li>
+            <li value="5">If you want to enable the quick database comparison feature, set the value of the <b>DS_QUICK_DB_COMPARE</b> keyword to <b>TRUE</b>. If not specified, the default value will be <b>FALSE</b>. See <a href="#Using" class="selected">Using the Quick Database Comparison Feature</a> for more information.</li>
+            <li value="6">If you want to define a blackout period, during which no replication occurs, set the values for the <b>DS_BLACKOUT_START</b> and <b>DS_BLACKOUT_END</b> keywords. See <a href="#Blacking" class="selected">Blacking Out Replication</a> for more information.</li>
+        </ol>
+        <h3><a name="Blacking"></a>Blacking Out Replication</h3>
+        <p>Since you will need to accommodate time required for database backups or other functions (e.g. your FMS service is configured to do a majority of data polls at a particular part of the contract day), it may be helpful to black out replication during such periods to prevent a performance burden on the system. Replication blackouts can optionally be configured in the configuration file of any slave service.</p>
+        <p class="HeadingProcedure">To Black Out Replication</p>
+        <ol>
+            <li value="1">On your host server, locate the configuration file for each service for which you want a blackout scheduled. Open the <b>CygNet\Services\FMS</b> folder and locate the <b>fms.cfg</b> file.</li>
+            <li value="2">Open the configuration file <b>fms.cfg</b> of  each Slave service for which you want a blackout scheduled, to define a time window during which no replication checks will be initiated.   Appropriate values are in the form “<b>HH:MM</b>” in 24-hour time notation, for the host server. </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Set the value for the <b>DS_BLACKOUT_START</b> keyword to define the start time of the blackout window. </li>
+            <li value="2">Set the value for the <b>DS_BLACKOUT_END</b> keyword to define the end time of the blackout window.</li>
+        </ol>
+        <p class="Example"><b>Example</b>
+        </p>
+        <p class="Indent">If your contract hour is 9 a.m. and polling generally takes under five hours, you might want a DS_BLACKOUT_START value of 09:00 and a DS_BLACKOUT_END value of 14:00.</p>
+        <h3>Monitoring FMS Replication</h3>
+        <p>To monitor replication status in the FMS Console window, use the <b>F4:Repl</b> view. The console view displays the current status of the replication, the amount of data replicated, the estimated amount to replicate, and other helpful information. See <a href="../CygNet Console/CygNet Console.htm">CygNet Console</a> for more information.</p>
+        <p>Most of the data on this view is also available via CygNet Explorer, using service info keywords available in the Service Details View, or through SVCMON points.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Device Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet DDS Data Group Copy Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Utilities.htm">Device Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DDS Data Group Copy Utility</span>
+        </div>
+        <h2>CygNet DDS Data Group Copy Utility</h2>
+        <p>Use the <b>CygNet DDS Data Group Copy</b> utility (DdsDataGroupCopy.exe) to copy data groups from one remote device to others within the same Device Definition Service (DDS). You can make several different kinds of changes in a single copy action, including updating one or many data groups within a single remote device, selected remote devices, or all remote devices of a certain type; deleting replaced data groups; and updating UDC mappings on destination data groups.</p>
+        <p>Best practice recommends that you first perform a copy in <b>Test Mode Only</b>. This produces a report at the bottom of the <b>CygNet DDS Data Group Copy</b> dialog box listing what changes would occur upon execution, and gives you the opportunity to make any necessary adjustments before proceeding.</p>
+        <p>The CygNet DDS Data Group Copy utility file (DdsDataGroupCopy.exe) is stored in the <b>CygNet\Utilities</b> directory on your host server.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If you want to make similar changes to commands, see <a href="CygNet DDS Command Copy Utility.htm">CygNet DDS Command Copy Utility</a>.</p>
+        </div>
+        <h3><a name="Starting"></a>Starting DDS Data Group Copy</h3>
+        <h4>Installing and Launching</h4>
+        <p>To install and launch (start) the application or utility using <a href="../Version Management/Version Management Overview.htm">version management</a>:</p>
+        <ul>
+            <li value="1">Use <a href="../CygNet Client Installer/CygNet Client Installer.htm">CygNet Client Installer</a> to install and launch the application. Once installed you can use CygNet Client Installer to start the application.</li>
+        </ul>
+        <p class="Indent">-OR-</p>
+        <ul>
+            <li value="1">If previously installed, click <b>Start</b> &gt; <b>All Programs</b> &gt; <b>CygNet</b> &gt; &lt;<i style="font-weight: bold;">name of the application or utility</i>&gt; or double-click the desktop shortcut.</li>
+        </ul>
+        <p>Alternatively, browse to the <b>CygNet\Utilities</b> directory using Windows Explorer and double-click the program icon. You can also start an application or utility from a <a href="../Utilities/Running a Command Line Utility.htm">command line</a>. These methods do not provide version management. </p>
+        <p>The <b>CygNet DDS Data Group Copy</b> dialog box appears.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Devices/DDS_data_group_copy_dialog.png" title="CygNet DDS Data Group Copy dialog box" alt="CygNet DDS Data Group Copy dialog box" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample CygNet DDS Data Group Copy Dialog Box</td>
+            </tr>
+        </table>
+        <h3><a name="Facility"></a>Aligning Facility Ordinal Values</h3>
+        <p>To successfully copy data groups, the facility "Ordinal" value must be the same for both the source and target devices, before using the utility. To verify a device's facility ordinal value, view the Ordinal column on its <a href="../EIEs - Remote Devices/Remote Device Editor - Facilities.htm">Facilities</a> property page. (In CygNet Explorer &gt; Device Definition Service (DDS) &gt; Remote Devices, right-click on a selected device and select <b>Properties</b> to access the Properties dialog box.)</p>
+        <p>
+            <img src="../../Resources/Images/Devices/Facility_Ordinal.png" title="Facility Ordinal Value" alt="Facility Ordinal Value" />
+        </p>
+        <p>If necessary, edit the target device's facility ordinal value to match that of the source device. Once you have verified that the facility ordinal values are the same,  proceed to copying desired data groups using the utility. For more information, see <a href="../EIEs - Remote Devices/Data Groups - Ordinals and Facility Ordinals.htm">Data Group Ordinals and Facility Ordinals</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Using"></a>Using the CygNet DDS Data Group Copy Utility</h3>
+        <p>Using the CygNet DDS Data Group Copy Utility involves deciding which data groups you want to copy to which remote device(s) and with what effects on the destination remote device(s).</p>
+        <p>Specifically, use the CygNet DDS Data Group Copy Utility to add, update, replace, and delete data groups. The difference between updating a data group and replacing a data group is that with updating you can specify a subset of items to update within the data group, whereas replacing the data group is identical to deleting the data group and adding it again.</p>
+        <p>When the <b>Add/Update</b> or <b>Update Only</b> options are selected in the <b>Copy Options</b> area, <b>Update Options</b> become available. You can select to update any or all of these items. If none of these items are selected, no changes are made to the data group in the destination remote device.</p>
+        <p class="HeadingProcedure">To Copy Data Groups</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Best practice recommends copying data groups in <b>Test Mode Only</b> first. Then, when you are ready to copy to a live remote device, copy to a single remote device and verify your results before copying to multiple remote devices.</p>
+        </div>
+        <ol>
+            <li value="1">Ensure that the <a href="#Facility" class="selected">facility ordinal values</a> for the intended source and target devices are the same.</li>
+            <li value="2"><a href="#Starting" class="selected">Open</a> the DDS Data Group Copy utility, to access the  CygNet DDS Data Group Copy dialog box.</li>
+            <li value="3">Select the  <b>Test Mode Only</b> check box to ensure that you do not mistakenly copy data groups before you have reviewed the changes.</li>
+            <li value="4">Provide information about the source and target devices and data groups to copy.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <a href="#CopyFrom" class="selected">Copy From</a> group box, provide information about the source device and data groups.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">In the <b>DDS Site.Service</b> field, browse for the DDS that contains the data groups you want to modify and select it.</li>
+            <li value="2">In the <b>Device ID to Copy</b> field, browse for the remote device you want to copy data groups from and select it.</li>
+            <li value="3">Click <b>Load Data Group List</b> to load all of the data groups for the selected device ID into the <b>Data Groups to Copy</b> pane.</li>
+            <li value="4">To sort by data group type only, check <b>List Data Group Types</b>. This means that if you select data groups to copy from the list, all data groups of the selected type are copied, not unique instances of the type.</li>
+            <li value="5">Select data groups to copy  in the <b>Data Groups to Copy</b> pane. To select multiple data groups at once, press <b>Shift</b> or <b>Ctrl</b> + the desired data group names.</li>
+        </ol>
+        <ol class="Lower_alpha" start="2">
+            <li value="2">In the <a href="#CopyTo" class="selected">Copy To</a> group box, provide information about the target device(s) to copy the data groups to.</li>
+            <li value="3">In the <a href="#CopyOptions" class="selected">Copy Options</a> group box, select the copy options to use.</li>
+        </ol>
+        <ol class="Lower_alpha" start="4">
+            <li value="4">If an "update" copy option is selected (either <b>Add/Update</b> or <b>Update Only</b>), the <a href="#Update" class="selected">Update Options</a> group box becomes available. Select the update options to use. See <a href="#ToSelectSpecific" class="selected">To Select Specific Data Group Elements for Copy</a>  for more information about selecting specific data group elements to copy. </li>
+        </ol>
+        <ol start="5">
+            <li value="5">Test the data group copy action.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">When you have all information provided, click <b>Copy</b> to test the copy action. </li>
+            <li value="2">A report will be generated in the pane at the bottom of the <b>CygNet DDS Data Group Copy</b> dialog box, listing the changes.</li>
+            <li value="3">Review and verify the changes. </li>
+            <li value="4">If you want to save a file of your changes, click <b>Copy Log to Clipboard</b> and paste the log into a text editor of your choice. The log information can be helpful to troubleshoot errors in a real copy action.</li>
+            <li value="5">If necessary, adjust any settings or properties and repeat steps 4 and 5 until the results are satisfactory.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Perform the data group copy action.
+                <div class="Note"><p><span class="NoteHeading">Note:</span> Best practice recommends selecting only one remote device for your first live copy.</p></div></li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">When you are satisfied with your test copy results, clear the <b>Test Mode Only</b> check box and click <b>Copy</b> to perform a "live" copy.</li>
+            <li value="2">Results from your live copy appear in the pane at the bottom of the <b>CygNet DDS Data Group Copy</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToSelectSpecific"></a>To Select Specific Data Group Elements for Copy</p>
+        <ol>
+            <li value="1">In the Copy Options group box, click a copy option that includes updating (either <b>Add/Update</b> or <b>Update Only</b>).  The Update Options group box becomes accessible.</li>
+            <li value="2">In the Update Options group box, select the <b>Udc Data</b> update option and then click <b>Options</b> to access the <b>Advanced Udc Options</b> dialog box and do one of the following.
+        <ul><li value="1">To replace all of the UDCs, click <b>Replace Whole&#160;List</b>, and then click <b>OK</b>.</li><li value="2">To replace only selected UDCs, click  <b>Add Selected UDCs</b>, click to select the data group element(s) to update, and then click <b>OK</b>. <p><img src="../../Resources/Images/Devices/DDS_data_group_copy_options.png" title="Advanced Udc Options dialog box" alt="Advanced Udc Options dialog box" /></p></li></ul></li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="DDS"></a>CygNet DDS Data Group Copy Utility Properties</h4>
+        <p>The following table provides details about the properties of the <b>CygNet DDS Data Group Copy</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 500px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>General</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to perform a copy of all selected data groups within the <b>Data Groups to Copy</b> field.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Close</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to close the <b>CygNet DDS Data Group Copy</b> dialog box.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Test Mode Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to enable Test Mode. </p>
+                        <p>When running in Test Mode, the status bar towards the bottom of the dialog box identifies the action as SIMULATION. The numbers next to each operation are the elapsed processing time in seconds.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Copy Log to Clipboard</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click to copy a log to the clipboard for output to a text file of your choice.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Clear</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click  to clear the copy log between copies.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="CopyFrom"></a><b>Copy From</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">DDS Site.Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The site and DDS service from which you want to copy data groups or some of their properties.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Device ID to Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The device ID of the remote device you want to use as your data group source remote device.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Data Groups to Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This field lists all data groups individually or by type for a specified device ID. Includes ordinal, description, and facility.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Load Data Group List</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to display all data groups individually or by type for a specified device ID.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">List Data Group Types</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to sort and display data groups by type for a specified device ID. If you have several individual data groups of a certain type, this setting collapses them all into a single group.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="CopyTo"></a><b>Copy To</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">All devices where type matches device ID to copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>All remote devices of the same remote device type as the source device. This is the most common option.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">All devices of type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>All remote devices of a designated type, but which are not the same as the source remote device type.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When copying data groups from one remote device type to another, be sure that the destination device(s) support the copied data groups. Copying from one type to another is usually only valid for remote device types from the same manufacturer or for user-configured remote devices, like Modbus remote devices.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Selected devices</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>A list of specific, individual remote devices. Multiple individual devices can be selected at once.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When copying data groups from one remote device type to another, be sure that the destination device(s) support the copied data groups. Copying from one type to another is usually only valid for remote device types from the same manufacturer or for user-configured remote devices, like Modbus remote devices.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Imported devices</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><a name="CopyOptions"></a><b>Copy Options</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Add/Update</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If a source data group is present in the destination device, update the data group. Otherwise, add the data group.</p>
+                        <p>Selecting this option enables <a href="#Update" class="selected">Update Options</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Update Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If a source data group is present in the destination device, update the data group. Otherwise, do nothing.</p>
+                        <p>Selecting this option enables <a href="#Update" class="selected">Update Options</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Add Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Add the source data group to the destination remote device if it does not already exist. If it does exist, do nothing.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Add/Replace</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If a source data group is present in the destination remote device, replace the data group with the source data group. Otherwise, add the data group.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Replace Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If a source data group is present in the destination remote device, replace the data group with the source data group. Otherwise, do nothing.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Delete</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If a source data group is present in the destination device, delete the data group from the destination device. Otherwise, do nothing.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <th class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="Update"></a><b>Update Options</b>
+                    </th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination data group description with the source data group description.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Hidden State</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Check to update the destination data group hidden state with the source data group hidden state. See <a href="../EIEs - Remote Devices/Data Groups - Properties.htm#Hide">Hide Data Group</a> for more information about this property.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">TxRetention</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination data group transaction retention settings with the source data group transaction retention settings. See <a href="../EIEs - Remote Devices/Data Groups - Properties.htm#Transaction_Retention">Transaction Retention</a> for more information about this property.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">TxReplication</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Check to update the destination data group transaction replication attribute with the source data group transaction replication attribute. See <a href="../EIEs - Remote Devices/Data Groups - Properties.htm#Transaction_Replication">Transaction Replication</a> for more information about this property.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Web Enabled</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination data group Web enabled status with the source data group Web enabled status. See <a href="../EIEs - Remote Devices/Data Groups - Properties.htm#Web">Web Accessible</a> for more information about this property.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Security Info</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Check to update the destination data group security settings with the source data group security settings. See <a href="../EIEs - Remote Devices/Data Groups - Properties.htm#Security">Device Operational Security</a> for more information about this property.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Metadata</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination data group metadata with the source data group metadata.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><a name="UDCData"></a>UDC Data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Check to update the destination data group UDC mappings with the source data group UDC mappings.</p>
+                        <p>When copying a single data group and the <b>UDC Data</b> update option is checked, the <a href="#Options" class="selected">Options</a> button becomes enabled.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2"><a name="Options"></a>
+                        <p class="Indent2">Options</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>When <a href="#UDCData" class="selected">UDC Data</a> is selected, click <b>Options</b> to access selection of specific UDC-mapped data group elements to update. Use this option to change or add UDC mappings to the destination device.</p>
+                        <p>For more information, see <a href="#ToSelectSpecific" class="selected">To Select Specific Data Group Elements for Copy</a>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Common"></a>Common Copy Errors and Warnings</h3>
+        <p>The following table provides details about common error and warning messages of the <b>CygNet DDS Data Group Copy</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 500px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Message</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2" style="font-weight: bold;">Error Message</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>DDS has uninitialized facility ordinals. Run DDS Load to correct.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This message is displayed if a destination remote device has facilities for which the ordinal is -1. See <a href="CygNet DDS Import Export Utility.htm">CygNet DDS Import/Export Utility</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Unable to load UDCs for selected data group.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Occurs when the <b>Options</b> button is pressed, but no UDCs are mapped in the selected source data group.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Advanced UDC Options unavailable if more than one From data group selected.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Occurs when the <b>Options</b> button is pressed, but more than one data group is selected. Select one data group at a time to use advanced UDC options.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2" style="font-weight: bold;">Log Error Message</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>You must have DDS Database administrator rights to run this program.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This is a security issue. You must have administrator permission for the DDS ACCESS event to run this program. Contact your CygNet system administrator.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>No corresponding facility for device <i>source dev</i><i>ice</i> facility <i>facility</i> on device <i>target device</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Occurs when a facility ordinal mismatch is detected between the source and target devices. The facility ordinals must be the same.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2" style="font-weight: bold;">Log Warning Message</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Unable to load metadata for data group <i>data group</i> Ordinal # on device <i>device</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Occurs when <b>Metadata</b> is selected as an <b>Update Option</b>, but no metadata exists for <i>data group</i>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Unable to load UDCs for data group <i>data group</i> Ordinal # on device <i>device</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Occurs when <b>UDC Data</b> is selected as an <b>Update Option</b>, but no UDCs are mapped for <i>data group</i>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>No match for To/From Device facility <i>facili</i><i>ty</i> in From/To Device <i>device</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Occurs when no facility ordinal match is found in the target data group.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

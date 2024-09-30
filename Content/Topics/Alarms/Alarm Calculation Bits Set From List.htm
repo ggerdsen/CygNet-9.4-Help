@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Bit(s) Set From List</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Bit(s) Set From List Alarm Calculation</span>
+        </div>
+        <h2>Bit(s) Set From List Alarm Calculation</h2>
+        <p>The Bits Set From List alarm calculation types uses one of the three calculation types listed below to monitor a list of user provided status bits by name in the reference bits for the calculation type. </p>
+        <ul>
+            <li class="HyperlinkList" value="1">All Bits Set From List (ALL_BITS) — If all of the provided status bits are set in the Base Status or Extended Status bits, the alarm bit is set, otherwise it is cleared.</li>
+            <li class="HyperlinkList" value="2">Any Bit Set From List (ANY_BIT) — If any of the provided status bits are set in the Base Status or Extended Status bits, the alarm bit is set, otherwise it is cleared.</li>
+            <li class="HyperlinkList" value="3">Not All Bits Set From List (NOT_ALL_BITS) — If not all of the provided status bits are set in the Base Status or Extended Status bits, the alarm bit is set, otherwise it is cleared.</li>
+        </ul>
+        <p>These alarm calculation types can only be implemented with the CygNet Enhanced Point Scheme. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The CygNet Enhanced Point Scheme is available as a separately licensed entity. See <a href="../Points/Understanding the CvsMetadata File.htm">Understanding the CVS Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme.</p>
+        </div>
+        <p>For more information, see <a href="Alarm Calculation Types.htm">Alarm Calculation Types </a>and <a href="../Points/Point Status Bits.htm">Point Status Bits</a>.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Calculation Error Alarm using the Any Bit Set From List (ANY_BIT) calculation type.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_AnyBit.png" title="Any Bit Set From List" alt="Any Bit Set From List" />
+        </p>
+        <p>There are no calculation parameters for these calculation types. Instead, the user lists the status bits to be used for the calculation in the <b>Reference</b> element of the <b>StatusBitDefinition</b> element in the CvsMetadata.xml file.</p>
+        <p class="Example">Example</p>
+        <p>The following CVSMetadata.xml excerpt from a sample CygNet Enhanced Point Scheme shows a previously "Unused" configurable status bit now assigned to the "Calculation Error Alarm" as CONFIG12 and "ANY_BIT" as the calctype.</p>
+        <table class="Code" style="margin-left: 0;margin-right: auto;" summary="CVSMetadata.xml excerpt">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">&lt;StatusBitDefinition bitid="CONFIG12" desc="Calculation Error Alarm" displayorder="611" calcorder="14" calctype="ANY_BIT"&gt;</p>
+                        <p class="Code2">&lt;Reference id="USER2"/&gt;</p>
+                        <p class="Code2">&lt;Reference id="USER3"/&gt;</p>
+                        <p class="Code">&lt;/StatusBitDefinition&gt;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>In this example, the Calculation Error Alarm bit (CONFIG12) is set when <u>any</u> of the status bits listed in the <b>Reference</b> element  ("USER2" and "USER3") have been set. If instead, calculation type All Bits Set From List (ALL_BITS) had been used, both "USER2" and "USER3" status bits would have to be set for the Calculation Error Alarm bit to be set. And if calculation type Not All Bits Set From List (NOT_ALL_BITS) had been used, <u>not all</u> of the bits would have to be set for the Calculation Error Alarm bit to be set.</p>
+        <p>The following image shows the <b>Status Bit Details</b> pane below from the CVSMetadata sample above.  The Calculation Error Alarm (CONFIG12) bit is set because USER2 bit (one of the status bits listed in the <b>Reference</b> element) is set, which fulfills the requirement for the calctype Any Bit Set From List (ANY_BIT).</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_CalcErrAlm.png" title="Status Bit Details" alt="Status Bit Details" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

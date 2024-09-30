@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VHS Change Queue</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VHS Change Queue</span>
+        </div>
+        <h2>VHS Change Queue</h2>
+        <p>The VHS change queue is a service file (VhsChangeQueue.dat) that keeps track of incremental changes to a VHS. Every change made to a VHS (new values added, deleting points, editing values, etc.) will be stored on the change queue. This allows a client to quickly retrieve any changes made to the source VHS since the last time it was checked. In some situations this can be a much faster method of retrieval than iterating points and values directly.</p>
+        <p>The VHS Change Queue is used by <a href="../Replication/VHS Replication.htm">VHS Replication</a> and <a href="VHS Quick Recovery.htm">VHS Quick Recovery</a>. A replicated VHS uses the change queue of its source to keep track of where it is in the replication process. Quick Recovery uses the archived change queue to add the most recent changes back into the new database after a recovery event. </p>
+        <p>The VHS maintains a sequence number that identifies each change made to the database. The sequence number is incremented each time a change is made, and a sequence number is assigned to that change. When a client asks for changes, it provides the last sequence number that it knew about, and the VHS will provide all incremental changes from its change queue since that sequence. All information about a change to the VHS is contained within an item on the change queue, so once the client receives these changes it has everything it needs to know about what happened to the VHS.</p>
+        <p>The VHS creates the change queue as a file in the service directory. This file is maintained as a memory-mapped file, so internal access to it is very fast. As such, the change queue consumes virtual memory for the VHS process. The change queue size is configured in the VHS configuration file. The keyword <a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm#CHANGE_QUEUE_SIZE">CHANGE_QUEUE_SIZE</a> configures the number of entries allocated on the change queue. The minimum number is 500,000 and the maximum number is 5,000,000. If no value is specified, then the minimum size will be used by default. The minimum change queue size results in a data file of size 33.6 MB, while the maximum change queue size results in a data file of size 336 MB.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If an improper shutdown is detected or the change queue size configuration is changed, the items on the change queue will be deleted. However, if an improper shutdown is detected and Quick Recovery is enabled, the change queue will be archived off, along with the "dirty" database.</p>
+        </div>
+        <h3>Change Queue Wrapping</h3>
+        <p>Since the change queue has a finite size, when the VHS accumulates a number of changes greater than the change queue size, the new changes are then written to the beginning position of the queue. The oldest changes on the queue get overwritten when this happens. Once the change queue is full, new incremental changes will overwrite the oldest changes on the queue.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

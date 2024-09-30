@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Version Management|Version Management Overview|Version Manager|Version Management Files">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Rsq File (.rsq)</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Version Management.htm">Version Management</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Version Management Overview.htm">Version Management Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Version Manager.htm">Version Manager</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Version Management Files.htm">Version Management Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Rsq File (.rsq)</span>
+        </div>
+        <h2>Rsq File (.rsq)</h2>
+        <p>An .rsq file is a site-specific .rsp file. The .rsq file contains entries that are unique to an installation, such as COM objects, CygNet ActiveX controls, third-party ActiveX controls, .NET Framework assemblies, or DDS editors. The .rsq file must have the same name as the .rsp file. The relationship is implicit. If the file exists, it will be checked during version management.</p>
+        <p>An .rsp file may be replaced with a new one during an upgrade. Since .rsq files are site specific, they are not replaced. </p>
+        <p>Be aware that the timestamp is also the trigger to check a .rsq file, so it would require an update when the file contents change.</p>
+        <h3>Custom .rsq Entry Examples</h3>
+        <p>You can modify the .rsq file for any CygNet client or utility to include other files or assemblies so they will be checked during version management. The following sections describe some of the different file types you can include.</p>
+        <p>See <a href="Version Manager Installation Parameters.htm">Version Manager Installation Parameters</a> for more information about the <a href="Version Manager Installation Parameters.htm#Operatio">operation</a> parameters included in these examples.</p>
+        <h4>COM Objects</h4>
+        <p>You can include COM&#160;objects (.dll or .ocx files) in an .rsq, which will get registered into the registry using the <b>&lt;REGISTER&gt;</b> keyword. Say, you have built a CygNet Studio screen that uses the CxVhs.dll control. The .dll will need to be included in version management so it is distributed to users. To accomplish this, you would edit the CStudio.rsq and list the CxVhs.dll file. An example of the .rsq entry is shown below.</p>
+        <table class="Code">
+            <col />
+            <tr>
+                <td>
+                    <p class="Code"># Installation specific version management file for CygNet Studio</p>
+                    <p class="Code"># Add any custom entries to this file to ensure changes are not  lost in the next update process.</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxVhs.dll    &lt;REGISTER&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4>.NET Assemblies</h4>
+        <p>It is also possible to version manage .NET Framework assemblies. These .dlls can live in the same directory as the application, or are put into the Windows Global Assembly Cache (GAC) using the <b>&lt;GACINSTALL&gt;</b> keyword. Edit an .rsq file to include the desired .NET .dll, as shown in the following example:</p>
+        <table class="Code">
+            <col />
+            <tr>
+                <td>
+                    <p class="Code"># CygNet internal shared UI files</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CygNet.UI.dll &lt;GACINSTALL&gt; &lt;DOT_NET_REQ=4.0&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4>.NET Assemblies that are COM Visible</h4>
+        <p>These .dll files are basically a single assembly that merges the above two functions.  They can be placed in the GAC for use in .NET Framework code using the <b>&lt;GACINSTALL&gt;</b> keyword, or they can be registered using the <b>&lt;REGASM&gt;</b> keyword for use outside of .NET in the same manner as a COM object. Or both. Edit an .rsq file to include the desired CygNet.API assemblies or .dll file, as shown in the following example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"># CygNet API and .Net COM files</p>
+                    <p class="Code">[API]..\Bin\CygNet.Core.dll &lt;GACINSTALL&gt; &lt;DOT_NET_REQ=4.0&gt;</p>
+                    <p class="Code">[API]..\Bin\CygNet.Data.Core.dll &lt;GACINSTALL&gt; &lt;REGASM&gt; &lt;DOT_NET_REQ=4.0&gt; &lt;ARCHITECTURE_TYPE=x86&gt;</p>
+                    <p class="Code">[API]..\Bin\CygNet.API.Core.dll &lt;GACINSTALL&gt; &lt;DOT_NET_REQ=4.0&gt;</p>
+                    <p class="Code">[API]..\Bin\CygNet.API.Core32.dll &lt;GACINSTALL&gt; &lt;DOT_NET_REQ=4.0&gt;</p>
+                    <p class="Code">[API]..\Bin\CygNet.Data.ServiceManager.dll &lt;GACINSTALL&gt; &lt;REGASM&gt; &lt;DOT_NET_REQ=4.0&gt; &lt;ARCHITECTURE_TYPE=x86&gt;</p>
+                    <p class="Code">[API]..\Bin\CygNet.API.ServiceManager.dll &lt;GACINSTALL&gt; &lt;REGASM&gt; &lt;DOT_NET_REQ=4.0&gt; &lt;ARCHITECTURE_TYPE=x86&gt;</p>
+                    <p class="Code">[API]..\Bin\CygNet.API.ServiceManager32.dll &lt;GACINSTALL&gt; &lt;DOT_NET_REQ=4.0&gt;</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code"># CygNet Redundancy Editors files</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CygNetRedundancyEditors.dll &lt;GACINSTALL&gt; &lt;REGASM&gt; &lt;DOT_NET_REQ=4.0&gt; &lt;ARCHITECTURE_TYPE=x86&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>See <a href="Version Manager Installation Parameters.htm#Operatio">Operation Parameters</a> for more information about the parameters shown about.</p>
+        <h4>CxDdsEditors.rsq</h4>
+        <p>Another commonly used .rsq file is CxDdsEditors.rsq. Edit the .rsq file to lists the EIE editors specific to a host, as shown in the following example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">#Site-specific CxDdsEditors.rsq file</p>
+                    <p class="Code">##################################################################################</p>
+                    <p class="Code"># NOTE: For the EIE editors below that are commented out, you should       un-comment  </p>
+                    <p class="Code"># only those entries which are relevant to your       installation. These entries </p>
+                    <p class="Code"># exist in this file instead of       the RSP file since RSP file changes would most </p>
+                    <p class="Code"># likely be lost       when applying future updates.  This is because RSP files are       </p>
+                    <p class="Code"># over-written in the update process but RSQ files are not.</p>
+                    <p class="Code">##################################################################################</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsAllenBradleyCIPEditors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsAllenBradleyEditors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsAm1000Editors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsAm300Editors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsAm700Editors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsBenchmarkEditors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsBsapEditors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsEFM3000Editors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsElfEditors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsEmersonRocEditors.rsp</p>
+                    <p class="Code">[SUPPORT]..\SUPPORT\CxDdsEmersonRocPlusEditors.rsp</p>
+                    <p class="Code2">.</p>
+                    <p class="Code2">.</p>
+                    <p class="Code2">.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

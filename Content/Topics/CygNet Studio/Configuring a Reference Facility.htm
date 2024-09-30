@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Using TheFrame/TheView">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring a Reference Facility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using TheFrame TheView.htm">Using TheFrame/TheView</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring a Reference Facility</span>
+        </div>
+        <h2>Configuring a Reference Facility</h2>
+        <p>You can display information about a facility that is different from the configured point for the object with the <a href="Properties.htm#ReferenceFacility">ReferenceFacility</a> property for any CygNet-aware tool. Use the <b>ReferenceFacility</b> property to set the Facility (and optionally the <i>Site.Service</i>) of the primary point to a Facility ID and/or <i>Site.Service</i> that is different from the configured point for the object. The referenced facility can be set to resolve to a facility that matches a Source Attribute or a Facility Rule. See <a href="Configuring Point Identifiers.htm">Configuring Point Identifiers</a> for more information about primary (configured) points for an object.</p>
+        <p>Rather than a facility name, the reference facility can <i>only</i> be set to a <b>Source Attribute</b> or to a <b>Facility Rule</b>. The <i>Site.Service</i> and Facility of TheView/Workspace can be considered when resolving a given tool’s reference facility.</p>
+        <p class="Example">Examples</p>
+        <p class="Indent">In the example below, a screen could be templated on the facility WELL, and show information from another facility in the system by referencing that facility in a Facility Rule, for example, TANKBAT, TANK, PUMP.</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/CygNet Studio/ReferenceFacility.png" title="Reference Facility Example" alt="Reference Facility Example" />
+        </p>
+        <p class="Indent">Imagine that you have several meters on a pipeline and one of the meters has a Facility ID of "5892713384." Instead of writing a screen with the exact Facility IDs of all the meters, you could write a screen using  a Facility Rule to collect the more general descriptive information, such as Facility Site = "MySite," Facility Type = "METER," and Facility Description = "Causeway Meter N1." If there was equipment failure and you replaced the meter (Facility ID ="589271<b>3384</b>") with a new meter (Facility ID ="589271<b>9987</b>"), then the screen would resolve to the new meter with a different Facility ID (if you deleted the old Facility, or used another item in the rule, such as Facility Is Active = Y.)</p>
+        <p>Also see <a href="Trend Tool Default Trend.htm#Change_Trend">Default Trend</a> for information about reference facilities on trend objects and <a href="Group Grid Tool Columns Tab.htm#Point">Group Grid Tool - Columns Page</a> for information about specifying a reference facility for a point in a group grid column. </p>
+        <p>Also see <a href="../CygNet Software/Glossary of Terms.htm#Relative_Facilities">Relative Facilities</a> for more information about this type of facility configuration.</p>
+        <p>For more information, see the subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Source" class="selected">Source Attribute</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Facility" class="selected">Facility Rule</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Define" class="selected">Define a Reference Facility</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Facility2" class="selected">Facility Rule Examples</a>
+            </li>
+        </ul>
+        <h3><a name="Source"></a>Source Attribute</h3>
+        <p>Use the <b>Source Attribute</b> option to specify a facility that matches any property from the primary point's configuration record or its facility attributes. </p>
+        <p>When displayed in the property sheet, a <b>Source Attribute</b> is displayed as a token (surrounded by percent signs) to indicate that it will be replaced with the attribute's value. The <b>Source Attribute</b> can be either a Facility ID or a complete facility tag (in which case it acts as both the <i>Site.Service</i> and Facility of the tool). This is slightly different from generic facility rules, which will <i>always</i> result in a facility tag.</p>
+        <h3><a name="Facility"></a>Facility Rule</h3>
+        <p>Use the <b>Facility Rule</b> option to build a rule to compare a facility attribute against a <b>Reference Attribute</b>, a <b>Source Attribute</b>, or a <b>User Value</b>.</p>
+        <p>Any <b>Source Attribute</b> used within a facility rule is displayed as a token. When displayed in the Property Sheet, the whole facility rule is enclosed in curly brackets { } to indicate that a query will be performed to find the facility that matches the attributes within the brackets. The query syntax supports all filter functionality (except for names and enabled/disabled status). See <a href="#Facility_Rule" class="selected">To Specify Facility Rules</a> below. </p>
+        <div class="Note"><span class="NoteHeading">Notes: </span>
+            <p class="Note">CygNet-aware tools will ignore Facility and UDC if they have a Point ID or Long Point ID. However, since <b>ReferenceFacility</b> rules will override both <i>Site.Service</i> and Facility (and ReferenceFacility substitutions can override them), this means that the <b>ReferenceFacility</b> property may still have a partial effect on the tool (i.e., changes to facility will be ignored, but changes to <i>Site.Service</i> will still affect the tool).
+            </p>
+            <p class="Note">Querying the <b>ReferenceFacility</b> property via script at run-time returns the configured rule text, not the resolved facility. The resolved facility can be retrieved via the <a href="Properties.htm#CygNetTag">CygNetTag</a> property or the <a href="Properties.htm#PointTag">PointTag</a> property.</p>
+            <p class="Note">Referenced facilities are resolved prior to the<a href="Events.htm#EventRestarted">EventRestarted</a> event being run, but after <a href="Events.htm#EventInitialize">EventInitialize</a>/<a href="Events.htm#EventRestarting">EventRestarting</a>. See <a href="Event Execution Order.htm">Event Execution Order</a>.</p>
+            <p class="Note">The configured rule text can be used in <a href="../Scripting/CxScript GlobalFunctions Methods.htm#ShowFacilityRulesDialogSimple">ShowFacilityRulesDialogSimple</a> to initialize a filter in a <b>Facility Rules</b> dialog box. For example, the following string could be used to setup a CygNet-aware tool that resolves to a facility that references the tool’s configured facility: {facility_attr3 = ToCaseInsensitive(%facility_tag%)}</p>
+        </div>
+        <h3><a name="Define"></a>Define a Reference Facility</h3>
+        <ol>
+            <li value="1">Create a Studio screen.</li>
+            <li value="2">Add the desired CygNet-aware tool object to the screen. </li>
+            <li value="3">Right-click the object to open its property sheet. On the <b>Normal</b> page, click <b>…</b> next to the <b>[ReferenceFacility]</b> property.</li>
+            <li value="4">The drop-down menu provides two options for specifying the facility:</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">select a <b>Source Attribute</b> from the <b>Select Source Attribute</b> dialog box to specify any property from the primary points configuration record or its facility attributes, or</li>
+            <li value="2">specify a <a href="#Facility_Rule" class="selected">Facility Rule Filter</a> on the <b>Set Facility Rules</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="Facility_Rule"></a>To Specify Facility Rules</p>
+        <p>The reference facility can be specified using a filtered rule which will perform a query against a facility attribute.</p>
+        <ol>
+            <li value="1">Select <b>Specify Facility Rule Filter</b> to view the <b>Set Facility Rules</b> dialog box. See <a href="Filter Rules - Using.htm">Using CygNet Filter Rules</a> for a general discussion about CygNet filter rules and their configuration.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/Set_Facility_Rules.png" title="Set Facility Rules " alt="Set Facility Rules " />
+        </p>
+        <ol start="2">
+            <li value="2">Click <b>Add</b> to create a new facility rule. Or double-click an existing rule to edit.</li>
+            <li value="3">Define the rule as desired by indicating the <b>Facility Attribute</b> (in the <b>Data Item</b> field), <b>Operator</b>, <b>Qualifier</b>, <b>Comparison Type</b>, and <b>Comparison Item</b>. See <a href="Filter Rules - Adding Definitions.htm">Adding Filter Rule Definitions</a> for general information about these fields. The three <b>Comparison Types</b> available in this context include:</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1"><b>Reference Attribute</b> — Any system-defined reference facility attribute. Select the attribute in the  <b>Comparison Item</b> field.</li>
+            <li value="2"><b>Source Attribute</b> — Any system-defined source attribute. Select the attribute in the  <b>Comparison Item</b> field.</li>
+            <li value="3"><b>User Value</b> — Any user-defined value that you’d want to display or compare against. Type the actual value in the <b>Comparison Item</b> field.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/Rule_Definition.png" title="Rule Definition" alt="Rule Definition" />
+        </p>
+        <ol start="4">
+            <li value="4">Click to enable the selected rule.</li>
+            <li value="5">Click <b>OK</b> to save the rule definition.</li>
+            <li value="6">Repeat steps 2. and 3. to define a compound rule, if necessary. Define compound rule properties (AND, OR, NOT) by double-clicking on the root rule.</li>
+            <li value="7">Optionally, give the rule a <b>Name</b> by double-clicking on the root rule on the <b>Set Facility Rules</b> dialog box. Note that <i>only</i> the root rule can be named. This is useful if you plan to reference this rule in another rule.</li>
+            <li value="8">Click <b>OK</b> to add the facility rule(s).</li>
+            <li value="9">Close the Property Sheet.</li>
+        </ol>
+        <h3><a name="Facility2"></a>Facility Rule Examples</h3>
+        <p>The following table gives several facility rule examples:</p>
+        <table class="TableStyle-HelpTable2" style="width: 800px;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Rule</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_attr10 = 'TANK'}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query creates a rule whose attribute is Facility Attribute 10, doing a case-sensitive string equality comparison to the <b>User Value</b> of TANK.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{facility_attr10 = facility_attr9}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query creates a rule whose attribute is Facility Attribute 10, doing a case-sensitive string equality comparison to the <b>Reference Attribute</b> of Facility Attribute 9. Note that reference attributes are self-relative in this example.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_attr10 = %facility_attr9%}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query creates a rule whose attribute is Facility Attribute 10, doing a case-sensitive string equality comparison to the "locally sourced reference attribute" of Facility Attribute 9. In this case, %facility_attr9% comes from the object's primary point or the point triggering the notification, depending on usage.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{not (facility_site = facility_id)}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query creates a rule that would return the <i>first</i> facility where the facility site does not equal the facility ID. It is equivalent to {facility_site &lt;&gt; facility_id}, but is more useful in cases like the second one where you have a larger expression to negate.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_attr20 = %facility_tag% OR (facility_type = %facility_type%) AND (facility_attr21 = %facility_attr20%)}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query is equivalent to
+{Facility Attribute 20 equals source Facility Tag OR (Facility Type equals source Facility Type) AND (Facility Attribute 21 equals source Facility Attribute 20)}.  See <b>Truth Table</b> below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{not (facility_service = facility_service OR facility_site = facility_site AND facility_id = facility_id)}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The inner expression would return all facility IDs where the facility_service equals the facility_service OR where both the facility_site equals the facility_site and  facility_id equals the facility_id. This query would return the negative case for the inner expression. See <b>Truth Table</b> below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{(facility_service = facility_service OR facility_site = facility_site) AND facility_id = facility_id}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query is similar to the previous one, but the parentheses change the precedence of OR vs. AND. In this example, either the facility_service equals the facility_service or the facility_site equals the facility_site AND where the facility_id equals the facility_id. See <b>Truth Table</b> below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{facility_service = ToCaseInsensitive('MYSITE')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to a case-insensitive string.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_service = '10'}
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to an integer.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>{facility_service = ToInteger('10')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to an integer.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>{facility_service = ToReal('10.1')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to a real number.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>{facility_service = ToDate('2010-12-20 11:30')}</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>This query changes the default comparison qualifier from a case-sensitive string to a timestamp.
+</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The content of the parentheses for ToCaseInsensitive, ToInteger, ToReal,  and ToDate can be a numeric or string literal (as above), an attribute name, or an external source attribute name.</p>
+        </div>
+        <h4>Truth Table</h4>
+        <p>The following truth table may help you write Boolean queries.</p>
+        <table class="TableStyle_NoBorder" style="mc-table-style: url('../../Resources/TableStyles/NoBorder.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">
+                        <p><b>Boolean or Boolean and Boolean</b>
+                        </p>
+                        <p>False or False and False = False
+</p>
+                        <p>False or False and True = False
+</p>
+                        <p>False or True and False = False
+</p>
+                        <p>False or True and True = <b>True
+</b></p>
+                        <p>True or False and False = <b>True
+</b></p>
+                        <p>True or False and True = <b>True
+</b></p>
+                        <p>True or True and False = <b>True
+</b></p>
+                        <p>True or True and True = <b>True
+</b></p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The surrounding "not" just makes it so that the first three are true and the last five are false.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p><b>(Boolean or Boolean) and Boolean</b>
+                        </p>
+                        <p>(False or False) and False = False
+</p>
+                        <p>(False or False) and True = False
+</p>
+                        <p>(False or True) and False = False
+</p>
+                        <p>(False or True) and True = <b>True
+</b></p>
+                        <p>(True or False) and False = False
+</p>
+                        <p>(True or False) and True = <b>True
+</b></p>
+                        <p>(True or True) and False = False
+</p>
+                        <p>(True or True) and True = <b>True
+</b></p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Parentheses work "as expected" (similar to most programming languages and SQL). Similar to addition and multiplication, "OR" has lower precedence than "AND." Parentheses allow you to adjust that precedence.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

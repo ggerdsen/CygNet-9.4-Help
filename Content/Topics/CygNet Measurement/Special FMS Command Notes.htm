@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Special FMS Command Notes</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Special FMS Command Notes</span>
+        </div>
+        <h2>Special FMS Command Notes</h2>
+        <h3><a name="Getting"></a>Requesting Event and Alarm Data in CygNet Measurement</h3>
+        <p>When retrieving event and alarm data using the <b>Request Missing Data</b> command, it is possible to fail to retrieve data for devices whose timestamp does not correspond to the timestamp of the event or alarm. For best results, follow the <a href="#Recommen" class="selected">recommendations</a> below when retrieving event and alarm data.</p>
+        <p>Each event and alarm data group has a “now” timestamp of the device at the point when the request was made. However the timestamp is often not from the device, as many devices don't return a timestamp, so the UIS will use its current time and adjust it for the time zone of the device. This can cause data retrieval problems when the timestamp of the device doesn't match the time of the event or alarm.</p>
+        <p>For example, if you request data through “now” (current time) and the UIS reports that “now” in Device time is 5:01 p.m., the FMS service will mark all events and alarms as received through 5:00 p.m. However, if the actual device thought it was 4:58 p.m. and then generated an event at 4:59 p.m., the <b>Request Missing Data</b> command would never retrieve that event because the next data request would start at 5:00 p.m.</p>
+        <h4><a name="Recommen"></a>Recommendations</h4>
+        <p>The best way to avoid this situation is to do the following when retrieving event and alarm data.</p>
+        <ul>
+            <li value="1">Always use the <b>Request New Data</b> command to retrieve event or alarm data.</li>
+            <li value="2">Don't request event or alarm data through “now.” Instead, always end the data request one hour prior to “now.”</li>
+            <li value="3">Schedule frequent configuration polls (with the <b>Request New Data</b> command) so the problem will be identified if events or alarms are missed.</li>
+            <li value="4">Make sure device timestamps don’t drift.</li>
+        </ul>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

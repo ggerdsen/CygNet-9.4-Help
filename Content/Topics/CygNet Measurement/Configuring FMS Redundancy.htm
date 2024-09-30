@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Service|Replication and Data Synchronization">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring FMS Redundancy</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Service.htm">FMS Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Data Synchronization.htm">Replication and Data Synchronization</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring FMS Redundancy</span>
+        </div>
+        <h2>Configuring FMS Redundancy</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> CygNet Redundancy operates on top of the CygNet replication model and is supported by underlying replication functionality for all services, including FMS when so configured. Certain FMS replication and data synchronization keywords must be disabled for an FMS service to be included in a redundant environment for data-center failover.</p>
+        </div>
+        <p>The Flow Measurement Service (FMS) can be included in a redundant set of services in order to support failover. However at this time the FMS&#160;only supports data-center failover, due to the structure of the FMS, and it does not support local redundancy. Local redundancy can be achieved with Microsoft SQL server replication and/or clustering.</p>
+        <p>A redundant RSM will not start an FMS on a domain defined as in the local standby role. If you are configuring a local failover with a site that includes an FMS, the FMS can be included, but the local standby FMS service will not start. Use the <a href="../Redundancy/Redundancy Editor - Domain.htm">CygNet Redundancy Editor</a> to configure the role played by a domain in a redundant environment.</p>
+        <p>See <a href="../Redundancy/Redundancy.htm">CygNet Redundancy</a> for more information.</p>
+        <h3>Configuring FMS Data-Center Redundancy</h3>
+        <p>To enable data-center redundancy for an FMS, values must be set using the appropriate service configuration file keywords. This can be enabled in a single action using the Configuration File Manager utility. See <a href="../Services/Configuration File Manager.htm">CygNet Config File Manager</a> for more information.</p>
+        <p>If the FMS is configured to be redundant, the following requirements apply for values for keywords in the FMS service configuration file:</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Keyword</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">
+                        <p>Required</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>Comment</p>
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#REDUNDANT">REDUNDANT</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Must be set  to <i style="font-weight: bold;">TRUE</i> to include the FMS in a redundant environment for data-center failover.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_MODE">DS_MODE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Do not configure, leave commented.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If a value is present for this keyword, the FMS&#160;service will fail to start and an error will be logged to the service log file.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_ROLES">DS_ROLES</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Do not configure, leave commented.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If a value is present for this keyword, the FMS&#160;service will fail to start and an error will be logged to the service log file.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_REPL_MASTER">DS_REPL_MASTER</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Do not configure, leave commented.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If a value is present for this keyword, the FMS&#160;service will fail to start and an error will be logged to the service log file.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_REPL_SLAVE">DS_REPL_SLAVE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Do not configure, leave commented.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If a value is present for this keyword, the FMS&#160;service will fail to start and an error will be logged to the service log file.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_CHECK_INTERVAL">DS_CHECK_INTERVAL</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Required  when the FMS is included in a redundant environment for data-center failover.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_DELAY_MAX">DS_DELAY_MAX</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Although not required, it is highly recommended that this keyword is configured.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_QUICK_DB_COMPARE">DS_QUICK_DB_COMPARE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Does not apply to FMS Redundancy. Leave commented.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_BLACKOUT_START">DS_BLACKOUT_START</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Does not apply to FMS Redundancy. Leave commented.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_BLACKOUT_END">DS_BLACKOUT_END</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Does not apply to FMS Redundancy. Leave commented.</td>
+            </tr>
+        </table>
+        <p>Once redundancy is configured for FMS, you can execute a manual data-center failover that includes an FMS server, and view the failover in the <a href="../Redundancy/Redundancy Dashboard.htm">Redundancy Dashboard</a>.</p>
+        <h3>Monitoring FMS&#160;Redundancy and Failover</h3>
+        <p>The FMS also supports and will return values for the following related info items:</p>
+        <h4>Service Generic Info Items</h4>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Redundancy/Redundancy Info Items.htm">FAILOVER_READINESS</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="../Redundancy/Redundancy Info Items.htm">FAILOVER_STATUS</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="../Redundancy/Redundancy Info Items.htm">IN_REDUNDANT_SET</a>
+            </li>
+        </ul>
+        <h4>Replication Info Items</h4>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Service Monitoring/Info Items - Replication.htm#FMS_DS_CHK_INTERVAL">FMS_DS_CHK_INTERVAL</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="../Replication/Monitoring Replication.htm#REPL_DELAY">REPL_DELAY</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="../Replication/Monitoring Replication.htm#REPL_DELAY_MAX">REPL_DELAY_MAX</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="../Replication/Monitoring Replication.htm#REPL_INT_VAL_STATE">REPL_INT_VAL_STATE</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="../Replication/Monitoring Replication.htm#REPL_STATUS">REPL_STATUS</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="../Replication/Monitoring Replication.htm#REPL_SUMMARY_STATE">REPL_SUMMARY_STATE</a>
+            </li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

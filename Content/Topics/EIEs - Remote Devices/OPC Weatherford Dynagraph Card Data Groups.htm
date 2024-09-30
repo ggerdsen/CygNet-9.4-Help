@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|OPC Weatherford EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>OPC Weatherford EIE – Dynagraph Card Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OPC Weatherford EIE.htm">OPC Weatherford EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Dynagraph Card Data Group</span>
+        </div>
+        <h2>OPC&#160;Weatherford EIE Dynagraph Card Data Group</h2>
+        <p>The OPC&#160;Weatherford &#160;EIE "Dynagraph Card" (<b>DynaCard</b>) data group enables the retrieval of dynagraph card data using a plugin developed by Kepware. The XML of each "Dynagraph Card" data group contains a number of data group elements. The<i>DataGroupElement</i> elements define data used by CygNet; the <b>dgordinals</b> element defines a list that specifies data group ordinal numbers along with corresponding card names.</p>
+        <p>See <a href="../CygNet Dynagraph Viewer/Card Types.htm">Card Types</a> for more information.</p>
+        <p>"Dynagraph Card" data groups for the OPC&#160;Weatherford EIE can be registered with an OPC server.  Because a dynagraph card is a complex object that uses data from multiple OPC items, OPC callbacks are not allowed. Note that if a single value changes, a callback containing just that value is insufficient to create a complete dynagraph card. Specifically, a "Dynagraph Card" data group can be assigned to the OPC group definitions <b>With matching properties</b>, <b>Specific for this data group</b>, or <b>None (temporary)</b>. See <a href="OPC Data Group Usage Notes.htm">Data Groups</a> and <a href="OPC EIE Group Management.htm#DataGroup">Assigning a Data Group to an OPC&#160;Group</a> for more information.</p>
+        <p>If the data group is assigned to the OPC group <b>With matching properties</b> or <b>Specific for this data group</b>, the data group is registered with the OPC server in such a way that it gets one card with both surface and downhole data when available, based on <a href="OPC Weatherford Event Directory Data Group.htm#Card">Card Method</a>.  This has the advantage of allowing the OPC to poll for the most recent cards on its own schedule. These cards are then available to get very efficiently from the OPC cache. Note that requesting more than one card or only surface data will cause a new temporary instance of the data group to be created on the OPC server.  It will be destroyed after polling is completed.</p>
+        <p>The OPC&#160;Weatherford EIE "Dynagraph Card" data group supports five card types. Each type and its associated ordinal number are:</p>
+        <ul>
+            <li value="1">0 - Current Card</li>
+            <li value="2">1 - Shutdown Card</li>
+            <li value="3">2 - Pumpup Card</li>
+            <li value="4">6 - Alarm Card</li>
+            <li value="5">7 - Failure Card</li>
+        </ul>
+        <h3>Function Codes </h3>
+        <p>Downhole card functionality is only available if your device uses firmware that supports function code 25 (<b>Current FC25</b>). FC25 is used to retrieve downhole dynagraph card data if the associated field device firmware version ID is at least 1.01.02 and the firmware part number is FW-00004-00. Firmware information is retrieved using the "Controller Version Information" (<b>CtrlInfo</b>) data group.</p>
+        <p>If the firmware doesn’t support FC25, the device uses the original surface dynagraph message capability enabled by function code FC16 (<b>Legacy FC16/16Ext</b>).</p>
+        <p>The function code choice is made in the <b>Card Method</b> drop down menu on the OPC&#160;Weatherford EIE's <a href="OPC Weatherford Device Page Properties.htm">Device</a> page.</p>
+        <h4>Legacy device</h4>
+        <p>The OPC&#160;Weatherford EIE <b>Legacy FC16/16Ext</b> option has surface card functionality only. Only one card can be retrieved per request.</p>
+        <ul>
+            <li value="1">When polling the "Dynagraph Data" data group using function code FC16 (for current, pumpup, and shutdown cards), the timestamp is not available. </li>
+            <li value="2">When polling the "Dynagraph Data" data group  using function code FC16Ext  (for pumpup, shutdown, alarm, and failure cards), the timestamp is available for cards associated with an event index. </li>
+        </ul>
+        <p>Getting the most recent failure and alarm cards for the legacy option requires an event index. <span>The most recent failure card is event index 0 in the "Fault" event directory (ordinal 2).</span></p>
+        <p><span>The "Plain" event directory (ordinal 1) includes shutdown, pumpup, and alarm cards, so event index 0 could represent any of them. For this reason, getting the most recent alarm card is not supported.</span>
+        </p>
+        <h4>Current device</h4>
+        <p>The OPC&#160;Weatherford EIE <b>Current FC25</b> option can get surface cards, downhole cards, or both when polling the "Dynagraph Card" data group. Up to five cards are available for each card type.</p>
+        <p>Getting the most recent failure and alarm cards requires an event ID. To get the most recent failure or alarm card, the EIE driver reads the "<a href="OPC Weatherford Event Directory Data Group.htm">Event Directory</a>" (<b>EvtDir</b>) data group (ordinal 2 for faults, ordinal 3 for alarms), gets the most recent event ID of the correct type, and requests the associated cards. All cards associated with the event are read.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

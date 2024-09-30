@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Redundancy Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Redundancy Examples</span>
+        </div>
+        <h2>Redundancy Examples</h2>
+        <p>The following topic describes several examples of site and domain configurations that demonstrate CygNet Redundancy. Included is a discussion of the role of the RSM, a redundant RSM visible on more than one domain, running one service only on a different domain, redundant failover sets, local data-center failover, remote data-center failover, soft failover with synchronization, hard failover without synchronization, redundancy configuration tools, and the Redundancy Dashboard used to visualize failover.</p>
+        <p>Click on each image below to see an enlarged figure.</p>
+        <h3>RSM Implementation</h3>
+        <p>The majority of the logic for CygNet Redundancy is built into the RSM service.  Historically the RSM  existed to make sure the other CygNet services were running. With the implementation of CygNet Redundancy the RSM now has a dedicated database containing information on every service in the redundant environment, including the domain and role each should be running in.  All redundant RSMs will synchronize with each other (even across domains) to make sure they all agree on their various roles.  They will regularly check to make sure their managed services are running on the right domain and restart them if they are not.  To make this possible, each RSM <i>must</i> be uniquely named so that it can be available on multiple domains at the same time without conflicting with each other. </p>
+        <p>We recommend that you keep the site name, but change the .RSM extension to reflect the host on which they are running.  For example, you might have RSM names such as CYGNET.RSM_PNP (for the Production Network, Primary Host) or CYGNET.RSM_PNB (for the Production Network, Backup Host).</p>
+        <p>Figure 1 shows a very simple site setup, with just a few services to demonstrate what to expect.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example1.png" data-mc-popup-alt="Redundancy Example - Figure 1"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1020" data-mc-height="363" src="../../Resources/Images/Redundancy/Example1_thumb_0_48.png" alt="Redundancy Example - Figure 1" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 1: RED.RSM1 visible on multiple domains</td>
+            </tr>
+        </table>
+        <p>In Figure 1 above  CygNet Explorer is running on two domains (8331 and 8332) with the RED.RSM1 service visible on both domains. Note that we don’t have two running services with the same name; rather, this is a single running process that is visible to multiple CygNet domains.  Notice the <b>Domain</b> column showing which domain the managed services are running on for each RSM. Additionally if the domain doesn’t match the ambient domain, the <b>Status</b> column displays <b>Running on a different domain</b> instead of simply <b>Running</b>.</p>
+        <p>Figure 2 shows <b>CygNet Host Manager</b> for this setup, with the RED.RSM1 service running on three domains: 8331, 8332, and 8333.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example2.png" data-mc-popup-alt="Redundancy Example - Figure 2"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="382" data-mc-height="182" src="../../Resources/Images/Redundancy/Example2_thumb_0_48.png" alt="Redundancy Example - Figure 2" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 2: RED.RSM1 running on three domains</td>
+            </tr>
+        </table>
+        <h3>Running on a Different Domain</h3>
+        <p>After performing a failover of only the VHS, the RED.RSM1 service is now running most of its managed services on the 8331 domain, while its VHS is now running on the 8332 domain, as shown in Figure 3.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example3.png" data-mc-popup-alt="Redundancy Example - Figure 3"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1135" data-mc-height="363" src="../../Resources/Images/Redundancy/Example3_thumb_0_48.png" alt="Redundancy Example - Figure 3" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 3: RED.VHS running on a different domain</td>
+            </tr>
+        </table>
+        <h3>Paired Failover Set</h3>
+        <p>In Figure 4 below the paired  failover set is RED.RSM2.  If we look at those two sets of services, together they are running the 8331 and 8332 domains, which makeup a locally redundant failover set. Notice that both RED.RSM1 and RED.RSM2 are visible to both the 8331 and 8332 domains and they both contain an identical set of services.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example4.png" data-mc-popup-alt="Redundancy Example - Figure 4"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1137" data-mc-height="364" src="../../Resources/Images/Redundancy/Example4_thumb_0_48.png" alt="Redundancy Example - Figure 4" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 4: RED.RSM2 as a locally redundant set</td>
+            </tr>
+        </table>
+        <h3>Split Site and Local Failover</h3>
+        <p>Figure 5 shows a third domain in this example, the 8333 domain, which is configured to be in a different (possibly remote) data center.  The site running on the 8333 domain is split across two servers under RED.RSM3 and RED.RSM3A, with most services running under RED.RSM3, and the VHS running under RED.RSM3A.  This is to demonstrate that you can split a site across multiple servers in a redundant environment, even when the paired site is configured differently.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example5.png" data-mc-popup-alt="Redundancy Example - Figure 5"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1174" data-mc-height="739" src="../../Resources/Images/Redundancy/Example5_thumb_0_48.png" alt="Redundancy Example - Figure 5" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 5: Multiple data centers</td>
+            </tr>
+        </table>
+        <p>The two windows on the left show the 8331 and 8332 domains, which are the locally redundant domains in the SLO data center.  The two windows on the right both show the 8333 domain, which is running in the Atascadero data center on two different servers.  To keep the example simple,  local redundancy is not configured for the Atascadero data center, although that could easily be added.</p>
+        <p>For the locally redundant set (8331 and 8332), we can failover individual services or the entire site.  For the data-center redundancy set (8331 and 8333), we <i>must</i> failover the entire site. So for a locally redundant set, we might choose to always run in a partial failover state  to spread the load across both servers (as demonstrated with the VHS example in Figure 3 above), instead of having one always being idle.</p>
+        <h3>Data-Center Failover</h3>
+        <p>If performing a data-center failover, the services running on the 8331 and 8333 domains will swap, as shown in Figure 6.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example6.png" data-mc-popup-alt="Redundancy Example - Figure 6"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1129" data-mc-height="735" src="../../Resources/Images/Redundancy/Example6_thumb_0_48.png" alt="Redundancy Example - Figure 6" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 6: Data-center failover</td>
+            </tr>
+        </table>
+        <p>After a data-center failover, the live domain (8331) is now running in the Atascadero data center instead of the SLO data center.  If there was a hardware failure in the SLO data center, we can still do a local failover, but it will now be between the 8332 and 8333 domains.</p>
+        <h3>Soft and Hard Failover</h3>
+        <p>The actual failover process is quite simple.  Identify the services you want to failover, and the RSMs take care of the rest.  If you are doing a soft failover, the system will first make sure the services are fully synchronized.  It does this by telling the active service in the set to freeze and stop all processes, putting the service into a read-only mode.  The standby service is then told to start replicating until the services are an exact match.  The next step is to stop both the active and standby services, then restart the standby services on the active domain.  Once those are up and running, the previously active services are told to start on the standby domain. </p>
+        <p>In the case of an emergency, you can issue a hard failover, which will skip the synchronization step and complete the failover whether the services are all ready or not.</p>
+        <h3>Redundancy Configuration Tools</h3>
+        <p>While this may seem complicated, we have provided some configuration tools to simplify things:</p>
+        <ul>
+            <li value="1">The <a href="../Services/Configuration File Manager.htm">Config File Manager</a> is used to manage  local  or remote configuration files via manual and mass-modification options, and also perform basic validation for any keyword changes. </li>
+        </ul>
+        <ul>
+            <li value="1">The <a href="Redundancy Editor.htm">Redundancy Editor</a> is used to configure the role of each domain and which RSM services are redundant. It is available via the right-click menu from the RSM in CygNet Explorer.  It can also be instantiated within CygNet Studio from any screen.</li>
+        </ul>
+        <h3><a name="Redundan"></a>Redundancy Dashboard</h3>
+        <p>The primary visualization tool for redundancy (and failover) is a set of sample dashboard screens that have been implemented in CygNet Studio, the <a href="Redundancy Dashboard.htm">Redundancy Dashboard</a>. These screens can be modified to your liking to suit your environment and enterprise's needs. Once you have configured your system for redundancy using the Config File Manager and the Redundancy Editor, these screens will work out of the box.</p>
+        <p>Figure 7 shows an <b>Overview</b> screen with the three failover sets:</p>
+        <ul>
+            <li value="1">SLO - Production network (local failover)</li>
+            <li value="2">SLO / Atascadero (data-center failover)</li>
+            <li value="3">Atascadero - Production network (no failover)</li>
+        </ul>
+        <p>The <b>Failover sets</b> grid at the top of the screen gives a quick summary of the failover set's role (local failover or data-center failover) and whether they are failover ready.</p>
+        <p>Select any one failover set to get a more complete status in the lower portion of the screen. For each set you can see which domains are in the set, the number of running services, whether or not the services are running, the status and direction of replication (indicated by the arrow) and where the data is coming from (if this set does not contain the live domain). In Figure 7 the SLO - Production network is sourcing its data from the Atascadero - Production network.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example7.png" data-mc-popup-alt="Redundancy Example - Figure 7"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="819" data-mc-height="738" src="../../Resources/Images/Redundancy/Example7_thumb_0_48.png" alt="Redundancy Example - Figure 7" title="Click for more information." tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 7: Overview page showing<br />failover readiness and data source</td>
+            </tr>
+        </table>
+        <p>To perform a failover, click <b>Failover Readiness</b> or go to the <b>Execute Failover</b> page shown in Figure 8. Pick a failover set, select the services you want to failover, and then click the <b>Execute Failover</b> button. </p>
+        <p>In Figure 8 the SLO / Atascadero set is ready to failover. Click <b>Execute Failover</b> to perform a data-center failover, and observe the services running on the 8331 and 8333 domains swap.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 40pt;" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Redundancy/Example8.png" data-mc-popup-alt="Redundancy Example - Figure 8"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1313" data-mc-height="775" src="../../Resources/Images/Redundancy/Example8_thumb_0_48.png" alt="Redundancy Example - Figure 8" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Figure 8: Execute Failover page</td>
+            </tr>
+        </table>
+        <p>See <a href="Redundancy Dashboard - Execute Failover.htm">Execute Failover</a> for more information about the other options on this page.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

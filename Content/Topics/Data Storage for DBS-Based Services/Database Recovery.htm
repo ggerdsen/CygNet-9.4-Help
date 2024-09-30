@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Storage|Data Storage for DBS-Based Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Database Recovery</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Data Storage/Data Storage in CygNet.htm">Data Storage</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Storage for DBS-Based Services.htm">Data Storage for DBS-Based Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Database Recovery</span>
+        </div>
+        <h2>Database Recovery</h2>
+        <p>ESE has two types of database recovery: hard and soft. </p>
+        <h3>Hard Recovery</h3>
+        <p>A hard database recovery is a manual process that occurs when transaction log files must be replayed into a restored online backup using a utility such as ESENTUTL. <span class="CygNetVariablesSoftwareName">CygNet Software</span> recommends that you use the <a href="../Database Utilities/DBS Restore Backup Utility.htm">DBS Restore Backup</a> utility to perform hard recovery.</p>
+        <p>The topic <a href="Hard Recovery.htm">Hard Recovery</a> describes how hard recovery works for an ESE-based datastore. </p>
+        <p>Also see <a href="../Database Utilities/ESENTUTL Utility.htm#Recovery">Recovery</a> for information about the Recovery options of the ESENTUTL utility.</p>
+        <h3>Soft Recovery</h3>
+        <p>A soft database recovery is an automatic process that occurs when the service is restarted. The transaction log files in the service’s txlogs folder are replayed. ESE uses the checkpoint file to determine which transaction log file to start with when it sequentially replays transactions into databases. The process reverses any uncompleted transactions (per the atomic nature of the database) and writes any transactions that have not already been written. This process makes the databases up-to-date with all recorded transactions. </p>
+        <p>A fundamental assumption of the soft recovery process is that no database or log files have been moved, deleted, or destroyed by the failure or the administrator after the failure. If the logs are unavailable, you must manually repair the database by running ESENTUTL to make the database consistent and ready to start. See <a href="../Database Utilities/ESENTUTL Utility.htm#Repair">Repair</a> for instructions on using the ESENTUTL utility.</p>
+        <h3>Recovery Event </h3>
+        <p>Below is an example of what would be recorded in the Event Viewer in the case of a soft recovery. </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Category is "General": Event Id 102 </p>
+                    <p class="Code">CygNetESEInstance:TEST.PNTABFT (5628) CygNetESEInstance:TEST.PNTABFT: The database engine (6.01.7600.0000) started a new instance (0). </p>
+                    <p class="Code">Category is "Logging/Recovery": Event Id 300 </p>
+                    <p class="Code">CygNetESEInstance:TEST.PNTABFT (5628) CygNetESEInstance:TEST.PNTABFT: The database engine is initiating recovery steps. </p>
+                    <p class="Code">Category is "Logging/Recovery": Event Id 301 </p>
+                    <p class="Code">CygNetESEInstance:TEST.PNTABFT (5628) CygNetESEInstance:TEST.PNTABFT: The database engine has begun replaying log file F:\CygNet\Services\5410\TEST\PNTABFT\txlogs\edb.log. </p>
+                    <p class="Code">Category is "Logging/Recovery": Event Id 302 </p>
+                    <p class="Code">CygNetESEInstance:TEST.PNTABFT (5628) CygNetESEInstance:TEST.PNTABFT: The database engine has successfully completed recovery steps. </p>
+                    <p class="Code">Category is "General": Event Id 103 </p>
+                    <p class="Code">CygNetESEInstance:TEST.PNTABFT (5628) CygNetESEInstance:TEST.PNTABFT: The database engine stopped the instance (0).</p>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

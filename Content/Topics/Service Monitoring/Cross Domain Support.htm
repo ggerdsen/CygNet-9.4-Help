@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Service Monitoring|Service Monitoring Utilities|CygNet ServiceMon Administration Utility|Creating SVCMON Points">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Cross-Domain Support</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Service Monitoring.htm">Service Monitoring</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Service Monitoring Utilities.htm">Service Monitoring Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet ServiceMon Administration Utility.htm">CygNet ServiceMon Administration Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Creating SVCMON Points.htm">Creating SVCMON Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Cross-Domain Support</span>
+        </div>
+        <h2>Cross-Domain Support</h2>
+        <p>The CygNet ServiceMon Administration utility can be used to create SVCMON points that monitor system info items on other domains. You might want to do this if you have a SVCMON that monitors all sites across an enterprise, or if you have a site that needs to monitor the state of its replicated counterparts living in another domain.</p>
+        <p>The last connected service is domain-aware, so starting up the CygNet ServiceMon Administration utility on domain X won’t overwrite the last connected service on domain Y. This also applies to the <b>Filter</b> option on the <b>Info Items</b> view. The utility also supports the <i>/domain:nnnn</i>&#160;<a href="../Domains/ARS Domain.htm#/domain">command-line parameter</a> to start on a domain other than the default domain.</p>
+        <p class="HeadingProcedure">To Create a SVCMON Point for a Service on Another Domain</p>
+        <ol>
+            <li value="1">Click the <b>Info Items</b> view icon.</li>
+            <li value="2">To filter the service list, click <b>Filter</b>.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Select the desired <b>Domain ID</b>, <b>Site Names</b>, <b>Service Types</b> and <b>States</b>. </li>
+            <li value="2">Click <b>OK</b>.</li>
+        </ol>
+        <blockquote>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> You will need to add the desired domain using <a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection</a> so the Domain ID is available for selection.</p>
+            </div>
+        </blockquote>
+        <p class="Indent3">
+            <img src="../../Resources/Images/Service Monitoring/ServiceMon Info Items Filter.png" title="Filter Options" alt="Filter Options" />
+        </p>
+        <ol start="3">
+            <li value="3">Select the service(s) for which you want to create the SVCMON point. To select a single service click on the service name. To select multiple services press <b>Ctrl+Click</b>. Use the <b>None</b> and <b>All</b> buttons to clear the selection or to select all, respectively.</li>
+            <li value="4">Click <b>Get UDCs Available for Services</b> to populate the second window.</li>
+            <li value="5">Select the UDC(s) then click the <b>Add</b> button (&gt;&gt;) to add them to the <b>Points to Create</b> list.</li>
+            <li value="6">To apply the properties of point template to the points to be created, click the      <a href="SVCMON Point Templates.htm">Use Templates</a> option.</li>
+            <li value="7">Click <b>Create Info Item Points</b> to create the points. The SVCMON point will be associated with the <a href="Configuring Timers.htm">default timer</a>.</li>
+            <li value="8">Once you have created a SVCMON point, the UDC will no longer be listed as an option for the selected service.</li>
+        </ol>
+        <p>The created point will look like this:</p>
+        <p>
+            <img src="../../Resources/Images/Service Monitoring/ServiceMon Info Items Cross Domain.png" title="Created Point" alt="Created Point" />
+        </p>
+        <p>The syntax of the point's <b>Facility ID</b> is DOMAIN_SITE_SERVICE. Note that there is a 20 character limit for Facility ID. If the number of characters (including underscores) exceeds 20 the CygNet ServiceMon Administration utility will not create the point. The point will have to be added manually.</p>
+        <p>You can also create calculated points for services on other domains. See <a href="Creating Calculated Points.htm">Creating Calculated Points</a> for more information.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+            </p>
+            <p class="Note">For info items, the Facility ID syntax is DOMAIN_SITE_SERVICE. The UDC is the same. The General1 field of the PNT header record contains the source Site.Service. The Indexed1 field of the PNT header record contains the domain ID.
+            </p>
+            <p class="Note">For calculated points, the Facility ID syntax is DOMAIN_SITE_SERVICE. The UDC is the same. The General1 field of the PNT header record contains the UDC&#160;of the calculated point. The Indexed1 field of the PNT header record contains the domain ID.
+            </p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Service">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Service Internal Database</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Service.htm">FMS Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Internal Database</span>
+        </div>
+        <h2>Using the FMS Internal Database</h2>
+        <p>CygNet Measurement supports an internal database that you can use to operate FMS with the same functionality while being completely independent from a Microsoft SQL Server database. Before making a decision, consider the <a href="#Differen" class="selected">differences</a> between the database implementation options. For most use cases where FMS is running in a production environment, it is still recommended that the service be connected to a Microsoft SQL Server database instead of using the internal database option. When the internal database option is deemed appropriate, <a href="#Setting" class="selected">set up the internal database</a> via the FMS configuration file.</p>
+        <h3>Using the Internal Database vs. Microsoft SQL Server</h3>
+        <p>The FMS Internal Database is built completely into the FMS service, without external dependencies or drivers.</p>
+        <p>Some cases where the FMS Internal Database may be useful include the following.</p>
+        <ul start="1">
+            <li value="1">Test environment</li>
+            <li value="2">Small production environment</li>
+            <li value="3">Field office environment with a short retention period, that replicates back to the corporate office</li>
+        </ul>
+        <p>One case where the FMS Internal Database is <i>not</i> recommended is in a medium to high-use production environment. </p>
+        <h4><a name="Differen"></a>Differences Between the Internal Database and Microsoft SQL Server</h4>
+        <p>The following table describes some of the differences between the two implementation options.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Issue</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Internal Database</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Microsoft SQL Server</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Size limit</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>50 gigabytes*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>524 petabytes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Cost</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">No additional license expense</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Requires purchase of Microsoft SQL Server license</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Setup</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>No setup</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Requires  installation of Microsoft SQL Server</p>
+                    <p>Requires installation of an OLE DB driver on the computer hosting the FMS service</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Performance</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Runs on the same computer as the FMS service, which may also be shared with other CygNet services</p>
+                    <p>Not optimal for performance in high-concurrency environments, where multiple users are making edits at the same time</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Is typically installed on a high-end server dedicated to the Microsoft SQL Server</p>
+                    <p>Performs well in high-concurrency environments,  where multiple users can make edits at the same time</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Hard disk drive</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Multiple instances of an internal database must each be located on separate hard disk drives</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Multiple SQL servers can co-exist on a single hard disk drive</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Maximum Nodes</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">2000</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">50,000</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Maintenance</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Simple process to back up the database, since it is a single file </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Requires operator(s) with Microsoft SQL Server knowledge to maintain and back up the database</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">* Note:</span> When using the FMS Internal Database, it is recommended that you set up your system to alarm if the size of the internal database gets too large. To do so, create a Service Monitoring Service (SVCMON) point with the uniform data code (UDC) <b>SVMFMSDBSI</b> - Size of Database (MB) to alarm if the value exceeds 40960 MB (40 GB). See <a href="../Service Monitoring/Service Monitoring.htm">Service Monitoring</a> for more information.</p>
+        </div>
+        <h3><a name="Setting"></a>Setting Up the Internal Database</h3>
+        <p>Use the following procedure to  set up use of the FMS Internal Database by configuring a few service keyword values in the FMS configuration file. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If setting up replication for your system, each database name must be unique. See <a href="FMS Data Synchronization.htm">FMS Data Synchronization</a> for more information.</p>
+        </div>
+        <p class="HeadingProcedure">To Set Up the FMS Service to Use the Internal Database</p>
+        <ol start="1">
+            <li value="1"> On your host server, open the FMS configuration file (<b>CygNet\Services\FMS\fms.cfg</b>). See <a href="../Services/Service Configuration Files.htm">Service Configuration Files</a> and <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm">FMS Configuration File Keywords</a> for more information. <p><img src="../../Resources/Images/CygNet Measurement/Internal_Database_fms_cfg_598x199.png" style="width: 598;height: 199;" /></p></li>
+            <li value="2">In  the <b>Database Info</b> section, make the following modifications.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Set the <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DatabaseInfoKeywords">DB_PROVIDER</a> keyword to INTERNAL.</li>
+            <li value="2">Set the <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DatabaseInfoKeywords">DB_SERVER</a> keyword  to the file name and path of the database created for your FMS Service. 
+			<div class="Note"><p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p><p class="Note">If a database directory is specified, it must exist or the service will not start.</p><p class="Note">If the database doesn’t exist, then it will be created when the FMS service is first started. </p><p class="Note">If no database directory is specified, then the file will be created/read from the same directory as the FMS service. Do not share the FMS database file across a network.</p></div></li>
+            <li value="3">The DB_CATALOG keyword is optional when using the FMS Internal Database. It can be commented out or deleted. If provided, it will be ignored.</li>
+            <li value="4">The DB_USERNAME and DB_PASSWORD keywords are not applicable when using the internal database. They can either be commented out or deleted.</li>
+            <li value="5">Optionally set the <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DatabaseInfoKeywords">DB_QUERYTIMEOUT</a> keyword.</li>
+            <li value="6">Optionally set the <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DatabaseInfoKeywords">DATA_RETENTION</a> keyword.</li>
+        </ol>
+        <ol start="2">
+            <li value="2"><b>Save</b> the settings and close the file.</li>
+            <li value="3"><b>Start</b> or <b>Restart</b> the FMS service.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

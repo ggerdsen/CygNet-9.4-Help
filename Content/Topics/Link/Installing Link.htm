@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Link">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Installing Link</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Link.htm">Link</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installing Link</span>
+        </div>
+        <h2>Installing Link</h2>
+        <p>The Link service requires CygNet SCADA services to be installed on
+the system that is running the service. It also requires a 64-bit version of Dclnd
+(<b>Dclnd64.dll</b>). If you are not already running 64-bit CygNet services, the recommended
+method of obtaining a 64-bit Dclnd is to install the 64-bit VHS with the installer using the
+CygNet SCADA Services (64-bit) Setup application (<b>CygNetSCADAServicesSetup64.exe</b>).
+This will install Dclnd64.dll and any other 64 bit dependencies required for Link. See the <i><a href="../../Resources/PDF_Repository/CygNet_94_64bit_Installation_Guide.pdf" target="_blank">64-bit Installation Guide</a></i> for installation instructions.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A valid license file is required if you intend to support more than 50 points to be published from the gateway. Please contact your Account Manager for more information.</p>
+        </div>
+        <p class="HeadingProcedure">To Install the Link Service</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Ensure that all prerequisite steps are complete.  Refer to the <a href="../../Resources/PDF_Repository/CygNet_94_System_Requirements.pdf" target="_blank"><i>CygNet System Requirements</i></a> document.</p>
+        </div>
+        <ol start="1">
+            <li value="1">Install the Link service:</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li style="font-weight: normal;" value="1">Copy the Link package (Weatherford_Link-x64.msi) file from the <b>CygNet\Setup</b> folder of your CygNet source files to the desktop of your local machine.</li>
+            <li style="font-weight: normal;" value="2">Use the setup package to install the Link service on your machine:</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Open the Link package.</li>
+            <li value="2">Read and agree to the license terms and conditions.</li>
+            <li value="3">Click <b>Install</b> to install the Link  service on your machine.</li>
+        </ol>
+        <ol start="2">
+            <li value="2">Go to the sample_appsettings.json file included in the installation package to <a href="Configuring Link.htm">configure</a> it to your specifications, and rename it to "appsettings.gateway.json".</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> The sample_appsettings.json file is located in <b>C:/ProgramData/Weatherford/Link</b>. See <a href="Configuring Link.htm">Configuring Link</a> for more information.</p>
+            </div>
+        </ol>
+        <ol data-mc-continue="true">
+            <li value="3">Start the service.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li style="font-weight: normal;" value="1">Open Windows Task Manager (run <b>TaskMgr.exe</b>).</li>
+            <li style="font-weight: normal;" value="2">Click on the <b>Services</b> tab.</li>
+            <li style="font-weight: normal;" value="3">Find <b>WLink</b> (Weatherford Link) in the list.</li>
+            <li style="font-weight: normal;" value="4">Right-click and select <b>Start</b>.</li>
+        </ol>
+        <h3><a name="Security"></a>Link Security</h3>
+        <p>To automatically generate the <b>encryptedPassword</b> value, after filling in the <b>password</b> field, run Link with the <b>-encrypt</b> parameter specified in the command line. The process will automatically generate an encrypted password, store it as the <b>encryptedPassword</b> value, and  erase the values of all <b>password</b> fields. It will also generate a key file used to decrypt the passwords, which it will store in the Link data folder (<b>C:/ProgramData/Weatherford/Link</b> on Windows).    Lastly, it will update the <b>passwordEncryptionKeyPath</b> object member in appsettings.gateway.json with the location of the key file. </p>
+        <p>Once the key file has been generated, users are free to move the file wherever they please, provided they also update the <b>passwordEncryptionKeyPath</b> to point to the new file location.  If the key file is not present when Link is run, it will not be able to decrypt the encrypted passwords and it will fail.  </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> NTFS permissions should be used to prevent unauthorized users from accessing the encryption key file.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

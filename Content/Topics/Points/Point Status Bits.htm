@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Points|Points Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Point Status Bits</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Points.htm">Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Points Overview.htm">Points Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Point Status Bits</span>
+        </div>
+        <h2>Point Status Bits</h2>
+        <p>A point record may contain up to 48 status bits, which are used to provide status information about a point record in a Current Value Service (CVS). The <a href="XML StatusBits.htm">StatusBits</a> element of the CvsMetadata defines all status bits for a specified CygNet point scheme. The point state is based on the status bits, which are associated with point types. Status bits are stored in <a href="#Blocks" class="selected">blocks</a>. </p>
+        <h3>Status Bit Types</h3>
+        <p>There are three types of status bits: </p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#System" class="selected">System Status Bits</a> (17)</li>
+            <li class="HyperlinkList" value="2"><a href="#Configur" class="selected">Configurable Status Bits</a> (15)</li>
+            <li class="HyperlinkList" value="3"><a href="#User" class="selected">User Status Bits</a> (16)</li>
+        </ul>
+        <p>See <a href="#Blocks" class="selected">Status Bit Blocks</a> below for information about the bit positions of each of these status bits.</p>
+        <h4><a name="System"></a>System Status Bits</h4>
+        <p>There are 17 system bits, displayed in the CvsMetadata with a calculation type of <a href="XML StatusBits.htm#StatusBitDefinition">SYSTEM</a>.  Each system status bit performs a specific role in a CygNet system. The bit IDs for these status bits are predefined within CygNet and should not be changed.</p>
+        <p><b style="text-decoration: underline;">Basic Point Information</b> — four status bits provide information on the basic state of the point: </p>
+        <ol>
+            <li value="1"><b>INITIALIZED</b> (Initialized) — this bit is set when a point is initialized</li>
+            <li value="2"><b>UPDATED</b> (Updated) — this bit is set when a point is initialized</li>
+            <li value="3"><b>UNRELIABLE</b> (Unreliable) — this bit is set when a point is deemed unreliable</li>
+            <li value="4"><b>EXTERNAL_VALUE</b> (External Value) — this bit is set when a point’s value is updated <a href="../Universal Interface Service/Edit Point Value.htm">manually</a> or by a <a href="../Scripting/CxScript GlobalFunctions Methods.htm#SetPoint">SetPoint</a> command</li>
+        </ol>
+        <p><b style="text-decoration: underline;">Basic  Alarm Information</b> — four status bits provide basic information about the state of alarms for the point:</p>
+        <ol class="Circle" data-mc-continue="true">
+            <li value="5"><b>ALM_SUPPRESSED</b> (Alarm Suppressed) — this bit is set when the alarm suppression feature is enabled. See <a href="../Alarms/Suppressing Alarms.htm">Suppressing Alarms</a> for more information</li>
+            <li value="6"><b>ALM_PRI_CAT1</b> (Alarm Priority Category Bit 1)</li>
+            <li value="7"><b>ALM_PRI_CAT2</b> (Alarm Priority Category Bit 2)</li>
+            <li value="8"><b>ALM_PRI_CAT3</b> (Alarm Priority Category Bit 3) </li>
+        </ol>
+        <p class="Indent3"><b>Alarm Priority Category Bits 1-3</b> designate which Alarm Priority category the point currently falls under. Because there are three bits there can be a total of eight (0-7) possible categories for a point to fall under. Category 0 represents a point that does not have an Alarm Priority Category.  Categories 1-7 correspond to the configured <a href="XML AlarmPriorityCategories.htm">AlarmPriorityCategories</a>. See <a href="../Alarms/Alarm Priority Alarm Priority Category Alarm Category.htm">Alarm Priority Categories</a> for more information.</p>
+        <p><b style="text-decoration: underline;">Point Type</b> — three status bits identify with which point type the point is associated. </p>
+        <ol start="9">
+            <li value="9"><b>STRING_ENUM</b> (Reserved 1) — this bit identifies points as either string or enumeration point types.</li>
+            <li value="10"><b>DIGITAL_ANALOG</b> (Reserved 2) — this bit identifies points as either analog or digital point types.</li>
+        </ol>
+        <p class="Indent3">The first two status bits, <b>STRING_ENUM</b> and <b>DIGITAL_ANALOG</b>, work in tandem to define the point type:</p>
+        <blockquote>
+            <ul>
+                <li value="1">If both DIGITAL_ANALOG and STRING_ENUM bits not set = Analog</li>
+                <li value="2">If only DIGITAL_ANALOG bit set = Digital</li>
+                <li value="3">If both DIGITAL_ANALOG and STRING_ENUM bits set = Enumeration</li>
+                <li value="4">If only STRING_ENUM bit set = String</li>
+            </ul>
+        </blockquote>
+        <ol start="11">
+            <li value="11"><b>IN_OUT</b> (Reserved 3) — this bit identifies the point as an input or output point type. This bit is cleared for input point types and set for output point types.</li>
+        </ol>
+        <p><b style="text-decoration: underline;">Point Scheme</b> — the four Point Scheme status bits, SCHEME1-4, identify with which point scheme the point is associated. These bits are a binary representation of the available point scheme IDs 0-15. A CvsMetadata file can define up to 16 custom point schemes  (Schemes 0 -15).   If the CygNet Standard point scheme is used, its default is Scheme 0. </p>
+        <ol start="12">
+            <li value="12"><b>SCHEME1</b> (Reserved 4)</li>
+            <li value="13"><b>SCHEME2</b> (Reserved 5)</li>
+            <li value="14"><b>SCHEME3</b> (Reserved 6)</li>
+            <li value="15"><b>SCHEME4</b> (Reserved 7)</li>
+        </ol>
+        <p><b style="text-decoration: underline;">VHS Information</b> — Two VHS information status bits are used by the VHS to track if a VHS entry has been edited or deleted by a user:</p>
+        <ol start="16">
+            <li value="16"><b>VHS_USER_EDITED</b> (Reserved 8) — when a VHS entry is edited, the VHS_VALUE_DELETED status bit is set, thereby removing the entry from the default list, and a new entry is created with the VHS_USER_EDITED status bit enabled. </li>
+            <li value="17"><b>VHS_VALUE_DELETED</b> (Reserved 9) — when a VHS entry is deleted, the VHS_VALUE_DELETED status bit is set and the entry is removed from the default view. This provides the ability to review what changes have been made to the history of a point. The deleted values will remain in the VHS until they are purged from the system.</li>
+        </ol>
+        <h4><a name="Configur"></a>Configurable Status Bits</h4>
+        <p>Configurable bits are used to facilitate CVS alarm calculations as well as CAS and GNS reporting. They are the only status bits that support CVS alarm calculations. Each alarm listed on the  <b>Analog/Digital/Enumeration/String Alarm Settings</b> page of the <b>PNT Editor</b> corresponds to a configurable bit.</p>
+        <p>There are 15 configurable bits available, CONFIG1 - CONFIG15, and each bit can have its own associated calculation type and parameters. In addition to supporting CVS alarm calculation types, configurable bits also support the EXTERNAL calculation type. This lets you configure a status bit to be set externally, yet still have the option of reporting to the CAS or GNS in the same way as CVS alarm calculation types.</p>
+        <ol>
+            <li value="1"><b>CONFIG1</b> (Out-of-Range)</li>
+            <li value="2"><b>CONFIG2</b> (Low Alarm)</li>
+            <li value="3"><b>CONFIG3</b> (Low Warning)</li>
+            <li value="4"><b>CONFIG4</b> (High Warning)</li>
+            <li value="5"><b>CONFIG5</b> (High Alarm)</li>
+            <li value="6"><b>CONFIG6</b> (High Deviation)</li>
+            <li value="7"><b>CONFIG7</b> (Unused 1)</li>
+            <li value="8"><b>CONFIG8</b> (Unused 2)</li>
+            <li value="9"><b>CONFIG9</b> (Unused 3)</li>
+            <li value="10"><b>CONFIG10</b> (Unused 4)</li>
+            <li value="11"><b>CONFIG11</b> (Unused 5)</li>
+            <li value="12"><b>CONFIG12</b> (Unused 6)</li>
+            <li value="13"><b>CONFIG13</b> (Unused 7)</li>
+            <li value="14"><b>CONFIG14</b> (Unused 8)</li>
+            <li value="15"><b>CONFIG15</b> (Unused 9)</li>
+        </ol>
+        <p>See <a href="Setting Default Point Configuration.htm#Config">Config Bit State Page</a> for more information.</p>
+        <h4><a name="User"></a>User Status Bits</h4>
+        <p>There are 16 user bits available, User Bit 1 – User Bit 16, which are configurable by a user to associate special status information about a point. These bits only support the <a href="XML StatusBits.htm#StatusBitDefinition">EXTERNAL</a> calculation type. A user can set these bit types manually or through an API.</p>
+        <ol>
+            <li value="1"><b>USER1</b> (User Bit 1)</li>
+            <li value="2"><b>USER2</b> (User Bit 2)</li>
+            <li value="3"><b>USER3</b> (User Bit 3)</li>
+            <li value="4"><b>USER4</b> (User Bit 4)</li>
+            <li value="5"><b>USER5</b> (User Bit 5)</li>
+            <li value="6"><b>USER6</b> (User Bit 6)</li>
+            <li value="7"><b>USER7</b> (User Bit 7)</li>
+            <li value="8"><b>USER8</b> (User Bit 8)</li>
+            <li value="9"><b>USER9</b> (User Bit 9)</li>
+            <li value="10"><b>USER10</b> (User Bit 10)</li>
+            <li value="11"><b>USER11</b> (User Bit 11)</li>
+            <li value="12"><b>USER12</b> (User Bit 12)</li>
+            <li value="13"><b>USER13</b> (User Bit 13)</li>
+            <li value="14"><b>USER14</b> (User Bit 14)</li>
+            <li value="15"><b>USER15</b> (User Bit 15)</li>
+            <li value="16"><b>USER16</b> (User Bit 16)</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Blocks"></a>Status Bit Blocks</h3>
+        <p>Each point record in a Current Value Service has 48 associated status bits. These status bits are stored in one 16-bit block and one 32-bit block. The <b>Status Bit Details</b> field of the <b>Point Properties</b> dialog box displays the <b>Set</b> state, <b>Description</b>, and <b>Bit Name</b> ("<a href="XML StatusBits.htm#Attribut">bitid</a>" attribute) of each status bit.</p>
+        <p>
+            <img src="../../Resources/Images/Points/Status Bit Details.png" />
+        </p>
+        <p>The following table shows the bit positions of each status bit. The 16-bit block section, also described as the <b>Base Status</b> bits, contains a 16-bit block of status bits 0 to 15, including system and configurable status bits. The 32-bit block section, also described as the <b>Extended Status</b> bits, displays a 32-bit block of status bits, including user, system, and configurable status bits. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 50px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 170px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 230px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="4" style="text-align: center;">16-Bit Block</th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">#</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Status Bit Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Bit Type</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">0</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">INITIALIZED</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Initialized</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">1</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">UPDATED</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Updated</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">2</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">UNRELIABLE</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Unreliable</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">3</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG1</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Out-of-Range</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">4</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG2</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Low Alarm</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">5</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG3</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Low Warning</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">6</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG4</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">High Warning</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">7</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG5</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">High Alarm</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">8</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG6</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">High Deviation</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">9</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG7</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unused 1</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">10</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">STRING_ENUM</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reserved 1</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">11</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG8</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unused 2</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">12</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">DIGITAL_ANALOG</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reserved 2</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">13</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">IN_OUT</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Reserved 3</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">14</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG9</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Unused 3</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">15</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG10</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unused 4
+</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="4" style="font-weight: bold;text-align: center;">32-Bit Block</th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">#</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Status Bit Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Bit Type</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">0</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER1</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 1</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">1</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER2</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 2</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">2</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER3</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 3</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">3</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER4</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 4</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">4</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER5</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 5</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">5</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER6</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 6</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">6</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER7</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 7</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">7</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER8</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 8</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">8</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER9</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 9</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">9</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER10</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 10</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">10</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER11</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 11</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">11</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER12</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 12</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">12</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER13</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 13</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">13</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER14</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 14</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">14</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">USER15</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">User Bits 15</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">15</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">USER16</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">User Bits 16</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">USER</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">16</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">SCHEME1</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reserved 4</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">17</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">SCHEME2</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Reserved 5</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">18</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">SCHEME3</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reserved 6</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">19</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">SCHEME4</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Reserved 7</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">20</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ALM_PRI_CAT1</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Alarm Priority Category Bit 1</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">21</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ALM_PRI_CAT2</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Alarm Priority Category Bit 2</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">22</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ALM_PRI_CAT3</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Alarm Priority Category Bit 3</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">23</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">EXTERNAL_VALUE</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">External Value</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">24</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">VHS_USER_EDITED</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reserved 8</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">25</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ALM_SUPPRESSED</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Alarm Suppressed</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">26</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG11</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Unused 5</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">27</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG12</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unused 6</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">28</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG13</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Unused 7</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">29</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">VHS_VALUE_DELETED</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Reserved 9</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SYSTEM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">30</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CONFIG14</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Unused 8</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONFIG</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">31</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CONFIG15</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Unused 9</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONFIG</td>
+            </tr>
+        </table>
+        <h3>Extended Status Bit Usage in CygNet</h3>
+        <p>Examples of user and config status bit usage include: </p>
+        <ul>
+            <li value="1">The Energy Load Forecasting system uses User Bits to indicate if hourly historical or forecast input values are missing or need to be filled. See <a href="../Energy Load Forecasting/Configuring System Settings.htm#Current_Value_Status_Bits">Current Value Status Bits</a> for more information.</li>
+            <li value="2">CygNet Studio Image Tool. You can set bit states for various configurable point status bits. </li>
+            <li value="3">The Line Pack driver sets Config Status Bits under certain conditions. See <a href="../Line Pack/Configuring Calculation Settings.htm#Status">Configuring Calculation Settings - Status Bits</a>.</li>
+            <li value="4">OPC&#160;quality data is written to User Bits 1 - 8 for OPCIS&#160;data points. See <a href="../OPC/OPCIS Data Points.htm#OPC_Quality_Data">OPC Quality Data</a>.</li>
+            <li value="5"><a href="../Scripting/CxEventIF AUD ELSALM ELS XML Properties.htm">CxEventIF</a>
+            </li>
+            <li value="6"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#SetPointEx2">CxScript.GlobalFunctions.SetPointEx2</a>
+            </li>
+            <li value="7"><a href="../EIEs - Import Export Devices/Text Import - Column Mapping Tab.htm#Set">Text Import EIE</a>
+            </li>
+            <li value="8"><a href="../EIEs - Remote Devices/DNP3 EIE.htm">DNP3 EIE</a>
+            </li>
+            <li value="9"><a href="../EIEs - Remote Devices/DNP3 Emerson EIE.htm">DNP3 Emerson EIE</a>
+            </li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

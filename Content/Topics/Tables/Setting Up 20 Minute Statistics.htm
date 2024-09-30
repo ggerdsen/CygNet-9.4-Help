@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Tables|Uniform Data Codes">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Setting Up 20-Minute Statistics</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Tables.htm">Tables</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Uniform Data Codes.htm">Uniform Data Codes</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Setting Up 20-Minute Statistics</span>
+        </div>
+        <h2>Setting Up 20-Minute Statistics</h2>
+        <p>The 20-minute statistics system UDC (SYCSST2M) is a special rollup of one-minute values for the 20 minutes prior to its execution. SYCSST2M (Activate 20 Min Stats) helps control the strain that constant recalculation would ordinarily put on a large system. 20-minute statistics are only applicable to communication and remote devices.</p>
+        <p>20-minute statistics are not represented as current period-last period pairs; there is no previous statistic to compare against the current one. For each minute that passes, the rollup is recalculated with the oldest value dropped off and the most recent value added on. There is no dynamic processing of the 20-minute statistic in between the one-minute processing intervals even if the statistic's point processing is forced by the device.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Activating a <b>SYCSST2M</b> for your UIS and selected devices does not enable mapping for the <b>SYCSST2M</b> UDC. To enable mapping, you must add specific points using the appropriate communication statistics system UDC(s) along with the required time period suffix.</p>
+        </div>
+        <p class="HeadingProcedure">To Set Up 20-Minute Statistics (SYCSST2M)</p>
+        <p>The 20-minute statistics are not enabled by default due to the strain that constant recalculation can put on a large system. They can be enabled for a UIS, or just for select devices in a UIS. Optionally, you can create points for the 20-minute statistics. The suffix for the 20-minute statistic is 2M.</p>
+        <ol>
+            <li value="1">In CygNet Explorer, open your Point Service (PNT) in the service hierarchy.</li>
+            <li value="2">Right-click in the white space of the PNT service pane and click <b>New</b>.</li>
+            <li value="3">In the <b>Site.Service</b> box, select a UIS using the <b>Browse</b> button to open a drop-down menu.</li>
+            <li value="4">Type a <b>Facility ID</b> in the following format: SITE_SERVICE. For instance, MYSITE_UIS. The service you choose here must be a UIS.</li>
+            <li value="5">In the <b>Uniform Data Code</b> box, either type or select <b>SYCSST2M</b>.</li>
+            <li value="6">In the <b>Point Type</b> box, use the <b>Browse</b> button to select <b>String Input</b> from the drop-down menu.</li>
+            <li value="7">You have two options at this point for activating 20-minute statistics for devices:<ul><li value="1">If you want to enable 20-minute statistics for all devices, type ALL in the <b>Initial Value</b> box, then click <b>OK</b>.</li><li value="2">If you want to enable 20-minute statistics for particular devices, type SELECT in the <b>Initial Value</b> box, then click <b>OK</b>. Next, create new <b>SYCSST2M</b> points for each required device. Type <b>ON</b> in the particular device's <b>Initial Value</b> box.</li></ul></li>
+            <li value="8">Restart your UIS, open an affected device in the UIS, and confirm that the <b>Last 20 Min</b>. column appears in its <b>Device Information</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure">To Disable All 20-Minute Statistics</p>
+        <ol>
+            <li value="1">In CygNet Explorer, open your Point Service (PNT) in the service hierarchy.</li>
+            <li value="2">Open the UIS-level <b>SYCSST2M</b> point.</li>
+            <li value="3">Click <b>Edit</b>, change the <b>Initial Value</b> to NONE, then click <b>Save</b>.</li>
+        </ol>
+        <p class="HeadingProcedure">To Disable Specific 20-Minute Statistics</p>
+        <ol>
+            <li value="1">In CygNet Explorer, open your Point Service (PNT) in the service hierarchy.</li>
+            <li value="2">Open the device-specific <b>SYCSST2M</b> point.</li>
+            <li value="3">Click <b>Edit</b>, change the <b>Initial Value</b> to OFF, then click <b>Save</b>.</li>
+        </ol>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

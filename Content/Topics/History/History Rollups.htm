@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|History Data">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>History Rollups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Data.htm">History Data</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">History Rollups</span>
+        </div>
+        <h2>History Rollups</h2>
+        <p>Historical data in the VHS  is stored in its raw format. A rollup refers to the process of taking the raw data from the VHS and condensing it using a calculation or by thinning. The VHS uses an iterator to traverse a list of entries in a VHS and "roll" the values up, effectively compressing the data retrieved in a manner indicated by the rollup type chosen. The iterator is used by several applications in <span class="CygNetVariablesSoftwareName">CygNet Software</span>, including:</p>
+        <ul>
+            <li class="HyperlinkList" value="1">visualizing data on a <a href="../CygNet Studio/Trend Tool.htm">CygNet Trend Tool</a> in CygNet Studio (See <a href="../CygNet Studio/Trend Tool Editing a Series.htm">Editing a Series</a>)</li>
+            <li class="HyperlinkList" value="2">visualizing aggregated data on a <a href="../CygNet Studio/Trend Tool.htm">Default Trend</a></li>
+            <li class="HyperlinkList" value="3">presenting <a href="../Groups/Group Rollups.htm">aggregated data</a> in summary nodes in the Group service</li>
+            <li class="HyperlinkList" value="4">presenting data in the Group Grid in CygNet Studio (see <a href="../CygNet Studio/Group Grid Tool Columns Tab.htm">Columns</a>)</li>
+            <li class="HyperlinkList" value="5">display station and group levels rollups in <a href="../CygNet Measurement/CygNet Measurement Data Calculation.htm">CygNet Measurement</a> clients</li>
+            <li class="HyperlinkList" value="6">viewing rolled up forecasted gas load values for a meter group in <a href="../Energy Load Forecasting/Configuring Meter Meter Group Assignments Settings.htm">Energy Load Forecasting</a></li>
+            <li class="HyperlinkList" value="7">display rollups in nodes in the <a href="../General Contract Monitor/General Contract Monitor Overview.htm">General Contract Monitor</a></li>
+            <li class="HyperlinkList" value="8">retrieving data for CygNet Business Operations (using the <a href="../Enterprise Objects/Business Object Mappings.htm">Business Object Builder</a>)</li>
+            <li class="HyperlinkList" value="9">supported in CygNet Native Operations (<a href="../Enterprise Objects/History.htm">History</a> and <a href="../Enterprise Objects/Point.htm">Point</a>)</li>
+            <li class="HyperlinkList" value="10">exporting history data with <a href="../Export Tools/CygNet Excel Export.htm">CygNet Excel Export</a></li>
+            <li class="HyperlinkList" value="11">exporting history data with the <a href="CygNet History Export Utility.htm">CygNet History Export Utility</a></li>
+            <li class="HyperlinkList" value="12">writing ODBC queries via the <a href="../ODBC/Optimizing ODBC.htm#Stored">HistoryRollup</a> stored procedure</li>
+            <li class="HyperlinkList" value="13">scripting rollups using <a href="../Scripting/CxVhs VhsClient Methods.htm">CxVhsClient</a> and <a href="../Scripting/CxVhs RollupIterator Object.htm">CxVhsLib.RollupIterator</a> and <a href="../Scripting/CxVhs VhsDatastoreInterface Methods.htm">CxVhs.VhsDatastoreInterface</a></li>
+            <li class="HyperlinkList" value="14">scripting tag rollups in the <a href="../Scripting/CxHmiGrp CxGrpGrid Events.htm">CxGrpGrid</a></li>
+        </ul>
+        <p>Also refer to <b>CygNet.API.Historian.Client</b> (GetDailyRollup, GetHourlyRollup, GetHistoricalRollup, HistoricalRollupEnumerable) and <b>CygNet.Data.Historian.HistoricalEntry</b> (HistoricalRollupType Enumeration, HistoricalRollupUnit Enumeration) in the <a href="../Scripting/CygNet .NET Framework API.htm">CygNet.API.chm</a> Help file for CygNet.API .NET usage.</p>
+        <p>Also see <a href="History Rollup Notes.htm">Notes about History Rollup</a> for information and examples about rollups.</p>
+        <h3>Rollup Parameters</h3>
+        <p>There are several required parameters that must be passed to the rollup iterator when configuring rollups, either via UI configuration or script. In some applications the parameter's name is slightly different, depending on the user or script interface being used, and is noted in the table below.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter Names</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Rollup Period</p>
+                    <p>rollupPeriod</p>
+                    <p>RollupPeriod</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the time interval by which a rollup type takes place. The rollup period refers to the quantity of units in a period. For example, to rollup 30 days, the <b>RollupPeriod</b> is 30 and the <b>RollupUnit</b> is  "days."</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Rollup Type</p>
+                    <p>rollupType</p>
+                    <p>RollupType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the type by which to roll up data for a selected point. The possible values are listed in <a href="../Scripting/CxVhs Rollup Types CxRollupType.htm">CxRollupType</a> or in CygNet.Data.Historian.HistoricalRollupType.</p>
+                    <p>See <a href="#Rollup" class="selected">Rollup Type</a> below.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Rollup Units</p>
+                    <p>rollupUnits</p>
+                    <p>RollupUnits</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the time units by which a rollup takes place. This refers to time increments, such as seconds, minutes, hours, or days. The possible values are listed in <a href="../Scripting/CxVhs Rollup Units CxRollupUnits.htm">CxRollupUnits</a> or in CygNet.Data.Historian.HistoricalRollupUnit.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Tag</p>
+                    <p>TagString</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The point tag from which data is being retrieved in valid  CygNet <a href="../Points/Tag String Formats.htm" class="MCTopicPopup MCTopicPopupHotSpot a">tag string format</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Earliest Time</p>
+                    <p>earliestTime</p>
+                    <p>EarliestTime</p>
+                    <p>StartTime</p>
+                    <p>TimeStampEarliest</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The starting date and time of the retrieval period, or how far back to go for data.
+The date range can be specific or you can use date <a href="../Date and Time/Date and Time Wildcards.htm">wildcards</a>.</p>
+                    <p>See <a href="History Rollup Notes.htm#Rules">Rules of EarliestTime and LatestTime</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>EndTime</p>
+                    <p>Latest Time</p>
+                    <p>latestTime</p>
+                    <p>LatestTime</p>
+                    <p>TimeStampLatest</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The ending date and time of the retrieval period, or the most recent date. The date range can be specific or you can use date <a href="../Date and Time/Date and Time Wildcards.htm">wildcards</a>. </p>
+                    <p>See <a href="History Rollup Notes.htm#Rules">Rules of EarliestTime and LatestTime</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Top of SubUnit</p>
+                    <p>Top of Sub-Unit</p>
+                    <p>TopOfDayHour</p>
+                    <p>TopOfSubUnit</p>
+                    <p>TopSubUnit</p>
+                    <p>topSubUnit</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b style="font-style: italic;">offset</b> value to use if the subunit to the major unit does not start at the time unit expected. Subunit means whatever unit of time is the next smaller than that defined in <b>RollupUnits</b>.(i.e. hours to a day, minutes to an hour). This provides a method to allow for differences in start of day, time zone, or scheduling.</p>
+                    <p>For example, to accommodate contract days starting at 5 AM, the <b>TopOfDayHour</b> would be 5 (indicating 5 hours from midnight).</p>
+                    <p>See <a href="History Rollup Notes.htm#Offset">Offset Notes</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Historian.Name</p>
+                    <p>VHS Site.Service</p>
+                    <p>VhsSiteService</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The site and service name of the VHS point tag, in "site.service" format.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Rollup"></a>Rollup Type</h3>
+        <p>The following table describes the rollup types that are supported by CygNet. Points with blank values, non-numeric values (for example, string value = "BOB"), and pseudo-numeric values (for example, enumerated value = "1:ENABLED") are handled differently for each rollup type. The last four columns of the table describe how the VHS uses these history values when returning data for each rollup type. </p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" rowspan="2">Rollup Type</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" rowspan="2">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="4" style="text-align: center;">Value is Used If...</th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Numeric </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Blank </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Non-Numeric </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Pseudo-Numeric </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Raw Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Returns raw data from the VHS.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Calculated Weighted Average</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Returns a time-weighted rolling average for the range with a timestamp that reflects the end of the rollup interval. </p>
+                    <p>For example, if the data window is a three-day period and the rollup interval is one day, the result would be one value per day that represents a time-weighted average for the three-day period.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                    <p>(calculated)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">Uses numeric portion of value to calculate weighted average</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Calculated Mean</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Returns a simple average of the values for the range with a timestamp that reflects the end of the rollup interval.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(calculated)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">Uses numeric portion of value to calculate mean</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Calculated Min</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Returns the minimum value for the range with a timestamp that reflects the end of the rollup interval.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(calculated)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">Uses numeric portion of value to calculate minimum</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Calculated Max</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Returns the maximum value for the range with a timestamp that reflects the end of the rollup interval.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(calculated)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">Uses numeric portion of value to calculate maximum</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Calculated Delta</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Returns the difference between the minimum and maximum values for the range. If there is no difference, the returned value is zero.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(calculated)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+
+Uses numeric portion of value to calculate delta
+</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Calculated Last</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Returns the last value received for the range.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(last)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Thin Median</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Returns the middle value from the set of values for the range. If there is an even number of values collected, the value returned is the one that falls before the true middle. If no values are collected, no values are returned.</p>
+                    <p>See <a href="History Rollup Notes.htm#Thin">Thin Rollup Types</a> for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(middle)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(middle)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Thin Min/Max</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Returns the minimum and maximum values for the range. If only one value is collected, it returns the value. If no values are collected, no values are returned.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(min and max)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(numeric portion)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Thin Last</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Returns the last value collected for the range. If no values are collected, no values are returned.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(last)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" title="Delete" alt="Delete" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    <p>(last)</p>
+                </td>
+            </tr>
+        </table>
+        <h3>About Timestamps and Rollups</h3>
+        <p>The timestamp for a <b>Calculated Rollup</b> is the timestamp for the end of the rollup interval. </p>
+        <p>The timestamp for a <b>Thinned Rollup</b> is the value’s actual timestamp. Since the timestamp for a thinned rollup is the value’s actual timestamp, the timestamp may be outside of the data window if the value occurred before the period. For example, the value hasn’t changed for two days. Even though the data window is only the current day, the timestamp of the value would be from two days ago. </p>
+        <p>If a change is detected in a history point version, the VHS forces a recalculation of the rollup, eliminating possible "stale" history data in a rollup. The rollup recalculation is triggered for a history point when either the history point version has changed, or the VHS startup timestamp has changed.</p>
+        <h3>History Rollups Dialog Box Scripting</h3>
+        <p>The following scripting options  are available for data interface functions related to the <b>History Rollups</b> dialog box. </p>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">COM API</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description and Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>CxDialogs</p>
+                        <p>CxScript</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>The <b>ShowRollupConfigDialog</b> method displays the <b>History Rollup</b> <b>Configuration</b> dialog box. </p>
+                        <ul class="table">
+                            <li value="1">See <a href="../Scripting/CxDialogs Dialogs Methods.htm#ShowRollupConfigDialog">CxDialogs.ShowRollupConfigDialog</a> for more information.</li>
+                            <li value="2">See <a href="../Scripting/CxScript GlobalFunctions Methods.htm#ShowRollupConfigDialog">CxScript.GlobalFunctions.ShowRollupConfigDialog </a>for more information.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

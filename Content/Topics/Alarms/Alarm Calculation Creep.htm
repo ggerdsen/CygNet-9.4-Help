@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Creep</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Creep Alarm Calculation</span>
+        </div>
+        <h2>Creep Alarm Calculations</h2>
+        <p>The  Creep alarm calculation types  can only be implemented with the CygNet Enhanced Point Scheme. See <a href="../Points/Understanding the CvsMetadata File.htm">Understanding the CVS&#160;Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme.</p>
+        <p>For more information, see <a href="Alarm Calculation Types.htm">Alarm Calculation Types</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Avg" class="selected">Creep Average</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Val" class="selected">Creep Value</a>
+            </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Calculation Parameters are user-provided.</p>
+        </div>
+        <h4><a name="Avg"></a>Creep Average</h4>
+        <p>The Creeping Average alarm uses the Creep Average (CREEP_AVG) calculation. On each update, the system will calculate the average from the newest value older than the time interval to (and including) the previous value.  The system compares the difference between the average  and the update,   and sets the alarm bit if the difference is more than the threshold. </p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Creeping Average alarm.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Creep_Avg.png" title="Creep Average" alt="Creep Average" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum engineering units threshold</b> (calcparm1) — maximum  difference allowed between average and updated values</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time Interval (sec)</b> (calcparm2) — time interval in seconds</li>
+        </ul>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col style="width: 539px;" />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Sum = sum of previous values within time interval + newest value older than time interval</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Count =    number of summed values</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Average = Sum/Count</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">ABS(Average Value - Current Value) = difference in value</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If difference &gt; calcparm1, alarm is set</li>
+            <li value="2">If difference ≤ calcparm1, alarm is not set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10</li>
+            <li value="2">calcparm2 = 60</li>
+        </ul>
+        <p>In this example, the Creeping Average bit  is set because the difference of the average (183.51) and the current value (105.2) is greater than the calcparm1 value of 10.</p>
+        <table class="Code">
+            <col style="width: 539px;" />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Sum = 917.59</p>
+                        <p class="Code">Count =    5</p>
+                        <p class="Code">Average = 183.51</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">183.51 (Average) - 105.2 (Current) = 78.318 (value is greater than calcparm1 value of 10)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_CreepAvgVHS.png" title="Creeping Average status bit" alt="Creeping Average status bit" />
+        </p>
+        <h4><a name="Val"></a>Creep Value</h4>
+        <p>The Creep (Value) alarm uses the Creep Value (CREEP_VAL) calculation. On each update, the system calculates the change in value between the current value and the newest value older than the time interval. There is a comparison made between the difference and the calcparm1 value, and if the difference    exceeds the threshold, the alarm is set. </p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Creep (Value) alarm.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Creep_Val.png" title="Creep Value" alt="Creep Value" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum EU difference allowed</b> (calcparm1) — maximum allowed  change of value over the specified   time interval before the alarm is set</li>
+            <li value="2"><b>Time Interval (sec)</b> (calcparm2) — the time span used to determine the difference of the two values</li>
+        </ul>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">ABS(Current Val - Newest Val Older than Time Intvl) = difference in value</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If difference &gt; calcparm1, alarm is set</li>
+            <li value="2">If difference ≤ calcparm1, alarm is not set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10</li>
+            <li value="2">calcparm2 = 30</li>
+        </ul>
+        <p>In this example, the Creep (Value) bit (CONFIG12) is set because the difference in value between the current value (16.25529) and the newest value older than the time interval (1) is greater than the calcparm1 value of 10.</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">16.25529 - 1 = 15.25529 (more than the max change of value allowed, so alarm bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_CreepValVHS.png" title="Creep Value status bit" alt="Creep Value status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

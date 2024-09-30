@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Automatic Service Recovery">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Automatic Service Recovery Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Automatic Service Recovery.htm">Automatic Service Recovery</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Automatic Service Recovery Overview</span>
+        </div>
+        <h2>Automatic Service Recovery Overview</h2>
+        <p>Automatic service recovery has one failover action, three restart actions, and one shutdown action. Each RSM is expected to restart any failed local service via one of the following restart actions. A series of restart actions constitutes a recovery strategy. </p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Action</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Failover service</b>
+                        </p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p class="very_small">&#160;</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This action is only available for selection when the RSM that owns the service is redundant. See <a href="../Redundancy/Configuring Redundancy.htm">CygNet Redundancy</a> for more information.</p>
+                        </div>
+                        <p>The RSM will send a message to the RSM that owns the service on the local standby service to perform a hard failover for this service only. The action will not be complete until the hard failover is initiated by the other RSM. </p>
+                        <p>In case of failure, it will keep trying with  a short wait between attempts. The most obvious reason for failure is if the other RSM is performing a different failover. This action will fail if the parent RSM is not redundant, or if the service does not have a clone running on the local standby domain.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The failover action is only taken when the active site fails.  If a standby site fails, the failover action is skipped since the system would not perform a failover to recover a standby service.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Restart</b>
+                        </p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The RSM attempts to restart the service. This is the default action.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The recommended restart action is service specific. The ARS, CAS, CVS, and UIS will first archive service files (if configured) to an archive folder and then restart the service. All other services (DBS, FMS, and VHS) will directly restart the service without archiving files.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Restore backup and restart</b>
+                        </p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The RSM copies the service’s backup files to the service folder and then attempts to restart the service. Only backups less than two days old will be restored. </p>
+                        <p>One limitation to using this action is that the automatic backup is performed once daily. If new data has been added to the service since the backup, you will lose this data.</p>
+                        <p>This action is not recommended for DBS-based services; use <b>Restore backup with changes and restart</b> instead.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> For the MSS, if  an intra-day backup is configured in addition to the automatic one defined in the <a href="../Service Configuration Keywords/MSS Configuration File Keywords.htm#Backup">service configuration file</a>, the restore backup will use the intra-day backup files.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Restore backup with changes and restart</b>
+                        </p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The RSM copies the service’s backup files to the service folder, plus any database changes (in transaction log files) since the last full or incremental backup, and then attempts to restart the service.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This action applies only to <a href="../Data Storage for DBS-Based Services/Data Storage for DBS-Based Services.htm">DBS-based services</a>. If selected for non-DBS-based services, the <b>Restore backup and restart</b> action will be used.</p>
+                        </div>
+                        <p class="Example"><b>Example</b>
+                        </p>
+                        <p class="Indent">If the Device Definition Service (DDS) was backed-up at 2:00 a.m. and new devices were added between 8:00-10:00 a.m., and you perform a <b>Restore backup with changes and restart</b> at 11:00 a.m.,  then the new devices will be included in the restore.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><b>Shutdown RSM</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Gracefully shuts down the RSM and all of its services. See <a href="../Backup and Restore/Backup and Restore.htm">Backup and Restore</a> for further information.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Archive File Options</h3>
+        <p>There are two file archive options that can be used with the restart actions. These options are file-copy only options. They do not initiate an action. They must be enabled in conjunction with a restart action.</p>
+        <ul>
+            <li value="1"><b>Archive</b> — the RSM copies service files to an archive folder. </li>
+            <li value="2"><b>Restore archive on failure</b> — this option is available only if the <b>Archive</b> option is enabled. The RSM copies the archive files back to the service folder.</li>
+        </ul>
+        <h3>Minimum Runtime</h3>
+        <p>You can specify a minimum runtime that must be met for a recovery to be considered successful. If the minimum runtime is not met and you have defined a multi-stage recovery, it will move to the next stage. If the minimum runtime is met, the service is considered "running." A subsequent failure results in the recovery restarting at the first stage.</p>
+        <h3>Backup Directory</h3>
+        <p>You can specify a backup directory that can be different from the one specified in the service configuration file.</p>
+        <h3>Execute Selected Stage</h3>
+        <p>You can manually invoke any recovery stage by selecting a stage and clicking <b>Execute Selected Stage</b>. This option allows for manual  failover, restarts, archive, restoration of backups, or shutdown stages to be invoked. Logging occurs in the ELS to display the service recovery actions that were  invoked and the stage.</p>
+        <h3>Recovery Success Command</h3>
+        <p>You can specify a command to execute after a successful recovery (see <a href="Adding a Recovery Success Command.htm">Adding a Recovery Success Command</a>) or a stage user command (see <a href="Recovery Stage Properties.htm">Recovery Stage Properties</a>).</p>
+        <h3>Single-Stage Recovery</h3>
+        <p>Although you can configure a multiple-stage recovery, <span class="CygNetVariablesSoftwareName">CygNet Software</span> recommends a single-stage recovery that uses the <b>Restart</b> action only, with possibly the <b>Archive</b> file option enabled. A single-stage recovery forces you to analyze the failure if the service will not restart. A single-stage recovery does not assume that the database is the reason the service failed, which may or may not be true. In addition, archiving the service files saves the .log files, which may contain information that can be used to decipher the reason for the service failure. Note that archiving service files on a large system could take several minutes, which will slow down recovery.</p>
+        <p>See <a href="Sample Multiple-Stage Recovery.htm">Sample Multiple-Stage Recovery</a> for information about multi-stage recovery.</p>
+        <h3>Recovery Methods for Service Type</h3>
+        <p>The recommended recovery method differs for the type of <span class="CygNetVariablesSoftwareName">CygNet Software</span> service being recovered. See each of the following topics for recommended recovery methods:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Configuring Automatic Service Recovery for DBS-Based Services.htm">Configuring Automatic Service Recovery for DBS-Based Services</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="Configuring Automatic Service Recovery for the VHS.htm">Configuring Automatic Service Recovery for the VHS</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="Configuring Automatic Service Recovery for Other Services.htm">Configuring Automatic Service Recovery for Other Services</a>
+            </li>
+        </ul>
+        <h3>Scripting Automatic Service Recovery</h3>
+        <p>Automatic service recovery options within the RSM can be retrieved and modified via the .NET <a href="../Scripting/CygNet .NET Framework API.htm">CygNet.API.ServiceManager</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

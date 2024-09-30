@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Admin Menu">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Purge Data</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Admin Menu.htm">Admin Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Purging Device Data</span>
+        </div>
+        <h2>Purging Device Data</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The action to <b>Purge Data</b> from a specific time (going forward forever or until a specified time) is a distinct and separate action from deleting Nodes, purging Nodes, or purging expired device data. Do not confuse the Purge Data function with either of the following operations:</p>
+        </div>
+        <ul>
+            <li value="1">
+                <p class="Note"><b>Delete Nodes</b>: <b>Delete from a Point in Time</b> or <b>Purge from system</b> - Deleting a Node from a point in time or purging a Node and its records from the system are alternate administrative actions that are useful for appropriate circumstances. See <a href="Deleting Nodes and Purging Records.htm">Deleting Nodes and Purging Records</a> for more information.</p>
+            </li>
+            <li value="2">
+                <p class="Note"><b>Purge expired device data</b> from the database - Deleting expired device data from the database is an optional part of a system command to Perform Database Maintenance on your CygNet Measurement system. See <a href="Command Parameters - Perform Database Maintenance.htm">Perform Database Maintenance</a> for more information.</p>
+            </li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Purge_Data16.png" />&#160;Use the <b>Purge Data</b> button to access options to purge historical data records from the system for selected device Nodes. This administrative option can be used as an alternative action for circumstances where it is not appropriate to purge the entire Node and start again. When you purge device data, the Node and its remaining data remains in the system.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Be certain of any decision to purge data from your system. The <b>Purge Data</b> action cannot be undone.</p>
+        </div>
+        <p>CygNet Measurement supports sending a command to purge all device records, from a specified date/time until a specified end date/time (if used), for a single Node or for multiple Nodes at a time, and considers the defined <a href="#Re-Norma" class="selected">normalization views</a>. The selected data is removed from the system entirely, and an <a href="#Auditing" class="selected">audit</a> record of the purge action is maintained by CygNet Measurement. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The dates/times specified for the <b>Purge Data</b> action are always in Device time (D).</p>
+        </div>
+        <p>Once the data is purged, the Node's <a href="CygNet Measurement Concepts.htm#Data">collection status</a> will revert to "Not requested" for that time period, and it will appear to the system as though data for the device was never collected within the specified date/time range.</p>
+        <p>The command to purge device data can be executed when the following is true.</p>
+        <ul>
+            <li value="1">The data has not been closed. </li>
+            <li value="2">For raw liquid periodic, batch, or ticket data, the data has not been exported. </li>
+        </ul>
+        <p class="Example">Example </p>
+        <p class="Indent">If it is discovered that a device has been receiving "bad" data as of a certain time period, an administrator may decide to discard all data following that time, while retaining the previous (and possibly subsequent) "good data" for the Node. Once the problem causing the bad data has been resolved, data can again be collected for the device.</p>
+        <p>You must have proper security authorization to perform these actions. See <a href="FMS Security.htm">FMS Security</a>&#160;(and <a href="FMS Security Events.htm#NODE">NODE</a> security event) for information about configuring security access for purging device data.</p>
+        <h3>Purging Data from Device Nodes</h3>
+        <p>To purge data from a device Node record, open the <b>Admin</b> menu in FMS Explorer, and then click <b>Purge Data</b> to access the Purge Data dialog box.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Purge_Data.png" />
+        </p>
+        <p>The following table describes options found on the Purge Data dialog box.</p>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" colspan="2">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="3">
+                        <p colspan="3">Node list</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Group</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="2">
+                        <p>Click to select the <b>Group</b> filter from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>All Nodes</b>
+                            </li>
+                            <li value="2"><b>General</b>
+                            </li>
+                            <li value="3"><b>Station</b>
+                            </li>
+                            <li value="4"><b>By Category</b>
+                            </li>
+                        </ul>
+                        <p>Default value is All Nodes.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Node category</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <p>Click to select the <b>Node category</b> filter from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Device</b>
+                            </li>
+                            <li value="2"><b>Gas Device</b>
+                            </li>
+                            <li value="3"><b>Liquid Device</b>
+                            </li>
+                        </ul>
+                        <p>Default value is Device.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Filter</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="2">
+                        <p>Type a filter into the text box, and click the filter type option to use. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Name</b> - Node name</li>
+                            <li value="2"><b>Desc</b> - Node description</li>
+                            <li value="3"><b>ID</b> - Node ID</li>
+                        </ul>
+                        <p>Defaults are <b>*</b> (multiple character wildcard) and Name.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Retrieve Nodes</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <p colspan="2">Click to apply the filters selected in the <b>Group </b>, <b>Node category</b>, and <b>Filter</b> fields and view the results.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">[Node Icon]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="2">
+                        <p colspan="2">Lists the icons indicating Node type for each Node that meets the defined filter criteria.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Node Name</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <p colspan="2">Lists the Node names that meet the defined filter criteria.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Node Desc</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="2">
+                        <p colspan="2">Lists the descriptions of the Nodes that meet the defined filter criteria.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Audit history</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <p>Click  to view the Audit History of Purge Data actions for the selected Node. See <a href="Viewing Audit History.htm">Viewing Audit History</a> for more information.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Audit history can only be shown for a single Node at a time. If multiple Nodes are selected when you request audit history, results will be shown for the first Node selected. When no Node is selected, the button is unavailable.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="3">
+                        <p colspan="3">Options</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><a name="PurgeDataBack"></a>Purge begin date </p>
+                        <p class="Indent">(D)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <p>Enter the date/time, in Device time (D), from which to purge the device Node data. All data will be purged from the date/time specified here, either going forward for all time (default) or, until the specified <a href="#PurgeDataUntil" class="selected">Purge end date</a>, if the <a href="#PurgeExplicit" class="selected">Purge all records beyond begin date</a> check box is cleared.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> <![CDATA[ ]]></p>
+                            <p class="TableNote">For hourly devices, select <b>Purge begin date</b> values to encompass the full hour containing the beginning of the data you want to purge. </p>
+                            <p class="TableNote">For daily devices, select <b>Purge begin date</b> values to encompass the full day containing the beginning of the data you want to purge, e.g. set the time equal to 00:00:00.</p>
+                            <p>Select the date/time from which to remove the selected Node data, in the following ways.</p>
+                            <ul class="table">
+                                <li value="1">Click on the single down arrow to access the calendar and navigate to the desired start date, or select the part of the date you wish to change and type the desired value. </li>
+                                <li value="2">Click to select the part of the start time you wish to change and navigate with the paired up/down arrows to change it.</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><a name="PurgeExplicit"></a>Purge all records beyond begin date</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="2">
+                        <p>Select the check box if you want to make the purge action persist from the Purge begin date (D), going forward for all time.</p>
+                        <p>Clear the check box to enable the <a href="#PurgeDataUntil" class="selected">Purge end date</a> field and specify a time range if you want to make the purge action range between the Purge begin date (D) and the Purge end date (D) only.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><a name="PurgeDataUntil"></a>Purge end date </p>
+                        <p class="Indent">(D)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <p>If <b>Purge all records beyond begin date</b> is cleared, enter the date/time, in Device time (D), up until which you want to purge the device Node data. All data will be purged from the <a href="#PurgeDataBack" class="selected">Purge begin date</a>  specified, going forward in time until, but not including, the date/time specified here. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> <![CDATA[ ]]></p>
+                            <p class="TableNote">For hourly devices, select <b>Purge end date</b> values to encompass the full hour containing the end of the data you want to purge. </p>
+                            <p class="TableNote">For daily devices, select <b>Purge end date</b> values to encompass the full day containing the data you want to purge, e.g. set the time equal to 12:00:00 (midnight).</p>
+                            <p>Select the date/time until which you want to delete the selected Node data, in the following ways.</p>
+                            <ul class="table">
+                                <li value="1">Click on the single down arrow to access the calendar and navigate to the desired finish date, or select the part of the date you wish to change and type the desired value. </li>
+                                <li value="2">Click to select the part of the finish time you wish to change and navigate with the paired up/down arrows to change it.</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Records to purge</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="2">
+                        <p>Select at least one of the following check boxes to include the selected record types in the data purge. Clear the check boxes to exclude selected record types from the data purge.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Be certain of your selection(s), as there is NO "undo" for this action.</p>
+                        </div>
+                        <ul class="table">
+                            <li value="1"><b>Alarm</b> - Select the check box to include alarm records in the data purge.</li>
+                        </ul>
+                        <ul class="table">
+                            <li value="1"><b>Batch</b> - Select the check box to include  batch records in the data purge.
+                        <div class="Note"><p><span class="NoteHeading">Note:</span> Raw  batch records that have been exported cannot be purged.</p></div></li>
+                        </ul>
+                        <ul class="table">
+                            <li value="1"><b>Configuration, event, and gas analysis</b> - Select the check box to include configuration, event, and gas analysis records in the data purge.
+                        <div class="Note"><p><span class="NoteHeading">Note:</span> This purge action presents a Select Recalculation Process dialog box. Select a recalculation process to apply to  associated history records. See <a href="#Selectin" class="selected">Purging Configuration or Gas Analysis Data</a> for more information.</p></div></li>
+                        </ul>
+                        <ul class="table">
+                            <li value="1"><b>Periodic history</b> - Select the check box to include periodic history records in the data purge.
+                        <div class="Note"><p><span class="NoteHeading">Note:</span> Purging Periodic history data also impacts the normalized data that has been aggregated into station meter and station group data, and/or that has been used in normalization views sent to the SQL database or SCADA. </p></div></li>
+                        </ul>
+                        <ul class="table">
+                            <li value="1"><b>Product</b> - Select the check box to include product records in the data purge.</li>
+                            <li value="2"><b>Ticket</b> - Select the check box to include  ticket records in the data purge.
+                            <div class="Note"><p><span class="NoteHeading">Note:</span> Raw  ticket records that have been exported cannot be purged.</p></div></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Purge</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="2">
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Be certain of your action, as there is NO "undo" for this action.</p>
+                        </div>
+                        <p>Click <b>Purge</b> to purge the selected device Node data from the system. This will completely remove the records from the start date/time forward, or until the specified end date/time, and will also historize the change. </p>
+                        <p>A confirmation message will appear, asking you to verify that you wish to purge the data. Click <b>Yes</b> to continue.</p>
+                        <p>A second cautionary message will appear, reminding you that purging data is permanent and complete; it cannot be retrieved. Click <b>Yes</b> to complete the purge action.</p>
+                        <p>Once the data purge is complete, a command dialog box will appear, displaying results of the Purge Data command. Results are displayed in table form in the top pane. Click on any data row to view detailed command results for the selected record in the bottom pane.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Make a plan to manually re-collect data as needed. The <b>Request New Data</b> command will not automatically be aware of changes due to a device data purge. Any purged data must be specifically re-collected manually.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Close</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" colspan="2">
+                        <p>Click <b>Close</b> to close the dialog box.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Purging Data with Dependencies</h4>
+        <p>Device Node data with dependencies can still be purged. When data next comes into the system to replace the purged data, associated values will be updated.</p>
+        <h4><a name="Selectin"></a>Purging Configuration or Gas Analysis Data</h4>
+        <p>When you click <b>Purge</b> - and the <b>Configuration, event, and gas analysis</b> check box is selected and included in the purge action, but the Periodic history check box is <i>not</i> selected so periodic data is <i>not</i> being purged - the <b>Select Recalculation Process</b> dialog box appears so that you can select the recalculation behavior to apply to affected historical records.</p>
+        <p class="HeadingProcedure">To Select Recalculation Behavior</p>
+        <p>When the purge includes configuration or gas analysis data that could affect the calculation of historical records, the <b>Select Recalculation Process</b> dialog box appears after the confirmation and cautionary messages. Make a selection as follows.</p>
+        <ol>
+            <li value="1">Click a radio button to select the appropriate recalculation process from the available options.<ul><li value="1"><b>Recalculate flow</b> - Select this process for most data purges. This process will recalculate the energy, volume, and/or mass values for any historical records affected by the current data purge.</li></ul><ul class="Circle"><li value="1"><b>Recalculate energy only</b> - Select this option to only recalculate energy values while preserving previous history edits. This process will not recalculate mass or volume values.</li></ul><ul><li value="1"><b>Recalculate VCF</b> - Select this process to fix configuration value mismatches between FMS and the device. This process will recalculate only the VCF value, for any historical records affected by the current data purge.</li><li value="2"><b>None</b> - Select this process to  purge data only. This process will not recalculate any historical records.</li></ul></li>
+            <li value="2">Click <b>Save</b> to save and apply the recalculation process selected, or click <b>Cancel</b> to abandon the change(s).</li>
+        </ol>
+        <h3><a name="Auditing"></a>Auditing Purged Device Data</h3>
+        <p>No record is kept of the actual data that is purged, but the FMS service maintains an audit trail describing the purge data operation. If a purge action is unsuccessful, an error will be logged. Errors can also be viewed in the command log file, or via the service console window. </p>
+        <p>Logs can be viewed through the Commands menu <b>View</b> button, by selecting <b>User/Purged Device Data</b> for the <b>Command type</b>, or through the CygNet Audit Service. </p>
+        <p>See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> in this section and <a href="../Auditing/Audit Service View.htm">Audit Service View</a> in the Auditing section for more information.</p>
+        <h3><a name="Re-Norma"></a>Re-Normalizing Station Data</h3>
+        <p>If any normalization views have been defined, each defined normalization view will be traversed as part of the data purge operation. </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

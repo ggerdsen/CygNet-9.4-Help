@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Remote Devices Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Device Failover</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Remote Devices Overview.htm">Remote Devices Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Device Failover</span>
+        </div>
+        <h2>Configuring Device Failover</h2>
+        <p>Communication failover allows messages on a remote device  to be retried on secondary and tertiary communications devices in the event the primary or secondary communication lines fail. The purpose of configuring multiple communication paths to a given remote device (RTU/PLC) is to provide high availability of communication to the remote device through an available, redundant, and fault-tolerant communication infrastructure.</p>
+        <p>See the following subsections for more information: </p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#How" class="selected">How Failover Works</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Failover" class="selected">Failover Control</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Failover2" class="selected">Failover Preconditions</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Failback" class="selected">Failback</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Communic" class="selected">Communication Configuration Properties</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Associat" class="selected">Associated System UDCs</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Associat2" class="selected">Associated MSS Command Parameters</a>
+            </li>
+        </ul>
+        <p>For information about failover and scripting, see <a href="../Scripting/CxDds.htm">CxDds</a>.</p>
+        <h3><a name="How"></a>How Failover Works</h3>
+        <p>All valid communication paths that can be configured as a primary path are also configurable as alternate communication paths. Each communication path must be assigned a specific priority to indicate the sequence by which alternate paths can be used. When communication paths are shared between remote devices, default communication settings are configurable for the shared path, but the ability to override relevant settings for each remote device instance is also available. Examples of communication settings that are overridden at the remote device are initialization strings for modem connections and response timeout settings for a TCP/IP communication path.</p>
+        <p>Communication paths can be shared between multiple remote devices, but failover operations only function in relation to a specific remote device. For example, if a failure were detected on a certain communication line and failover were to be applied, remote devices communicating correctly on their primary communication path could mistakenly be moved to an alternate path. This would reduce the efficiency of the polling system.</p>
+        <p>Typically, alternate communication paths either do not perform as well as the primary communication path or are more expensive to employ. To address this issue, failback mechanisms are available so that when the primary communication path becomes available again, poll attempts to the remote device are routed back to the primary path.</p>
+        <p>The switch from primary to secondary or tertiary communication line is determined at the end of the message processing cycle. If the current message fails and the number of seconds since the last successful I/O to the field device is greater than the <b>Initial fail (sec)</b> value, failover occurs. If   <b>Subsequent fail (sec)</b> is also in effect, the time interval it represents is measured from the last time that the remote device was restored to the primary communication channel, not from the last successful I/O. The time since the last successful I/O to the remote device is reset whenever there is a successful I/O exchange with the remote device or whenever the remote device is reloaded.</p>
+        <p>During failover, the system moves all pending poll attempts for the affected remote device from the current communications path to the next alternate communication path in the configured sequence. The message executing at the time of the failure is also forwarded for completion if that message qualifies for execution under <b>NonMaster</b> mode operations or if the <b>Retry in-progress control message on failover</b> box is checked. By default,  messages requiring <b>Master</b> mode (for instance, messages that update the RTU) are not retried because it is too risky.</p>
+        <h3><a name="Failover"></a>Failover Control</h3>
+        <p>Failover control may be either manual or automatic. Failover control mainly takes place on the <b>Communication Configuration</b> dialog box.</p>
+        <h4>Automatic Failover</h4>
+        <p>The remote device can be configured to automatically failover from primary to secondary or secondary to tertiary, depending on the communication failure history of the remote device, and to subsequently switch back (see <a href="#Failback" class="selected">Failback</a>)&#160;to the original communication device based on a preconfigured timer.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When observing an automatic failover operation, be aware that communication success history and related timers are evaluated per remote device even if multiple remote devices share the same communication device. Also, be aware that failover retries take precedence over regular polling retries.</p>
+        </div>
+        <p>To use automatic failover, you must set a time interval for each communication path that indicates the maximum elapsed time following a failed poll attempt before automatic failover initiates. A value of 0 for the <b>Initial fail (sec)</b>parameter indicates that failover occurs immediately on each poll attempt failure. For poll attempts that issue multiple messages, failure state is determined when any message fails; this prevents the remaining parts of the poll from being sent. The time since the last successful poll attempt to the remote device is reset whenever there is a successful poll attempt to the remote device or whenever the remote device is reloaded.</p>
+        <p>If a remote device is configured for automatic failover and the currently active communication path status indicates that the communication device cannot be utilized (for instance, the device is disabled), automatic failover initiates immediately, regardless of the configured time intervals. Similarly, failing over to a specific alternate communication path does not take place if the status for the destination communication device indicates that the alternate path cannot be used, regardless of whether the remote device is configured for manual or automatic failover.</p>
+        <h4>Manual Failover</h4>
+        <p>Remote devices that are configured for manual failover require user intervention to initiate and determine the failover process. Under manual control, a remote device can be forced to use either the primary, secondary, or tertiary communication line as the active line.</p>
+        <p>Failing over to a specific alternate communication path does not take place if the status for the destination communication device indicates that the alternate path cannot be used, regardless of whether the remote device is configured for manual or automatic failover.</p>
+        <h3><a name="Failover2"></a>Failover Preconditions</h3>
+        <p>Failover never occurs if the target device is in any of the following states:</p>
+        <ul>
+            <li value="1">eCOMMSTATE_UNKNOWN</li>
+            <li value="2">eCOMMSTATE_PAUSED</li>
+            <li value="3">eCOMMSTATE_DISABLED</li>
+            <li value="4">eCOMMSTATE_NOT_READY</li>
+            <li value="5">eCOMMSTATE_ERROR</li>
+            <li value="6">eCOMMSTATE_IP_CONNECTING</li>
+        </ul>
+        <p>Failover is attempted without respect to the state of the controlling timer fields if failover is enabled in CUisRemoteDeviceManagerImpl and the current communication device is in any of the following states:</p>
+        <ul>
+            <li value="1">eCOMMSTATE_UNKNOWN</li>
+            <li value="2">eCOMMSTATE_PAUSED</li>
+            <li value="3">eCOMMSTATE_DISABLED</li>
+            <li value="4">eCOMMSTATE_NOT_READY</li>
+            <li value="5">eCOMMSTATE_ERROR</li>
+            <li value="6">eCOMMSTATE_IP_CONNECTING</li>
+        </ul>
+        <h3><a name="Failback"></a>Failback</h3>
+        <p>Failback describes the process of restoring the active communication path of a remote device from an alternate path to a primary path after failover occurs.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Strictly speaking, failback in a CygNet system is always an automated event.</p>
+        </div>
+        <h4>Automatic Failback</h4>
+        <p>A remote device must be configured to failback in one of two ways:</p>
+        <ul>
+            <li value="1">It must be configured to failback to the <b>Primary</b> communication path only.</li>
+            <li value="2">It must be configured to failback by trying each available path starting with the <b>Primary</b> communication path and then attempting, in priority, each of the other available paths until a successful poll is achieved.</li>
+        </ul>
+        <p>The automatic failback option enables you to set a time interval to indicate the maximum elapsed time after failover on a primary communication line and before failback to that line occurs. When the timer exceeds the <b>Retry primary (sec)</b> value, the remote device switches back to the <b>Primary</b> communications device.</p>
+        <p>The switch back to the primary communication line from the secondary or tertiary communication line  is made solely by the <b>Retry primary (sec)</b> timer. This timer is evaluated before message execution begins, so there are no extra considerations for the currently executing message. The operation of this timer is not affected in any way by the communications success or failure history on the secondary or tertiary line.</p>
+        <h4>Manual Failback</h4>
+        <p>The reconnection process for remote devices that are configured for manual failover support the manual selection of any of the configured paths as the currently active path. Failover and failback for a manually configured remote device are synonymous, and the considerations for currently executing poll attempts must not be performed when manually failing back.</p>
+        <h3><a name="Communic"></a>Communication Configuration Properties</h3>
+        <p>The <b>Communication Configuration</b> dialog box enables you to make advanced failover settings for up to 3 communication devices. The primary reason for alternate communication devices is to provide failover support. To access the <b>Communication Configuration</b> dialog box, open the <a href="Remote Device Editor - Device.htm">Device page</a> of a remote device and under <b>Communications</b>, click <b>Advanced</b>. </p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Devices/DevicesOverview_CommConfig.png" title="Communication Configuration dialog box" alt="Communication Configuration dialog box" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample Communication Configuration Dialog Box</td>
+            </tr>
+        </table>
+        <h4>Properties</h4>
+        <p>The following table lists and describes the fields found on the <b>Communication Configuration</b> dialog box.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">
+                    <p colspan="2"><b>Primary</b>
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Comm ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Device ID</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>Options</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>This button provides several communications-oriented options.</p>
+                    <p>Options are as follows:</p>
+                    <ul class="table">
+                        <li value="1"><b>Browse</b>: Enables you to browse to the <b>Select Communications Device</b> dialog box where you can choose a different communication device.</li>
+                        <li value="2"><b>Override settings</b>: Enables you to access <a href="Overriding Communication Settings.htm">override settings for a TCP/IP MultiPoint communication device</a>.</li>
+                        <li value="3"><b>Properties</b>:  Enables you to browse to the applicable communication-device properties dialog box.</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The <b>Override settings</b> option is not available for IoT or OPC devices.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Active</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select <b>Active </b>to assign a communication device as your active communication device. By default, this is your <b>Primary</b> communication device; but you can manually set the <b>First Failover</b> or <b>Second Failover</b>communication device. This setting is only to be used when <b>Enable auto failover</b> is unchecked. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Message timeout (ms)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The time (in milliseconds) to wait between attempts to send messages to the field device before marking the attempt as failed.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Poll Attempts</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The number of poll attempts allowed before marking the poll as failed.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Initial fail (sec)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the number of seconds to wait since the last successful communication sequence before a message failure activates the failover process. A value of 0 means that failover will occur immediately on communication failure. </p>
+                    <p>See <b>Note</b> below table.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Message delay (ms)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The delay (in milliseconds) to wait before sending a message to the field device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Subsequent fail (sec)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>This setting comes into effect after a remote device has failed over and been restored.  It performs the same function as the <b>Initial fail (sec)</b> value,  but remains in effect only as long as the original channel (<b>Primary</b> or <b>First Failover</b>) continues to fail.  As soon as there is successful communication with the original channel (<b>Primary</b> or <b>First Failover</b>), the <b>Initial fail (sec)</b> value comes back into effect as the determinant of failover behavior. </p>
+                    <p>See <b>Note</b> below table.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Not available for the <b>Second Failover</b> device.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td style="font-weight: bold;" colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p colspan="2">First Failover / Second Failover— additional properties</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Available</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Check this box to make <b>First Failover</b> and/or <b>Second Failover</b>devices available for failover. Leaving this box unchecked for secondary and/or tertiary devices means that they cannot be failovered to; they are in effect inactive.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Retry primary (sec)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the number of seconds to wait before setting the remote device back to the primary communication channel.  A value of 0 causes a switch back to <b>Primary</b> for the next message execution cycle.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td style="font-weight: bold;" colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p colspan="2">Failover</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Enable auto failover</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Check this box to enable automatic failover capabilities. Doing so activates the three related timer control fields (<b>Initial fail (sec)</b>, <b>Subsequent fail (sec)</b>, and <b>Retry primary (sec)</b>). You can manually override these automatic settings at any time.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Failback on failure</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Check this box to failback after a failover has occurred.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Retry in-progress control message on failover</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Check this box if you want a <b>Retry In Progress</b> message to appear when failover occurs.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Failover Sequence</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>Jump to last good</b>— Select this option if you want failover to first go to the last known functional communication line.</p>
+                    <p><b>Try in order</b>— Select this option if you want failover to go in order of priority from <b>First Failover</b> to <b>Second Failover</b>.</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> For the MQTT Comm EIE, these settings work in conjunction with the <b>Connection timeout (sec)</b> and <b>Reconnect interval (sec)</b> settings.  See <a href="../EIEs - Communication Devices/MQTT Comm EIE.htm">MQTT Comm EIE</a> for more information.</p>
+        </div>
+        <h3><a name="Associat"></a>Associated System UDCs</h3>
+        <p>There are five system UDCs that can be used to populate points on a per remote device basis to help track the configuration of the communication device and the operation of the failover process.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 200px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UDC</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UDC&#160;Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p style="font-weight: bold;">SYDEVCOMID </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Device Comm ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The device ID of the currently active communication device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;">
+                    <p style="font-weight: bold;">SYDEVCOMLN</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Curr Comm Line</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The currently active communication line. <b>1</b> for primary, <b>2</b> for secondary, <b>3</b> for tertiary.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p style="font-weight: bold;">SYDEVPCOM</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Primary Comm ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the configured primary communication device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;">
+                    <p style="font-weight: bold;">SYDEVPRFO</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Primary Comm Failover</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This point is set to <b>1</b> whenever the RTU has failed over from primary to secondary based on the <b>Initial fail (sec)</b> setting. It is not reset to <b>0</b> until there is successful communication with the primary communication device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p style="font-weight: bold;">SYDEVSCOM</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Secondary Comm ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the configured secondary communication device.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Associat2"></a>Associated MSS Command Parameters</h3>
+        <p>The <i>COMM NAME</i> command parameter type is called <i>Curr. Comm ID</i>. It represents the currently active communication device. Existing schedules tied to this parameter type need to be evaluated carefully before implementing failover. The resolve list for this parameter type varies based on the current failover state.</p>
+        <p>Three command parameter types are available: <i>Primary Comm ID</i>, <i>Secondary Comm ID</i>, and <i>Tertiary Comm ID</i>. They represent the primary, secondary, or tertiary communication devices. Switching <i>Curr. Comm ID</i> (or <i>COMM NAME</i>) to <i>Primary Comm ID</i> is a way to preserve the functionality of existing MSS entries that are tied to communication device identity.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

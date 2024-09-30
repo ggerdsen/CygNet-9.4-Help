@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxScript|Array Object">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Array Methods</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxScript.htm">CxScript</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxScript Array Object.htm">Array Object</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Array Methods</span>
+        </div>
+        <h2>Array Methods</h2>
+        <p>The <b>Array</b> object contains the following methods:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Add" class="selected">Add</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#AddRange" class="selected">AddRange</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Clear" class="selected">Clear</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#IndexOf" class="selected">IndexOf</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Join" class="selected">Join</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#LastIndexOf" class="selected">LastIndexOf</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#PrepareToAdd" class="selected">PrepareToAdd</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#ReDim" class="selected">ReDim</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#Remove" class="selected">Remove</a>
+            </li>
+            <li class="HyperlinkList" value="10"><a href="#RemoveAt" class="selected">RemoveAt</a>
+            </li>
+            <li class="HyperlinkList" value="11"><a href="#Resize" class="selected">Resize</a>
+            </li>
+            <li class="HyperlinkList" value="12"><a href="#Sort" class="selected">Sort</a>
+            </li>
+            <li class="HyperlinkList" value="13"><a href="#ToArray" class="selected">ToArray</a>
+            </li>
+        </ul>
+        <h3><a name="Usage"></a>CxScript.Array Usage Notes</h3>
+        <p>Note the relationship between the <a href="CxScript Array Properties.htm">Count</a> and <a href="CxScript Array Properties.htm">UBound</a> properties and the <a href="#ReDim" class="selected">ReDim</a> and <a href="#Resize" class="selected">Resize</a> methods. Each pair is mutually redundant (<b>Count</b> equals <b>UBound</b> + 1), but each name exists to allow for different styles of programming. In VBScript, <b>ReDim</b> and <b>UBound</b> control the upper index, rather than the size. </p>
+        <p>For example, to set the size of a 10-element array, use <code>arr.Redim(9)</code> or <code>arr.Resize(10)</code></p>
+        <p>Additionally, in <b>CxScript.Array</b>, the <b>ReDim</b> and <b>Resize</b> functions both act like <b>ReDim Preserve</b> in VBScript. There’s no single analog to <b>ReDim</b> without <b>Preserve</b>, but calling <a href="#Clear" class="selected">Clear</a> and then <a href="#ReDim" class="selected">ReDim</a> will function similarly.</p>
+        <h4>item Property</h4>
+        <p>The <b>item</b> property is the default property, so it does not need to be explicitly named. For example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim arr : Set arr = CreateObject("CxScript.Array")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arr.Add "Bob"</p>
+                    <p class="Code2">' arr now contains one element of type string with a value of Bob</p>
+                    <p class="Code">arr(0) = "Sally"</p>
+                    <p class="Code2">' arr now contains one element of type string with a value of Sally</p>
+                    <p class="Code">WScript.Echo arr(0)</p>
+                    <p class="Code2">' Sally was printed to the screen</p>
+                </td>
+            </tr>
+        </table>
+        <h4>get__Enum Method</h4>
+        <p>There’s also a <b>get__Enum</b> method that shouldn’t be explicitly used, but is provided for integration with VBScript’s For Each loop, so these two loops are equivalent:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">For i = arr.LBound to arr.UBound</p>
+                    <p class="Code2">WScript.Echo arr(i)</p>
+                    <p class="Code">Next</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">For Each elem in arr</p>
+                    <p class="Code2">WScript.Echo elem</p>
+                    <p class="Code">Next</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Add"></a>Add</h3>
+        <p>The <b>Add </b>method adds an item to the end of the array.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Add(ByVal item)</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example adds the number 805 to the end of the array.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objCxArray</p>
+                    <p class="Code">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code">objCxArray.Add 805</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="AddRange"></a>AddRange</h3>
+        <p>The <b>AddRange </b>method adds the given array to the end of this array.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">AddRange(ByVal Array)</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example adds each of the lists of facilities returned by <a href="CxScript GlobalFunctions Methods.htm#GetFacilityList">GetFacilityList</a> to the end of the array.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objCxArray, arrCVSs, strCVS, objGlobFunc</p>
+                    <p class="Code">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code">Set objGlobFun = CreateObject("CxScript.GlobalFunctions")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrCVSs = Array("HSS", "OPCIS", "SVCMON", "UIS")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">For each strCVS in arrCVSs</p>
+                    <p class="Code2">Dim arrFacs</p>
+                    <p class="Code2">objGlobFunc.GetFacilityList "CYGDEMO." &amp; strCVS, arrFacs</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrFacs</p>
+                    <p class="Code">Next</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Clear"></a>Clear</h3>
+        <p>The <b>Clear</b> method empties the array, and returns the count back to 0.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Clear()</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example clears the array after displaying the sorted items.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub SortAndDisplay (arrItems)</p>
+                    <p class="Code2">Dim objCxArray, item</p>
+                    <p class="Code2">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrItems</p>
+                    <p class="Code2">objCxArray.Sort True</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">For each item in objCxArray</p>
+                    <p class="Code3">Wscript.Echo item</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.Clear</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="IndexOf"></a>IndexOf</h3>
+        <p>The <b>IndexOf </b>method  searches for the specified item and returns the zero-based index of the first occurrence within the entire array. Returns -1 if not found.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">IndexOf(ByVal item) As Long</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example checks if the first occurrence of the item in the array matches the last occurrence.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Function IsItemUnique(arrItems, varItem)</p>
+                    <p class="Code2">Dim objCxArray, iFirst, iLast</p>
+                    <p class="Code2">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrItems</p>
+                    <p class="Code2">iFirst = objCxArray.IndexOf(varItem)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If iFirst &lt;&gt; -1 Then</p>
+                    <p class="Code3">iLast = objCxArray.LastIndexOf(varItem)</p>
+                    <p class="Code3">If iFirst = iLast Then</p>
+                    <p class="Code4">IsItemUnique = True</p>
+                    <p class="Code3">Else</p>
+                    <p class="Code4">IsItemUnique = False</p>
+                    <p class="Code3">End If</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Function</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Join"></a>Join</h3>
+        <p>The <b>Join</b> method concatenates the elements of this array, using the specified separator between each element. The method does not try to "escape" the separator if it exists in any of the elements.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Join(ByVal separator As String, [ByVal ignoreFailedElements As Boolean = False]) As String</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example displays a message box with each array items separated by a carriage return.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub DisplayItems (arrItems)</p>
+                    <p class="Code2">Dim objCxArray</p>
+                    <p class="Code2">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrItems</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">MsgBox objCxArray.Join(vbCr)</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="LastIndexOf"></a>LastIndexOf</h3>
+        <p>The <b>LastIndexOf</b> method searches for the specified item and returns the zero-based index of the last occurrence within the entire array. Returns -1 if not found.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">LastIndexOf(ByVal item) As Long</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example checks if the first occurrence of the item in the array matches the last occurrence.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Function IsItemUnique(arrItems, varItem)</p>
+                    <p class="Code2">Dim objCxArray, iFirst, iLast</p>
+                    <p class="Code2">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrItems</p>
+                    <p class="Code2">iFirst = objCxArray.IndexOf(varItem)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If iFirst &lt;&gt; -1 Then</p>
+                    <p class="Code3">iLast = objCxArray.LastIndexOf(varItem)</p>
+                    <p class="Code3">If iFirst = iLast Then</p>
+                    <p class="Code4">IsItemUnique = True</p>
+                    <p class="Code3">Else</p>
+                    <p class="Code4">IsItemUnique = False</p>
+                    <p class="Code3">End If</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Function</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="PrepareToAdd"></a>PrepareToAdd</h3>
+        <p>The <b>PrepareToAdd </b>method  hints that <a href="#Add" class="selected">Add</a> will be called in a loop. An optimization only, it is not required to call for a correct program.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">PrepareToAdd(ByVal piSize As Long)</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example uses PrepareToAdd to hint that 50 items will be added through a looped <a href="#Add" class="selected">Add</a> call.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objCxArray, objGlobFunc, iLoop</p>
+                    <p class="Code">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code">Set objGlobFunc = CreateObject("CxScript.GlobalFunctions")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objCxArray.PrepareToAdd 50</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">For iLoop = 0 to 49</p>
+                    <p class="Code2">objCxArray.Add iLoop</p>
+                    <p class="Code">Next</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="ReDim"></a>ReDim</h3>
+        <p>The <b>ReDim</b> method resizes the array such that <a href="CxScript Array Properties.htm">UBound</a> is now equal to the given parameter. Any elements still remaining in the array after the resize will be preserved. ReDim(NewUBound) is equivalent to Resize(NewUBound + 1).</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> See <a href="#Usage" class="selected">CxScript.Array Usage Notes</a> for information about using <b>ReDim</b>.</p>
+        </div>
+        <h4>Syntax</h4>
+        <p class="Syntax">ReDim(ByVal Count As Long)        </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example adjusts the size of the array object to 10 indices, preserving the 5 items from the  <a href="#AddRange" class="selected">AddRange</a> call.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objCxArray</p>
+                    <p class="Code">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objCxArray.AddRange Array("First", "Second", "Third", "Fourth", "Fifth")</p>
+                    <p class="Code">objCxArray.ReDim 9</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Remove"></a>Remove</h3>
+        <p>The <b>Remove</b> method removes the first occurrence of a specific item from the array.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Remove(ByVal item)</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example removes the "~TEMPLATE" item from the list of facilities returned.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objCxArray, objGlobFunc, arrFacs</p>
+                    <p class="Code">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code">Set objGlobFunc = CreateObject("CxScript.GlobalFunctions")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objGlobFunc.GetFacilityList "CYGDEMO.SVCMON", arrFacs</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objCxArray.AddRange arrFacs</p>
+                    <p class="Code">objCxArray.Remove "~TEMPLATE"</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="RemoveAt"></a>RemoveAt</h3>
+        <p>The <b>RemoveAt</b> method removes the element at the given index from the array.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">RemoveAt(ByVal index As Long)</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example removes the middle entry from the array.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub RemoveMid(arrItems)</p>
+                    <p class="Code2">Dim objCxArray, iMid</p>
+                    <p class="Code2">Set objCxArray = CreateObect("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrItems</p>
+                    <p class="Code2">iMid = CInt((UBound(arrItems)+1)/2)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.RemoveAt(iMid)</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Resize"></a>Resize</h3>
+        <p>The <b>Resize</b> method resizes the array such that <a href="CxScript Array Properties.htm">Count</a> is now equal to the given parameter. Any elements still remaining in the array after the resize will be preserved.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> See <a href="#Usage" class="selected">CxScript.Array Usage Notes</a> for information about using <b>Resize</b>.</p>
+        </div>
+        <h4>Syntax</h4>
+        <p class="Syntax">Resize(ByVal Count As Long)
+        </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example adjusts the size of the array object to 3 indices, preserving only the first 3 items from the <a href="#AddRange" class="selected">AddRange</a> call.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objCxArray</p>
+                    <p class="Code">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objCxArray.AddRange Array("First", "Second", "Third", "Fourth", "Fifth")</p>
+                    <p class="Code">objCxArray.Resize 3</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Sort"></a>Sort</h3>
+        <p>The <b>Sort</b> method sorts the items in the array in ascending or descending order.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Sort([ByVal bAscending As Boolean = True])</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example sorts an array, into descending order, and displays the items.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub ReverseSortAndDisplay(arrItems)</p>
+                    <p class="Code2">Dim objCxArray, item</p>
+                    <p class="Code2">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.AddRange arrItems</p>
+                    <p class="Code2">objCxArray.Sort False</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">For each item in objCxArray</p>
+                    <p class="Code3">Wscript.Echo item</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="ToArray"></a>ToArray</h3>
+        <p>The <b>ToArray</b> method returns a copy of the array as a VBScript array.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">ToArray()</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example sorts and then returns a VBScript array.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Function SortThis(arrInput)</p>
+                    <p class="Code2">Dim objCxArray</p>
+                    <p class="Code2">Set objCxArray = CreateObject("CxScript.Array")</p>
+                    <p class="Code2">objCxArray.AddRange arrInput</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">objCxArray.Sort True</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">SortThis = objCxArray.ToArray</p>
+                    <p class="Code">End Function</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

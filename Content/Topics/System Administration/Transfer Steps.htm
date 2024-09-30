@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="System Administration|Host Transfer Procedure">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Transfer Steps</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="System Administration.htm">System Administration</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Host Transfer Procedure.htm">Host Transfer Procedure</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Transfer Steps</span>
+        </div>
+        <h2>Transfer Steps</h2>
+        <p class="HeadingProcedure">Part 1: Install the Services</p>
+        <ol start="1">
+            <li value="1">Close all CygNet applications and stop the services.</li>
+            <li value="2">Exit CygNet Host Manager. (Don't just close it. Exit it.)</li>
+            <li value="3">Use the CygNet Service Setup program on your CygNet CD to install the services on the new server. Once the setup program completes click <b>No</b> to the reboot prompt so that files can be copied before the reboot.</li>
+            <li value="4">Edit the CHostMgr.exe shortcut in the <b>Startup</b> group on the <b>Start</b> menu and remove the <a href="CygNet Host Manager Startup Options.htm">-R parameter</a> so that services do not automatically start on a reboot.</li>
+            <li value="5">Open CHostManager.exe, click <b>Edit Config</b>, and set the startup type to <b>Manual</b>.</li>
+            <li value="6">Copy your CygNet folder from the old server to the new server. (Copy so that you have a backup).</li>
+            <li value="7">Perform the following as needed and then register the copied files on the new server:</li>
+            <ul>
+                <li value="1">From the old server, copy DCLND.dll from the <b>CygNet\Support</b> folder  to the <b>CygNet\Support</b> folder on the new server. </li>
+                <li value="2">From the old server, copy DCLND64.dll from the <b>CygNet\Support64</b> folder to the <b>CygNet\Support64</b> folder on the new server.</li>
+            </ul>
+            <li value="8">If the installation path is different on the new server than it was for the old, edit the RSM configuration file so that the parameter for RSM_BASE_DIR specifies the correct path.</li>
+            <li value="9">Shut down the old server and take it off the network.</li>
+        </ol>
+        <p class="HeadingProcedure">Part 2: Transfer Hardware</p>
+        <p>If your system uses comm port devices (radios, modems) for remote device communication or notifications and you do not install the devices on the same ports on the new server as the old server you will have to edit communication devices in the DDS and the GNS configuration file.</p>
+        <ol start="1">
+            <li value="1">If applicable, remove the Dialogic board from the old server and install it on the new server.</li>
+            <li value="2">If applicable, remove comm devices from the old server and install them on the new server.</li>
+        </ol>
+        <p class="HeadingProcedure">Part 3: Configure New Server</p>
+        <ol start="1">
+            <li value="1">Assign the new server the old server's IP address.</li>
+            <li value="2">Reboot the new server.</li>
+            <li value="3">Register the .ocx and .dll files in the <b>CygNet\Support</b> folder on the new server.</li>
+            <li value="4">If using the GNS for voice notifications:</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Install the Dialogic board drivers and use the Dialogic configuration manager to setup the Dialogic service startup type. Be aware that the Dialogic software installation may require that you are logged in as the server administrator.</li>
+            <li value="2">If applicable, install third-party voices used for notifications.</li>
+            <li value="3">Install the MSSAPI.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Edit the GNS configuration file to include new comm port information.</li>
+            <li value="6">Start the CygNet services.</li>
+            <li value="7">If applicable, edit DDS communication devices to reflect new communication port information.</li>
+        </ol>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Services Log On Account.htm" class="More">Services Logon Account</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

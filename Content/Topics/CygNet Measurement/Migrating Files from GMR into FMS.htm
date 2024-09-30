@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Utilities|FMS Toolbox">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Toolbox GMR Migration</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Utilities.htm">FMS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Toolbox Utility.htm">FMS Toolbox</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS Toolbox GMR Migration</span>
+        </div>
+        <h2>Migrating Files from GMR into FMS</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+                <ul>
+                    <li value="1"><b>CygNet Gas Measurement Repository</b><i> (GMR) has been discontinued. Effective with the CygNet v8.5.0 release, GMR files must be migrated to FMS.</i>
+                    </li>
+                </ul>
+                <ul>
+                    <li value="1"><b>CygNet Measurement</b><i> (FMS) provides GMR-equivalent functionality (in REPOSITORY mode) or additional functionality (in FULL mode) for managing electronic flow measurement (EFM) data. Devices previously supported only by GMR data groups are now supported in FMS using </i><b>FMS Legacy</b><i> data groups only. Devices previously supported by both GMR and FMS data groups are now supported in FMS using </i><b>FMS</b><i> data groups only.</i>
+                    </li>
+                </ul>
+                <ul>
+                    <li value="1"><i>Refer to prior versions of the <span class="CygNetVariablesHelp_Product">CygNet Help</span> document for information applicable to GMR systems.</i>
+                    </li>
+                </ul>
+            </p>
+        </div>
+        <p>Use the <b>GMR Migration</b> tool in the FMS Toolbox to accomplish   the tasks required to migrate files from a Gas Measurement Repository (GMR) service into a CygNet Measurement (FMS) service. The following is an overview of  the  component migration tasks you can perform utilizing  the FMS Toolbox. </p>
+        <p>Prior to migrating your files from a GMR service to an FMS service, assess your needs and complete any preparation tasks to ensure that the migration tasks go smoothly. See <a href="Converting to CygNet Measurement from GMR.htm">Converting to CygNet Measurement from GMR</a> for more information.</p>
+        <p>Ease and success of a large scale migration is dependent on the quality of the data files involved. Familiarize yourself with the process, the required data items for your device types, and possible errors that might occur, and take steps to correct any potential problems before you begin. </p>
+        <p>You must have proper security authorization to perform various aspects of file migrations. Required security levels are noted in the applicable steps.</p>
+        <p>See <a href="Required Device Configuration Data for CygNet Measurement.htm">Required Device Configuration Data for CygNet Measurement</a> for more information about device data item configuration.</p>
+        <p>See <a href="Troubleshooting CygNet Measurement.htm#Common2">Troubleshooting CygNet Measurement</a> for more information about potential problems.</p>
+        <h3>Resetting Logging Keywords</h3>
+        <p>Prior to starting the migration from GMR to FMS, reset your logging preferences to ensure that the Event Logging Service (ELS) is not overloaded by migration process exceptions. </p>
+        <p class="HeadingProcedure">To Reset Logging Keywords Prior to GMR/FMS Migration</p>
+        <ol>
+            <li value="1">On your host server, find the <b>CygNet\Services\FMS</b> folder and open the FMS configuration file <b>fms.cfg</b>. </li>
+            <li value="2">In the <b>Logging Keywords</b> section, find the keyword <b>LOGMASK_ELS</b> and remove <b>EXCEPTIONS</b>, if it is listed as one of the values. </li>
+            <li value="3"><b>Save</b> the file. </li>
+            <li value="4">Stop and restart the FMS Service for the change to become effective. </li>
+        </ol>
+        <p>Once the migration from GMR&#160;to FMS is complete, reset your logging preferences back to the level desired. </p>
+        <p>See <a href="../Services/Service Configuration Files.htm">Service Configuration Files</a> and <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm">FMS Configuration File Keywords</a> for more information about making configuration file changes.</p>
+        <h3>GMR Migration</h3>
+        <p>The following steps help you migrate files from GMR into CygNet Measurement using the <b>GMR Migration</b> tools from the CygNet FMS Toolbox. </p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Exporting GMR Devices to CSV Files.htm">Export Devices</a> - Use the utility to export GMR device data and process variables from GMR to .csv files.</li>
+            <li class="HyperlinkList" value="2"><a href="Exporting GMR Groups to CSV Files.htm">Export Groups</a> - Use the utility to export GMR group data from GMR to .csv files.</li>
+            <li class="HyperlinkList" value="3"><a href="Configuring and Editing Device CSV Files.htm">Configure and edit device .csv files</a>. - Prepare exported device .csv files for import.</li>
+            <li class="HyperlinkList" value="4"><a href="Configuring and Editing Group CSV Files.htm">Configure and edit group .csv files</a>. - Prepare exported group .csv files for import.</li>
+            <li class="HyperlinkList" value="5"><a href="Importing GMR Device CSV Files into FMS.htm">Import Devices</a> - Use the utility to import device .csv files into FMS.</li>
+            <li class="HyperlinkList" value="6"><a href="Importing GMR Group CSV Files into FMS.htm">Import Groups</a> - Use the utility to import group definition and/or group entries .csv files into FMS.</li>
+            <li class="HyperlinkList" value="7"><a href="Migrating Events from GMR to FMS.htm">Migrate Events</a> - Use the utility to migrate events, alarms, and configuration information from GMR to FMS. </li>
+            <li class="HyperlinkList" value="8"><a href="Migrating Contract Hour from GMR to FMS.htm">Migrate Contract Hour</a> - Use the utility to migrate contract hour information from GMR to FMS.</li>
+            <li class="HyperlinkList" value="9"><a href="Migrating History from GMR to FMS.htm">Migrate History</a> - Use the utility to migrate history data from GMR to FMS.  </li>
+            <li class="HyperlinkList" value="10"><a href="Migrating Data Groups from GMR to FMS.htm">Migrate Data Groups</a> - Use the utility to migrate data groups (for Emerson device types) from GMR to FMS.  </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can automate certain GMR Migration operations (Events, Contract Hour, and History) using a third-party scheduler such as the Microsoft Windows Task Scheduler. See <a href="Installing and Starting FMS Toolbox.htm#Start_the_application_from_a_command_line.">Start the application from a command line</a> in the Installing and Starting FMS Toolbox topic for more information.</p>
+        </div>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Exporting GMR Devices to CSV Files.htm" class="More">Exporting GMR Devices to CSV Files</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Exporting GMR Groups to CSV Files.htm" class="More">Exporting GMR Groups to CSV Files</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Importing GMR Device CSV Files into FMS.htm" class="More">Importing GMR Device CSV Files into FMS</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Importing GMR Group CSV Files into FMS.htm" class="More">Importing GMR Group CSV Files into FMS</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Migrating Events from GMR to FMS.htm" class="More">Migrating Events from GMR to FMS</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Migrating Contract Hour from GMR to FMS.htm" class="More">Migrating Contract Hour from GMR to FMS</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Migrating History from GMR to FMS.htm" class="More">Migrating History from GMR to FMS</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Migrating Data Groups from GMR to FMS.htm" class="More">Migrating Data Groups from GMR to FMS</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

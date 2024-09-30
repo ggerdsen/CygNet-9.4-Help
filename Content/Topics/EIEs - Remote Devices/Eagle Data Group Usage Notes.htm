@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Eagle EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Eagle EIE – Data Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Eagle EIE.htm">Eagle EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Data Groups</span>
+        </div>
+        <h2>Data Groups</h2>
+        <p>With few exceptions, data groups must be defined in a device template file in order for them to be available for use on a remote device. Which data groups are defined by a device template file depends on protocol, device type, and unique configuration.</p>
+        <p>CygNet distributes sample device template files for its EIEs, each of which typically serves one or more hardware models along with applicable firmware. Therefore, the data groups described below are only those data groups defined by CygNet in sample device template file(s). Your template(s) might not include some of the data groups described below.  Device template files exist to enable users to customize device configurations; however, CygNet is not responsible for changes made by users.</p>
+        <p>For information about data group definitions and device template files, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <p>For more information about data group dependencies, see <a href="Data Groups - Dependencies.htm">Data Group Dependencies</a>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Many Eagle data groups include a notable property setting on the <b>Data Group Properties</b> dialog box that enables an ordinalized data group to be associated with a different process type instance number. The setting is called <b>Process Type Instance</b>. For more information, see also <a href="Eagle Overriding Process Type Instances.htm">Overriding Process Type Instances</a>.</p>
+        </div>
+        <p>Browse by letter: &#160; &#160;
+			<a href="#A" class="selected">A</a> &#160; &#160;
+			<a href="#D" class="selected">D</a> &#160; &#160;
+			<a href="#F" class="selected">F</a> &#160; &#160;
+			<a href="#G" class="selected">G</a> &#160; &#160;
+			<a href="#H" class="selected">H</a> &#160; &#160;
+			<a href="#M" class="selected">M</a> &#160; &#160;
+			<a href="#P" class="selected">P</a> &#160; &#160;
+			<a href="#S" class="selected">S</a> &#160; &#160;
+		<a href="#V" class="selected">V</a></p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 150px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Data Group Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: left;">Usage Notes</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="A"></a><a name="AlarmData"></a>AlarmData</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>"Alarm Data" retrieves alarm configuration for an associated field device.</p>
+                    <p>This data group must be instantiated before any other data group that depends on alarms can be polled. For example, instantiate this data group before polling "FMS Alarms".</p>
+                    <p>An Eagle alarm application contains a maximum of four alarm types. If your system needs more than four types, additional alarm programs must be added to accommodate the additional types. All alarm application instances are consolidated into a single <b>AlarmData</b> data group.</p>
+                    <p>In the data view of the <b>AlarmData</b> data group, check <b>Show all</b>, then locate the <b>Alarm PPSSII</b> column. This value contains the process configuration for alarms; see the <a href="#ProcessCfg" class="selected">"Process Configuration"</a> (<b>ProcessCfg</b>) data group for the scheme that explains what these values mean in your configuration.</p>
+                    <p>By default, this data group is set to retain 40 days of transaction history. This default setting is in place to satisfy the requirements of historical data collection in CygNet Measurement.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>AlmStat</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Alarm Status"  uses a <b>ProcessType.Section.Item</b> scheme to map data group elements to items on the field device. This data group can be user-modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Audit</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"Audit Trail" is used to retrieve audit data for a number of predefined entry types. It  uses proprietary message type 16; the audit-trail reset uses message type 26. The data group cannot be modified.</p>
+                    <p>By default, this data group is set to retain 40 days of transaction history. This default setting is in place to satisfy the requirements of historical data collection in CygNet Measurement.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When changing the transaction retention settings for this data group type, you will be prompted to confirm the change. CygNet recommends that data be retained for at least 40 days to be available for CygNet Measurement. Either change the transaction retention settings to retain more data, or accept the settings, which may cause CygNet to lose data that cannot be retrieved again.</p>
+                    </div>
+                    <p class="TableNote"> See the <a href="Eagle UIS Command Component Parameters.htm">UIS&#160;command component parameters</a> <b>Seq</b> and <b>Reset</b>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="D"></a>DateTime</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Date/Time"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="F"></a>FmsAlarm</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"FMS Alarms" is defined in the device template file.</p>
+                    <h6>Dependencies:</h6>
+                    <ul class="table">
+                        <li value="1"><b>HistAlarm</b>
+                        </li>
+                    </ul>
+                    <p><a href="#AlarmData" class="selected">"Alarm Data"</a> (<b>AlarmData</b>) and <a href="#HistAlarm" class="selected">"History Alarm"</a> (<b>HistAlarm</b>) must be instantiated before this data group can be polled.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>FmsConfig</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"FMS Configuration" is defined in the device template file.</p>
+                    <p>"FMS Configuration"  must be retrieved before polling other FMS data groups of the same ordinal.
+        </p>
+                    <h6>Dependencies:</h6>
+                    <ul class="table">
+                        <li value="1"><b>MtrCfgO</b>
+                        </li>
+                        <li value="2"><b>MtrCfgT</b>
+                        </li>
+                        <li value="3"><b>GasQlty</b>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="FmsEvent"></a>FmsEvent</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"Fms Events"</p>
+                    <h6>Dependencies:</h6>
+                    <ul class="table">
+                        <li value="1"><i>N/A</i>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="FmsHistD"></a>FmsHistD</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"FMS Daily History"</p>
+                    <h6>Dependencies:</h6>
+                    <ul class="table">
+                        <li value="1"><b>HistDlyO</b>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="FmsHistH"></a>FmsHistH</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"FMS Hourly History"</p>
+                    <h6>Dependencies:</h6>
+                    <ul class="table">
+                        <li value="1"><b>HistHrlyO</b>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="G"></a>GasQlty</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Gas Quality"  uses a <b>ProcessType.Section.Item</b> scheme to map data group elements to items on the field device. This data group can be user-modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="H"></a> <a name="HistAlarm"></a>HistAlarm</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"History Alarm" is a collection of historical alarm records. It consolidates historical alarm information for all alarm types configured for the associated field device.</p>
+                    <p>The data group property <b>Process Type Instance</b> must be set to the history application instance configured to hold alarm history on the associated field device.</p>
+                    <p>By default, this data group is set to retain 40 days of transaction history. This default setting is in place to satisfy the requirements of historical data collection in CygNet Measurement.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>HistCfg8</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"History (8) Config"  retrieves configuration information used to construct a "History (8)" data group. This information comes from the station configuration used by the connected field device.</p>
+                    <p>The "History (8) Config"&#160;data group and the "History (8) Support" data group do not need to be instantiated in order for a "History (8)" data group to work. You are only required to poll the  "History (8)" data group.</p>
+                    <p>The ordinal number of this history data group must also match the applicable instance number as displayed in the "Process Configuration" data group. The instance number represents an instance or occurrence of a process type number. For example, if you want history from process type 34 and that type is instance 4, make the history data group collection ordinal 4.</p>
+                    <p>Some of the <b>Current Value</b> values returned for this data group contain pointers to historical data. The format of such pointers is PPSSII where up to 3 digits can be used to stand for PP, up to 2 digits can be used to stand for SS, and up to two digits can be used to stand for II (for example, ###/##/##).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>HistCfg16</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"History (16) Config"  retrieves configuration information used to construct a "History (16)" data group. This information comes from the station configuration used by the connected field device.</p>
+                    <p>The "History (16) Config"&#160;data group and the "History (16) Support" data group do not need to be instantiated in order for a "History (16)" data group to work. You are only required to poll the  "History (16)" data group.</p>
+                    <p>The ordinal number of this history data group must also match the applicable instance number as displayed in the "Process Configuration" data group. The instance number represents an instance or occurrence of a process type number. For example, if you want history from process type 34 and that type is instance 4, make the history data group collection ordinal 4.</p>
+                    <p>Some of the <b>Current Value</b> values returned for this data group contain pointers to historical data. The format of such pointers is PPSSII where up to 3 digits can be used to stand for PP, up to 2 digits can be used to stand for SS, and up to two digits can be used to stand for II (for example, ###/##/##).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="HistDlyO"></a>HistDlyO</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"History Daily (Orifice)"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="HistHrlyO"></a>HistHrlyO</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"History Hourly (Orifice)"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="History8"></a>History8</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"History (8)" enables the display of historicized process variable data. This data group can include up to 8 process variables.</p>
+                    <p>There are 4 history types possible; confirm that the type you want to use is currently supported by CygNet:</p>
+                    <ul class="table">
+                        <li value="1">1: Minute-based (Minutely, Hourly, Daily, Weekly)</li>
+                        <li value="2">2:&#160;Daily-based</li>
+                        <li value="3">3: Month-based</li>
+                        <li value="4">4: Event-driven</li>
+                    </ul>
+                    <p>The ordinal number of this history data group must also match the applicable instance number as displayed in the "Process Configuration" data group. The instance number represents an instance or occurrence of a process type number. For example, if you want history from process type 34 and that type is instance 4, make the history data group collection ordinal 4.</p>
+                    <p>Both the "History (8) Config"&#160;data group and the "History (8) Support" data group must be instantiated in order for a "History (8)" data group to work. However, you are only required to poll the  "History (8)" data group. These data groups must have the same ordinal number.</p>
+                    <p><b>Max Records to Read</b> specifies the maximum possible number of records to read in a single transaction. The highest value possible for <b>Max Records to Read</b> is 960 or the size of the field device buffer if it is less than 960. Subsequent transactions might be required to retrieve all required data. If not specified, all remaining records will be read.</p>
+                    <p>When used with <b>Get Data by Index</b>, the <b>Max Records to Read</b> value is relative to the starting record index and the total number of indexed records available. The quantity and indexes of records retrieved varies accordingly.</p>
+                    <p>To view the complete history data group as assembled by CygNet, use the <b>View Dev/Dg Specific Info</b> option in the <a href="../Devices/CygNet DDS Viewer Utility.htm">CygNet DDS Viewer utility</a> (DdsViewer.exe).</p>
+                    <p>See <a href="Eagle History Retrieval Optimization.htm">History Retrieval Optimization</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="History16"></a>History16</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"History (16)" enables the display of historicized process variable data. This data group can include up to 16 process variables.</p>
+                    <p>There are 4 history types possible; confirm that the type you want to use is currently supported by CygNet:</p>
+                    <ul class="table">
+                        <li value="1">1: Minute-based (Minutely, Hourly, Daily, Weekly)</li>
+                        <li value="2">2:&#160;Daily-based</li>
+                        <li value="3">3: Month-based</li>
+                        <li value="4">4: Event-driven</li>
+                    </ul>
+                    <p>The ordinal number of this history data group must also match the applicable instance number as displayed in the "Process Configuration" data group. The instance number represents an instance or occurrence of a process type number. For example, if you want history from process type 34 and that type is instance 4, make the history data group collection ordinal 4.</p>
+                    <p>Both the "History (16) Config"&#160;data group and the "History (16) Support" data group must be instantiated in order for a "History (16)" data group to work. However, you are only required to poll the  "History (16)" data group. This collection of data groups must have the same ordinal number.</p>
+                    <p><b>Max Records to Read</b> specifies the maximum possible number of records to read in a single transaction. The highest value possible for <b>Max Records to Read</b> is 960 or the size of the field device buffer if it is less than 960. Subsequent transactions might be required to retrieve all required data. If not specified, all remaining records will be read.</p>
+                    <p>When used with <b>Get Data by Index</b>, the <b>Max Records to Read</b> value is relative to the starting record index and the total number of indexed records available. The quantity and indexes of records retrieved varies accordingly.</p>
+                    <p>To view the complete history data group as assembled by CygNet, use the <b>View Dev/Dg Specific Info</b> option in the <a href="../Devices/CygNet DDS Viewer Utility.htm">CygNet DDS Viewer utility</a> (DdsViewer.exe).</p>
+                    <p>See <a href="Eagle History Retrieval Optimization.htm">History Retrieval Optimization</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>HistSup8</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"History (8) Support"  retrieves a subset of configuration values that are used each time a "History (8)" data group with the same ordinal is polled. Its primary function is to retrieve the current history record number (in other words, the index) so the "History (8)" data group retrieves the correct collection of historical data.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>HistSup16</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"History (16) Support"  retrieves a subset of configuration values that are used each time a "History (16)" data group with the same ordinal is polled. Its primary function is to retrieve the current history record number (in other words, the index) so the "History (16)" data group retrieves the correct collection of historical data.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="M"></a>MtrCfgO</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Orifice Meter Config" uses a <b>ProcessType.Section.Item</b> scheme to map data group elements to items on the field device. This data group can be user-modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>MtrCfgT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"Turbine Meter Config"  uses a <b>ProcessType.Section.Item</b> scheme to map data group elements to items on the field device. This data group can be user-modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>MtrDataO</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Orifice Meter Data" uses a <b>ProcessType.Section.Item</b> scheme to map data group elements to items on the field device. This data group can be user-modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>MtrDataT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"Turbine Meter Data"  uses a <b>ProcessType.Section.Item</b> scheme to map data group elements to items on the field device. This data group can be user-modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="P"></a><a name="ProcessCfg"></a>ProcessCfg</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Process Configuration" enables you to retrieve the field device process configuration. Process types are displayed according to the order in which they are loaded to nonvolatile memory on the field device.</p>
+                    <p>This data group must be polled before any other data group that uses a <b>ProcessType.Section.Item</b> scheme can be polled.</p>
+                    <p>The order in which process types in an application are loaded is reflected by a numeric ID called the <b>Process Number</b>. Process numbers are sequential. Process numbers and process types are <u>not</u> the same thing.</p>
+                    <p>A single process type can be used in numerous places in nonvolatile memory, so one process type might have several different process numbers associated with it. In CygNet, instance numbers  are applied to all processes; instance numbers are incremented to indicate that a process type appears in more than one memory location.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="S"></a><a name="SingleItem"></a>SingleItem</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"Single Item" enables you to communicate with a single item.</p>
+                    <p>What process number corresponds to which process type varies by configuration. One way to get the required <b>ProcessNumber.Section.Item</b> parameters is to poll and look at the "Process Configuration" data group.</p>
+                    <p>Another way is to use the <b>ProcessNumber.Section.Item</b> field to create an item pointer to retrieve a process number's type. This helps you to confirm the process type before continuing. Any item retrieved for that process number is applicable to the retrieved process type.</p>
+                    <p>For example, poll 01.01.02 to retrieve the process type configured for the process number 01. Imagine the process type returned is 45. All section.item combinations for  process number 01 (i.e., 01.xx.yy) would be applicable to process type 45.</p>
+                    <p>See <a href="Eagle Single-Element Data Group.htm">Single-Element Data Group</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Station</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Station" retrieves the station name assigned to the connected field device.</p>
+                    <p>The "Station" data group uses proprietary message type 42. It can not be modified.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>System</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>"System Information"</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="V"></a>Version</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>"Version"  uses proprietary message type 19. It can not be modified.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

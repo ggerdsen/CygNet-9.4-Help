@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Lufkin MPC/RPC EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Lufkin MPC/RPC EIE – Composite Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Lufkin MPC RPC EIE.htm">Lufkin MPC/RPC EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Composite Data Group</span>
+        </div>
+        <h2>Composite Data Group</h2>
+        <p>The composite data group is a special kind of data group that enables you to combine any data group element(s) from any data group(s) as long as they are in the same template as the composite data group. The composite data group is made up of a combination of support data group references and data group element references to those support data groups. Multiple composite data groups can be created in a single device template file. At this time, the composite data group can only receive data; it cannot send data.</p>
+        <p>The composite data group does <u>not</u> appear in a remote device editor unless it has been defined in the applicable device template file. Create this data group when first writing a device template file, or <a href="Editing a Template.htm">add or edit</a> it later. The complexity of a defined composite data group depends on your needs and understanding of device template files.</p>
+        <p>For more information, see the following subsections:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Example" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#ToCreate" class="selected">To Create a Composite Data Group</a>
+            </li>
+        </ul>
+        <p>For more information about working with device template files, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <p class="Example"><a name="Example"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!-- The following example shows the basic structure and components of a composite data group. Notice that alternate ways of defining composite data group elements (<b>dgElements</b>) are provided.</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">The topmost composite data group element, <b>Gravity</b>, references the data group element ID (DEID)  <b>Grav</b> inside of <b>SupportDG1</b>. However, the composite data group element <b>DP</b> uses two child  elements to reference two possible data sources. (This is useful when a single template supports different remote device configurations and a similar data source varies between the configurations.) Both use the element <a href="source.htm">source</a> to define their relationship with <b>DP</b>.</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">The first child element references the source data group <b>SupportDG2</b>, but it does not specify the relevant DEID in line. This is because the name <b>DP</b> is the name of the relevant DEID in <b>SupportDG2</b>, so the child element inherits the DEID from its parent.</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">The second child element references the source data group <b>SupportDG3</b>, but it specifies the relevant source DEID (<b>R1PrPt</b>) in line. This is because the name <b>DP</b> is not the name of the relevant DEID in <b>SupportDG3</b>; no inheritance occurs. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;MyComp niceName="My Composite Data Group" dgCat="composite" canSend="false" dgProtocol="Internal"&gt;</p>
+                            <p class="Code2">&lt;supportDg&gt;</p>
+                            <p class="Code3">&lt;SupportDG1 required="true"/&gt;</p>
+                            <p class="Code3">&lt;SupportDG2 required="false"/&gt;</p>
+                            <p class="Code3">&lt;SupportDG3 required="false"/&gt;</p>
+                            <p class="Code2">&lt;/supportDg&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4" type="ui2"&gt;</p>
+                            <p class="Code3">&lt;Gravity desc="Gravity" type="vrnt" sourceDg="SupportDG1" sourceDeid="Grav"/&gt;</p>
+                            <p class="Code3">&lt;DP desc="Differential Pressure" type="vrnt" units="psi" fromSupportDg="true"&gt;</p>
+                            <p class="Code4">&lt;source sourceDg="SupportDG2"/&gt;</p>
+                            <p class="Code4">&lt;source sourceDg="SupportDG3" sourceDeid="R1PrPt"/&gt;</p>
+                            <p class="Code3">&lt;/DP&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;!--uccRecvParms only required if a support data group has associated receive parameters--&gt;</p>
+                            <p class="Code3">&lt;RecParmName desc="Receive Parameter" required="true"/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/MyComp&gt;</p>
+                            <p class="Code">…</p>
+                            <p class="Code">&lt;SupportDG1&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;Grav/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDG1&gt;</p>
+                            <p class="Code">…</p>
+                            <p class="Code">&lt;SupportDG2&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;DP/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDG2&gt;</p>
+                            <p class="Code">…</p>
+                            <p class="Code">&lt;SupportDG3&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;R1PrPt/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDG3&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToCreate"></a>To Create a Composite Data Group</p>
+        <ol>
+            <li value="1">Using a text editor or XML editor, open the device template file to which you want to add one or more composite data groups.</li>
+            <li value="2">Define a new data group that uses the <a href="DataGroup Element.htm#dgCat">dgCat</a> attribute value <b>composite</b>. Doing so defines this data group as a composite data group.<ol style="list-style-type: lower-alpha;"><li value="1">Define a <a href="supportDg Element.htm">supportDg</a> element in the composite data group.</li><li value="2">Define all support data groups from which you require data.</li><li value="3">Define a <a href="dgElements Element.htm">dgElements</a> element in the composite data group.</li><li value="4">Define all data group elements required by you to make up your composite data group. These elements must include relevant references to data group elements from the support data groups defined in the <a href="supportDg Element.htm">supportDg</a> element. Composite data group elements can be defined in various formats.</li><li value="5"><u>Optional</u>: Define a <a href="uccRecvParms uccSendParms Elements.htm">uccRecvParms</a> element in the composite data group.</li><li value="6"><u>Optional</u>: Define one or more <a href="RecParmName SendParmName Elements.htm"><i>RecParmName</i></a> elements.</li></ol></li>
+            <li value="3">Define any other required composite data groups.</li>
+            <li value="4"><a href="Installing a Template.htm">Validate and load</a> your template.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

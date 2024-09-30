@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Line Pack">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Line Pack Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Line Pack.htm">Line Pack</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Line Pack Overview</span>
+        </div>
+        <p style="display: none; color: #ff0000;">carbon dioxide, CO2, CO<sub>2</sub></p>
+        <h2>Line Pack Overview</h2>
+        <p>The CygNet Line Pack application performs a simple volumetric estimation for the following commodities using pipeline segments of a monitored pipeline at any given time: </p>
+        <ul>
+            <li value="1">the volume of natural gas </li>
+            <li value="2">the mass of supercritical carbon dioxide (CO<sub>2</sub>)</li>
+            <li value="3">the volume of petroleum liquids</li>
+        </ul>
+        <p>Line Pack calculations are performed on distinct pipeline segments called <b>Pack Segments</b>. These pack segments are configured in the Line Pack device in the Device Definition  Service (DDS) with a number of different inputs, which can be either hard-coded values or points within the CygNet system. Once the calculation for a pack segment is performed, output values are stored in points with the facility of the pack segment and configurable UDCs. Once all the pack segments in a pipeline have been calculated and set, the results are combined and rolled up a preconfigured hierarchy.</p>
+        <p>Calculated line pack values are not associated with the Line Pack device facility.  Rather, a calculated line pack value (for example, current line pack volume (Pack: Current)) is assigned to a point whose facility represents a "pipeline segment."  The "pipeline segment" is usually defined as all pipes (possibly represented by sub-segment facilities) running between two measurement stations. </p>
+        <p>The Line Pack driver configuration provides settings for identifying pack segment and pack sub-segment facilities in your system and then individual input readings (for example, pressures, temperature, GQ values) are configured per identified segment facility.  The individual segment line pack values are then summed together and associated with other grouping facilities that make sense for your enterprise's pipeline such as "area", "division" or just a top-level "pipeline" segment facility.  The Line Pack device facility will have the auto-generated <a href="System UDCs.htm">statistics</a> points assigned to it, which record various state information of Line Pack EIE. </p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Pack" class="selected">Pack Segment Configuration</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Line" class="selected">Line Pack Calculations</a>
+                <ul class="Circle">
+                    <li class="HyperlinkList" value="1"><a href="#Natural" class="selected">Natural Gas</a>
+                    </li>
+                    <li class="HyperlinkList" value="2"><a href="#Supercri" class="selected">Supercritical CO<span style="vertical-align: sub;">2</span></a>
+                    </li>
+                    <li class="HyperlinkList" value="3"><a href="#Petroleu" class="selected">Petroleum Liquids</a>
+                    </li>
+                    <li class="HyperlinkList" value="4"><a href="#MAOP" class="selected">MAOP</a>
+                    </li>
+                    <li class="HyperlinkList" value="5"><a href="#Calculat" class="selected">Calculation Inputs</a>
+                    </li>
+                    <li class="HyperlinkList" value="6"><a href="#Sample" class="selected">Sample Results</a>
+                    </li>
+                    <li class="HyperlinkList" value="7"><a href="#Mass" class="selected">Mass Balance</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Scheduli" class="selected">Scheduling Calculations</a>
+            </li>
+        </ul>
+        <h3><a name="Pack"></a>Pack Segment Configuration</h3>
+        <p>When configuring a pipeline for Line Pack analysis, each <b>Pack Segment</b> should describe the shortest amount of pipe between sensors with telemetry. Further, a pack segment may contain any number of pack sub-segments. <b>Pack Sub-Segments</b> are used to further break down the values for any pack segment, so that the volume of any individual section of pipe can be specified, and so that individual sections can be taken offline as necessary. Pack sub-segments would typically span between two valves in a pipeline.</p>
+        <p>The Line Pack driver uses facility types and hierarchy relationships to determine the facilities upon which to perform a  calculation. Only two facility elements are required for Line Pack: pack segments and pack sub-segments. The default facility types are PACK_SEG and PACK_SUB, although others can be configured. The hierarchy structure of the pack segments and pack sub-segments is stored in facility attributes. Pack sub-segments are always the children of pack segments and each pack segment can have zero or more child pack sub-segments. </p>
+        <p>ack segment  facility types, pack sub-segment facility types, and the hierarchical structure are configured on the <a href="Configuring System Settings.htm#Facility">Settings</a> page of the device editor and the hierarchical tree of pack segments is displayed on the <a href="Configuring Line Pack Rules.htm">Line Pack</a> page of the device editor.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Volumetric input must be specified for all pack sub-segments and for any pack segment with no child pack sub-segments. See <a href="Configuring Line Pack Rules.htm#Segment">Configuring Line Pack Calculation Rules</a> for more information.</p>
+        </div>
+        <h3><a name="Line"></a>Line Pack Calculations</h3>
+        <p>The type of Line Pack calculation is selected on the <a href="Configuring Calculation Settings.htm">Calculations</a> page.</p>
+        <h4><a name="Natural"></a>Natural Gas</h4>
+        <p>The CygNet Line Pack application calculates natural gas volume for pipeline segments for any selected time period. A supercompressibility factor is applied  to correct the calculated volumes, using AGA 8 - Gross Method 2, NX19 - Legacy, or NX19.</p>
+        <p>The CygNet Line Pack application complies with the American Petroleum Institute’s (API) standards for gas measurement as published in Chapter 21.1. The Line Pack calculations accommodate NX19 for natural gas. NX19 support is the <b>NX19 Gravity/Carbon/Nitrogen (GCN) Method 1962</b>, which includes two calculation options based on gravity:</p>
+        <ul>
+            <li value="1"><b>NX19 Legacy</b> — which uses the NX19 GCN formula for gravities less than or equal to 0.75. (Earlier Line Pack calculations used custom NX19 calculations without Methane as an input. This option is included for backward compatibility of Line Pack calculations.)</li>
+            <li value="2"><b>NX19 GCN</b> — this formula is for gravities greater than 0.75.</li>
+        </ul>
+        <p>See <a href="Line Pack Formulas.htm#Natural_Gas">Natural Gas Volume (Estimated)</a> and <a href="Line Pack Formulas.htm#Supercompressibility">Supercompressibility Factor</a> for more information.</p>
+        <h4><a name="Supercri"></a>Supercritical CO<sub>2</sub></h4>
+        <p>The CygNet Line Pack application calculates supercritical CO<sub>2</sub> mass for pipeline segments for any selected time period. The input CO<sub>2</sub> density value can be derived from two sources:</p>
+        <ul>
+            <li value="1"><b>Measured density</b> — a density sensor in the pipeline provides a measured density value.</li>
+            <li value="2"><b>Calculated density</b> — a density value is derived from a  lookup table of density values (based on input temperature and pressure) calculated by REFPROP, a program developed by the National Institute of Standards and Technology (NIST) for calculating the thermodynamic and transport properties of industrially important fluids and their mixtures. For CO<sub>2</sub> density values that fall between a given temperature and pressure range, CygNet will interpolate the closest value. The CO<sub>2</sub> density table is based on absolute pressure (psia). The Line Pack driver makes the conversion to absolute pressure before doing the density lookup.</li>
+        </ul>
+        <p>See <a href="Line Pack Formulas.htm#CO2">Supercritical CO<sub>2</sub> Mass (Estimated)</a> for more information.</p>
+        <h4><a name="Petroleu"></a>Petroleum Liquids </h4>
+        <p>The CygNet Line Pack application calculates petroleum liquids volume for pipeline segments for any selected time period. </p>
+        <p>The liquids calculations performed in this application conform to the calculations outlined in the API publication: <i>Manual of Petroleum Measurement Standards</i>, Chapter 11 — Physical Properties Data, Section 1 — Temperature and Pressure Volume Correction Factors for Generalized Crude Oils, Refined Products, and Lubricating Oils. Adjunct to: ASTM D 1250-04 and IP 200/04. Measurement Coordination October 2002. May 2004. Addendum 1, September 2007.</p>
+        <p>See <a href="Line Pack Formulas.htm#Petroleum_Liquids">Petroleum Liquids Volume (Estimated)</a> for more information.</p>
+        <h4><a name="MAOP"></a>MAOP</h4>
+        <p>In addition to the primary pack calculation, a secondary calculation may be optionally performed to calculate the pack at the Maximum Allowable Operating Pressure (MAOP) for any pipeline content type. The result of this calculation is stored in the same manner as the primary pack.</p>
+        <p>See <a href="Configuring Calculation Settings.htm#MAOP">MAOP formula</a> for more information.</p>
+        <h4><a name="Calculat"></a>Calculation Inputs</h4>
+        <p>Inputs to the Line Pack calculation for any segment can be sourced from one of three places:</p>
+        <ul>
+            <li value="1">Custom calculation rules for any pack segment — configured on the <a href="Configuring Custom Calculation Rules.htm#Creating">Adjusted inputs</a> section of the <b>Calculations Rules</b> dialog box off the <b>Rules</b> page.</li>
+            <li value="2">Base input rules for any pack segment — configured on the <a href="Configuring Custom Calculation Rules.htm#BaseInputs">Base Inputs</a> dialog box off the <b>Rules</b> page.</li>
+            <li value="3">Global Inputs — configured on the <a href="Configuring Global Inputs.htm">Global Inputs</a> page of the device editor.</li>
+        </ul>
+        <p>Depending on changing conditions in the field, it may be appropriate to use different input values for the same calculation. See <a href="Configuring Custom Calculation Rules.htm">Configuring Custom Calculation Rules</a> for information about configuring custom rules and setting their precedence order.</p>
+        <p>The UDC mappings for the required and optional inputs are configured on the <a href="Configuring UDC Mappings.htm">UDC Map</a> page of the device editor.</p>
+        <h4><a name="Sample"></a>Sample Results</h4>
+        <p>A Line Pack calculation can be tested locally using all the current rules and inputs configured for the selected pack segment from the <a href="Configuring Line Pack Rules.htm">Line Pack</a> page of the device editor. Additionally you can manipulate the inputs as necessary in a testing mode to achieve the appropriate results.</p>
+        <h4><a name="Mass"></a>Mass Balance</h4>
+        <p>The Line Pack application supports a Mass Balance calculation, which can be used to detect pipeline leakage. Mass Balance calculations are available for all types of Line Pack calculations: natural gas, supercritical CO2, and petroleum liquids. See <a href="Configuring Mass Balance.htm">Configuring Mass Balance</a> for more information.</p>
+        <h3><a name="Scheduli"></a>Scheduling Calculations</h3>
+        <p>A Line Pack calculation is executed by sending a UIS command of the type <b>CALCULATE</b> or <b>VCALCULATE</b> to the Line Pack driver. These commands can be scheduled via the <a href="../Scheduler/UIS Command Task.htm">MSS</a> or executed directly on the <a href="Configuring the Line Pack Device.htm">Device</a> page of the device editor. </p>
+        <p>Execution time of the Line Pack calculation can be measured in seconds, which allows for a high frequency of calculations. A <a href="Configuring System Settings.htm#Misc">throttle</a> can be applied to pause the calculation to conserve CPU processing, if desired.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Installing the Line Pack EIE.htm">Installing the Line Pack EIE</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Terminology.htm">Terminology</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

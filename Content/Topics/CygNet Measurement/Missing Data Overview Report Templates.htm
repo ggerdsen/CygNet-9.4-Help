@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|Using CygNet Measurement|Reports|Report Template Files">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Missing Data Overview Report Templates</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet Measurement.htm">Using CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Running FMS Reports.htm">Reports</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Report Template Files.htm">Report Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Missing Data Overview</span>
+        </div>
+        <h2>Missing Data Overview Report Templates</h2>
+        <p>Missing Data Overview report templates contain a <b>ReportDefinition</b> page and a <b>ReportSheet</b> page, that together describe the <a href="Command Parameters - Build Report - Missing Data Overview.htm">Missing Data Overview</a> reports you can produce.  CygNet provides a sample report template file <b>MissingDataOverviewTemplate.xlsx</b> for reference. It is stored in the <b>CygNet\Services\FMS\ReportTemplates\Samples</b> folder on your host server.</p>
+        <p>The Missing Data Overview report publishes a synopsis of daily data collection status information for each selected Node within the time range, showing where there is incomplete or missing data. The report displays data in Contract time (C). Gas and (periodic metering, batch, and ticket) liquid devices are supported.</p>
+        <p>The <a href="#Configur" class="selected">ReportDefinition</a> sheet includes the following parameters to describe the type of report to build. </p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ReportParameters" class="selected">ReportParameters</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Worksheet" class="selected">Worksheet</a>
+            </li>
+        </ul>
+        <p>The <a href="#Configur2" class="selected">ReportSheet</a> sheet includes the following sections and corresponding tokens to describe the specific format of the report to build. Valid tokens will be replaced by the values they represent. You may also include additional information you wish to see in the report.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Device2" class="selected">Header</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Device3" class="selected">SubReport Header</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Missing" class="selected">Style</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Device5" class="selected">Data Table Header</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Device6" class="selected">Data Table</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Device4" class="selected">SubReport Footer</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Device" class="selected">Report Footer</a>
+            </li>
+        </ul>
+        <h3>Displaying Additional (Non-Token) Values</h3>
+        <p>You can enter additional (non-token) elements such as logos, labels, or text into reports. Elements that are not valid token values will be displayed as entered.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This means that tokens with typographical errors, therefore not "valid" tokens, will also be displayed as entered.</p>
+        </div>
+        <p class="Example">Example</p>
+        <p class="Indent"><b>[BeginDateTime]</b> is a valid token. If you  use <b>[BeginDate]</b> (not a valid token) instead of <b>[BeginDateTime]</b>, the value will be displayed as  "<b>[BeginDate]</b>" instead of displaying the date/time value desired, since <b>[BeginDate]</b> is not a valid token.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b>[BeginDate]</b>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Configur"></a>Configuring the ReportDefinition</h3>
+        <p>The <b>ReportDefinition</b> uses parameters to describe the type of report  for the service to build. The following parameters determine the described characteristics of your report.</p>
+        <h4><a name="ReportParameters"></a>Missing Data Overview Report: ReportParameters</h4>
+        <p>Report parameters, which appear between <b>#ReportParameters#</b> and <b>#End#</b>, can be defined by the following values.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ReportName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used for the report name, as it will appear in drop-down menus in FMS Explorer and CygNet Explorer.</p>
+                    <p>See <a href="Using the Reports Control.htm">Using the Reports Control</a> and <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to be used for the report name. </p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">Missing Data Overview</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CommandName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used by the service to determine which specific report command type to execute.</p>
+                    <p>See <a href="../Scripting/CxFms FmsClient Methods.htm#SendFmsC">FMSClient Methods</a> in the Scripting section for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to specify the report command name.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">MDOR</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Maximum of 7 characters; letters or numbers only, no spaces.</p>
+                    </div>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Worksheet"></a>Missing Data Overview Report: Worksheet Parameters</h4>
+        <p>Missing Data Overview report worksheet parameters, which appear between <b>#Worksheet#</b> and <b>#End#</b>, can be defined by the following values.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ReportType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to represent the standard FMS report type you are configuring.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to be used to indicate the type of the report.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">Missing Data</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>NullToken</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to represent null values in your report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to be used to indicate a "null value" cell in the report. </p>
+                    <p class="Example">Example</p>
+                    <p class="Indent"><b>-</b>
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="SubReportType"></a>SubReportType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value  defined in this cell will be used to represent the subtype of the Missing Data report you are configuring. </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to indicate the subtype of the report.</p>
+                    <p>Options are <b>Overview</b> or <b>Detailed</b>.</p>
+                    <p>Default value is Overview.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Missing</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to represent time periods in your report for which all data is missing.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to be used in the data cell to indicate  "all data missing" in the report.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">M</p>
+                    <p>See <a href="#Missing_style" class="selected">[Missing]</a> style parameter for cell format information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Incomplete</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to represent time periods in your report for which data is incomplete.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to be used in the  data cell to indicate "some data missing" in the report.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">I</p>
+                    <p>See <a href="#Incomplete_style" class="selected">[Incomplete]</a> style parameter for cell format information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Future</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to represent time periods in your report for which  data cannot yet be complete, because all (future days) or part (today) of the time period is in the future.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to be used in the  data cell to indicate "future time period" in the report.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">&gt;</p>
+                    <p>See <a href="#Future_style" class="selected">[Future]</a> style parameter for cell format information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>HideNoMissingMeters</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to specify whether or not meters that do not have missing data will be skipped in the report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to indicate whether or not to hide meters from the report when no data is missing.</p>
+                    <p>Options are <b>Yes</b> or <b>No</b>.</p>
+                    <p>Default value is Yes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a name="NoCmdGroupToken"></a>NoCmdGroupToken</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used in your report to represent the value for the Group name or Group description fields when either of the following is true.</p>
+                    <ul class="table">
+                        <li value="1">command is not run against a group Node</li>
+                        <li value="2">command is run against multiple group Nodes</li>
+                    </ul>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to be used to indicate the Group name or Group description when the command was not run against  a single group Node.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">[Invalid Group]</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>NodeSortOrder</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to specify the order in which to display Node results in the report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter one of the following options.</p>
+                    <ul class="table">
+                        <li value="1">Name ascending</li>
+                        <li value="2">Description ascending</li>
+                        <li value="3">Name descending</li>
+                        <li value="4">Description descending</li>
+                    </ul>
+                    <p>Default value is Name ascending.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>SubReportHeaderFrequency</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to specify how many Node results to display per page in the report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter the number of results to show per page.</p>
+                    <p>Default value is 9.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>RptStDate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you use this parameter in your report template, the RptStDate parameter will no longer appear for configuration in FMS Explorer or CygNet Explorer. </p>
+                    </div>
+                    <p>See <a href="Missing Data Overview Report Definitions.htm">Missing Data Overview Report Definitions</a> (FMS Explorer) or <a href="Command Parameters - Build Report - Missing Data Overview.htm">Reports: Missing Data Overview</a> (CygNet Explorer) for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If used, enter a valid start date value for the report.  RptStDate and RptEndDate must be the same configuration parameter type.
+				</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The report will only include records that exist entirely within the specified date range.</p>
+                    </div>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p> <p>This parameter is optional.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>RptEndDate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you use this parameter in your report template, the RptEndDate parameter will no longer appear for configuration in FMS Explorer or CygNet Explorer. </p>
+                    </div>
+                    <p>See <a href="Missing Data Overview Report Definitions.htm">Missing Data Overview Report Definitions</a> (FMS Explorer) or <a href="Command Parameters - Build Report - Missing Data Overview.htm">Reports: Missing Data Overview</a> (CygNet Explorer) for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, enter a valid end date value for the report.  RptStDate and RptEndDate must be the same configuration parameter type.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The report will only include records that exist entirely within the specified date range.</p>
+                    </div>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p> <p>This parameter is optional.</p></td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Configur2"></a>Configuring the ReportSheet</h3>
+        <p>The <b>ReportSheet</b> uses tokens to describe the format of the report  you want to run. The following tokens determine the report content, and will retrieve the corresponding values for display in your report.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Enter report tokens carefully, as the tokens are case sensitive. Typographical errors (therefore not "valid" tokens) will be handled as "additional values" and displayed as entered; the non-token value will appear in your report instead of the actual value(s)  the correctly entered token would have retrieved. See <b>Displaying Additional (Non-Token) Values</b> above for more information.</p>
+        </div>
+        <h4><a name="Device2"></a>Missing Data Overview Report: Header Tokens</h4>
+        <p>Missing Data Overview report definition headers, which appear above <b>#EndReportHdr#</b>, can be described by the following tokens and by entering additional values of your choice.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[BeginDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The start date, in Contract day (C), of the time range for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CmdGroupName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The name of the group Node against which the command was run, if applicable<p>See also <a href="#NoCmdGroupToken" class="selected">NoCmdGroupToken</a> parameter.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CmdGroupDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The description of the group Node against which the command was run, if applicable<p>See also <a href="#NoCmdGroupToken" class="selected">NoCmdGroupToken</a> parameter.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GeneratedDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The time the report was generated, in Local time (L)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[LastCompleteContractDay]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The date, in Contract day (C), of the last day containing complete data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The total number of devices in the report</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device3"></a>Missing Data Overview Report: SubReport Header Tokens</h4>
+        <p>Missing Data Overview report  subreport headers, which appear between <b>#SubSection# SubReportHeader</b> and <b>#End#</b>, can be described by the following  tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The current row number being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[LastCompleteContractDay]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The date, in Contract time (C), of the last day containing complete data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CurrentDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The index of the device being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The total number of devices in the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeContractHour]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The contract hour of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeDaysOfData]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The number of days for which the data source of the Node will retain data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeInstallDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The install date/time for the Node, in Device time (D) </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility ID of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingFacilityTag]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility tag of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeReportingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The reporting facility ID of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeReportingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The reporting <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeSecurityApp]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The security application of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeSortPriority]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The sort priority of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeTimezone]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The time zone configured for the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeTimezoneUsingDst]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The daylight saving time status of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeType]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Attr0] - <p>[PollingFac_Attr29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility indexed text attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Category]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility category</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Desc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The polling facility description</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Info0]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility info attribute 0<p>Default attribute name is Facility Location</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Info1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility  info attribute 1<p>Default attribute name is Facility Contact</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_IsActive]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility active flag</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Table0] - <p>[PollingFac_Table29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility indexed table attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Type]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_YesNo0] - <p>[PollingFac_YesNo19]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility indexed Yes/No attributes 0 through 19 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RecordSpan]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The span for the record, e.g. hourly, daily</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Missing"></a>Missing Data Overview Report: Style Tokens</h4>
+        <p>All style token cells in the template must appear in this section. Do not delete any style token cells from the report template file, or the report will fail.  It is acceptable to place blank cells between token cells.</p>
+        <p>The style of the Missing Data Overview report, which appears between <b>#StyleTokens#</b> and <b>#End#</b>, can be described by the following tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&lt;DummyCell&gt;</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Establishes a cell format as empty, to hold a place in the grid.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="BeginDateTime"></a>[BeginDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The display style format for the BeginDateTime token value used in the Date/Time row.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="Missing_style"></a>[Missing]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The display style format for the <b>Missing</b> parameter.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="Incomplete_style"></a>[Incomplete]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The display style format for the <b>Incomplete</b> parameter.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="Future_style"></a>[Future]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The display style format for the <b>Future</b> parameter.</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device5"></a>Missing Data Overview Report: Data Table Header Tokens</h4>
+        <p>Missing Data Overview report data table headers, which appear between <b>#SubSection# DataTableHeader</b> and <b>#End#</b>, can be described by the following  tokens. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In PDF format, reports containing tables that span multiple pages will repeat the data table header on each contiguous page.</p>
+        </div>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[BeginDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The BeginDateTime token value used for the first day in the Date/Time row. <p>See <a href="#BeginDateTime" class="selected">[BeginDateTime]</a> style parameter for cell format information.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The current row number being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CurrentDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The index of the device being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The total number of devices in the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeContractHour]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The contract hour of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeDaysOfData]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The number of days for which the data source of the Node will retain data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeInstallDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The install date/time for the Node, in Device time (D) </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility ID of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingFacilityTag]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility tag of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeReportingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The reporting facility ID of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeReportingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The reporting <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeSecurityApp]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The security application of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeSortPriority]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The sort priority of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeTimezone]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The time zone configured for the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeTimezoneUsingDst]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The daylight saving time status of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeType]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[RecordSpan]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The span for the record, e.g. hourly, daily</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device6"></a>Missing Data Overview Report: Data Table Tokens</h4>
+        <p>Missing Data Overview report data table parameters, which appear between <b>#SubSection# DataTable</b> (<b>1</b> or <b>2</b>)  and <b>#End#</b>, can be described by the following  tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[FirstRow]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The row number of the first row in the data table</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The current row number being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[BeginDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The start date, in Contract day (C), of the time range for the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node description<div class="Note"><p><span class="NoteHeading">Note:</span> Appears only when the <a href="#SubReportType" class="selected">SubReportType</a> Worksheet parameter value is "Overview"</p></div></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The Node name<div class="Note"><p><span class="NoteHeading">Note:</span> Appears only when the <a href="#SubReportType" class="selected">SubReportType</a> Worksheet parameter value is "Overview"</p></div></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility ID of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingFacilityTag]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility tag of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeReportingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The reporting facility ID of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeReportingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The reporting <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[MissingDataStatus]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The status of each daily record span regarding missing data<div class="Note"><p><span class="NoteHeading">Note:</span> Appears only when the <a href="#SubReportType" class="selected">SubReportType</a> Worksheet parameter value is "Overview"</p></div></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Attr0] - <p>[PollingFac_Attr29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility indexed text attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Category]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility category</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Desc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The polling facility description</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Info0]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility info attribute 0<p>Default attribute name is Facility Location</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Info1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility  info attribute 1<p>Default attribute name is Facility Contact</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_IsActive]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility active flag</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Table0] - <p>[PollingFac_Table29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility indexed table attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Type]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_YesNo0] - <p>[PollingFac_YesNo19]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility indexed Yes/No attributes 0 through 19 (each a separate token)</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device4"></a>Missing Data Overview Report: SubReport Footer Tokens</h4>
+        <p>Missing Data Overview report  subreport footers, which appear between <b>#SubSection# SubReportFooter</b> and <b>#End#</b>, can be described by the following  tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[FirstRow]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The row number of the first row in the data table</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[LastRow]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The row number of the last row in the data table</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The current row number being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CurrentDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The index of the device being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The total number of devices in the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeContractHour]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The contract hour of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeDaysOfData]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The number of days for which the data source of the Node will retain data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The Node ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeInstallDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The install date/time for the Node, in Device time (D) </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility ID of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingFacilityTag]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility tag of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeReportingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The reporting facility ID of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeReportingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The reporting <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeSecurityApp]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The security application of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeSortPriority]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The sort priority of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeTimezone]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The time zone configured for the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeTimezoneUsingDst]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The daylight saving time status of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeType]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The Node type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Attr0] - <p>[PollingFac_Attr29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility indexed text attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Category]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility category</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Desc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The polling facility description</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Info0]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility info attribute 0<p>Default attribute name is Facility Location</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Info1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility  info attribute 1<p>Default attribute name is Facility Contact</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_IsActive]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility active flag</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Table0] - <p>[PollingFac_Table29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility indexed table attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Type]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The polling facility type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_YesNo0] - <p>[PollingFac_YesNo19]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The polling facility indexed Yes/No attributes 0 through 19 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[RecordSpan]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The span for the record, e.g. hourly, daily</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device"></a>Missing Data Overview Report: Report Footer</h4>
+        <p>Missing Data Overview report footers, which appear between <b>#SubSection# ReportFooter</b> and <b>#End#</b>, can be described by the values you enter. Type desired text into the cells, and format as desired.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Managing Node Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using a Command Definition File</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Node Commands.htm">Managing Node Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using a Command Definition File</span>
+        </div>
+        <h2>Using a Command Definition File</h2>
+        <p>Use a command definition file (.cdf file extension) to determine how data is exported out of your system in file formats consumable by designated third party systems (including exports to PGAS XML or to Flow-Cal CFX, TFX, or database transaction queue).  The process requires access to the source data and availability of a command definition file referenced by the selected export command. CygNet provides a sample .cdf file for each of these optional commands, to use as a starting point to <a href="#Creating" class="selected">create</a> a customized file and to <a href="#Editing" class="selected">edit</a> its content over time, as allowed or needed. From time to time <span class="CygNetVariablesSoftwareName">CygNet Software</span> provides updated sample .cdf files, and you can <a href="#Updating" class="selected">update the sample file</a> to access the new functionality.</p>
+        <p>The .cdf file is an XML file used to define  file exports to PGAS or Flow-Cal in compatible formats, as initiated by optional FMS&#160;export commands. Using the .cdf file during the export process, you can specify the file type (as referenced within the file), and define customized column header names by mapping each default column header name (the FMS value)  to a  new column header name (a user-provided value).</p>
+        <p>For these data export file types, a  CDF file must be defined in your system to be referenced by the export command.</p>
+        <p>See the following configuration topics for more information about preparing and exporting files via optional commands that utilize a .cdf file.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Configuring Export Flow-Cal CFX Data.htm#Editing">Configuring Export: Flow-Cal Data CFX Commands</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="Configuring Export Flow-Cal TFX Ticket Data.htm#Editing">Configuring Export: Flow-Cal Ticket Data TFX Commands</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="Configuring Export Flow-Cal Transaction Queue.htm#Editing">Configuring Export: Flow-Cal Transaction Queue Commands</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="Configuring Export PGAS Data XML.htm#Editing">Configuring Export: PGAS XML Commands</a>
+            </li>
+        </ul>
+        <h3><a name="Creating"></a>Creating the Command Definition File (CDF) </h3>
+        <p>CygNet Measurement provides sample CDF files, to be used for  the optional export commands you can choose to install on your system. The samples are located in the <b>CygNet\Services\FMS\CommandDefs\ExportSamples</b> folder on your host server. The sample .cdf files are located as shown in the following example.</p>
+        <p class="Example">Example</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Command_Definition_File_Sample_Directory.png" />
+        </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Do not edit the sample files.</p>
+        </div>
+        <p>To create your working command definition file, do not edit the sample file provided. Copy the sample file and place the copy in the <b>CygNet\Services\FMS\CommandDefs</b> folder. Remove the term "Sample" from the file name and save the change. In order for the FMS service to find the file, it must be named <b>Export</b><i>[ExportType]</i><b>.cdf</b> and it must be located in the <b>CygNet\Services\FMS\CommandDefs</b> folder in the directory, therefore the name and location of the CDF file must not be changed. Locate the working .cdf file as shown in the following example.</p>
+        <p class="Example">Example</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Command_Definition_File_Directory.png" />
+        </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Rename a copy of the sample CDF to remove the word "Sample" and then save and place it in the <b>CygNet\Services\FMS\CommandDefs</b> directory. You can then edit the file copy as required.</p>
+        </div>
+        <p>Various export commands may reference different sections of the same .cdf file. The section of the file used by each export command is specified by the value of the <b>File format version</b> parameter specified when configuring the export command.</p>
+        <h4>General Command Definition File Requirements</h4>
+        <p>The following general requirements apply to Command Definition Files.</p>
+        <ul>
+            <li value="1">The .cdf must be named <b>Export</b><i>[ExportType]</i><b>.cdf</b> so that the FMS service can find it by the expected name.</li>
+            <li value="2">The .cdf must be located in the <b>CygNet\Services\FMS\CommandDefs</b> folder so that the FMS service can find it in the expected location. </li>
+            <li value="3"> For Flow-Cal exports, the .cdf  includes (at least) one or (optionally) multiple file command definitions for data exports; the name of each version is defined in the file, and the version to be used by the export command is specified by the <b>File format version</b> command parameter.</li>
+            <li value="4">For PGAS exports, the .cdf  includes (hard-coded) mappings which cannot be viewed or edited at this time.</li>
+            <li value="5">The .cdf must be reloaded if dependent data in the file is changed after the definition has been loaded for the command, in order for those changes to take effect.                <ul class="Circle"><li value="1">A change  made (and saved) in a .cdf file within the CommandDefs directory causes all files in the directory to be reloaded.   However, a change made to dependent data in one of the files (e.g. unit sets referenced by the .cdf file) that occurs <i>after</i> the files have already been loaded for the command will not be included in the command definition until the affected file is reloaded. To ensure that changed information (e.g. unit sets) is included in the export, the file referencing the dependent data change must be reloaded. Manually open and save a file within the CommandDefs directory  to cause the FMS service to reload all files within the directory.</li></ul></li>
+            <li value="6">Data represented by valid FMS data item tokens is retrieved at runtime.<div class="Note"><p><span class="NoteHeading">Note:</span> Do not edit the data item token text. The FMS service can only recognize data item tokens by their expected names.</p></div></li>
+        </ul>
+        <h4>Command Definition File Structure </h4>
+        <p>A .cdf file contains descriptive elements and defining attributes including the file display formatting information, a list of tokens representing the data item values you are exporting and (optionally) the mappings for the text of the corresponding column header names.</p>
+        <p>Each <a href="#Supporte" class="selected">supported data item token</a> (e.g. <b>"BeginDate"</b>, <b>"NodeName"</b>, or <b>"NodeDesc"</b> in the example) returns the value of the FMS data item it represents, and the text entered as each corresponding ColumnMapping name value (e.g. <b>"Date"</b>, <b>"Meter"</b>, or <b>"Well"</b> in the example) appears as the column header name (when headers are used in the file). </p>
+        <p>You can define <a href="#Setting" class="selected">multiple export file types</a> within one CDF file.</p>
+        <p>The structure of a .cdf file for exporting a Flow-Cal data CFX file is shown in the following partial example (two export file versions, 8.0.6 and 7.0.6, are shown in an abbreviated form).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ExportFlowCal&gt;</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">&lt;FlowCalCommand DisplayIdentifier="8.0.6" Version="8.0.6"&gt;</p>
+                    <p class="Code3">&lt;Alarms&gt;</p>
+                    <p class="Code4">&lt;AlarmType&gt;</p>
+                    <p class="Code5">&lt;DifferentialPressure&gt;eFMS_ALARM_TYPE_DP&lt;/StaticPressure&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">&lt;/FlowCalCommand&gt;</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">&lt;FlowCalCommand DisplayIdentifier="7.0.6" Version="7.0.6"&gt;</p>
+                    <p class="Code3">&lt;Alarms&gt;</p>
+                    <p class="Code4">&lt;AlarmType&gt;</p>
+                    <p class="Code5">&lt;DifferentialPressure&gt;eFMS_ALARM_TYPE_DP&lt;/StaticPressure&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">&lt;/FlowCalCommand&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Supporte"></a>Supported Data Item Tokens for Command Definition Files</h4>
+        <p>In general, data item tokens supported for the command definition file used to define <a href="Command Parameters - Export Device Data CSV.htm">Device Data CSV exports</a> are equivalent to the tokens supported for data tables by <a href="Gas Device Raw QTR Report Templates.htm">Gas Device Raw QTR reports</a> or <a href="Gas Device QTR Report Templates.htm#Configur2">(Gas) Device QTR reports</a>, but there are some cases where specific tokens are supported in one format and not the other. Also, whereas the QTR reports recognize valid token names enclosed in brackets <b>[</b><i>TokenName</i><b>]</b>, CDF files recognize equivalent valid token names enclosed in quotation marks <b>"</b><i>TokenName</i><b>"</b>. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">Valid token for QTR reports = <b>[</b><i>TokenName</i><b>]</b></p>
+        <p class="Indent">Valid token for CDF = <b>"</b><i>TokenName</i><b>"</b></p>
+        <p>See <a href="Supported Tokens - Device Data CSV.htm">Supported Tokens for Device Data CSV Exports</a> for a list of valid data item tokens for exports.</p>
+        <h4><a name="Setting"></a>Setting Up Multiple Export File Types</h4>
+        <p>A single command definition file can define multiple file export types or versions for Flow-Cal export commands.</p>
+        <p>If you will be performing more than one type or version of file export to accommodate different business purposes, the same .cdf file can accommodate the needed variations in a single file. Within the working command definition file (FileExportDefinitions element), copy an existing command definition file (FileExport element) and edit the copy to create a separate new command definition within the file (e.g. v15  Export). </p>
+        <p>Clearly define each file export type  (its FileExport element) to reflect the appropriate type of data and customization (e.g. "NW Daily Export" or "Section_3 Weekly Export"), using the DisplayIdentifier attribute. Similarly define additional attributes to complete the command definition. Each command definition will then contain its own properly configured data-type-specific information within the CDF file. This new command definition type (e.g. "NW Daily Export") can be referenced in the corresponding command by the <a href="Command Parameters - Export Device Data CSV.htm#File">file definition type</a> parameter. See <a href="Command Parameters - Export Device Data CSV.htm">Export: Device Data CSV</a> for more information about command parameters.</p>
+        <p>This process can be repeated to customize the format and content of each additional version you will be exporting.</p>
+        <h3><a name="Editing"></a>Editing the Command Definition File (CDF)</h3>
+        <p>CDF files are editable for Flow-Cal exports; they are not editable for PGAS exports.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Plan to make and save any edits to your CDF file for a time when it is convenient to also restart your FMS service. Once you edit the command definition file, the export command referencing the .cdf file will be unavailable until the file changes are saved and the FMS service is restarted. The FMS service restart must occur in order to load the new version of the CDF  into your system, making it available for use by the file export command. </p>
+        </div>
+        <p>To change customized information contained in the .cdf file, simply edit the referenced .cdf file to contain the new information, save the changes, and then restart your FMS service.</p>
+        <h3><a name="Updating"></a>Updating a Sample Command Definition File (CDF)</h3>
+        <p>Updated versions of sample CDF files are sometimes made available by CygNet, to modify or add functionality to data exports. Sample CDF files themselves must not be modified or renamed.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Plan to update any sample CDF files at a time when it is convenient to also restart your FMS service. You must first delete the previous sample command definition file, as the file name in the sample folder cannot be changed and the new file will not be loaded if there is already a file present with the same name. The new sample CDF file will become available only once the previous file has been deleted and the FMS service is restarted to provide the new one. The FMS service restart will load the new version of the sample CDF  into your sample folder, making it available for use when creating subsequent file export commands. </p>
+        </div>
+        <p>To update the sample .cdf file, simply delete the previous sample .cdf file from the folder, and then restart your FMS service to populate the folder with the new version.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

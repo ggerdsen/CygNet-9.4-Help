@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Adding Automatic Polling to a Screen</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Adding Automatic Polling to a Screen</span>
+        </div>
+        <h2>Adding Automatic Polling to a Screen</h2>
+        <p>A simple polling interval section can be added to any screen to which polling applies.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/CygNet Studio/030000114.png" />
+        </p>
+        <p>An invisible timer issues a poll command on the specified polling interval for a specified duration, then stops. The <b>Polling Duration</b> drop-down menu also has an option to poll indefinitely on the given interval.</p>
+        <p>The following example shows how an auto polling control panel can be set up.</p>
+        <p class="HeadingProcedure">To Add Automatic Polling to a Screen</p>
+        <ol start="1">
+            <li value="1">Create a new Studio screen.</li>
+            <li value="2">Add the following controls:</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li class="HyperlinkList" value="1">A <a href="Check Button Tool.htm">Check Button</a>, with the <b>(ObjectCode)</b> set to chkEnable.</li>
+            <li class="HyperlinkList" value="2">A <a href="Combo Box Tool.htm">Combo Box</a>, with the <b>(ObjectCode)</b> set to cboInterval.</li>
+            <li value="3">A second Combo Box, with the <b>(ObjectCode)</b> set to cboDuration.</li>
+            <li value="4">An ActiveX control (choose <b>iTimersX</b>), with the <b>(ObjectCode)</b> set to timer.</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Add elements to the <b>Combo Boxes</b>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the properties for cboInterval, click the <b>ListItems</b> field. Enter the following items: “5 seconds,” “10 seconds,” and “30 seconds.”&#160; These intervals can be modified to suit your application. Set <b>NumDropped</b> to 3.</li>
+            <li value="2">In the properties for cboInterval, click the <b>ListItems</b> field. Enter the following items: “1 minute,” “2 minutes,” “5 minutes,” and “Forever.” These durations can be modified to suit your application. Set <b>NumDropped</b> to 4.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">In the properties for the <b>Timer</b>, set <b>Visible</b> to <b>No</b>.</li>
+            <li value="5">Add initialization script.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Open the <b>Script Editor</b> and navigate to the chkEnable <b>EventInitialize</b> event.</li>
+            <li value="2">Enter the following script to set the <b>Check *</b> to unchecked.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub chkEnable_EventInitialize()</p>
+                    <p class="Code2">Dim This : Set This = chkEnable</p>
+                    <p class="Code2">this.Check = 0</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="3" class="Lower_alpha">
+            <li value="3">Navigate to the cboInterval <b>EventInitialize</b> event.</li>
+            <li value="4">Enter the following script to ensure that the first item is selected.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub cboInterval_EventInitialize()</p>
+                    <p class="Code2">Dim This : Set This = cboInterval</p>
+                    <p class="Code2">This.Selection = 0</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="5" class="Lower_alpha">
+            <li value="5">Navigate to the cboDuration <b>EventInitialize</b> event.</li>
+            <li value="6">Enter the following script to ensure that the first item is selected.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub cboDuration_EventInitialize()</p>
+                    <p class="Code2">Dim This : Set This = cboDuration</p>
+                    <p class="Code2">This.Selection = 0</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="6">
+            <li value="6">Add script to the <b>Check Box</b>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Navigate to the chkEnable <b>EventChange</b> event.</li>
+            <li value="2">Enter the following script. This script runs when a user checks or unchecks the <b>Check Box</b>. The cboDuration control is analyzed and the timer’s interval (number 2) is set accordingly. Timer intervals are measured in milliseconds.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub chkEnable_EventChange()</p>
+                    <p class="Code">Dim This : Set This = chkEnable</p>
+                    <p class="Code2">If This.Check = True Then</p>
+                    <p class="Code3">timer.Enabled1 = True</p>
+                    <p class="Code3">timer.Enabled2 = True</p>
+                    <p class="Code3">strTime = FormatDateTime(Now(),0)</p>
+                    <p class="Code3">If cboDuration.Selection = 0 Then '1 minute</p>
+                    <p class="Code4">timer.Interval2 = (60 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If cboDuration.Selection = 1 Then&#160; '2 minutes</p>
+                    <p class="Code3">timer.Interval2 = (120 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If cboDuration.Selection = 2 Then&#160; '5 minutes</p>
+                    <p class="Code3">timer.Interval2 = (300 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If cboDuration.Selection = 3 Then&#160; 'Indefinitely</p>
+                    <p class="Code3">timer.Interval2 = (500 * 1000)</p>
+                    <p class="Code2">End if</p>
+                    <p class="Code">Else</p>
+                    <p class="Code2">timer.Enabled1 = False</p>
+                    <p class="Code2">timer.Enabled2 = False</p>
+                    <p class="Code">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="7">
+            <li value="7">Add script to the <b>Combo Boxes</b>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Navigate to the cboDuration <b>EventChange</b> event.</li>
+            <li value="2">Enter the following script. This script runs when a user changes the selection in the duration <b>Combo Box</b>. The timer control’s interval (number 2) is updated accordingly.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub cboDuration_EventChange()</p>
+                    <p class="Code">Dim This : Set This = cboDuration</p>
+                    <p class="Code2">If This.Selection = 0 Then&#160; '1 minute</p>
+                    <p class="Code3">timer.Interval2 = (60 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If This.Selection = 1 Then&#160; '2 minutes</p>
+                    <p class="Code3">timer.Interval2 = (120 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If This.Selection = 2 Then&#160; '5 minutes</p>
+                    <p class="Code3">timer.Interval2 = (300 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If This.Selection = 3 Then&#160; 'Indefinitely</p>
+                    <p class="Code3">timer.Interval2 = (500 * 1000)</p>
+                    <p class="Code2">End if</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="3" class="Lower_alpha">
+            <li value="3">Navigate to the cboInterval <b>EventChange</b> event.</li>
+            <li value="4">Enter the following script. This script runs when a user changes the selection in the interval <b>Combo Box</b>. The timer control’s interval (number 1) is updated accordingly.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub cboInterval_EventChange()</p>
+                    <p class="Code">Dim This : Set This = cboInterval</p>
+                    <p class="Code2">If This.Selection = 0 Then&#160; '5 seconds</p>
+                    <p class="Code3">timer.Interval1 = (5 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If This.Selection = 1 Then&#160; '10 seconds</p>
+                    <p class="Code3">timer.Interval1 = (10 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">If This.Selection = 2 Then&#160; '30 seconds</p>
+                    <p class="Code3">timer.Interval1 = (30 * 1000)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="8">
+            <li value="8">Add script to the <b>Timer</b> events.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Navigate to the timer <b>EventOnTimer1</b> event.</li>
+            <li value="2">Enter the following script. The event uses the global inTimer Boolean variable to determine whether or not the process within the timer is being executed or not, a good practice to use in cases where the events in the timer take longer than the timer interval.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub timer_EventOnTimer1()</p>
+                    <p class="Code">Dim This : Set This = timer</p>
+                    <p class="Code2">On Error Resume Next</p>
+                    <p class="Code2">If inTimer = False Then</p>
+                    <p class="Code3">inTimer = True</p>
+                    <p class="Code3">btnPoll.RunClick</p>
+                    <p class="Code3">inTimer = False</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub </p>
+                </td>
+            </tr>
+        </table>
+        <ol start="3" class="Lower_alpha">
+            <li value="3">Navigate to the timer <b>EventOnTimer2</b> event.</li>
+            <li value="4">Enter the following script. This script executes when the timer’s second interval reaches the end of its duration, and turns off the first interval unless the user has it running "forever."</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub timer_EventOnTimer2()</p>
+                    <p class="Code">Dim This : Set This = timer</p>
+                    <p class="Code2">If cboDuration.Selection &lt;&gt; 3 Then</p>
+                    <p class="Code3">Timer.Enabled1 = False</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="9">
+            <li value="9">Add general declarations.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Navigate to the <b>General, Declarations</b> section.</li>
+            <li value="2">Enter the following script to declare the inTimer variable and provide a method for polling. Insert the poll logic for your facility.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim inTimer</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub DoPoll()</p>
+                    <p class="Code2">'Custom poll logic</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="10">
+            <li value="10">Save the screen and switch to <b>Run</b> mode. To test whether or not the timer is firing at the determined rate, a MsgBox command can be added to the DoPoll method (for example, MsgBox("Polling")).</li>
+        </ol>
+        <p>This example can be extended in a number of ways. A <a href="Button Tool.htm">Button</a> can be added to poll immediately, or a <b>Label</b> can be added to show a countdown until the current poll duration will stop.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

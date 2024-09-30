@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Running File Import Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Import: Gas Quality CSV Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Running File Import Commands.htm">Running File Import Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Import: Gas Quality CSV</span>
+        </div>
+        <h2>Configuring Import: Gas Quality CSV Commands</h2>
+        <p>Use the <b>Import File: Gas Quality CSV</b> command to import comma-separated values (.csv) files containing gas quality data, and send  that information directly to the device.</p>
+        <p>You can also optionally decide to  import the gas quality data into your CygNet Measurement system. </p>
+        <p>To import the data into FMS as well, configure and edit  the gas quality .csv file to prepare it for successful importation, and do one of the following to request current configuration data from the device.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"> Automatically poll the device for configuration data - Prior to execution of the Import Gas Quality CSV command, set the <a href="#Request" class="selected">Request config after successful send</a> parameter to <b>Yes</b> to automatically poll the device for configuration data (including the data sent via the .csv import) after the file import command succeeds.</li>
+            <li class="HyperlinkList" value="2"> Manually request configuration data from the device - After successful completion of the Import Gas Quality CSV command, execute a <a href="Command Parameters - Request Current Configuration.htm">Request Current Configuration</a> command to request configuration data from the device (including the  data sent via the .csv import).</li>
+        </ul>
+        <p>In addition, you can optionally define details about how items in your gas quality .csv file are imported relative to FMS, and how they will appear in the file. To do this, column and data source settings can be customized using an import definition file (.idf) to map values. See <a href="Using an Import Definition File.htm">Using an Import Definition File</a> for more information about this option.</p>
+        <p>See <a href="FMS Commands.htm">FMS Commands</a> and <a href="Command Parameters - Import File - Gas Quality CSV.htm">Import: Gas Quality CSV</a> for more information about this command.</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3>Command Definition Properties</h3>
+        <p>The following command definition properties apply to Gas Quality CSV File Import commands. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Command type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>For system commands, this property will be read-only and will display the selected command type.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Priority</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Logging</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command in the MSS. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Command Parameters</h3>
+        <p>The following command parameters apply to <b>Import: Gas Quality CSV</b> commands, when creating or editing commands in FMS. See <a href="#Gas" class="selected">Gas Quality Import CSV Files</a> for more information about setting up your  .csv file for import.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Import file directory</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Enter the directory location from which to import the file.</p>
+                        <p>Type in the value or click <b>...</b> to access the <b>Browse for Folder</b> dialog box, and browse to the directory location.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The directory specified is  relative to the computer hosting the FMS service.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Import file mask</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If used, only files meeting the file mask entered will be considered for import.</p>
+                        <p>Type the file mask name.</p>
+                        <p>Default file mask value is "<b>*</b>" (multiple character wildcard).</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Processed files retention (days) </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If used, the files that have been processed will be deleted after the specified number of days. If not specified, processed files will never be deleted.</p>
+                        <p>Type the number of days.</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Unit set</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If used, select a unit set in which to view the data. </p>
+                        <p>Options appear in the drop-down menu, which is populated by the unit sets defined in the service.</p>
+                        <p>See <a href="Configuring Unit Set Definitions.htm">Configuring Unit Set Definitions</a> for more information.</p>
+                        <p>This parameter is optional.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                            <p>If you do not specify the unit set with this parameter, units for each included value must be specified using an .idf file.</p>
+                            <p>If you specify the unit set with this parameter AND in the .idf file, the value specified in the .idf file prevails, and overrides this setting.  In this way, you may override individual unit values by setting them in the .idf file.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Status point UDC</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If used, the UDC of the status point that monitors the status of the command. (The command will run whether or not it is monitored by a status point.)</p>
+                        <p>Type the status point UDC into the text box. The UDC will be combined with the field device Facility ID.</p>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a name="Request"></a>Request config after successful send</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select whether or not to automatically request configuration for the device once the imported data  has been successfully sent.  </p>
+                        <p>Options are <b>Yes</b> or <b>No</b>.</p>
+                        <p>Select <b>Yes</b> if you also want to automatically import the configuration data contained in the .csv file into FMS.</p>
+                        <p>Select <b>No</b> if you do not want to import the configuration data contained in the .csv file into FMS, or if you want to do so manually.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Max runtime (minutes)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Enter the maximum time (in minutes) to allow the command to run before the import will time out.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Entering a value of <b>0</b> causes the command to run indefinitely.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Communication attempt count</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Enter the number of times to attempt the import before it will fail.</p>
+                        <p>This parameter is optional.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                            <ul>
+                                <li value="1">If you specify <b>0</b> for this value, the import will be attempted until it succeeds.</li>
+                                <li value="2">If you do not specify a number, the default value is <b>1</b>.</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a name="Add"></a>Add devices to group</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If used, type the name of the group to which devices will be added.</p>
+                        <p>All devices with data in the imported .csv file  will be added to the specified group, resulting in a group containing Nodes that have imported data. You can then issue commands against the group.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Nodes added to this group are added  for the entire span of the Node or group (whichever is less).</p>
+                        </div>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Clear existing group entries</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>If used, options are <b>Yes</b> or <b>No</b>.</p>
+                        <p>If set to <b>Yes</b>, and a value has been specified for <a href="#Add" class="selected">Add devices to group</a>, any existing entries will be removed from the specified group before executing the command.</p>
+                        <p>If set to <b>No</b>, the existing group entries will be retained when executing the command.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Nodes cleared from this group are cleared  for the entire span of the Node or group.</p>
+                        </div>
+                        <p>This parameter is optional.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Gas"></a>Gas Quality Import CSV Files</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Prior to importing a Gas Quality .csv file,
+the following conditions must be met for each Node for which you are importing data.
+				<ul><li value="1">
+                The Node must exist in your FMS system. See <a href="Using the Nodes Menu.htm">Using the Nodes Menu</a> for more information about creating FMS Nodes.
+            </li></ul></p>
+        </div>
+        <p>Use the following procedure to prepare a Gas Quality import .csv file   for import. </p>
+        <p class="HeadingProcedure">To Configure and Edit a Gas Quality Import CSV File</p>
+        <p>Once generated, you can  edit the Gas Quality import .csv file as follows, prior to importing it and sending the data to the device.</p>
+        <ol>
+            <li value="1"><b>Open</b> a .csv file for your Gas Quality import.</li>
+            <li value="2">Ensure that required (as noted) columns are present in your file. If necessary, insert <a href="#Required" class="selected">required</a> columns using your .csv editor. All required Gas Quality import .csv columns are noted in the table below.</li>
+            <li value="3">Insert <a href="#Addition" class="selected">additional</a> columns into your file, as desired. All available Gas Quality import .csv columns are described or referenced in the tables below.</li>
+            <li value="4">Optionally edit any Gas Quality items desired (e.g. description, etc.) at this time, in preparation for importing the file into FMS. </li>
+            <li value="5"><b>Save</b> and <b>Close</b> the .csv file when you are done.</li>
+        </ol>
+        <h4>Gas Quality Import CSV Columns</h4>
+        <h5><a name="Required"></a>Required Gas Quality Import CSV Columns</h5>
+        <p>The following table lists the  columns for which values must exist in the Gas Quality import .csv file (as noted in each description)  in order for the FMS import to succeed. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Column</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Device</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The device name</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This column is required.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>eFMS_CFG_<b>*</b></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>At least one Gas Quality data item is required. See <a href="#Note" class="selected">Note</a> below this table.</p>
+                    <p>See <a href="../EIEs - Remote Devices/FMS Send Gas Quality Items.htm">FMS Send Gas Quality Items</a> for a complete list of supported gas quality items.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>[as specified in an .idf]</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>In the import definition file (.idf), additional columns may be identified as <b>required="true"</b> in order to perform the import.</p>
+                    <p>See <a href="Using an Import Definition File.htm">Using an Import Definition File</a> for more information.</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note"><a name="Note"></a>
+            <p><span class="NoteHeading">Note:</span> Although a minimum number of gas quality items may be sufficient to read the import file, additional items may be required for the FMS Service to successfully process the imported data, since some processes are dependent on additional data items for associated data.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h5><a name="Addition"></a>Additional Gas Quality Import CSV Columns</h5>
+        <p>Additional column headers can be included in the Gas Quality import .csv file. Columns can be included for any supported FMS gas quality items for which you have data in your system. </p>
+        <p>The following table lists options for column headers that may be contained in your  .csv file. It is provided only for reference, as your columns will be specific to your requirements. See <a href="../EIEs - Remote Devices/FMS Send Gas Quality Items.htm">FMS Send Gas Quality Items</a> for a complete list of FMS gas quality items supported by CygNet Measurement. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">FMS Gas Quality Item String</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2" style="font-weight: bold;">Gas Quality Items</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METHANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Methane (C1)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ETHANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Ethane (C2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_PROPANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Propane (C3)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ISOBUTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Isobutane (isoC4)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_N_BUTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Butane (C4)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ISOPENTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Isopentane (isoC5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_N_PENTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Pentane (C5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_NEO_PENTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Neopentane (neoC5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_N_HEXANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Hexane (C6)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_N_HEPTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Heptane (C7)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_N_OCTANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Octane (C8)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_N_NONANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Nonane (C9)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_N_DECANE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Decane (C10)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_NITROGEN</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Nitrogen (N2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CARBON_DIOXIDE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Carbon dioxide (CO2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_WATER</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Water (H2O)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_HYDROGEN_SULFIDE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Hydrogen sulfide (H2S)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_HYDROGEN</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Hydrogen (H2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CARBON_MONOXIDE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Carbon monoxide (CO)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_OXYGEN</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Oxygen (O2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_HELIUM</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Helium (He)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ARGON</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Argon (Ar)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_HEATING_VALUE_VOLUME </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Heating Value Volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_RELATIVE_DENSITY</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Relative density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_VISCOSITY</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Viscosity</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h5>CSV Columns Generated at Import </h5>
+        <p>Several .csv columns are generated during the file import, and are used for tracking and error identification purposes. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Warning:</span> Do not edit values in these columns. Doing so could jeopardize your ability to successfully complete the import.</p>
+        </div>
+        <p>The following table lists the  columns that are generated upon import of the gas quality import .csv file. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Column</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Operations</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The description of the last operation performed for the Node; used for tracking status.</p>
+                    <p>The value for this field is generated at import into FMS. </p>
+                    <p class="Warning">DO&#160;NOT&#160;EDIT&#160;THIS&#160;VALUE.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Tx Id</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The transaction ID; used for tracking status. </p>
+                    <p>The value for this field is generated at import into FMS.</p>
+                    <p class="Warning">DO&#160;NOT&#160;EDIT&#160;THIS&#160;VALUE.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Attempts</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The number of times the import will be attempted before it fails. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> A value of <b>0</b> in this column means the import will be attempted until it succeeds.</p>
+                    </div>
+                    <p>The value for this field is generated at import into FMS.</p>
+                    <p class="Warning">DO&#160;NOT&#160;EDIT&#160;THIS&#160;VALUE.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Status</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Results displayed include the following.</p>
+                    <ul class="table">
+                        <li value="1"><b>OK</b> — Import was successful.</li>
+                        <li value="2"><b>Error:</b><i style="font-weight: bold;"> X</i> — Import failed due to an error of type <i>X</i>.</li>
+                    </ul>
+                    <p>See <a href="Importing Group CSV Files into FMS.htm">Importing Group CSV Files into FMS</a> for more information.</p>
+                    <p>The value for this field is generated at import into FMS.</p>
+                    <p class="Warning">DO&#160;NOT&#160;EDIT&#160;THIS&#160;VALUE.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Error Text</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The explanatory text for a transaction error identified in the Status column. This information lets you  reconfigure or edit the identified error before attempting the import again.</p>
+                    <p>The value for this field is generated at import into FMS.</p>
+                    <p class="Warning">DO&#160;NOT&#160;EDIT&#160;THIS&#160;VALUE.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

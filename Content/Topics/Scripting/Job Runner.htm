@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CygNet Scripting Guide">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using Job Runner</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Scripting Guide.htm">CygNet Scripting Guide</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using Job Runner</span>
+        </div>
+        <h2>Using Job Runner</h2>
+        <p>The Job Runner is a multi-threaded execution environment for VBScript and .NET assembly methods. Potential uses for Job Runner include:</p>
+        <ul>
+            <li value="1">Improving efficiency of an HSS by taking long-running scripts and having them run on multiple concurrent threads</li>
+            <li value="2">Retaining responsiveness for a CygNet Studio screen by executing script activities on a thread separate from the UI thread</li>
+            <li value="3">Executing methods on a .NET assembly in either an HSS or Studio script</li>
+        </ul>
+        <p>Not every script is an ideal candidate for execution via the Job Runner. It uses a separate script engine and therefore does not have access to the shared objects in the HSS or CygNet Studio, such as the <a href="CxScript Facilities Object.htm">Facilities</a> or <a href="CxScript Points Object.htm">Points</a> objects (though you can create new instances of them). Ideal scripts are stand-alone and do not require outside input. </p>
+        <p>Errors are logged to a log file, named for the process where the Job Runner is running, which is found in the <b>C:\Users\[user]\AppData\Local\CygNet\LogFiles\JobRunner\</b> folder. You can override the default location using the <b>SetLoggingLocation</b> method.</p>
+        <p>You can also capture the output of your scripted jobs by using VBScript’s Standard Output.  Anything written using the Write() or Echo() functions will be logged in the Job Runner and can be read using the <b>GetJobOutput</b> method.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Executing" class="selected">Execute a Job</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Getting_Status" class="selected">Get Status for a Job</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Scheduling" class="selected">Schedule a Job</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Kill" class="selected">Kill Job Runner Process</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Logging" class="selected">Job Runner Logs</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Sample_Screen" class="selected">Sample Studio Screen</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Troubleshooting" class="selected">Troubleshooting</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#HSS" class="selected">Use Job Runner in the HSS</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#Methods" class="selected">JobRunner Methods Reference</a>
+            </li>
+        </ul>
+        <h3><a name="Executing"></a>Execute a Job</h3>
+        <p>The <b>JobRunner</b> object and one of the following objects are necessary to execute a job:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><b>Job</b> — to run a method on an assembly</li>
+            <li class="HyperlinkList" value="2"><b>ScriptJob</b> — to run a VBScript</li>
+        </ul>
+        <h4>Creating the JobRunner object</h4>
+        <p>The first step in executing a Job is to create a <b>JobRunner</b> object. </p>
+        <p>The following example creates a <b>JobRunner</b> object:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim g_objJobRunner</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Set g_objJobRunner = CreateObject("CygNet.API.JobRunner.JobRunner")</p>
+                </td>
+            </tr>
+        </table>
+        <p>When creating the <b>JobRunner</b> object, be mindful of its scope as it can only execute jobs while it exists. The following script is an example of how NOT to create a <b>JobRunner</b> object. In the script below, when <b>RunJob</b> is called, it will create a <b>JobRunner</b> object, then execute its job. However, job execution does not block the script engine, so  <b>RunJob</b> will exit along with all variables declared inside its scope, including the <b>JobRunner</b> object you created.  If a single-thread hasn’t finished by then, the <b>JobRunner</b> object would be killed. This is why multi-threaded programming is preferable.  </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub RunJob()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim objJobRunner</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Set objJobRunner = CreateObject("CygNet.API.JobRunner.JobRunner")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">' create and execute Job</p>
+                    <p class="Code2">…</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Best practice is to declare the<b>JobRunner</b> object in global scope for the script engine you are using. For CygNet Studio screens and HSS scripts, this is typically in the <b>Declarations</b> section.</p>
+        </div>
+        <p>Before executing any jobs, you can tell the JobRunner how many concurrent jobs you want it to run. There is no universally correct number of allowed threads; it depends on the computer that is running the jobs. This is done via the <b>SetMaxActiveJobs</b> method on the <b>JobRunner</b> object. In the following example, the script will limit the JobRunner to three concurrent threads. Once the limit has been reached, additional jobs will be queued and executed in the order submitted. The default number of active jobs for your <b>Job Runner</b> object is five.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">g_objJobRunner.SetMaxActiveJobs 3</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Create a Job object</h4>
+        <p>After creating a <b>JobRunner</b> object, either a <b>Job</b> object or a <b>ScriptJob</b> object must be created.</p>
+        <h5>Using a Job Object to Execute an Assembly Method</h5>
+        <p>To execute a job using the Assembly method, create a <b>Job</b> object:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objAssemblyJob</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Set objAssemblyJob = CreateObject("CygNet.API.JobRunner.Job")</p>
+                </td>
+            </tr>
+        </table>
+        <p>Three pieces of information are necessary to locate the Assembly method that you want your job to run:</p>
+        <ul>
+            <li value="1">Assembly name</li>
+            <li value="2">Class name</li>
+            <li value="3">Method name</li>
+        </ul>
+        <p>In the following example, the assembly name is <b>CygNet.API.Reporter</b>. In this assembly, the object (or class) is <b>ReportEngine</b>, which is written as <b>CxAEReporter.ReportEngine</b>. The method name on the <b>ReportEngine</b> object is <b>CreateReport</b>. </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Set job = CreateObject("CygNet.API.JobRunner.Job")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">job.AssemblyName = "CygNet.API.Reporter"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">job.ClassName = "CxAEReporter.ReportEngine"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">job.MethodName = "CreateReport"</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The assembly used should be registered in the Windows Global Assembly Cache (GAC).</p>
+        </div>
+        <p>If you need to specify the parameters for the provided method, the <b>Job</b> object contains an array for this list of parameters. For example, the <b>CreateReport</b> method in the above example takes three parameters: the path to a Report Definition file, the HSS Site.Service, and whether a file should be saved. The following example shows how to set these parameters.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim arrParams (2)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrParams (0) = "C:\Reports\report.rdf"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrParams (1) = "CYGNET.HSS"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrParams (2) = "true"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">job.Parameters = arrParams</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If the method invoked returns a string as a result, it will be stored in the Job Runner as the job’s status, which can be retrieved after the job is complete.</p>
+        </div>
+        <h5>Using a ScriptJob Object to Execute a VBScript</h5>
+        <p>To execute a job using  VBScript, use the <b>ScriptJob</b> object:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objScriptJob</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Set objScriptJob = CreateObject("CygNet.API.JobRunner.ScriptJob")</p>
+                </td>
+            </tr>
+        </table>
+        <p>A job’s script can come from multiple sources, as shown in the following table:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Source</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">ScriptSourceType Value</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">ScriptSourcePath Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Local script file</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The script  to execute exists on a local file system, likely in a *.VBS file.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>0</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Path to the local file (i.e., “C:\Scripts\MyScript.VBS”)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>CygNet (HSS) point</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The script to execute is specified in the Script section of an HSS point. This point’s script should NOT be enabled, because it will then be executed directly by the HSS, not by the Job Runner.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>1</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Name of the HSS points (i.e., “CYGNET.HSS:JOBRUNNER_SCRIPT”)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>BSS script file</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The script to execute is in a file on the BSS. It will be copied locally and run.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> See <a href="#Temporar" class="selected">Configure Temporary Path for BSS Scripts</a> to override the BSS path.</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">2</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Path to the BSS file (i.e., “CYGNET.BSS\SCRIPTS\MyScript.VBS”)</p>
+                </td>
+            </tr>
+        </table>
+        <p>For example, to configure a job to execute from an HSS point:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">objScriptJob.ScriptSourceType = 1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objScriptJob.ScriptSourcePath = "CYGNET.HSS:JOBRUNNERTEST1_SCRIPT"</p>
+                </td>
+            </tr>
+        </table>
+        <p>Parameters for Script jobs are handled in the same way as Assembly jobs, except  they are passed as command-line parameters to the script engine, rather than being passed into a method. </p>
+        <p>If, for example, you configure a script job with the parameters below:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim arrParams (2)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrParams (0) = "CYGNET.UIS"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrParams (1) = "ASH_WELL"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">arrParams (2) = "142.42"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objScriptJob.Parameters = arrParams</p>
+                </td>
+            </tr>
+        </table>
+        <p>Then in the script that you execute, the parameter values can be accessed as in this example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Set objCmdLineParameters = Wscript.Arguments</p>
+                </td>
+            </tr>
+        </table>
+        <p>The parameters will be listed in the new array in the same order that they were originally written. For example, objCmdLineParameters(0) will equal "CYGNET.UIS".
+</p>
+        <p>If the script fails, the error returned from the script engine is written to the Job Runner <a href="#Logging" class="selected">log file</a>.
+</p>
+        <h5><a name="Temporar"></a>Configure Temporary Path for BSS&#160;Scripts</h5>
+        <p>You can specify an alternate or temporary download location for BSS-based and point-based scripts:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">g_objJobRunner.SetLoggingLocation  "C:\CygNet\JobRunner\Logs", "JobRunnerOutput"</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Submitting"></a>Submit the Job</h4>
+        <p>Once both JobRunner and Job objects are created, you can submit the job to be run. The job will execute immediately unless the JobRunner already has its maximum number of threads running, in which case it will be queued until a thread is available.</p>
+        <p>To submit a job, use the <b>ExecuteJob</b> method on the <b>JobRunner</b> object:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">g_objJobRunner.ExecuteJob(objScriptJob)</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Getting_Status"></a>Get Status for a Job</h3>
+        <p>Job status, such as job completion or error messages for failed operations, can be requested from the JobRunner by first storing the Job ID, and then using the <b>GetJobStatus</b> method.</p>
+        <p>To reference a job later, you must store its ID, which is returned from <b>ExecuteJob</b>. An example follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim nJobId</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">nJobId = g_objJobRunner.ExecuteJob(objScriptJob)</p>
+                </td>
+            </tr>
+        </table>
+        <p>Use <b>GetJobStatus</b> and include the Job ID to request status for the job:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim strStatus</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">strStatus = g_objJobRunner.GetJobStatus(nJobId)</p>
+                </td>
+            </tr>
+        </table>
+        <p>Use the following methods to retrieve other job information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><b>GetActiveJobs</b> — returns a list of all running jobs</li>
+            <li class="HyperlinkList" value="2"><b>GetPendingJobs</b> — returns a list of all jobs waiting in the queue</li>
+            <li class="HyperlinkList" value="3"><b>GetAllJobs</b> — returns list of all jobs whose statuses JobRunner has stored</li>
+            <li class="HyperlinkList" value="4"><b>ClearJobList</b> — clears the list of job statuses. Will not stop actively running or queued jobs</li>
+        </ul>
+        <p>The following table lists and describes Status types that can be retrieved using JobRunner.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Status</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Applicable Job Type</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Pending</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">
+                    <p>The Job Runner is processing the request to execute the job.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>All</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Queued</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">
+                    <p>The Job Runner is currently executing its maximum number of threads. The job will be run when a thread becomes available.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>All</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Running</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">
+                    <p>The job is currently active.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>All</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Script completed</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">
+                    <p>The script has finished successfully.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Script job</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Script failed: &lt;Error message&gt;</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">
+                    <p>The script failed. More information provided in the error message.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Script job</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Other</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">
+                    <p>If the method invoked in an Assembly job returns a string, it will be stored as the job's status.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Assembly job</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Store status to a CygNet point</h4>
+        <p>A truncated  status string can be stored to a CygNet point. This same status point can then be used for all jobs by setting the status point for the JobRunner. An example follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">g_objJobRunner.SetStatusPoint("SITE.SERVICE:LONGPOINTID")</p>
+                </td>
+            </tr>
+        </table>
+        <p>Setting the <b>StatusPoint</b> property on the job sets a different status point per job:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Set job = CreateObject("CygNet.API.JobRunner.Job")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">job.StatusPoint = "SITE.SERVICE:LONGPOINTID"</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The status point must exist in CygNet before status can be written.</p>
+        </div>
+        <h4><a name="Output"></a>Get the output of a scripted job </h4>
+        <p>To request the output of a scripted job from the JobRunner,  use the Write() or Echo() functions in VBScript to output messages.  That data will be captured and logged with the associated Job ID.  Once a script job is complete, use <b>GetJobOutput</b> to retrieve the messages written by the script.</p>
+        <p>To reference a job later, you must store its ID, which is returned from <b>ExecuteJob</b>. An example follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim nJobId</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">nJobId = g_objJobRunner.ExecuteJob(objScriptJob)</p>
+                </td>
+            </tr>
+        </table>
+        <p>Use <b>GetJobOutput</b> and include the Job ID to request the output of the job from the JobRunner:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim strOutput</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">strOutput = g_objJobRunner.GetJobOutput(nJobId)</p>
+                </td>
+            </tr>
+        </table>
+        <p>The <b>GetJobError</b> method can be used in the same way to request the errors associated with a job.</p>
+        <h4><a name="Output_mode"></a>Output mode for a scripted job</h4>
+        <p>The following parameters are available on the ScriptJob level to allow you to select an output mode (synchronous or asynchronous) and whether to write output and errors to the log file:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Desciption</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Default</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>UseSynchronousOutput </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>This parameter controls when the output of a scripted job will be available for retrieval via the <b>GetJobOutput</b> method.</p>
+                    <ul class="table">
+                        <li value="1">When set to true, the output will be available when the script job is complete, and there is no limit on the size of the output.</li>
+                    </ul>
+                    <ul class="table">
+                        <li value="1">When set to false, the output is available while the job is running and upon job completion. Note that there is a limit on the size of output the scripted job can handle (between 4000 and 5000 characters).</li>
+                    </ul>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>True</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>WriteOutputToLogFile </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>This parameter controls whether the output is written to the log file.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <p>False</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>WriteErrorToLogFile </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>This parameter controls whether script errors are written to the log file.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>True</p>
+                </td>
+            </tr>
+        </table>
+        <p>These parameters are used in the following way:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub CreateJob(path, pathType)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim scriptJob</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Set scriptJob = CreateObject("CygNet.API.JobRunner.ScriptJob")</p>
+                    <p class="Code2">scriptJob.ScriptSourceType = pathType</p>
+                    <p class="Code2">scriptJob.ScriptSourcePath = path</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">scriptJob.UseSynchronousOutput = True</p>
+                    <p class="Code2">scriptJob.WriteOutputToLogFile = False</p>
+                    <p class="Code2">scriptJob.WriteErrorToLogFile = True</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim nJobId : nJobId = jobRunner.ExecuteJob(scriptJob)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Scheduling"></a>Schedule a Job</h3>
+        <p>Jobs can be scheduled using the same methods used to schedule other scripts in CygNet. The usual procedure is to schedule an MSS <a href="CxScript GlobalFunctions Methods.htm#SetPoint">SetPoint</a> task to run periodically. Then a HyperPoint is configured to monitor the same point that the MSS is changing.  This is typically done in the <a href="CxScript HyperPoint Events.htm#OnInitializeEx">OnInitializeEx</a> event using the <a href="CxScript Points Methods.htm#pts_AddPoint">Points.AddPoint</a> method and the NotifyHyperPoint parameter.  When the MSS issues the SetPoint, the HyperPoint then triggers a script in the <a href="CxScript HyperPoint Events.htm#OnPointChange">OnPointChange</a> event to add a new job to the JobRunner. For more information, see <a href="Using HyperPoints.htm">Using HyperPoints</a>.</p>
+        <p>In the <a href="CxScript HyperPoint Events.htm#OnPointChange">OnPointChange</a> event handler, you can create a job and pass it to the JobRunner that you created for the HSS. While this method appears similar to just writing a script in the HSS, once <b>ExecuteJob</b> is called, the HSS is able to continue on to the next HyperPoint script while your job script (or assembly method) runs in the background on a separate thread. This multi-threading capability is the true power of using Job Runner.</p>
+        <p>A sample HSS script using this method follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim g_objJobRunner</p>
+                    <p class="Code2">Set g_objJobRunner = CreateObject("CygNet.API.JobRunner.JobRunner")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                    <p class="Code">Sub JOB_RUNNER_TEST_HSS_OnInitializeEx(This)</p>
+                    <p class="Code2">Dim obj</p>
+                    <p class="Code2">Set obj = CreateObject("CxScript.GlobalFunctions")</p>
+                    <p class="Code2">obj.EnableLiveMode True</p>
+                    <p class="Code2">Points.AddPoint "CYGDEMO.HSS:JOBRUNNERTEST_TRIGGER", This</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub JOB_RUNNER_TEST_HSS_OnPointChange(This, Tag)</p>
+                    <p class="Code2">Dim value</p>
+                    <p class="Code2">value = Points.Point(Tag).Value</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">This.Value = value</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If value = "Go!" Then</p>
+                    <p class="Code3">Dim obj</p>
+                    <p class="Code3">Set obj = CreateObject("CxScript.GlobalFunctions")</p>
+                    <p class="Code3">obj.EnableLiveMode True</p>
+                    <p class="Code3">obj.SetPoint "CYGDEMO.HSS:JOBRUNNERTEST1_STATUS", ""</p>
+                    <p class="Code3">obj.SetPoint "CYGDEMO.HSS:JOBRUNNERTEST2_STATUS", ""</p>
+                    <p class="Code3">obj.SetPoint "CYGDEMO.HSS:JOBRUNNERTEST3_STATUS", ""</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">g_objJobRunner.SetMaxActiveJobs 3</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">Dim scriptJob1</p>
+                    <p class="Code3">Set scriptJob1 = CreateObject("CygNet.API.JobRunner.ScriptJob")</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">Dim scriptJob2</p>
+                    <p class="Code3">Set scriptJob2 = CreateObject("CygNet.API.JobRunner.ScriptJob")</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">Dim scriptJob3</p>
+                    <p class="Code3">Set scriptJob3 = CreateObject("CygNet.API.JobRunner.ScriptJob")</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">scriptJob1.ScriptSourceType = 1</p>
+                    <p class="Code3">scriptJob2.ScriptSourceType = 1</p>
+                    <p class="Code3">scriptJob3.ScriptSourceType = 1</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">scriptJob1.ScriptSourcePath = "CYGDEMO.HSS:JOBRUNNERTEST1_SCRIPT"</p>
+                    <p class="Code3">scriptJob2.ScriptSourcePath = "CYGDEMO.HSS:JOBRUNNERTEST2_SCRIPT"</p>
+                    <p class="Code3">scriptJob3.ScriptSourcePath = "CYGDEMO.HSS:JOBRUNNERTEST3_SCRIPT"</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">Dim scriptJobId1</p>
+                    <p class="Code3">Dim scriptJobId2</p>
+                    <p class="Code3">Dim scriptJobId3</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">scriptJobId1 = g_objJobRunner.ExecuteJob(scriptJob1)</p>
+                    <p class="Code3">scriptJobId2 = g_objJobRunner.ExecuteJob(scriptJob2)</p>
+                    <p class="Code3">scriptJobId3 = g_objJobRunner.ExecuteJob(scriptJob3)</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">obj.SetPoint Tag, "Stop!"</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Kill"></a>Kill Job Runner Processes</h3>
+        <p>To terminate any Job Runner script processes, use the KillAllScriptJobs() and KillScriptJob(int jobId) methods.</p>
+        <ul>
+            <li value="1">KillAllScriptJobs() — Terminates all Job Runner script processes</li>
+            <li value="2">KillScriptJob(int jobId) — Terminates the specified Job ID only</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The HSS may not restart successfully if a Job Runner script is still executing on the same port. To avoid this issue when the HSS shuts down, the scripter will need to make use of the <a href="CxScript HyperPoint Events.htm#OnTerminateEx">OnTerminateEx</a> event in conjunction with one of the new methods to either selectively terminate long-running scripts jobs or terminate all outstanding script jobs.</p>
+        </div>
+        <h3><a name="Logging"></a>Job Runner Logs</h3>
+        <p>By default, the Job Runner writes logging and error information to a .csv file found in the <b>C:\Users\[user]\AppData\Local\CygNet\LogFiles\JobRunner\</b> folder. </p>
+        <p>The name of the log file depends on the process where the Job Runner in running:</p>
+        <ul>
+            <li value="1">if the process is running in the HSS, the log file is named <b>HSS&lt;###&gt;.csv</b></li>
+            <li value="2">if the process is running in CygNet Studio, the log file will be named <b>CStudio&lt;###&gt;.csv</b></li>
+        </ul>
+        <p>You can override this default location and file name using the <b>SetLoggingLocation</b> method. For example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">g_objJobRunner.SetLoggingLocation  "C:\CygNet\JobRunner\Logs", "JobRunnerOutput"</p>
+                </td>
+            </tr>
+        </table>
+        <p>To greatly increase the amount of logging, use the <b>EnableDebugLogging</b> method for the Job Runner. Caution: this may greatly increase the amount of logging depending on the number of jobs and the frequency of execution. For example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">g_objJobRunner.EnableDebugLogging True</p>
+                </td>
+            </tr>
+        </table>
+        <p>For script jobs,  VB Script’s Standard Output can also be used to capture the output of your scripted jobs.  Anything written using the Write() or Echo() functions can be obtained from the Job Runner using the <b>GetJobOutput</b> method, described <a href="#Output" class="selected">here</a>. </p>
+        <p>Additionally, <a href="HSS Profiling.htm#LogManager">LogManager</a> can be used to log to file.</p>
+        <h3><a name="Sample_Screen"></a>Sample Studio Screen</h3>
+        <p>A sample CygNet Studio screen called <b>Job Runner Example.csf</b> is located in the APPS Blob in the SCREXAMP folder.  This screen allows you to create Assembly and Script jobs using some basic inputs for various required fields.  It also displays a grid of jobs in the Job Runner along with their status.  For scripted jobs, the grid also shows any output or errors.  While this sample screen limits parameter input to three, there is no limit to the number of parameters that can be passed to a Job.</p>
+        <h3><a name="Troubleshooting"></a>Troubleshooting</h3>
+        <p>Troubleshooting a job running in the Job Runner can be complex as there are a number of moving parts. The following are recommendations for diagnosing issues.</p>
+        <h4>Test the job script and .NET code outside the Job Runner</h4>
+        <p>If possible, test your script or .NET code separately from the Job Runner before moving into the Job Runner environment. The simpler the environment, the easier it is to find problems. If the code is script, use VbsEdit or a similar tool to ensure it works as expected. For .NET code, it is recommended that you use Visual Studio’s Unit Tests to test each method you plan on calling from the Job Runner.</p>
+        <h4>Use the job status field</h4>
+        <p>All jobs in the Job Runner have a status that can be queried. Script jobs are limited to only returning errors from the script engine. However, in .NET assembly methods that return a string, the value is passed into the job’s status field and can be used to help understand where the job is failing.</p>
+        <h4>Use logging</h4>
+        <p>Use verbose logging to increase the amount of logging detail to aid in troubleshooting. See <a href="#Logging" class="selected">Job Runner Logging</a> above.</p>
+        <h3><a name="HSS"></a>Use Job Runner in the HSS</h3>
+        <p>Because the HSS is single-threaded, to execute a long-running script without blocking the rest of your scripts, Job Runner should be used.</p>
+        <p>Some considerations before beginning:</p>
+        <ul>
+            <li value="1">Job Runner scripts are executed with a different scripting engine than the HSS. These scripts do not have access to the global objects in the HSS (Facilities, Points, etc.).</li>
+            <li value="2">Errors in Job Runner scripts are logged to the <b>C:\Users\[user]\AppData\Local\CygNet\LogFiles\JobRunner\HSS&lt;###&gt;.csv</b> log files.</li>
+            <li value="3">Messages sent to Standard Output are captured in the jobs results and can be obtained by using the <b>GetJobOutput</b> method.</li>
+        </ul>
+        <p class="HeadingProcedure">Step 1: Create a Job Runner object for the entire HSS</p>
+        <p>When creating a Job Runner object,  it must persist beyond the scope of a single procedure. If a Job Runner object goes out of scope, it will be deleted and all jobs it started will be killed. Even if the jobs have completed, their status will not be available if the Job Runner object is no longer running.</p>
+        <p>To create a Job Runner, declare it in the Declarations section of an HSS point. This will create the object in the global scope of the HSS. An example follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim g_objJobRunner</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Set g_objJobRunner = CreateObject("CygNet.API.JobRunner.JobRunner")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                </td>
+            </tr>
+        </table>
+        <p>To limit the JobRunner to run only three jobs at any one time, you would add an extra line to the script:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim g_objJobRunner</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Set g_objJobRunner = CreateObject("CygNet.API.JobRunner.JobRunner")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">g_objJobRunner.SetMaxActiveJobs 3 </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">Step 2: Write (or move) your scripts</p>
+        <p>Write new scripts to be run through the Job Runner in a different location than HSS scripts. Before running existing HSS scripts through Job Runner, they must be moved or changed slightly.</p>
+        <p>Job Runner scripts can be located in local files, BSS files, or HSS points. For local and BSS files, put the script in a *.VBS file and save it either to the local system (where the HSS has access) or in the BSS. These scripts are executed each time you pass a properly configured Job to the Job Runner.</p>
+        <p>For HSS points, write the script in the script section of any HyperPoint. There are two differences when writing a script using HSS points for use with the Job Runner:</p>
+        <ul>
+            <li value="1">Most HSS scripts are written inside a procedure, like <a href="CxScript HyperPoint Events.htm#OnPointChange">OnPointChange</a> or <a href="CxScript HyperPoint Events.htm#OnInitializeEx">OnInitializeEx</a>. These events will not be called in a script using Job Runner unless you call them directly. To call these events, either write the script in global scope (not inside a Sub or Function) or include a line in global scope that calls the event you want.
+</li>
+            <li value="2">Because the script will be in global scope, the HyperPoint’s script should NOT be enabled. This can be turned off on the <b>General</b> page of the <b>Point Properties</b> dialog box by unchecking <b>Activate script</b>. Otherwise, the script will be called by the HSS directly.
+</li>
+        </ul>
+        <p class="HeadingProcedure">Step 3: Create Jobs for the Job Runner</p>
+        <p>Every script to be run using the Job Runner needs a separate Job object to be created and passed to the Job Runner. When this Job object is passed to the Job Runner, the script contained in the Job will be executed when its turn arrives. For example, if a script in a CygNet Studio screen takes a long time to process and Studio becomes non-responsive, Job Runner is another option you can use. After creating, configuring, and submitting a Job object to the Job Runner, use the <a href="../CygNet Studio/Events.htm#EventTimer">EventTimer</a> on TheFrame/TheView to periodically check the status of the jobs in the Job Runner.  When the jobs are complete, process the output accordingly.</p>
+        <p class="Example">Creating the Job Object</p>
+        <p>To create a Job, first create the object:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objScriptJob</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Set objScriptJob = CreateObject("CygNet.API.JobRunner.ScriptJob")</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Specifying the Source Type and Location</p>
+        <p>After creating the object, specify what type of script source to use and set where that script source can be found. A Job script can come from multiple sources. </p>
+        <p>An example follows for configuring a job to execute from an HSS point:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">objScriptJob.ScriptSourceType = 1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objScriptJob.ScriptSourcePath = "CYGNET.HSS:JOBRUNNERTEST1_SCRIPT"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">g_objJobRunner.ExecuteJob(objScriptJob)</p>
+                </td>
+            </tr>
+        </table>
+        <p>To store a unique identifier for the Job and reference it later by asking the Job Runner its status, you can store the result of <b>ExecuteJob</b>() as shown in the example below:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">objScriptJob.ScriptSourceType = 1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objScriptJob.ScriptSourcePath = "CYGNET.HSS:JOBRUNNERTEST1_SCRIPT"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim nJobId       </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">nJobId  = g_objJobRunner.ExecuteJob(objScriptJob)</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Methods"></a>JobRunner Methods Reference</h3>
+        <p>The following methods are available for interfacing with the JobRunner object:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Method</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Parameters</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a href="#Getting_Status" class="selected">ClearJobList</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Clears the list of job statuses. Will not stop actively running or queued jobs.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim arrClearJobs</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">arrClearJobs = g_objJobRunner.Clear</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>None</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a href="#Logging" class="selected">EnableDebugLogging</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Enables or disables more extensive logging to be used when debugging job failures.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">g_objJobRunner.EnableDebugLogging True</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Boolean Enable</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a href="#Submitting" class="selected">ExecuteJob</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Submit a job. Returns the Job ID.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim nJobId</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">nJobId = g_objJobRunner.ExecuteJob(objScriptJob)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>objJob</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a href="#Getting_Status" class="selected">GetActiveJobs</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Returns a list of all running jobs.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim arrActiveJobs</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">arrActiveJobs = g_objJobRunner.GetActiveJobs</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>None</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a href="#Getting_Status" class="selected">GetAllJobs</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Returns list of all jobs whose statuses JobRunner has stored.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim arrAllJobs</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">arrAllJobs = g_objJobRunner.GetAllJobs</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>None</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a href="#Output" class="selected">GetJobError</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Returns the errors associated with a job.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim strError</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">strError = g_objJobRunner.GetJobError(nJobID)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>int JobID</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a href="#Output" class="selected">GetJobOutput</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Returns the output of a job, mainly used for scripted jobs.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim strOutput</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">strOutput = g_objJobRunner.GetJobOutput(nJobId)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>int JobID</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a href="#Getting_Status" class="selected">GetJobStatus</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Returns the status for a job based on Job ID.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim strStatus</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">strStatus = g_objJobRunner.GetJobStatus(nJobID)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>int JobID</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a href="#Getting_Status" class="selected">GetPendingJobs</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Returns a list of all jobs waiting in the queue.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim arrPendingJobs</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">arrPendingJobs = g_objJobRunner.GetPendingJobs</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>None</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="#Kill" class="selected">KillAllScriptJobs</a>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Terminates all Job Runner script processes.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim arrKillAllScriptJobs</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">arrKillAllScriptJobs = g_objJobRunner.KillAllScriptJobs</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="#Kill" class="selected">KillScriptJob</a>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Terminates the specified Job ID only.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim arrKillScriptJob</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">arrKillScriptJob = g_objJobRunner.KillScriptJob(nJobID)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>int JobID</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a href="#Logging" class="selected">SetLoggingLocation</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Set an alternate path and/or file name for the Job Runner log file.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim strOutput</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">strOutput = g_objJobRunner.SetLoggingLocation  "C:\CygNet\JobRunner\Logs", "JobRunnerOutput"</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>string path</p>
+                        <p>string name</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a href="#Executing" class="selected">SetMaxActiveJobs</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Set the maximum number of concurrent jobs you want to run.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim g_objJobRunner</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">Set g_objJobRunner = CreateObject("CygNet.API.JobRunner.JobRunner")</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">g_objJobRunner.SetMaxActiveJobs 3 </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>int Max</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a href="#Temporar" class="selected">SetScriptLocation</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Set a temporary download location for BSS-based and point-based script files.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim strScripts</p>
+                                    <p class="Code3">&#160;</p>
+                                    <p class="Code">strScripts = g_objJobRunner.SetScriptLocation ("C:\CygNet\JobRunnerScripts")</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>string path</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><a href="#Getting_Status" class="selected">SetStatusPoint</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Set the point to which to write job status.</p>
+                        <p class="Example">Example</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Dim strStatus</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">strStatus = g_objJobRunner.SetStatusPoint("SITE.SERVICE:LONGPOINT")</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>string point</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

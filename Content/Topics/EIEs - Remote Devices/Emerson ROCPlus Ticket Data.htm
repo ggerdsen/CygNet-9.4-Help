@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Emerson ROCPlus EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Emerson ROCPlus EIE – Collecting Ticket Data</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Emerson ROCPlus EIE.htm">Emerson ROCPlus EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Collecting Ticket Data</span>
+        </div>
+        <h2>Collecting Ticket Data</h2>
+        <p>The Emerson ROC800L (809L and 827L) field devices  support the retrieval of periodic, batch, and ticket data. Contact Emerson support for information about the applicable firmware versions.</p>
+        <p class="HeadingProcedure">To Collect Ticket Data</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, go to the applicable Device Definition Service (DDS) and create a new remote device or open an existing one.</li>
+            <li value="2">If applicable, configure the remote device for basic use, including assigning a communication device and applicable facilities.</li>
+            <li value="3">Click the <b>Data Group</b> page then poll the "ROC Config" (<b>RtuConfig</b>) data group. In the <b>RtuConfig</b> device editor data view, confirm that liquid and transactional history point types (144, 145, 200, 201, 202, 203, 204, and 205) are available on the field device.</li>
+            <li value="4">If you want to pull liquid configuration and value data into the SCADA system for viewing and other purposes, perform these basic steps:<ol style="list-style-type: lower-alpha;"><li value="1">Instantiate the applicable <a href="Emerson ROCPlus Data Group Usage Notes.htm">data groups</a>. The following data groups might apply:<ul><li value="1"><b>DensityIF</b> – "Liquid Density Interface"</li><li value="2"><b>LiqMeter</b> – "Liquid Meter Run Configuration"</li><li value="3"><b>LiqMtrEx</b> – "Liquid Meters Extended"</li><li value="4"><b>LiqPref</b> – "Liquid Preferences"</li><li value="5"><b>LiqProd</b> – "Liquid Products"</li><li value="6"><b>SPLiq</b> – "Station Parms (Liquids)"</li></ul></li><li value="2">Map UDCs to the applicable data group elements in the data groups.</li><li value="3">Create and configure points in the <a href="../Points/Points.htm">Point Service (PNT)</a> that correspond to the mapped UDCs.</li><li value="4">Map the points to an associated application, like CygNet Studio.</li><li value="5">If applicable, create commands in applicable services like the DDS, and create polling tasks in the <a href="../Scheduler/Scheduler.htm">Master Scheduling Service (MSS)</a>.</li></ol></li>
+            <li value="5">If you want to retrieve transactional liquid data that reflects the field device historical database (for example, to create ticket data), perform these basic steps:<ol style="list-style-type: lower-alpha;"><li value="1">Instantiate the following data groups, making sure to carefully associate them with the applicable transaction set for each transaction set you want to poll from your host system, and making sure that each collection of the following data groups shares the same ordinal:<ul><li value="1"><b>TxHist</b> – "Transactional History"</li><li value="2"><u>Optional</u>: <b>TxHisCfg</b> – "Transactional History Cfg"</li><li value="3"><u>Optional</u>: <b>TxHisPtCfg</b> – "Transactional History Point Cfg"</li><li value="4"><u>Optional</u>: <b>TxHisTrig</b> – "Transactional History Trigger"</li></ul></li><li value="2">Poll the <b>TxHist</b> data group.</li><li value="3">Map UDCs to the applicable data group elements in the data groups.</li><li value="4">Create and configure points in the PNT that correspond to the mapped UDCs.</li><li value="5">Map the points to an associated application, like CygNet Studio.</li><li value="6">If applicable, create commands in applicable services like the DDS, and create polling tasks in the MSS. You will need to use the <b>TXHISTRG</b> UIS command.</li></ol></li>
+            <li value="6">If you want to use <a href="../CygNet Measurement/CygNet Measurement.htm">CygNet Measurement (FMS)</a> to retrieve transactional liquid data that reflects the field device historical database for the purpose of creating tickets, perform these basic steps:<ol style="list-style-type: lower-alpha;"><li value="1">Instantiate the following data group types, making sure to carefully associate them with the applicable FMS ordinal and/or transaction set number:<ul><li value="1"><b>FmsTicket</b> – "FMS Liquid Ticket"</li><li value="2"><b>FmsProduct</b> – "FMS&#160;Liquid Product"</li></ul></li><li value="2">Poll <b>TxHist</b> data groups that share the same ordinal as <b>FmsTicket</b> data groups.</li><li value="3">Open applicable <b>FmsTicket</b> data group property sheets one at a time and map process variables to history points. You must specify units. Once configured, the <b>FmsTicket</b> data groups are ready to be polled from the DDS or an associated application, like FMS.</li><li value="4">If applicable, create commands in applicable services like the DDS and/or FMS, and create polling tasks in the Master Scheduling Service (MSS). You will need to use the <b>TXHISTRG</b> UIS command.</li></ol></li>
+            <li value="7">Perform advanced steps to further retrieve and distribute liquid meter data.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

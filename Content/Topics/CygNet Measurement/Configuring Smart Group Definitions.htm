@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Configuring Extended Command Options">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Smart Group Definitions</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Extended Command Options.htm">Configuring Extended Command Options</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Smart Group Definitions</span>
+        </div>
+        <h2>Configuring Smart Group Definitions</h2>
+        <p>Use the <b>Smart Group Configuration</b> page of the <b>Extended Command Options</b> dialog box to configure details for "smart" group definitions and rules utilized by the Generate Smart Groups command.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The definition of the Generate Smart Groups command resides in FMS, but you can also use CygNet Explorer (MSS service) to schedule the command. Scheduling a Generate Smart Groups command in the MSS will ensure that new Nodes added to the system are included in the appropriate group. See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information.</p>
+        </div>
+        <p>You must have proper security authorization to configure Smart Group definitions. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CMDSYS">CMDSYS</a> security event) for information about configuring security access to extended command options.</p>
+        <p>See <a href="Running Smart Groups Commands.htm">Running Generate Smart Groups Commands</a> for more information about running the configured command via FMS Explorer.</p>
+        <p>See <a href="Command Parameters - Generate Smart Groups.htm">Generate Smart Groups</a> for more information about  additional options for using the command.</p>
+        <h3>Generate Smart Groups Commands</h3>
+        <p>Generate Smart Groups commands are set up to auto-generate CygNet Measurement groups (General or Station), utilizing user-defined Smart Group definitions and parameters. Use the <b>Extended Options</b> button on the Commands menu in FMS Explorer to access the Smart Group configuration page. Each smart group definition created is based on a user-defined association property, and/or rules, and specified naming conventions. When Generate Smart Groups commands are run, the smart group definitions are utilized to generate group assignments based on what Nodes meet the defined criteria.</p>
+        <h3>Creating Smart Group Definitions</h3>
+        <p>Create  Smart Group definitions in the top section of the pane, that contains user-supplied properties (Definition Name, Group Description, Group Type, etc.) defining the group(s) that will result from running a Generate Smart Groups command.  For each definition listed, configure its  rules and/or additional parameters in the bottom section of the pane (using Simple or Advanced methods), to define what specific rules or data to use when evaluating devices for membership in the selected group.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Because parameters are specific to unique functionality, the set of parameters for each group type (General or Station) varies. Parameters not applicable to the group type selected appear dimmed.</p>
+        </div>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Extended_Options_Smart_Groups_1_600x377.png" style="width: 600;height: 377;" />
+        </p>
+        <h4>Group Definition Methods</h4>
+        <p>Create groups using either <b>Simple</b> or <b>Advanced</b> group definition methods.</p>
+        <h5>Simple</h5>
+        <p>The <b>Simple</b> group definition method creates a single group based on user-defined rules. Configure the rules for group membership, and all devices matching the customized rules will be put into the group when the command runs. If no devices currently match the rules, the group will still be created, but it will not have any members yet. </p>
+        <p>Rules can include multiple parameters, joined by an <b>And</b> operator to narrow the criteria, or by an <b>Or</b> operator to broaden the criteria. See <a href="Configuring Smart Groups Rules.htm">Configuring Smart Groups Rules</a> for more information.</p>
+        <h5>Advanced</h5>
+        <p>The <b>Advanced</b> group definition method creates a group for each unique value of a user-specified association property, therefore multiple groups can be created. Configure the property fields, and the devices matching the criteria will be sorted into groups according to their values for the specified association property when the command runs. If you later change the association property against which the command is run, Smart Groups (or Smart Group entries) no longer matching the criteria will be removed the next time the command runs.</p>
+        <p>You can also optionally apply rules to Advanced smart group definitions, as a secondary criteria to additionally refine group membership and  narrow the scope of the groups created. The rule creation process is the same as used for the Simple method. See <a href="Configuring Smart Groups Rules.htm">Configuring Smart Groups Rules</a> for more information.</p>
+        <p class="Example"><b>Example</b>
+        </p>
+        <p class="Indent">If you supply Facility Type as the primary association property for an advanced group definition, then a unique group will be created for each set of devices with a unique facility type. In a scenario of 6 devices, where 3 have a facility type of METER_IN and 3 have a facility type of METER_OUT, 2 separate groups would be created. If you opt to also enable additional rules for the group definition, then each group can be further refined to include only currently enabled devices or devices of a particular type, or supporting a particular type of history data, etc.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Configur"></a>Configuring a Smart Group Definition</h3>
+        <p>Use the following steps to create and configure Smart Group definitions for FMS Generate Smart Groups commands.</p>
+        <p class="HeadingProcedure">To Configure a Smart Group Definition</p>
+        <ol>
+            <li value="1">Open the <b>Command</b> menu in FMS Explorer, and then click <b>Extended Options</b> to access the <b>Extended Command Options</b> dialog box. </li>
+            <li value="2">Click <b>Smart Group Configuration</b> to access the Smart Group definition configuration pane.</li>
+            <li value="3">Configure the definition properties. Click <b>Add</b> to configure, or select an existing Smart Group <b>Definition Name</b> to edit, properties for a Smart Group definition. Define the following group properties for each Smart Group definition.
+			<table cellspacing="0" class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;"><col class="TableStyle-HelpTable2-Column-Column1" /><col class="TableStyle-HelpTable2-Column-Column1" /><thead><tr class="TableStyle-HelpTable2-Head-Header1"><th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th><th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-HelpTable2-Body-Body1"><td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Definition Name</td><td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Type in a <b>Definition Name</b> for each new Smart Group definition.  <p>This property is required. </p></td></tr><tr class="TableStyle-HelpTable2-Body-Body2"><td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Group Description</td><td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Type in a <b>Group Description</b> for the group(s) created by this definition. <p>This property is optional.</p></td></tr><tr class="TableStyle-HelpTable2-Body-Body1"><td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Group Type</td><td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select the <b>Group Type</b> for the group(s) created by this definition from the drop-down menu.<p>Options are <b>General</b> or Virtual <b>Station</b>.</p><p>This property is required.</p></td></tr><tr class="TableStyle-HelpTable2-Body-Body2"><td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Group Category</td><td class="TableStyle-HelpTable2-BodyD-Column1-Body2">A category can help further categorize groups for sorting and filtering purposes.<p>Select an existing <b>Group Category</b> from the available choices in the drop-down menu.</p><p>See <a href="Managing Group Nodes.htm#Manage2">Manage Group Categories</a> in the Managing Group Nodes topic for more information.</p><p>This property is optional.</p></td></tr><tr class="TableStyle-HelpTable2-Body-Body1"><td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Sort Priority</td><td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Type in the <b>Sort Priority</b> to assign to the group(s) created by this definition.<p>The priority number assigned places it within a manually sortable list. Higher numbers place a Node higher up on a list. </p><p>Default value is <b>0</b>.</p></td></tr><tr class="TableStyle-HelpTable2-Body-Body2"><td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Security App</td><td class="TableStyle-HelpTable2-BodyA-Column1-Body2">Type in the security application for the group(s) created by this definition. <p>See <a href="FMS Security.htm"> FMS Security</a> for more information</p><p>This property is optional.</p></td></tr></tbody></table></li>
+            <li value="4">Configure the <b>Group Definition</b> parameters for each Definition. Select either the <b>Simple</b> or <b>Advanced</b> definition method.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Click <b>Simple</b> to access the property fields required to configure a simple group definition (single group). <p><img src="../../Resources/Images/CygNet Measurement/Extended_Options_Smart_Groups_Simple.png" /></p></li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">For General or Station groups, click <b>Edit Rule List</b> to access the <b>Smart Groups Rule Definitions</b> dialog box to <a href="Configuring Smart Groups Rules.htm">configure Smart Groups rules</a>.</li>
+            <li value="2">For General or Station groups, type a <b>Group name</b> for the currently selected Smart Group definition into the text box. Allowable characters (maximum of 20) are A-Z, a-z, 0-9, <b>.</b> (period), <b>#</b>, <b>$</b>, <b>&amp;</b>, <b>(</b>, <b>)</b>, <b>+</b>, <b>-</b>, <b>\</b>, <b>/</b>, <b>:</b>, <b>&lt;</b>, <b>&gt;</b>, <b>=</b>, <b>@</b>, <b>[</b>, <b>]</b>, <b>^</b>, <b>{</b>, <b>}</b>, <b>_</b> (underscore), <b>!</b>, <b>~</b> (tilde). Spaces are acceptable, when they are not leading or trailing. See <a href="#Note" class="selected">Notes</a> at the end of this section regarding naming.</li>
+            <li value="3">For Station groups, select a <b>Station facility tag</b>. If known, type the station facility tag value in the text box, otherwise click <b>...</b> to access the <b>Select Facility Service</b> dialog box. Click to select a facility <b>Site</b> and Service, and then click <b>OK</b> to access the <b>Select a Facility</b> dialog box. Click to select a <b>Facility ID</b>, and then click <b>OK</b>. The selections will appear in the <b>Station facility tag</b> text box in the form <i>Site.Service::FacilityID</i>.</li>
+            <li value="4">For Station groups, select a <b>Station contribution</b> from the drop-down menu. Options are <b>Receipt (+)</b> or <b>Delivery (-)</b>.</li>
+        </ol>
+        <ol class="Lower_alpha" start="2">
+            <li value="2">Click <b>Advanced</b> to access the property fields required to configure an advanced group definition (multiple groups possible). <p><img src="../../Resources/Images/CygNet Measurement/Extended_Options_Smart_Groups_Advanced.png" /></p></li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">For General or Station groups, select an <b>Association property</b> from the drop-down menu. See <a href="#Selectin2" class="selected">Selecting an Association Property</a> following this procedure for more information.</li>
+            <li value="2">Optionally apply a secondary layer of filtering using smart groups rules. To do so, click <b>Enable additional rules</b> and then click <b>Edit rule list</b> to access  the <b>Smart Groups Rule Definitions</b> dialog box to <a href="Configuring Smart Groups Rules.htm">configure Smart Groups rules</a>. These rules will be enforced along with the configured association property when generating groups.</li>
+            <li value="3">For General or Station groups, type a <b>Group name prefix</b> for the currently selected Smart Group definition into the text box. Allowable characters (maximum of 19, as at least one must be reserved for the generation of the group name) are A-Z, a-z, 0-9, <b>.</b> (period), <b>#</b>, <b>$</b>, <b>&amp;</b>, <b>(</b>, <b>)</b>, <b>+</b>, <b>-</b>, <b>\</b>, <b>/</b>, <b>:</b>, <b>&lt;</b>, <b>&gt;</b>, <b>=</b>, <b>@</b>, <b>[</b>, <b>]</b>, <b>^</b>, <b>{</b>, <b>}</b>, <b>_</b> (underscore), <b>!</b>, <b>~</b> (tilde). Spaces are acceptable, when they are not leading or trailing. See <a href="#Note" class="selected">Notes</a> at the end of this section regarding naming.</li>
+            <li value="4">For Station groups, select a <b>Station facility tag</b> from the drop-down menu. Options are <b>Leave blank</b> or <b>Use association property value</b>.</li>
+            <li value="5">For Station groups, select a <b>Station contribution</b> from the drop-down menu. Options are <b>Receipt (+)</b> or <b>Delivery (-)</b>.</li>
+            <li value="6">For General or Station groups, select a unique value to append to the group name prefix to complete the generated Smart Group name.</li>
+        </ol>
+        <ol class="Upper_alpha">
+            <li value="1">Select <b>Association property value</b> to use the value of the selected Association property as the appended value.</li>
+            <li value="2">If the <b>Association property</b> value is <b>Facility Tag</b>, select whether to use the <b>Facility attribute</b> or the <b>Point value</b> as the appended value. Select the facility attribute to use from the drop-down menu, or  type the UDC to use into the text box. Alternatively,  click <b>...</b> to access the <b>Select a Uniform Data Code</b> dialog box to select the UDC to use. See <a href="#Selectin" class="selected">Selecting a Uniform Data Code (UDC)</a> following this procedure for more information.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">When all options are configured, click <b>OK</b> to save the new Smart Group definition settings. </li>
+        </ol><a name="Note"></a>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+            <p class="Note">Use allowable characters. Invalid characters, or spaces, will be replaced with an underscore (<b>_</b>). </p>
+            <p class="Note">Avoid using maximum character counts for group names/prefixes. This applies to  all group names, but particularly to group names with prefixes added using the <b>Advanced</b> group definition method. Group names have a total limit of 20 characters, and the Service will truncate group names that exceed this limit. Group names must also be distinct, and the group cannot be created if the group name already exists.  If a group name is too long, and the  resultant truncated group name is equal to an existing group name, no group can be created and an error will be reported in the command log.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Selectin2"></a>Selecting an Association Property or Data Item Value</h3>
+        <h4>Advanced Smart Group Definition</h4>
+        <p>To select a property upon which to base group creation when configuring an Advanced Smart Group definition, click to select a value from the <b>Association property</b> drop-down list. The value(s) of the selected association property will be used to append to the <b>Group name prefix</b> to form the group name(s). Resultant group name appended values are described below. </p>
+        <p>You can also optionally enable additional rules to refine Advanced definitions, as for Simple definitions.</p>
+        <h4>Simple Smart Group Definition </h4>
+        <p>To enter a comparison item upon which to base a Smart Groups rule definition when configuring a Simple (or optionally for Advanced) Smart Group definition, click to select a value from the <b>Data Item</b> drop-down list and then enter a value for the selected item into the <b>Comparison Item</b> text box. Valid comparison item values are described below.</p>
+        <h4>Association Property or Data Item Values</h4>
+        <p>Possible values for association property (for Advanced definitions) or data item comparison (for Simple, and optionally Advanced, definitions) are as follows. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Association Property/ <p>Data Item</p></th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Group Name Appended Value/ <p>Comparison Item Value</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">FMS: Configuration Data</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select the appropriate configuration data item to use for group creation.<div class="Note"><p><span class="NoteHeading">Note:</span> Configuration record values are based on the last valid configuration data received, which is not necessarily the configuration value as of "now."</p></div></td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Device Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Cone</li>
+                            <li value="2">Coriolis</li>
+                            <li value="3">Orifice</li>
+                            <li value="4">Positive (supported for liquid devices)</li>
+                            <li value="5">Turbine</li>
+                            <li value="6">Ultrasonic</li>
+                        </ul>
+                        <p>Valid for gas or liquid devices</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Primary Calc</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values for gas devices are as follows.</p>
+                        <ul class="table">
+                            <li value="1">AGA 3-1985</li>
+                            <li value="2">AGA 3-1992</li>
+                            <li value="3">AGA 3-2013</li>
+                            <li value="4">AGA 7</li>
+                            <li value="5">Cone</li>
+                            <li value="6">AGA 9 (not supported)</li>
+                            <li value="7">AGA 11</li>
+                            <li value="8">AGA 5 (not supported)</li>
+                            <li value="9">ISO 9951 (not supported)</li>
+                            <li value="10">ISO 5167 (not supported)</li>
+                        </ul>
+                        <p>Possible values for liquid devices are as follows.</p>
+                        <ul class="table">
+                            <li value="1">None</li>
+                            <li value="2">API 12.2</li>
+                            <li value="3">API 14.7</li>
+                            <li value="4">Direct Mass</li>
+                            <li value="5">API 14.3 Mass</li>
+                            <li value="6">API 14.3 Vol</li>
+                        </ul>
+                        <p>Valid for gas or liquid devices</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">FPV Calc</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">AGA 8 Gross1</li>
+                            <li value="2">AGA 8 Gross2</li>
+                            <li value="3">AGA 8 Detail</li>
+                            <li value="4">NX 19 GCN</li>
+                            <li value="5">NX 19 Complete</li>
+                            <li value="6">None</li>
+                            <li value="7">GERG</li>
+                        </ul>
+                        <p>Valid for gas devices</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Contract Hour</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The contract hour value of the configuration record</p>
+                        <p>Valid for gas or liquid devices</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Base Pressure</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Base pressure conditions value, in psi</p>
+                        <p>Valid for gas devices</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Base Temperature</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Base temperature conditions value, in Fahrenheit</p>
+                        <p>Valid for gas devices</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">FMS: Node Properties</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Select the appropriate Node property to use for group creation.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">[<i>Boolean Node properties</i>]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values  for Boolean Node properties are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">FMS Node Name</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values  are partial Node names configured in your FMS system.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">FMS Node Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values  are  partial Node descriptions configured in your FMS system.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Node Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">GasMeter</li>
+                            <li value="2">StationMeter</li>
+                            <li value="3">Chromatograph</li>
+                            <li value="4">LiquidDevice</li>
+                            <li value="5">Accessory</li>
+                            <li value="6">GeneralGroup</li>
+                            <li value="7">PhysicalStationGroup</li>
+                            <li value="8">VirtualStationGroup</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Install Date</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If used as part of an advanced Smart Group name, the <b>Install Date</b> will be appended to the group name in the following format: <b>YYYY/MM/DD</b></p>
+                        <p>If used as a <b>Comparison item</b> when configuring a  Smart Groups rule for a simple Smart Group definition, a variety of date formats are acceptable. See <a href="../Date and Time/Date and Time.htm">Date and Time</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Enabled</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values for the <b>Enabled</b> status of a Node are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Use Alt. Gas Quality Source</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values for whether a Node uses an alternate gas quality source, other than the configuration on the corresponding device, are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Data Source</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values for the data source of a Node are as follows.</p>
+                        <ul class="table">
+                            <li value="1">FmsPoll</li>
+                            <li value="2">FmsLegacyPoll</li>
+                            <li value="3">Import</li>
+                            <li value="4">Other</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Data Source Retention</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values are the number of days the flow computer retains source data.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Has Config</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Status of Node support  for configuration data. </p>
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Has Events and Alarms</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Status of Node support for events and alarms data.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Has Live Gas Quality</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Status of Node support for  live gas quality data.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Has PM History</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Status of Node support for  periodic metering history data.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Has PQ History</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Status of Node support for  periodic quality history data.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Yes</li>
+                            <li value="2">No</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Has Batch History</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Status of Node support for  batch history data.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Has Ticket History</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Status of Node support for  ticket history data.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Contract Hour</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values for the contract hour configured for a Node, as an offset in hours from the 00:00:00 (midnight) Device time, describing the hour at which the contract day begins.</p>
+                        <p>See <a href="Using Contract Hour in FMS.htm">Using Contract Hour in CygNet Measurement</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Time Zone Key</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible numerical values for the CygNet time zone key configured for a Node, as defined in the CygNetTimeZones.xml file located in the <b>CygNet\Services\ARS</b> folder on your host server.</p>
+                        <p>See <a href="../Date and Time/CygNetTimeZones.xml File.htm">CygNetTimeZones.xml File</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">DDS: Device Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1"> Select the appropriate device attribute to use for group creation.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Comm Line</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values  are the active communication lines entered in your system  for communication by a remote device. Communication line types are stored in the Device Definition Service (DDS).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Device Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values  are the device types entered in your system. Device types are stored in the Device Definition Service (DDS).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Enabled</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values for the <b>Enabled</b> status of a device are as follows.</p>
+                        <ul class="table">
+                            <li value="1">True</li>
+                            <li value="2">False</li>
+                        </ul>
+                        <p>Enabled status for a device is stored in the Device Definition Service (DDS).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reporting Facility: General Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the appropriate reporting facility General attribute to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Site</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the reporting facility sites stored in your system. </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the reporting facility services stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Site.Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the reporting facility <i>Site.Service</i> values stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility ID (FAC)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the reporting facility IDs stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Tag</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the reporting facility tags stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the reporting facility types stored in your system. Facility types are stored in the SYSFCTYP table in the Table Reference Service (TRS).</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the reporting facility descriptions stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Category</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">REMDEV</li>
+                            <li value="2">COMMDEV</li>
+                            <li value="3">DDSFAC</li>
+                            <li value="4">EXPDEV</li>
+                            <li value="5">GENFAC</li>
+                            <li value="6">SITE</li>
+                            <li value="7">SERVICE</li>
+                        </ul>
+                        <p>See <a href="../Facilities/Facility Category.htm">Facility Category</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Security App</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the reporting facility Security Applications stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Is Active</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="4">
+                        <p>Possible values  for "Facility Is..." attributes are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Y</li>
+                            <li value="2">N</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Is Referenced by DDS or PCS/PNT</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Is Referenced by DDS </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"> Facility Is Referenced by PCS/PNT</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reporting Facility: Text Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select the appropriate reporting facility text attribute (<b>Facility Info 0</b> - <b>1</b> or <b>Facility Attribute 0</b> - <b>29</b>) to use for group creation.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Reporting Facility: Table-driven Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Select the appropriate reporting facility table or table description (<b>Facility Table 0</b> - <b>29</b> or <b>Facility Table 0</b> - <b>29 Desc</b>) attribute to use for group creation.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reporting Facility: Yes/No Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the appropriate reporting facility Yes/No attribute (<b>Facility Yes/No 0</b> - <b>19</b>) to use for group creation.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Y</li>
+                            <li value="2">N</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Polling Facility: General Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the appropriate polling facility General attribute to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Site</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the polling facility sites stored in your system. </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the polling facility services stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Site.Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values  are the polling facility <i>Site.Service</i> values stored in your system.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility ID (FAC)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the polling facility IDs stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Tag</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the polling facility tags stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the polling facility types stored in your system. Facility types are stored in the SYSFCTYP table in the Table Reference Service (TRS).</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the polling facility descriptions stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Category</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">REMDEV</li>
+                            <li value="2">COMMDEV</li>
+                            <li value="3">DDSFAC</li>
+                            <li value="4">EXPDEV</li>
+                            <li value="5">GENFAC</li>
+                            <li value="6">SITE</li>
+                            <li value="7">SERVICE</li>
+                        </ul>
+                        <p>See <a href="../Facilities/Facility Category.htm">Facility Category</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Security App</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the polling facility Security Applications stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Is Active</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="4">
+                        <p>Possible values  for "Facility Is..." attributes are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Y</li>
+                            <li value="2">N</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Is Referenced by DDS or PCS/</p>
+                        <p class="Indent">PNT</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Is Referenced by DDS </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Is Referenced by PCS/PNT</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Polling Facility: Text Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the appropriate polling facility text attribute (<b>Facility Info 0</b> - <b>1</b> or <b>Facility Attribute 0</b> - <b>29</b>) to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Polling Facility: Table-driven Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the appropriate polling facility table or table description attribute (<b>Facility Table 0</b> - <b>29</b> or <b>Facility Table 0</b> - <b>29 Desc</b>) to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Polling Facility: Yes/No Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the appropriate polling facility Yes/No attribute (<b>Facility Yes/No 0</b> - <b>19</b>) to use for group creation.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Y</li>
+                            <li value="2">N</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Remote Device Facility: General Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the appropriate device facility General attribute to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Site</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the device facility sites stored in your system. </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the device facility services stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Site.Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the device facility <i>Site.Service</i> values stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility ID (FAC)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the device facility IDs stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Tag</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the device facility tags stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Possible values  are the device facility types stored in your system. Facility types are stored in the SYSFCTYP table in the Table Reference Service (TRS).</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the device facility descriptions stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Category</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Possible values  are as follows.</p>
+                        <ul class="table">
+                            <li value="1">REMDEV</li>
+                            <li value="2">COMMDEV</li>
+                            <li value="3">DDSFAC</li>
+                            <li value="4">EXPDEV</li>
+                            <li value="5">GENFAC</li>
+                            <li value="6">SITE</li>
+                            <li value="7">SERVICE</li>
+                        </ul>
+                        <p>See <a href="../Facilities/Facility Category.htm">Facility Category</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Security App</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Possible values  are the device facility Security Applications stored in your system.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Is Active</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="4">
+                        <p>Possible values  for "Facility Is..." attributes are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Y</li>
+                            <li value="2">N</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Is Referenced by DDS or PCS/PNT</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Facility Is Referenced by DDS </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Facility Is Referenced by PCS/PNT</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Remote Device Facility: Text Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the appropriate device facility text attribute (<b>Facility Info 0</b> - <b>1</b> or <b>Facility Attribute 0</b> - <b>29</b>) to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Remote Device Facility: Table-driven Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the appropriate device facility table or table description attribute (<b>Facility Table 0</b> - <b>29</b> or <b>Facility Table 0</b> - <b>29 Desc</b>) to use for group creation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Remote Device Facility: Yes/No Attributes</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select the appropriate device facility Yes/No attribute (<b>Facility Yes/No 0</b> - <b>19</b>) to use for group creation.</p>
+                        <p>Possible values are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Y</li>
+                            <li value="2">N</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Selectin"></a>Selecting a Uniform Data Code (UDC)</h3>
+        <p>Select a UDC to associate with each custom column you will be using. Click to select a custom column,  click in the <b>UDC</b> column, and then click <b>...</b> or press <b>F4</b> to access the <b>Select a Uniform Data Code</b> dialog box.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Dashboard_UDC_Select.png" />
+        </p>
+        <p>The properties for the <b>Select a Uniform Data Code</b> dialog box are described below.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 450px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p class="TableHeading">Parameter</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p class="TableHeading">Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">SiteService</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select the current value service (CVS) from which to retrieve data. Type the <i>Site.Service</i> name into the text box, or click <b>...</b> to access the <b>Select Service</b> dialog box.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Facility ID</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select the Facility ID. Type the name into the text box, or click <b>...</b> to access the <b>Select a Facility ID</b> dialog box.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> You can also add or edit a facility from this dialog box.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Uniform Data Code</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Lists the UDCs associated with the selected facility.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Description</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Lists the descriptions of the corresponding UDCs.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Refresh</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click to refresh the Uniform Data Code list.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Show All UDCs</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This button is enabled when a <i>Site.Service</i> is selected. Click <b>Show All UDCs</b> to access the <b>Select UDC by Category</b> dialog box. </p>
+                    <p>
+                        <img src="../../Resources/Images/CygNet Measurement/Dashboard_UDC_Select_Category_352x227.png" style="width: 352;height: 227;" />
+                    </p>
+                    <p>Select a UDC Category from the drop-down menu. All associated UDCs    will be displayed in the list. Select the specific UDC desired, and then click <b>Select UDC</b>. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If needed, UDC categories or UDCs can be added, edited, or deleted, using the corresponding buttons on the dialog box.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">OK</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click <b>OK</b> when done.</td>
+            </tr>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p>
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Configuring Smart Groups Rules.htm">Configuring Smart Groups Rules</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

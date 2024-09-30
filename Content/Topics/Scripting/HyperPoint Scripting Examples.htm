@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CygNet Scripting Guide|HyperPoint Scripting">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>HyperPoint Scripting Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Scripting Guide.htm">CygNet Scripting Guide</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="HyperPoint Scripting.htm">HyperPoint Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HyperPoint Scripting Examples</span>
+        </div>
+        <h2>HyperPoint Scripting Examples</h2>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Summatio" class="selected">Summation</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Deviatio" class="selected">Deviation</a>
+            </li>
+        </ul>
+        <h3><a name="Summatio"></a>Summation</h3>
+        <p>The following procedure explains how to create a summation point. Four points are created: two addend points, a point to store the sum, and a HyperPoint to compute the sum.</p>
+        <p class="HeadingProcedure">Creating a Summation Point</p>
+        <ol start="1">
+            <li value="1">Open CygNet Explorer and navigate to the Point Service.</li>
+            <li value="2">Right-click in the service pane and click <b>New</b> to create a new point.</li>
+            <li value="3">Choose your site and UIS service, and enter "POINT1" for the Long Point ID.</li>
+            <li value="4">Click <b>OK</b> to save the new point.</li>
+            <li value="5">Repeat steps 2-4 two more times, naming the new points "POINT2" and "SUM."</li>
+            <li value="6">Right-click again in the service pane and click <b>New</b> to make one more point.</li>
+            <li value="7">Fill in the site name and HSS service, and enter "SUM_CALC" for the Long Point ID. Click the <b>HyperPoint</b> check box to indicate that it is a HyperPoint. Select "String Input" for the <b>Point Type</b>.</li>
+            <li value="8">Click the <b>HyperPoint</b> page, which should now be visible. Click the <b>Edit</b> button to open the script editor.</li>
+            <li value="9">Select SUM_CALC from the <b>Object</b> drop-down menu to view the events in the <b>Event</b> drop-down menu. Enter the following script, noting the use of the <a href="CxScript HyperPoint Events.htm#OnInitializeEx">OnInitializeEx</a> and <a href="CxScript HyperPoint Events.htm#OnPointChange">OnPointChange</a> events. Be sure to replace occurrences of CYGDEMO with your own site name.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub SUM_CALC_OnInitializeEx(This)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">SUM_CALC.Value = "Initialized"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'Identify the set of points to monitor</p>
+                    <p class="Code">Points.AddPoint "CYGDEMO.UIS:POINT1", This</p>
+                    <p class="Code">Points.AddPoint "CYGDEMO.UIS:POINT2", This</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub SUM_CALC_OnPointChange(This,Tag)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">This.Value = "Updated"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Get Point objects</p>
+                    <p class="Code2">Set P1 = Points.Point("CYGDEMO.UIS:POINT1")</p>
+                    <p class="Code2">Set P2 = Points.Point("CYGDEMO.UIS:POINT2")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Check validity of values</p>
+                    <p class="Code">If Not (IsNumeric(P1.Value) And IsNumeric(P2.Value)) Then</p>
+                    <p class="Code2">This.Value = "Non-numeric vals"</p>
+                    <p class="Code2">Exit Sub</p>
+                    <p class="Code">End If</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'Calculate sum and save to point, SUM</p>
+                    <p class="Code">sum = CDbl(P1.Value) + CDbl(P2.Value)</p>
+                    <p class="Code">SetPoint "CYGDEMO.UIS:SUM", sum</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="10">
+            <li value="10">On the <b>General</b> page , check <b>Activate Script</b>. Click <b>OK</b> to close the dialog box.</li>
+            <li value="11">Navigate to the Universal Interface Service, <b>Current Values</b> page.</li>
+            <li value="12">Double-click POINT1 to open its point properties.</li>
+            <li value="13">Click <b>Edit Value</b> and enter a new value of 5. Click <b>OK</b>, then click <b>Close</b> to return to the service pane.</li>
+            <li value="14">Repeat steps 12-13 for POINT2, entering a value of 10.</li>
+        </ol>
+        <p>The value of SUM should be 15 as expected. This value can be verified using CygNet Explorer.</p>
+        <h3><a name="Deviatio"></a>Deviation</h3>
+        <p>This example demonstrates the use of system HyperPoints to calculate a deviation. The HyperPoint, <a href="#SYSTEM_D" class="selected">SYSTEM_DELTA_CODE</a>, is created to compute the deviation of a point’s values over the last hour. <a href="#MYPOINT_" class="selected">MYPOINT_DELTA_CALC</a> is the HyperPoint associated with MYPOINT (the point whose value will be calculated). This HyperPoint can be used as a template for other points’ delta calculations, as well. MYPOINT_DELTA_CALC has added the <a href="#SYSTEM_D2" class="selected">SYSTEM_DELTA_TRIGGER</a> point to its Points object, which updates every minute. This in turn triggers the MYPOINT_DELTA_CALC <a href="CxScript HyperPoint Events.htm#OnTimer">OnTimer</a> event to run every minute, which calls the SYSTEM_DELTA_CODE Calculate method. The Calculate method stores the actual delta value back to the MYPOINT_DELTA UIS point. Calculation is performed using the VHS Rollup Iterator object. </p>
+        <p>The following diagram shows the flow of data for these points and their respective services. This setup is typical of system HyperPoints. Code is provided below for the HSS points.</p>
+        <p>
+            <img src="../../Resources/Images/Scripting/0300002E.png" title="HyperPoint Data Flow" alt="HyperPoint Data Flow" />
+        </p>
+        <h4><a name="SYSTEM_D"></a>SYSTEM_DELTA_CODE</h4>
+        <p>This HyperPoint Script includes a global method, Compute, which accepts as parameters the HyperPoint object of the calculation point and the target point for the calculation.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">'Global VHS objects for rollups</p>
+                    <p class="Code2">Dim g_vhsRollupIterator</p>
+                    <p class="Code2">Dim g_vhsHistEntry</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub SYSTEM_DELTA_CODE_Compute(hPoint, strTargetTag)</p>
+                    <p class="Code2">On Error Resume Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim strSourceTag, strVhs</p>
+                    <p class="Code2">Dim dateFirst, dateLast</p>
+                    <p class="Code2">Dim dDelta</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Err.Clear</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Create VHS objects if not already created</p>
+                    <p class="Code2">If Not IsObject(g_vhsRollupIterator) Then</p>
+                    <p class="Code2">Set g_vhsRollupIterator = CreateObject("CxVhsLib.RollupIterator")</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If Not IsObject(g_vhsHistEntry) Then</p>
+                    <p class="Code2">Set g_vhsHistEntry = CreateObject("CxVhsLib.HistoryEntryEx")</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Check that objects were successfully created</p>
+                    <p class="Code2">If Err.Number &lt;&gt; 0 Then</p>
+                    <p class="Code2">hPoint.Value = "Failed iter init"</p>
+                    <p class="Code2">Exit Sub</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Get the VHS Site.Service and the source tag string</p>
+                    <p class="Code2">strVhs = hPoint.GetAttribute("General1")</p>
+                    <p class="Code2">strSourceTag = hPoint.GetAttribute("General2")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Set the date range to the previous hour</p>
+                    <p class="Code2">dateLast = Now</p>
+                    <p class="Code2">dateFirst = DateAdd("h", -1, dateLast)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Set up iterator (rollupCalcDelta=5, rollupUnitHours=2)</p>
+                    <p class="Code2">If (g_vhsRollupIterator.Initialize(strVhs, strSourceTag, dateFirst,_</p>
+                    <p class="Code2">&#160;&#160;&#160; dateLast, 5, 2, 1, 0) = False) Then</p>
+                    <p class="Code2">hPoint.Value = "Failed iter init"</p>
+                    <p class="Code2">Exit Sub</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">g_vhsRollupIterator.MoveFirst()</p>
+                    <p class="Code2">dDelta = 0</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Loop to the last returned value in the iterator</p>
+                    <p class="Code2">While (g_vhsRollupIterator.GetForward(g_vhsHistEntry) &lt;&gt; False)</p>
+                    <p class="Code2">If IsNumeric(g_vhsHistEntry.Value) Then</p>
+                    <p class="Code2">dDelta = CDbl(g_vhsHistEntry.Value)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">Wend</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Set the target point to the delta value and update point status</p>
+                    <p class="Code2">SetPoint strTargetTag, dDelta, Now, 0</p>
+                    <p class="Code2">hPoint.Value = "Succeeded"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="MYPOINT_"></a>MYPOINT_DELTA_CALC</h4>
+        <p>This is the calculation point in the HSS that is associated with MYPOINT.</p>
+        <p>On the <b>Application</b> page  of the point’s properties, the following fields must be defined:</p>
+        <p class="Indent">General Data Field 1:&#160; the VHS <i>Site.Service</i> (i.e. FOGRIDGE.VHS)</p>
+        <p class="Indent">General Data Field 2:&#160; the source point long ID (i.e. FOGRIDGE.UIS:MYPOINT) </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub MYPOINT_DELTA_CALC_OnInitializeEx(This)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">'Add the trigger tag to the Points object</p>
+                    <p class="Code2">Points.AddPoint "FOGRIDGE.HSS:SYSTEM_DELTA_TRIGGER;TIMESTAMP",This</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub MYPOINT_DELTA_CALC_OnPointChange(This,Tag)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">'Compute the delta and save to the MYPOINT_DELTA point</p>
+                    <p class="Code2">SYSTEM_DELTA_CODE_Compute This, "FOGRIDGE.UIS:MYPOINT_DELTA"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="SYSTEM_D2"></a>SYSTEM_DELTA_TRIGGER</h4>
+        <p>The point that triggers the <a href="CxScript HyperPoint Events.htm#OnTimer">OnTimer</a> event to be called for all points that have SYSTEM_DELTA_TRIGGER added to the Points object (such as MYPOINT_DELTA_CALC). </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub SYSTEM_DELTA_TRIGGER_OnInitializeEx(This)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">'Set the timer to a one-minute interval</p>
+                    <p class="Code2">Timer.Set This, 60000</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub SYSTEM_DELTA_TRIGGER_OnTimer(This)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">'Update the timestamp to force update of</p>
+                    <p class="Code2">'dependent HyperPoints</p>
+                    <p class="Code2">This.Timestamp = Now</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Scripting in Canvas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Describes how to script with the Global Dictionary." /><title>Global Dictionary</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting_in_Canvas.htm">Scripting in Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Global Dictionary</span>
+        </div>
+        <h2><a name="aanchor201"></a>
+            <MadCap:concept term="Canvas Scripting" />Global Dictionary</h2>
+        <p><span class="GeneralProduct_Short">Canvas</span> provides <a href="../Using_Canvas_Controls/Screen_Methods.htm">Screen</a> methods to save a complex script object to a global dictionary and to read the object from another screen:</p>
+        <ul>
+            <li value="1"><b>WriteToGlobalDictionary</b>
+            </li>
+            <li value="2"><b>ReadFromGlobalDictionary</b>
+            </li>
+            <li value="3"><b>GetGlobalDictionary</b>
+            </li>
+        </ul>
+        <p>The dictionary object is saved in the application’s memory and is available as long as the instance of the application is open.</p>
+        <h3>WriteToGlobalDictionary method</h3>
+        <p>The <b>WriteToGlobalDictionary</b>
+method saves a complex script object to a global dictionary in the <span class="GeneralProduct_Short">Canvas</span> application’s memory. </p>
+        <p>See <a href="#">Global Dictionary</a> for more information about using this method.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Objects.Screen.WriteToGlobalDictionary(<i>"object", Objects.ControlName.Text</i>);</p>
+        <p class="Example">Example — Writing to the global dictionary</p>
+        <p>The following example code snippet writes the value "STUFF" from the EditBox1 to the global dictionary:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Button2.Click += new EventHandler(this.Button2_Click);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Button2</p>
+                    <p class="Code">private void Button2_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.WriteToGlobalDictionary("STUFF", Objects.EditBox1.Text);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <h3>ReadFromGlobalDictionary method</h3>
+        <p>The <b>ReadFromGlobalDictionary</b>
+method reads a complex script object from another screen.</p>
+        <p>See <a href="#">Global Dictionary</a> for more information about using this method.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Objects.ControlName.Text = (string)Objects.Screen.ReadFromGlobalDictionary("object");</p>
+        <p class="Example">Example — Reading from the global dictionary</p>
+        <p>The following example code snippet retrieves the value "STUFF" from the global dictionary and passes it to TextTool1:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Button2.Click += new EventHandler(this.Button2_Click);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Button2</p>
+                    <p class="Code">private void Button2_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.TextTool1.Text = (string)Objects.Screen.ReadFromGlobalDictionary("STUFF");</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <h3>GetGlobalDictionary method</h3>
+        <p>The <b>GetGlobalDictionary</b> method returns the dictionary itself, allowing a script writer to manipulate the dictionary directly or inspect its contents.</p>
+        <p class="Example">Example</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public Canvas.Shared.CanvasGlobalDictionary GetGlobalDictionary()</p>
+                </td>
+            </tr>
+        </table>
+        <p>The Canvas.Shared class, "CanvasGlobalDictionary," is a <code>C# System.Collections.Generic.Dictionary&lt;string, object&gt;</code>. The string represents the key and the object represents the value. This collection allows you to store any data you want and reference it later by the key assigned when it was added. If the same key is used multiple times, the original value would be replaced by the latest update.</p>
+        <p>See <a href="#">Global Dictionary</a> for more information about using this method.</p>
+        <h3>Global Dictionary Example</h3>
+        <p>In a traditional HMI workflow, you might create a screen that contains a faceplate to display some specific contextual information, for example, a digital valve control faceplate. You may not always be guaranteed that the UDC will be the same, and there are only so many ways a digital valve operates (on or off, open or closed, etc. …).</p>
+        <p>You can create a templated screen to which you can hyperlink, and you need to pass in the appropriate UDC to display. Set the UDC in the global dictionary, issue the hyperlink, and then retrieve the UDC from the global dictionary on the hyperlinked screen.</p>
+        <p>Set the value in the global dictionary with a command like this:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">Objects.Screen.WriteToGlobalDictionary("ValveUdc", Objects.SourceTextTool.PointConfiguration.UDC);</p>
+                </td>
+            </tr>
+        </table>
+        <p>Then issue a command like this, to retrieve the UDC and set a control (for example, a text tool) with the value:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">Objects.DestinationTextTool.PointConfiguration.UDC = (string)Objects.Screen.ReadFromGlobalDictionary("ValveUdc");</p>
+                </td>
+            </tr>
+        </table>
+        <p>Also see <a href="Hyperlinking_Screens.htm">Hyperlinking Screens</a>.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

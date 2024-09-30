@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|CygNet Measurement Overview|Concepts|Nodes">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Group Node Membership Requirements</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Measurement Overview.htm">CygNet Measurement Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Measurement Concepts.htm">Concepts</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Node.htm">Nodes</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Group Node Membership Requirements</span>
+        </div>
+        <h2>Group Node Membership Requirements</h2>
+        <p>The concept of group Nodes provides a tool for effective and expedient usage of CygNet Measurement. Group Nodes contain existing Nodes, of particular Node types, that meet a specific set of requirements. Once Nodes are grouped together to create group Nodes, the flexibility of your Node selection process through the  FMS Explorer user interface is  enhanced, and provides more options to quickly  access desired views of the selected data. </p>
+        <p>A group Node can be one of the following types.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#General" class="selected">General Group Node</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Station" class="selected">Station Group Node</a> (Physical or  Virtual)</li>
+        </ul>
+        <p>Group Node membership requirements are described in the following sections. If you try to add a member Node not meeting these requirements, an error message will be generated indicating the reason for the failure. See <a href="Troubleshooting CygNet Measurement.htm#A">Troubleshooting CygNet Measurement</a> for more information.</p>
+        <h3><a name="Membersh"></a>Membership Requirements Common to All Group Node Types</h3>
+        <p>The following requirements are inclusive and must be met when adding member Nodes to group Nodes of any type.</p>
+        <ul>
+            <li value="1">You can only add a member Node to a group Node for  times during which the group Node exists.  (If a group Node was created to exist from time <i>X</i> to <i>Y</i>, you can't add a member Node starting before time <i>X</i> or extending beyond time <i>Y</i> into the group Node.)</li>
+            <li value="2">You can only add a member Node to a group Node for times during which the member Node exists. (If a member Node was created to exist from time <i>X</i> to <i>Y</i>, it can be placed into any appropriate group Node starting before time <i>X</i> and existing beyond time <i>Y</i>.)</li>
+            <li value="3">You can only place a group into another group when it will not create a recursive loop. (You can't put <i>X</i> into <i>Y</i> into <i>Z</i> into <i>X</i>.)</li>
+        </ul>
+        <h3><a name="General"></a>General Group Node Membership Requirements</h3>
+        <p>The following requirements must be met when adding member Nodes to General Group Nodes.</p>
+        <ul>
+            <li value="1">Common group Node membership <a href="#Membersh" class="selected">requirements</a> must be met.</li>
+            <li value="2">If the General Group Node has a uniqueness type enforced, it can only contain device Nodes. Each member device Node can only belong to a single group Node of each uniqueness type at any given time.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Station"></a>Station Group Node Membership Requirements</h3>
+        <p>Station Group Nodes can be either physical or virtual.</p>
+        <h4>Physical Station Group Nodes</h4>
+        <p>Physical Station Group Nodes contain a collection of device Nodes. A Node can only appear as an entry in a single physical Station Group Node.</p>
+        <p>The following requirements must be met when adding member Nodes to physical Station Group Nodes.</p>
+        <ul>
+            <li value="1">Common group Node membership <a href="#Membersh" class="selected">requirements</a> must be met. </li>
+            <li value="2">The physical Station Group Node can only contain Gas Meter Nodes - it cannot contain station meters (a Gas Meter Node set to also function as a station), Chromatograph Nodes, Liquid Device Nodes, or any group Nodes.</li>
+            <li value="3">You can't add a Gas Meter Node into the physical Station Group Node if the Gas Meter Node was closed during some portion of the time during which it is being added.</li>
+            <li value="4">You can't  remove  a Gas Meter Node from the physical Station Group Node if the physical Station Group Node was closed during some portion of the time during which it is being removed.</li>
+            <li value="5">Gas Meter Nodes can only exist in a single physical Station Group Node at any given time.</li>
+        </ul>
+        <p>The following requirements must be met when deleting member Nodes from physical Station Group Nodes.</p>
+        <ul>
+            <li value="1">You can't remove a Gas Meter Node from a physical Station Group Node for a period during which the Station Group Node was closed. (If the Station Group Node is closed through time <i>X</i> and contains a number of meters, you can't remove any of the meters before time <i>X</i>.)</li>
+        </ul>
+        <h4>Virtual Station Group Nodes</h4>
+        <p>Virtual station group Nodes contain a collection of station (group or meter) Nodes or liquid device Nodes. A Node can appear as an entry in multiple virtual Station Group Nodes.</p>
+        <p>The following requirements must be met when adding member Nodes to virtual Station Group Nodes.</p>
+        <ul>
+            <li value="1">Common group Node membership <a href="#Membersh" class="selected">requirements</a> must be met. </li>
+            <li value="2">The virtual Station Group Node can contain other Station Group Nodes (virtual or physical) or Station Meter Nodes (a Gas Meter Node set to also function as a station).</li>
+            <li value="3">The virtual Station Group Node can contain Liquid Device Nodes.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

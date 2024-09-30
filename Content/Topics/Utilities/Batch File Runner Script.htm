@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Utilities|Script Library Files">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Batch File Runner Script</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Utilities.htm">Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Script Library Files.htm">Script Library Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Batch File Runner Script</span>
+        </div>
+        <h2>Batch File Runner Script</h2>
+        <p>The Batch Filer Runner (BATCH_FILE_RUNNER) is a system library HyperPoint that can be used by different batch file runner script instances. A <a href="Script Library Files.htm">script library</a> file called BATCHFILERUNNER_SCRIPT.TXT can be configured to run a batch file at a specified interval or when triggered by a referenced point. The script for the BATCH_FILE_RUNNER Library HyperPoint is stored in the <b>CygNet\Utilities\SCRIPTLIBRARY</b> folder on your host server. The library point is installed using the <a href="../Scripting/CygNet Point Script Copy Utility.htm">CygNet Point Script Copy Utility</a>.</p>
+        <p>For more information, see the following subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#1." class="selected">Create the BATCH_FILE_RUNNER Library HyperPoint</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#2." class="selected">Create the Library User HyperPoint</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Troubleshooting" class="selected">Troubleshooting</a>
+            </li>
+        </ul>
+        <h3><a name="1."></a>Create the BATCH_FILE_RUNNER Library HyperPoint</h3>
+        <p>The system library <b>BATCHFILERUNNER_SCRIPT.TXT</b> contains the script required to run a batch file.</p>
+        <p class="HeadingProcedure">To Install the Batch File Runner Script</p>
+        <ol start="1">
+            <li value="1">Using Windows Explorer, browse to the <b>CygNet\Utilities</b> directory on the host server.</li>
+            <li value="2">Locate and double-click  the <a href="../Scripting/CygNet Point Script Copy Utility.htm">CygNet Point Script Copy Utility</a> program executable (PointCfgScriptCopy.exe).</li>
+            <li value="3">In the <b>PointCfg Service</b> drop-down menu, select the Point Service (PNT) to which you want to copy the script.</li>
+            <li value="4">In the <b>Target HSS Service</b> drop-down menu, select the HyperPoint Scripting Service (HSS) to which you want to copy the script.</li>
+            <li value="5">In the <b>Script Copy Source (Copy From)</b> area, select the <b>From File</b> option.</li>
+            <li value="6"> Click the <b>Browse</b> button beside the <b>From File</b> field and browse to the directory that contains the BATCHFILERUNNER_SCRIPT.TXT file. This is typically <b>CygNet\Utilities\ScriptLibrary</b>.</li>
+            <li value="7">Select the BATCHFILERUNNER_SCRIPT.TXT file and click <b>Open</b>.</li>
+            <li value="8">In the <b>Script Copy Target (Copy to)</b> area, select <b>To Default Service Point in Source</b>.</li>
+            <li value="9">Click <b>Test Copy</b> to validate the copy. Closely read all test messages and resolve any errors before proceeding.</li>
+            <li value="10">If you are ready to perform a live copy, click <b>Perform Copy</b> to copy the script into the selected PNT and HSS.</li>
+            <li value="11">Click <b>Yes</b> if you are sure you want to copy the selected script. A new Library HyperPoint is created.</li>
+            <li value="12">In the HSS in CygNet Explorer, right click the newly created Library HyperPoint and select <b>Point Configuration</b> from the drop-down menu.</li>
+            <li value="13">Click <b>Edit</b> and ensure that the <b>HyperPoint</b> and <b>Activate Script</b> check boxes are selected on the <b>General</b> tab.</li>
+            <li value="14">Click <b>Save</b>.</li>
+        </ol>
+        <h3><a name="2."></a>Create the Library User HyperPoint</h3>
+        <p>A Library User HyperPoint must be created to run the Batch File Runner script.</p>
+        <p>
+            <img src="../../Resources/Images/Utilities/BatchFile_LibUserHyperPt.png" title="Library User HyperPoint" alt="Library User HyperPoint" />
+        </p>
+        <p class="HeadingProcedure">To Create a Library User HyperPoint</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, open the Point Service (PNT) in the service hierarchy.</li>
+            <li value="2">Right-click in the white space in the PNT service pane and click <b>New</b>.</li>
+            <li value="3">In the <b>Site.service</b> field, click <b>…</b> and select your HSS. </li>
+            <li value="4">In the <b>Facility ID </b>field, type the <i>Facility ID</i> name or  click <b>…</b> to select the appropriate facility.</li>
+            <li value="5">In the <b>Uniform data code</b> box, type the <i>UDC</i> name or click <b>…</b> to select the appropriate UDC. </li>
+            <li value="6">Ensure that the <b>HyperPoint</b> and <b>Activate Script</b> check boxes are selected.</li>
+            <li value="7">Set the <b>Point Type</b> to <b>String Input</b>.</li>
+            <li value="8">Select the <b>HyperPoint</b> page.</li>
+            <li value="9">Set the <b>HyperPoint type</b> to <b>Library User HyperPoint</b>.</li>
+            <li value="10">Click the <b>Use library HyperPoint</b> field browse button and select <b>BATCH_FILE_RUNNER</b>.</li>
+            <li value="11">On the <b>Point reference</b> page, in the <b>External ID</b> field, type the path to the file or application you want to run.</li>
+            <li value="12">To configure the batch file to run on an interval, enter the number of milliseconds in the <b>General 1</b> field on the <b>Application</b> page.</li>
+            <li value="13">To configure the batch file to run when a point value changes, enter the value in the <b>General 2</b> field on the <b>Application</b> page.</li>
+            <li value="14">To configure the batch file to run on a trigger point,  select the <b>Point Reference</b> page and perform the following:</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Click the <b>Choose point</b> button, change the <b>CVS Site.Service</b> to your UIS, and refresh the view.</li>
+            <li value="2">Select the desired point.</li>
+            <li value="3">If you want the batch file to run when the trigger point matches a specified value, enter the matching value in the <u>trigger point’s</u> <b>General 2</b> field on its <b>Application</b> page.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> If step c. is not performed, the batch file will run on any/every change to the trigger point.</p>
+            </div>
+        </ol>
+        <ol start="15">
+            <li value="15">Click <b>Save</b>. The Library User HyperPoint value displayed indicates the script’s running status. </li>
+        </ol>
+        <p>
+            <img src="../../Resources/Images/Utilities/BatchFile_PtRef.png" title="Point Reference page" alt="Point Reference page" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <p>The following table lists and describes the possible values of the script's running status.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Value</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Bad Timer Value</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The specified timer interval is invalid.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Bat File Failed</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="font-style: normal;">There was an error running the batch file.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Initialized</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-style: normal;">The HyperPoint has finished initialization.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">No Batch File</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">No batch file has been specified.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">No Timer/Tag</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">There is no timer or trigger tag specified.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">No Val Match</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The trigger point is not set to the matching value to activate the batch file.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Success</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The batch file run was successful.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">WScript Shell Crt</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">The script failed to create the Windows Script Shell object.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Troubleshooting"></a>Troubleshooting</h3>
+        <p>Perform the following steps if the script fails to run:<br /></p>
+        <ol>
+            <li value="1">Check the value of the Library User HyperPoint in the HSS for an error message.</li>
+            <li value="2">Use <a href="../CygNet Console/CygNet Console.htm">CygNet Console</a> to check HSS system messages. If the console shows an error on a specific line, use Notepad to open the Script.txt file (stored in the <b>CygNet\Services\HSS</b> folder).</li>
+            <li value="3">Check the HSS_Script&lt;xxx&gt;.log in the <b>CygNet\Services\HSS</b> folder for errors.</li>
+            <li value="4">Ensure that the <a href="../Service Configuration Keywords/HSS Configuration File Keywords.htm#LOGMASK">LOGMASK_SCRIPT</a> keyword in the Hss.cfg file is set to LOG_ALL.</li>
+        </ol>
+        <p>Perform the following steps to verify the settings of the trigger point:</p>
+        <ol>
+            <li value="1">Verify the Point ID of the trigger point on the <b>Point reference</b> page of the Library User HyperPoint.</li>
+            <li value="2">Verify the path to the batch file on the <b>Point reference</b> page of the Library User HyperPoint.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

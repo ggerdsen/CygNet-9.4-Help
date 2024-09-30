@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Totalflow EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Totalflow EIE – History Requests</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Totalflow EIE.htm">Totalflow EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">History Requests</span>
+        </div>
+        <h2>History Requests</h2>
+        <p>The <b>Totalflow EIE</b> provides various ways to request history, depending on the Totalflow device model, the specified protocol, and the device's firmware version. DB1 and DB2 protocol devices issue history requests by contract day relative to the current day. The Totalflow G4 <b>DB2 Enhanced</b> option enables three ways to request history: by date/time range; by sequence number; and by contract day relative to the current day. The three data groups that define history requests are "History - Daily", "History - Event", and "History - Log Period".</p>
+        <p>For more information, see the following subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#DB1" class="selected">DB1 and DB2 History Requests</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#DB1/DB2" class="selected">DB1/DB2 and Get Latest</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Configur" class="selected">Polling History on a DB1 or DB2 Remote Device</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#DB2" class="selected">DB2 Enhanced History Requests</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#DB22" class="selected">DB2 Enhanced and Get Latest From</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Configur2" class="selected">Polling History on a DB2 Enhanced Remote Device</a>
+            </li>
+        </ul>
+        <h3><a name="DB1"></a>DB1 and DB2 History Requests</h3>
+        <p>Totalflow devices using the DB1 or DB2 protocol retrieve history by contract day relative to the current day. You have two basic options for retrieving history:</p>
+        <ul>
+            <li value="1"><b>Retrieve Data for Last <i>n</i> Contract Days</b>: Retrieves history from a specified number of past contract days up to the current contract day. A value of "1" returns data for the current contract day. Partial contract days are collected.</li>
+            <li value="2"><b>Get Latest</b>: Retrieves history from the most recently cached history timestamp, which displays in the <b>Get Latest</b> field. For this to work, you must poll the field device for the first time using the <b>Retrieve Data for Last <i>n</i> Contract Days</b> option; this establishes a cached timestamp. For information, see <a href="#DB1/DB2" class="selected">DB1/DB2 and Get Latest</a>.</li>
+        </ul>
+        <h4><a name="DB1/DB2"></a>DB1/DB2 and Get Latest</h4>
+        <p>The <b>Get Latest</b> feature retrieves history from the most recently cached history timestamp. After you use the <b>Retrieve Data for Last <i>n</i> Contract Days</b> option to poll history for the first time, a timestamp is cached in the remote device. The cached timestamp marks when the most recent poll occurred and when to begin the next <b>Get Latest</b> poll. After the initial poll, every time you poll using the <b>Get Latest</b> option a new most recent history timestamp is cached in the remote device. The <u>only</u> way you can establish a cached history timestamp after the initial history poll is by enabling the <b>Get Latest</b> option.</p>
+        <p>After the initial poll, when you use the <b>Retrieve Data for Last <i>n</i> Contract Days</b> option in conjunction with the <b>Get Latest</b> option, whichever date is most recent overrides the other date. For instance, if you enter a value of 6 for <b>Retrieve Data for Last <i>n</i> Contract Days</b> but your most recent timestamp only goes back 3 days, the poll returns only the most recent 3 days of history.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Configur"></a>Polling History on a DB1 or DB2 Remote Device</h4>
+        <p>You have two basic options for retrieving DB1 and DB2 history: poll a single data group once and/or create a UIS command component.</p>
+        <p class="HeadingProcedure">To Poll a Single History Data Group Once</p>
+        <ol>
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to retrieve history.</li>
+            <li value="2">Click the <b>Data Group</b> page.</li>
+            <li value="3">Double-click a history data group.</li>
+            <li value="4">Click <b>Get from RTU</b>.</li>
+            <li value="5">In the <b>History Collection Retrieval</b> dialog box, specify the date from which you want to collect history. The <b>History Collection Retrieval</b> dialog box looks similar to the two following examples, depending on whether this is an initial poll or not:</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/EIEs - Remote Devices/totalflow_DB1_DB2_history_retrieval.png" title="History Collection Retrieval" alt="History Collection Retrieval" />
+        </p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/EIEs - Remote Devices/TF_history_collection_get_latest_dialog.png" title="History Collection Retrieval" alt="History Collection Retrieval" />
+        </p>
+        <ol start="6">
+            <li value="6">When you are finished, click <b>OK</b>.</li>
+        </ol>
+        <h5>History Collection Retrieval Properties</h5>
+        <p>The following table lists and describes the properties found on the <b>History Collection Retrieval</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Retrieve Data for Last Days</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Retrieves history from a specified number of past contract days up to the current contract day. A value of "1" returns data for the current contract day. Partial contract days are collected. A value of "0" does not make sense to the EIE. When you use the <b>Retrieve Data for Last <i>n</i> Contract Days</b> option in conjunction with the <b>Get Latest</b> option, whichever date is most recent overrides the other date.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Get Latest</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to check to retrieve history from the most recently cached history timestamp, which displays in the <b>Get Latest</b> field. For this to work, you must poll the field device for the first time using the <b>Retrieve Data for Last <i>n</i> Contract Days</b> option; this establishes a cached timestamp. When you use the <b>Retrieve Data for Last <i>n</i> Contract Days</b> option in conjunction with the <b>Get Latest</b> option, whichever date is most recent overrides the other date.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">To Poll Using a UIS Command Component</p>
+        <ol>
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to retrieve history.</li>
+            <li value="2">Click the <b>UIS Commands</b> page.</li>
+            <li value="3">Add a DG_F_DEV command type component for a history data group type to a new or existing command.  For instructions, see <a href="UIS Commands - Configuring a UIS Command.htm">Configuring a UIS Command</a>.</li>
+            <li value="4">In the <b>Edit Command Component</b> dialog box, double-click the <b>Parameters</b> row corresponding to the command component parameter <b>Day</b> or <b>SDateLast</b>.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/EIEs - Remote Devices/totalflow_DB1_2_command_parms.png" title="UIS Command Parameters" alt="UIS Command Parameters" />
+        </p>
+        <ol start="5">
+            <li value="5">In the <b>Modify parms</b> dialog box, specify the appropriate <b>New Value(s)</b> and click <b>OK</b>. For <b>Day</b>, the <b>Low Range</b> and <b>High Range</b> fields set the lowest to highest possible number of contract days for which you could collect history. The default is 1 for <b>Low Range</b> and 40 for <b>High Range</b>, which means you could retrieve history from 40 contract days in the past up to the present contract day. If you do not specify parameters, data is retrieved for the current contract day.</li>
+            <li value="6">When you are finished entering command component parameter  values, click <b>OK</b>.</li>
+            <li value="7">Continue configuring your UIS command to suit your needs.</li>
+            <li value="8">When you are finished configuring your UIS command(s), set up command scheduling in the <a href="../Scheduler/Scheduler.htm">Master Scheduling Service (MSS)</a>, if required. For more information, see <a href="../Scheduler/UIS Command Task.htm">UIS Command Task</a>.</li>
+        </ol>
+        <p>For information about defining UIS commands in a device template file, see <a href="UIS Commands and DTFs.htm">UIS Commands and Device Template Files</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="DB2"></a>DB2 Enhanced History Requests</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The DB2 Enhanced protocol only applies to CygNet v8.0.1 and a Totalflow G4 device with the correct firmware installed.</p>
+        </div>
+        <p><a name="ThreeOptions"></a>The Totalflow G4 <b>DB2 Enhanced</b> option enables three ways to request history: by time range; by sequence number; and by contract day relative to the current day. You have three basic options for retrieving history:</p>
+        <ul>
+            <li value="1"><b>Time Range</b>: Retrieves history for a user-specified time range. <b>Start Time</b> may be a user-defined value or the <b>Get Latest From</b> value. The <b>Get Latest From</b> value retrieves history from the most recently cached history timestamp and displays the latest timestamp in the <b>Get Latest From</b> field. When you use the <b>Start Time</b> option in conjunction with the <b>Get Latest From</b> option, whichever time is most recent overrides the other time. You must always specify an <b>End Date</b>, regardless of how the start time is set. For more information, see <a href="#DB22" class="selected">DB2 Enhanced and Get Latest From</a>.</li>
+            <li value="2"><b>Sequence Number Range <i>n</i> to <i>n</i></b>: Retrieves history based on a Totalflow sequence number range. This feature is useful for troubleshooting. To display sequence numbers for a given history poll, click to check the <b>Show All</b> option on the respective history data group's data dialog box. For more information about Totalflow sequence numbers, see Totalflow documentation or contact a Totalflow representative.</li>
+            <li value="3"><b>Last <i>n</i> Contract Days</b>: Retrieves history from a specified number of past contract days up to the current contract day. A value of "1" returns data for the current contract day. Partial contract days are collected. A value of "0" does not make sense to the EIE.</li>
+        </ul>
+        <h4><a name="DB22"></a>DB2 Enhanced and Get Latest From</h4>
+        <p>The <b>Get Latest From</b> feature is part of the <b>Time Range</b> option. The <b>Get Latest From</b> feature retrieves history from the most recently cached history timestamp. After you use one of the <a href="#ThreeOptions" class="selected">three options above</a> to poll history for the first time, a timestamp is cached in the remote device. The cached timestamp marks when the most recent poll occurred and when to begin the next <b>Get Latest From</b> poll. After the initial poll, every time you poll using the <b>Get Latest From</b> option a new most recent history timestamp is cached in the remote device.</p>
+        <p>The <u>only</u> way you can establish a cached history timestamp after the initial history poll is by enabling the <b>Get Latest From</b> option. For instance, if you disable <b>Get Latest From</b> and enter a <b>Start Time</b> value and retrieve data, the data corresponds to the <b>Start Time</b> entered but the timestamp as indicated in the field beside <b>Get Latest From</b> does not change.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Configur2"></a>Polling History on a DB2 Enhanced Remote Device</h4>
+        <p>As with the DB1 and DB2 protocols, you have two basic options for retrieving DB2 Enhanced history: poll a single data group once and/or create a UIS command component. However, the DB2 Enhanced option provides several methods of defining parameters within these two basic options.</p>
+        <p class="HeadingProcedure">To Poll a Single History Data Group Once</p>
+        <ol>
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to retrieve history.</li>
+            <li value="2">Click the <b>Data Group</b> page.</li>
+            <li value="3">Double-click a history data group.</li>
+            <li value="4">Click <b>Get from RTU</b>.</li>
+            <li value="5">In the <b>History Collection Retrieval</b> dialog box, select the history retrieval option you require.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/EIEs - Remote Devices/total_flow_G4_history_collection.png" title="History Collection Retrieval" alt="History Collection Retrieval" />
+        </p>
+        <ol start="6">
+            <li value="6">When you are finished, click <b>OK</b>.</li>
+        </ol>
+        <h5>History Retrieval Collection Properties</h5>
+        <p>The following table lists and describes the properties found on the <b>History Collection Retrieval</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Time Range</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Retrieves history for a user-specified time range. <b>Start Time</b> may be a user-defined value or the <b>Get Latest From</b> value. The <b>Get Latest From</b> value retrieves history from the most recently cached history timestamp and displays the latest timestamp in the <b>Get Latest From</b> field. The <u>only</u> way you can establish a cached history timestamp after the initial history poll is by enabling the <b>Get Latest From</b> option. You must always specify an <b>End Date</b>, regardless of how the start time is set. For more information, see <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Sequence Number Range <i>n</i> to <i>n</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Retrieves history based on a Totalflow sequence number range. This feature is useful for troubleshooting. To display sequence numbers for a given history poll, click to check the <b>Show All</b> option on the respective history data group's data dialog box. For more information about Totalflow sequence numbers, see Totalflow documentation or contact a Totalflow representative.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Last <i>n</i> Contract Days</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Retrieves history from a specified number of past contract days up to the current contract day.  A value of "1" returns data for the current contract day. Partial contract days are collected. A value of "0" does not make sense to the EIE.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">To Poll Using a UIS Command Component</p>
+        <ol>
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to retrieve history.</li>
+            <li value="2">Click the <b>UIS Commands</b> page.</li>
+            <li value="3">Add a DG_F_DEV command type component for a history data group type to a new or existing command.  For instructions, see <a href="UIS Commands - Configuring a UIS Command.htm">Configuring a UIS Command</a>.</li>
+            <li value="4"><a name="Setps4-5"></a>In the <b>Edit Command Component</b> dialog box, double-click the appropriate <b>Parameters</b> row corresponding to the history retrieval method you want to use. Available <a href="UIS Commands - Command Components.htm">UIS parameters</a> for DB2 Enhanced are as follows:</li>
+        </ol>
+        <ul class="Circle">
+            <ul>
+                <li value="1"><b>Day</b>: Corresponds to <b>Last <i>n</i> Contract Days</b> on the <b>History Collection Retrieval</b> dialog box.</li>
+                <li value="2"><b>SDate</b>: Corresponds to <b>Start Time</b> on the <b>History Collection Retrieval</b> dialog box.</li>
+                <li value="3"><b>EDate</b>:  Corresponds to <b>End Time</b> on the <b>History Collection Retrieval</b> dialog box.</li>
+                <li value="4"><b>SITEM</b>: Corresponds to <b>Sequence Number Range <i style="text-decoration: underline;">n</i> to <i>n</i></b> on the <b>History Collection Retrieval</b> dialog box.</li>
+                <li value="5"><b>EITEM</b>: Corresponds to <b>Sequence Number Range <i>n</i> to <i style="text-decoration: underline;">n</i></b> on the <b>History Collection Retrieval</b> dialog box.</li>
+                <li value="6"><b>SDateLast</b>: Corresponds to <b>Get Latest From</b>  on the <b>History Collection Retrieval</b> dialog box.</li>
+            </ul>
+        </ul>
+        <p class="Indent3">
+            <img src="../../Resources/Images/EIEs - Remote Devices/totalflow_DB2enhanced_command_parms.png" title="UIS Command Parameters" alt="UIS Command Parameters" />
+        </p>
+        <ol start="5">
+            <li value="5">In the <b>Modify parms</b> dialog box, specify the appropriate <b>New Value</b> and click <b>OK</b>. If you are defining a history retrieval method that requires two parameters, repeat <a href="#Setps4-5" class="selected">steps 4 - 5</a> for the other parameter. If you do not specify parameters, data is retrieved for the current contract day.</li>
+            <li value="6">Continue configuring your UIS command to suit your needs.</li>
+            <li value="7">When you are finished configuring your UIS command(s), set up command scheduling in the <a href="../Scheduler/Scheduler.htm">Master Scheduling Service (MSS)</a>, if required. For more information, see <a href="../Scheduler/UIS Command Task.htm">UIS Command Task</a>.</li>
+        </ol>
+        <p>For information about defining UIS commands in a device template file, see <a href="UIS Commands and DTFs.htm">UIS Commands and Device Template Files</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

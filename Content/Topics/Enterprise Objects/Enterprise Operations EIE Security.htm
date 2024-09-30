@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Enterprise Operations EIE Security</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations EIE.htm">Enterprise Operations EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Security</span>
+        </div>
+        <h2>Enterprise Operations EIE Security</h2>
+        <p>There are two types of security that apply to the Enterprise Operations EIE.</p>
+        <h3>Configuration Security</h3>
+        <p>The first type is the device configuration  security. As with other CygNet EIEs, this security controls who can view or edit the device properties, or delete the device from the Device Definition Service (DDS). The default security application is DDS and the event is ACCESS. </p>
+        <p>If desired, you can create a custom application/event for each Enterprise Operations device; however, this requires that you add the custom application/event to the Access Control Service (ACS) and assign users and their permission levels for each custom application/event.</p>
+        <h3>Operation Execution Security</h3>
+        <p>The second type  is the security in place for the various services with which a given request may interact. For each Enterprise Operations device, you define the User ID against which the ACS will verify permissions. This User ID is also the ID that is recorded in Audit Service records. </p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 63px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Level</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Level 1</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Input file system security</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">In order for an operation request to be accepted by the driver, the request file must be transferred to the input folder configured for each device instance. File system security configuration for this folder is the responsibility of the administrator.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Level 2</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Operation enablement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Each device instance has a configured list of operations that are permissible. For each enabled operation, an ACS security application/event can be specified. </p>
+                        <p>If a driver receives an operation request for an operation that has not been enabled, the operation will be rejected. If a driver receives an operation request for an operation utilizing a service that is not permitted, the operation will be rejected.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Level 3</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Initial service security challenge</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>At the start of each operation execution, the device challenges service-level security before proceeding. The list of services to challenge is determined in the operation request. </p>
+                        <p class="Example">Example</p>
+                        <p class="Indent">When executing a GetFacilityAttrList operation on the TEST.FAC service, the user must have read access to the TEST.FAC service for operation execution to continue.</p>
+                        <p>There are three supported methods to specify the user for level 3 security challenges. Each  device instance can be configured to accept the user ID through one of the following methods.</p>
+                        <ul class="table">
+                            <li value="1">Accept a dynamic user ID in each request XML. If a request does not contain a user ID, the request will fail.</li>
+                            <li value="2">Hard-coded user for all operations. If a request contains a user ID, the request will fail.</li>
+                            <li value="3">UIS user ID for all operations.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Level 4</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Native CygNet security</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Native CygNet security checks that occur during operation execution use the user ID as determined in level 3.</p>
+                        <p class="Example">Example</p>
+                        <p class="Indent">If the device is processing a request to add points to the Point Service (PNT) and the device is configured to use the ID “Acme\Duane.Bettancourt,” the ACS will verify that Duane.Bettancourt has permission to add points to the PNT and the Audit Service records will show that Duane.Bettancourt was the ID that added the points.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Level 5</td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Output file system security</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">Operation response files are placed in the output folder configured for each device instance. File system security configuration is the responsibility of the administrator.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>See <a href="Enterprise Objects Security.htm">Enterprise Objects Security</a> for further information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

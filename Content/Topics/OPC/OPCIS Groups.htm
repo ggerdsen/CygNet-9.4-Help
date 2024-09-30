@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="OPC|OPC Interface Service">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>OPCIS Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="OPC.htm">OPC</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OPC Interface Service.htm">OPC Interface Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">OPCIS Groups</span>
+        </div>
+        <h2>OPCIS Groups</h2>
+        <p>Each group represents a connection to an OPC server. As such, more groups result in higher CPU utilization. All tags in an OPCIS belong to a group, which is represented by an OPC Group Facility. An OPC Group Facility can be used to monitor a variety of OPC server and OPC Group statistics. By default, all tags in an OPCIS belong to the group named <b>OPCDEFAULTGROUP</b>. This group is created automatically; on startup the OPCIS creates a facility named OPCDEFAULTGROUP and a set of status tags that represent information about the OPC connection.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If  the facility type for an OPCIS group is blank, the OPCIS will automatically update the facility type to OPC_FAC and updates from the OPC server will occur. If the facility type for an OPCIS group is set to any string other than "OPC_FAC", all point tags associated with that group will be disabled. This functionality is logged in the OPCIS log file under "MAX_TRACE" log settings.</p>
+            <p>For more information about status tags, see the following subsections:</p>
+        </div>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#OPC" class="selected">OPC Group Definition Point</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#OPC2" class="selected">OPC Group Write Queue Size</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#OPC3" class="selected">OPC Group Status Tags</a>
+            </li>
+        </ul>
+        <h3><a name="OPC"></a>OPC Group Definition Point</h3>
+        <p>One of the tags in an OPC Group Facility is referred to as the <b>OPC Group Definition</b> tag; it has a <b>UDC</b> of <b>SYOPCGDEF</b>, which is a <a href="../Tables/OPCIS System UDCs.htm#Group2">system UDC</a>.&#160; </p>
+        <p>Point configuration attributes for the <b>OPC Group Definition</b> tag define the information about the group, while the value of the tag defines the <i>update rate of a group</i>. The group point attributes described below will take precedence over OPC service configuration file keyword settings.</p>
+        <p>The point configuration attributes that have special meaning for an OPC Group Definition tag are <b>General 1</b>, <b>Table Driven 1</b>, <b>Table Driven 2</b>, <b>Table Driven 3</b>, and <b>External ID</b>. These attributes are configured on the <a href="../Points/PNT Editor - Application Page.htm">Application</a> and <a href="../Points/PNT Editor - Point Reference Page.htm">Point Reference</a> pages of the point configuration record:</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attributes</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Points/PNT Editor - Application Page.htm#General">General 1</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    Many OPC servers initialize tags to a sentinel value (for example, -9999.99) that does not represent a true tag value. Set the <b>General 1</b> property to a numeric value that should be ignored. When a tag with this value is received from the OPC server, it is marked as unreliable but the OPC value is not stored (the previous value is retained).
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Points/PNT Editor - Application Page.htm#Table">Table Driven 1</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">                    
+                        The <b>Table Driven 1</b> property  is used to indicate what to do with the value of an OPC tag with OPC Quality flags that indicate an error. The default behavior is to mark as unreliable and save the value from the OPC server.
+                  <ul class="table"><li value="1">If set to <b>OPCBADIGNR</b> and an unreliable value is read, it will be discarded and the previous value is retained. </li><li value="2">If set to <b>OPCBADSTR</b> and an unreliable value is read, it will be stored. </li></ul></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Points/PNT Editor - Application Page.htm#Table">Table Driven 2</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    The <b>Table Driven 2</b> property specifies whether the OPC server is to retrieve data from the cache or the device. This applies to all synchronous communication. This attribute provides the functionality of the <a href="../Service Configuration Keywords/OPCIS Configuration File Keywords.htm#OPC_SYNC_IO">OPC_SYNC_IO</a> service configuration file keyword at the group level.
+            <ul class="table"><li value="1">If set to <b>OPCSYNCCCH</b>, the OPCIS will sync IO via the cache. </li><li value="2">If set to <b>OPCSYNCDEV</b>, the OPCIS will sync IO via the device. </li></ul></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Points/PNT Editor - Application Page.htm#Table">Table Driven 3</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    The <b>Table Driven 3</b> property defines the type of communications between the OPCIS and the OPC server. This attribute provides the functionality of the <a href="../Service Configuration Keywords/OPCIS Configuration File Keywords.htm#OPC_IO_TYPE">OPC_IO_TYPE</a> service configuration file keyword at the group level.
+            <ul class="table"><li value="1">If set to <b>OPCIOASYNC</b> the OPCIS will use asynchronous IO. </li><li value="2">If set to <b>OPCIOSYNC</b> the OPCIS will use synchronous IO. </li></ul></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Points/PNT Editor - Point Reference Page.htm#External">External ID</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">The <b>External ID</b> property can be used to specify the server and machine name for the OPC group when linking points to an external OPC server. The format is: <b>server_name=&lt;<i>server</i>&gt;</b>; <b>machine_name=&lt;<i>machine</i>&gt;</b></td>
+            </tr>
+        </table>
+        <p>The value of the OPC Group Definition tag indicates the <i>OPC group update rate:</i></p>
+        <ul class="table">
+            <li value="1">A value of <b>0</b> triggers suspension of updates to all tags in the group. </li>
+            <li value="2">A value of <b>1</b> triggers the use of the update rate defined by the service’s configuration file keyword <a href="../Service Configuration Keywords/OPCIS Configuration File Keywords.htm#OPC_MAX_UPDATE">OPC_MAX_UPDATE</a>. This is the default value.</li>
+            <li value="3">All other values represent the update rate in milliseconds (recommended minimum rate is 1000 ms). If communications are synchronous, the rate is the data retrieval rate. If communications are asynchronous, the rate is the maximum rate at which the OPC server can push values to the OPCIS.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Deleting an OPCIS group's <b>SYOPCGDEF</b> point causes that group to use the default group settings from the .cfg file.</p>
+        </div>
+        <h4><a name="Custom"></a>Custom OPC Groups</h4>
+        <p>Custom OPC groups can be created. Each has its own configuration and update rate. </p>
+        <p class="Example">Example</p>
+        <p>In the example below there are two groups: the default group and a group named OPC30SEC. The default group has an update rate of 60 seconds. This rate is based on the OPCIS configuration. The OPC30SEC group has an update rate of 30 seconds. This rate is based on the value of the OPC Group Definition tag (MYSITE.OPCIS::OPC30SEC.SYOPCGDEF).</p>
+        <p class="Image">
+            <img src="../../Resources/Images/OPC/OPCIS_groups.png" />
+        </p>
+        <p>The update rate of a group can be changed in run-time by issuing a setpoint command to the Group Definition Tag. See  <a href="../Tables/OPCIS System UDCs.htm">OPCIS System UDCs</a> for more information about creating these tags.</p>
+        <h3><a name="OPC2"></a>OPC Group Write Queue Size</h3>
+        <p>Another tag in an OPC Group Facility is the <b>OPC Group Write Queue Sz</b> tag; it has <b>UDC</b> of <b>SYOPCWQS</b>, which is a <a href="../Tables/OPCIS System UDCs.htm#Group2">system UDC</a>.&#160; </p>
+        <p>The value of the OPC Group Write Queue Sz point represents the current number of items in the OPC write queue, which queues requests to write values to the associated OPC server. </p>
+        <p>As with the <b>OPC Group Definition</b> point, the <a href="../Points/PNT Editor - Application Page.htm#General">General 1</a> property on the <b>Application</b> page of the point configuration record carries special meaning for this tag and defines information about the group. The  <b>General 1</b> property is used to control the maximum write queue size of the OPC group to which the point is added.</p>
+        <p>The default value is 1000. Set the <b>General 1</b> property to another numeric value to change the size of the queue. Every change to the point will be logged in the OPCIS.</p>
+        <h3><a name="OPC3"></a>OPC Group Status Tags</h3>
+        <p>Upon startup, the OPCIS creates three Group Status tags to monitor group activity. The facility of the tag is in the format SITE_SERVICE (for example, MYSITE_OPCIS). The UDCs are described in the table below.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 75px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UDC</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UDC Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Point Type</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SYOPCSGAC</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>OPC Groups Active</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Number of groups active in the OPCIS.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>Analog Input</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>SYOPCSGCT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>OPC Group Count</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Number of groups defined in the OPCIS.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <p>Analog Input</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SYOPCSGNC</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>OPC Groups Not Connected</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Number of groups not connected in the OPCIS.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>Analog Input</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

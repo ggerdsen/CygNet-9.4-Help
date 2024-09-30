@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/devices/datagroups/getTransactions</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/devices/datagroups/getTransactions</h1>
+<div>
+    <p>Retrieves transaction data for a device and data group, optionally with reference information</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">siteService</td>
+                    <td class="parameter-documentation">
+                        <p>CygNet site and service (Site.Service) of the Device Definition Service (DDS)</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">deviceId</td>
+                    <td class="parameter-documentation">
+                        <p>The device ID to retrieve transaction data for</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">dataGroupType</td>
+                    <td class="parameter-documentation">
+                        <p>The data group type</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">dataGroupOrdinal</td>
+                    <td class="parameter-documentation">
+                        <p>The data group ordinal</p>
+                    </td>
+                    <td class="parameter-type">
+                        integer
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">options</td>
+                    <td class="parameter-documentation">
+                        <p>Specifies whether to get transactions with: data and references, data (no references), or no data (header only)</p>
+                    </td>
+                    <td class="parameter-type">
+                        <a href="../ResourceModel@modelName=TransactionGetOptions.html">TransactionGetOptions</a>
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;siteService&quot;: &quot;CYGSITE.DDS&quot;,
+  &quot;deviceId&quot;: &quot;EM107&quot;,
+  &quot;dataGroupType&quot;: &quot;AGAParams&quot;,
+  &quot;dataGroupOrdinal&quot;: 1,
+  &quot;options&quot;: &quot;WithDataAndRefs&quot;
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">transactions</td>
+                    <td class="parameter-documentation">
+                        <p>List of data group transactions</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=DataGroupTransactionDTO.html">DataGroupTransactionDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;transactions&quot;: [
+    {
+      &quot;header&quot;: {
+        &quot;deviceId&quot;: &quot;EM107&quot;,
+        &quot;facilityId&quot;: &quot;EM107&quot;,
+        &quot;dataGroupType&quot;: &quot;BasicPoll&quot;,
+        &quot;dataGroupOrdinal&quot;: 0,
+        &quot;dataBaseKey&quot;: &quot;0000000123B0000004C0001275&quot;,
+        &quot;timestamp&quot;: &quot;2019-05-06T10:21:33.651-07:00&quot;,
+        &quot;type&quot;: &quot;Get&quot;,
+        &quot;userId&quot;: &quot;DOMAIN\\user.name&quot;,
+        &quot;statusCode&quot;: &quot;Succeeded&quot;,
+        &quot;statusMessage&quot;: &quot;Succeeded&quot;,
+        &quot;majorVersion&quot;: 2,
+        &quot;minorVersion&quot;: 2,
+        &quot;dataSize&quot;: 2497,
+        &quot;headerSize&quot;: 300,
+        &quot;indexItem&quot;: &quot;&quot;,
+        &quot;appDefined1&quot;: 0,
+        &quot;appDefined2&quot;: 0,
+        &quot;appDefined3&quot;: 0,
+        &quot;appDefined4&quot;: 0,
+        &quot;hasPartialData&quot;: false,
+        &quot;compressSize&quot;: 753,
+        &quot;blobCount&quot;: 1
+      },
+      &quot;transactionDataXml&quot;: &quot;&lt;dgData xmlns:dt=\&quot;urn:schemas-microsoft-com:datatypes\&quot;&gt;&lt;ItemCnt dt:dt=\&quot;i4\&quot; desc=\&quot;Number of items\&quot;&gt;41&lt;/ItemCnt&gt;&lt;RespLen dt:dt=\&quot;i4\&quot; desc=\&quot;Response length\&quot;&gt;139&lt;/RespLen&gt;&lt;InDIs dt:dt=\&quot;i4\&quot; desc=\&quot;DIs installed\&quot;&gt;0&lt;/InDIs&gt;&lt;InTDIs dt:dt=\&quot;i4\&quot; desc=\&quot;TDIs installed\&quot;&gt;0&lt;/InTDIs&gt;&lt;InAIs dt:dt=\&quot;i4\&quot; desc=\&quot;AIs installed\&quot;&gt;8&lt;/InAIs&gt;&lt;InMtrRns dt:dt=\&quot;i4\&quot; desc=\&quot;Meter runs installed\&quot;&gt;4&lt;/InMtrRns&gt;&lt;InPIs dt:dt=\&quot;i4\&quot; desc=\&quot;PIs installed\&quot;&gt;1&lt;/InPIs&gt;&lt;InPIDs dt:dt=\&quot;i4\&quot; desc=\&quot;PIDs installed\&quot;&gt;0&lt;/InPIDs&gt;&lt;InTanks dt:dt=\&quot;i4\&quot; desc=\&quot;Tanks installed\&quot;&gt;0&lt;/InTanks&gt;&lt;InAOs dt:dt=\&quot;i4\&quot; desc=\&quot;AOs installed\&quot;&gt;1&lt;/InAOs&gt;&lt;InTDOs dt:dt=\&quot;i4\&quot; desc=\&quot;TDOs installed\&quot;&gt;1&lt;/InTDOs&gt;&lt;InDOs dt:dt=\&quot;i4\&quot; desc=\&quot;DOs installed\&quot;&gt;0&lt;/InDOs&gt;&lt;DiagPnt65 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic65 point\&quot;&gt;3.17116&lt;/DiagPnt65&gt;&lt;DiagPnt66 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic66 point\&quot;&gt;25.06878&lt;/DiagPnt66&gt;&lt;DiagPnt67 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic67 point\&quot;&gt;23.54925&lt;/DiagPnt67&gt;&lt;DiagPnt68 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic68 point\&quot;&gt;0.5923513&lt;/DiagPnt68&gt;&lt;DiagPnt69 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic69 point\&quot;&gt;79.56741&lt;/DiagPnt69&gt;&lt;AI03 dt:dt=\&quot;r4\&quot; desc=\&quot;AI03 value\&quot;&gt;625042.5&lt;/AI03&gt;&lt;AI33 dt:dt=\&quot;r4\&quot; desc=\&quot;AI33 value\&quot;&gt;625042.5&lt;/AI33&gt;&lt;AI34 dt:dt=\&quot;r4\&quot; desc=\&quot;AI34 value\&quot;&gt;625042.5&lt;/AI34&gt;&lt;MRGas00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 gas flow\&quot;&gt;717.4448&lt;/MRGas00&gt;&lt;MREnergy00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 cur energy\&quot;&gt;627.6673&lt;/MREnergy00&gt;&lt;MRMcf00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 MCF\&quot;&gt;119.1879&lt;/MRMcf00&gt;&lt;MRMmbtu00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 MMBTU\&quot;&gt;104.2737&lt;/MRMmbtu00&gt;&lt;MRGas01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 gas flow\&quot;&gt;0&lt;/MRGas01&gt;&lt;MREnergy01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 cur energy\&quot;&gt;0&lt;/MREnergy01&gt;&lt;MRMcf01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 MCF\&quot;&gt;0&lt;/MRMcf01&gt;&lt;MRMmbtu01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 MMBTU\&quot;&gt;0&lt;/MRMmbtu01&gt;&lt;MRGas02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 gas flow\&quot;&gt;0&lt;/MRGas02&gt;&lt;MREnergy02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 cur energy\&quot;&gt;0&lt;/MREnergy02&gt;&lt;MRMcf02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 MCF\&quot;&gt;0&lt;/MRMcf02&gt;&lt;MRMmbtu02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 MMBTU\&quot;&gt;0&lt;/MRMmbtu02&gt;&lt;MRGas03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 gas flow\&quot;&gt;717.4448&lt;/MRGas03&gt;&lt;MREnergy03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 cur energy\&quot;&gt;627.6673&lt;/MREnergy03&gt;&lt;MRMcf03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 MCF\&quot;&gt;119.1879&lt;/MRMcf03&gt;&lt;MRMmbtu03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 MMBTU\&quot;&gt;104.2737&lt;/MRMmbtu03&gt;&lt;PIRawAcc01 dt:dt=\&quot;i4\&quot; desc=\&quot;PI01 raw acc\&quot;&gt;352584450&lt;/PIRawAcc01&gt;&lt;PIRate01 dt:dt=\&quot;r4\&quot; desc=\&quot;PI01 rate\&quot;&gt;0&lt;/PIRate01&gt;&lt;PItotal01 dt:dt=\&quot;r4\&quot; desc=\&quot;PI01 total\&quot;&gt;3.082857E-44&lt;/PItotal01&gt;&lt;AO00 dt:dt=\&quot;r4\&quot; desc=\&quot;AO00 value\&quot;&gt;3.222986E-44&lt;/AO00&gt;&lt;TDO00 dt:dt=\&quot;r4\&quot; desc=\&quot;TDO00 EU\&quot;&gt;3.363116E-44&lt;/TDO00&gt;&lt;UISCMDPRMS&gt;DGORD=0;DGTYPE=BasicPoll;&lt;/UISCMDPRMS&gt;&lt;UISCMDTYPE&gt;DG_F_DEV&lt;/UISCMDTYPE&gt;&lt;/dgData&gt;&quot;
+    },
+    {
+      &quot;header&quot;: {
+        &quot;deviceId&quot;: &quot;EM107&quot;,
+        &quot;facilityId&quot;: &quot;EM107&quot;,
+        &quot;dataGroupType&quot;: &quot;BasicPoll&quot;,
+        &quot;dataGroupOrdinal&quot;: 0,
+        &quot;dataBaseKey&quot;: &quot;0000000123B0000004C0001274&quot;,
+        &quot;timestamp&quot;: &quot;2019-05-06T10:21:36.932-07:00&quot;,
+        &quot;type&quot;: &quot;Get&quot;,
+        &quot;userId&quot;: &quot;DOMAIN\\user.name&quot;,
+        &quot;statusCode&quot;: &quot;Succeeded&quot;,
+        &quot;statusMessage&quot;: &quot;Succeeded&quot;,
+        &quot;majorVersion&quot;: 2,
+        &quot;minorVersion&quot;: 2,
+        &quot;dataSize&quot;: 2497,
+        &quot;headerSize&quot;: 300,
+        &quot;indexItem&quot;: &quot;&quot;,
+        &quot;appDefined1&quot;: 0,
+        &quot;appDefined2&quot;: 0,
+        &quot;appDefined3&quot;: 0,
+        &quot;appDefined4&quot;: 0,
+        &quot;hasPartialData&quot;: false,
+        &quot;compressSize&quot;: 753,
+        &quot;blobCount&quot;: 1
+      },
+      &quot;transactionDataXml&quot;: &quot;&lt;dgData xmlns:dt=\&quot;urn:schemas-microsoft-com:datatypes\&quot;&gt;&lt;ItemCnt dt:dt=\&quot;i4\&quot; desc=\&quot;Number of items\&quot;&gt;41&lt;/ItemCnt&gt;&lt;RespLen dt:dt=\&quot;i4\&quot; desc=\&quot;Response length\&quot;&gt;139&lt;/RespLen&gt;&lt;InDIs dt:dt=\&quot;i4\&quot; desc=\&quot;DIs installed\&quot;&gt;0&lt;/InDIs&gt;&lt;InTDIs dt:dt=\&quot;i4\&quot; desc=\&quot;TDIs installed\&quot;&gt;0&lt;/InTDIs&gt;&lt;InAIs dt:dt=\&quot;i4\&quot; desc=\&quot;AIs installed\&quot;&gt;8&lt;/InAIs&gt;&lt;InMtrRns dt:dt=\&quot;i4\&quot; desc=\&quot;Meter runs installed\&quot;&gt;4&lt;/InMtrRns&gt;&lt;InPIs dt:dt=\&quot;i4\&quot; desc=\&quot;PIs installed\&quot;&gt;1&lt;/InPIs&gt;&lt;InPIDs dt:dt=\&quot;i4\&quot; desc=\&quot;PIDs installed\&quot;&gt;0&lt;/InPIDs&gt;&lt;InTanks dt:dt=\&quot;i4\&quot; desc=\&quot;Tanks installed\&quot;&gt;0&lt;/InTanks&gt;&lt;InAOs dt:dt=\&quot;i4\&quot; desc=\&quot;AOs installed\&quot;&gt;1&lt;/InAOs&gt;&lt;InTDOs dt:dt=\&quot;i4\&quot; desc=\&quot;TDOs installed\&quot;&gt;1&lt;/InTDOs&gt;&lt;InDOs dt:dt=\&quot;i4\&quot; desc=\&quot;DOs installed\&quot;&gt;0&lt;/InDOs&gt;&lt;DiagPnt65 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic65 point\&quot;&gt;3.17116&lt;/DiagPnt65&gt;&lt;DiagPnt66 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic66 point\&quot;&gt;25.06878&lt;/DiagPnt66&gt;&lt;DiagPnt67 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic67 point\&quot;&gt;23.54925&lt;/DiagPnt67&gt;&lt;DiagPnt68 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic68 point\&quot;&gt;0.5923513&lt;/DiagPnt68&gt;&lt;DiagPnt69 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic69 point\&quot;&gt;79.56741&lt;/DiagPnt69&gt;&lt;AI03 dt:dt=\&quot;r4\&quot; desc=\&quot;AI03 value\&quot;&gt;625042.5&lt;/AI03&gt;&lt;AI33 dt:dt=\&quot;r4\&quot; desc=\&quot;AI33 value\&quot;&gt;625042.5&lt;/AI33&gt;&lt;AI34 dt:dt=\&quot;r4\&quot; desc=\&quot;AI34 value\&quot;&gt;625042.5&lt;/AI34&gt;&lt;MRGas00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 gas flow\&quot;&gt;717.4448&lt;/MRGas00&gt;&lt;MREnergy00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 cur energy\&quot;&gt;627.6673&lt;/MREnergy00&gt;&lt;MRMcf00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 MCF\&quot;&gt;119.1879&lt;/MRMcf00&gt;&lt;MRMmbtu00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 MMBTU\&quot;&gt;104.2737&lt;/MRMmbtu00&gt;&lt;MRGas01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 gas flow\&quot;&gt;0&lt;/MRGas01&gt;&lt;MREnergy01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 cur energy\&quot;&gt;0&lt;/MREnergy01&gt;&lt;MRMcf01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 MCF\&quot;&gt;0&lt;/MRMcf01&gt;&lt;MRMmbtu01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 MMBTU\&quot;&gt;0&lt;/MRMmbtu01&gt;&lt;MRGas02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 gas flow\&quot;&gt;0&lt;/MRGas02&gt;&lt;MREnergy02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 cur energy\&quot;&gt;0&lt;/MREnergy02&gt;&lt;MRMcf02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 MCF\&quot;&gt;0&lt;/MRMcf02&gt;&lt;MRMmbtu02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 MMBTU\&quot;&gt;0&lt;/MRMmbtu02&gt;&lt;MRGas03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 gas flow\&quot;&gt;717.4448&lt;/MRGas03&gt;&lt;MREnergy03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 cur energy\&quot;&gt;627.6673&lt;/MREnergy03&gt;&lt;MRMcf03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 MCF\&quot;&gt;119.1879&lt;/MRMcf03&gt;&lt;MRMmbtu03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 MMBTU\&quot;&gt;104.2737&lt;/MRMmbtu03&gt;&lt;PIRawAcc01 dt:dt=\&quot;i4\&quot; desc=\&quot;PI01 raw acc\&quot;&gt;352584450&lt;/PIRawAcc01&gt;&lt;PIRate01 dt:dt=\&quot;r4\&quot; desc=\&quot;PI01 rate\&quot;&gt;0&lt;/PIRate01&gt;&lt;PItotal01 dt:dt=\&quot;r4\&quot; desc=\&quot;PI01 total\&quot;&gt;3.082857E-44&lt;/PItotal01&gt;&lt;AO00 dt:dt=\&quot;r4\&quot; desc=\&quot;AO00 value\&quot;&gt;3.222986E-44&lt;/AO00&gt;&lt;TDO00 dt:dt=\&quot;r4\&quot; desc=\&quot;TDO00 EU\&quot;&gt;3.363116E-44&lt;/TDO00&gt;&lt;UISCMDPRMS&gt;DGORD=0;DGTYPE=BasicPoll;&lt;/UISCMDPRMS&gt;&lt;UISCMDTYPE&gt;DG_F_DEV&lt;/UISCMDTYPE&gt;&lt;/dgData&gt;&quot;
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

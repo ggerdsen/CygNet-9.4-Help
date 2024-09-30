@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxHmiGrp|CxGrpNavBar Object">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CxGrpNavBar and CxGrpGrid Example</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxHmiGrp.htm">CxHmiGrp</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxHmiGrp CxGrpNavBar Object.htm">CxGrpNavBar Object</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CxGrpNavBar and CxGrpGrid Example</span>
+        </div>
+        <h2>CxGrpNavBar and CxGrpGrid Example</h2>
+        <p>The following is an example using the <b>CxGrpNavBar</b> object and the <b>CxGrpGrid</b> object in CygNet Studio. For an example using CxGrpGrid with <a href="CxHmiFac FacNavBar Object.htm">CxFacNavBar</a>, see <a href="CxHmiGrp CxGrpGrid and FacNavBar Example.htm">CxFacNavBar and CxGrpGrid Example</a>.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Scripting/CxGrpNavBarAndCxGrpGrid.png" title="CxGrpNavBar and CxGrpGrid Example" alt="CxGrpNavBar and CxGrpGrid Example" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">CxGrpNavBar and CxGrpGrid Example
+				</td>
+            </tr>
+        </table>
+        <h3>Script File</h3>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim g_iSelectedLevel</p>
+                    <p class="Code">g_iSelectedLevel = 0</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub UpdateUI()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">eboLevels.Text = GrpNavBar.X.Levels - 1</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If cboLevel.Selection = 0 Then</p>
+                    <p class="Code3">eboRules.Text = GrpNavBar.X.RootNodeRules</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">eboRules.Text = GrpNavBar.X.Rules(CInt(cboLevel.GetText(cboLevel.Selection)))</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">btnNext.Enable = GrpNavBar.X.CanSelNext(eboLevel.Text, ckbWrap.Value)</p>
+                    <p class="Code2">btnPrev.Enable = GrpNavBar.X.CanSelPrev(eboLevel.Text, ckbWrap.Value)</p>
+                    <p class="Code2">btnNavNext.Enable = GrpNavBar.X.CanNavNext(ckbNavWrap.Value)</p>
+                    <p class="Code2">btnNavPrev.Enable = GrpNavBar.X.CanNavPrev(ckbNavWrap.Value)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub ListFilterRules()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">lboEnabledRules.ResetContent</p>
+                    <p class="Code2">lboDisabledRules.ResetContent</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim aryEnabled, aryDisabled</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If cboLevel.Selection = 0 Then</p>
+                    <p class="Code3">GrpNavBar.X.GetRootNodeRuleNames aryEnabled, aryDisabled</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">GrpNavBar.X.GetRuleNames _cboLevel.GetText(cboLevel.Selection), aryEnabled, aryDisabled</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim i</p>
+                    <p class="Code2">For i = 0 To UBound(aryEnabled)</p>
+                    <p class="Code3">lboEnabledRules.AddString aryEnabled(i)</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">For i = 0 To UBound(aryDisabled)</p>
+                    <p class="Code3">lboDisabledRules.AddString aryDisabled(i)</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'(GlobalDeclarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (GlobalDeclarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnDisableRule_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnDisableRule</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">If lboEnabledRules.GetCurSel() &lt; 0 Then</p>
+                    <p class="Code2">Exit Sub</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If cboLevel.Selection = 0 Then</p>
+                    <p class="Code3">GrpNavBar.X.EnableRootNodeRule _</p>
+                    <p class="Code4">lboEnabledRules.GetText(lboEnabledRules.GetCurSel()), False</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">GrpNavBar.X.EnableRule CInt(cboLevel.GetText(cboLevel.Selection)), _</p>
+                    <p class="Code4">lboEnabledRules.GetText(lboEnabledRules.GetCurSel()), False</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ListFilterRules()</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ckbEnableAllFilterRules.Check = 0</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnEnableRule_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnEnableRule</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">If lboDisabledRules.GetCurSel() &lt; 0 Then</p>
+                    <p class="Code3">Exit Sub</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">If cboLevel.Selection = 0 Then</p>
+                    <p class="Code3">GrpNavBar.X.EnableRootNodeRule _</p>
+                    <p class="Code4"> lboDisabledRules.GetText(lboDisabledRules.GetCurSel()), True</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">GrpNavBar.X.EnableRule CInt(cboLevel.GetText(cboLevel.Selection)), _</p>
+                    <p class="Code4">lboDisabledRules.GetText(lboDisabledRules.GetCurSel()), True</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ListFilterRules()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnNavNext_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnNavNext</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim iLevel</p>
+                    <p class="Code3">iLevel = GrpNavBar.X.NavNext(ckbNavWrap.Value)</p>
+                    <p class="Code2">UpdateUI()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnNavPrev_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnNavPrev</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim iLevel</p>
+                    <p class="Code3">iLevel = GrpNavBar.X.NavPrev(ckbNavWrap.Value)</p>
+                    <p class="Code2">UpdateUI()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnNext_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnNext</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim iRet</p>
+                    <p class="Code3">iRet = GrpNavBar.X.SelNext(eboLevel.Text, ckbWrap.Value)</p>
+                    <p class="Code2">UpdateUI()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnPrev_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnPrev</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim iRet</p>
+                    <p class="Code3">iRet = GrpNavBar.X.SelPrev(eboLevel.Text, True)</p>
+                    <p class="Code2">UpdateUI()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnSetLevelCnt_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnSetLevelCnt</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">GrpNavBar.X.Levels = eboLevels.Text</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnSetRules_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnSetRules</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">If cboLevel.Selection = 0 Then</p>
+                    <p class="Code3">GrpNavBar.X.RootNodeRules = eboRules.Text</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">GrpNavBar.X.Rules(CInt(cboLevel.GetText(cboLevel.Selection))) = eboRules.Text</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ListFilterRules</p>
+                    <p class="Code2">UpdateUI</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnSetSiteService_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnSetSiteService</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">GrpNavBar.X.SiteService = eboSiteService.Text</p>
+                    <p class="Code2">TheView.Restart</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub cboLevel_EventChange()</p>
+                    <p class="Code">Dim This : Set This = cboLevel</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">g_iSelectedLevel = cboLevel.Selection</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ListFilterRules</p>
+                    <p class="Code2">UpdateUI</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub cboLevel_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = cboLevel</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">cboLevel.AddString "Root"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Dim i</p>
+                    <p class="Code2">i = 0</p>
+                    <p class="Code2">For i = 0 To GrpNavBar.X.Levels</p>
+                    <p class="Code3">cboLevel.AddString CStr(i)</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">cboLevel.Selection = g_iSelectedLevel</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ListFilterRules</p>
+                    <p class="Code2">UpdateUI</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub ckbEnableAllFilterRules_EventChange()</p>
+                    <p class="Code">Dim This : Set This = ckbEnableAllFilterRules</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code3">If ckbEnableAllFilterRules.Check = 1 Then</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">If cboLevel.Selection = 0 Then</p>
+                    <p class="Code4">GrpNavBar.X.EnableAllRootNodeRules True</p>
+                    <p class="Code3">Else</p>
+                    <p class="Code4">GrpNavBar.X.EnableAllRules CInt(cboLevel.GetText(cboLevel.Selection)), _</p>
+                    <p class="Code5">True</p>
+                    <p class="Code3">End If </p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">ListFilterRules</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub ckbNavWrap_EventChange()</p>
+                    <p class="Code">Dim This : Set This = ckbNavWrap</p>
+                    <p class="Code">UpdateUI</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub ckbWrap_EventChange()</p>
+                    <p class="Code">Dim This : Set This = ckbWrap</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">UpdateUI</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub eboLevel_EventChange()</p>
+                    <p class="Code">Dim This : Set This = eboLevel</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">If eboLevel.Text &lt;&gt; "" Then</p>
+                    <p class="Code3">btnNext.Enable = GrpNavBar.X.CanSelNext(eboLevel.Text, ckbWrap.Value)</p>
+                    <p class="Code3">btnPrev.Enable = GrpNavBar.X.CanSelPrev(eboLevel.Text, ckbWrap.Value)</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">btnNext.Enable = False</p>
+                    <p class="Code3">btnPrev.Enable = False</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub eboLevel_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = eboLevel</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">eboLevel.Text = GrpNavBar.X.Levels - 1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub eboSiteService_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = eboSiteService</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">eboSiteService.Text = GrpNavBar.X.SiteService</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub GrpNavBar_EventOnSelChangeLevel(Level)</p>
+                    <p class="Code">Dim This : Set This = GrpNavBar</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">cboLevel.Selection = Level + 1</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">ListfilterRules</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub TheView_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = TheView</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">eboLevel.Text = GrpNavBar.X.Levels - 1</p>
+                    <p class="Code2">ckbEnableAllFilterRules.Check 0</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub TheView_EventRestarted()</p>
+                    <p class="Code">Dim This : Set This = TheView</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">GrpGrid.X.Restart</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

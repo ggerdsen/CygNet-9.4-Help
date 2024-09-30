@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="System Administration">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>OPC Core Components</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="System Administration.htm">System Administration</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">OPC Core Components</span>
+        </div>
+        <h2>OPC Core Components</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The following procedures explain how to install a new OPC EIE to an <u>existing</u> CygNet system that does <u>not</u> already include the EIE. This is not the same thing as adding a remote device instance to a Device Definition Service (DDS).</p>
+        </div>
+        <p>The <a href="../EIEs - Remote Devices/OPC EIE.htm">OPC EIE</a>, <a href="../EIEs - Remote Devices/OPC Lufkin EIE.htm">OPC Lufkin EIE</a>, <a href="../EIEs - Remote Devices/OPC Weatherford EIE.htm">OPC Weatheford EIE</a> remote devices, and the <a href="../EIEs - Communication Devices/OPC Comm EIE.htm">OPC Comm EIE</a> communication device may require the OpcFoundation OPC Core Components when installing the EIE for the first time. This requirement is met by the CygNet Services installers for first-time setup using the <b>CygNetSCADAServicesSetup</b> wizard. However, you might find the need  to install an OPC EIE that post-dates your initial CygNet installation.  For upgraded CygNet hosts, OPC Core Components Redistributable (x86).msi and OPC Core Components Redistributable (x64).msi are included in the CygNet product image. </p>
+        <p>See the following sections for information on installing an OPC device as an upgrade.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#InstallEIE" class="selected">Installing a 32-bit OPC EIE</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#64bit" class="selected">Installing a 64-bit OPC&#160;EIE</a>
+            </li>
+        </ul>
+        <h3><a name="InstallEIE"></a>Installing a 32-bit OPC EIE</h3>
+        <p>Follow these steps to install a new 32-bit OPC EIE&#160;to a preexisting CygNet system:</p>
+        <ol>
+            <li class="HyperlinkList" value="1"><a href="#1" class="selected">Install the driver</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#2" class="selected">Install the editor</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#3" class="selected">Install the OPC Core Components</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#4" class="selected">Install the device template file <i>(remote devices only)</i></a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#5" class="selected">Add the EIE to the editor</a>
+            </li>
+        </ol>
+        <p>For information about installing a 64-bit EIE, see <a href="#64bit" class="selected">Installing a 64-bit OPC EIE</a>.</p>
+        <h4>Install a UIS Driver and EIE Editor for a 32-bit OPC EIE</h4>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following instructions can be followed for both the OP Comm EIE Communication Device and OPC EIE Remote Devices, except for step 4, which applies only to the OPC&#160;EIE Remote Devices.</p>
+        </div>
+        <p class="HeadingProcedure"><a name="1"></a>1. Install the Driver</p>
+        <p>The following steps explain how to install the driver component of the OPC EIE.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The EIE might require support files in addition to those mentioned below. Contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> for more information.</p>
+        </div>
+        <ol start="1">
+            <li value="1">Copy the new Uis[<i>EIEName</i>]Driver.dll from the source location to the <b>CygNet\Support</b> folder on your host server.</li>
+            <li value="2">Right-click the .dll.</li>
+            <li value="3">Click <b>Open with…</b> &gt; <b>Choose default program…</b> &gt; <b>Browse</b>.</li>
+            <li value="4">Open the <b>Windows\SysWOW64</b> folder. (Open the <b>Windows\System32</b> folder on a 32-bit operating system.)               </li>
+            <li value="5">Double-click <b>regsvr32.exe</b>.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Optionally, use the Command Prompt to invoke <b>regsvr32.exe</b> and register the driver file. </p>
+            </div>
+        </ol>
+        <p>The driver DLL is now installed and registered.</p>
+        <p class="HeadingProcedure"><a name="2"></a>2. Install the Editor</p>
+        <p>The following steps explain how to install the editor component of the OPC EIE.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The EIE might require support files in addition to those mentioned below. Contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> for more information.</p>
+        </div>
+        <ol start="1">
+            <li value="1">Copy the new CxDds[<i>EIEName</i>] Editors.dll  from the source location to the <b>CygNet\Support</b> folder on your host server.</li>
+            <li value="2">Right-click the .dll.</li>
+            <li value="3">Click <b>Open with…</b> &gt; <b>Choose default program…</b> &gt; <b>Browse</b>.</li>
+            <li value="4">Open the <b>Windows\SysWOW64</b> folder. (Open the <b>Windows\System32</b> folder on a 32-bit operating system.) </li>
+            <li value="5">Double-click <b>regsvr32.exe</b>.</li>
+            <li value="6">Open CygNet Explorer.</li>
+            <li value="7">Click <b>APPS (Application Blob Service)</b> in the service hierarchy.</li>
+            <li value="8">Right-click in the white space of the APPS pane, then click <b>New</b>.</li>
+            <li value="9">Select <b>SUPPORT</b> from the combo box.</li>
+            <li value="10">Open the <b>CygNet\Support</b> folder.</li>
+            <li value="11">Select the CxDds[<i>EIEName</i>] Editors.dll, then click <b>Upload</b>.</li>
+            <li value="12">Return to CygNet Explorer.</li>
+            <li value="13">Right-click in the white space of your APPS pane, then click <b>New</b>.</li>
+            <li value="14">Select <b>SUPPORT</b> from the list box.</li>
+            <li value="15">Open the <b>CygNet\Support</b> folder.</li>
+            <li value="16">Select CxDds[<i>EIEName</i>] Editors.rsp, then click <b>Upload</b>. The <a href="../Version Management/Response List File.htm">.rsp</a> lists all required files for the EIE editor.</li>
+            <li value="17">Return to CygNet Explorer.</li>
+            <li value="18">Go to the APPS pane and highlight CxDdsEditors.rsq.</li>
+            <li value="19">Right-click on CxDdsEditors.rsq, then click <b>Download File…</b>.</li>
+            <li value="20">Select a download location, then click <b>OK</b>.</li>
+            <li value="21">Open the CxDdsEditors.rsq file and add a line that includes the name of the .rsp file  for the new editor as in the example below:</li>
+        </ol>
+        <p class="Indent">
+            <table class="Code">
+                <tr>
+                    <td>
+                        <p class="Code">[SUPPORT]..\SUPPORT\CxDds[<i>EIEName</i>] Editors.rsp</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <ol start="22">
+            <li value="22">Return to CygNet Explorer.</li>
+            <li value="23">Right-click in the white space of the APPS pane, then click <b>New</b>.</li>
+            <li value="24">Select <b>SUPPORT</b> from the combo box.</li>
+            <li value="25">Go to the folder where you downloaded and edited the <a href="../Version Management/Rsq File.htm">.rsq</a>.</li>
+            <li value="26">Select the edited CxDdsEditors.rsq, then click <b>Upload</b>.</li>
+            <li value="27">To update the timestamp of all .rsp and .rsq files in APPS, go to the <b>CygNet\Utilities</b> folder.</li>
+            <li value="28">Double-click TouchBSS.exe. </li>
+            <li value="29">Click the <b>Browse</b> button to select the correct SITE.APPS.</li>
+            <li value="30">Type RSP in the <b>Blob Type</b> field, then click <b>OK</b>.</li>
+            <li value="31">When the .rsp touch is complete, type RSQ in the <b>Blob Type</b> field, then click <b>OK</b>.</li>
+            <li value="32">Return to CygNet Explorer and click <b>File</b> &gt; <b>Exit</b> to close CygNet Explorer.</li>
+            <li value="33">Reopen CygNet Explorer by double-clicking its shortcut on your desktop. Doing so performs <a href="../Version Management/Version Management.htm">version management</a>.</li>
+        </ol>
+        <p>The editor is now installed and version managed.</p>
+        <p class="HeadingProcedure"><a name="3"></a>3. Install the OPC Core Components</p>
+        <ol>
+            <li value="1">Open CygNet Host Manager and stop all services on the host.</li>
+            <li value="2">Browse to the OPC Core Components Redistributable (x86).msi in the source location.</li>
+            <li value="3">Right-click the file and select <b>Install</b>.</li>
+            <li value="4">Follow the steps to install the OPC Core Components. </li>
+            <li value="5">When the installation has finished, return to CygNet Host Manager and restart all services.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="4"></a>4. Install the Device Template File <i>(Remote Devices Only)</i></p>
+        <ul>
+            <li value="1">You must add a valid, remote device-specific device template file to your DDS before your new remote device EIE can be implemented.</li>
+        </ul>
+        <p>For information about how to install a device template file, see <a href="../EIEs - Remote Devices/Installing a Template.htm">Installing a Device Template File</a>.</p>
+        <p class="HeadingProcedure"><a name="5"></a>5. Add the EIE to the Editor</p>
+        <p>To complete the installation process, confirm that the new EIE is available to your DDS, then add the new EIE to a device list in the device editor.</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, open the Device Definition Service (DDS).</li>
+            <li value="2">Click the appropriate device type page (<b>Remote Devices</b> or <b>Comm Devices</b>).</li>
+            <li value="3">Right-click in the white space of your DDS pane, then click <b>New &lt;device type&gt;</b>.</li>
+            <li value="4">Locate the new EIE in the <b>Select a Device Type…</b> list.</li>
+            <li value="5">Double-click the highlighted device and click <b>OK</b>.</li>
+        </ol>
+        <p>The new EIE is now fully installed and ready for configuration and implementation.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="64bit"></a>Installing a 64-bit OPC EIE</h3>
+        <p>Follow these steps to install a new 64-bit OPC EIE&#160;to a preexisting CygNet system:</p>
+        <ol>
+            <li class="HyperlinkList" value="1"><a href="#1_64" class="selected">Install the driver</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#2_64" class="selected">Install the editor</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#3_64" class="selected">Install the OPC Core Components</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#4_64" class="selected">Install the device template file <i>(remote devices only)</i></a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#5_64" class="selected">Add the EIE to the editor</a>
+            </li>
+        </ol>
+        <p>For information about the 64-bit OPC device drivers that are supported, see <a href="../Devices/64-bit Device Drivers.htm">64-bit Device Drivers</a>.</p>
+        <h4>Install a UIS Driver and EIE Editor for a 64-bit OPC&#160;EIE</h4>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following instructions can be followed for both the 64-bit OPC Comm EIE Communication Device and the 64-bit OPC EIE Remote Devices, except for step 4, which applies only to the 64-bit OPC EIE Remote Devices.</p>
+        </div>
+        <p class="HeadingProcedure"><a name="1_64"></a>1. Install the Driver</p>
+        <p>The following steps explain how to install the driver component of the OPC EIE.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The 64-bit EIE might require support files in addition to those mentioned below. Contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> for more information.</p>
+        </div>
+        <ol start="1">
+            <li value="1">Create a <b>CygNet\Support64</b> folder on your host server. </li>
+            <li value="2">Copy the new Uis[<i>EIEName</i>]Driver64.dll from the source location to the <b>CygNet\Support64</b> folder.  </li>
+            <li value="3">Right-click the .dll.</li>
+            <li value="4">Click <b>Open with…</b> &gt;<b> Choose default program...</b> &gt;<b> Browse</b>.</li>
+            <li value="5">Open the <b>Windows\System32</b> folder.</li>
+            <li value="6">Double-click <b>regsvr32.exe</b>.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Optionally, use the Command Prompt to invoke regsvr32.exe and register the driver file.</p>
+            </div>
+        </ol>
+        <p>The driver DLL is now installed and registered. </p>
+        <p class="HeadingProcedure"><a name="2_64"></a>2. Install the Editor</p>
+        <p>The following steps explain how to install the editor component of the OPC EIE. Note that only the driver portion of the EIE is 64-bit; the associated editor (CxDds[<i>EIEName</i>]Editors.dll) is not 64-bit.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The 64-bit EIE might require support files in addition to those mentioned below. Contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> for more information.</p>
+        </div>
+        <ol start="1">
+            <li value="1">Copy the new CxDds[<i>EIEName</i>] Editors.dll from the source location to the <b>CygNet\Support</b> folder on your host server.</li>
+            <li value="2">Right-click the .dll.</li>
+            <li value="3">Click <b>Open with…</b> &gt;<b> Choose default program...</b> &gt; <b>Browse</b>.</li>
+            <li value="4">Open the <b>Windows\SysWOW64</b> folder. (Open the <b>Windows\System32</b> folder on a 32-bit operating system.) </li>
+            <li value="5">Double-click <b>regsvr32.exe</b>.</li>
+            <li value="6">Open CygNet Explorer.</li>
+            <li value="7">Click <b>APPS (Application Blob Service)</b> in the service hierarchy.</li>
+            <li value="8">Right-click in the white space of the APPS pane, then click <b>New</b>.</li>
+            <li value="9">Select <b>SUPPORT</b> from the combo box.</li>
+            <li value="10">Open the <b>CygNet\Support</b> folder.</li>
+            <li value="11">Select CxDds[<i>EIEName</i>] Editors.dll, then click <b>Upload</b>.</li>
+            <li value="12">Return to CygNet Explorer.</li>
+            <li value="13">Right-click in the white space of the APPS pane, then click <b>New</b>.</li>
+            <li value="14">Select <b>SUPPORT</b> from the list box.</li>
+            <li value="15">Open the <b>CygNet\Support</b> folder.</li>
+            <li value="16">Select CxDds[<i>EIEName</i>] Editors.rsp, then click <b>Upload</b>. The <a href="../Version Management/Response List File.htm">.rsp</a> lists all required files for the EIE editor.</li>
+            <li value="17">Return to CygNet Explorer.</li>
+            <li value="18">Go to the APPS pane and highlight CxDdsEditors.rsq.</li>
+            <li value="19">Right-click on CxDdsEditors.rsq, then click <b>Download File…</b>.</li>
+            <li value="20">Select a download location, then click <b>OK</b>.</li>
+            <li value="21">Open the CxDdsEditors.rsq file and add a line that includes the name of the .rsp file for the new editor:</li>
+        </ol>
+        <p class="Indent">
+            <table class="Code" style="width: ;">
+                <tr>
+                    <td>
+                        <p class="Code">[SUPPORT]..\SUPPORT\CxDds[<i>EIEName</i>] Editors.rsp</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <ol start="22">
+            <li value="22">Return to CygNet Explorer.</li>
+            <li value="23">Right-click in the white space of the APPS pane, then click <b>New</b>.</li>
+            <li value="24">Select <b>SUPPORT</b> from the combo box.</li>
+            <li value="25">Go to the folder where you downloaded and edited the <a href="../Version Management/Rsq File.htm">.rsq</a>.</li>
+            <li value="26">Select the edited CxDdsEditors.rsq, then click <b>Upload</b>.</li>
+            <li value="27">To update the timestamp of all .rsp and .rsq files in APPS, go to the <b>CygNet\Utilities</b> folder.</li>
+            <li value="28">Double-click TouchBSS.exe. </li>
+            <li value="29">Click the <b>Browse</b> button to select the correct SITE.APPS.</li>
+            <li value="30">Type RSP in the <b>Blob Type</b> field, then click <b>OK</b>.</li>
+            <li value="31">When the .rsp touch is complete, type RSQ in the <b>Blob Type</b> field, then click <b>OK</b>.</li>
+            <li value="32">Return to CygNet Explorer and click <b>File</b> &gt; <b>Exit</b> to close CygNet Explorer.</li>
+            <li value="33">Reopen CygNet Explorer by double-clicking its shortcut on the desktop. Doing so performs <a href="../Version Management/Version Management.htm">version management</a>.</li>
+        </ol>
+        <p>The editor is now installed and version managed.</p>
+        <p class="HeadingProcedure"><a name="3_64"></a>3. Install the OPC Core Components</p>
+        <ol>
+            <li value="1">Open CygNet Host Manager and stop all services on the host.</li>
+            <li value="2">Browse to the OPC Core Components Redistributable (x64).msi in the source location.</li>
+            <li value="3">Right-click the file and select <b>Install</b>.</li>
+            <li value="4">Follow the steps to install the OPC Core Components. </li>
+            <li value="5">When the installation has finished, return to CygNet Host Manager and restart all services.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="4_64"></a>4. Install the Device Template File <i>(Remote Devices Only)</i></p>
+        <ul>
+            <li value="1">You must add a valid, remote device-specific device template file to your DDS before your new remote device EIE can be implemented.</li>
+        </ul>
+        <p>For information about how to install a device template file, see <a href="../EIEs - Remote Devices/Installing a Template.htm">Installing a Device Template File</a>.</p>
+        <p class="HeadingProcedure"><a name="5_64"></a>5. Add the EIE to the Editor</p>
+        <p>To complete the installation process, confirm that the new 64-bit EIE is available to your DDS, then add the new EIE to a device list in the device editor.</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, open the Device Definition Service (DDS).</li>
+            <li value="2">Click the appropriate device type page (<b>Remote Devices</b> or <b>Comm Devices</b>).</li>
+            <li value="3">Right-click in the white space of the DDS pane, then click <b>New &lt;device type&gt;</b>.</li>
+            <li value="4">Locate the new 64-bit EIE in the <b>Select a Device Type…</b> list.</li>
+            <li value="5">Double-click the highlighted device and click <b>OK</b>.</li>
+        </ol>
+        <p>The new EIE is now fully installed and ready for configuration and implementation.</p>
+        <p>Information about device configuration is outside the scope of this topic. For information about how to configure the new EIE, see relevant topics in the <b>Devices</b> section, including <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> and <a href="../EIEs - Communication Devices/EIE Communication Devices.htm">Communication Devices</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

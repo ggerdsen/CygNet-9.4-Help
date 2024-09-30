@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Optimizing Facility and Point Cache Usage</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Optimizing Facility and Point Cache Usage</span>
+        </div>
+        <h2>Optimizing Facility and Point Cache Usage</h2>
+        <p>The following notes offer best practices guidelines on how to efficiently use the CygNet global Facilities and Points objects to script facility and point data and caching of that data.</p>
+        <p>There is not a one-size fits all model.  A good understanding of how the facility and point data is going to be displayed across your CygNet Studio screens is crucial in building the best usage method.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#UpdateNow" class="selected">UpdateNow and ResolveNow</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Global" class="selected">Global Objects</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Using" class="selected">Using TheView.GetPoint Method</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Persist" class="selected">Persist File</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Tag" class="selected">Tag Formats Matter</a>
+            </li>
+        </ul>
+        <h3><a name="UpdateNow"></a>UpdateNow and ResolveNow</h3>
+        <p>The <b>UpdateNow</b> method and the <b>ResolveNow</b> method are two methods that can be used for updating CVS data. There is a limited set of PNT configuration data contained in CVS data records, while the bulk of all point configuration items are in the PNT configuration records.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Method</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Function</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Usage Notes</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>UpdateNow</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Updates all items in the cache.</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Calling <b>UpdateNow</b> is not always an indication that the entire cache needs updating. A check will be performed to determine if an update is necessary.</p>
+                    <p>See <a href="../Scripting/CxScript Points Methods.htm#pts_UpdateNow">CxScript.Points.UpdateNow</a> and <a href="../Scripting/CxScript Facilities Methods.htm">CxScript.Facilities.UpdateNow</a>. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>ResolveNow</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Updates all items in the cache that have not yet been updated.</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>ResolveNow</b> is more efficient than <b>UpdateNow</b> if the cache is partially updated, since already updated items will not be updated again.  For example, issuing <b>ResolveNow</b> on a point that has already been updated will not update the CVS again.</p>
+                    <p>See <a href="../Scripting/CxScript Points Methods.htm#pts_ResolveNow">CxScript.Points.ResolveNow</a> and <a href="../Scripting/CxScript Facilities Methods.htm#ResolveNow">CxScript.Facilities.ResolveNow</a>. </p>
+                </td>
+            </tr>
+        </table>
+        <p>Calling <b>UpdateNow</b> and <b>ResolveNow</b> against facility or point configuration data will essentially  result in the same outcome. </p>
+        <p>In addition, you can force an immediate background refresh using the following enumeration constants:</p>
+        <ul>
+            <li value="1"><b>UpdateNow 0</b> also forces an immediate background refresh of PNT data.</li>
+            <li value="2"><b>UpdateNow 1</b> also forces an immediate background refresh of CVS  data.</li>
+            <li value="3">An immediate background refresh should not degrade CygNet Studio screen performance.</li>
+        </ul>
+        <h3><a name="Global"></a>Global Objects</h3>
+        <p>Global objects are those objects provided in CygNet Studio and the HSS without the need to declare them.   You can use global objects for situations where multiple screens are calling for the same data. </p>
+        <p>Although method calls to a limited Points object will be more efficient than that same call against the global Points object, there are three methods that are exceptions:</p>
+        <ul>
+            <li value="1"><a href="../Scripting/CxScript Points Methods.htm#pts_GetPointTagList">CxScript.Points.GetPointTagList</a>
+            </li>
+            <li value="2"><a href="../Scripting/CxScript Points Methods.htm#GetUdcList">CxScript.Points.GetUdcList</a>
+            </li>
+            <li value="3"><a href="../Scripting/CxScript Points Methods.htm#GetPointTagListForFacilities">CxScript.Points.GetPointTagListForFacilities</a>
+            </li>
+        </ul>
+        <p>The above methods do not interact with the cache and are executed against the entirely of the specified point service. Since each query provides the full context for the requested information, the methods will not refresh data from services unrelated to the query being performed.  There is no benefit in creating a separate Points object to issue these specific calls, so calling them from the global Points object is sufficient.</p>
+        <p>However, calling the <b>UpdateNow</b> method on the global Points or Facilities objects can have adverse effects:</p>
+        <ul>
+            <li value="1">The global Points and Facilities objects are used across all open screens.  If there are points or facilities in the cache for a site that is not reachable, calling <b>UpdateNow</b> will attempt to update those items and the UI will lock until the timeout occurs.</li>
+            <li value="2">Since global Points and Facilities objects are saved to disk when exiting CygNet Studio, this also applies to screens across multiple invocations of CygNet Studio. See the <a href="#Persist" class="selected">Persist File</a> section for more information.</li>
+        </ul>
+        <h3><a name="Using"></a>Using TheView.GetPoint Method</h3>
+        <p>A method that is  useful but is often overlooked and under-utilized is  <a href="Methods.htm#GetPoint">TheView.GetPoint</a>  method. If a screen object has a point associated with it, it is more efficient to use <b>TheView.GetPoint</b>  method than to use <a href="../Scripting/CxScript Points Methods.htm#pts_Point">CxScript.Points.Point</a>  or a separate Points object call.  This is especially true when requesting point data about a CygNet Studio tool explicitly from an event handler for that same tool. </p>
+        <p>Using <b>TheView.GetPoint</b> method is preferable to using  the global Points or Facilities objects for configurations that do not share many points or facilities across screens. As an example, if a CygNet Studio screen contains various objects and you want to use those same points in a script on the same screen,  you could use the global Points object or create your own local points object to get the data you want. You can also use <b>TheView.GetPoint</b> method. Since the screen has already done the work to resolve the point, using <b>TheView.GetPoint</b> method will not introduce additional messaging on the network.  This method takes in a point tag as a parameter.  If the object is configured to be a templated object (only the UDC is configured, while the Facility and Site.Service are configured at runtime), then using the Facility Tag String format for the tag string is recommended.</p>
+        <p>Alternatively, if there are many points and facilities used across screens but the system is divided into several sites, consider a caching approach that has one set of cache objects for each site instead of one per screen. See the <a href="#Persist" class="selected">Persist File</a> section for more information.</p>
+        <h3><a name="Persist"></a>Persist File</h3>
+        <p>When creating a points object or a facilities object in script, the default behavior is to cache the results to a common local persist file.  The local persist cache file is created or updated when the object is destroyed and/or when CygNet Studio closes.  The next time the object is created it will use the common cache file as a starting point.  If this cache file has items in it already, calls for <b>UpdateNow</b> or <b>ResolveNow</b> will be based on more items than you may anticipate.</p>
+        <ul>
+            <li value="1">You can use the <b>PersistName</b>  property on local or global Points objects (<a href="../Scripting/CxScript Points Properties.htm#PersistName">CxScript.Points.PersistName</a>) or Facilities objects (<a href="../Scripting/CxScript Facilities Properties.htm#PersistName">CxScript.Facilities.PersistName</a>) to specify a separate cache file to use.</li>
+            <li value="2">For a screen with many points from separate services, isolating that screen from the general persisted cache is a possible solution. Creating a screen-level points and facilities cache is a way to take advantage of caching for a screen while not affecting caching of other screens.  This is useful in situations where screens can cross sites.</li>
+            <li value="3">Keep in mind that when a points object or facilities object is destroyed, it is written to the client's hard drive. Objects created in a function will be destroyed as soon as the function returns, which could cause  unnecessary file I/O.</li>
+        </ul>
+        <h3><a name="Tag"></a>Tag Formats Matter</h3>
+        <p>There are various scripting methods available to get point data that takes a tag string as a parameter.  Examples include <b>Points.Point</b>, <b>TheView.GetPoint</b>, and <a href="../Scripting/CxHmiGrp CxGrpGrid Methods.htm#GetPointAttributeForTag">CxHmiGrp.CxGrpGrid.GetPointAttributeForTag</a>.  The tag string format used matters greatly because the data is cached in the form in which it was requested and choosing the wrong one can negatively impact performance.</p>
+        <p>Since most of the CygNet Studio screens used are templated screens, various caches are using the Site.Service::Facility.UDC format in the cache.  In order to take full advantage of that cache result, that format should be used when making any point requests.  Otherwise, if a long tag string format is constructed from Site.Service, Facility, and UDC and used in requests, the cache is not being used in the most efficient way, which can slow performance.</p>
+        <p>As a good rule of thumb, use the <a href="../Points/Tag String Formats.htm">tag string format</a>  that closely matches the data you have.  For example, if you know the facility ID and UDC, then use the Facility Tag String format (Site.Service::Facility.UDC).  If you know the LongID, then use the Long Tag String format (Site.Service:LongID).  Conversely, do not construct a LongID from a facility ID and UDC and use the Long Tag String format.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

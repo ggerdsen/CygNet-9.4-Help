@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Security">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet and User Account Control</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Security.htm">Security</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet and User Account Control</span>
+        </div>
+        <h2>CygNet and User Account Control</h2>
+        <p>User Account Control (UAC) is a Microsoft Windows security infrastructure that helps to protect Microsoft Windows from unauthorized administrative changes. When configured, UAC notifies you when a program attempts to make a change to your computer that requires administrator-level permission.</p>
+        <p>CygNet recommends that you review the security environment for your enterprise, determine your UAC settings requirements, and configure UAC on computers running CygNet <b style="font-style: italic;">client</b> applications to help prevent unauthorized changes to the computer.</p>
+        <p>Note that this configuration is <i>optional</i> and if you choose not to enable UAC, no prompts or warnings will appear when applications attempt to make changes to the computer.</p>
+        <p>CygNet client software is integrated with UAC such that when an operator needs to run applications that perform administrative tasks, such as installing or uninstalling applications, launching version-managed applications, or changing system settings, the operator will be prompted to temporarily change or "elevate" their security context from a standard user to an administrative user. Operators running as administrators will be warned of changes being made to the computer and prompted to confirm. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> For computers running CygNet Host Services we recommend that UAC be <b>disabled</b> (CygNet SCADA service hosts, CygNet Measurement (FMS) service hosts, and CygNet Web service hosts and clients).</p>
+        </div>
+        <p>For more general information about UAC, see the following Microsoft resources:</p>
+        <ul>
+            <li value="1"><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb648649(v=vs.85).aspx" target="_blank">What is User Account Control?</a>
+            </li>
+        </ul>
+        <ul>
+            <li value="1"><a href="http://technet.microsoft.com/en-us/library/cc709691(v=ws.10).aspx" target="_blank">User Account Control Step-by-Step Guide</a>
+            </li>
+        </ul>
+        <ul>
+            <li value="1">Windows online help on your computer for <b>User Accounts</b> and <b>User Account Control</b></li>
+        </ul>
+        <h3>UAC Experience for CygNet Clients</h3>
+        <p>Consult appropriate Microsoft documentation regarding the creation and maintenance of user accounts for your CygNet users. For the purposes of understanding UAC there are two types of user accounts under which you can run CygNet client applications: standard users and administrator users.</p>
+        <h4>Standard Users</h4>
+        <p>A user account type for every day computing. Standard users have the least amount of user rights and privileges required to perform basic computer tasks. These users have limited administrative privileges: they cannot install or uninstall applications that install into %systemroot%, change system settings, or perform other administrative tasks. </p>
+        <p>However with UAC enabled on a computer running CygNet client applications, a standard user attempting to perform these tasks will be presented with a <b>UAC</b> dialog box requesting that permission be elevated to that of an administrator. If  you are able to provide valid administrative credentials, or someone with an administrator account on the computer enters their password, you will be permitted to continue. Once elevated, you are temporarily given the rights of an administrator to complete the task and then your permissions are returned back to that of a standard user. </p>
+        <p>Standard users can also choose to "Run as administrator" (via an application shortcut (desktop icon or <b>Start</b> menu)) and provide valid administrative credentials to avoid elevation prompts while performing administrative tasks in an affected application. Administrative elevation is dropped accordingly when the "Run as administrator" client application is closed.</p>
+        <p>Standard client users are not prompted to enter administrative credentials when launching an application from a CygNet version-managed shortcut, if no version management operations are required. If a required update is detected when a standard client user launches an application from a CygNet version-managed shortcut, the user will be prompted to elevate and enter administrative credentials.  But, if the user chooses to cancel from the prompt, the target application will still launch allowing the standard user to perform the intended task using the non-updated version, if possible.</p>
+        <p>It is expected that most CygNet operators will run under standard user accounts to mitigate the impact of security threats to computers, systems, and networks.</p>
+        <h4>Administrator Users</h4>
+        <p>A user account type with system-wide access to install, update, and run software. With UAC enabled on a computer running CygNet client applications, an administrative user will be warned when trying to complete a task that requires administrator-level permission.  If you are a running under an administrative user account, simply click <b>Yes</b> on the <b>UAC</b> consent dialog box to continue.</p>
+        <h3>CygNet Client Applications</h3>
+        <p>The following CygNet applications have been modified to allow UAC to be enabled on computers running client applications:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../CygNet Client Installer/CygNet Client Installer.htm">CygNet Client Installer/Launcher</a> (CInstall.exe)</li>
+            <li class="HyperlinkList" value="2"><a href="../Version Management/Version Management Overview.htm">CygNet Version Manager</a> (BSSVM.exe)</li>
+            <li class="HyperlinkList" value="3"><a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection Utility</a> (CygConn.exe)</li>
+            <li class="HyperlinkList" value="4">CygNet ODBC 64-bit Installer (CygNetODBCx64.msi)</li>
+            <li class="HyperlinkList" value="5"><a href="../CygNet Explorer/CygNet Explorer UI - Context Menu.htm#Console">CygNet Explorer</a> (CExplore.exe - when launching CygNet Console only)</li>
+            <li class="HyperlinkList" value="6"><a href="../CygNet Studio/Starting Other Applications from Studio.htm">CygNet Studio or Vision</a> (CStudio.exe/CVision.exe - when launching a version-managed application from a screen button only)</li>
+            <li class="HyperlinkList" value="7"><a href="../System Administration/CygNet Version Info Utility.htm">CygNet Version Info Utility</a> (CVersionInfo.exe)</li>
+            <li class="HyperlinkList" value="8"><a href="../System Administration/CygNet Message Sniffer Lite Utility.htm">CygNet Message Sniffer Lite Utility</a> (SnifferLite.exe)</li>
+            <li class="HyperlinkList" value="9">CygNet Online Help (this Help file)</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> There may be other CygNet client applications that include tasks that require administrative credentials, such as registering files or downloading version-managed applications. Standard users may encounter the UAC shield icon ( <img src="../../Resources/Images/Security/uac_shield.png" class="Inline" title="UAC Shield Icon" alt="UAC Shield Icon" />  ) on buttons or menu items and will be prompted to elevate.</p>
+        </div>
+        <p>The following are some  commonly performed tasks that require UAC interaction, and the permissions level required for the task, for each affected client application.</p>
+        <h4 colspan="3">CygNet Client Installer/Launcher</h4>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Task</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Standard User Permissions</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">
+                        <p>Elevated Permissions</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Launch CygNet Client Installer</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Download a version-managed update
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Create desktop shortcut
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Install an application via the <b>Install</b> button
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Launch an application that requires a version-managed update</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/info.png" class="Inline" title="Info" alt="Info" />*<sup>1</sup></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Launch an application with no update</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Launch an application that has not been previously launched</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Change the default version management settings for all users (via <b>Settings</b> button)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Change version management settings for the current user (via <b>Settings</b> button)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Change to a Domain ID (via <b>Settings</b> &gt; <b>Connect</b> button)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Search for an ARS (via <b>Settings</b> &gt; <b>Connect</b> button)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Install <b>CygNet ODBC</b> 32-bit and 64-bit via CygNet Client Installer (Seat ID created)
+</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p><sup>1</sup> If UAC elevation is declined, the currently installed version will run.</p>
+        <h4 colspan="3">CygNet Version Manager</h4>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Task</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Standard User Permissions</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">
+                        <p>Elevated Permissions</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>First time launch any version-managed application</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Subsequent launch of any version-managed application via a shortcut</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Download a version-managed update</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Launch CygNet Console for a service via right-click in <a href="../CygNet Explorer/CygNet Explorer UI - Context Menu.htm#Console">CygNet Explorer</a></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/info.png" class="Inline" title="Info" alt="Info" />*<sup>1</sup></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Launch or start a version-managed application from a <a href="../CygNet Studio/Starting Other Applications from Studio.htm">CygNet Studio/Vision</a> button</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/info.png" class="Inline" title="Info" alt="Info" />*<sup>1</sup></td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p><sup>1</sup> If UAC elevation is declined, the currently installed version will run.</p>
+        <h4 colspan="3">CygNet Domain Connection Utility</h4>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Task</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Standard User Permissions</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">
+                        <p>Elevated Permissions</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Launch CygNet Domain Connection utility</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Define a Domain ID for the computer</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Define a Domain ID for the current user</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Delete a Domain ID for the computer</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Delete a Domain ID for the current user</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Define a Preferred ARS address for a domain</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Define a Forced ARS address for a domain</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Connect to, but not add, a domain ID</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Test the connection to an ARS (via <b>Test Domain</b> button)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Set a Domain ID as the Default</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Edit <b>Properties</b> &gt; <b>Advanced Network Settings</b> (RUDP Fragment Sizes)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 colspan="3">Other Applications</h4>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Task</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Standard User Permissions</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">
+                        <p>Elevated Permissions</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>CygNet Explorer</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Launch <b>CygNet Console</b> for a selected service from CygNet Explorer (<a href="../CygNet Explorer/CygNet Explorer UI - Context Menu.htm#Console">context menu</a>)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">
+Launch <b><span class="CygNetVariablesHelp_Product">CygNet Help</span></b> directly from CygNet Explorer</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>CygNet Studio/Vision</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Launch a version-managed CygNet application via a <a href="../CygNet Studio/Starting Other Applications from Studio.htm">screen button</a></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">
+Launch <b><span class="CygNetVariablesHelp_Product">CygNet Help</span></b> directly from CygNet Studio/Vision</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>FMS Explorer</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">
+Launch <b><span class="CygNetVariablesHelp_Product">CygNet Help</span></b> directly from FMS Explorer</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>CygNet Client Monitor</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Schedule automatic updates to all installed applications</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>CygNet Message Sniffer Lite</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p class="Indent">Start message capture</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="text-align: center;">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

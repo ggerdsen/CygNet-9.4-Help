@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Using Canvas Controls and Objects">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Introduces a chart." /><title>Chart</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="All_Controls.htm">Using Canvas Controls and Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Chart</span>
+        </div>
+        <h2><a name="aanchor41"></a>
+            <MadCap:concept term="Canvas Controls" />Chart</h2>
+        <p>
+            <img src="../../Resources/Images/Buttons Icons/Control_Chart.png" class="Inline" alt="Chart icon" title="Chart" /> The <b>Chart</b> is a <span class="GeneralSoftwareNameShort">CygNet</span>-aware control that provides a customizable means to visualize point values and historical CygNet data in several types of charts. The <span class="GeneralProduct_Short">Canvas</span> chart is highly configurable and supports the following options: an unlimited number of series that can be styled as desired, optionally displaying historical rollup values; configurable date ranges, both relative and absolute; live data updates at a configured interval allowing the chart to trend data at a real-time pace; the display of time slices and tooltips; optional, configurable legend options (date and value format, dynamic text display based on real-time properties); configurable x- and y-axis features (label color, position, tick color, and title); a configurable toolbar and its position, and dragging, panning, and zooming in run mode. The chart supports <span class="GeneralSoftwareNameShort">CygNet</span> data natively and non-<span class="GeneralSoftwareNameShort">CygNet</span> data via script. Other run mode options include stopping/restarting live updates, changing the date and time range, saving/opening a chart's configuration as a default chart, printing the current chart, export as an image, and export data to a CSV file.</p>
+        <p>The x-axis of a chart typically displays increments of data according to the selected data's relevant unit type. The unit type derives from the associated data type's point record in the Point Service (PNT). The x-axis always displays increments of time units. The time units and increments displayed on the x-axis are user defined.</p>
+        <p>In addition to simple design mode property configuration, you can display a draft chart while in design mode without having to switch to preview, making screen building more efficient.</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Sample Chart driven by facilities selected in the Tag Chooser">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p>
+                            <img src="../../Resources/Images/Controls/Chart_Anim.gif" alt="Sample chart" title="Sample chart" />
+                        </p>
+                        <p class="Caption">Sample chart driven by facilities selected in the tag chooser showing live update mode</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Property Inheritance</h3>
+        <h4>Property Inheritance</h4>
+        <p>Property inheritance is a widely used concept in <span class="GeneralProduct_Short">Canvas</span>. The application supports an explicit relationship between screens, objects, and controls, where certain property values, such as SiteService and facility tags, are passed from one element to another via an inheritance framework. Screens, objects, and controls can be configured as property senders or property receivers and provide configuration options where you can explicitly define the source of the SiteService and facility. Depending on how you have your screens, objects, and controls set up, the SiteService and facility may come from any one of the following sources:</p>
+        <ul>
+            <li value="1">from itself — indicated by selecting <b>&lt;Self&gt;</b> and then explicitly configuring the property</li>
+            <li value="2">inherited from the screen — indicated by selecting <b>Screen</b>, which is always present as a sender</li>
+            <li value="3">inherited from another control — indicated by selecting the <b style="font-style: italic;">Name of the sending control</b></li>
+        </ul>
+        <h4>Broadcasting </h4>
+        <p>Screens and objects support an additional notification option to broadcast their SiteService and facility selection changes to other open screens running in the <span class="GeneralProduct_Short">Canvas</span> or <span class="GeneralProduct_View_Short">Canvas View</span> application. If configured, a <b>&lt;Broadcast&gt;</b> option is available to source the screen's SiteService and facility properties from another open screen.</p>
+        <p>For example, a text tool can be configured to get its facility from the screen and the screen can be configured to get its facility from a tag chooser. Or Screen_A might source its facility from Screen_B, which gets its facility from a tag chooser.</p>
+        <h4>Receiver or Sender</h4>
+        <p>The chart control supports property inheritance as a receiver of its SiteService and facility:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" summary="Senders and Receivers" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th colspan="2" style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">Receive</th>
+                    <th colspan="2" style="text-align: center;" class="TableStyle-HelpTable2-HeadD-Column1-Header1">Send</th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">SiteService</th>
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">Facility</th>
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">SiteService</th>
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadD-Column1-Header1">Facility</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Self</p>
+                        <p>Screen</p>
+                    </td>
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Self</p>
+                        <p>Screen</p>
+                        <p>Other controls</p>
+                    </td>
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>none</p>
+                    </td>
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>none</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The chart does not send its SiteService or facility to other controls.</p>
+        <h3>Drag and Drop</h3>
+        <p><span class="GeneralProduct_Short">Canvas</span> charts are highly configurable in design mode, but also in run mode. Through the power of inheritance, you can configure a chart to show data for an element (for example, a facility or a UDC), and then in run mode you can drag and drop different elements from other controls (for example, the tag chooser) onto your chart to dynamically display related data.</p>
+        <p><a href="javascript:void(0);" class="MCHelpControl MCHelpControl-Related relatedTopics" data-mc-topics="Configuring a Chart|Chart_Config.htm||Chart Properties|Chart_Properties.htm||Chart Events|Chart_Events.htm||Chart Methods|Chart_Methods.htm||Using a Chart in Run Mode|Chart_Run_Mode.htm" style="mc-use-custom-sort-order: true;"><span class="MCHelpControl-RelatedHotSpot_">Related Topics</span></a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

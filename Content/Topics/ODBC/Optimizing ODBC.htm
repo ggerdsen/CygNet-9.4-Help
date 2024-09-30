@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="ODBC|Using the ODBC Driver">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Optimizing ODBC Queries</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="ODBC.htm">ODBC</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the ODBC Driver.htm">Using the ODBC Driver</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Optimizing ODBC Queries</span>
+        </div>
+        <h2>Optimizing ODBC Queries</h2>
+        <p>ODBC performance can be improved by fine-tuning queries according to the recommendations below. By making queries more explicit it can reduce the time needed to gather the information of interest.</p>
+        <h4>Notes</h4>
+        <ul>
+            <li value="1">Some ODBC-capable applications, such as Crystal Reports, request the entirety of the Data Dictionary, even when the query is fully qualified. </li>
+        </ul>
+        <ul>
+            <li value="1">If a database service shuts down during the lifetime of the connection to the CygNet ODBC driver, and the first query against that service occurs while it has shutdown, the error message will indicate that the <b>table was not found</b>. If a query has been successfully executed against that service before the connection is lost, the error message will indicate <b>the CygNet service is not in service</b>. If the service is restarted after a <b>table not found</b> error, the query will still be executed fine.</li>
+        </ul>
+        <ul>
+            <li value="1">The only services that will be available to the current ODBC connection are the services that are in the <b>OK</b> state at the time the connection is made.</li>
+        </ul>
+        <h4>Recommendations</h4>
+        <ul>
+            <li value="1">Since the data dictionary is loaded on-demand, if no table owner is specified in the query, the entire data dictionary for every service is loaded, which can slow down the initial run of the query dramatically. To optimize the query, specify the table owner. For example, use <b>select device_id from acme4_dds.dds_dds_device_header</b> instead of <b>select device_id from dds_device_header</b>.</li>
+            <li value="2">During initial development of reports or applications in tools like Microsoft Access, use a custom DSN to minimize the amount of time it takes to load the list of tables. When deploying the applications, custom DSN do not need to be used.</li>
+            <li value="3">Specify the <b>table_owner</b> column when querying the OA tables for table, column, and index information to avoid loading the data dictionary for all services.</li>
+            <li value="4">Specify only the columns you're going to use in your query. This can increase performance of queries against services such as the PNT and FAC which have many columns.</li>
+            <li value="5">When performing a join against the <b>pnt_header_record</b> table that includes <b>PointId</b> or <b>PointIdLong</b>, list <b>pointid</b> or <b>pointidlong</b> first in the join criteria, before <b>site</b> and <b>service</b>. This helps the ODBC driver pick a better index.</li>
+            <li value="6">When performing a join against the <b>fac_header</b> table that includes <b>facility_id</b> list <b>facility_id</b> first in the join criteria, before <b>facility_site</b> and <b>facility_service</b>. This helps the ODBC driver pick a better index.</li>
+            <li class="HyperlinkList" value="7">Use <a href="#Stored" class="selected">Stored Procedures</a> to complete tasks such as:</li>
+        </ul>
+        <ol class="Lower_alpha">
+            <li class="HyperlinkList" value="1"><a href="#VHS" class="selected">VHS Service Rollup</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Point" class="selected">Point in Time</a>
+            </li>
+            <li value="3"><a href="#Delayed" class="selected">Delayed Writes</a>
+            </li>
+        </ol>
+        <ul>
+            <li class="HyperlinkList" value="1">Use <a href="#Indexes" class="selected">Indexes as Views</a> to optionally choose exact indexes in order to fine-tune performance. This method provides the following benefits:</li>
+        </ul>
+        <ol class="Lower_alpha">
+            <li class="HyperlinkList" value="1">Eliminate manual <a href="#Intra-se" class="selected">intra-service joins</a> where an index already provides that join. This is most visible on the DDS, such as in the C2 and C3 indexes.</li>
+            <li value="2">Provide access to indexes that are <a href="#Sparse" class="selected">sparse</a>, such as the DDS in-progress transaction index and the DDS non-template device index.</li>
+            <li class="HyperlinkList" value="3">Provide <a href="#Explicit" class="selected">explicit index selection</a> to improve query performance.</li>
+            <li class="HyperlinkList" value="4"><a href="#Reading" class="selected">Read from the index</a> rather that the data record, since the index records are often smaller than the data records, thereby increasing access time if the data has not already been cached by the service.</li>
+        </ol>
+        <h3><a name="Stored"></a>Stored Procedures</h3>
+        <p>Stored procedures provide extended CygNet functionality when using ODBC.</p>
+        <h4><a name="VHS"></a>VHS Service Rollup</h4>
+        <p>VHS service rollup functionality is exposed through a stored procedure called <b>HistoryRollup</b>. Values must be specified for the following parameters in the order they appear in the table:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="2">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Tag</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A comma-delimited list of tags. Format options are:</p>
+                    <ul class="table">
+                        <li value="1">short (MYSITE.UIS:00000001)</li>
+                        <li value="2">long (MYSITE.UIS:MYSITE_UIS_SYPROCQUE)</li>
+                        <li value="3">FACILITY.UDC (MYSITE.UIS::MYSITE_UIS.SYPROCQUE)</li>
+                    </ul>
+                    <p>The tag format can be mixed within a single call to the stored procedure. Wildcards are not supported. If the Facility.UDC format is used, the CVS specified in the tag must be running at the time of query. Up to 300 tags are allowed per call to the stored procedure. The long tag format is the most optimal as no point resolution has to be performed.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>EarliestTime</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The start time of the rollup.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LatestTime</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The end time of the rollup.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td rowspan="9" class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>RollupType </p>
+                    <p>(one of these types)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CalcWeightedAverage</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns a time-weighted rolling average for the interval with a timestamp that reflects the end of the rollup interval. </p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">If the data window is a three-day period and the rollup interval is one day, the result would be one value per day that represents a time-weighted average for the three-day period.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CalcMean</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Returns the average of the values with a timestamp that reflects the end of the rollup interval.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CalcMin</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns the minimum value for the interval with a timestamp that reflects the end of the rollup interval.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CalcMax</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Returns the maximum value for the interval with a timestamp that reflects the end of the rollup interval.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CalcDelta</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns the difference between the minimum and maximum values. If there is no difference, the returned value is zero.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CalcLast</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Returns the last value received.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ThinMedian</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns the middle value from the set of values. If there is an even number of values collected, the value returned is the one that falls before the true middle. If no values are collected, no values are returned.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ThinMinMax</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Returns the minimum and maximum values. If only one value is collected, it returns the value. If no values are collected, no values are returned.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ThinLast</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns the last value collected. If no values are collected, no values are returned.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>RollupUnits</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Units of the rollup values. Options are: <b>Seconds</b>, <b>Minutes</b>, <b>Hours</b>, or <b>Days</b>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>RollupPeriod</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the duration of the rollup, applied to RollupUnits.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>TopSubUnit</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Defines an offset from the normal date/time. It provides a method to allow for start of day, time zone, or scheduling differences.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">If you are using a rollup period of 1 day (RollupUnits as Days and RollupPeriod of 1), and your data day starts at 8:00 A.M. (instead of midnight), you can offset the period by entering an "8" in this field. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This field uses 24-hour time.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p>The returned columns are:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Return Column</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Tag</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The original format of the tag as requested in the stored procedure.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Site</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The resolved site for the tag.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Service</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The resolved service for the tag.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PointIdLong</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The resolved pointidlong for the tag.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Rolled-up value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PointTime</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Timestamp of the value returned from the rollup, depends upon the RollupType.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>UnreliableFlag</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>Y</b> if the value is unreliable or <b>N</b> if it is reliable.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">History Rollup Sample</p>
+        <table class="Code" style="width: 744px;">
+            <tr>
+                <td>
+                    <p class="Code">Option Explicit</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objConnVhs</p>
+                    <p class="Code">Set objConnVhs = WScript.CreateObject("ADODB.Connection")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objConnVhs.ConnectionString = "DSN=CygNet;ServiceFilter=*.*"</p>
+                    <p class="Code">objConnVhs.Open()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objRS</p>
+                    <p class="Code">Set objRS = CreateObject("ADODB.RecordSet")</p>
+                    <p class="Code">objRS.Open "call mysite_vhs.historyrollup('MYSITE.UIS:3450520367_SPEED', '2019-05-24 07:30:00', '2019-05-24 13:30:00', 'CalcMean', 'Minutes', 30, 0)", objConnVhs</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objRS.MoveFirst()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">While Not objRS.EOF</p>
+                    <p class="Code3">WScript.Echo "Value: " &amp; objRS.Fields("Value") &amp; ". PointTime: " &amp; objRS.Fields("PointTime")</p>
+                    <p class="Code3">objRS.MoveNext()</p>
+                    <p class="Code">Wend</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objConnVhs.Close</p>
+                </td>
+            </tr>
+        </table>
+        <p>Also see <a href="../History/History Rollups.htm">History Rollups</a> for more information.</p>
+        <h4><a name="Point"></a>Point in Time</h4>
+        <p>VHS service point in time functionality is exposed through a stored procedure called <b>EnableExactTimeRetrieval</b>. This procedure modifies the behavior of retrieval for VHS queries that specify exact pointtime or recordtime values (not ranges). This option is connection specific.</p>
+        <p>The only parameter is <b>Enable</b>, the accepted values are:</p>
+        <ul>
+            <li value="1"><b>ON</b>, <b>ENABLE</b>, <b>YES</b>, <b>Y</b>, <b>TRUE</b>, <b>T</b>, or <b>1</b> to enable this behavior</li>
+            <li value="2"><b>OFF</b>, <b>DISABLE</b>, <b>NO</b>, <b>N</b>, <b>FALSE</b>, <b>F</b>, or <b>0</b> to disable this behavior</li>
+        </ul>
+        <p>If EnableExactTimeRetrieval is enabled, only a single value for the given timestamp would be returned. If there are multiple values with the same timestamp only one will be returned. This may not be the desired behavior. To ensure all values with the same timestamp are returned, disable the EnableExactTimeRetrieval feature.</p>
+        <p>This is analogous to the History Playback feature in CygNet Studio.</p>
+        <p>By default, the behavior is disabled.</p>
+        <p class="Example">Point in Time Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Option Explicit</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objConnVhs</p>
+                    <p class="Code">Set objConnVhs = WScript.CreateObject("ADODB.Connection")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objConnVhs.ConnectionString = "DSN=CygNet;ServiceFilter=*.*"</p>
+                    <p class="Code">objConnVhs.Open()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objRS</p>
+                    <p class="Code">Set objRS = CreateObject("ADODB.RecordSet")</p>
+                    <p class="Code">objRS.Open "call mysite_vhs.enableexacttimeretrieval('enable')", objConnVhs</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Delayed"></a>Delayed Writes</h4>
+        <p>Delayed writes for bulk updates is exposed through a stored procedure called <b>EnableDelayedWrites</b>. If enabled, data will be visible in the database as they occur but will only be written to the disk at 30 second intervals. This feature reduces the number of writes required for each record update. This option is only effective on queries with multiple updates and all changes will be written to disk at the completion of the query regardless of time interval. It is connection specific. This option is only available to services that have read/write <a href="Accessing Services.htm">ODBC Access</a>.</p>
+        <p>The only parameter is <b>Enable</b>, the accepted values are:</p>
+        <ul>
+            <li value="1"><b>ON</b>, <b>ENABLE</b>, <b>YES</b>, <b>Y</b>, <b>TRUE</b>, <b>T</b>, or <b>1</b> to enable this behavior</li>
+            <li value="2"><b>OFF</b>, <b>DISABLE</b>, <b>NO</b>, <b>N</b>, <b>FALSE</b>, <b>F</b>, or <b>0</b> to disable this behavior</li>
+        </ul>
+        <p>By default, the behavior is disabled.</p>
+        <p class="Example">Delayed Writes Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Option Explicit</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objConn</p>
+                    <p class="Code">Set objConn = WScript.CreateObject("ADODB.Connection")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">objConn.ConnectionString = "DSN=CygNet;ServiceFilter=*.*"</p>
+                    <p class="Code">objConn.Open()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim objRS</p>
+                    <p class="Code">Set objRS = CreateObject("ADODB.RecordSet")</p>
+                    <p class="Code">objRS.Open "call mysite_pnt.enabledelayedwrites('enable')", objConn</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Indexes"></a>Indexes as Views</h3>
+        <p>Database indexes for the CygNet DBS-based services are exposed as views, which allow query writers to optionally choose exact indexes in order to fine-tune performance.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Database indexes for DBS-based services can be viewed using CygNet Explorer:</p>
+        </div>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../CygNet Explorer/Searching for a Record.htm">Select Search</a>  (right-click in the service pane, then select <b>Select Search…</b>) This option is not available for the ACS, DDS, and MSS.</li>
+            <li class="HyperlinkList" value="2"><a href="../CygNet Explorer/Viewing Service Details.htm">DBS Tables</a>  (right-click on the service in the service hierarchy, select <b>Service Details</b>, then <b>DBS Tables</b>)</li>
+        </ul>
+        <h4><a name="Intra-se"></a>Intra-service Joins</h4>
+        <p>Manual intra-service joins can be eliminated where an index already provides that join. This is most visible on the DDS, such as in the <b>dds_c2_index</b> and <b>dds_c3_index</b> tables.</p>
+        <p class="Example">Example</p>
+        <p>The <b>dds_c2_index</b> includes the Device Category, Device ID, DataGroup Type, Data Group Ordinal, and Data Group Description. The following queries return equivalent results (although not necessarily in the same order):</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select device_category, device_id, data_group_type, data_group_ordinal, data_group_description, l2key, queuekey from "cygdemo.dds".dds_device_header DH inner join "cygdemo.dds".dds_data_group_header DGH on DH.queuekey = DGH.level1_foreignkey;</p>
+                </td>
+            </tr>
+        </table>
+        <p>With indexes as views, use the following query:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select * from "cygdemo.dds".dds_c2_index;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example</p>
+        <p>The <b>dds_ir_index</b> includes the Remote Device ID and its primary Comm ID.</p>
+        <p>One way to query:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select DH.device_id, comm_id1 from "cygdemo.dds".dds_device_header DH inner join "cygdemo.dds".dds_rem_detail_header_ex RDH on DH.queuekey = RDH.level1_foreignkey;</p>
+                </td>
+            </tr>
+        </table>
+        <p>With indexes as views, the following reduces the complexity of the query:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select device_id, comm_id1 from "cygdemo.dds".dds_ir_index;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Sparse"></a>Sparse Indexes</h4>
+        <p>Index views provide access to indexes that are sparse, such as the DDS in-progress transaction index and the DDS non-template device index.</p>
+        <p class="Example">Example</p>
+        <p>There are two HyperPoint indexes on the PNT that have an implicit "HyperPointEnabled = 'Y'" condition on them (<b>pnt_h1_index</b> and <b>pnt_h2_index</b>). Doing a full scan of either index only needs to read point data for the points that are actually HyperPoints.</p>
+        <p>Since CygNet ODBC is unaware of the conditions that are on sparse indexes, the following query will never use that index:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select * from "cygdemo.pnt".pnt_header_record where HyperPointEnabled = 'Y';</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> CygNet ODBC does not perform well with conditions such as "where this column does not equal some value." But since CygNet DBS-based services allow construction of indexes that can be filtered with "where this column does not equal some value," a query author could define a custom index, which matches the main part of the query. This should only be done after careful optimization, and by limiting the custom index to a small number of values, because creating too many indexes will hinder database write times, as well as increase disk usage. As a built-in example, the <b>dds_c1_index</b> table implicitly filters out device templates. See <a href="../Services/Adding a New Index to a CygNet DBS-Based Service.htm">Adding a New Index to a DBS-Based Service</a>  for instructions on adding a new index.</p>
+        </div>
+        <h4><a name="Explicit"></a>Explicit Index Selection</h4>
+        <p>Including the explicit index selection will improve query performance.</p>
+        <p>When using a query like this:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select site, service, facilityid, uniformdatacode from " cygdemo.pnt".pnt_header_record where site = 'cygdemo' and service = 'uis' and facilityid = 'cygdemo_uis';</p>
+                </td>
+            </tr>
+        </table>
+        <p>index selection is generally poor. The query essentially searches over all points that match site = 'cygdemo' and service = 'uis', but ignores the facilityid criteria.</p>
+        <p>If the query is changed to use the <b>pnt_s2_index</b> table:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">select site, service, facilityid, uniformdatacode from "cygdemo.pnt".pnt_s2_index where site = 'cygdemo' and service = 'uis' and facilityid = 'cygdemo _uis';</p>
+                </td>
+            </tr>
+        </table>
+        <p>query time and data selection is improved. If you need any other columns from the table, you'll need to perform a join against the <b>pnt_header_record</b> table.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The order of the columns represents the order of the fields in the index, which will influence the index that you should use. In the <b>pnt_s2_index</b> example above, the <b>pnt_f1_index</b> can also satisfy that request, but doesn't do it as well because the site and service columns come after columns that have no condition on them (UniformDataCode and PointIdLong), but the order in the <b>pnt_s2_index</b> table is Site, Service, and then FacilityId, so the query is able to use all of the conditions to reduce the search set.</p>
+        </div>
+        <p class="Note" style="text-indent: 0in;">When joining against another table, it is likely that processing the "index" tables first in the join will perform better than if it being processed later. To force the join order, you can use <b>Join Hints</b> to test what is best given the query and the expected data set.</p>
+        <h5>Join Hints</h5>
+        <p>From the <a href="http://knowledgebase.progress.com/articles/Article/000040469" target="_blank">v7.0 SQL Engine Programmer's Guide</a>:</p>
+        <p>The OpenAccess SDK SQL engine syntax includes specification of the preferred processing order as a HINT at the end of the SELECT statement.</p>
+        <ul>
+            <li value="1">HINT JOIN QUERY ORDER</li>
+            <li value="2">HINT JOIN (tablex, tabley, tablez)</li>
+        </ul>
+        <p class="Example">Examples</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">SELECT * FROM emp, dept WHERE empno = 1 AND emp.deptno = dept.deptno HINT JOIN QUERY ORDER</p>
+                </td>
+            </tr>
+        </table>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">SELECT * FROM emp, dept WHERE empno = 1 AND emp.deptno = dept.deptno HINT JOIN (emp, dept)</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Reading"></a>Reading from the Index Record</h4>
+        <p>Since the index records are often smaller than the data records, and if one of the indexes has all of the columns that you are concerned about, and the query is unbounded, reading from the index will incur less disk I/Os if the data has not already been cached by the service.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

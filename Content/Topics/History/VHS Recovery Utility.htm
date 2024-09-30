@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VHS Recovery Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Utilities.htm">VHS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VHS Recovery Utility</span>
+        </div>
+        <h2>VHS Recovery Utility</h2>
+        <p>The <b>VHS Recovery</b> utility can be used to restore history data from <a href="VHS Journal Files.htm">journal files</a> and backed-up history database files. This utility is most commonly used to restore data to the new database after the <a href="VHS Quick Recovery.htm">VHS Quick Recovery</a> process. The VHS service must be running to restore data to it.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> While the VHS legacy datastore type is now obsolete, you can still run any VHS utility against a VHS legacy datastore.</p>
+        </div>
+        <p>VHS Recovery utility is stored in the <b>CygNet\Utilities</b> directory (VhsRecover.exe) on the host server. To start the utility, browse to the directory using Windows Explorer and double-click the program icon.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can also set up this utility to be installed and launched (started) via <b>CygNet Client Installer</b> so that the application can be version managed. See <a href="../Version Management/Version Management Overview.htm">Version Management</a> for instructions on how to do this.</p>
+        </div>
+        <p class="Image">
+            <img src="../../Resources/Images/History/030000015.png" />
+        </p>
+        <p>The VHS Recovery utility allows the administrator to create a multi-step recovery plan that restores data from different locations. This recovery plan can then be saved as an .xml file so that the same recovery plan may be used at another time. This also allows multiple recovery plans to be developed and saved to meet the needs of different situations. History recovery can be initiated using the VHS Recovery utility or it can be initiated via a <a href="VHS Recovery Configuring.htm">command line</a>. See the VHS <a href="../Security/Value History Service VHS.htm">SVCINFO Security Event</a> for information about security access levels for performing recovery tasks.</p>
+        <p>Recovery steps are executed in the order they appear in the utility. For example, if journal files are listed before a database folder, the data stored in the journal files will be restored before data from the database is restored. Once data sources have been configured they may be re-ordered to produce the desired recovery plan configuration. Also, individual recovery steps may be selectively enabled or disabled without deleting them from the plan. When the configuration is saved to file, each step’s enabled status is also preserved.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If restoring data to a replicated VHS service, the service must be running in non-replicated mode during the recovery. After the recovery is complete the service can be put back into replication mode. See <a href="../Replication/VHS Replication.htm">VHS Replication</a> for more information about changing the service’s replication mode.</p>
+        </div>
+        <p>When data is restored to a VHS, those updates are not recorded by the VHS in its incremental change queue or current journal file. The updates are not forwarded to a destination VHS or propagated to a replicated VHS.</p>
+        <h3><a name="Filterin"></a>Filtering History Data to be Recovered</h3>
+        <p>Data items to be recovered can be filtered on timestamp or any component of a point tag: Site, Service, Point ID, Point ID Long, Facility, or UDC. The filter criteria are specified using the rich syntax of standard <a href="../CygNet Studio/Filter Rules - Using.htm">CygNet Rules</a>. Since journal files do not have timestamps, a journal file timestamp filter is applied to a block of entries. If any entry in the block is within range, the entire block will be considered for recovery. A timestamp filter for a database recovery is applied to every value of every point.</p>
+        <p>When restoring history data for any reason, CygNet recommends using filtering only where absolutely necessary. Unnecessary filter criteria can dramatically slow the recovery process. This is especially true when the filter contains UDC or Facility as the history service does not store this information and must cross reference against the Point service to obtain it.</p>
+        <h3>Menu and Toolbar</h3>
+        <p>The items available on the toolbar can also be found on the utility’s <b>File</b> and <b>Item</b> menu. To hide the toolbar, clear it from the <b>View</b> menu.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 60px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 60px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Menu</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Item</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>File</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/new.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Creates a new blank recovery plan/configuration. If you have an existing recovery plan open you will be prompted to save it before a new plan can be created.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>File</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/open.png" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Opens an existing recovery plan.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>File</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/save.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Saves the current recovery plan to an .xml file for later use or use by scheduled recovery.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Item</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/History/VHS Recovery Edit.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Edits the selected recovery item. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Item</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/History/VHS Recovery Add File.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Adds a journal file recovery item. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Item</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/History/VHS Recovery Add DB.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Adds a database folder recovery item. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Item</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/History/VHS Recovery Copy.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Copies the selected recovery item. This may be useful if you wish to copy an existing item and then modify its properties such as the filter.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Item</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/delete.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Deletes the selected recovery item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Item</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/movedown.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Moves the selected recovery item down in the list. This will cause the selected recovery step to be executed later in the process.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Item</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/moveup.png" class="Inline" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Moves the selected recovery item up in the list. This will cause the selected recovery step to be executed earlier in the process.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Help</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/about.png" class="Inline" title="About" alt="About" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to open the <b>About CygNet VHS Recovery</b> dialog box to view application information. </p>
+                    <p>Available information includes the following:</p>
+                    <ul class="table">
+                        <li value="1">The application name, version, and release date</li>
+                        <li value="2">Copyright information</li>
+                        <li value="3">The <span class="CygNetVariablesSoftwareName">CygNet Software</span> website address, including a hyperlink to the website</li>
+                        <li value="4">The log file location, including a hyperlink to the log file</li>
+                        <li value="5"> The location of the application's file executable</li>
+                    </ul>
+                    <p>In addition to information about the application, the <b>About</b> box includes the following buttons:</p>
+                    <ul class="table">
+                        <li value="1"><b>Client Settings</b> — opens the <b>Client Settings</b> dialog box to view and modify client log settings for the application on an ad hoc basis. See <a href="../Logging/Client Log Settings.htm">Client Log Settings</a> in the <b>Logging</b> section for more information.</li>
+                        <li value="2"><b>Diagnostics</b> — access the following options for additional analysis from the drop-down menu:</li>
+                    </ul>
+                    <ul style="list-style-type: circle;">
+                        <li value="1"><b>Loaded Modules</b> — use this option to view and search file information for modules loaded in your system. Double-click any result row to view properties for that module. See <a href="../CygNet Explorer/Loaded Modules.htm">Loaded Modules</a> for more information. </li>
+                        <li value="2"><b>Gather Logs</b> — accesses the Windows file directory where the open log files are located. Double-click to select and view an application log file.</li>
+                        <li value="3"><b>User Local Crash Dumps</b> — Local crash dumps are not enabled. See <a href="../System Administration/Generating Crash Dumps.htm">Generating Crash Dumps</a> for more information.</li>
+                    </ul>
+                    <ul class="table">
+                        <li value="1"><b>Close</b> — click to close the <b>About</b> box.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="StatusTag"></a>Status Tag</h3>
+        <p>A status tag can be specified to monitor the status of the recovery. This point must be created in the Point service (PNT). If a status tag is supplied, the recovery status will be recorded upon completion. Status values include <b>Complete</b>, <b>Connect failed</b>, and <b>Error</b> and <b>User canceled</b>.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Recovery Configuring.htm">Configuring the VHS Recovery Utility</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Recovery Error Logging.htm">Error Logging</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Controls Menu">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Explorer Reports Control</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Controls Menu.htm">Controls Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Reports Control</span>
+        </div>
+        <h2>Using the Reports Control</h2>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Reports16.png" />&#160;Use the <b>Reports</b> control to generate  a variety of defined measurement reports  via FMS Explorer. Selecting a report sends a Reports command that triggers the service to generate the requested customized report. You can then <a href="#Viewing" class="selected">view</a>, <a href="#Opening" class="selected">open</a>, <a href="#Printing" class="selected">print</a>, or <a href="#Exporting" class="selected">export</a> the generated report in a selected file format.  You can create up to eight instances of this control.</p>
+        <p>Available Node categories for display in this control include <b>Gas Device</b>, <b>Liquid Device</b>, <b>Accessory</b>, <b>Group</b>, or <b>Station</b> Nodes. You can filter  the results  by selected Node(s) and by report type. To select multiple Nodes from the  filtered Node Chooser results, use the <b>Apply changes</b> option. See <a href="Using the Node Chooser Control.htm#Apply">Using the Node Chooser Control</a> for more information about using <b>Apply changes</b> to display multiple Nodes.</p>
+        <p>All reports (except Normalization View reports, which display data based on the normalization view specified), will display data in Device time (D), although the command parameter for the request is in Contract days (C), and assumes a contract hour of <b>0</b>.</p>
+        <p>Reports generated via the Reports control can also be used as the means to access data that has been archived out of the FMS database via Archive Data commands (not applicable to Balance or Missing Data report types).  See <a href="Archiving CygNet Measurement Data.htm">Archiving CygNet Measurement Data</a> for more information.</p>
+        <p>You must have proper security authorization to perform these actions. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CMDSYS">CMDSYS</a> security event) for information about configuring security access for the <b>Reports</b> control. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If using Job reports with <a href="../CygNet Dispatch/CygNet Dispatch.htm">CygNet Dispatch</a>,  appropriate authorization is also required for the JOB security event.</p>
+        </div>
+        <p>See <a href="FMS Commands.htm">FMS Commands</a> for information about individual commands that build reports.</p>
+        <p>See <a href="Running FMS Reports.htm">Running CygNet Measurement Reports</a> for information about additional report options in CygNet Measurement. </p>
+        <p>See <a href="FMS Explorer User Interface.htm">FMS Explorer User Interface</a> for more information about the FMS Explorer user interface.</p>
+        <h3>Requirements for Building an FMS Report</h3>
+        <p>To build reports using the Reports control, you need the following elements in place. </p>
+        <ul>
+            <li value="1">Report template file</li>
+            <li value="2">Report definition (can be contained in the report template file stored in the FMS service, or stored in the FMS Workspace)</li>
+        </ul>
+        <p><u>Report template files</u> - a report template file must exist before reports  can be generated. Templates define the report parameters and describe the report format. Report templates can be customized as desired, based on sample report template files provided by <span class="CygNetVariablesSoftwareName">CygNet Software</span>. See <a href="Managing Report Template Files.htm">Managing Report Template Files</a> for more information. </p>
+        <p><b style="text-decoration: underline; font-weight: normal;">Report definitions</b> - report definitions can be configured and saved as part of a report template file (stored in the FMS service), or they can be configured and saved through the FMS Explorer Admin menu (stored as a part of your Workspace).  Scheduled reports access the report definition via the report template file in the FMS service. Ad hoc reports can additionally utilize report definitions that are  configured and managed through the FMS Explorer <b>Admin</b> menu. See <a href="Managing Report Definitions.htm">Managing Report Definitions</a> for more information. </p>
+        <p>The rows and columns of the Reports control grid allow you to view report data as configured for the selected report type. Once you have generated a report, you can use the control <a href="#Toolbar" class="selected">toolbar</a> to  select a report type, and then to optionally open a report for viewing in a selected file format,  print a report as configured, or export a report to a selected file format for business purposes. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Reports may have data cells without values (null or missing data values) for a specific record. Cells with null values are handled differently, depending on column value types. For columns with string values, these null values will be accounted for in data aggregation. For columns with numeric values, these null values will be ignored. </p>
+        </div>
+        <h3><a name="Consider"></a>Considerations for Working with FMS Reports</h3>
+        <p>There are some caveats to what you can do with an FMS report, once it is built, that are helpful to know before planning your reports. Some of these considerations might be different from expected functionality. </p>
+        <p>Consider the following functional details when planning your reports.</p>
+        <ul>
+            <li value="1">Cell comments and form controls (buttons, check boxes, list boxes, etc.) - These features are not currently supported for reading from the report template.</li>
+            <li value="2">Conditional formatting - Overlapping conditional formatting rules are not supported; only the first rule will be applied, and others will be ignored. In this regard, Microsoft Excel 2003 features are generally supported.</li>
+            <li value="3">Microsoft Excel  table references - In formulas, Excel table references are not supported.</li>
+            <li value="4">Shapes - Complex shapes, and some shape properties, are not supported for reading or writing.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Viewing FMS Reports</h3>
+        <p>Use the Reports control <a href="#Node" class="selected">Chooser</a> pane (unless the <b>Use Session Node</b> option is selected in the Options pane) and <a href="#Options" class="selected">Options</a> pane to select what data to show in the report. Either pane can optionally be displayed or pinned to the left side.  </p>
+        <h4><a name="Node"></a>Chooser Pane</h4>
+        <p>In the embedded Node Chooser for the Reports control, select the Nodes you want to view data for from the <b>&lt;Any&gt;</b>, <b>Group</b>, <b>Device</b>, <b>Gas Device</b>, <b>Liquid Device</b>, <b>Accessory</b>, or <b>Station</b> Node  categories. Further filter the Nodes by name, description, or ID as desired. See <a href="Using the Node Chooser Control.htm">Using the Node Chooser Control</a> for more information.</p>
+        <h4><a name="Options"></a>Options Pane</h4>
+        <p>In the Session section of the Options pane, define the values for the report you would like to run.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Controls_Reports_Options2_Apply.png" />
+        </p>
+        <p>Reports control options are as follows. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p colspan="2">Session</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Use Session Node</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click the check box to select/clear the option to <b>Use Session Node</b> instead of using the Chooser. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                            </p>
+                            <p class="Note">The <b>Use Session Node</b> check box is selected by default for Data controls (Alarm, Configuration, History Graph, History Grid, and Raw Data). </p>
+                            <p>The <b>Use Session Node</b> check box is cleared by default for Summary controls (Dashboard, Exceptions), Reports controls, and Admin controls (Balance, Jobs;  not applicable to Close Period,  PPA).</p>
+                        </div>
+                        <p>See <a href="Session Node.htm">Session Node</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Node</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If <b>Use Session Node</b>  is not selected, optionally type the <b>Node</b> name against which you want to run the report into the text box, instead of using the Chooser.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Use of this Node selection method overrides any selection made on the Node Chooser, and the Node Chooser pane will become unavailable.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Use Session options</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click the check box to select/clear the option to <b>Use Session options</b> instead of entering a time window and time format. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                                <p class="Note">The <b>Use Session options</b> check box is selected by default for Data controls (Alarm, Configuration, History Graph, History Grid, and Raw Data).</p>
+                                <p class="Note">The <b>Use Session options</b> check box is cleared by default for Summary controls (Dashboard, Exceptions), Reports controls, and Admin controls (PPA, Balance, Jobs; not applicable to Close Period).</p>
+                            </p>
+                        </div>
+                        <p>See <a href="Session Options.htm">Session Options</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Start date</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Date selections are in Contract days (C). </p>
+                        <p>Select the starting date, unless <b>Use Session options</b>  is selected. Type the date into the text box or click <b>...</b> to <b>Select Date</b>.</p>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">End date</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Date selections are in Contract days (C). </p>
+                        <p>Select the ending date, unless <b>Use Session options</b> is selected. Type the date into the text box or click <b>...</b> to <b>Select Date</b>.</p>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Unit set</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>For reports that display data requiring units, select a unit set in which to view the data. </p>
+                        <p>Options appear in the drop-down menu, which is populated by the unit sets defined in the service, and includes a default unit set.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">
+                            <img src="../../Resources/Images/CygNet Measurement/Refresh16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Refresh</b> the available unit set list.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Apply</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Click to <b>Apply</b> the changes made through the Options pane. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When you click  <b>Apply</b> on the <b>Options</b> pane, any Node selection that has been made  but not applied   on the <b>Chooser</b> pane will also be applied.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Managing FMS Reports</h3>
+        <p>Manage FMS reports via the Reports control toolbar.</p>
+        <h4><a name="Toolbar"></a>Toolbar</h4>
+        <p>Use the Reports control toolbar to select a report type to view and to access options to manage the report you are viewing. &#160;See <a href="Menus and Toolbars.htm">Menus and Toolbars</a> for more information. </p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Reports_Toolbar_599x26.png" style="width: 599;height: 26;" />
+        </p>
+        <p>The following options appear on the toolbar; unavailable buttons appear dimmed. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Refresh16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Refresh</b> the control view.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The Refresh button will not take into account changes made through the Options  pane that have been selected but not yet applied.</p>
+                        </div>
+                        <p>See <a href="Menus and Toolbars.htm#Refresh">Refresh Button</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/SaveHS16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>[The Save button is not available on this control.]</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Cancel16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>[The Cancel button is not available on this control.]</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Open16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Open</b> and view the report in another application. </p>
+                        <p>The following options are available in the drop-down menu.</p>
+                        <ul class="table">
+                            <li value="1">Open as XLSX</li>
+                            <li value="2">Open as PDF</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> In XLSX or PDF format, reports may appear slightly different than they appear in the control, due to the selected application's formatting details.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Print16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Print</b> the contents of the control.</p>
+                        <p>See <a href="#Printing" class="selected">Printing a Report</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Export16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Export</b> the contents of the control in a selected file format. The generated report can then be shared as desired for other business uses. </p>
+                        <p>The following options are available in the drop-down menu.</p>
+                        <ul class="table">
+                            <li value="1">Export as XLSX</li>
+                            <li value="2">Export as PDF</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> You can email reports automatically by scheduling a report command through the MSS. See <a href="Running FMS Reports.htm#Running">Running Scheduled Reports</a> in the Running CygNet Measurement Reports topic for more information.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to access the drop-down menu to select a report <b>Type</b>. </p>
+                        <p>One "type" option will appear in the list for each distinctly configured report definition created by either of the following methods.</p>
+                        <ul class="table">
+                            <li value="1">A report definition that has been defined in an individually configured  report template file in the FMS Service. See <a href="Managing Report Template Files.htm">Managing Report Template Files</a> for more information.</li>
+                            <li value="2">A report definition that has been defined via the Admin menu <b>Manage Reports</b> interface and saved in your FMS workspace. See  <a href="Managing Report Definitions.htm">Managing Report Definitions</a> for more information. </li>
+                        </ul>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about Reports (<b>Reports: </b><i style="font-weight: bold;">X</i>) commands. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Refresh16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Click to <b>Refresh</b> the available report type list.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Viewing"></a>Generating and Viewing a Report</h4>
+        <p class="HeadingProcedure">To View a Report Using FMS Explorer</p>
+        <ol>
+            <li value="1">In FMS Explorer, open the <b>Controls</b> menu, and then click <b>Reports</b> to open a reports screen.</li>
+            <li value="2">On the control toolbar, select a report <b>Type</b> from the drop-down menu.
+                <div class="Note"><p><span class="NoteHeading">Note:</span> If no report definition options appear, you can <a href="Managing Report Template Files.htm">configure a report template file</a> or <a href="Managing Report Definitions.htm">configure a report definition</a> to define customized reports to populate the list. See <a href="Running FMS Reports.htm">Running CygNet Measurement Reports</a> for more information.</p></div></li>
+            <li value="3">Select the Node against which to run the report, using one of the following methods.<div class="Note"><p><span class="NoteHeading">Note:</span> Not applicable to the Balance Details Report.</p></div></li>
+            <ul>
+                <li value="1">On the <b>Chooser</b> pane, select the Node against which you want to run a report.</li>
+                <li value="2">On the <b>Options</b> pane, click to select the <b>Use Session Node</b> check box to use the configured Session Node. (This selection will make the Chooser pane unavailable.)</li>
+                <li value="3">On the <b>Options</b> pane, click to clear the <b>Use Session Node</b> check box, and type the Node name into the <b>Node</b> text box.) This selection will make the Chooser pane unavailable.)</li>
+            </ul>
+        </ol>
+        <ol start="4">
+            <li value="4">Select the Session options for which to run the report, using one of the following methods.</li>
+            <ul>
+                <li value="1">On the <b>Options</b> pane, click the <b>Use Session options</b> check box to use the configured Session options.</li>
+                <li value="2">On the <b>Options</b> pane, select applicable Session options, including <b>Start date</b> and <b>End date</b>.<div class="Note"><p><span class="NoteHeading">Note:</span> When specifying the start and end dates, keep in mind that Balance and Missing Data report types only access currently retained data, whereas other report types can also access archived data that exists within the specified command date range. See <a href="Archiving CygNet Measurement Data.htm">Archiving CygNet Measurement Data</a> for more information.</p></div></li>
+            </ul>
+        </ol>
+        <ol start="5">
+            <li value="5">Select a <b>Unit set</b> in which to view the report.<div class="Note"><p><span class="NoteHeading">Note:</span> Not applicable to Event, Missing Data, or Normalization View reports.</p><p>Options listed in the drop-down menu include all unit set definitions configured in your system.</p></div></li>
+            <li value="6">Click <b>Apply</b> to generate and view the report.</li>
+        </ol>
+        <h4><a name="Opening"></a>Opening a Report</h4>
+        <p>You can open a report in another application your system  supports. Options are .xlsx or .pdf files.</p>
+        <p class="HeadingProcedure">To Open a Report Using FMS Explorer</p>
+        <ol>
+            <li value="1"><a href="#Viewing" class="selected">Generate</a> the desired report.</li>
+            <li value="2">Click <img src="../../Resources/Images/CygNet Measurement/Toolbar_Open16.png" /> <b>Open</b> to access the file type options on the drop-down menu.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Click <b>Open as XLSX</b> to display the report as an .xlsx spreadsheet.</li>
+            <li value="2">Click <b>Open as PDF</b> to display the report as a .pdf document.</li>
+        </ol>
+        <h4><a name="Printing"></a>Printing a Report</h4>
+        <p>You can print FMS reports directly from FMS Explorer. Alternatively, you can <a href="#Opening" class="selected">open</a> or <a href="#Exporting" class="selected">export</a> reports as .xlsx or .pdf files, and then print from those files. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Reports printed directly from the control may appear slightly different than those printed via XLSX or PDF, due to the selected application's printing details.</p>
+        </div>
+        <p class="HeadingProcedure">To Print a Report Using FMS Explorer</p>
+        <ol>
+            <li value="1"><a href="#Viewing" class="selected">Generate</a> the desired report.</li>
+            <li value="2">Click <img src="../../Resources/Images/CygNet Measurement/Toolbar_Print16.png" /> <b>Print</b> to access the <b>Print</b> dialog box.</li>
+            <li value="3">Select your desired print parameters as directed in the dialog box.</li>
+            <li value="4">Click <b>OK</b> to print.</li>
+        </ol>
+        <h4><a name="Exporting"></a>Exporting a Report</h4>
+        <p>FMS reports can be exported from FMS Explorer, as desired for your enterprise purposes, in a format your system supports. Options are .xlsx or  .pdf files.</p>
+        <p class="HeadingProcedure">To Export a Report Using FMS Explorer</p>
+        <ol>
+            <li value="1"><a href="#Viewing" class="selected">Generate</a> the desired report.</li>
+            <li value="2">Click <img src="../../Resources/Images/CygNet Measurement/Toolbar_Export16.png" /> <b>Export</b> to access the <b>Save As</b> dialog box.</li>
+            <li value="3">Type a file path into the address bar, or browse to the directory location to which you wish to save the file.</li>
+            <li value="4">In the <b>File name</b> text box, type a name for the report file you are saving.</li>
+            <li value="5">In the <b>Save as type</b> text box, select the file type from the drop-down menu. Options are <b>Export as XLSX</b> or <b>Export as PDF</b>.</li>
+            <li value="6">Click <b>Save</b>.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

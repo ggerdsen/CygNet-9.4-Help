@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Groups|Group Rollups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Creating a Group Alarm Rollup</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Groups.htm">Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Group Rollups.htm">Group Rollups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Creating a Group Alarm Rollup</span>
+        </div>
+        <h2>Creating a Group Alarm Rollup</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Unless specifically called out, this procedure assumes that all affected services are on the same site.</p>
+        </div>
+        <p>The following procedure explains a basic workflow for creating a group alarm rollup. Creating a group alarm rollup depends in large part upon your specific needs, the complexity of your system, and other variables. Be sure to have a clear idea of what purposes your group alarm rollup will serve before you start to create it. </p>
+        <p>Creating an alarm rollup is similar in many ways to creating an averaging rollup or a totalizing rollup, but there are some significant differences. The following procedure focuses on those differences. If you want to create a group averaging or totalizing rollup, see <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a>.</p>
+        <p>The following image shows a simplified group alarm rollup creation workflow:</p>
+        <p>
+            <img src="../../Resources/Images/Groups/groups_alarm_rollups_workflow.png" />
+        </p>
+        <p>For more information, see the following subsections below:</p>
+        <ol>
+            <li class="HyperlinkList" value="1"><a href="#1." class="selected">Before You Begin</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#2." class="selected">Install the Group Rollup Scripts</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#3." class="selected">Create a Summary Group Node</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#4" class="selected">Create SYFACINFO&#160;Points</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#5" class="selected">Create an Alarm Calculation Target Point</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#6" class="selected">Create an Alarm Rollup HyperPoint</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#7" class="selected">Set the Rollup Trigger Time</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#8" class="selected">Check Your Work</a>
+            </li>
+        </ol>
+        <p>For information about creating groups, see <a href="Group Hierarchy Manager Utility.htm">Group Manager Utility</a>.</p>
+        <h3><a name="1."></a>1. Before You Begin</h3>
+        <p>To create a group alarm rollup, meet the preliminary requirements described in the <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a> subsection <a href="Creating a Group Average or Total Rollup.htm#1.">Before You Begin</a>.</p>
+        <p>When you are finished fulfilling preliminary requirements, proceed to <a href="#2." class="selected">Install the Group Rollup Scripts</a>.</p>
+        <h3><a name="2."></a>2. Install the Group Rollup Scripts</h3>
+        <p>To install the group rollup scripts, meet all of the requirements described in the <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a> subsection <a href="Creating a Group Average or Total Rollup.htm#2.">Install the Group Rollup Scripts</a>.</p>
+        <p>When you are finished installing the group rollup scripts, proceed to <a href="#3." class="selected">Create a Summary Group Node</a>.</p>
+        <h3><a name="3."></a>3. Create a Summary Group Node</h3>
+        <p>To create a summary group node, meet all of the requirements described in the <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a> subsection <a href="Creating a Group Average or Total Rollup.htm#3.">Create a Summary Group Node</a>.</p>
+        <p>When you are finished creating a summary group node, proceed to <a href="#4" class="selected">Create SYFACINFO Points</a>.</p>
+        <h3><a name="4"></a>4. Create SYFACINFO Points</h3>
+        <p>To roll up alarms, you must create a special point for <u>each remote device facility</u> for which you want to roll up alarms. This is not the same thing as creating a point for a specific data item, like CO, within a remote device facility. The special point uses the UDC called <a href="../Tables/Facility System UDCs.htm">SYFACINFO</a>. Create a point just as you normally would, but type SYFACINFO in the <b>Uniform Data Code</b> field under the <b>General</b> page in the PNT Editor on a remote device facility-by-remote device facility basis for each remote device facility from which you want to collect alarm data.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If a leaf node remote device facility is not assigned a SYFACINFO point in the PNT, it does not know it is part of a group alarm rollup and its alarms are not included. However, the remote device facility might have points for standard UDCs that alarm independent of a group alarm rollup if they are configured to do so. For instance, you might not create a SYFACINFO point for a remote device facility, which means no group alarm rollup will occur with this remote device facility. However, you might still create a point for the same remote device facility that uses the UDC called CO. An alarm specific to only the UDC called CO could be set for the remote device facility. For more information, see <a href="../Alarms/Alarms.htm">Alarms</a>.</p>
+        </div>
+        <p>When you are finished creating SYFACINFO points for all relevant remote device facilities, proceed to <a href="#5" class="selected">Create an Alarm Calculation Target Point</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="5"></a>5. Create an Alarm Calculation Target Point</h3>
+        <p>To create an alarm calculation target point, meet all of the requirements described in the <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a> subsection <a href="Creating a Group Average or Total Rollup.htm#4.">Create a Calculation Target Point</a> with the following exceptions:</p>
+        <ul>
+            <li value="1">On the <b>General</b> page in the PNT Editor, enter SYFACINFOR in the <b>Uniform Data Code</b> field. Notice that this UDC&#160;has an R at the end; it is not the same as the SYFACINFO&#160;UDC&#160;described in <a href="#4" class="selected">step 4</a> above. Create only one SYFACINFOR calculation target point per remote device facility. </li>
+            <li value="2">On the <b>General</b> page in the PNT&#160;Editor, set the <b>Point Type</b> to <b>Enumeration Input</b>.</li>
+            <li value="3">On the <b>Enumeration</b> page in the PNT&#160;editor, go to the <b>Conversion Table</b> field and enter FACINFO. The normal value of a group rollup is <b>0 - Normal</b>. If the group alarm rollup finds a leaf node point with a value of <b>1 - Warnings Exist</b> or <b>2 - Alarms Exist</b>, the current value of the group alarm rollup is set to <b>Warnings Exist</b> or <b>Alarms Exist</b>.</li>
+        </ul>
+        <p>When you are finished creating an alarm calculation target point, proceed to <a href="#6" class="selected">Create an Alarm Rollup HyperPoint</a>.</p>
+        <h3><a name="6"></a>6. Create an Alarm Rollup HyperPoint</h3>
+        <p>To create an alarm rollup HyperPoint, meet all of the requirements described in the <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a> subsection <a href="Creating a Group Average or Total Rollup.htm#5.">Create a Rollup HyperPoint</a> with the following exceptions:</p>
+        <ul>
+            <li value="1"> On the <b>General</b> page in the PNT Editor, enter SYFACINFOR in the <b>Uniform Data Code</b> field. Notice that this UDC&#160;has an R at the end; it is not the same as the SYFACINFO&#160;UDC&#160;described in <a href="#4" class="selected">step 4</a> above. Create only one SYFACINFOR alarm rollup HyperPoint per remote device facility.</li>
+            <li value="2">On the <b>Point reference</b> page in the PNT Editor in the <b>CygNet point reference</b> area, use the <b>Type</b> drop-down menu to select <b>Group SYFACINFO Rollup</b>. <b>Group SYFACINFO Rollup</b> represents the alarm <b>Type</b> option.</li>
+        </ul>
+        <p>When you are finished creating an alarm rollup HyperPoint, proceed to <a href="#7" class="selected">Set the Rollup Trigger Time</a>.</p>
+        <h3><a name="7"></a>7. Set the Rollup Trigger Time</h3>
+        <p>Meet all of the requirements described in the <a href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a> subsection <a href="Creating a Group Average or Total Rollup.htm#6.">Set the Rollup Trigger Time</a>.</p>
+        <p>When you are finished setting the rollup trigger time, proceed to <a href="#8" class="selected">Check Your Work</a>.</p>
+        <h3><a name="8"></a>8. Check Your Work</h3>
+        <p>Once you have created and configured all required summary GRP nodes, SYFACINFO&#160;points, alarm calculation target points, and alarm rollup HyperPoints, check the results of your work to ensure that the roup alarm rollups are operating correctly. Perform the two steps listed below.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> There might be additional ways to check your work besides those provided below.</p>
+        </div>
+        <p class="HeadingProcedure">To Double-Check with a Manual Alarm</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the appropriate UIS. </li>
+            <li value="2">Locate a subset of UDC/facility combinations that you know are supposed to be aggregated by the group alarm rollup steps above. </li>
+            <li value="3">Make a manual change to the current value of one of the non-SYFACINFO remote device facility points that you know will put that point into alarm. The non-SYFACINFO point must be a point that belongs to a remote device facility that uses a SYFACINFO point. For instance, if you created a standard point that collects CO information for a remote device facility that also includes a special SYFACINFO point, open the CO point's properties and edit its value to put it in an alarm state.</li>
+            <li value="4">Refresh your UIS to see the latest current value results.</li>
+            <li value="5">Go to the SYFACINFOR&#160;alarm calculation target point and check to see if the <b>Value</b> changed from <b>Normal</b> to either <b>Warnings Exist</b> or <b>Alarms Exist</b>. If a child point is in alarm but the SYFACINFOR&#160;calculation target point is not, your rollup is not working. </li>
+        </ol>
+        <p class="HeadingProcedure">To Double-Check the SUCCESS Value in HSS</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the appropriate HSS. </li>
+            <li value="2">Locate the SYFACINFOR&#160;alarm rollup HyperPoint that you know is supposed to calculate the alarm you created above.</li>
+            <li value="3">Refresh your HSS to see the latest results.</li>
+            <li value="4">Check the SYFACINFOR&#160;alarm rollup HyperPoint's <b>Value</b> column. If the value in the column shows "SUCCESS", your group alarm rollup HyperPoint  is operating correctly. If another value is displayed, see <a href="Error Messages - Group Rollups.htm">Error Messages</a> to troubleshoot the issue.</li>
+        </ol>
+        <p>For information about troubleshooting groups and group rollups, see <a href="Troubleshooting - Groups.htm">Troubleshooting</a>.</p>
+        <p>If you are satisfied with the results of your rollups and tests, consider fine-tuning your rollups by using filters. For more information, see <a href="Filtering a Group Rollup.htm">Filtering a Group Rollup</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

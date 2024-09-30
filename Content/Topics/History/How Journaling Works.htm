@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Journal Files">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How Journaling Works</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Journal Files.htm">VHS Journal Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How Journaling Works</span>
+        </div>
+        <h2>How Journaling Works</h2>
+        <p>If daily journaling is enabled, the VHS will create a live journal file in the service data folder. The VHS will actively write database changes to this file as they occur throughout the day. These changes are compressed before writing to disk to reduce the overall journal file size. When the day ends (i.e. 12:00 a.m. midnight in local server time), the VHS will close the existing live journal file, mark it as ready to be sealed, and moves the file to the configured journal files directory for storage. Then a new live journal file will be created in the service data folder and the service will begin writing new changes to that file. </p>
+        <p>A maintenance task is then queued up in the VHS to seal and close the previous day’s file that was moved into the journal directory at midnight. This process happen a short time after moving the pended file (within a minute after opening a new live journal file for the day). The seal process allows the VHS to write some additional summary information to the journal file and mark that day’s changes as complete. The VHS will never again write data to a sealed file, so the integrity of that day’s changes are preserved. Once a journal is sealed, it can be backed up using traditional IT backup strategies and also used for data recovery using the VHS Recovery Utility.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A daily journal file contains all changes to the VHS database during the current day. The timestamp of the historical values being added or changed to the database may not necessarily match the date of the journal file. For example, values added to the VHS today with a timestamp of four months ago will be written as changes to today’s journal file, because that is the day on which the addition to the VHS occurred. So if attempting to recover these value additions from journal files, you would find those values adds within today’s journal rather than a journal file from four months ago.</p>
+        </div>
+        <p>Journal files are named in the following format: <b>Journal_[DDDD]SITE.SERVICE_YYYYMMDDHHMMSS</b>. The [DDDD]SITE.SERVICE, represents the Domain ID and Site and Service name of the VHS that created the journal file. The time suffix indicates the local time that the journal file was created. A live journal files that the VHS is currently writing to will have a file extension of <b>.LVJ</b>. Journal files that are pending a seal operation after a new day begins will have a file extension of <b>.JPS</b>, and sealed journal files have a <b>.JNL</b> file extension.</p>
+        <p>Journal files are kept in the journal directory for up to a maximum of 35 days depending on <a href="Configuring Journaling.htm">configuration settings</a>. Once the journal directory contains 35 days of journal files, when a new journal file is created, the oldest journal file will be deleted. To keep journal files longer than the configured retention period, you must back the closed journal files up to another location outside of the journal directory. The retention period limits the number of days of journal files, not the number of files. For example, 10 days of journal may be contained in 20 journal files. Conditions that produce more than one journal file per day are discussed below in Multiple Journal Files for a Day.</p>
+        <h3>Multiple Journal Files for a Day</h3>
+        <p>The VHS will always create a new live journal file at midnight of each day. However, there are a few conditions that cause the VHS to close a live journal file and begin a new one at some other point in the day. </p>
+        <p>When one of these conditions occur, the result is multiple journal files for a single day:</p>
+        <ul>
+            <li value="1">If the VHS starts up after a bad shutdown, it will create a new journal file with the timestamp of the time the new file was created. The previous live journal file that was not properly closed will be moved to the journal directory and sealed. The header of the journal file will be marked to indicate a bad shutdown had occurred. While the <a href="VHS Quick Recovery.htm">VHS Quick Recovery</a> utility will be able to read this file to recover the changes contained within, it is possible that the most recent changes at the end of the file were corrupted due to the bad shutdown. The previous changes in the file should be uncontaminated because changes in journal files are always appended to the end of the file, and blocks of changes within the file have a Cyclic Redundancy Check (CRC) written to ensure integrity of data.</li>
+            <li value="2">An info item can be sent to the VHS to trigger it to close out the existing live journal file and start a new one for the day. The info item is <b>VHS_START_JOURNAL</b>, and can be sent with a <a href="../Scheduler/Set Info Keyword Task.htm">Set Info Keyword Task</a> in the MSS or through script via the Global Functions <a href="../Scripting/CxScript GlobalFunctions Methods.htm#SetGenserveInfo">SetGenserveInfo</a> function. These methods are used to schedule creation of journal files at a rate greater than once a day if desired. See the VHS <a href="../Security/Value History Service VHS.htm">SVCINFO Security Event</a> for information about security access levels for performing on-demand VHS journal file seals.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> If using a Set Info Keyword Task, the MSS issuing the task must match the MSS service configured in the <a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm">VHS configuration file</a>. </p>
+            </div>
+        </ul>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

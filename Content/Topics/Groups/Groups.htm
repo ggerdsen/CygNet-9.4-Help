@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbs">Groups</span>
+        </div>
+        <h1>Groups</h1>
+        <p>In a CygNet SCADA context, a group is a collection of <a href="../Facilities/Facilities.htm">facilities</a> organized into hierarchies. Facilities are included in hierarchies according to user-selected <a href="../Facilities/Facility Attributes.htm">facility attributes</a> and device attributes. Attributes can be defined in a way that makes sense in your organization. Specific attributes can then be chosen to identify levels in user-defined hierarchies. Hierarchies enable the collection and organization of information specific to the facilities and devices to which those attributes belong.</p>
+        <p>Group hierarchies provide a useful way to organize, navigate, and display select data from within a CygNet system that might contain very large amounts of data. They can be used to sort  facilities in reports and on CygNet Studio and CygNet Vision screens by using facility attributes to capture only the information relevant to your organization. For instance, instead of performing a flat manual search of all your facilities for a subset of information, you can create a group hierarchy that enables selective searches for relevant facility attributes, like the remote device IDs for a specific operator at a specific location.</p>
+        <p>Some common ways of interacting with groups include the following:</p>
+        <ul>
+            <li value="1"><a href="#Group" class="selected">Group Service (GRP)</a>
+            </li>
+            <li value="2"><a href="#CygNet" class="selected">Group Manager utility</a>
+            </li>
+            <li value="3"><a href="#CygNet2" class="selected">CygNet Studio (and CygNet Vision) screens</a>
+            </li>
+            <li value="4"><a href="#Scriptin" class="selected">Scripting</a>
+            </li>
+        </ul>
+        <h4><a name="Group"></a>Group Service (GRP)</h4>
+        <p>The Group Service (GRP) is a database service that stores group hierarchies based on facility and device attributes. Hierarchies are made up of nodes, each of which has its own set of properties and attributes. The GRP can store numerous hierarchies and their respective nodes, all of which are available  to the various CygNet services they interact with, like the Point Service (PNT) and Facility Service (FAC).</p>
+        <p>Although the GRP powers group hierarchy creation and storage, the GRP is largely a behind-the-scenes service. Hierarchies stored in the GRP are typically created and edited using the <a href="Group Hierarchy Manager Utility.htm">Group Manager</a> utility. Its interface is friendlier than the GRP editor and it enables both high- and low-level interaction with group hierarchies (and the GRP).</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Although hierarchies can be edited within the GRP service using GRP editors, this is <u>strongly</u> discouraged. Instead, use the Group Manager utility to create and edit group hierarchies. See <a href="Group Hierarchy Manager Utility.htm">Group Manager Utility</a> for more information.</p>
+        </div>
+        <h4><a name="CygNet"></a>Group Manager Utility</h4>
+        <p>The <a href="Group Hierarchy Manager Utility.htm">Group Manager</a> utility is used to define hierarchies. Each node in a displayed hierarchy serves a specific purpose. Some represent sources of data while others serve administrative purposes that define relationships between sources of data. Data sources are identified by facility and device attributes, and inclusion of these attributes into a hierarchy is defined by rules or components.</p>
+        <p>Rules provide a fine-tuned way to define what facility attributes are relevant when searching for data. They enable you to include specific facilities by using multiple attributes at once as filter criteria. Components also provide a way to define what facility and device attributes are relevant when searching for data, but components are more limited than rules. A component only defines a single facility attribute or device attribute by which to include data. You can use rules, components, or a combination of the two to build up a hierarchy. However, rules provide a much greater degree of functionality.</p>
+        <p>Each unique hierarchy is called a view because it is one possible perspective or view of a collection of defined attributes. Because group hierarchies can be based on  multiple attributes, you can create a hierarchy to accommodate a CygNet system with many sites or services. For instance, a group built for a corporate website might contain facilities from various sites, but a group built for one field office might contain facilities from just one site. Using the Group Manager utility, you can create group hierarchies to meet many different needs.</p>
+        <p>For instance, you can organize data so that Accounting can sort facilities differently from Operations. Maybe Accounting is interested in RTU product IDs and types for inventory purposes, but Operations is more interested in RTU locations and operators for safety purposes. You could create a unique hierarchy or view for each department; the views would display data in a way useful to the respective department by means of a CygNet Studio or CygNet Vision screen or by means of a report.</p>
+        <h4><a name="CygNet2"></a>Groups and CygNet Studio</h4>
+        <p>Hierarchies are used to display data usefully in CygNet Studio. Although groups are stored in the GRP service and are configured using the Group Manager utility, general user interaction with group hierarchies typically occurs by means of CygNet Studio or CygNet Vision screens, since these are the interfaces by which most users interact with CygNet data. Various CygNet Studio tools are available for displaying data included in a group hierarchy. These tools include the <a href="../CygNet Studio/Facility Navigation Bar Tool.htm">Facility Navigation Bar Control</a>, the <a href="../CygNet Studio/Group Grid Tool.htm">Group Grid Control</a>, the <a href="../CygNet Studio/Group Navigation Bar Tool.htm">Group Navigation Bar Control</a>, and the <a href="../CygNet Studio/Group Tree Control.htm">Group Tree Control</a>.</p>
+        <h4><a name="Scriptin"></a>Groups and Scripting</h4>
+        <p>See <a href="GRP Scripting.htm">GRP Scripting</a> for more information about scripting resources.</p>
+        <p>To address questions or circumstances beyond the scope of the <span class="CygNetVariablesHelp_Product">CygNet Help</span>, <a href="../CygNet Software/Additional CygNet Resources.htm">Additional CygNet Resources</a> are available.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Groups Overview.htm">Groups Overview</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Group Service (GRP).htm">Group Service</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Group Hierarchy Manager Utility.htm">Group Manager Utility</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Group Rollups.htm">Group Rollups</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Troubleshooting - Groups.htm">Troubleshooting</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

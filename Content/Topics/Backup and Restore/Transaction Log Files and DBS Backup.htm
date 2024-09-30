@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Backup and Restore|Backups and Service Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Transaction Log Files and DBS Backup</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Backup and Restore.htm">Backup and Restore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Backups and Service Types.htm">Backups and Service Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Transaction Log Files and DBS Backup</span>
+        </div>
+        <h2>Transaction Log Files and DBS Backup</h2>
+        <p>This topic discusses how the Transaction Log files (txlog files) are handled when performing DBS backups. See <a href="../Data Storage for DBS-Based Services/ESE File Types.htm">ESE File Types</a> for more information about these file types.</p>
+        <h3>Important Notes</h3>
+        <ul>
+            <li value="1">After starting a service, the first backup is always a <i>full</i> backup, regardless if the <b>Incremental</b> option is selected in the MSS.</li>
+        </ul>
+        <ul>
+            <li value="1">The .cfg file, .ddl, and .metadata files are copied to the service’s root backup folder and the first backup and then thereafter only when they have changed.</li>
+        </ul>
+        <ul>
+            <li value="1">Only with a full backup does the system use the <b>New</b>, <b>Temp</b>, and <b>Old</b> folders.</li>
+        </ul>
+        <h3>Incremental vs. Full Backups</h3>
+        <p>When you perform an <i>Incremental</i> backup, the only processes involved are with the txlog files. The txlog files that don’t currently reside in the <b>New</b> backup folder are <i>copied</i> there. If a log file has been committed to the database, it will be flushed from the system as part of this process. If not, it will reside in both the backup and service data folders.</p>
+        <p>When you perform a <i>Full</i> backup, the process sends the backup database files (.dat.edb, .inx.edb, and .ts.edb) chunks of database pages in sequential order. That is, it writes to the data in the backup files. It does not copy the database files. Additionally, any txlog files that have not been committed to the database are copied to the backup folder. If a txlog file has been committed to the database, it will be flushed from the system.</p>
+        <p>If no txlog files have been committed to the database, the Event Viewer will show "no log files can be truncated."</p>
+        <p>If some txlog files have been committed to the database, the Event Viewer will show "deleting log files &lt;starting&gt; to &lt;ending&gt;" and this will be the range of those files that were committed and could be deleted. The uncommitted txlog files will remain on disk in both the backup and service data folders.</p>
+        <p>There is no way to force the log files to be committed to the database other than to stop the service. The <b>ONLY</b> time you are assured that logs are fully committed is during <i>clean</i> shutdown. The first full backup performed after the service restart will result in the log files being purged from the system.</p>
+        <p>In a nutshell, a full backup of a service will not flush the drive of all of the service’s txlog files.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

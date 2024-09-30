@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="ODBC|Using the ODBC Driver">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Maximizing Performance</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="ODBC.htm">ODBC</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the ODBC Driver.htm">Using the ODBC Driver</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Maximizing Performance</span>
+        </div>
+        <h2>Maximizing Performance</h2>
+        <p>ODBC performance can be maximized by controlling the disk cache according to the recommendations below.</p>
+        <h3>Maximizing Performance by Controlling Disk Cache</h3>
+        <p>The oasql.ini file found in your ODBC directory contains entries that can be customized to improve performance on your computer. For example, you can control whether data is cached in memory or on disc. The <b>Common</b> section of the oasql.ini configuration file contains the configuration parameters used by the disk cache module of the OpenAccess SDK SQL engine.</p>
+        <p>The following fragment of a configuration file shows the [Common] section:</p>
+        <p>
+            <img src="../../Resources/Images/ODBC/OASQL_Common.png" />
+        </p>
+        <h3>Configuration Parameters</h3>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="2">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CacheMemSize</p>
+                </td>
+                <td colspan="2" class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Describes the threshold for result set size (in KB). If the result set size exceeds this value, then the OpenAccess SDK SQL engine starts disk caching records.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" rowspan="6">CacheOptions</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">Specifies parameters for controlling the location and size of the cache data file. It is made up of attribute=value pairs. All attribute names are upper case.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>PATH</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Describes the path to store the CacheData and Sort file(s) on disc; when missing, data will be  cached in memory.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">INITIAL_SIZE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Describes initial size of the file in megabytes (MB). Estimate this size to allow most results to be saved without having to expand it too many times. The default is 10 MB.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">INCREMENT_SIZE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Describes the next increment size of the file (in MB). The default is 5 MB.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">MAX_SIZE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Describes maximum allowable size of the file (in MB). The default is 50 MB.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">DATABLOCK_SIZE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Specifies the block size of the file (in KB). This size determines how the OpenAccess SDK SQL engine writes and reads records from the cache file. The default size is 64 KB. The maximum size is 64 KB.</td>
+            </tr>
+        </table>
+        <p>Increasing the size of the <b>CacheOptions</b> parameter improves performance. For better performance, tune DATABLOCK_SIZE with the operating system file buffer size.</p>
+        <h3>Cache Records to Disk</h3>
+        <p>Results are cached to disk when they exceed the memory size as specified by the <b>CacheMemSize</b> configuration parameter. The disk cache feature will be enabled in the following cases:</p>
+        <ul>
+            <li value="1">A query that includes post-processing options like ORDER BY, GROUP BY, DISTINCT clauses requires that OpenAccess SDK SQL engine retrieves the entire result set and then performs the ORDER BY or GROUP BY processing. If this result set is large, then results will be disk cached and the post-processing option will be processed on disk and results will be retrieved from disk as requested by the client application. This avoids large memory requirement.</li>
+            <li value="2">If the IP is not cursor-based and the result set is large, the OpenAccess SDK SQL engine will disk cache results being returned by the IP. After the IP completes returning all the results, the OpenAccess SDK SQL engine will retrieve results from disk as requested by the client application.</li>
+        </ul>
+        <h3>How Query Results Are Disk Cached</h3>
+        <p>Query results are written to a <b>CacheData</b> file that is created uniquely for each connection using the <b>CacheOptions</b> configuration parameters described above. The <b>CacheData</b> file is created to cache results of a query and is used for all queries on that connection. The file is deleted when the user disconnects. If a user attempts to execute multiple queries that have large result sets, all of the results are stored in the same cache file.</p>
+        <p>If a result set must be sorted, two additional files, <b>Sort1</b> and <b>Sort2</b>, are created with the same size as the <b>CacheData</b> file and are deleted after completing the sort operation. The server (or the Local ODBC driver) can handle one statement at a time, so only one sort operation is performed at any time. Only one set of sort files is created, even if multiple statements with large result sets require sorting.</p>
+        <p>Based on how many concurrent connections are expected that may require disk caching, you must reserve disk space sufficient for these cache files.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Service Monitoring|Service Monitoring Utilities|CygNet ServiceMon Administration Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Validating the SVCMON</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Service Monitoring.htm">Service Monitoring</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Service Monitoring Utilities.htm">Service Monitoring Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet ServiceMon Administration Utility.htm">CygNet ServiceMon Administration Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Validating the SVCMON</span>
+        </div>
+        <h2>Validating the SVCMON</h2>
+        <p>Validation is performed on the <b>Validation</b> view. When you click on the <b>Validation</b> view icon, a pre-validation  run is performed and any necessary components needed for a full validation are automatically added. This includes adding the SVCMON UDCs to the Table Reference Service, ensuring the default point templates exist in the Point Service, and ensuring the SVCMON has a default timer. Once the pre-validation is complete, the view will show "Ready to start validation."</p>
+        <p>
+            <img src="../../Resources/Images/Service Monitoring/ServiceMon Validation.png" title="Validation" alt="Validation" />
+        </p>
+        <h3>Validation Checks</h3>
+        <p>The first task that should be performed with the <b>CygNet ServiceMon Administration</b> utility is validating the service. Validation performs the following checks:</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Check</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Point versions</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Checks to see if the SVCMON and its associated Point Service are in sync by comparing each point’s record version.</li>
+                        <li value="2">Checks for points that are in the SVCMON but are not in the Point Service.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>TRS Entry Validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Checks to see if the TRS associated with the SVCMON contains all needed Info Item definitions.</li>
+                        <li value="2">Checks that calculated UDCs have source UDCs, have units that are convertible from the source UDCs units.</li>
+                        <li value="3">Checks that the table entries in ~UDCCALC and ~UDCSVM match those in ~UDCALL.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Templates</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Checks to see if template points have any invalid properties. These properties include:</p>
+                    <ul class="table">
+                        <li value="1"><b>General 2</b> — verified against the defined Info Item for info item template points</li>
+                        <li value="2"><b>Scaling</b>
+                        </li>
+                        <li value="3"><b>Point Type</b>
+                        </li>
+                        <li value="4"><b>Description</b>
+                        </li>
+                        <li value="5"><b>Reference</b> point.</li>
+                    </ul>
+                    <p>If the point is a timer template point, ensures it doesn’t have a timer specified in the <b>Point Reference</b> property.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Tag Facility IDs</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Checks all points in the SVCMON to ensure that they all have specified a <b>Facility ID</b>.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Tag Long ID format (FACILITY_UDC)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Checks that the <b>Long Point ID</b> is in the format FACILITY_UDC. This is the required format for SVCMON points.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Info Item point validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Checks all SVCMON Info Item points to make sure that they have valid configurations.</p>
+                    <ul class="table">
+                        <li value="1">Ensures the point has a UDC.</li>
+                        <li value="2">Ensures <b>General 1</b> and <b>Fac Id</b> are in sync.</li>
+                        <li value="3">Ensures <b>Units</b> match the defined units.</li>
+                        <li value="4">Ensures <b>Scaling</b> is not enabled. </li>
+                        <li value="5">Ensures that if the <b>Point Type</b> is an "Enumeration" point that it has an <b>Enumeration Table</b> matching the template.</li>
+                        <li value="6">Ensures <b>Point Types</b> match between templates. </li>
+                        <li value="7">Ensures that if the point is configured to be a calculated point, that its UDC is in ~UDCCALC, it has all the right <b>Format Data</b> for a calculated point, and that <b>Table Driven 1</b> is set to the calculation type.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Calculated point validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Checks all SVCMON calculated points to make sure that they have valid configurations.</p>
+                    <ul class="table">
+                        <li value="1">Ensures that the <b>Table Driven 1</b> property is valid (that it’s a rate point, scaled, or delta).</li>
+                        <li value="2">Ensures that the defined source <b>UDC</b>, <b>Units</b>, and <b>Table Driven 1</b> (in the TRS format data) properties all match up with the fields in the point record.</li>
+                        <li value="3">Ensures that the point has a base point. </li>
+                        <li value="4">Ensures that the point’s base point is on the same timer as this point. </li>
+                        <li value="5">Ensures that scaling is correct.</li>
+                        <li value="6">Ensures that the units for this point are convertible from the units for the base point. </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Well-defined point validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Checks all SVCMON well-defined points to make sure that they have valid configurations. Well-defined points are points of which SVCMON has intrinsic knowledge. These are points with UDCs for the service ping time, site ping time, service status, and site status. For the "Site" UDCs, checks that the <b>Facility</b> is a valid <b>Site</b>. </li>
+                        <li value="2">Checks that the <b>General 1</b> and <b>Facility ID</b> properties are in sync. If General 1 isn’t specified, checks that it can resolve the <b>Facility ID</b> to a <b>Site.Service</b> (it cannot if there is more than one underscore in the name). </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Timer point validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Checks all SVCMON timer points to make sure that they have valid configurations. </li>
+                        <li value="2">Checks that the <b>Facility ID</b> is not empty.</li>
+                        <li value="3">Checks that the timer isn’t a template, that the timer’s value is numeric, and that the value is within the defined range. </li>
+                        <li value="4">Checks the <b>Units</b>. </li>
+                        <li value="5">Checks that the timer has only one timer error tag, cycle time tag, and cycle state tag.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Cycle point time validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Checks all SVCMON cycle time points to make sure that they have valid configurations. The basic check for FACILITY_UDC is the <b>Long Point ID</b>. </li>
+                        <li value="2">Checks to see that it has exactly one timer point. </li>
+                        <li value="3">Checks that it has no <b>Reference</b> point. </li>
+                        <li value="4">Checks for empty <b>Facility</b>. </li>
+                        <li value="5">Checks that the <b>General1</b>, <b>General2</b>, and <b>TableDriven1</b> properties are empty.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Cycle stated point validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Checks all points in the SVCMON to ensure that they all have specified a <b>Facility ID</b>.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ServiceMon validation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Checks that the <b>Long Point ID</b> is in the format FACILITY_UDC. This is the required format for SVCMON points.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <p>Click the <b>Start</b> button to start validation. Once validation is complete, the <b>Validation</b> view will show <b>Completed ServiceMon Validation</b> and will list the results. You should scroll through the result list to view and correct any anomalies and exceptions before proceeding with other SVCMON tasks.</p>
+        <p>During the validation process the following points are created to monitor SVCMON configuration errors and warnings. The facility of these points is SITE_SVCMONServiceName (for example, CYGSITE1_SVCMON). These points are updated by the SVCMON service every few hours and can be configured with alarm setpoints and to report to history. Once these points are created, they are update by the service, not the ServiceMon Administration Utility.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UDC</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Point Type</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Service Type(s)</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Data Scope</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SVMCONFERR </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ServiceMon Config Errors</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog Input</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SVCMON</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Single Service</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>SVMCONFWRN</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ServiceMon Config Warns</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog Input</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>SVCMON</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Single Service</p>
+                </td>
+            </tr>
+        </table>
+        <p>See <a href="Fixing Configuration Errors Found During Validation.htm">Fixing Configuration Errors Found During Validation</a> for information about the buttons on the <b>Validation</b> view.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Validation Messages.htm" class="More">Validation Messages</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Fixing Configuration Errors Found During Validation.htm" class="More">Fixing Configuration Errors Found During Validation</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

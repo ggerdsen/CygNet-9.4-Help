@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Domains">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ARS Redundancy</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Domains.htm">Domains</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">ARS Redundancy</span>
+        </div>
+        <h2>ARS Redundancy</h2>
+        <p>When more than one Address Resolution Service (ARS) is in operation in a CygNet domain (which is generally the case in a multi-host system) the ARS databases become redundant. Redundancy is ensured through ARS-to-ARS communication on service changes and frequent database comparisons. Any data discrepancies are noted, and the ARSs are resolved based on the timestamps of database entries and ownership. </p>
+        <h3>ARS-to-ARS Communication</h3>
+        <p>ARS-to-ARS communication is established through broadcasting an "I_AM_HERE" message. When another ARS gets the broadcast, it records the service information (service name, operational status, and address) in its database and the computer registry. If the broadcast is not sufficient to establish communication between ARSs due to network architecture, the utility ConnectARS can be used to connect the services.</p>
+        <p>Once communication is established, each ARS sends out the I_AM_HERE message every few minutes to let the other ARS’s know it is still running. This message is broadcast and sent directly to the addresses of the other ARSs in the registry.</p>
+        <h3>ARS Timestamps</h3>
+        <p>All changes to an ARS database are timestamped. Each time a database change occurs within an ARS, that ARS notifies the other ARSs and forwards the change. (Periodic updates are sent approximately every 10 minutes.) If one of the other ARSs contains discrepant data, the entry with the most recent timestamp is considered the most current data and all ARSs are updated accordingly.</p>
+        <p>In certain situations, the receiving ARS may have a newer timestamp for a service status. This occurs when the clock of the ARS sending the update is behind the clock of the ARS receiving the update. This is why it is important that one ARS on a multi-host domain be configured as the License "Master."</p>
+        <p class="Example">Example </p>
+        <p class="Indent">Two hosts are at 15:00 Greenwich Mean Time (GMT). SITE1 sends a service status message to SITE2. Then, the clock of SITE1 is set back to 14:00 GMT. At 14:05, the SITE1 sends another service status message to SITE2. This time, SITE2 ARS ignores the message because it has an update that is more recent (15:00 GMT) than the timestamp of the current message (14:00 GMT).</p>
+        <p class="Indent">When the services are running and the clock is adjusted, this is not a problem because both ARSs have the registered address of each service and can continue to communicate with the services (in particular, send health checks).</p>
+        <p>If a service is not running and the clock is adjusted, this results in a synchronization issue because the ARS rejects the "old" message regarding the service status change. As such, the service with the newer message continues to show the service out of service and has no registered address for the service. An ARS only perform health checks on services it has listed with an operational status of <b>OK</b>.</p>
+        <p class="Indent">In the example above if the services were stopped when the clock was adjusted and then restarted, the SITE2 ARS would show the SITE1 services (except the ARS) out of service even though they are running on the SITE1 host. This is because the SITE2 ARS rejects the "old" update message from SITE1. Conversely, the SITE1 ARS would show all services from both sites as running. (The SITE1 ARS would be shown as running on SITE2 because ARS status updates are handled differently than other service types.)</p>
+        <p>If this type of situation occurs, you can remedy it immediately by stopping the services, resetting the clock back to original date/time, then restarting the services. Be aware that this may result in overlapping or gaps in data. Or, if you do not want to reset the clock, wait until the time period elapses and then restart the services. In the example above, you would have to wait one hour.</p>
+        <h4>Host Time and the ARS</h4>
+        <p>The host server clock must be set to accurately reflect the time settings of the field. This includes selection of the proper time zone, and if appropriate, automatic adjustment for daylight saving time. See <a href="../Date and Time/Daylight Saving Time.htm">Daylight Saving Time</a> for more information about daylight saving time and CygNet.</p>
+        <p>Host time is particularly important to the ARS on a multi-host domain. The ARS uses it to keep in sync with the other ARSs.</p>
+        <p>One of the purposes of the License Master ARS is to alleviate time discrepancies between hosts. This is done by synchronizing the clocks of all ARSs on a domain. The time is sent in GMT. Each host server sets its clock accordingly and displays the time based on its time zone/daylight saving time settings. If your company uses a time synchronization utility, disable this utility on all host servers except the License Master. Otherwise, the utility and License Master will be continually resetting the time of the non-License Master host servers.</p>
+        <p>The <a href="../Service Configuration Keywords/ARS Configuration File Keywords.htm#ACCEPT_TIME_SYNC">ACCEPT_TIME_SYNC</a> keyword in the ARS configuration file (Ars.cfg) is used to manage time synchronization between the computer time of an ARS and the computer time of the License Master. By default the time difference is periodically evaluated and the computer time of the ARS is synchronized with the computer time of the License Master, regardless of the time delta between the two computers. Set the keyword to "NO" to synchronize the times only when the computer times are significantly different (10 seconds or more).</p>
+        <h3>Ownership</h3>
+        <p>When a service is added to an ARS, that ARS is set as its owner. Ownership is another item used to ensure ARS redundancy. A service can be deleted only from its owner. Ownership can be changed from one ARS to another.</p>
+        <h3>Service Startup Domains</h3>
+        <p>The following information about domains apply when starting services:</p>
+        <ul>
+            <li value="1">If starting a service directly, not through an RSM, the service will start on the ambient domain.</li>
+            <li value="2">If starting an RSM directly, not through <b>CygNet Host Manager</b>, if specified, it will use the value of the <a href="../Service Configuration Keywords/RSM Configuration File Keywords.htm">DOMAIN</a> keyword in service configuration file. Otherwise it will start on the ambient domain.</li>
+            <li value="3">If starting an RSM through <b>CygNet Host Manager</b>, if specified, it uses the domain specified in the <b>Host Settings</b> dialog box. The RSM must be running as a service. Otherwise it will start on the ambient domain.</li>
+        </ul>
+        <p>Once an RSM is running on a domain, all services that it starts will be on the same domain.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

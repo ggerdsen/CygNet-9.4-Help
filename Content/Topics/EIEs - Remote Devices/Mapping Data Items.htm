@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|EFM Data Items">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Mapping Data Items — EFM (FMS and FMS Legacy Only)</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EFM Data Items.htm">EFM Data Items</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Mapping Data Items</span>
+        </div>
+        <h2>Mapping Data Items — EFM (FMS and FMS Legacy Only)&#160;</h2>
+        <p>Some EFM-enabled device template files contain special elements called <b>fmsMaps</b> and <b>gmrMaps</b>. <b>fmsMaps</b> is only required if you are using FMS; <b>gmrMaps</b> is only required if you are using FMS Legacy. Each contains subsections that correspond to the EFM data groups in your template, and each subsection contains a number of FMS and/or FMS Legacy data items.</p>
+        <p>EFM data items are associated with specific data group elements from a support data group by means of a <b>deid</b> attribute. (In special Modbus EFM cases, a register number may be used to associate the data item with a data source.) EFM data groups contain  support data group (<a href="supportDg Element.htm">supportDg</a>) elements that reference the native data groups that contain the associated data&#160;elements. The combination of support data group and specific data group elements within it ensures that the data&#160;element referenced by an EFM&#160;data item is the correct one.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Example" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#ToMap" class="selected">To Map Data Items</a>
+            </li>
+        </ul>
+        <p>For information about measurement units, see <a href="Defining Measurement Units.htm">Defining Measurement Units</a>.</p>
+        <p>For information about how to configure EFM&#160;data items in a particular device template file, see the appropriate EIE subsection in <a href="EIE Remote Devices.htm">Remote Devices</a>.</p>
+        <p>For information about how data items can optionally be mapped from FMS or FMS Legacy to export EFM&#160;data files to Flow-Cal, see <a href="Mapping Data Items - FlowCal Export.htm">Mapping Data Items for Flow-Cal Export</a>.</p>
+        <p class="Example"><a name="Example"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of mapped data items</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!-- In the following example, the <b>FmsConfig</b> data group has 3 support data groups. One of these support data groups has 4 data group elements. But the <b>FmsConfig</b> data group requires data from only 2 of these data group elements. The required data group elements are referenced in corresponding EFM&#160;configuration items located in the <b>fmsMaps</b> section. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;FmsConfig&gt;</p>
+                            <p class="Code2">&lt;supportDg&gt;</p>
+                            <p class="Code3" style="font-weight: normal;"><span style="background-color: #b0c4de;">&lt;SupportDg1/&gt;</span>
+                            </p>
+                            <p class="Code3">&lt;SupportDg2/&gt;</p>
+                            <p class="Code3">&lt;SupportDg3/&gt;</p>
+                            <p class="Code2">&lt;/supportDg&gt;</p>
+                            <p class="Code">&lt;/FmsConfig&gt;</p>
+                            <p class="Code">...</p>
+                            <p class="Code" style="font-weight: normal;"><span style="background-color: #b0c4de;">&lt;SupportDg1&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3" style="font-weight: normal;"><span style="background-color: #b0c4de;">&lt;DEID1/&gt;</span>
+                            </p>
+                            <p class="Code3" style="font-weight: normal;"><span style="background-color: #b0c4de;">&lt;DEID2/&gt;</span>
+                            </p>
+                            <p class="Code3">&lt;DEID3/&gt;</p>
+                            <p class="Code3">&lt;DEID4/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDg1&gt;</p>
+                            <p class="Code">...</p>
+                            <p class="Code">&lt;fmsMaps&gt;</p>
+                            <p class="Code2">&lt;configItems&gt;</p>
+                            <p class="Code3">&lt;eFMS_CFG_ITEM1 deid="<span style="background-color: #b0c4de;">DEID1</span>"/&gt;</p>
+                            <p class="Code3">&lt;eFMS_CFG_ITEM2 deid="<span style="background-color: #b0c4de;">DEID2</span>"/&gt;</p>
+                            <p class="Code2">&lt;/configItems&gt;</p>
+                            <p class="Code">&lt;/fmsMaps&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToMap"></a>To Map Data Items</p>
+        <p>There are multiple ways to map data items and the possible combinations of useful data items is extensive. How you choose to map your data items depends on many variables.</p>
+        <p>The following is one possible basic sequence for mapping data items:</p>
+        <ol start="1">
+            <li value="1">Add all the EFM data groups you require.</li>
+            <li value="2">Add a <a href="supportDg Element.htm">supportDg</a> subsection to each EFM data group.</li>
+            <li value="3">Add support data groups to the <b>supportDg</b> subsection. The <b>supportDg</b> elements reference native data groups.</li>
+        </ol>
+        <p class="Indent">
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Some EFM&#160;data groups are hard-coded to include an associated support group. If this is the case, you do not need to manually add the hard-coded support data group, nor can you configure it.</p>
+            </div>
+        </p>
+        <ol start="4">
+            <li value="4">Add an <a href="fmsMaps and gmrMaps.htm">fmsMaps and/or gmrMaps</a> section to your template. Best practice is to place this section near the end of your template.</li>
+            <li value="5">Add items subsections to your <b>gmrMaps</b> and/or <b>fmsMaps</b> sections that correspond to all of the EFM&#160;data groups in your template.</li>
+            <li value="6">Populate each of the items subsections with all of the appropriate EFM data items you require.</li>
+            <li value="7">Use the <b>deid</b> attribute in EFM&#160;item elements to define data group IDs (DEID) that correspond to data group elements that are the source of data for this particular EFM&#160;data item.</li>
+        </ol>
+        <p class="Indent">
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> For <u>FMS Legacy only</u>, certain EIEs can compute flow rate using flow volume and flow time if flow rate is not provided by a device. To compute flow rate in such a case, include a flow time data item in the <b>histItems</b> section of <b>gmrMaps</b> in your device template file. Do not include a <b>deid</b> in the flow rate data item.</p>
+            </div>
+        </p>
+        <ol start="8">
+            <li value="8">Add the appropriate data item attributes and when clauses to your flow measurement data items.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

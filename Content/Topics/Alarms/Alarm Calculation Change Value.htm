@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Change Value</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Change Value Alarm Calculation</span>
+        </div>
+        <h2>Change Value Alarm Calculations</h2>
+        <p>There are four variations of the Change Value alarm calculation that can be implemented with the CygNet Enhanced Point Scheme. See <a href="../Points/Understanding the CvsMetadata File.htm">Understanding the CVS&#160;Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme. </p>
+        <p>For more information, see <a href="Alarm Calculation Types.htm">Alarm Calculation Types</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Val" class="selected">Change Value</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Percent" class="selected">Change Value Percent</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Pos" class="selected">Change Value Positive Percent</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Neg" class="selected">Change Value Negative Percent</a>
+            </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> All Calculation Parameters are user-provided.</p>
+        </div>
+        <h3><a name="Val"></a>Change Value</h3>
+        <p>The Change Alarm uses the Change Value (CHANGE_VAL) calculation.   On each update, the system will set the alarm bit if the point’s value is changed. It is cleared every time a point is updated with the same value. There are no calculation parameters for this calculation type.</p>
+        <ul>
+            <li value="1">If the previous value ≠current value, the alarm is set.</li>
+            <li value="2">If the previous value = current value, the alarm is not set.</li>
+        </ul>
+        <p class="Example">Example </p>
+        <ul>
+            <li value="1">Previous value = 10</li>
+            <li value="2">Updated value = 11 (alarm is set)</li>
+        </ul>
+        <h3><a name="Percent"></a>Change Value Percent</h3>
+        <p>The Rate of Change Alarm uses the Change Value Percent (CHANGE_VAL_PCT) calculation.   On each update, the system calculates the percentage change between the new value and the newest value older than the time interval, divided by the time interval in seconds, and sets the alarm bit if the absolute value of the percentage change exceeds the threshold.</p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum  allowed percentage change</b> (calcparm1) — maximum allowed  percentage change  over the specified time interval before the alarm bit is set</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time Interval (sec)</b> (calcparm2) — the time span during which the maximum percentage change is allowed </li>
+        </ul>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Maximum Percentage Change  allowed = calcparm1/calcparm2</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Percentage Change =    ((Updated Value)/(Newest Val Older than Time Intvl) -1) X 100</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Rate Change = Percentage Change/calcparm2</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If the (ABS) Rate Change &gt; maximum allowed percentage change, the alarm is set.</li>
+            <li value="2">If the (ABS) Rate Change ≤ maximum allowed percentage change, the alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10%</li>
+            <li value="2">calcparm2 = 60 seconds</li>
+        </ul>
+        <p>In this example, the newest value older than the time interval is 100 and the updated value is 89. The Rate of Change bit  is set because the <i>absolute</i> value of the percentage change is 18.33%, which exceeds the calcparm1 value (10%).</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Maximum Percentage Change allowed = 10/60 = 0.16667 = 16.67%</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Percentage Change = ((89/100) -1) X 100 = -11%</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Rate Change = -11/60 = - 0.18333 = -18.33% (absolute value exceeds the  maximum percentage change allowed, so alarm bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Pos"></a>Change Value Positive Percent</h3>
+        <p>The Positive Rate of Change alarm uses the Change Value Positive Percent (CHANGE_VAL_POS_PCT) calculation. On each update, the system calculates the percentage change between the new value and the newest value older than the time interval, divided by the time interval in seconds, and sets the alarm bit  if the value is positive and exceeds the threshold.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Positive Rate of Change.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_PosRateChg.png" title="Positive Rate of Change" alt="Positive Rate of Change" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum % difference allowed</b> (calcparm1) — maximum allowed positive percentage change  over the specified time interval before the alarm bit is set</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time Interval (sec)</b> (calcparm2) — the time span during which the maximum percentage change is allowed </li>
+        </ul>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Maximum Percentage Change allowed = calcparm1/calcparm2</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Percentage Change = ((Updated Value)/(Newest Val Older than Time Intvl) -1) X 100</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Rate Change = Percentage Change/calcparm2</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If the  Rate Change is positive and &gt; maximum allowed percentage change, the alarm is set.</li>
+            <li value="2">If the  Rate Change is positive and ≤ maximum allowed percentage change, the alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10%</li>
+            <li value="2">calcparm2 = 60 seconds<br /></li>
+        </ul>
+        <p>In this example, the Positive Rate of Change bit  is set because the rate of change is positive (23.17%) and exceeds the calcparm1 value (10%).</p>
+        <ul>
+            <li value="1">Updated Value = 393.21</li>
+            <li value="2">Previous Value (newest older than time interval) = 345.214</li>
+        </ul>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Maximum Percentage Change  allowed = 10/60 = 0.16667 = 16.67%</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Percentage Change = ((393.214/345.214) -1) X 100 = 13.903%</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Rate Change =13.903/60 = 0.2317 = 23.17% (value is positive and exceeds the  maximum percentage change allowed, so alarm bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_PosRateofChgVHS.png" title="Positive Rate of Change status bit" alt="Positive Rate of Change status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Neg"></a>Change Value Negative Percent</h3>
+        <p>The Negative Rate of Change alarm uses the Change Value Negative Percent (CHANGE_VAL_NEG_PCT) calculation. On each update, the system calculates the percentage change between the new value and the newest value older than the time interval, divided by the time interval in seconds, and sets the alarm bit  if the value is negative and exceeds the threshold.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Negative Rate of Change.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_NegRateChg.png" title="Negative Rate of Change" alt="Negative Rate of Change" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum % difference allowed</b> (calcparm1) — maximum allowed negative percentage change  over the specified time interval before the alarm bit is set</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time Interval (sec)</b> (calcparm2) — the time span during which the maximum percentage change is allowed </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The threshold (calcparm1) must still be represented as a positive percentage.</p>
+        </div>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Maximum Percentage Change  allowed = calcparm1/calcparm2</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Percentage Change =    ((Updated Value)/(Newest Val Older than Time Intvl) -1) X 100</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Rate Change = Percentage Change/calcparm2</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If the  Rate Change is negative and &gt; maximum allowed percentage change, the alarm is set.</li>
+            <li value="2">If the  Rate Change is negative and ≤ maximum allowed percentage change, the alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10%</li>
+            <li value="2">calcparm2 = 60 seconds<br /></li>
+        </ul>
+        <p>In this example, the Negative Rate of Change bit  is set because the rate of change is negative (-18.33%) and exceeds the calcparm1 value (10%).</p>
+        <ul>
+            <li value="1">Updated Value = 89</li>
+            <li value="2">Previous Value (newest older than time interval) = 100</li>
+        </ul>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Maximum Percentage Change  allowed = 10/60 = 0.16667 = 16.67%</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Percentage Change = ((89/100) -1) X 100 = -11%</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Rate Change = -11/60 = - 0.18333 = -18.33% (value is negative and exceeds the  maximum percentage change allowed, so alarm bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_NegRateofChgVHS.png" title="Negative Rate of Change status bit" alt="Negative Rate of Change status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

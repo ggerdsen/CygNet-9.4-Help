@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Using TheFrame/TheView|Adding Context Menus">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Custom Context Menus</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using TheFrame TheView.htm">Using TheFrame/TheView</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Context Menu Adding.htm">Adding Context Menus</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Custom Context Menus</span>
+        </div>
+        <h2>Custom Context Menus</h2>
+        <p>Custom Context menus are supported by the CygNet ActiveX controls listed below. The properties to configure the custom menus are located in the (OCXproperties) for each control. The only items that are different about each of the custom controls are the options to disable a menu item if certain conditions are not met. All other options on creating the menu options are the same as the standard context menu items.</p>
+        <p>Currently, the following CygNet ActiveX controls support custom context menus:</p>
+        <ul>
+            <li value="1">Common Alarm Service (CAS) View Control</li>
+            <li value="2">Event Summary Control</li>
+            <li value="3">Group Grid Control</li>
+            <li value="4">Group Tree Control</li>
+        </ul>
+        <p>To specify the custom context menu configuration for a control, invoke the <b>Custom Context Menu Configuration</b> dialog box from the control’s OCXProperties field on the <b>ActiveX</b> page of the Property Sheet:</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Studio/Custom_Context_Menu_Config.png" title="Custom Context Menu Configuration " alt="Custom Context Menu Configuration " />
+        </p>
+        <p>Each custom context menu item has a text description (<b>Item Text</b>), which will appear in the context menu pop-up, and an <b>Event ID</b> that will identify a specific item when handled by the <b>EventOnContextMenu</b> event. Event IDs therefore must be unique. This information is then stored in the <b>ContextMenuXml</b> property on the <b>ActiveX</b> page of the control’s Property Sheet.</p>
+        <p>When an item is selected in the pop-up menu, the <b>EventOnContextMenu</b> event is fired and can be caught via script. The event will be given at least the Event ID. In the case of the grid-based ActiveX controls (Event Summary, Group Grid, and CAS View controls), it will also be given the row and column for the cell on which the menu was invoked.</p>
+        <h3>Control Specific Options</h3>
+        <p>The following properties are specific to the individual ActiveX controls. </p>
+        <h4>CAS View Control</h4>
+        <p>The button to configure the <b>Context</b> menu options for the <a href="CygNet CAS View Control Properties - General Tab.htm">CAS View Control</a> is located on the <b>General</b> page of the <b>OCX Properties</b>.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 225px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 575px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Disable if alarm unacknowledged</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Disables the custom menu item from running if the selected alarm is in <b>unacknowledged</b> state. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Disable if alarm acknowledged</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Disables the custom menu item from running if the selected alarm is in an <b>acknowledged</b> state.</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="CygNet"></a>Event Summary Control</h4>
+        <p>The button to configure the <b>Context</b> menu options for the <a href="CygNet Event Summary Control Configuring.htm">Event Summary Control</a> is located on the <b>Misc</b> page of the <b>OCX Properties</b>.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 225px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 575px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Disable if no Facility</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Disables the custom menu item from running if <b>no facility</b> is available. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Disable if no point</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Disables the custom menu item from running if <b>no point</b> is available. </p>
+                </td>
+            </tr>
+        </table>
+        <h4>Group Grid Control</h4>
+        <p>The button to configure the <b>Context</b> menu options for the <a href="Group Grid Tool General Tab.htm">Group Grid Control</a> is located on the <b>General</b> page of the <b>OCX Properties</b>.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 225px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 575px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Disable if Tag not Valid</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Disables the custom menu item from running if the <b>Selected Tag</b> is not valid. </p>
+                </td>
+            </tr>
+        </table>
+        <h4>Group Tree Control</h4>
+        <p>The button to configure the <b>Context</b> menu options for the <a href="Group Tree Control Configuring.htm">Group Tree Control</a> is located on the <b>Properties</b> page of the <b>OCX Properties</b>.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 225px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 575px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Disable if no Facility</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If <b>Disable if no Facility</b> is enabled, the custom context menu item will not appear if there is NO facility available for the selected node.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Disable if facility</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If <b>Disable if Facility</b> is enabled, the custom context menu item will not appear if there IS a facility available for the selected node.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

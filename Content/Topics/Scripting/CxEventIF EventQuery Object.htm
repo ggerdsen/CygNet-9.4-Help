@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxEventIF">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EventQuery Object</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxEventIF.htm">CxEventIF</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">EventQuery Object</span>
+        </div>
+        <h2>EventQuery Object</h2>
+        <p>The <b>EventQuery</b> object is used to setup and execute event filtering queries for the AUD, ELS, and ELSALM services. The query accepts user-defined parameters and filters, and returns data group element information for the filtered events in XML format.</p>
+        <p>Within the calling script, the basic sequence of operations is as follows:</p>
+        <ul>
+            <li value="1">Create the event filter object</li>
+            <li value="2">Set the time window and periodic update interval</li>
+            <li value="3">Set the site/services</li>
+            <li value="4">Set the filters</li>
+            <li value="5">Set the notification point</li>
+            <li value="6">Start event filtering</li>
+            <li value="7">Wait for query completion notification</li>
+            <li value="8">Retrieve a list of services/key information</li>
+            <li value="9">Retrieve individual event information</li>
+            <li value="10">Clear query results to prepare for a new query</li>
+        </ul>
+        <p>The main query is defined by start and end times and a periodic run interval. Separate XML string filters can be defined for the Audit, ELS, and ELSALM services. A string of site services, separated by semicolons, can be defined for each of the service filters. The simplest example of a query would include start and end times, a service definition in the form <i>Site.Service</i>, and a blank filter string. The blank filter would be totally non-restrictive within the scope of the time window and service definition.</p>
+        <p>The query object works as an asynchronous thread so that a query can be initiated at one time, and the results obtained at a later time. Once the object starts the query engine, it will run continuously until the calling script cancels the filtering. The periodic update interval defines the interval at which the query engine will execute the search for new events. </p>
+        <p>The calling script can define a CVS tag which will contain a notification of when the queries have completed. This notification point can be used to trigger a script to process results. Resetting the notification point value is not handled by the automation object; it is the responsibility of the calling script. Alternatively, the calling script can ask the automation object directly whether the query is complete.</p>
+        <p>Once the query is complete, the automation object can be polled for results. You can retrieve results for the number of events found for each of the three service filters, or retrieve a list of services (<i>Site.Service</i>) and database keys (dbKeys) matching the query. You can also individually retrieve complete event information in XML format, using the service and key information.</p>
+        <p>The object is declared using the following code:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">CreateObject("CxEventIf.EventQuery")</p>
+                </td>
+            </tr>
+        </table>
+        <p>Each method in this document will assume you have declared the <b>EventQuery</b> object using the following code.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim EventQuery</p>
+                    <p class="Code">Set EventQuery = CreateObject("CxEventIf.EventQuery")</p>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="CxEventIF EventQuery Methods.htm" class="More">EventQuery Methods</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="CxEventIF AUD ELSALM ELS XML Properties.htm" class="More">AUD, ELSALM, and ELS XML Properties</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

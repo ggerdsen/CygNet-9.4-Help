@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notes|Notes Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Installing the Note Service</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notes.htm">Notes</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Notes Overview.htm">Notes Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installing the Note Service</span>
+        </div>
+        <h2>Installing the Note Service</h2>
+        <p>The following procedure explains how to install and add a single new <a href="Note Service.htm">Note Service</a> to an <u>existing</u> system. If you are upgrading an existing CygNet system and do not already have a Note Service installed on your host, you must manually install and add a Note Service in order for it to become available. If you do not already have a Note Service installed, performing an upgrade does <u>not</u> automatically install a Note Service, even though its files are included in the upgrade source files. Once you've manually installed and added a Note Service to your existing system, future system upgrades will upgrade your Note Service.</p>
+        <p>While this procedure focuses on how to install a single instance of a Note Service, you can install and add multiple new Note Services. Merely repeat the steps below for each instance of a new Note Service. You can associate as many current value services (i.e., UIS, SVCMON, HSS, and/or OPCIS) as you like with a single Note Service. However, each associated current value service can only be associated with a single Note Service. For instance, Note Service A can contain notes referencing data from both UIS A and UIS B. However, UIS A can only be associated with Note Service A and UIS B can only be associated with Note Service A.</p>
+        <p>Although a Note Service can be installed along with other CygNet Software components during a fresh installation, the procedure below does <u>not</u> apply to such a scenario. </p>
+        <p>For a fresh CygNet installation, a Note Service is selected by default in the <b>CygNetSCADAServicesSetup.exe</b>. See the <i><a href="../../Resources/PDF_Repository/CygNet_94_Quick_Start.pdf" target="_blank">CygNet Quick Start</a></i> document or contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> to  access resources to assist with  initial CygNet Software installation.</p>
+        <p class="HeadingProcedure">To Install  a Service</p>
+        <ol>
+            <li value="1">Using Windows Explorer, open your <b>CygNet\Services</b> directory and create a  <b>Note</b> folder there. (<u>Optionally</u>, create two new folders on different drives: one for executables and one for data.)</li>
+            <li value="2">Copy the following source files to your new <b>Services\Note</b> folder: Note.cfg, Note.ddl, and Note.exe.</li>
+            <li value="3">Edit the Note.cfg file in one of the following two ways:<ul class="Circle"><li value="1">Use a text editor to manually edit the file. For instance, replace relevant instances of XXX with the correct site name for the Note Service. See also <a href="../Service Configuration Keywords/NOTE Configuration File Keywords.htm">NOTE Configuration File Keywords</a>.</li><li value="2">Use the <a href="../Services/Configuration File Manager.htm">Config File Manager</a>.</li></ul></li>
+        </ol>
+        <ol start="4">
+            <li value="4">Add the new Note Service to the relevant Address Resolution Service (ARS).</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Using CygNet Explorer, open the ARS, right-click in its service pane, and click <b>New</b>.</li>
+            <li value="2">In the <b>New Service</b> dialog box, select the <b>Service Type</b>. It is NOTE.</li>
+            <li value="3">Type the <b>Site</b> and <b>Service</b> names.</li>
+            <li value="4">Type a <b>Description</b> for the service and click <b>OK</b>.</li>
+        </ol>
+        <ol data-mc-continue="true">
+            <li value="5">Add the new Note Service to the Remote Service Manager (RSM).</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Using CygNet Explorer, open the RSM, right-click in its service pane, and click <b>New</b>.</li>
+            <li value="2">In the <b>New RSM&#160;Entry</b> dialog box, select the new Note Service and confirm or alter its default settings.</li>
+            <li value="3"><u>Optional</u>: If the Note Service executable  and data folders are not under the same <b>Services</b> folder, type their   directory paths in the <b>Executable</b> and <b>Data</b> fields respectively.</li>
+            <li value="4"><u>Optional</u>: Click <b>Automatic Service Recovery…</b> and <a href="../Automatic Service Recovery/Automatic Service Recovery.htm">configure recovery settings</a>.</li>
+            <li value="5">Click <b>OK</b> to save RSM settings.</li>
+        </ol>
+        <ol data-mc-continue="true">
+            <li value="6">Once the service is added to the RSM, right-click its entry in the RSM and click <b>Start</b>.</li>
+            <li value="7">Add security settings for the new Note Service. See <a href="../Security/Implementing Security.htm">Security  – Implementing Security</a> and <a href="Security.htm">Note Service (NOTE)&#160;Security</a> for more information about adding Applications, Permissions, and Events to the Note Service.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Make sure your ACS is running. Using CygNet Explorer, click Access Control Service (ACS) in the service hierarchy.</li>
+            <li value="2">Right-click in the service pane and click <b>Apps List</b>.</li>
+            <li value="3">Click <b>New</b> in the <b>Applications List</b> dialog box.</li>
+            <li value="4">On the <b>Events and Permissions</b> page, add a NOTE application and create two new events, ACCESS and ODBC:	&#160;</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">In the <b>Application</b> field, type NOTE.</li>
+            <li value="2">In the <b>Description</b> field, type a description, such as "Note Service".</li>
+            <li value="3">Click <b>New</b> in the <b>Events</b> area.</li>
+            <li value="4">In the <b>Event</b> field, type ACCESS.</li>
+            <li value="5">In the corresponding <b>Description</b> field, type Access. Click <b>OK</b>.</li>
+            <li value="6">Repeat step iii. through v. for ODBC.</li>
+        </ol>
+        <ol class="Lower_alpha" start="5">
+            <li value="5">In the same dialog box, select each new event from the Events drop-down menu and add its permissions:</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">In the <b>Permissions</b> area, click <b>New</b>.</li>
+            <li value="2">Select the <b>Type</b>, <b>Group</b>, and <b>Access</b> Level for each event using information from the following table as a guide. Your site can require different security settings:</li>
+        </ol>
+        <p class="Indent4">
+            <table cellspacing="0" class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 450px;">
+                <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+                <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-HelpTable2-Head-Header1">
+                        <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Event</th>
+                        <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Type</th>
+                        <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Group</th>
+                        <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Access Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-HelpTable2-Body-Body1">
+                        <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                            <p>ACCESS</p>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                            <p>CG - CygNet Group</p>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                            <p>ADMINS</p>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                            <p>2 - Update</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-HelpTable2-Body-Body2">
+                        <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                            <p>ODBC</p>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                            <p>CG - CygNet Group</p>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                            <p>ADMINS</p>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                            <p>1 - Read</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <ol class="Lower_alpha" start="6">
+            <li value="6">Click <b>OK</b> to save the <b>Application</b>.</li>
+            <li value="7">Click <b>Close</b> to close the <b>Applications List</b> dialog box.</li>
+        </ol>
+        <ol data-mc-continue="true">
+            <li value="8">Associate  relevant current value services (i.e., UIS, SVCMON, HSS, and/or OPCIS) with the new Note Service.</li>
+        </ol>
+        <p>
+            <ol class="Lower_alpha">
+                <li value="1">Using Windows Explorer, open your <b>CygNet\Services</b> directory and locate the relevant current value service folder.</li>
+                <li value="2">Open the current value service folder, and open the configuration file found there.</li>
+                <li value="3">Go to the <b>Associated Services</b> section of the .cfg file and either uncomment the NOTE entry or add a NOTE&#160;entry in the same format as other associated services.</li>
+                <li value="4">Save and close the .cfg file.</li>
+                <li value="5">In CygNet Explorer, go to the RSM, right-click the relevant current value service in the service pane, and select <b>Restart</b>. This completes the association process.</li>
+                <li value="6">Repeat steps a. - e. for each associated current value service.</li>
+            </ol>
+        </p>
+        <ol data-mc-continue="true">
+            <li value="9">Now that your Note Service is installed, you can configure and customize it for your system. See <a href="Note Service.htm">Note Service</a> and <a href="Using Notes.htm">Using Notes</a> for more information.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

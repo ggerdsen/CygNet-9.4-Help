@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Declare.bas</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Declare.bas</span>
+        </div>
+        <h2>Declare.bas</h2>
+        <p>The <b>CygNet\Support\Declare.bas</b> script file can be used to store a collection of global variables and scripted functions that are accessible to all CygNet Studio screens (.csf) in an application set. The Declare.bas is synonymous with the <b>GlobalDeclarations</b> section of a script. For example, the scripted functions in a Declare.bas might handle tasks such as: navigation through the screen hierarchy of a pipeline or field, retrieval of facility information, navigation of the facility hierarchy, history playback, scripted screen interfaces like modal dialog boxes and context menus, initialization of events, or scripted security checks for writing to communication devices.</p>
+        <p>While the variables and functions in a Declare.bas are accessible to all screens, they are <i>not shared</i>. For example, by declaring a variable "Bob" in the Declare.bas, so that you don’t have to declare that variable in each and every individual screen, the variable can be used by many screens. But each screen will have its own completely independent "Bob" variable. Sharing data between screens is accomplished using script such as the Dictionary object and Custom Events.</p>
+        <p>The Declare.bas is loaded at the time the screen is loaded, so if changes are made to it, they will take effect the next time a screen is (re)opened. The file is also saved when you exit the script editor, which is important to note so you don’t lose work. For example, if you are editing two screens at the same time, and you edit the global declarations in one, save it, then save the second screen, you will lose your changes to the global declarations.</p>
+        <h3>Managing the Declare.bas File</h3>
+        <p>Before making modifications to the Declare.bas file, make sure you have the correct version of the file on your computer. The Declare.bas file is incorporated into the version management process, so running CygNet Studio from the <b>Start\All Programs\CygNet\</b> group will download the version-managed version of the file to the <b>CygNet\Support</b> directory. Although it is unlikely, always check to ensure that the file <b>CygNet\Support\Declare.bas</b> does not have the “read-only” flag set.</p>
+        <p>Once you start modifying the Declare.bas file, do not launch any CygNet Client application from a version-managed shortcut (for example, <b>Start\Programs\CygNet\…</b>) since that process could over-write the local, modified copy of Declare.bas with the older version from the APPS service, resulting in updates being lost. When you are done making and testing your changes, you <i>must</i> update the version of Declare.bas in the APPS service with the new version on your computer directly using CygNet Explorer or BSS Explorer. The Declare.bas file is <i>not</i> automatically saved to the APPS service when you save your changes from within CygNet Studio.</p>
+        <h3>Option Explicit in Declare.bas</h3>
+        <p>It is recommended that you use the <b style="font-style: italic;">Option Explicit</b> statement in all CygNet Studio scripts to force explicit declaration of all variables in a file. This statement can also help expose uninitialized variable errors in your scripts. VBScript requires that Option Explicit be the first statement in a script. Using Option Explicit in a screen script requires putting it at the top of the <b>Declarations</b> section.</p>
+        <p>CygNet Studio allows the Option Explicit statement in <i>either</i> or <i>both</i> the Declare.bas file and in a screen script. Studio combines the Declare.bas file and the screen script by appending the screen’s script to the end of the Declare.bas file. Regardless of the location of the Option Explicit statement the screen will load and Option Explicit is enabled.</p>
+        <p>For more information about using Option Explicit in HyperPoint scripts, see <a href="../Scripting/Using Option Explicit in HyperPoint Scripts.htm">Using Option Explicit in HyperPoint Scripts</a>.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

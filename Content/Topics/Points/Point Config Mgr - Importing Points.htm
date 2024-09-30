@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Points|Point Utilities|Point Configuration Manager Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Importing Points</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Points.htm">Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="PNT Utilities.htm">Point Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Point Configuration Manager Utility.htm">Point Configuration Manager Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Importing Points</span>
+        </div>
+        <h2>Importing Points</h2>
+        <p>Use the Point Configuration Manager utility to import .csv files containing point configuration data to use for creating new points or updating existing points. </p>
+        <p>Alternatively, some import/export functions can be performed using  a command  prompt. See <a href="Point Config Mgr - Command-Line Options.htm">Using Command-Line Parameters</a> for more information about this option. </p>
+        <h3><a name="Import"></a>Import File Considerations</h3>
+        <ul>
+            <li value="1">The source file must be a .csv file type. </li>
+            <li value="2">The import is based on the values of the column headings present in the file.<ul class="Circle"><li value="1">Column heading values must reside in the source file and must match the system headings. Use the export option to <a href="#Creating" class="selected">create a sample file</a> containing the headings, if needed. </li><li value="2">Point identifier properties must be the first columns in the source file. You can use the Long Tag String (SITE.SERVICE:LONGID) or the Facility Tag String (SITE.SERVICE::FACILITY.UDC) format. The components of the tag string must be in the same order as they appear in the tag string (for example, site, service, longid).</li><li value="3">Other than the point identifier properties, the other columns are optional and do not need to be in any specific order.</li></ul></li>
+        </ul>
+        <ul>
+            <li value="1">You cannot import a Point ID (pointed). When new points are created, the Point ID is generated automatically by the system.</li>
+            <li value="2">Upon import, the <b>Create new points</b> option creates new points using data from the imported file.<ul class="Circle"><li value="1">When creating new points, if a property has a blank value, the default value will apply, if applicable. For example, if you do not specify the "Point Type" it will be set to <i>Analog Input</i> since that is the default type.</li></ul></li>
+        </ul>
+        <ul>
+            <li value="1">Upon import, the <b>Update existing points</b> option updates existing points using data from the imported file.<ul class="Circle"><li value="1">When updating existing points, only properties with values specified in the source file are updated. If a cell is blank, the current value is left as-is.</li></ul></li>
+        </ul>
+        <ul>
+            <li value="1">Whether creating or updating points, if an obsolete property is specified in the source file, the obsolete property will be created or updated using the value of the replacement property for both if specified, or the default value if no value is specified. For example, a source file contains a point with "History On Line Days" set to 365 (obsolete) and "Keep Values Within Days" set to 30 (actual). Upon import both properties will be set to 30, since "Keep Values Within Days" is the replacement (actual) property.</li>
+        </ul>
+        <h3>Importing a CSV Source File</h3>
+        <p class="HeadingProcedure">To Import Points from a CSV File</p>
+        <ol start="1">
+            <li value="1">In the Point Configuration Manager, click <b>Import</b> to access the Import Options dialog box. <p><img src="../../Resources/Images/Points/Point_Config_Mgr_Import.png" /></p></li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <b>Source CSV file</b> text box, either type in a known path and file name or click <b>…</b>  to select the source file from which points will be imported. The source file must be a .csv file type. </li>
+            <li value="2">Click to select what action to perform when the file is imported, either  <b>Create new points</b> or <b>Update existing points</b>.</li>
+            <li value="3">If desired, check the <b>Log each successfully added point tag (failures will always be logged)</b> check box to generate a log of the imported points.</li>
+            <li value="4">When all selections are defined, click <b>Import</b> to import the file and perform the selected action.
+</li>
+        </ol>
+        <h3><a name="Creating"></a>Creating a Sample CSV File</h3>
+        <p>If necessary, you can use the <b>Export</b> option to create a sample .csv file. See <a href="Point Config Mgr - Exporting Points.htm">Exporting Points</a> for more information.</p>
+        <p class="HeadingProcedure">To Create a Sample CSV File</p>
+        <ol>
+            <li value="1">In the Point Configuration Manager, click <b>Export</b> to access the <b>Export Options</b> dialog box for the selected service. </li>
+            <li value="2">Configure the export.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <b>Destination CSV file</b> box, enter a directory location for your sample .csv file.</li>
+            <li value="2">For the <b>Points to export</b> value, click <b>Selected</b>. </li>
+            <li value="3">For the <b>Properties to export</b> value, click <b>All</b>.</li>
+        </ol>
+        <ol start="3">
+            <li value="3"><b>Export</b> a single point. The file that is generated will contain column heading values, and can serve as your sample.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

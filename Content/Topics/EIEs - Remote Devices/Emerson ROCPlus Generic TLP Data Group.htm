@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Emerson ROCPlus EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Emerson ROCPlus EIE – Generic TLP Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Emerson ROCPlus EIE.htm">Emerson ROCPlus EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Generic TLP Data Group</span>
+        </div>
+        <h2>Generic TLP Data Group</h2>
+        <p>CygNet "Generic TLP Data" data groups are logical collections of data group elements/items that correspond to and enable access of TLPs in a ROCPlus database. </p>
+        <p>TLPs use a unique referencing scheme that associates a point type number, logical  (or location) number, and parameter number in order to specify a TLP location. (TLP stands for point <i>type</i>, <i>location/logic</i>, and <i>parameter</i>.) Depending on the TLP accessed, you can read its data or write data to it. You can also map CygNet elements/items to any relevant TLP. Multiple "Generic TLP Data" data groups can be added to a remote device, and up to 30 data group elements/items can be defined for each "Generic TLP Data" data group.</p>
+        <p>These "generic" data groups enable you to access TLP data that is either not included in data groups predefined by CygNet or not organized in the way you require. For example, you might want to display data in a human-machine interface (HMI) screen from TLPs that are not included in a predefined CygNet data group. In such a case, you could create a "Generic TLP Data" data group made up of the TLPs and map UDCs to them for viewing in the HMI screen. Another example of the use of a "Generic TLP Data" data group is to reorganize collections of data group elements/items in a way more suitable to your needs. These data group elements/items could be a subset from a single predefined CygNet data group, a combination of data group elements/items from several predefined CygNet data groups, or even a combination of predefined CygNet data group elements/items and TLPs not already included in a CygNet data group.</p>
+        <p>Opcodes 166/167 and 180/181 are used to define a configurable TLP message. The "Generic TLP Data" data group uses opcodes 180/181 by default to read/send individual TLPs.  This can be overridden in the device template file by using the <b>readOpCode</b> and <b>writeOpCode</b> attributes. If you use opcodes 166/167, parameters must be contiguous. </p>
+        <p>The following example shows how to specify opcode 166/167 to write/read using a contiguous sequence of parameters for a point type and a logical number.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You cannot add or remove data group elements to a predefined CygNet data group for this EIE. These predefined data groups follow strict messaging formats.</p>
+        </div>
+        <p>For more specific information about point type numbers, location/logical numbers, and parameter numbers, see the appropriate manufacturer-provided documentation.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;GenTLP niceName="Generic TLP Data" devDG="false" autoAdd="0" dgDesc="Generic TLP Data" majorRev="1" minorRev="1" cfgTLP="true"&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;Val01 desc="Value 01" type="vrnt" tlpType="0" tlpParm="0" tlpLog="0"/&gt;</p>
+                            <p class="Code3">&lt;Val02 desc="Value 02" type="vrnt" tlpType="0" tlpParm="0" tlpLog="0"/&gt;</p>
+                            <p class="Code3">&lt;Val03 desc="Value 03" type="vrnt" tlpType="0" tlpParm="0" tlpLog="0"/&gt;</p>
+                            <p class="Code3">&lt;Val04 desc="Value 04" type="vrnt" tlpType="0" tlpParm="0" tlpLog="0"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/GenTLP&gt;</p>
+                            <p class="Code">&lt;Send166 niceName="Send 166 via GenTLP" devDG="false" autoAdd="0" dgDesc="Send contiguous TLPs using the GenTLP datagroup" majorRev="1" minorRev="1" cfgTLP="true" <span style="background-color: #b0c4de;">writeOpCode="166" readOpCode="167"</span>&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;Octane desc="n-Octane" type="r4" tlpType="7" tlpParm="37" tlpLog="0"/&gt;</p>
+                            <p class="Code3">&lt;Nonane desc="n-Nonane" type="r4" tlpType="7" tlpParm="38" tlpLog="0"/&gt;</p>
+                            <p class="Code3">&lt;Decane desc="n-Decane" type="r4" tlpType="7" tlpParm="39" tlpLog="0"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/Send166&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Setting"></a>Setting Up a Generic TLP Data Group</h3>
+        <p>Setting up a "Generic TLP Data" data group is much like setting up any other data group. However, you must carefully select the point type number, location/logical number, and parameter number on an item-by-item basis in order to specify the correct location for a given TLP. This process is simplified by an automated lookup of the TLP and TLP description based on the manual entry of the TLP components.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You cannot configure a user-defined point (UDP) with the Emerson ROCPlus EIE. If you want to configure a UDP, directly access the affected field device and make configuration changes there. After that, use the Emerson ROCPlus EIE to define the UDP  for use in CygNet so you can read its data or write data to it.</p>
+        </div>
+        <p class="HeadingProcedure"><a name="ToAdd"></a>To Add and Configure a Generic TLP Data Group</p>
+        <ol start="1">
+            <li value="1">Open CygNet Explorer.</li>
+            <li value="2">Click <b>Device Definition Service (DDS)</b> in your service hierarchy.</li>
+            <li value="3">Locate the Emerson ROCPlus remote device you want to alter and double-click it.<ol start="1" style="list-style-type: lower-alpha;"><li value="1">Click the <b>Data Group</b> page.</li><li value="2">Click <b>Add</b>.</li><li value="3">Double-click <b>Generic TLP Data</b> from the <b>Select Data Group to Add</b> list.</li><li value="4">Set properties for the data group, like <b>Ordinal</b>, <b>Description</b>, and <b>Facility ID</b>. <b>Ordinal</b> pre-populates based on the sequence in which this "Generic TLP Data" data group is being added. You can overwrite the default setting.</li><li value="5">Click <b>Configure</b> to define your data group elements/items. These elements/items correspond to TLPs in a ROCPlus database.</li></ol></li>
+            <li value="4">On the <b>Generic TLP Datagroup Definition</b> dialog box that appears, highlight an element and either double-click it or click <b>Edit Element</b>.<ol start="1" style="list-style-type: lower-alpha;"><li value="1">Select the point type from the <b>Point Type</b> drop-down menu or type it in. Doing so determines your <b>Parameter #</b> options.</li><li value="2">Type the logical (or location)&#160;number in the <b>Logical #</b> field. TLP logical numbers in the ROCPlus protocol are one based.</li><li value="3">Select the correct parameter number from the predefined <b>Parameter #</b> drop-down menu or type it in. Doing so automatically sets <b>TLP</b> name, <b>Description</b>, <b>Data Type</b>, <b>Byte Length</b>, and <b>TLP&#160;Access</b>.</li><li value="4">Select the appropriate units from the <b>Units</b> drop-down menu. <b>Units</b> match the units configured for this TLP&#160;point on the actual field device. They must also be the same as the <b>Primary Units</b> in the corresponding points configuration record in the PNT or they must share a defined conversion. If <b>Units</b> is blank (the default), the point's units in the PNT must also be blank.</li><li value="5">If this is a user-defined data point (UDP), also define the <b>Description</b>, <b>Data Type</b>, and <b>TLP Access</b> fields and options</li><li value="6">When you are done, click <b>OK</b>.</li></ol></li>
+            <p class="Indent2"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/TLP_Spec_Dialog.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="429" data-mc-height="437" src="../../Resources/Images/EIEs - Remote Devices/TLP_Spec_Dialog_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+            </p>
+        </ol>
+        <ol start="5">
+            <li value="5">Repeat for all required TLP data group elements/items.</li>
+            <li value="6">Click <b>OK</b> to save your data group element/item settings.</li>
+            <li value="7">At the <b>Data Group Properties</b> dialog box, click <b>OK</b> to save the TLP data group.</li>
+            <li value="8">Click <b>Apply</b> to save changes to the Emerson ROCPlus remote device.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToEdit"></a>To Edit Generic TLP Data Group Elements</p>
+        <ol start="1">
+            <li value="1">Open CygNet Explorer.</li>
+            <li value="2">Click <b>Device Definition Service (DDS)</b> in your service hierarchy.</li>
+            <li value="3">Locate the Emerson ROCPlus remote device you want to alter and double-click it.<ol start="1" style="list-style-type: lower-alpha;"><li value="1">Click the <b>Data Group</b> page.</li><li value="2">Select the <b>Generic TLP Data</b> data group you want to edit from the <b>Data Groups</b> list and click <b>Properties</b>.</li><li value="3">Click <b>Configure</b> to edit your data group elements/items.</li></ol></li>
+            <li value="4">On the <b>Generic TLP Datagroup Definition</b> dialog box that appears, highlight an element and either double-click it or click <b>Edit Element</b>.</li>
+            <li value="5">Edit standard TLP parameters (<b>Point Type</b>, <b>Logical #</b>, <b>Parameter #</b>, and <b>Units</b>) according to your needs.</li>
+            <li value="6">Click <b>OK</b> to save your data group element/item settings.</li>
+            <li value="7">At the <b>Data Group Properties</b> dialog box, click <b>OK</b> to save the TLP data group.</li>
+            <li value="8">Click <b>Apply</b> to save changes to the Emerson ROCPlus remote device.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

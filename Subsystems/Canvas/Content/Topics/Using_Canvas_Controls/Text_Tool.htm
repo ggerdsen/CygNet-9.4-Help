@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Using Canvas Controls and Objects">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Introduces a text tool." /><title>Text Tool</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="All_Controls.htm">Using Canvas Controls and Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Text Tool</span>
+        </div>
+        <h2><a name="aanchor166"></a>
+            <MadCap:concept term="Canvas Controls" />Text Tool</h2>
+        <p>
+            <img src="../../Resources/Images/Buttons Icons/Control_Text_Tool.png" class="Inline" alt="Text Tool icon" title="Text Tool" /> The <b>Text Tool</b> is a <span class="GeneralSoftwareNameShort">CygNet</span>-aware control that can be used to display text on your <span class="GeneralProduct_Short">Canvas</span> screens. The control can display static text, such as a label, or dynamic text based on point or facility attributes. Dynamic text is built using tokens, which can represent real-time CVS point properties, point configuration properties, and facility properties.  The control can be configured with a valid point configuration but prevented from retrieving any <span class="GeneralSoftwareNameShort">CygNet</span> data, allowing the display of static text while still allowing <span class="GeneralSoftwareNameShort">CygNet</span> data context available from script. The control's background, text, and border color can be explicitly configured or sourced from the point state color defined for the associated point.  Colors in the control can be overridden when a custom color palette is selected for the screen. Alarm indication (blinking) is supported for the control's text, background, and border when the associated point is in alarm.  The control can be hidden if the associated point is invalid.  Date, time, and value formatting for the text displayed on the control is supported.  Font sizing, text alignment, trimming, wrapping, styling, and weighting are also configurable. This control supports tooltips, which can be displayed as tokenized text, a <span class="GeneralProduct_Short">Canvas</span> object, or the tooltip can be scripted to retrieve and display values for related points or <span class="GeneralSoftwareNameShort">CygNet</span> notes. A context menu is available in run mode with access to CygNet point and alarm data, including alarm acknowledgment, current and history values, point and facility configuration, and trending point data on a default chart.</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Sample Text Tool, showing context menu on point in alarm">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p>
+                            <img src="../../Resources/Images/Controls/Text_Tool.png" alt="Canvas Text Tool" title="Text Tool" />
+                        </p>
+                        <p class="Caption">Sample Text Tool, showing context menu on point in alarm</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Property Inheritance</h3>
+        <h4>Property Inheritance</h4>
+        <p>Property inheritance is a widely used concept in <span class="GeneralProduct_Short">Canvas</span>. The application supports an explicit relationship between screens, objects, and controls, where certain property values, such as SiteService and facility tags, are passed from one element to another via an inheritance framework. Screens, objects, and controls can be configured as property senders or property receivers and provide configuration options where you can explicitly define the source of the SiteService and facility. Depending on how you have your screens, objects, and controls set up, the SiteService and facility may come from any one of the following sources:</p>
+        <ul>
+            <li value="1">from itself — indicated by selecting <b>&lt;Self&gt;</b> and then explicitly configuring the property</li>
+            <li value="2">inherited from the screen — indicated by selecting <b>Screen</b>, which is always present as a sender</li>
+            <li value="3">inherited from another control — indicated by selecting the <b style="font-style: italic;">Name of the sending control</b></li>
+        </ul>
+        <h4>Broadcasting </h4>
+        <p>Screens and objects support an additional notification option to broadcast their SiteService and facility selection changes to other open screens running in the <span class="GeneralProduct_Short">Canvas</span> or <span class="GeneralProduct_View_Short">Canvas View</span> application. If configured, a <b>&lt;Broadcast&gt;</b> option is available to source the screen's SiteService and facility properties from another open screen.</p>
+        <p>For example, a text tool can be configured to get its facility from the screen and the screen can be configured to get its facility from a tag chooser. Or Screen_A might source its facility from Screen_B, which gets its facility from a tag chooser.</p>
+        <h4>Receiver or Sender</h4>
+        <p>The text tool supports property inheritance as a receiver of its SiteService and facility:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" summary="Senders and Receivers" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th colspan="2" style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">Receive from</th>
+                    <th colspan="2" style="text-align: center;" class="TableStyle-HelpTable2-HeadD-Column1-Header1">Send to</th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">SiteService</th>
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">Facility</th>
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadE-Column1-Header1">SiteService</th>
+                    <th style="text-align: center;" class="TableStyle-HelpTable2-HeadD-Column1-Header1">Facility</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Self</p>
+                        <p>Screen</p>
+                    </td>
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Self</p>
+                        <p>Screen</p>
+                        <p>Other controls</p>
+                    </td>
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>none</p>
+                    </td>
+                    <td style="text-align: center;" class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>none</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The text tool does not send its SiteService or facility to other controls.</p>
+        <p><a href="javascript:void(0);" class="MCHelpControl MCHelpControl-Related relatedTopics" data-mc-topics="Configuring a Text Tool|Text_Tool_Config.htm||Text Tool Properties|Text_Tool_Properties.htm||Text Tool Events|Text_Tool_Events.htm||Text Tool Methods|Text_Tool_Methods.htm||Using a Text Tool in Run Mode|Text_Tool_Run_Mode.htm" style="mc-use-custom-sort-order: true;"><span class="MCHelpControl-RelatedHotSpot_">Related Topics</span></a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Totalflow EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Totalflow EIE – Register Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Totalflow EIE.htm">Totalflow EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Register Data Group</span>
+        </div>
+        <h2>Register Data Group</h2>
+        <p>Register-based data groups consist of data group elements obtained from registers. The ABB API identifies registers by <b>Application Slot</b>, <b>Array</b>, and <b>Offset</b> in the format <i>ApplicationSlot.Array.Register</i>. </p>
+        <p>An <i>Application</i> is made up of one or more <i>Arrays</i> of data. An  <i>Array</i> represents a group of items that are all the same data type. CygNet will validate the template file to ensure that all DGE references to a single <i>Array</i> within an <i>Application</i> have the same type. For example, if a DGE has <b>regNum</b>="2.3", the <i>Array</i> is 2.  If this DGE has <b>type</b>="ui4", all other DGE’s with the same <b>appId</b> and <i>Array</i> must have <b>type</b>="ui4".</p>
+        <p>Different versions of firmware might support different applications. Additionally, the registers available within an application might differ between versions. Refer to Totalflow documentation or contact a Totalflow representative for application information, register IDs, and data types. Be aware that vendor-specific data types such as STRUCTs are not supported in CygNet.</p>
+        <p>Register-based data groups are identified  in template files by the keyword dgCat="register". They can be edited to supply additional information or to accommodate differences in application versions. Before editing a template file, you must know the identifier of the register you are interested in and its data type. If all of your field devices are not the same firmware version, you might experience problems when applying one device template file to all devices.</p>
+        <h3>G1 and G2 Devices</h3>
+        <p>For G1 and G2 devices, registers must be fully specified in the format <i>application.array.register</i>. These devices can be represented by the following templates: </p>
+        <ul>
+            <li value="1">Totalflow_6400.dtf</li>
+            <li value="2">Totalflow_6700.dtf</li>
+            <li value="3">Totalflow_Api.dtf.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The <b>dgCat</b> attribute must be set to "register".</p>
+        </div>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;AnlgDig niceName="Analogs and Digitals - Register" dgCat="register"&gt;</p>
+                    <p class="Code2">&lt;dgElements secLev="4"&gt;</p>
+                    <p class="Code3">&lt;AI01 desc="Analog Input 1" regNum="2.7.0" type="r4"/&gt;</p>
+                    <p class="Code3">&lt;AI02 desc="Analog Input 2" regNum="2.7.1" type="r4"/&gt;</p>
+                    <p class="Code3">&lt;DI01 desc="Digital Input 1" regNum="2.0.3" type="boolean"/&gt;</p>
+                    <p class="Code3">&lt;DI02 desc="Digitial Input 2" regNum="2.0.4" type="boolean"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code">&lt;/AnlgDig&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>G3 and Later Devices</h3>
+        <p>For G3 and later devices, application slot numbers are obtained from the device using the "<a href="Totalflow Data Group Usage Notes.htm#ApplicationConfig">Application Config</a>" data group. This information can be used to supply the application part of a register. For a multi-meter device, a single application may reside in several different slots, one for each meter. In a template file, the <b>appId</b> attribute identifies the application by type instead of by slot number, so registers need only be identified by <i>array.register</i>. 
+You must poll the "<a href="Totalflow Data Group Usage Notes.htm#ApplicationConfig">Application Config</a>" data group before polling any other register-based data group. For a list of application IDs, see <a href="Totalflow Application ID.htm">Application ID</a>.</p>
+        <p>You can specify an ordinal increment for a register-based data group using the <b>regNum</b> + <b>ordIncrement</b> attributes to establish a starting <b>Application Slot</b> and then to define the increments of groups of registers that correspond to data group ordinals. <b>ordIncrement</b> must be a static number.
+
+</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The <b>appid</b> attribute and the <b>ordIncrement</b> attribute cannot be used in the same data group in a device template file.</p>
+        </div>
+        <p>These devices can be represented by the following templates:</p>
+        <ul>
+            <li value="1">Totalflow_G3.dtf</li>
+            <li value="2">Totalflow_G4.dtf</li>
+            <li value="3">Totalflow_Api.dtf.
+</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The <b>dgCat</b> attribute must be set to "register".</p>
+        </div>
+        <p class="Example">Example</p>
+        <p class="Indent">Here the <b>appId</b> is <b>IOS</b>. The "Application Configuration" data group as viewed from a device editor shows that the <b>IOS</b> is in application slot 7. Having the EIE resolve the slot number allows the flexibility required for a multi-meter configuration. </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;IO niceName="I/O Subsystem" dgCat="register" appId="IOS" baseOrd="0" maxCnt="1"&gt;</p>
+                    <p class="Code2">&lt;dgElements type="r4"&gt;</p>
+                    <p class="Code3">&lt;Dp desc="DP" regNum="3.0"/&gt;</p>
+                    <p class="Code3">&lt;Sp desc="SP" regNum="3.1"/&gt;</p>
+                    <p class="Code3">&lt;RTD desc="RTD" regNum="3.2"/&gt;</p>
+                    <p class="Code3">&lt;AI01 desc="Tubing Press" regNum="3.3"/&gt;</p>
+                    <p class="Code3">&lt;AI02 desc="Casing Press" regNum="3.4"/&gt;</p>
+                    <p class="Code3">&lt;BatVolt desc="Battery Voltage" regNum="3.5"/&gt;</p>
+                    <p class="Code3">&lt;ChgVolt desc="Charger Voltage" regNum="3.6"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code">&lt;/IO&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

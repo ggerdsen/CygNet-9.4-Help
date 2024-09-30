@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Emerson ROC EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Emerson ROC EIE – History Ordinals and Points</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Emerson ROC EIE.htm">Emerson ROC EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">History Ordinals and Points</span>
+        </div>
+        <h2>History Ordinals and Points</h2>
+        <p>The relationship between Emerson ROC field devices and CygNet history data groups is defined by the use of RAM areas, segments, points, and ordinals. To some extent, this is also true of FMS  data groups because they depend on native history data groups for their data.</p>
+        <p>Because the process of configuring a CygNet data group to "talk" to a field device begins at the field device, the following information first provides details about field device history points, then native history data groups, and finally EFM data groups.</p>
+        <p>For more information, see the following subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Field" class="selected">Field Device  RAM Areas, Segments, and Points</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Native" class="selected">Native History Data Group Ordinals, RAM Areas, Segments, and Points</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ToFindHistPntsNon800" class="selected">To Find History Points</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#FMS" class="selected">FMS History Data Group Ordinals, Segments, and Points</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#ToAddPntNumbersNon800" class="selected">To Add Point Numbers</a>
+            </li>
+        </ul>
+        <p>In order for your <b>Emerson ROC EIE</b> to collect historical information for a given field device, that device must be properly configured. See the appropriate manufacturer-provided documentation.</p>
+        <h3><a name="Field"></a>Field Device  RAM Areas, Segments, and Points</h3>
+        <p>Emerson ROC devices rely on a combination of RAM areas and points within RAM areas to identify history point numbers. Emerson ROC points contain standard and extended history parameters, as well as index information where applicable.</p>
+        <p>The following list breaks down RAM areas, segments, and points by model:</p>
+        <ul>
+            <li value="1">FloBoss 100-Series (except the 107), ROC300-Series, FloBoss 400-Series, and FloBoss 500-Series field devices all use RAM areas (0-2) combined with points within RAM (0-29) to access history.</li>
+            <li value="2">The FloBoss 107 field device uses standard history points (1-100) and extended history points (1-5) to access history.</li>
+        </ul>
+        <h3><a name="Native"></a>Native History Data Group Ordinals, RAM Areas, Segments, and Points</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following section relates to the native history data groups  "Periodic History," "Extended History,"    and "History — Sixty Minute Point."</p>
+        </div>
+        <h4>Ordinals</h4>
+        <p>Each CygNet data group added to a remote device is identified by a number called an ordinal. The ordinal is specified on the <b>Data Group Properties</b> dialog box. For native history data groups, the ordinal derives from an associated history point on a field device. Sometimes this is a one-to-one relationship, as with the FloBoss 107 device.</p>
+        <h4>RAM Areas, Segments, and Points</h4>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Field device <a href="Emerson ROC Measurement Units.htm">units</a> must match the supported units of the history points they map to. </p>
+        </div>
+        <p>Emerson ROC devices rely on a combination of RAM areas and points within those RAM areas to identify history point numbers. Emerson ROC points contain standard and extended history parameters, as well as index information where applicable.</p>
+        <p>The following list breaks down RAM areas, segments, and points by model:</p>
+        <ul>
+            <li value="1"> Periodic history data groups on FloBoss 100-Series (except the 107), ROC300-Series, FloBoss 400-Series, and FloBoss 500-Series remote devices require you to specify a RAM area (0-2) and point within RAM (0-29). Using RAM&#160;area and point within RAM, they automatically generate an ordinal.</li>
+            <li value="2">Periodic history data groups on a FloBoss 107 remote device use a specified history point number (1-100) or a specified extended history point number (1-5) as their ordinal.</li>
+        </ul>
+        <p class="HeadingProcedure"><a name="ToFindHistPntsNon800"></a>To Find History Points</p>
+        <p>For an Emerson ROC EIE, poll the "History Point List" data group. History points appear in the <b>Hist Pt#</b> column. Segments do not apply to Emerson ROC devices; a RAM area is used instead.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="FMS"></a>FMS History Data Group Ordinals, Segments, and Points</h3>
+        <h4>Ordinals</h4>
+        <p>FMS history data groups also use ordinals. However, these ordinals are associated with a meter, not a history point. When you specify a <b>Meter#</b> in an FMS history <b>Data Group Properties</b> dialog box, that number displays in the <b>Ordinal</b> column under the <b>Data Group</b> page.</p>
+        <h4>Segments and Points</h4>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Field device history point units must match the supported FMS history data group units.</p>
+        </div>
+        <p class="HeadingProcedure"><a name="ToAddPntNumbersNon800"></a>To Add Point Numbers</p>
+        <p>For all Emerson ROC models, the "FMS History" data groups must be manually configured with <b>History Point</b> numbers. The following procedure explains how to add point numbers to an Emerson ROC remote device that uses FMS.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Poll the "ROC Config"  data group before starting this procedure.</p>
+        </div>
+        <ol>
+            <li value="1">Open CygNet Explorer.</li>
+            <li value="2">Click <b>Device Definition Service (DDS)</b> in your service hierarchy.</li>
+            <li value="3">Locate the remote device you want to alter and double-click it to open its remote device editor.</li>
+            <li value="4">Click the <b>Data Group</b> page.</li>
+            <li value="5">If you have not done so already, add, configure, and poll a "History Point List" data group.</li>
+            <li value="6"><a name="step6"></a>Add, configure, and poll an FMS configuration data group for the meter from which you want to collect history.</li>
+            <li value="7"><a name="step7"></a>Add and configure an FMS history data group. Make sure that the history data group's <b>Meter #</b> is the same as the FMS configuration data group added in <a href="#step6" class="selected">step 6</a>. See <a href="#step8" class="selected">step 8</a> below for details.</li>
+            <li value="8"><a name="step8"></a>In the FMS history data group from <a href="#step7" class="selected">step 7</a>, assign history points to process variables. Exactly what each number represents depends on your field device set up. FMS history data groups require no predefined history points.<ol style="list-style-type: lower-alpha;"><li value="1">&#160;Locate the process variable for which you want to assign a history point, and click in the corresponding <b>History Point</b> field to display a <b>Browse</b> button.</li><li value="2">&#160;Click the <b>Browse</b> button to open the <b>Browse History Points</b> dialog box.</li><li value="3">&#160;Select the correct history point from the list of available items.</li></ol></li>
+        </ol>
+        <p class="Indent"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/fms_ROC_history_dialog_chooser.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="738" data-mc-height="446" src="../../Resources/Images/EIEs - Remote Devices/fms_ROC_history_dialog_chooser_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <ol start="9">
+            <li value="9">When you are done assigning history points to process variables, click <b>OK</b>.</li>
+            <li value="10">Click <b>Apply</b> to save the FMS history data group configuration.</li>
+            <li value="11">You may now poll the FMS history data group from <a href="#step7" class="selected">step 7</a>.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

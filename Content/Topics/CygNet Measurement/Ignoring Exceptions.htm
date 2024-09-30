@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Controls Menu|Exceptions Control">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Ignoring Exceptions</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Controls Menu.htm">Controls Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Exceptions Control.htm">Exceptions Control</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Ignoring Exceptions</span>
+        </div>
+        <h2>Ignoring Exceptions</h2>
+        <p>Use the <b>Exceptions</b> control to view and ignore exceptions once you have analyzed the associated record data. </p>
+        <p>You can filter and group exceptions within the control to help analyze their circumstances to determine what generated them and if they warrant being ignored. See <a href="Filtering and Sorting Exceptions.htm">Filtering and Sorting Exceptions</a> for more information about this process.</p>
+        <p>Although exceptions can be ignored, they are never actually "resolved."  Instead, the exception can become closed when a new data record supersedes the data record that originally caused the exception.  This new data record will be validated (if the system is configured to validate edits) and may, or may not, generate the same or different exceptions.</p>
+        <p>You must have proper security authorization to access exception handling functionality. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#EXCP">EXCP</a> security event) for more information about configuring security access to ignore exceptions.</p>
+        <h3>Clearing Exceptions by Changing Validation Rules</h3>
+        <p>If you find that a data value associated with an exception is valid, but determine that the exception should not have been generated, you may choose to clear one or more exceptions by modifying the Validation Rules that produced them, and then re-validate the data so that the system no longer generates  such exceptions. See <a href="Managing Validation Engines.htm">Managing Validation Engines</a> for more information.</p>
+        <h3>Ignoring Exceptions  Manually</h3>
+        <p>If you find that the data value associated with an exception is valid, after analyzing the circumstances that caused it, you may choose to ignore one or more exceptions. The <b>Ignore exceptions</b> option is enabled only when the selected exception has an exception status of "open." When multiple exceptions are selected, all must have an "open" status in order to be ignored.</p>
+        <p>When an exception is ignored, additional actions occur: an audit record is created, and the data quality value for the associated history record (that triggered the exception) is updated, if there are no other outstanding exceptions.</p>
+        <ul>
+            <li value="1">An audit record will be attached to the exception record to track why the issue was ignored.  When the record is closed (superseded), then no audit record is recorded. </li>
+            <li value="2">The data quality value associated with the history record that triggered the exception will automatically be changed upon the exception being ignored (if there are no other outstanding exceptions), to match the value that is specified as the "Quality for device data that validates" setting in the Administrative Options. See <a href="Configuring Data Quality Settings.htm">Configuring Data Quality Settings</a> for more information about this system value.</li>
+        </ul>
+        <p>See <a href="Configuration Control - Gas Analysis View.htm#SendStatus">Using the Gas Analysis Data View</a> for more information about ignoring exceptions for gas analysis records.</p>
+        <p>See Using the History Grid Control for more information about ignoring exceptions for history records.</p>
+        <p class="HeadingProcedure">To Manually Ignore an Exception</p>
+        <ol>
+            <li value="1">From the <b>Exceptions</b> control, select an open exception of interest from the data grid, right-click to access the context menu, and then click <b>Ignore exception</b>. The <b>Save Record</b> dialog box will open.
+        <p><img src="../../Resources/Images/CygNet Measurement/Save_Record_Exceptions.png" /></p></li>
+            <li value="2">Select an <b>Audit category</b> from the drop-down menu.  The Audit category options are as configured  on the <b>Admin</b> menu, and the audit category type for administrative configuration purposes is <b>Ignoring Exceptions</b>. See <a href="Configuring Audit Categories.htm">Configuring Audit Categories</a> for more information.  The  ignored exception action will be displayed in the "Ignored Audit Record" column of the Exceptions control. </li>
+            <li value="3">Add any relevant <b>Comments</b> regarding the audit record in the text box. Although comments are optional, they can be helpful when auditing or reviewing records later.</li>
+            <li value="4">Click <b>Save</b> to commit the  record.</li>
+            <li value="5">Optionally, click <b>Refresh</b> to update the Exceptions grid (although the Exceptions control will refresh automatically when the <b>Ignore Exceptions</b> processing is complete).
+            <div class="Note"><p><span class="NoteHeading">Note:</span> If you are experiencing a delay when ignoring lots of different exceptions, you may want to process fewer ignored exceptions at a time, committing the changes more frequently. The processing time required depends on the size and speed of your system.</p></div></li>
+        </ol>
+        <ol start="6">
+            <li value="6">When the action is complete, the <b>Exception status</b> for the exception will show <b>Ignored</b>. When the exception has been filtered out, it does not appear.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Modbus EFM EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Modbus EFM EIE – Dynagraph Card Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Modbus EFM EIE.htm">Modbus EFM EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Dynagraph Data Group</span>
+        </div>
+        <h2>Dynagraph Card Data Group</h2>
+        <p>The "Dynagraph Card" data group enables the retrieval of dynagraph card data. The XML of each "Dynagraph Card" data group contains a number of data group elements and a number of card blocks. The <i>DataGroupElement</i> elements define data used by CygNet; the card blocks define constraints used to map register data to the data group elements. Your specific needs dictate how you implement this data group.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Example" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Structure" class="selected">Structure and Components</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ToCreate" class="selected">To Create a Dynagraph Card Data Group</a>
+            </li>
+        </ul>
+        <p>For more information, see <a href="../CygNet Dynagraph Viewer/CygNet Dynagraph Viewer.htm">CygNet Dynagraph Viewer</a>.</p>
+        <p class="Example"><a name="Example"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;DynaCard niceName="Dynagraph Card" hasArray="true" maxCnt="6"&gt;</p>
+                            <p class="Code2">&lt;dgOrdinals&gt;</p>
+                            <p class="Code3">&lt;e0 value="Current Card"/&gt;</p>
+                            <p class="Code3">&lt;e3 value="Reference Card"/&gt;</p>
+                            <p class="Code2">&lt;/dgOrdinals&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" cvtF="WordSwap" type="i4"&gt;</p>
+                            <p class="Code3">&lt;Date desc="Card Raw Date" regDef="1:474" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;Time desc="Card Raw Timestamp" regDef="1:476" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;STimeD desc="Surface Card Timestamp" type="r8" cvtRef="TimeEnron" deidDate="Date" deidTime="Time"/&gt;</p>
+                            <p class="Code3">&lt;CardType desc="Card Type"/&gt;</p>
+                            <p class="Code3">&lt;CardDesc desc="Card Description" type="string"/&gt;</p>
+                            <p class="Code3">&lt;SCnt desc="Point Count" type="ui2"/&gt;</p>
+                            <p class="Code3">&lt;SLMax desc="Surface Max Load" type="r4"/&gt;</p>
+                            <p class="Code3">&lt;SLMin desc="Surface Min Load" type="r4"/&gt;</p>
+                            <p class="Code3">&lt;StrkLenRaw desc="Stroke Length Raw" regDef="1:94"/&gt;</p>
+                            <p class="Code3">&lt;StrokeLen desc="Stroke Length" type="r4" ref="StrkLenRaw" scaleFactor=".001" units="in"/&gt;</p>
+                            <p class="Code3">&lt;PSpeedRaw desc="Pump Speed Raw" regDef="1:18"/&gt;</p>
+                            <p class="Code3">&lt;PumpSpeed desc="Pump Speed" type="r4" ref="PSpeedRaw" scaleFactor="0.01"/&gt;</p>
+                            <p class="Code3">&lt;SPRaw desc="Surface Position Raw" regDef="2:0" arrRegOff="2" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;SP desc="Surface Position" ref="SPRaw" type="r4" scaleFactor=".1"/&gt;</p>
+                            <p class="Code3">&lt;SL desc="Surface Load" regDef="3:0" arrRegOff="2"/&gt;</p>
+                            <p class="Code3">&lt;PumpFill desc="Pump Fillage" regDef="1:16" units="%"/&gt;</p>
+                            <p class="Code3">&lt;FluidLoad desc="Fluid Load" regDef="1:240"/&gt;</p>
+                            <p class="Code3">&lt;DTimeD desc="Downhole Card Timestamp" type="r8" cvtRef="TimeEnron" deidDate="Date" deidTime="Time"/&gt;</p>
+                            <p class="Code3">&lt;DCnt desc="Downhole Point Count" type="ui2"/&gt;</p>
+                            <p class="Code3">&lt;DPRaw desc="Downhole Position Raw" regDef="4:0" arrRegOff="2" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;DP desc="Downhole Position" ref="DPRaw" type="r4" scaleFactor=".1"/&gt;</p>
+                            <p class="Code3">&lt;DL desc="Downhole Load" regDef="5:0" arrRegOff="2"/&gt;</p>
+                            <p class="Code3">&lt;DLMax desc="Downhole Max Load" type="r4"/&gt;</p>
+                            <p class="Code3">&lt;DLMin desc="Downhole Min Load" type="r4"/&gt;</p>
+                            <p class="Code3">&lt;WellState desc="State of well" regDef="1:44"/&gt;</p>
+                            <p class="Code3">&lt;WStateText desc="Well state text" type="string" ref="WellState" mapVal="WellStat"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;cardBlocks cardOrdinal="0" surfacePtCount="50" regByteLen="2" funcCode="3" regOff="-40001" txMaxRegCnt="124"&gt;</p>
+                            <p class="Code3">&lt;card cardNum="1" surfacePtCount="200" downholePtCount="200"&gt;</p>
+                            <p class="Code4">&lt;block1 regNum="57201" regCnt="477" cardRep="none"/&gt;</p>
+                            <p class="Code4">&lt;block2 regNum="50001" regCnt="400" cardRep="surface"/&gt;</p>
+                            <p class="Code4">&lt;block3 regNum="50401" regCnt="400" cardRep="surface"/&gt;</p>
+                            <p class="Code4">&lt;block4 regNum="50801" regCnt="400" cardRep="downhole"/&gt;</p>
+                            <p class="Code4">&lt;block5 regNum="51201" regCnt="400" cardRep="downhole"/&gt;</p>
+                            <p class="Code3">&lt;/card&gt;</p>
+                            <p class="Code3">&lt;card cardNum="2" cardRep="surface"&gt;</p>
+                            <p class="Code4">&lt;block1 regNum="57201" regCnt="477" cardRep="none"/&gt;</p>
+                            <p class="Code4">&lt;block2 regNum="58401" regCnt="100"/&gt;</p>
+                            <p class="Code4">&lt;block3 regNum="58801" regCnt="100"/&gt;</p>
+                            <p class="Code3">&lt;/card&gt;</p>
+                            <p class="Code3">&lt;card cardNum="3" cardRep="surface"&gt;</p>
+                            <p class="Code4">&lt;block1 regNum="57201" regCnt="477" cardRep="none"/&gt;</p>
+                            <p class="Code4">&lt;block2 regNum="58501" regCnt="100"/&gt;</p>
+                            <p class="Code4">&lt;block3 regNum="58901" regCnt="100"/&gt;</p>
+                            <p class="Code3">&lt;/card&gt;</p>
+                            <p class="Code3">&lt;card cardNum="4" cardRep="surface"&gt;</p>
+                            <p class="Code4">&lt;block1 regNum="57201" regCnt="477" cardRep="none"/&gt;</p>
+                            <p class="Code4">&lt;block2 regNum="58601" regCnt="100"/&gt;</p>
+                            <p class="Code4">&lt;block3 regNum="59001" regCnt="100"/&gt;</p>
+                            <p class="Code3">&lt;/card&gt;</p>
+                            <p class="Code3">&lt;card cardNum="5" cardRep="surface"&gt;</p>
+                            <p class="Code4">&lt;block1 regNum="57201" regCnt="477" cardRep="none"/&gt;</p>
+                            <p class="Code4">&lt;block2 regNum="58701" regCnt="100"/&gt;</p>
+                            <p class="Code4">&lt;block3 regNum="59101" regCnt="100"/&gt;</p>
+                            <p class="Code3">&lt;/card&gt;</p>
+                            <p class="Code3">&lt;postCard&gt;</p>
+                            <p class="Code4">&lt;block6 regNum="60000" regCnt="2"/&gt;</p>
+                            <p class="Code3">&lt;/postCard&gt;</p>
+                            <p class="Code2">&lt;/cardBlocks&gt;</p>
+                            <p class="Code2">&lt;cardBlocks cardOrdinal="3" surfacePtCount="200" downholePtCount="200" regByteLen="2" funcCode="3" regOff="-40001" txMaxRegCnt="124"&gt;</p>
+                            <p class="Code3">&lt;card cardNum="1"&gt;</p>
+                            <p class="Code4">&lt;block1 regNum="57201" regCnt="477" cardRep="none"/&gt;</p>
+                            <p class="Code4">&lt;block2 regNum="52801" regCnt="400" cardRep="surface"/&gt;</p>
+                            <p class="Code4">&lt;block3 regNum="53201" regCnt="400" cardRep="surface"/&gt;</p>
+                            <p class="Code4">&lt;block4 regNum="53601" regCnt="400" cardRep="downhole"/&gt;</p>
+                            <p class="Code4">&lt;block5 regNum="54001" regCnt="400" cardRep="downhole"/&gt;</p>
+                            <p class="Code3">&lt;/card&gt;</p>
+                            <p class="Code3">&lt;postCard&gt;</p>
+                            <p class="Code4">&lt;block6 regNum="60000" regCnt="2"/&gt;</p>
+                            <p class="Code3">&lt;/postCard&gt;</p>
+                            <p class="Code2">&lt;/cardBlocks&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;Cnt desc="Card Count" type="ui2" required="false" rangeLow="1" rangeHigh="5"/&gt;</p>
+                            <p class="Code3">&lt;Rep desc="Representation: 0=surface;1=surface+downhole;2=downhole" type="ui2" required="false"/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/DynaCard&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="Structure"></a>Structure and Components</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>&lt;deviceDefinition <a href="deviceDefinition Element.htm#class" title="Click to go to the class attribute." alt="Click to go to the class attribute.">class="POC"</a>&gt;</p>
+                            <p class="Code2">&lt;dataGroups&gt;</p>
+                            <p class="Code3">&lt;DataGroup <a href="DataGroup Element.htm#hasArray" title="Click to go to the hasArray attribute." alt="Click to go to the hasArray attribute." class="ExpandoAttributes">hasArray="true"</a>&gt;</p>
+                            <p class="Code4">&lt;dgElements&gt;</p>
+                            <p class="Code5">&lt;StrokeLen/&gt;</p>
+                            <p class="Code5">&lt;STimeD/&gt;</p>
+                            <p class="Code5">&lt;SCnt/&gt;</p>
+                            <p class="Code5">&lt;SP/&gt;</p>
+                            <p class="Code5">&lt;SL/&gt;</p>
+                            <p class="Code5">&lt;SLMin/&gt;</p>
+                            <p class="Code5">&lt;SLMax/&gt;</p>
+                            <p class="Code5">&lt;DTimeD/&gt;</p>
+                            <p class="Code5">&lt;DCnt/&gt;</p>
+                            <p class="Code5">&lt;DP/&gt;</p>
+                            <p class="Code5">&lt;DL/&gt;</p>
+                            <p class="Code5">&lt;DLMin/&gt;</p>
+                            <p class="Code5">&lt;DLMax/&gt;</p>
+                            <p class="Code4">&lt;/dgElements&gt;</p>
+                            <p class="Code4">&lt;<a href="cardBlocks.htm" class="ExpandoAttributes" title="Click to go to the cardBlocks element." alt="Click to go to the cardBlocks element.">cardBlocks</a> <a href="cardBlocks.htm#cardType" class="ExpandoAttributes" title="Click to go to the cardType attribute." alt="Click to go to the cardType attribute.">cardOrdinal=""</a> <a href="cardBlocks.htm#downholePtCount" title="Click to go to the downholePtCount attribute." alt="Click to go to the downholePtCount attribute." class="ExpandoAttributes">downholePtCount=""</a> <a href="cardBlocks.htm#funcCode" title="Click to go to the funcCode attribute." alt="Click to go to the funcCode attribute." class="ExpandoAttributes">funcCode=""</a> <a href="cardBlocks.htm#regByteLen" title="Click to go to the regByteLen attribute." alt="Click to go to the regByteLen attribute." class="ExpandoAttributes">regByteLen=""</a> <a href="cardBlocks.htm#regOff" title="Click to go to the regOff attribute." alt="Click to go to the regOff attribute." class="ExpandoAttributes">regOff=""</a> <a href="cardBlocks.htm#surfacePtCount" title="Click to go to the surfacePtCount attribute." alt="Click to go to the surfacePtCount attribute." class="ExpandoAttributes">surfacePtCount=""</a> <a href="cardBlocks.htm#txMaxRegCnt" title="Click to go to the txMaxRegCnt attribute." alt="Click to go to the txMaxRegCnt attribute." class="ExpandoAttributes">txMaxRegCnt=""</a>&gt;</p>
+                            <p class="Code5">&lt;<a href="preCard.htm" title="Click to go to the preCard element." alt="Click to go to the preCard element." class="ExpandoAttributes">preCard</a>&gt;</p>
+                            <p class="Code6">&lt;<a href="block1.htm" title="Click to go to the block element." alt="Click to go to the block element." class="ExpandoAttributes">block</a> <a href="block1.htm#regNum" title="Click to go to the regNum attribute." alt="Click to go to the regNum attribute.">regNum_singleCard=""</a> <a href="block1.htm#regNum" title="Click to go to the regNum attribute." alt="Click to go to the regNum attribute.">regNum_multipleCard=""</a>/&gt;</p>
+                            <p class="Code5">&lt;/preCard&gt;</p>
+                            <p class="Code5">&lt;<a href="card.htm" title="Click to go to the card element." alt="Click to go to the card element." class="ExpandoAttributes">card</a>&#160;<a href="card.htm" class="ExpandoAttributes" title="Click to go to the cardNum attribute." alt="Click to go to the cardNum attribute.">cardNum=""</a> <a href="card.htm" title="Click to go to the cardRep attribute." alt="Click to go to the cardRep attribute.">cardRep=""</a> <a href="card.htm" class="ExpandoAttributes" title="Click to go to the reqType attribute." alt="Click to go to the reqType attribute.">reqType=""</a>&gt;</p>
+                            <p class="Code6">&lt;<a href="block1.htm" title="Click to go to the block element." alt="Click to go to the block element." class="ExpandoAttributes">block</a> <a href="block1.htm#cardRep" class="ExpandoAttributes" title="Click to go to the cardRep attribute." alt="Click to go to the cardRep attribute.">cardRep=""</a>/&gt;</p>
+                            <p class="Code5">&lt;/card&gt;</p>
+                            <p class="Code5">&lt;<a href="postCard.htm" class="ExpandoAttributes" title="Click to go to the postCard element." alt="Click to go to the postCard element.">postCard</a>&gt;</p>
+                            <p class="Code6">&lt;<a href="block1.htm" title="Click to go to the block element." alt="Click to go to the block element." class="ExpandoAttributes">block</a> <a href="block1.htm#regNum" title="Click to go to the regNum attribute." alt="Click to go to the regNum attribute.">regNum_singleCard=""</a> <a href="block1.htm#regNum" title="Click to go to the regNum attribute." alt="Click to go to the regNum attribute.">regNum_multipleCard=""</a>/&gt;</p>
+                            <p class="Code5">&lt;/postCard&gt;</p>
+                            <p class="Code4">&lt;/cardBlocks&gt;</p>
+                            <p class="Code4">&lt;<a href="uccRecvParms uccSendParms Elements.htm" title="Click to go to the uccRecvParms element." alt="Click to go to the uccRecvParms element.">uccRecvParms</a>&gt;</p>
+                            <p class="Code5">&lt;<a href="RecParmName SendParmName Elements.htm" title="Click to go to the RecParmName element." alt="Click to go to the RecParmName element.">RecParmName</a>/&gt;</p>
+                            <p class="Code4">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;/DataGroup&gt;</p>
+                            <p class="Code2">&lt;/dataGroups&gt;</p>
+                            <p class="Code">&lt;/deviceDefinition&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToCreate"></a>To Create a Dynagraph Card Data Group</p>
+        <ol>
+            <li value="1">Using a text editor or XML editor, open the device template file to which you want to add a dynagraph data group. You might need to extract the device template file from a Device Definition Service (DDS) in order to edit it.<ol style="list-style-type: lower-alpha;"><li value="1">In the <a href="deviceDefinition Element.htm">deviceDefinition</a> element of your template, add the attribute <a href="deviceDefinition Element.htm#class">class</a> and set its value to <b>POC</b>. Doing so defines this template as a pump-off controller template.</li><li value="2">Define a <a href="DataGroup Element.htm"><i>DataGroup</i></a> element for the "Dynagraph Card" data group. Add the attribute <a href="DataGroup Element.htm#hasArray">hasArray</a> and set its value to <b>true</b>.</li><li value="3">Define a <a href="dgElements Element.htm">dgElements</a> element that includes all required data group element IDs. <b>StrokeLen</b> is always required. See the examples above for others. Data group element IDs that start with S are required for support of a surface card. Data group element IDs  that start with D are required for support of a downhole card.</li><li value="4">Define a <a href="cardBlocks.htm">cardBlocks</a> element for each card type supported.</li><li value="5">Define the applicable number of <a href="card.htm">card</a> elements for each <b>cardBlocks</b> element.</li><li value="6">Define <a href="block1.htm">block</a> elements for each <b>card</b> element.</li><li value="7">If required by your device, define <a href="preCard.htm">preCard</a> and/or <a href="postCard.htm">postCard</a> elements.</li><li value="8">If required by your device, define <b>block</b> elements for each <b>preCard</b> and/or <b>postCard</b> element.</li><li value="9">If required by your device, define a <a href="uccRecvParms uccSendParms Elements.htm">uccRecvParms</a> element and child <a href="RecParmName SendParmName Elements.htm">RecParmName</a> element.</li></ol></li>
+            <li value="2">Save your edits.</li>
+            <li value="3">Validate the template, then load it to the applicable DDS. See <a href="../Devices/CygNet Device Template Manager Utility.htm">CygNet Device Template Manager Utility</a>.</li>
+            <li value="4">From the applicable DDS, poll the affected device to test data retrieval and confirm that the data group works as expected.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

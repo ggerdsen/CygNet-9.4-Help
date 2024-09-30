@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Link">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Publishing CygNet Data to the MQTT Server</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Link.htm">Link</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Publishing Data</span>
+        </div>
+        <h2>Publishing CygNet Data to the MQTT Server
+</h2>
+        <p>Link is the service that sends data to an MQTT server. Different types of CygNet data can be published by Link.</p>
+        <h3>Publishing Realtime Point Data</h3>
+        <p>When configured to publish realtime point data from a CygNet UIS service, Link will continually poll the UIS service based on the polling frequency configured for each provided point tag. On each poll, if the point value, point type, or primary units have changed since the last poll, or if the Link service has never polled the point previously, Link will publish the point value and metadata to all connected endpoints.
+</p>
+        <h3>Publishing DynaCard Data</h3>
+        <p>DynaCard data can be published from both the DDS and VHS. Link will continually poll the VHS or DDS service based on the polling frequency configured for each provided DynaCard. On the initial poll, only DynaCards that were stored within the specified time for the <a href="Configuring Link.htm#defaultPollingFreq">defaultPollingFreq</a> of the endpoint will be published.   On subsequent polls, only new DynaCards since the last poll will be published. If new DynaCard points are added to the PNT service while Link is running, Link will query the PNT service at the frequency specified by the <a href="Configuring Link.htm#pointDiscoveryFreq">pointDiscoveryFreq</a> option of the VHS endpoint.  Once these new DynaCard points are discovered, the VHS will begin to publish their values.</p>
+        <p>This behavior is also true for a Link service restart. If Link is stopped for an extended time period and CygNet / Foresite continue to store DynaCards, the stored cards will be published when Link restarts. To return to the initial polling state, a user can delete the Link metadata prior to restarting the service.</p>
+        <h3>Topics and Payloads</h3>
+        <p>In MQTT, a topic is a string identifier that categorizes, identifies, or describes the data and is used by the MQTT server to filter messages for each connected client. The payload is the actual message content. Payload data is a simple array of bytes. Metrics are published only when they have changed since the last time of publication.
+</p>
+        <p>Topics and payloads will differ according to the <a href="Configuring Link.htm#dataFormat">dataFormat</a> <b>type</b> specified in the appsettings file.</p>
+        <h4>Using Sparkplug Format for CygNet Data</h4>
+        <p>Connect a CygNet endpoint to a Sparkplug endpoint to publish data to an MQTT server using the Sparkplug format. For more information about the Sparkplug specification, refer to the <a href="https://s3.amazonaws.com/cirrus-link-com/Sparkplug+Topic+Namespace+and+State+ManagementV2.1+Apendix++Payload+B+format.pdf" target="_blank">Sparkplug Specification</a> document online.</p>
+        <p>Link constructs MQTT topics for  data using the following Sparkplug specification model:</p>
+        <table class="Code" summary="Sparkplug specification model">
+            <col />
+            <tr>
+                <td>
+                    <p class="Code">spBv1.0/&lt;groupId&gt;/&lt;message_type&gt;/&lt;gatewayNodeId&gt;/&lt;facilityId&gt; </p>
+                </td>
+            </tr>
+        </table>
+        <p>where &lt;groupId&gt; and &lt;gatewayNodeId&gt; refer to the corresponding properties in the appsettings.gateway.json file, and &lt;facilityId&gt; refers to the facility ID portion of the point tag being polled.</p>
+        <p>The Sparkplug format supports node and device rebirth using the NCMD and DCMD message type (&lt;message_type&gt; in the Sparkplug specification model). The payload must contain the correct metric name for rebirth ("Node Control/Rebirth" or "Device Control/Rebirth"). See the <a href="https://s3.amazonaws.com/cirrus-link-com/Sparkplug+Topic+Namespace+and+State+ManagementV2.1+Apendix++Payload+B+format.pdf" target="_blank">Sparkplug Specification</a> document for additional details.</p>
+        <p>The following is an example of an MQTT Sparkplug payload decoded to json format for a realtime data poll of two UDCs (ACC00 and ACC01):</p>
+        <table class="Code" summary="MQTT Sparkplug payload decoded to json">
+            <col />
+            <tr>
+                <td>
+                    <p class="Code"> {</p>
+                    <p class="Code2">"timestamp":1539791916341,</p>
+                    <p class="Code2">"metrics":[{</p>
+                    <p class="Code3">"name":"ACC00",</p>
+                    <p class="Code3">"timestamp":1539791878101,</p>
+                    <p class="Code3">"dataType":"String",</p>
+                    <p class="Code3">"properties":{"Unit":{"type":"String","value":""}},</p>
+                    <p class="Code3">"value":"My point value"</p>
+                    <p class="Code2">},{</p>
+                    <p class="Code3">"name":"ACC01",</p>
+                    <p class="Code3">"timestamp":1539791894655,</p>
+                    <p class="Code3">"dataType":"Double",</p>
+                    <p class="Code3">"properties":{"Unit":{"type":"String","value":"m3"}},</p>
+                    <p class="Code3">"value":45.247</p>
+                    <p class="Code2">}],</p>
+                    <p class="Code2">"seq":1</p>
+                    <p class="Code">}
+</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="Payload"></a>Payload Compression</p>
+        <p>When the <b>compression</b> setting for a Sparkplug endpoint in the appsettings.gateway.json file is set to a value other than "none", Link will compress the payload using the specified format.  Link will then package the compressed data into the body of the payload and append information to describe the content, as shown in the following example:</p>
+        <table class="Code" summary="compressed data">
+            <col />
+            <tr>
+                <td>
+                    <p class="Code"> {</p>
+                    <p class="Code2">"timestamp":1548284403066,</p>
+                    <p class="Code2">"metrics": [{</p>
+                    <p class="Code3">"name": "CygNet/Type",</p>
+                    <p class="Code3">"dataType": "String",</p>
+                    <p class="Code3">"value": "Points/Current"</p>
+                    <p class="Code2">},{</p>
+                    <p class="Code3">"name": "algorithm",</p>
+                    <p class="Code3">"dataType": "String",</p>
+                    <p class="Code3">"value": "GZIP"</p>
+                    <p class="Code2">}],</p>
+                    <p class="Code2">"seq":2</p>
+                    <p class="Code2">"uuid": "SPBV1.0_COMPRESSED",</p>
+                    <p class="Code2">"body": "H4sIAJDeSlwA/+P4PWPBmg5dISEuVkdnZwMDibv7N6/u0FXgsmAEALKL9IobAAAA"</p>
+                    <p class="Code">}
+</p>
+                </td>
+            </tr>
+        </table>
+        <p class="very_small">&#160;</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The above example is a payload for the <b>compression</b> setting of "gzip".  If the <b>compression</b> setting is "zlib", the metric named "algorithm" will not be present, as zlib is the default compression format for Sparkplug.</p>
+        </div>
+        <h4>Using AWS Format</h4>
+        <p>Connect a CygNet endpoint to an AWS endpoint to publish data to an MQTT server using the AWS format.</p>
+        <p>Link constructs MQTT topics for  data using the following AWS format:</p>
+        <table class="Code" style="margin-left: 0;margin-right: auto;" summary="AWS format">
+            <col />
+            <tr>
+                <td>
+                    <p class="Code">&lt;groupId&gt;/&lt;gatewayNodeId&gt;/&lt;facilityId&gt; </p>
+                </td>
+            </tr>
+        </table>
+        <p>where &lt;groupId&gt; and &lt;gatewayNodeId&gt; refer to the corresponding properties in the appsettings.gateway.json file, and &lt;facilityId&gt; refers to the facility ID portion of the point tag being polled.</p>
+        <p>When using the AWS format, the payload is sent as a json string. </p>
+        <p>A command can be issued to Link to publish all current values, rather than only the values that have changed since the last poll.</p>
+        <p>To have Link publish all current values for all devices (facilityId) on the node, a command can be published to the topic &lt;groupId&gt;/&lt;gatewayNodeId&gt;/COMMAND with a payload similar to:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">{</p>
+                    <p class="Code2">"timestamp": &lt;Epoch ms&gt;,</p>
+                    <p class="Code2">"metrics": [{</p>
+                    <p class="Code3">"name":<span style="background-color: #b0c4de;"> "Node Control/Publish",</span></p>
+                    <p class="Code3">"timestamp": &lt;Epoch ms&gt;,</p>
+                    <p class="Code3">"dataType": "Boolean",</p>
+                    <p class="Code3">"value": false</p>
+                    <p class="Code2">}]</p>
+                    <p class="Code">}</p>
+                </td>
+            </tr>
+        </table>
+        <p>To have Link publish just for a single device (facilityId), a command can be published to the topic &lt;groupId&gt;/&lt;gatewayNodeId&gt;/&lt;facilityId&gt;/COMMAND with a payload similar to:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">{</p>
+                    <p class="Code2">"timestamp": &lt;Epoch ms&gt;,</p>
+                    <p class="Code2">"metrics": [{</p>
+                    <p class="Code3">"name": <span style="background-color: #b0c4de;">"Device Control/Publish",</span></p>
+                    <p class="Code3">"timestamp": &lt;Epoch ms&gt;,</p>
+                    <p class="Code3">"dataType": "Boolean",</p>
+                    <p class="Code3">"value": false</p>
+                    <p class="Code2">}]</p>
+                    <p class="Code">}</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Running File Import Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using an Import Definition File</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Running File Import Commands.htm">Running File Import Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using an Import Definition File</span>
+        </div>
+        <h2>Using an Import Definition File</h2>
+        <p>Use an import definition file to customize how .csv file data is imported into your system.  The process requires two files: the source data file (.csv) and the import definition file (.idf), which is referenced via the import command parameters. </p>
+        <p>The .idf file is an XML file that is used to define custom conditions for a .csv file import. Use an .idf file during the import process to set the data source to show whether the imported file contains raw data or not, to specify what columns are required for the import, to define or override units for specific items, or to customize column header names by mapping each default column header name (FMS enumeration value)  to a  new column header name (user-provided value).</p>
+        <p>For history import files, a file collection time can also optionally be defined using the .idf file, and data aggregation must be defined using the .idf file for certain conditions.</p>
+        <ul>
+            <li value="1">You must use an import definition file if you have opted not to specify a unit set in the command parameters.</li>
+            <li value="2">You must use an import definition file if you have columns in your history import .csv file for which both of the following are true.</li>
+        </ul>
+        <p>
+            <ul class="Circle">
+                <li value="1">Your imported records will be rolled down</li>
+                <li value="2">Your  history import file contains columns for the following data items.</li>
+            </ul>
+            <ul class="Square">
+                <li value="1">For  gas periodic history import files, columns for custom device data items (eFMS_PV_PQ_CUSTOM 1-5 or eFMS_PV_PM_CUSTOM 1-5)  or %Air (eFMS_PV_AIR).		</li>
+                <li value="2">For  ticket history import files, columns for custom device data items (eFMS_TICKET_CUSTOM*_STRING or eFMS_TICKET_CUSTOM*_FLOAT).		</li>
+            </ul>
+        </p>
+        <p>See the following configuration topics for more information about preparing and importing .csv files that may utilize an .idf file.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Configuring File Import Commands - Configuration CSV.htm">Configuring File Import Commands: Configuration CSV</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="Configuring File Import Commands - Gas Analysis CSV.htm">Configuring File Import Commands: Gas Analysis CSV</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="Configuring File Import Commands - Gas Quality CSV.htm">Configuring File Import Commands: Gas Quality CSV</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="Configuring File Import Commands - History CSV.htm">Configuring File Import Commands: History CSV</a>
+            </li>
+        </ul>
+        <h3>Setting Up Import File Folders</h3>
+        <p>If you will be performing more than one type of file import, a simple way to set up your import folders is to make parallel folders in your chosen directory location. Create a separate folder for each CSV file type you will be importing, and clearly name each folder to reflect the appropriate type of data (shown as Configuration, Gas_Analysis, History_Gas_Periodic, History_Ticket, and Send_Configuration in the example below). Each folder would then contain its own "Failed" sub-directory, "Processed" sub-directory, and a properly configured data-type-specific IDF file. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> For both History_Gas_Periodic and History_Ticket, you  would need to <a href="#Renaming" class="selected">rename the IDF</a> to <b>CxFmsImportCsvHistory.idf</b>.</p>
+        </div>
+        <p class="Example">Example</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Import_Definition_File_Directory.png" />
+        </p>
+        <h3><a name="Renaming"></a>Renaming a History Import Definition File (IDF) </h3>
+        <p>CygNet Measurement provides two separate samples  of history IDF files, one to be used for  gas periodic history data (CxFmsImportCsvHistoryGasPeriodic.idf) and one to be used for ticket history data (CxFmsImportCsvHistoryTicket.idf). In order for the service to find the file however, it must be titled <b>CxFmsImportCsvHistory.idf</b>, therefore the words "GasPeriodic" or "Ticket" must ultimately be deleted from your working IDF file name(s). </p>
+        <h3>Creating the Import Definition File (IDF) </h3>
+        <p>CygNet provides sample files you can adjust and use to create IDFs for new imports. Sample .idf files are located in the <b>CygNet\Services\FMS\ImportSamples</b> folder on your host server.</p>
+        <h4>General Import Definition File Requirements</h4>
+        <p>The following general requirements apply to Import Definition Files.</p>
+        <ul>
+            <li value="1">The IDF must be specifically named for the import file type, so that the service can find it by the expected name:</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1">The Configuration IDF must be named <b>CxFmsImportCsvConfig.idf</b>.</li>
+            <li value="2">The Gas Analysis IDF must be named <b>CxFmsImportCsvGasAnalysis.idf</b>.</li>
+            <li value="3">The Gas Quality IDF must be named <b>CxFmsImportCsvGasQuality.idf</b>.</li>
+            <li value="4">The History IDF must be named <b>CxFmsImportCsvHistory.idf</b>.<div class="Note"><p><span class="NoteHeading">Note:</span> Sample .idf files are provided for both gas periodic (CxFmsImportCsvHistory<b>GasPeriodic</b>.idf) and ticket (CxFmsImportCsvHistory<b>Ticket</b>.idf) data, but for either type you must <a href="#Renaming" class="selected">rename the file</a> to <b>CxFmsImportCsvHistory.idf</b> before it is used.</p></div></li>
+        </ul>
+        <ul>
+            <li value="1">The .csv file can be imported as a Device file or a User file, using the setting defined in the .idf file. Set the value of  <b>textFilesTrusted</b> equal to "true" to  import the .csv as a Device file (raw data). Set the value equal to "false" to import the .csv as a User file (not raw data).</li>
+            <li value="2">A new <b>ColumnMapping name</b> can be mapped to the default column name (the FMS enumeration string). Once the column is mapped, it will only be expected under the new name; the FMS enumeration name will no longer be recognized.</li>
+            <li value="3">Non-required columns that have a value in the source file, but are not listed in the .idf file, will use the default  <b>enum</b> column name. If a non-required column does not exist in the source file, the column will be skipped.</li>
+            <li value="4">Required columns, those for which <b>required="true"</b> in the .idf file, must have a value in the source file.  If a column required for the import does not exist in the source file, the import will fail. </li>
+        </ul>
+        <h4>Import Definition File Structure </h4>
+        <p>The structure of an .idf file for importing configuration data is shown in the following example.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FileImportDefinition textFilesTrusted="true"&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Device" enum="Device" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="DateTime" enum="ConfigDateTime" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="AGA3ExpRange" enum="eFMS_CFG_AGA3_EXPANDED_RANGE" required="true"&gt;</p>
+                    <p class="Code4">&lt;ValueMapping name= "Yes" enum= "eYESNO_YES"/&gt;</p>
+                    <p class="Code4">&lt;ValueMapping name= "No" enum= "eYESNO_NO"/&gt;</p>
+                    <p class="Code3">&lt;/ColumnMapping&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="RelativeDensity" enum="eFMS_CFG_RELATIVE_DENSITY" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Methane" enum="eFMS_CFG_METHANE" required="true" units="%"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Nitrogen" enum="eFMS_CFG_NITROGEN" required="true" units="%"/&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code">&lt;/FileImportDefinition&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The structure of an .idf file for importing gas periodic history data, using the fileCollectionTime property, is shown in the following example.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FileImportDefinition textFilesTrusted="false" fileCollectionTime="T-3"&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="DataNode" enum="Device" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="SampleDate" enum="BeginDateTime" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="PressDiff" enum="eFMS_PV_DIFF_PRESSURE" required="false"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="PressStatic" enum="eFMS_PV_LINE_PRESSURE" required="false"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Air%" enum="eFMS_PV_AIR" aggregation="Average" required="false"/&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code">&lt;/FileImportDefinition&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The structure of an .idf file for importing ticket history data, using the fileCollectionTime property, is shown in the following example.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FileImportDefinition textFilesTrusted="false" fileCollectionTime="T"&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Node" enum="Device" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="TicketDate" enum="TicketDateTime" required="true"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="TicketName" enum="eFMS_TICKET_NAME" required="false"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="TicketType" enum="eFMS_TICKET_DEVICE_TYPE" required="false"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="TransportType" enum="eFMS_TICKET_TRANSPORT_METHOD" required="false"/&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code">&lt;/FileImportDefinition&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Import Definition File  Elements</h4>
+        <p>The  following .idf file elements can be used to custom define  options in your configuration file import.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> XML elements used in .idf files are case sensitive, unless noted otherwise.</p>
+        </div>
+        <p>The <b>FileImportDefinition</b> element is the root element of the XML file. The properties of this element are as follows.</p>
+        <ul>
+            <li value="1"><b>textFilesTrusted</b> —defines whether or not the text files you are importing are trusted as a raw data source. Possible values are <b>="true"</b> (file trusted) or <b>="false"</b> (file not trusted). </li>
+            <li value="2"><b>fileCollectionTime</b> — for  history .csv imports (not applicable to configuration .csv imports), can optionally be used to define the collection date/time of the data file. If left blank,  the  value will default to the date/time of the file import. </li>
+        </ul>
+        <p>The <b>ColumnMapping</b> element defines each column header. The properties of this element are as follows.</p>
+        <ul>
+            <li value="1"><b>name</b> — the name of the column header as you want it to appear. The <b>ColumnMapping name</b> element is user defined.</li>
+            <li value="2"><b>enum</b> — the FMS enumeration  name, which appears as the column header name by default if not mapped otherwise. The <b>enum</b> elements are defined in FMS.  <p>See <a href="../EIEs - Remote Devices/FMS Configuration Items.htm">FMS Configuration Items</a>, <a href="../EIEs - Remote Devices/FMS History Items.htm">FMS History Items</a> and <a href="../EIEs - Remote Devices/FMS Ticket Items.htm">FMS Ticket Items</a> for more information about EFM data items.</p></li>
+            <li value="3"><b>required</b> — defines whether or not the column is required to have a value in the source data file in order to perform the import. Possible values are <b>="true"</b> (required) or <b>="false"</b> (not required). The <b>required</b> element is user defined. </li>
+            <li value="4"><b>units</b> - defines the units to be used for the enumerated item. This property can be used for either of the following purposes.<p><ul><li value="1">To override the units to use for specific items, even though a unit set has been specified as a command parameter</li><li value="2">To provide the units to use for each item requiring units, when no unit set has been specified as a command parameter		</li></ul></p></li>
+            <li value="5"><b>aggregation</b> — defines how the import data was aggregated, so that imported records can be rolled down. This element is required when both of the following circumstances are true. <p><ul><li value="1">Your imported records will be rolled down</li><li value="2">Your import file contains columns for custom device data items (eFMS_PV_PQ_CUSTOM 1-5, or eFMS_PV_PM_CUSTOM 1-5) or %Air (eFMS_PV_AIR)</li></ul></p><p>Possible values are <b>="Average"</b> or <b>="Sum"</b>. Acceptable values are case insensitive. Invalid values for this element will cause the import to fail.</p> <p>See <a href="Configuring Custom Device Data.htm">Configuring Custom Device Data</a> for more information about mapping custom device data items.</p></li>
+            <li value="6"><b>ValueMapping</b> — for certain columns (e.g. <i>HeatingValueBasis</i> in Gas Analysis IDFs, or <i>CalcMethodFPV</i> in Configuration IDFs), defines which enumeration values to map to given inputs, without inserting the numerical representation of the value type option; a meaningful user-defined name can optionally be entered and used instead of the supplied default name.<p class="Example"><b>Example</b></p><p class="Indent">When mapping <b>HeatingValueBasis</b> values for a Gas Analysis IDF, the numbers 1, 2, and 3 represent the value type options of Wet, Dry, and As delivered, respectively. Without looking these values up, you can specify either  Wet, Dry, or As delivered (the default name values), OR enter a user-defined term for each of these name values, and the correct heating value basis type will be inserted into the CSV file column.</p><p class="Indent">&lt;<b>ColumnMapping</b> name= "HeatingValueBasis"    enum= "eFMS_CFG_GAS_ANALYSIS_HEATING_VALUE_BASIS"   required="false"&gt;</p><p class="Indent2">&lt;<b>ValueMapping</b> name= "Dry <i>(or user-defined name)</i>"  enum= "eFMS_CFG_HEATING_VALUE_BASIS_DRY"&gt;</p><p class="Indent2">&lt;<b>ValueMapping</b> name= "Wet <i>(or user-defined name)</i>"  enum= "eFMS_CFG_HEATING_VALUE_BASIS_WET"&gt;</p><p class="Indent2">&lt;<b>ValueMapping</b> name= "As delivered <i>(or user-defined name)</i>"  enum= "eFMS_CFG_HEATING_VALUE_BASIS_AS_DELIVERED"&gt;</p><p class="Indent">&lt;/<b>ColumnMapping</b>&gt;</p></li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

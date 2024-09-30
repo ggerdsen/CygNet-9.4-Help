@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarms Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Alarms Overview</span>
+        </div>
+        <h2>Alarms Overview</h2>
+        <p>Alarms in CygNet involve five services:</p>
+        <ul>
+            <li value="1"><b>Common Alarm Service</b> (CAS) — This service is the repository for alarms</li>
+            <li value="2"><b>Point Service</b> (PNT) — This service stores alarm configuration information (setpoints, alarm reporting, alarm delay, and alarm deadband settings)</li>
+            <li value="3"><b>Alarm Event Logging Service</b> (ELSALM) — This service is the repository for alarm history</li>
+            <li value="4"><b>Current Value Service</b> (CVS) — This service retrieves the values for the points and sets/resets alarm bits</li>
+            <li value="5"><b>General Notification Service</b> (GNS) — This service stores and processes notification messages, which are triggered by the setting and clearing of alarm bits</li>
+        </ul>
+        <p>When a current value service, such as the Universal Interface Service (UIS), retrieves a value for a point, it checks the point’s configuration to find out: </p>
+        <ul>
+            <li value="1">if any alarm bits are enabled</li>
+            <li value="2">for those bits that are enabled, if the value meets or exceeds the alarm setpoint (also called its threshold)</li>
+            <li value="3">if alarms are to be reported to the CAS</li>
+            <li value="4">if the alarm bit triggers a notification from the GNS</li>
+            <li value="5">if there is an alarm delay and the amount</li>
+            <li value="6">the alarm priority and alarm priority category</li>
+            <li value="7">the alarm category</li>
+        </ul>
+        <p>If an alarm bit is enabled and the current value meets or exceeds the alarm setpoint, the CVS "sets" the alarm. If the alarm is to be reported to the CAS, the CVS sends an alarm record to the CAS after the delay period, if applicable, has expired. Once the CAS receives the alarm record, it sends the information to the ELSALM. The ELSALM is the repository for alarm history.</p>
+        <p>When the CVS determines that a point’s value no longer exceeds an alarm setpoint, it "resets" the alarm; that is, it clears the alarm bit. If the alarm has been reported to the CAS, the reset alarm will remain in the CAS, until it is cleared from the alarms table.</p>
+        <p>Unlike other SCADA systems, the CygNet <b>Common Alarm Service</b> is not an alarm event log, but more an alarm state reporting service.  If a point is in an alarm state, the CAS reports it as being in that state, until it is no longer in that state.  Any one point will display in the CAS either once, or not at all.  If the current value of a point is changed, which does not change the alarm condition being displayed in the CAS View control, the displayed timestamp of the CAS entry does not change because the time represents the first time the alarm condition was detected and has since not changed.  </p>
+        <h3>Alarm Workflow</h3>
+        <p>Click on the following diagram to see how alarms are processed in CygNet:</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0" summary="Alarm Workflow">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Alarms/CygNetAlarmProcessing.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="723" data-mc-height="1065" src="../../Resources/Images/Alarms/CygNetAlarmProcessing_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">CygNet Alarm Processing</td>
+            </tr>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring Alarms.htm" class="More">Configuring Alarms</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Viewing Alarms.htm" class="More">Viewing Alarms</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Alarm Types and Properties.htm" class="More">Alarm Types and Properties</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Alarm Calculation Types.htm" class="More">Alarm Calculation Types</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Alarm Reporting.htm" class="More">Alarm Reporting</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Alarm Priority Alarm Priority Category Alarm Category.htm" class="More">Alarm Priority, Alarm Priority Category, and Alarm Category</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Point State Status Bit Details.htm" class="More">Point State and Status Bit Details</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Alarm History.htm" class="More">Alarm History</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

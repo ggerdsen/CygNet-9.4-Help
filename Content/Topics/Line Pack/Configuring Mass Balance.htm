@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Line Pack|Configuring Line Pack">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Mass Balance</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Line Pack.htm">Line Pack</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Line Pack.htm">Configuring Line Pack</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Mass Balance</span>
+        </div>
+        <h2>Configuring Mass Balance</h2>
+        <p>The CygNet Line Pack engine can be configured to calculate real-time mass imbalance in a pipeline segment to assist pipeline controllers in detecting and localizing leaks. Mass imbalance can be calculated for any pipeline content types: natural gas, CO<span style="vertical-align: sub;">2</span>, and petroleum liquids. </p>
+        <p>The CygNet Line Pack calculation uses an enhanced mass balance method based on the principle of conservation of mass. In the steady state, the mass flow entering a leak-free pipeline segment (the inlet flow rate) will balance the mass flow leaving the pipeline segment (the outlet flow rate), and any drop in mass flow leaving the segment may indicate a leak. The formula used takes into account the change rate of the mass inventory of the pipeline segment (a change in line pack mass).</p>
+        <p>Specifically, when a volume flow rate value is used for a segment’s inlet and/or outlet measurements, the segment’s material density, determined as part of the Line Pack calculations, can be used when converting the volume flow rate values to mass flow rate values. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The natural gas mass balance calculation requires the calculation of some additional intermediate values. See <a href="Line Pack UDCs Natural Gas.htm">Natural Gas UDCs</a> for more information.</p>
+        </div>
+        <p>See the <a href="Line Pack Formulas - Mass Balance.htm">Mass Balance Formula</a> for more information on the formula used to calculate the estimated mass imbalance.</p>
+        <p>Click the following image to see an enlarged sample <b>Mass Balance</b> page:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Line Pack/LP_Mass_Balance.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="604" data-mc-height="572" src="../../Resources/Images/Line Pack/LP_Mass_Balance_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Segment_Configuration" class="selected">Segment Configuration</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Configuring_Target_Segments" class="selected">Configuring Target Segments for Mass Balance</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Configuring_segments" class="selected">Configuring Inlet and Outlet Flows</a>
+                <ul class="Circle">
+                    <li class="HyperlinkList" value="1"><a href="#Add_from_segment" class="selected">Add an Inlet/Outlet from a Segment</a>
+                    </li>
+                    <li class="HyperlinkList" value="2"><a href="#Add_from_meter" class="selected">Add an Inlet/Outlet from a Meter</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h3><a name="Segment_Configuration"></a>Segment Configuration</h3>
+        <p>The <b>Mass Balance</b> page of the Line Pack editor is used to define segment requirements in terms of flow rate. The interface displays the same segments that are used in a line pack calculation, which must then be organized into branches (for example, interconnects or logical groupings). You then define the inlets and outlets for each segment, tying one segment to the next. Mass balance, unlike Line Pack, has a direction of flow, and the purpose of the configuration is to balance each segment, as segments flow into other segments, thus balancing a pipeline.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+            </p>
+            <p class="Note">Mass balance is not applicable to sub-segments, except that each line pack segment may consist of sub-segments, and the change in line pack calculation is included in the mass balance formula.</p>
+            <p class="Note">Mass balance can be calculated for disabled segments and offline sub-segments. In this case line pack will not be calculated but the mass balance calculation will run to check if inlet mass is equal to outlet mass at the flow meters.</p>
+            <p class="Note">If inlets and outlets are not configured then mass balance cannot be calculated. </p>
+            <p class="Note">A closed cycle is one that does not have a path (any path) to a stand-alone meter outlet (one that is not assigned as an inlet to another segment). Closed cycles will be reported as a warning, although the Line Pack device can be saved and calculations can occur.</p>
+        </div>
+        <p class="HeadingProcedure">To Configure Mass Balance</p>
+        <ol>
+            <li value="1">Click to <b>Enable mass balance calculations</b>.</li>
+            <li value="2"> Click <img src="../../Resources/Images/Shared Images/branch_add.png" class="Inline" title="Add branch" alt="Add branch" /> to add a new branch, as necessary. Edit (<img src="../../Resources/Images/Shared Images/branch_edit.png" class="Inline" title="Edit branch" alt="Edit branch" />) or delete (<img src="../../Resources/Images/Shared Images/branch_delete.png" class="Inline" title="Delete branch" alt="Delete branch" />) branches as required.</li>
+            <li value="3">Reorder the branches and segments as necessary to balance the pipeline using the context menu options or the Move up (<img src="../../Resources/Images/Shared Images/moveup_blue.png" class="Inline" />) and Move down (<img src="../../Resources/Images/Shared Images/movedown_blue.png" class="Inline" />) buttons.</li>
+            <li value="4">Specify the <b>Inlet</b> and <b>Outlet</b> flows for each segment. The inlet/outlet flows can be either: </li>
+        </ol>
+        <ul class="Circle">
+            <li value="1">a specific segment facility</li>
+        </ul>
+        <p class="Indent4">-OR- </p>
+        <ul class="Circle">
+            <li value="1">a flow rate meter point. Meters can be specified in terms of volume or mass flow rates. For volume flow rates a density value must be selected.</li>
+        </ul>
+        <p class="Indent2">Right-click each segment and select <b>Add inlet</b>, and then <b>Add outlet</b>, to configure. See <a href="#Configuring_segments" class="selected">Configuring Inlet and Outlet Flows</a> below for more detail.</p>
+        <ol start="5">
+            <li value="5">Double click each segment (or right-click and select <b>Edit segment...</b> or click <img src="../../Resources/Images/Shared Images/segment_edit.png" class="Inline" title="Edit segment" alt="Edit segment" />) to make <b>Activate</b> the segment, that is, to indicate whether this segment will be used in both Mass Balance AND Line Pack calculations. See <a href="#Edit_segment" class="selected">Edit segment...</a> below.</li>
+            <li value="6">Click <b>issues...</b> to view any configuration errors, as necessary. The <b>Mass Balance Issues</b> dialog box will give any configuration or driver errors that need to be resolved, such as: segment Facility IDs and/or points that do not exist, segment loops, unassigned segments, incomplete configuration (missing inlets or outlets to the segment), validation of configured points' units, etc. These errors will be reported in the calculation <a href="Configuring the Line Pack Device.htm#Transact">transaction log</a> with other Line Pack errors. Some errors are also reported to <a href="System UDCs.htm">statistics</a> points on the Line Pack device facility itself.</li>
+            <li value="7">Click <b>Refresh</b> to refresh the segment list with any missing segments or newly-added segments.</li>
+        </ol>
+        <p class="HeadingProcedure">To Execute a Mass Balance Calculation</p>
+        <p>Execute a calculation by sending a UIS command of the type <b>CALCULATE</b> ("Calculate") to the Line Pack driver. A second UIS command <b>VCALCULATE</b> ("Validate and calculate") can be issued to first <i>validate</i> segments, facilities, and points, and then perform the Line Pack and Mass Balance calculations. The recommended configuration is to initiate the CALCULATE command, and then if you know there are changes to the system, initiate the VCALCULATE command, and then repeat once an hour to make sure the Line Pack driver has the most up-to-date database entities in its cache.</p>
+        <p>These UIS commands can be scheduled via the <a href="../Scheduler/UIS Command Task.htm">MSS</a> or executed directly on the <a href="Configuring the Line Pack Device.htm">Device</a> page of the device editor.</p>
+        <h3><a name="Configuring_Target_Segments"></a>Configuring Target Segments for Mass Balance </h3>
+        <p>The upper portion of the <b>Mass Balance</b> page shows the target pipeline segment facilities  to be analyzed for mass imbalance. Use the buttons or context menu to reorganize your branches and segments as necessary, then specify the inlets and outlets as required.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0" summary="Mass Balance">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">
+                        <p colspan="2"><b>Columns</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><b>Branch</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>All segments must be assigned to a branch and configured with inlets and outlets in order for mass balance to be calculated.</p>
+                        <p>The default <b>(unassigned)</b> branch will contain any newly-added segments or segments that have been removed from the target list below. Mass balance calculations can be avoided for removed segments, although an  error is displayed saying no inlets and outlets are configured and hence the mass balance calculation will failed. Also note that line pack calculations <i>will</i> be performed for all segments regardless of mass balance configurations.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Segment Tag</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The facility tag string
+for the selected facility that represents a segment.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><b>Description</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The description for the selected facility.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Inlets</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The number of inlet flows to the selected segment. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This would normally be 1, as one segment typically flows into the next, but multiple inlets/outlets are allowed in the case at the boundary of an interconnect where you might have multiple flows coming into/out of a segment. For example, you might have a split in a pipeline where segment 2 might be an inlet for both segment 3 and segment 5. The Line Pack driver allows for this type of configuration.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><b>Outlets</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The number of outlet flows from the selected segment. See the note above regarding multiple inlets and outlets.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Active</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Indicates whether this segment will be used in both Mass Balance AND Line Pack calculations. </p>
+                        <ul class="table">
+                            <li value="1">Double click or right-click and select <b>Edit Segment...</b> to configure this setting for the selected segment. See <a href="#Edit_segment" class="selected">Edit segment...</a> below.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">
+                        <p><b>Context menu (and button) options</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Move up</b> (<img src="../../Resources/Images/Shared Images/moveup_blue.png" class="Inline" />)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Move the currently selected branch or segment up the list.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><b>Move down</b> (<img src="../../Resources/Images/Shared Images/movedown_blue.png" class="Inline" />)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Move the currently selected branch or segment down the list.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Move to branch </b>
+                            <img src="../../Resources/Images/Shared Images/right_arrow.png" class="Inline" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Move the currently selected segment to another branch in the list.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><b><a name="Edit_segment"></a>Edit segment ...</b> (<img src="../../Resources/Images/Shared Images/segment_edit.png" class="Inline" title="Edit segment" alt="Edit segment" />)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Edit the currently selected segment to indicate whether the segment will be used in both Mass Balance AND Line Pack calculations.</p>
+                        <p class="Indent">
+                            <img src="../../Resources/Images/Line Pack/LP_MB_Edit_Segment.png" title="Edit Mass Balance Segment" alt="Edit Mass Balance Segment" />
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Add inlet</b> <img src="../../Resources/Images/Shared Images/right_arrow.png" class="Inline" /></p>
+                        <p class="Indent"><b>Add outlet</b>
+                            <img src="../../Resources/Images/Shared Images/right_arrow.png" class="Inline" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to add an inlet or outlet to the selected segment. Two options are available:</p>
+                        <ul class="table">
+                            <li value="1"><b>from segments...</b> See <a href="#Add_from_segment" class="selected">Add an Inlet/Outlet from a Segment</a> below.</li>
+                            <li value="2"><b>from meters...</b> See <a href="#Add_from_meter" class="selected">Add an Inlet/Outlet Flow from a Meter</a> below.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><b>Add branch...</b> (<img src="../../Resources/Images/Shared Images/branch_add.png" class="Inline" title="Add branch" />)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Add a new branch.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><b>Edit branch...</b> (<img src="../../Resources/Images/Shared Images/branch_edit.png" class="Inline" title="Edit branch" alt="Edit branch" />)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Edit the currently selected branch.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p class="Indent"><b>Delete branch</b> (<img src="../../Resources/Images/Shared Images/branch_delete.png" class="Inline" title="Delete branch" alt="Delete branch" />)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Delete the currently selected branch. Any child segments in the branch will be moved to the (unassigned) branch.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Configuring_segments"></a>Configuring Inlet and Outlet Flows</h3>
+        <p>Directly below the target branches and segments list are two panes displaying the inlet and outlet flows that are assigned to each segment. Once properly configured you can easily see the complex flow relationships between segments:</p>
+        <ul>
+            <li value="1">The left pane lists the inlet flow (segment facilities and meters) that have been added to the selected  target segment.</li>
+            <li value="2">The right pane lists the outlet flow (segment facilities and meters) that have been added to the selected  target segment.</li>
+        </ul>
+        <p>Use the <b>Add</b>, <b>Edit</b>, and <b>Remove</b> buttons to configure the flows for each segment. </p>
+        <h4><a name="Add_from_segment"></a>Add an Inlet/Outlet from a Segment</h4>
+        <p>Click <b>Add</b> &gt; <b>From segments...</b> to add an available inlet/outlet segment facility to the selected target pipeline segment. This option is provided as a convenience since segment relationships, and their configured inlet or outlet points, may be easier to identify (for example, Segment 1 flows into Segment 2) than selecting individual flow meter points.</p>
+        <p>The <b>Add Inlet/Outlet From Segment</b> dialog box shows the following:</p>
+        <ul>
+            <li value="1">Selected target segment Facility ID and Description.</li>
+            <li value="2">A list of available inlet/outlet segments. Choose an inlet/outlet to add.</li>
+            <li value="3">The inlet/outlet that has been selected for addition.</li>
+            <li value="4">Click <b>OK</b> to add the inlet/outlet segment.</li>
+            <li value="5">You will be prompted to indicate if you want to connect segments (add the currently selected segment as an inlet/outlet for the previous/next segment). Click <b>Yes</b> if desired.</li>
+        </ul>
+        <p class="Indent">
+            <img src="../../Resources/Images/Line Pack/LP_MB_Add_Inlet_Outlet_Segment.png" title="Add Inlet Add Outlet" alt="Add Inlet Add Outlet" />
+        </p>
+        <h4><a name="Add_from_meter"></a>Add an Inlet/Outlet Flow from a Meter</h4>
+        <p>Click <b>Add</b> &gt; <b>From meters...</b> to add an inlet/outlet flow rate meter to the selected target pipeline segment. It may be more convenient to add an inlet or outlet flow rate point that has already been associated with a segment facility since segment relationships are often easy to identify (for example, Segment 1 flows into Segment 2).  If so, use the <a href="#Add_from_segment" class="selected">Add an Inlet/Outlet from a Segment</a> option instead.</p>
+        <p>The <b>Add Segment Inlet/Outlet Flow</b> dialog box shows the following:</p>
+        <ul>
+            <li value="1">Selected target segment Facility ID and Description.</li>
+            <li value="2"> Two flow rate options: <b>Volume flow rate</b> (combined with three density options) or <b>Mass flow rate</b>. Select the desired flow rate option for the inlet/outlet meter point, <b>volume</b> or <b>mass</b>.<ul class="Circle"><li value="1"><b>Volume flow rate</b> — Select a meter point UDC to use for the inlet/outlet. </li></ul><ul class="Square"><li value="1">Select a density option. The density option selected will be listed in the pane inlet/outlet pane (Density Specifier). See <a href="Line Pack Formulas - Mass Balance.htm#Density">Density Options</a> for more information.</li></ul></li>
+        </ul>
+        <p class="Indent4">
+            <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0" summary="Density Options">
+                <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-HelpTable2-Head-Header1">
+                        <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Density Option</th>
+                        <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-HelpTable2-Body-Body1">
+                        <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Use segment inlet/outlet density</b>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                            <p>This value is calculated using the <i>API 11.1 Base to Alternate</i> formula with alternate temperature and pressure as inlet/outlet temperature and pressure.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-HelpTable2-Body-Body2">
+                        <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b><a name="Average_Density"></a>Use segment average density</b>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                            <p>This value is calculated internally as part of the Line Pack calculation and written out to the <b>Last Segment Calc: Calculated Average Density</b> point. See this UDC on the <b>UDC Map</b> page (Optional Output UDCs) for each pipeline type.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-HelpTable2-Body-Body1">
+                        <td class="TableStyle-HelpTable2-BodyB-Column1-Body1"><b>Use other density</b>
+                        </td>
+                        <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                            <p>Select another user-defined segment density value.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <blockquote>
+            <ul class="Circle">
+                <li value="1"><b>Mass flow rate</b> — Select a meter point UDC to use for the inlet/outlet. </li>
+            </ul>
+        </blockquote>
+        <ul>
+            <li value="1">Click <b>OK</b> to add the meter to the segment.</li>
+            <li value="2">You will be prompted to indicate if you want to connect segments (add the currently selected meter as an inlet/outlet for the previous/next segment). Click <b>Yes</b> if desired.</li>
+        </ul>
+        <p class="Indent">
+            <img src="../../Resources/Images/Line Pack/LP_MB_Add_Inlet_Outlet_Meter.png" title="Add Segment Inlet Flow" alt="Add Segment Inlet Flow" />
+        </p>
+        <h4>Edit Inlet/Outlet Flows</h4>
+        <ul>
+            <li value="1">Click <b>Edit</b> (or double click an inlet/outlet) to replace a segment or meter for the selected target segment. Click <b>OK</b> to continue.</li>
+        </ul>
+        <h4>Remove Inlet/Outlet Flows</h4>
+        <ul>
+            <li value="1">Click <b>Remove</b> to remove a segment or meter from the selected target segment. Click <b>Yes</b> to confirm and continue.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Scripting in Canvas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Describes how to set up Navigation by Facility, which allows you to navigate to a specific screen by selecting a CygNet facility." /><title>Navigation by Facility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder10.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting_in_Canvas.htm">Scripting in Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Navigation by Facility</span>
+        </div>
+        <h2><a name="aanchor203"></a>
+            <MadCap:concept term="Canvas Controls;Canvas Scripting;Canvas Backstage" />Navigation by Facility</h2>
+        <p>The navigation by facility feature allows you to navigate to a specific screen by selecting a CygNet facility. You can also specify optional facility record properties to be included when the navigation is triggered. Several navigation modes are available depending on your desired usage:</p>
+        <ul>
+            <li value="1">hyperlink to a facility's associated screen in a new window</li>
+            <li value="2">hyperlink and replace the current screen with a facility's associated screen (with or without a navigation toolbar)</li>
+            <li value="3">notify any Navigator controls on the current screen to replace the active screen in the Navigator with a facility's associated screen (with or without a navigation toolbar)</li>
+            <li value="4">navigate to a facility screen by firing a screen script event</li>
+        </ul>
+        <p>Configuration of this feature is required in the <span class="GeneralProduct_Short">Canvas</span> global settings, in the facility record in your CygNet system, and in the <b>Facility navigation mode</b> property on the hyperlinking screen.</p>
+        <p>If navigation is handled by a script event other APIs must be invoked to implement the feature; those APIs are described below.</p>
+        <h3>Contents of this Topic</h3>
+        <p>See the following sections for more information about this feature:</p>
+        <ul>
+            <li value="1"><a href="#Canvas_Fac_Screen_Nav" class="selected"><span class="GeneralProduct_Short">Canvas</span> Facility Screen Navigation</a>
+            </li>
+            <li value="2"><a href="#CygNet_Fac_Attr" class="selected"><span class="GeneralSoftwareNameShort">CygNet</span> Facility Attribute</a>
+            </li>
+            <li value="3"><a href="#Screen_Nav_Mode" class="selected">Screen Navigation Mode</a>
+            </li>
+            <li value="4"><a href="#NavigateToScreenByFacility" class="selected">NavigateToScreenByFacility Method</a>
+            </li>
+            <li value="5"><a href="#NavigateByFacility" class="selected">NavigateByFacility Event</a>
+            </li>
+            <li value="6"><a href="#OpenedViaHyperlink" class="selected">OpenedViaHyperlink Event</a>
+            </li>
+            <li value="7"><a href="#Example" class="selected">Script Example</a>
+            </li>
+            <li value="8"><a href="#Other" class="selected">Other <span class="GeneralProduct_Short">Canvas</span> Usage of Navigation by Facility</a>
+            </li>
+        </ul>
+        <h3><a name="Canvas_Fac_Screen_Nav"></a><span class="GeneralProduct_Short">Canvas</span> Facility Screen Navigation</h3>
+        <p><span class="GeneralProduct_Short">Canvas</span> uses a facility attribute in the facility record to define the screen path to display when navigating by facility. You need to tell <span class="GeneralProduct_Short">Canvas</span> the facility attribute that contains the associated screen. This is configured on the <span class="GeneralProduct_Short">Canvas</span> global settings in the <a href="../Using_Canvas/Settings_Facility_Navigation.htm">Backstage</a> view. In the same dialog box, you can also configure other facility record properties to send along when the navigation is triggered.</p>
+        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />To configure the facility attribute and other optional facility record properties</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <ol>
+                    <li value="1">In the Backstage view, go to <b>Settings</b>, and click <b>Facility navigation </b><img src="../../Resources/Images/Buttons Icons/Facility_navigation_32.png" class="Inline" alt="Facility screen navigation" title="Facility screen navigation" /> to open the <b>Facility Navigation</b> dialog box.</li>
+                </ol>
+                <blockquote>
+                    <table style="margin-left: 0;margin-right: auto;" summary="Facility screen navigation configuration">
+                        <col />
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <p>
+                                        <img src="../../Resources/Images/Backstage/Settings_Facility_Navigation.png" title="Facility Navigation" alt="Facility Navigation" />
+                                    </p>
+                                    <p class="Caption">Facility navigation configuration</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </blockquote>
+                <ol start="2">
+                    <li value="2">Select the facility attribute previously configured in the facility record in the <b>Facility attribute with screen path</b> drop-down menu.</li>
+                    <li value="3">Optionally, select any other facility record properties that you want to send when the navigation is triggered.</li>
+                    <li value="4">Once the facility attribute is configured, click <b>OK</b> to save the configuration to the global settings file.</li>
+                    <li value="5">Or click <b>Cancel</b> to abort and close the <b>Facility Navigation</b> dialog box.</li>
+                </ol>
+            </div>
+        </div>
+        <h3><a name="CygNet_Fac_Attr"></a><span class="GeneralSoftwareNameShort">CygNet</span> Facility Attribute</h3>
+        <p>In order to navigate to a specified screen by selecting a <span class="GeneralSoftwareNameShort">CygNet</span> facility, the associated screen path must be configured in a facility attribute in the facility record for the facility. Select an unused text attribute that allows enough characters to specify the length of a screen file path, for example, attr20-attr26 allow 40 characters, attr27 allows 60 characters, or attr28 and attr29 allow 80 characters.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The <b>Navigate by Facility</b> feature only supports BSS-based screens; all linked screens must be stored on a BSS.</p>
+        </div>
+        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />To configure an associated screen in a facility attribute</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <ol>
+                    <li value="1">In CygNet Explorer select the Facility Service and locate the facility you wish to modify.</li>
+                    <li value="2">Right-click and select <b>Properties</b> to open the record for the facility.</li>
+                </ol>
+                <blockquote>
+                    <table style="margin-left: 0;margin-right: auto;" summary="Facility attribute configuration">
+                        <col />
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <p>
+                                        <img src="../../Resources/Images/General/NavigatebyFacilityAttribute.png" title="Facility Attribute configuration" alt="Facility Attribute configuration" />
+                                    </p>
+                                    <p class="Caption">Facility attribute configuration</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </blockquote>
+                <ol start="3">
+                    <li value="3">Select an available text attribute that allows enough characters to specify the length of a screen file path.</li>
+                    <li value="4">Click <b>Edit</b> to enable editing and double click the <b>Value</b> field for the attribute.</li>
+                    <li value="5">Type the full screen file path. The screen must be in a BSS.</li>
+                    <li value="6">Click <b>OK</b>, then <b>Save</b>, then <b>Close</b>.</li>
+                </ol>
+            </div>
+        </div>
+        <h3><a name="Screen_Nav_Mode"></a>Screen Navigation Mode (FacilityNavigationMode property)</h3>
+        <p>The <b>Facility navigation mode</b> (FacilityNavigationMode) property is included on the screen object to determine how a screen will handle a request to navigate to another screen via a facility. This property is used with the <a href="../Using_Canvas_Controls/Screen_Events.htm">NavigateByFacility</a> or <a href="../Using_Canvas_Controls/Screen_Events.htm">OpenedViaHyperlink</a> events to link to a facility's associated screen or replace a current screen in a Navigator control with a facility's associated screen. Click <img src="../../Resources/Images/Buttons Icons/Arrow_down.png" class="Inline" alt="Down arrow" title="Expand property" /> to reveal a drop-down menu of options:</p>
+        <ul>
+            <li value="1"><i style="font-weight: bold;">Script event</i> — <p>Fires a <a href="../Using_Canvas_Controls/Screen_Events.htm">NavigateByFacility</a> script event on the screen that provides the associated screen path, as well as any optional facility record properties, to send when this navigation is triggered. The EventArgs type for this event is: </p><table class="Code" summary="Code example"><tr><td><p class="Code">Canvas.Shared.Events.NavigateByFacilityEventArgs</p></td></tr></table><p>The associated screen path for the facility is configured in the facility record in CygNet Explorer. The screen path facility attribute, and any optional facility record properties to be included when this navigation is triggered, is configured in the <a href="../Using_Canvas/Settings_Facility_Navigation.htm">Backstage</a> view.</p></li>
+            <li value="2"><i style="font-weight: bold;">Hyperlink - Open</i> — Opens the facility's associated screen in a new window.</li>
+            <li value="3"><i style="font-weight: bold;">Hyperlink - Replace</i> — Replaces the current screen with the facility's associated screen.</li>
+            <li value="4"><i style="font-weight: bold;">Hyperlink - Replace with navigation</i> — Replaces the current screen with the facility's associated screen and adds a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a>. </li>
+            <li value="5"><i style="font-weight: bold;">Navigator - Replace</i> — Notifies any <a href="../Using_Canvas_Controls/Navigator.htm">Navigator</a> controls on the current screen to replace the active screen with the facility's associated screen.</li>
+            <li value="6"><i style="font-weight: bold;">Navigator - Replace with navigation</i> — Notifies any <a href="../Using_Canvas_Controls/Navigator.htm">Navigator</a> controls on the current screen to replace the active screen with the facility's associated screen and add a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a>.</li>
+        </ul>
+        <p>The default value is <i style="font-weight: bold;">Hyperlink - Open</i>.</p>
+        <h3><a name="NavigateToScreenByFacility"></a>NavigateToScreenByFacility method</h3>
+        <p>The <b>NavigateToScreenByFacility</b> method is included on the <a href="../Using_Canvas_Controls/Screen_Methods.htm">screen</a> object and allows you to navigate to a specific screen by selecting a CygNet facility. </p>
+        <p class="Example">Example</p>
+        <p>The script call is as follows:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">Objects.Screen.NavigateToScreenByFacility(facility);</p>
+                </td>
+            </tr>
+        </table>
+        <p>The correlation between a facility and its associated screen is done via a facility attribute. You will need to configure the facility attribute that references the associated screen in your CygNet system for each facility using CygNet Explorer.</p>
+        <h3><a name="NavigateByFacility"></a>NavigateByFacility event</h3>
+        <p>The <b>Navigate By Facility</b> event is called when the screen receives a request to navigate by a specific facility tag.</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">var argument = args as Canvas.Shared.Events.NavigateByFacilityEventArgs;</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="OpenedViaHyperlink"></a>OpenedViaHyperlink event</h3>
+        <p>Screens opened via a hyperlink (all options above except <i style="font-weight: bold; font-style: normal;">ScriptEvent</i>) must fire the <a href="../Using_Canvas_Controls/Screen_Events.htm">OpenedViaHyperlink</a> event on the screen object.</p>
+        <p>The hyperlinked screen should have its ambient facility set to the provided facility.</p>
+        <h3><a name="Example"></a>Script Example</h3>
+        <p>The data object in that method is a <code>Canvas.Shared.ViewModel.FacilityNavigationDetails</code> object that provides the facility, its associated screen, and any optional properties:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public class FacilityNavigationDetails</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">public FacilityTag FacilityTag { get; set; }</p>
+                    <p class="Code2">public string ScreenPath { get; set; }</p>
+                    <p class="Code2">public Dictionary&lt;string, object&gt; OptionalProperties { get; set; } = new Dictionary&lt;string, object&gt;();</p>
+                    <p class="Code">}</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Other"></a>Other <span class="GeneralProduct_Short">Canvas</span> Usage of Navigation by Facility</h3>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder10.css');" summary="Other Usages of Navigation by Facility" class="TableStyle-NoBorder10" cellspacing="0">
+            <col class="TableStyle-NoBorder10-Column-Column1" />
+            <col class="TableStyle-NoBorder10-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder10-Body-Body1">
+                    <td class="TableStyle-NoBorder10-BodyB-Column1-Body1">
+                        <h4>Alarm Notifier</h4>
+                        <p>The Alarm Notifier uses navigation by facility to link to a facility's associated screen. The banner provides two links to related screens:</p>
+                        <ol>
+                            <li value="1"><b>Total unacknowledged alarms box</b> — You can link to a custom alarm screen from this box. Configuration for this link is done on the <a href="../Using_Canvas/Alarm_Notifier_Configuring.htm#Alarm_screen_file">Backstage</a> view.</li>
+                            <li value="2"><b>Individual alarm box</b> — You can link to a detail screen for an associated facility from each alarm box. Configuration for this link is done in the <span class="GeneralProduct_Short">Canvas</span> global settings and in the facility record in your CygNet system. See <a href="#Screen_Nav_Mode" class="selected">Screen Navigation Mode</a> for more information.</li>
+                        </ol>
+                        <p>The navigation mode for both links is determined by the <a href="../Using_Canvas_Controls/Screen_Properties.htm">Facility navigation mode</a> property setting on the screen displaying the Alarm Notifier. Any linked screens must be stored in the BSS.</p>
+                        <p>See <a href="../Alarms/Alarm_Notifier_Overview.htm">Alarm Notifier Overview</a> for more information.</p>
+                        <table style="margin-left: 0;margin-right: auto;" summary="Sample Alarm Notifer">
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/General/Alarm_Notifier_wLinks.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1100" data-mc-height="700" src="../../Resources/Images/General/Alarm_Notifier_wLinks_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                                        </p>
+                                        <p class="Caption">Click the thumbnail to see an Alarm Notifier<br />link to other associated screens</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="TableStyle-NoBorder10-BodyA-Column1-Body1">
+                        <h4>Search Box</h4>
+                        <p>The search box uses navigation by facility to link to a facility's associated screen using any of the navigation modes described above. The search box's <a href="../Using_Canvas_Controls/Search_Box_Properties.htm#SelectionAction">Selection action</a> property must be set to <i>Navigate</i>. Any linked screens must be stored in the BSS.</p>
+                        <p>See <a href="../Using_Canvas_Controls/Search_Box_Config.htm#Search_Navigate">To configure a search box to navigate to another screen</a> for information about this option. </p>
+                        <table style="margin-left: 0;margin-right: auto;" summary="Sample Alarm Notifer">
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Controls/Search_Navigation1.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="463" data-mc-height="578" src="../../Resources/Images/Controls/Search_Navigation1_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                                        </p>
+                                        <p class="Caption">Click the thumbnail to see a search box<br />sending a facility to an associated screen <br />via the <b>Hyperlink - Open</b> navigation mode</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

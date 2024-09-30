@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scheduler|Tasks">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>UIS Command Task</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Scheduler.htm">Scheduler</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Tasks.htm">Tasks</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">UIS Command Task</span>
+        </div>
+        <h2>UIS Command Task</h2>
+        <p>A UIS command task initiates a UIS command on a user-defined basis to one or more field devices. <a href="../EIEs - Remote Devices/UIS Commands.htm">UIS commands</a> must first be defined in the Device Definition Service (DDS); the MSS merely enables the choosing of specific ones to issue. The <b>Can Schedule</b> property of a UIS command must be selected in order for a command to be available for scheduling by means of the MSS. For more information, see <a href="../EIEs - Remote Devices/UIS Commands - Configuring a UIS Command.htm">Configuring a UIS Command</a>.</p>
+        <p>The <b>UIS Command Task</b> property sheet enables you to specify the parameters by which a UIS command task resolves. A defined task resolves to the specified parameters and UIS service. In addition to set schedule polling where tasks are initiated on a predefined schedule, you can also set up polling to occur on a <a href="#Conditio" class="selected">conditional basis</a> and on a <a href="#Continuo" class="selected">continuous basis</a>.</p>
+        <p>The following diagram illustrates how UIS command tasks resolve to their respective remote devices:</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Scheduler/UIS_command_task.png" />
+        </p>
+        <p>For more information, see the subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ToConfigure" class="selected">To Configure a UIS Command Task</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#UIS2" class="selected">UIS Task Examples</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Basic" class="selected">Basic Polling Example</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Conditio" class="selected">Conditional Polling Example: Using Tag-Specific Values</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Continuo" class="selected">Conditional Polling Example: Adjusting the Comm Queue to Avoid Over-Polling</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#UIS" class="selected">UIS Command Task Properties</a>
+            </li>
+        </ul>
+        <p>See <a href="Scheduling a Task.htm">Scheduling a Task</a> for information about configuring the <b>Schedule</b> property sheet for a UIS command task.</p>
+        <p class="HeadingProcedure"><a name="ToConfigure"></a>To Configure a UIS Command Task</p>
+        <ol>
+            <li value="1">Once you have finished <a href="Scheduling a Task.htm">scheduling a task</a>, click the <b>UIS Command Task</b> page  to open the <b>UIS Command Task</b> property sheet.</li>
+            <li value="2">Select the relevant <a href="#UISService" class="selected">UIS</a>, <a href="#CmdType" class="selected">command type</a>, and <a href="#CmdPriority" class="selected">command priority</a>. If you require a <a href="#Status" class="selected">status UDC</a>, select one now as well.</li>
+            <li value="3">Define the device descriptor rules for the selected command type. These enable device filtering so that only relevant devices are affected by the selected command type. A useful description of the rule(s) generates in the <b>Description</b> field at the bottom of the <b>Device Descriptor(s)</b> field.<ol style="list-style-type: lower-alpha;"><li value="1">Select at least one <b>Parameter</b>. More may be specified in sequence if you require finer-tuned filtering than one parameter provides.</li><li value="2">Select the appropriate <b>Operator</b>.</li><li value="3">Enter the appropriate <b>Value</b>.</li><li value="4"><u>Optional</u>: Depending on <b>Parameter</b> selected, you can select a <a href="#TagType" class="selected">Tag Type</a>.</li><li value="5"><u>Optional</u>: If <b>Tag Type</b> is selected, select an available <a href="#TagID" class="selected">Tag ID</a>.</li></ol></li>
+            <li value="4">When you are finished defining rules, test the results by clicking <b>Resolve</b> and confirm that the results are what you expect. Results only reflect the rules defined by device descriptors; the task does not resolve to the command type.</li>
+            <li value="5">If you are finished defining your UIS command task, click <b>OK</b> to save your settings and exit.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="UIS2"></a>UIS Task Examples</h3>
+        <p>The following examples illustrate common ways to configure a UIS task.
+</p>
+        <h4><a name="Basic"></a>Basic Polling Example</h4>
+        <p>The following task shows that a <i>STATUS</i> command with <i>Low</i> priority is to be issued by the <i>CYGSITE3.UIS</i> service. The first <b>Device Descriptor</b> specifies all devices because <i>Device ID</i> uses a wildcard (*). The second <b>Device Descriptor</b> specifies a <i>Curr. Comm ID</i> value of "RADIO1". Because the logical operator used is <b>And</b>, all characteristics of both descriptors must be met. The result is that the task resolves to all devices that also have a current communication device ID of "RADIO1".</p>
+        <p>
+            <img src="../../Resources/Images/Scheduler/UIS_command_basic_example.png" />
+        </p>
+        <h4><a name="Conditio"></a>Conditional Polling Example: Using Tag-Specific Values</h4>
+        <p>Conditional polling enables you to create a polling schedule based on the value of a specific tag. Conditional polling must be set up in conjunction with either duration or interval polling (see <a href="Scheduling a Task.htm">Scheduling a Task</a>). Jobs are issued by duration or interval until a condition is met, then the appropriate task is executed in response to the condition. For example, if a poll is scheduled to run every 3 minutes and the conditional trigger for the poll is a high pressure, the job runs every three minutes but the task is only executed when the pressure becomes high.</p>
+        <p>The following task shows that a <i>STATUS</i> command with <i>High</i> priority is to be issued by the <i>CYGSITE3.UIS</i> service. The first <b>Device Descriptor</b> specifies all devices because <i>Device ID</i> uses a wildcard (*). The second <b>Device Descriptor</b> specifies a <i>Point Value</i> greater than or equal to 100 for the specified  <b>UDC</b> called <i>LTANK</i> (tank level). Because the logical operator used is <b>And</b>, all characteristics of both descriptors must be met. The result is that the job resolves to all devices that also have a UDC called LTANK, but a UIS command task is only issued if the point value for LTANK is equal to or greater than 100.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Scheduler/conditional_poll_example.png" />
+        </p>
+        <h4><a name="Continuo"></a>Conditional Polling Example: Adjusting the Comm Queue to Avoid Over-Polling</h4>
+        <p>Depending on your communication infrastructure, it is possible to schedule jobs to execute at a rate that is faster than your pending UIS communication queue can handle. This is <u>not</u> an optimal situation. For example, you might schedule a command to poll every 60 seconds but your pending communication queue is only able to issue commands every 70 seconds. Over time, your pending communication queue might back up and exhaust UIS memory.</p>
+        <p>An optimal solution is to adjust your MSS schedule to poll with enough time to fully execute a UIS command. But this is not always practical. Another way to solve this problem is to set up a condition that regulates the maximum number of tasks allowable at one time in a pending UIS communication queue. When the number of pending messages in the relevant pending communication queue is down to an acceptable level, an MSS task is issued to the queue. When the UIS executes the next command, the MSS can send yet another task. And so forth. If configured properly, this method of polling ensures that messages do not back up in a pending communication queue to a level that causes the UIS to exhaust its memory. However, it does mean that you are not truly polling on the schedule configured in your MSS task; you are polling at a rate the UIS communication device can handle.</p>
+        <p class="HeadingProcedure">To View Communication Statistics</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the relevant UIS.</li>
+            <li value="2">Click the <b>Comm Devices</b> page  and view relevant statistics in the service pane.</li>
+            <li value="3">Right-click the relevant communication device and select options from the context menu.</li>
+        </ol>
+        <p>For more information, see <a href="../Universal Interface Service/Universal Interface Service.htm">Universal Interface Service</a> and <a href="../Universal Interface Service/Comm Devices User Interface.htm#Values">Viewing Communication Statistics</a>.</p>
+        <p class="HeadingProcedure">To Adjust the Comm Queue to Avoid Over-Polling</p>
+        <ol>
+            <li value="1"><a name="step1"></a>Using CygNet Explorer, <a href="../Points/Point Config Mgr - Adding Points.htm">create a new point</a> in the Point Service (PNT).<ol style="list-style-type: lower-alpha;"><li value="1">In the <b>Facility ID</b> field, enter the relevant communication device facility.</li><li value="2">In the <b>Uniform Data Code</b> field, enter <a href="../Tables/UIS System UDCs.htm">SYCSPEND</a>. (The SYCSPEND value is the number of messages pending in a communication queue.)</li><li value="3">In the <b>Point Type</b> field, select <b>Analog Input</b>.</li></ol></li>
+            <li value="2">Using CygNet Explorer, open the relevant MSS.<ol style="list-style-type: lower-alpha;"><li value="1">On the <a href="Scheduling a Task.htm">Schedule</a> page, define an interval.</li><li value="2">On the <b>UIS Command Task</b> page, select the relevant UIS and command type.</li><li value="3">Define at least one descriptor to identify devices affected.</li><li value="4">Use another descriptor to define the condition by which polling should occur. Be sure to enter the long-point ID of the point you created in <a href="#step1" class="selected">step 1</a> above.</li><li value="5">Make any other required settings, then click <b>OK</b> to save and exit.</li></ol></li>
+            <li value="3">Test your results by issuing jobs from the MSS and confirming their success in the UIS. (A <a href="../CygNet Studio/Trend Tool.htm">Trend Tool</a> might be a useful way to monitor results.)</li>
+        </ol>
+        <p class="Example">Example</p>
+        <p class="Indent">The following task shows that a <i>STATUS</i> command with <i>Low</i> priority is to be issued by the <i>CYGSITE3.UIS</i> service. The first <b>Device Descriptor</b> specifies all devices because <i>Device ID</i> uses a wildcard (*). The second <b>Device Descriptor</b> specifies a <i>Point Value</i> less than 10 for the specified <b>long-point ID</b> called <i>COMDEV_SYCSPEND</i>. Because the logical operator used is <b>And</b>, all characteristics of both descriptors must be met. The result is that the job resolves to all devices that share a communication device called <i>COMDEV</i> and a <b>UDC</b> called <i>SYCSPEND</i>, but a UIS command task is only issued when the point value for <i>SYCSPEND</i> is less than 10.</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/Scheduler/continuous_polling_example.png" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="UIS"></a>UIS Command Task Properties</h3>
+        <p>The following table lists and describes properties of the <b>UIS Command Task</b> property sheet.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: bold;">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">[UIS Command Task Information]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><a name="UISService"></a><b>UIS Service</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The UIS service that will process the task.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><a name="CmdType"></a><b>Cmd Type</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The command type (name). A <a href="../EIEs - Remote Devices/UIS Commands.htm">command</a> in the DDS must have its <b>Can Schedule</b> option enabled or it will not be listed.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><a name="CmdPriority"></a><b>Cmd Priority</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The priority of a UIS command in the UIS communication message queue (CmdPriority). Cmd Priority options include:</p>
+                    <ul class="table">
+                        <li value="1"><b>Low</b> — the lowest priority</li>
+                        <li value="2"><b>Medium</b>
+                        </li>
+                        <li value="3"><b>High</b>
+                        </li>
+                        <li value="4"><b>User</b>
+                        </li>
+                        <li value="5"><b>Admin</b> — the highest priority</li>
+                    </ul>
+                    <p>Each higher priority trumps priorities lower than it. See <a href="../Universal Interface Service/Prioritizing Messages in the Queue.htm">Prioritizing Messages in the Communication Queue</a> for more information about command priority.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><a name="Status"></a><b>Status UDC</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this field to assign a status UDC to the UIS command task. Status monitoring affects the CygNet Studio <b>UIS Command Button</b> tool. See <a href="../CygNet Studio/UIS Command Button Tool Command Name.htm#Status">UIS Command Button</a>  for more information. This property is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">
+                    <p colspan="2"><b>Device Descriptor(s)</b>
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><b>Logical Operator</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select <b>And</b> or <b>Or</b> to define your use of search parameters.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><b>Resolve</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Once the <b>Device Descriptors</b> are defined, click <b>Resolve</b> to display a list of devices that match the <b>Descriptors</b>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><b>Parameter</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>Parameter</b> specifies an identifier by which to resolve a command.</p>
+                    <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-HelpTable2-Head-Header1">
+                                <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                                <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                                <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>&lt;none&gt;</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>No parameter is specified. This descriptor will not be used to resolve devices.</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">–</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Device ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The device ID.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Facility ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>The facility ID.</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Facility Type</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The facility type.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                                    <p>DEVICE or user-defined</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Facility Description</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">The facility description.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Facility Info0</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>The facility info attribute 0. The default name of this attribute in the metadata is "Facility Location".</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Facility Info1</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>The facility info attribute 1. The default name of this attribute in the metadata is "Facility Contact".</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Device Type</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The device type.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Short Point ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">The short point ID of a specified point.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Long Point ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The long point ID of a specified point.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Point Value</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>The value of a specified point. </p>
+                                    <div class="Note">
+                                        <p><span class="NoteHeading">Note:</span> Indicate the <a href="#TagType" class="selected">Tag Type</a>: Long Point ID, Short Point ID or UDC, and specify the <a href="#TagID" class="selected">Tag ID</a>.</p>
+                                    </div>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Point Desc</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>The description of a specified point.</p>
+                                    <div class="Note">
+                                        <p><span class="NoteHeading">Note:</span> Indicate the <a href="#TagType" class="selected">Tag Type</a>: Long Point ID, Short Point ID or UDC, and specify the <a href="#TagID" class="selected">Tag ID</a>.</p>
+                                    </div>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Point Status</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>The status of the point. Choose whether the point status is unreliable or has any individual alarm bits enabled.</p>
+                                    <div class="Note">
+                                        <p><span class="NoteHeading">Note:</span> Indicate the <a href="#TagType" class="selected">Tag Type</a>: Long Point ID, Short Point ID or UDC, and specify the <a href="#TagID" class="selected">Tag ID</a>.</p>
+                                    </div>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                                    <p>Unreliable or </p>
+                                    <p>Has Alarm Bits Set</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Timestamp</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>The timestamp for the specified point.</p>
+                                    <div class="Note">
+                                        <p><span class="NoteHeading">Note:</span> Indicate the <a href="#TagType" class="selected">Tag Type</a>: Long Point ID, Short Point ID or UDC, and specify the <a href="#TagID" class="selected">Tag ID</a>.</p>
+                                    </div>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Curr. Comm ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>The current active communication line.</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                                    <p>1 - Primary</p>
+                                    <p>2 - Device2</p>
+                                    <p>3 - </p>
+                                    <p>Device3</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Primary Comm ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The ID of the configured primary communication device.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Secondary Comm ID</td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">The ID of the configured secondary communication device.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Tertiary Comm ID</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The ID of the configured tertiary communication device.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Facility Is Active</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Indicates whether the associated facility is active.</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                                    <p>True or False</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Facility Category</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The category of the facility.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                                    <p>REMDEV</p>
+                                    <p>COMMDEV</p>
+                                    <p>DDSFAC</p>
+                                    <p>EXPDEV</p>
+                                    <p>GENFAC</p>
+                                    <p>SITE</p>
+                                    <p>SERVICE</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Facility Security App</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">The facility security application.</td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Attribute 0 - 29</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                    <p>Text attributes 0 through 29 </p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Table Attrib 0 - 29</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p>Table attributes 0 through 29 </p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                                    <p>Yes/No Attrib 0 - 19</p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                                    <p>Yes/No attributes 0 through 19 </p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">&#160;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><b>Operator</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select an available operator to define the relationship between a parameter and a value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><b>Value</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a user-defined value. The <b>Value</b> field is not case sensitive. The wildcards "*" and "?" can be used when specifying a <b>Value</b>: </p>
+                    <ul class="table">
+                        <li value="1">"*" is a multi-character wildcard </li>
+                        <li value="2">"?" is a single-character wildcard</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><a name="TagType"></a><b>Tag Type</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>Tag Type</b> buttons enable you to specify the type of tag that corresponds to the value entered in the <a href="#TagID" class="selected">Tag ID</a> field. Options are as follows:</p>
+                    <ul class="table">
+                        <li value="1">For Long ID</li>
+                        <li value="2">For Short ID</li>
+                        <li value="3">For UDC</li>
+                    </ul>
+                    <p>Simply click the <b>Tag Type</b> button to toggle between options.</p>
+                    <p>The <b>Tag Type</b> buttons only become available when used with the following <b>Parameter</b> values:</p>
+                    <ul class="table">
+                        <li value="1">Point Desc</li>
+                        <li value="2">Point Status</li>
+                        <li value="3">Point Value</li>
+                        <li value="4">Timestamp</li>
+                    </ul>
+                    <p>For more information, see <a href="#Conditio" class="selected">Conditional Polling Example</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><a name="TagID"></a><b>Tag ID</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>Tag ID</b> field enables you to specify a tag that corresponds to the selected <a href="#TagType" class="selected">Tag Type</a>. Click the <b>Browse</b> button to open the <b>Select Point</b> dialog box for a list of available tags in one of three formats; formats correspond to that selected by the <b>Tag Type</b> button.</p>
+                    <p>The <b>Tag ID</b> field only becomes available when used with the following <b>Parameter</b> values:</p>
+                    <ul class="table">
+                        <li value="1">Point Desc</li>
+                        <li value="2">Point Status</li>
+                        <li value="3">Point Value</li>
+                        <li value="4">Timestamp</li>
+                    </ul>
+                    <p>For more information, see <a href="#Conditio" class="selected">Conditional Polling Example</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><b>Description</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">An easy-to-read description of the descriptor rule(s) defined above.</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

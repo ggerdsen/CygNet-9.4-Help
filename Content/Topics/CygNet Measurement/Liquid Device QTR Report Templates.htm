@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|Using CygNet Measurement|Reports|Report Template Files">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Liquid Device QTR Report Templates</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet Measurement.htm">Using CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Running FMS Reports.htm">Reports</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Report Template Files.htm">Report Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Liquid Device QTR</span>
+        </div>
+        <h2>Liquid Device QTR Report Templates</h2>
+        <p>Liquid Device QTR report templates contain a <b>ReportDefinition</b> page and a <b>ReportSheet</b> page, that together describe the reports you can produce.  CygNet provides a sample report template file <b>DeviceLiqQtrTemplate.xlsx</b> for reference. It is stored in the <b>CygNet\Services\FMS\ReportTemplates\Samples</b> folder on your host server.</p>
+        <p>The <a href="#Configur" class="selected">ReportDefinition</a> sheet includes the following parameters to describe the type of report to build. </p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ReportParameters" class="selected">ReportParameters</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Worksheet" class="selected">Worksheet</a>
+            </li>
+        </ul>
+        <p>The <a href="#Configur2" class="selected">ReportSheet</a> sheet includes  the following sections and corresponding tokens to describe the specific format of the report to build. Valid tokens will be replaced by the values they represent. You may also include additional information you wish to see in the report.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Device2" class="selected">Header</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Device3" class="selected">SubReport Header</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Device5" class="selected">Data Table Header</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Device6" class="selected">Data Table</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Device4" class="selected">SubReport Footer</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Device" class="selected">Report Footer</a>
+            </li>
+        </ul>
+        <h3>Displaying Additional (Non-Token) Values</h3>
+        <p>You can enter additional (non-token) elements such as logos, labels, or text into reports. Elements that are not valid token values will be displayed as entered.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This means that tokens with typographical errors, therefore not "valid" tokens, will also be displayed as entered.</p>
+        </div>
+        <p class="Example">Example</p>
+        <p class="Indent"><b>[Volume]</b> is a valid token. If you  use <b>[Vol]</b> (not a valid token) instead of <b>[Volume]</b>, the value will be displayed as  "<b>[Vol]</b>" instead of displaying the volume value desired, since <b>[Vol]</b> is not a valid token.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b>[Vol]</b>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <h3>Displaying Beginning or Ending Values for a Record</h3>
+        <p>Data item tokens have variants you can use to display the beginning or ending values for a record. Append <b>_Begin</b> to the token text to show the beginning value for the record period. Append <b>_End</b> to the token text to show the ending value for the record period. You can then view data values or configuration settings in effect at either the beginning or end of each record span (e.g. hourly, daily) as desired. If neither <b>_Begin</b> nor <b>_End</b> is appended, the default is the ending value for the record.</p>
+        <h3><a name="Configur"></a>Configuring the ReportDefinition</h3>
+        <p>The <b>ReportDefinition</b> uses parameters to describe the type of report  for the service to build. The following parameters determine the described characteristics of your report.</p>
+        <h4><a name="ReportParameters"></a>Liquid Device QTR Report: ReportParameters</h4>
+        <p>Report parameters, which appear between <b>#ReportParameters#</b> and <b>#End#</b>, can be defined by the following values.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ReportName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used for the report name, as it will appear in drop-down menus in FMS Explorer and CygNet Explorer.</p>
+                    <p>See <a href="Using the Reports Control.htm">Using the Reports Control</a> and <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to be used for the report name. </p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">Liquid Device QTR</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CommandName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used by the service to determine which specific report command type to execute.</p>
+                    <p>See <a href="../Scripting/CxFms FmsClient Methods.htm#SendFmsC">FMSClient Methods</a> in the Scripting section for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to specify the report command name.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">LDQTR</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Maximum of 7 characters; letters or numbers only, no spaces.</p>
+                    </div>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Worksheet"></a>Liquid Device QTR Report: Worksheet Parameters</h4>
+        <p>Liquid Device QTR report worksheet parameters, which appear between <b>#Worksheet#</b> and <b>#End#</b>, can be defined by the following values.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>ReportType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to represent the standard FMS report type you are configuring.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to be used to indicate the type of the report.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">Device QTR</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>NullToken</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to represent null values in your report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to be used to indicate a "null value" cell in the report. </p>
+                    <p class="Example">Example</p>
+                    <p class="Indent"><b>-</b>
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>RecordSpan</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to specify  the record span format for the report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter one of the following options.</p>
+                    <ul class="table">
+                        <li value="1"><b>Native</b>
+                        </li>
+                        <li value="2"><b>Hour</b>
+                        </li>
+                        <li value="3"><b>Day</b>
+                        </li>
+                        <li value="4"><b>Month</b>
+                        </li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                        <p class="TableNote">For devices with contract hour values other than <b>0</b>, reports  with record spans of <b>Day</b> or <b>Month</b> will begin at the contract hour, not at 00:00:00 (midnight).</p>
+                        <p class="TableNote">The report will only include records that exist entirely within the specified date range.</p>
+                    </div>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PageBreaks</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Superseded by the SpanPageBreaks parameter, if its value is set to Yes</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to specify whether or not to use page breaks in your report. </p>
+                    <p>If used, will force a page break after each device within a group.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to indicate whether or not to use page breaks in the report.</p>
+                    <p>Options are <b>Yes</b> or <b>No</b>.</p>
+                    <p>Default value is Yes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SpanPageBreaks</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If set to Yes, supersedes the PageBreaks parameter</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to specify whether or not to use page breaks in your report corresponding to the device record span. </p>
+                    <p>If used, will force a page break after each day for hourly records, after each month for daily records, or after each year for monthly records.</p>
+                    <p>Each additional page break will display new SubReport and Data Table headers/footers using span-appropriate data.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to indicate whether or not to use page breaks in the report that relate to the device record span.</p>
+                    <p>Options are <b>Yes</b> or <b>No</b>.</p>
+                    <p>Default value is No.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>MixedValueToken</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value  defined in this cell will be used to represent mixed values in your report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter a value to be used to indicate a "mixed value" cell in the report.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">[Mixed]</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="NoCmdGroupToken"></a>NoCmdGroupToken</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used in your report to represent the value for the Group name or Group description fields when either of the following is true.</p>
+                    <ul class="table">
+                        <li value="1">command is not run against a group Node</li>
+                        <li value="2">command is run against multiple group Nodes</li>
+                    </ul>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a value to be used to indicate the Group name or Group description when the command was not run against  a single group Node.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">[Invalid Group]</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>NodeSortOrder</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value defined in this cell will be used to specify the order in which to display Node results in the report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enter one of the following options.</p>
+                    <ul class="table">
+                        <li value="1">Name ascending</li>
+                        <li value="2">Description ascending</li>
+                        <li value="3">Name descending</li>
+                        <li value="4">Description descending</li>
+                    </ul>
+                    <p>Default value is Name ascending.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>DeviceType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value defined in this cell will be used to represent the device type you are including in the report.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter one of the following options.</p>
+                    <ul class="table">
+                        <li value="1">Gas<b>*</b></li>
+                        <li value="2"><b>Liquid</b>
+                        </li>
+                    </ul>
+                    <p><b>*</b>For this report, the value must be Liquid.</p>
+                    <p>See <a href="Gas Device QTR Report Templates.htm">(Gas) Device QTR Report Templates</a> for information about configuring a Device QTR report template for gas devices.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>RptStDate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you use this parameter in your report template, the RptStDate parameter will no longer appear for configuration in FMS Explorer or CygNet Explorer. </p>
+                    </div>
+                    <p>See <a href="Gas Device QTR Report Definitions.htm">Liquid Device QTR  Report Definitions</a> (FMS Explorer) or <a href="Command Parameters - Build Report - Device QTR.htm">Reports: Liquid Device QTR </a> (CygNet Explorer) for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, enter a valid start date value for the report. </p>
+                    <p> RptStDate and RptEndDate must be the same configuration parameter type.
+				</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                        <p class="TableNote">The report will display data in <b>Device</b> time (D), although the report command parameters are configured relative to Contract time (C).</p>
+                        <p class="TableNote">The report will only include records that exist entirely within the specified date range.</p>
+                    </div>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>RptEndDate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you use this parameter in your report template, the RptEndDate parameter will no longer appear for configuration in FMS Explorer or CygNet Explorer. </p>
+                    </div>
+                    <p>See <a href="Gas Device QTR Report Definitions.htm">Liquid Device QTR  Report Definitions</a> (FMS Explorer) or <a href="Command Parameters - Build Report - Device QTR.htm">Reports: Liquid Device QTR </a> (CygNet Explorer) for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If used, enter a valid end date value for the report.</p>
+                    <p> RptStDate and RptEndDate must be the same configuration parameter type.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                        <p class="TableNote">The report will display data in <b>Device</b> time (D), although the report command parameters are configured relative to Contract time (C).</p>
+                        <p class="TableNote">The report will only include records that exist entirely within the specified date range.</p>
+                    </div>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>RptUnitSet</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If you use this parameter in your report template, the RptUnitSet parameter will no longer appear for configuration in FMS Explorer or CygNet Explorer. </p>
+                    </div>
+                    <p>See <a href="Gas Device QTR Report Definitions.htm">Liquid Device QTR  Report Definitions</a> (FMS Explorer) or <a href="Command Parameters - Build Report - Device QTR.htm">Reports: Liquid Device QTR </a> (CygNet Explorer) for more information.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, enter a valid unit set value for the report.</p>
+                    <p>Valid unit set values defined in the service can be viewed through the Admin menu in FMS Explorer. </p>
+                    <p>See <a href="Configuring Unit Set Definitions.htm">Configuring Unit Set Definitions</a> for more information.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Configur2"></a>Configuring the ReportSheet</h3>
+        <p>The <b>ReportSheet</b> uses tokens to describe the format of the report  you want to run. The following tokens determine the report content, and will retrieve the corresponding values for display in your report.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Enter report tokens carefully, as the tokens are case sensitive. Typographical errors (therefore not "valid" tokens) will be handled as "additional values" and displayed as entered; the non-token value will appear in your report instead of the actual value(s)  the correctly entered token would have retrieved. See <b>Displaying Additional (Non-Token) Values</b> above for more information.</p>
+        </div>
+        <h4><a name="Device2"></a>Liquid Device QTR  Report: Header Tokens</h4>
+        <p>Liquid Device QTR  report headers, which appear above <b>#EndReportHdr#</b>, can be described by the following tokens.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[BeginDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Start date, in Contract day (C), of the requested time range for the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[EndDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">End date, in Contract day (C), of the requested time range for the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CmdGroupName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Name of the group Node against which the command was run, if applicable<p>See also <a href="#NoCmdGroupToken" class="selected">NoCmdGroupToken</a> parameter.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CmdGroupDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Description of the group Node against which the command was run, if applicable<p>See also <a href="#NoCmdGroupToken" class="selected">NoCmdGroupToken</a> parameter.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GeneratedDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Time the report was generated, in Local time (L)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Total number of devices in the report</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device3"></a>Liquid Device QTR  Report: SubReport Header Tokens</h4>
+        <p>Liquid Device QTR  report  subreport headers, which appear between <b>#SubSection# SubReportHeader</b> and <b>#End#</b>, can be described by the following  tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">General Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Current row number</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[DeviceType]<p>[DeviceType_Begin]
+</p><p>[DeviceType_End]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Type of device<div class="Note"><p><span class="NoteHeading">Note:</span> This token can be inserted in an Excel formula that uses the device type value returned to determine whether pressure or pulse data will be shown in the data table, and displays the corresponding label in the column header.</p></div></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CurrentDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Index of the device being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Total number of devices in the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeContractHour]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Contract hour of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeDaysOfData]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Number of days for which the data source of the Node will retain data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeInstallDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Install date/time for the Node, in Device time (D) </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility ID of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingFacilityTag]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility tag of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeSecurityApp]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Security application of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeSortPriority]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Sort priority of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeTimezone]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Time zone configured for the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeTimezoneUsingDst]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Daylight saving time status of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeType]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RecordSpan]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Number of minutes in the record span</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Attr0] - <p>[PollingFac_Attr29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility indexed text attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Category]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility category</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Desc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Info0]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility info attribute 0<p>Default attribute name is Facility Location</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Info1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility  info attribute 1<p>Default attribute name is Facility Contact</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_IsActive]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility active flag</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Table0] - <p>[PollingFac_Table29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility indexed table attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Type]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_YesNo0] - <p>[PollingFac_YesNo19]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility indexed Yes/No attributes 0 through 19 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2" style="font-weight: bold;">Units Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[FlowRate_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for flow rate data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[FlowTime_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for flow time data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[KFactorMass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for K factor mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[KFactorVolume_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for K factor volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Mass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for mass data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DensityPressure_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for density pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[DensityTemperature_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for density temperature data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[BaseDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for base density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[ObservedDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for observed density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[UncorrectedDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for uncorrected density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[MeterPressure_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for device pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[MeterTemperature_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for device temperature data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Methane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Methane (C1) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Ethane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Ethane (C2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Propane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Propane (C3) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Butane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Butane (C4) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Isobutane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Isobutane (isoC4) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Pentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Pentane (C5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Isopentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Isopentane (isoC5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Neopentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Neopentane (neoC5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Hexane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Hexane (C6) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Heptane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Heptane (C7) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Octane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Octane (C8) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Nonane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Nonane (C9) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Decane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Decane (C10) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Ethylene_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Ethylene data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Propylene_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Propylene data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Nitrogen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Nitrogen (N2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CarbonDioxide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Carbon dioxide (CO2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HydrogenSulfide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Hydrogen sulfide (H2S) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Hydrogen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Hydrogen (H2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CarbonMonoxide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Carbon monoxide (CO) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Oxygen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Oxygen (O2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Water_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Water (H2O) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[HeatingValueMass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for heating value mass data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HeatingValueVolume_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for heating value volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[EVP_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Equilibrium Vapor Pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GSV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Gross Standard Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Gross Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[IV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Indicated Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NSV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Net Standard Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[SWV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Sediment and Water Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Viscosity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for viscosity data</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device5"></a>Liquid Device QTR  Report: Data Table Header Tokens</h4>
+        <p>Liquid Device QTR  report data table headers, which appear between <b>#SubSection# DataTableHeader</b> and <b>#End#</b>, can be described by the following  tokens. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In PDF format, reports containing tables that span multiple pages will repeat the data table header on each contiguous page.</p>
+        </div>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">General Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Current row number</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2" style="font-weight: bold;">Units Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[FlowRate_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for flow rate data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[FlowTime_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for flow time data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[KFactorMass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for K factor mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[KFactorVolume_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for K factor volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Mass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for mass data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[DensityPressure_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for density pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DensityTemperature_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for density temperature data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[BaseDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for base density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[ObservedDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for observed density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[UncorrectedDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for uncorrected density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[MeterPressure_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for device pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[MeterTemperature_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for device temperature data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Methane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Methane (C1) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Ethane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Ethane (C2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Propane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Propane (C3) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Butane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Butane (C4) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Isobutane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Isobutane (isoC4) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Pentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Pentane (C5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Isopentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Isopentane (isoC5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Neopentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Neopentane (neoC5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Hexane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Hexane (C6) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Heptane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Heptane (C7) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Octane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Octane (C8) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Nonane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Nonane (C9) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Decane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Decane (C10) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CarbonDioxide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Carbon dioxide (CO2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CarbonMonoxide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Carbon monoxide (CO) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Hydrogen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Hydrogen (H2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HydrogenSulfide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Hydrogen sulfide (H2S) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Nitrogen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Nitrogen (N2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Oxygen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Oxygen (O2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Water_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Water (H2O) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HeatingValueMass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for heating value mass data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[HeatingValueVolume_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for heating value volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[EVP_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Equilibrium Vapor Pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GSV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Gross Standard Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Gross Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[IV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Indicated Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NSV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Net Standard Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[SWV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Sediment and Water Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Viscosity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for viscosity data</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device6"></a>Liquid Device QTR  Report: Data Table Tokens</h4>
+        <p>Liquid Device QTR  report data table parameters, which appear between <b>#SubSection# DataTable</b> (<b>1</b> or <b>2</b>)  and <b>#End#</b>, can be described by the following  tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">General Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[FirstRow]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Row number of the first row in the data table</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The current row number</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DeviceType]<p>[DeviceType_Begin]
+</p><p>[DeviceType_End]
+</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Type of device<div class="Note"><p><span class="NoteHeading">Note:</span> This token can be inserted in an Excel formula that uses the device type value returned to determine whether pressure or pulse data will be shown in the data table, and displays the corresponding label in the column header. </p></div></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[IsSplit]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Indicates if the record is split</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Attr0] - <p>[PollingFac_Attr29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility indexed text attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Category]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility category</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Desc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Info0]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility info attribute 0<p>Default attribute name is Facility Location</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Info1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility  info attribute 1<p>Default attribute name is Facility Contact</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_IsActive]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility active flag</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Table0] - <p>[PollingFac_Table29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility indexed table attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Type]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_YesNo0] - <p>[PollingFac_YesNo19]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility indexed Yes/No attributes 0 through 19 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[BeginDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Start date of the time range for the record, in Device time (D)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[EndDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">End date of the time range for the record, in Device time (D)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[RecordSpan]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Span for the record, e.g. hourly, daily</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[AuditComment]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Audit comment associated with the liquid metering record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[AuditDate_Host]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Audit date associated with the liquid metering record  (using the host server time zone)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[AuditUserName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Audit user name associated with the liquid metering record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Factor Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[KFactorMass]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">K factor - mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[KFactorVolume]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">K factor - volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[MeterFactor]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Meter factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CSW]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Sediment and Water correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CTL]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Temperature correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CPL]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Pressure correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CTPL]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Temperature and Pressure correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CCF]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Combined correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DCF]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Density correction factor</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Liquid Item Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[BaseDensity]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Base density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CoriolisDriveGain]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Coriolis drive gain</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DensityPressure]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Density pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[DensityTemperature]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Density temperature</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Pulses]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Pulse count</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Pulses_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Pulse count at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Pulses_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Pulse count at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[EVP]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Equilibrium Vapor Pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[MeterPressure]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Meter Pressure</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[MeterTemperature]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Meter Temperature</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[ObservedDensity]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Observed density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[ObservedDensityInAPIDegrees]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Observed density in API degrees</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[ObservedDensityInRelativeDensity]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Observed density in relative density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[UncorrectedDensity]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Uncorrected density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[IV]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Indicated Volume </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[IV_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Indicated Volume  at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[IV_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Indicated Volume at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GV]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Gross Volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GV_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Gross Volume  at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GV_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Gross Volume at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GSV]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Gross Standard Volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GSV_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Gross Standard Volume  at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GSV_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Gross Standard Volume at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NSV]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Net Standard Volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NSV_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Net Standard Volume  at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NSV_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Net Standard Volume at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Mass]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Mass_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Mass  at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Mass_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Mass at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[SWPercent]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Sediment and Water percentage</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[SWV]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Sediment and Water volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[SWV_Begin]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Sediment and Water volume  at the beginning of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[SWV_End]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Sediment and Water volume at the end of the record</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Periodic Metering Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DischargeCoefficient]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Discharge coefficient</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[FlowRate]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Flow rate</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[FlowTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Flow time</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Custom Periodic Metering Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CustomPM1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="5">Custom-defined periodic metering process variables<div class="Note"><p><span class="NoteHeading">Note:</span> Custom PM 1-5 can also be used for gas metering data</p></div><p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CustomPM2]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CustomPM3]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CustomPM4]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CustomPM5]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CustomPM6]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" rowspan="5">Custom-defined periodic metering process variables<div class="Note"><p><span class="NoteHeading">Note:</span> Custom PM 6-10 can only be used for liquid metering data</p></div><p>See <a href="../EIEs - Remote Devices/EIE Remote Devices.htm">Remote Devices</a> for your device type and <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> for more information.</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CustomPM7]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CustomPM8]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CustomPM9]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CustomPM10]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Periodic Quality Tokens</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Methane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Methane (C1)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Ethane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Ethane (C2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Propane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Propane (C3)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Butane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Butane (C4)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Isobutane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Isobutane (isoC4)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Pentane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Pentane (C5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Isopentane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Isopentane (isoC5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Neopentane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Neopentane (neoC5)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Hexane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Hexane (C6)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Heptane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Heptane (C7)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Octane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Octane (C8)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Nonane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">n-Nonane (C9)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Decane]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">n-Decane (C10)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Ethylene]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Ethylene</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Propylene]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Propylene</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CarbonDioxide]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Carbon dioxide (CO2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CarbonMonoxide]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Carbon monoxide (CO)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Hydrogen]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Hydrogen (H2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[HydrogenSulfide]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Hydrogen sulfide (H2S)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Nitrogen]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Nitrogen (N2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Oxygen]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Oxygen (O2)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Water]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Water (H2O)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[HeatingValueMass]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Heating value mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HeatingValueVolume]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Heating value volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Compressibility]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Compressibility</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RelativeDensity]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Relative density</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Viscosity]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Viscosity</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device4"></a>Liquid Device QTR  Report: SubReport Footer Tokens</h4>
+        <p>Liquid Device QTR  report  subreport footers, which appear between <b>#SubSection# SubReportFooter</b> and <b>#End#</b>, can be described by the following  tokens. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">General Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[=]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">When used as the first three characters, turns the cell into a formula</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[FirstRow]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Row number of the first row in the data table</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[LastRow]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Row number of the last row in the data table</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RowNumber]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Current row number</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CurrentDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Index of the device being displayed</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[TotalDeviceCount]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Total number of devices in the report</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeContractHour]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Contract hour of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeDaysOfData]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Number of days for which the data source of the Node will retain data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeDesc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Node description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node ID</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeInstallDateTime]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Install date/time for the Node, in Device time (D) </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeName]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node name</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingFacilityId]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility ID of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodePollingFacilityTag]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility tag of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodePollingSiteService]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling <i>Site.Service</i> of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeSecurityApp]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Security application of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeSortPriority]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Sort priority of the Node</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeTimezone]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Time zone configured for the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[NodeTimezoneUsingDst]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Daylight saving time status of the Node </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NodeType]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Node type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Attr0] - <p>[PollingFac_Attr29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility indexed text attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Category]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility category</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Desc]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility description</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Info0]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility info attribute 0<p>Default attribute name is Facility Location</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Info1]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility  info attribute 1<p>Default attribute name is Facility Contact</p></td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_IsActive]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility active flag</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_Table0] - <p>[PollingFac_Table29]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility indexed table attributes 0 through 29 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[PollingFac_Type]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Polling facility type</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[PollingFac_YesNo0] - <p>[PollingFac_YesNo19]</p></td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Polling facility indexed Yes/No attributes 0 through 19 (each a separate token)</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[RecordSpan]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Number of minutes in the record span</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2" style="font-weight: bold;">Units Tokens</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[FlowRate_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for flow rate data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[FlowTime_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for flow time data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[KFactorMass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for K factor mass</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[KFactorVolume_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for K factor volume</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Mass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for mass data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[DensityPressure_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for density pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[DensityTemperature_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for density temperature data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[BaseDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for base density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[ObservedDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for observed density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[UncorrectedDensity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for uncorrected density data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[MeterPressure_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for device pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[MeterTemperature_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for device temperature data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Methane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Methane (C1) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Ethane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Ethane (C2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Propane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Propane (C3) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Butane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Butane (C4) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Isobutane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Isobutane (isoC4) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Pentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Pentane (C5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Isopentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Isopentane (isoC5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Neopentane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Neopentane (neoC5) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Hexane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Hexane (C6) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Heptane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Heptane (C7) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Octane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Octane (C8) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[n-Nonane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for n-Nonane (C9) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[n-Decane_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for n-Decane (C10) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[CarbonDioxide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Carbon dioxide (CO2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[CarbonMonoxide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Carbon monoxide (CO) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Hydrogen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Hydrogen (H2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HydrogenSulfide_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Hydrogen sulfide (H2S) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Nitrogen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Nitrogen (N2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Oxygen_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Oxygen (O2) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Water_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Water (H2O) data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[HeatingValueMass_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for heating value mass data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[HeatingValueVolume_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for heating value volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[EVP_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Equilibrium Vapor Pressure data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[GSV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Gross Standard Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[GV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Gross Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[IV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Indicated Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[NSV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for Net Standard Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[SWV_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Units used for Sediment and Water Volume data</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Viscosity_Units]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Units used for viscosity data</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Device"></a>Liquid Device QTR  Report: Report Footer</h4>
+        <p>Liquid Device QTR  report footers, which appear between <b>#SubSection# ReportFooter</b> and <b>#End#</b>, can be described by the text you enter. Type the desired text into the cell, and format it as desired.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

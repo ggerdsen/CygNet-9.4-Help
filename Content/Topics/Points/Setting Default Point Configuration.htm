@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Points|Using Points">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Setting Point Configuration Defaults</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Points.htm">Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using Points.htm">Using Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Setting Point Configuration Defaults</span>
+        </div>
+        <h2>Setting Point Configuration Defaults</h2>
+        <p>You can specify custom default configuration values to be used when initially creating points in your system. The PNT metadata file stores these default configuration options, so that settings can be configured per point scheme, per point type, or per long tag, for specified <a href="#Attribut" class="selected">attribute definitions</a> and <a href="#Config" class="selected">configuration bit states</a>. The available options affect enabling the alarm, reporting it to the CAS, and reporting it to the GNS. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This does not include options for default alarm setpoints.</p>
+            <p>Default configuration bits apply only when creating a new blank record. They do not apply when copying a record to create the new point or when editing an existing record.</p>
+        </div>
+        <p>Point (PNT) configurable bits are completely customizable and give administrators the option to pre-configure flags for each point attribute, attribute descriptions, combinations of point schemes if being used, setting default alarm and reporting conditions, etc. Configuring these attributes and alarm conditions can assist with standardizing points when they are created or defined.</p>
+        <p>Once you configure default options for the points on the <b>Config Bit State</b> page, and save your settings, the default Config Bit states are applied to the point whenever a new record is created. The default bits will also be applied if you edit existing point properties such as the <i>Site.Service</i>, Facility ID, Uniform data code, Long point ID, Point scheme, Point type, etc. properties for any existing points.</p>
+        <p>When you create a new point by copying an existing record,  the default config bits will be cleared. The bits from the source record will be applied before the defaults, assuming they are the same point type.</p>
+        <p>When  enabled, enforcement or validation of the configurable bit settings occurs in two places. The validation step will mark all issues as warnings; to notify an end user that an error has been detected if the Configurable Bit conditions have been changed. The warning offers you the opportunity to edit the values or to ignore them and use the default values.</p>
+        <ol>
+            <li value="1">When you edit a point record via any page of the PNT Editor, the configurable bits are validated when you click <b>Save</b>. See <a href="Editing Points.htm">Editing Points</a> for more information.</li>
+            <li value="2">When you edit a point record via an ActiveX control, the configurable bits are validated when an edit occurs in an alarm  control dialog accessed through CygNet Studio. See <a href="../Alarms/Scripting Alarms.htm">Scripting Alarms</a> in the Alarms section for more information.</li>
+        </ol>
+        <p>Changes to point configurations are stored in the Points metadata file (PNTMetaData.dat) in the <b>CygNet\Services\PNT</b>  directory on your host server.</p>
+        <p>You must have the required authorization level (5 - Admin) to configure default configuration values. See <a href="../Security/Point Service PNT.htm">PNT Security</a> (ACCESS) for information about configuring security access to set point configuration defaults.</p>
+        <h3><a name="Point"></a>Point Service Definitions</h3>
+        <p class="HeadingProcedure">To Configure Point Service Definitions</p>
+        <ol>
+            <li value="1">In CygNet Explorer, select the Point Service (PNT) in the service hierarchy (left pane) to view its contents in the service pane (right pane). See <a href="../CygNet Explorer/CygNet Explorer.htm">CygNet Explorer</a> for more information.</li>
+            <li value="2">In the PNT service pane, right-click to access the context menu and then click <b>Configure Attributes</b> to access the <b>Point Service Definitions</b> dialog box. The dialog box contains two pages: <b>Attribute Definitions</b> and <b>Config Bit State</b>.
+        <ul><li value="1">Configure the <a href="#Attribut" class="selected">Attribute Definitions</a> page. </li><li value="2">Configure the <a href="#Config" class="selected">Config Bit State</a> page.</li></ul></li>
+            <li value="3">Click <b>Save</b>. </li>
+        </ol>
+        <h4><a name="Attribut"></a>Attribute Definitions Page</h4>
+        <p>The <b>Attribute Definitions</b> page stores all the default attributes and descriptions for the points attributes.  These options can be configured prior to point creation, to assist with the creation of newly defined points or when editing existing point attributes within the system to assist with standardization.  Editing any of these attributes allows for global configuration of all point information.</p>
+        <p>See <a href="PNT Editor - Application Page.htm">PNT Editor - Application Properties</a> for more information about the default settings, their values, or where these items are displayed.</p>
+        <p>
+            <img src="../../Resources/Images/Points/point_service_definitions.png" />
+        </p>
+        <h4><a name="Config"></a>Config Bit State Page</h4>
+        <p>Use the <b>Config Bit State</b> page  to pre-configure any of the default settings for PNT records, including Alarm Bit states for all Point Types.  Preconfigured settings can be selected with a predefined Point Scheme, default Alarm, callout and condition.</p>
+        <p>
+            <img src="../../Resources/Images/Points/point_service_definitions_config_bit_state.png" />
+        </p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Point Scheme</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the point scheme to be used. </p>
+                        <p>Multiple point schemes are available, as configured for your system, including <i>CygNet Standard</i> (point scheme 0) and the optional <i>CygNet Enhanced</i>.</p>
+                        <p>See <a href="Point Scheme.htm">Point Schemes</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Point Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the point type to configure with these predefined settings.
+</p>
+                        <p>Possible values are:
+</p>
+                        <ul class="table">
+                            <li style="font-weight: bold;" value="1">Analog Input</li>
+                            <li style="font-weight: bold;" value="2">Analog Output</li>
+                            <li style="font-weight: bold;" value="3">Digital Input</li>
+                            <li style="font-weight: bold;" value="4">Digital Output</li>
+                            <li style="font-weight: bold;" value="5">Enumeration Input</li>
+                            <li style="font-weight: bold;" value="6">Enumeration Output</li>
+                            <li style="font-weight: bold;" value="7">String Input</li>
+                            <li style="font-weight: bold;" value="8">String Output
+</li>
+                        </ul>
+                        <p>See <a href="Point Types.htm">Point Types</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Long Tag</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the Long Tag name or names to set with the default settings.  
+</p>
+                        <p>Optionally, use the browse button to utilize the <b>Tag Filter</b> options to assist with searching.  
+Use the Long Tag wildcard to specify different requirements for specific CVSs and/or Facility UDCs.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Default</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the default alarm state values to use for the <b>Active</b> status, and the reporting status for the <b>Report CAS</b> and the <b>Report GNS</b> for each point.
+</p>
+                        <p>Possible values are:
+</p>
+                        <ul class="table">
+                            <li value="1"><b>&lt;Undefined&gt;</b>
+                            </li>
+                            <li value="2"><b>Cleared</b>
+                            </li>
+                            <li value="3"><b>Set</b>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Enforce</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select whether or not to enforce the validation check for the <b>Active</b> status, and the reporting status for the <b>Report CAS</b>, and the <b>Report GNS</b> for each point, and to display WARN error messages when a PNT contains values that are incorrect or blank.
+</p>
+                        <p>Possible values are:</p>
+                        <ul class="table">
+                            <li value="1"><b>Yes</b> — Enforce warning on error detection</li>
+                            <li value="2"><b>No</b> — Bypass warning on error detection</li>
+                        </ul>
+                        <p>Enforcement applies when creating new records or editing existing records.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

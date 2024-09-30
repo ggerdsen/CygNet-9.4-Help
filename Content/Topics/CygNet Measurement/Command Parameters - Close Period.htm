@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Close Period Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">User: Close Period</span>
+        </div>
+        <h2>User: Close Period</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This functionality is only available in systems licensed for FULL mode.</p>
+        </div>
+        <p><b>Close Period</b> is a Node-level command that triggers the service to close (or test close) data records for each eligible Gas Meter Node (device or station meters), Liquid Device Node (with support for periodic history), or  Station Group Node the command resolves to, from the "closed through" date of the previously closed record through a specified date, in Contract time (C).  Close periods can be applied to dates two days in the past (current date minus two contract days) or prior, and records  are closed through midnight of the specified contract day.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In the close period process, the "closed through" date of the previously closed record determines the starting date of the  time range to close. If a Node record has never been closed previously, the start of the closed period is the timestamp when the Node first started receiving data.</p>
+        </div>
+        <p>Records must satisfy the conditions configured in the  Administrative System Options before they can be closed successfully. The "test close" option reports any outstanding issues or errors to be resolved in order to meet conditions and close the period. See the <b>Close Period</b> section in <a href="Configuring System Options.htm#Close">Configuring Systems Options</a> for more information about close period requirements.</p>
+        <p><b>Group</b> (Station Group - see Note*) Nodes, <b>Liquid Device</b> Nodes (with support for periodic history), or <b>Gas Device</b> (Gas Meter and Station Meter) Nodes  are eligible if the following apply.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">*Note:</span> Do not run this command against a General Group Node. To close period for member Nodes belonging to a General Group Node, run the command against the applicable member Node(s).</p>
+        </div>
+        <ul>
+            <li value="1">The associated device records in the DDS are enabled</li>
+            <li value="2">There is data in the specified time range</li>
+            <li value="3">The user executing the command has the appropriate security access</li>
+            <li value="4">The date specified is after the current "closed through" date</li>
+            <li value="5">For Liquid Device Nodes, the Node supports periodic history data</li>
+        </ul>
+        <p>The record periods to be closed (or tested) are determined by specifying a "close through" date via the command parameters. When the command is run, the system checks the conditions governing whether the period can be closed and reports results for any outstanding issues that need to be resolved. Once all conditions are satisfied, the records for that period can be closed.</p>
+        <p>You must have proper security authorization to execute this command. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CLOSE">CLOSE</a> security event) for information about configuring security access for FMS commands.</p>
+        <p>See <a href="CygNet Measurement Concepts.htm#Close">Close Period</a> in the CygNet Measurement Concepts section, and <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information about closing or test closing data.</p>
+        <p>See <a href="Using the Close Period Control.htm">Using the Close Period Control</a> for information about running this command via the Close Period control in FMS Explorer.</p>
+        <p>See <a href="Running Node Commands.htm">Running Node Commands</a> and <a href="Configuring Close Period Commands.htm">Configuring Close Period Commands</a> for more information about using this command via FMS Explorer.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> for information about accessing historical logs for this command.</p>
+        <h3>Command Definition Properties</h3>
+        <p>The following command definition properties apply to <b>Close Period</b> commands, when scheduling, creating, or editing commands via CygNet Explorer.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">FMS service</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select a <i>Site.Service</i> for the command from the available <b>FMS service</b> list in the drop-down menu.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command</b> name from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command via the MSS service in CygNet Explorer. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer or via the FMS service in CygNet Explorer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Command Parameters</h3>
+        <p>The following command parameters apply to <b>Close Period</b> commands, when running a &lt;Quick Command&gt; via CygNet Explorer. You cannot schedule Close Period commands.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Close through date (C)</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click in the <b>Value</b> field to access the date field and do one of the following.</p>
+                    <ul class="table">
+                        <li value="1">Click <b>...</b> to access the <b>Select Date</b> dialog box to define the date.</li>
+                        <li value="2">Type in the date through which to close data, in Contract time (C).</li>
+                    </ul>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Test close only</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Yes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click in the <b>Value</b> field to access the drop-down menu and select one of the following options. </p>
+                    <ul class="table">
+                        <li value="1"><b>Yes</b>
+                        </li>
+                        <li value="2"><b>No</b>
+                        </li>
+                    </ul>
+                    <p>If set to <b>Yes</b>, the command action will only test the selected Node records to determine if all close period conditions are met and report status including any errors.</p>
+                    <p>If set to <b>No</b>,   the command action will close the period, if all close period conditions are met.</p>
+                    <p>See <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information.</p>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

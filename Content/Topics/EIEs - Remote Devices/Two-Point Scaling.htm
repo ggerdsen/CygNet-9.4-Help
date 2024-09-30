@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Two-Point Scaling Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Two-Point Scaling Examples</span>
+        </div>
+        <h2>Two-Point Scaling Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf. The original, non-scaled input value must be preserved in a different data group element.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Two-Poin4" class="selected">Two-Point Scaling by Constants (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Two-Poin2" class="selected">Two-Point Scaling by Constants (B)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Two-Poin5" class="selected">Two-Point Scaling by Data Group Elements (A)</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Two-Poin3" class="selected">Two-Point Scaling by Data Group Elements (B)</a>
+            </li>
+        </ul>
+        <p>For information about example data group elements and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="Two-Poin4"></a>Two-Point Scaling by Constants (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies two constant-value scales to it. The result is 1220 because the raw scale divides 61 by 5, then the engineering scale multiplies 12.2 by 100.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleTpA desc="Two-Point Scale by Constants Method A" readOnly="true" type="ui2" ref="raw61" scaleLoRaw="0" scaleHiRaw="5" scaleLoEng="0" scaleHiEng="100"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#scaleLoRaw">scaleLoRaw</a>, <a href="DataGroupElement Element.htm#scaleHiRaw">scaleHiRaw</a>, <a href="DataGroupElement Element.htm#scaleLoEng">scaleLoEng</a>, and <a href="DataGroupElement Element.htm#scaleHiEng">scaleHiEng</a>.</p>
+        <h3><a name="Two-Poin2"></a>Two-Point Scaling by Constants (B)</h3>
+        <p>The following example uses two child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleTpB</b>. The second child element references the operation <a href="Available Reference Operations.htm#opTwoPointScale">opTwoPointScale</a> to apply two scales with constant values to the value assigned by the first child element. The result is 1220 because the raw scale divides 61 by 5, then the engineering scale multiplies 12.2 by 100.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleTpB desc="Two-Point Scale by Constants Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opTwoPointScale" scaleLoRaw="0" scaleHiRaw="5" scaleLoEng="0" scaleHiEng="100"/&gt;</p>
+                    <p class="Code">&lt;/ScaleTpB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, <a href="DataGroupElement Element.htm#scaleLoRaw">scaleLoRaw</a>, <a href="DataGroupElement Element.htm#scaleHiRaw">scaleHiRaw</a>, <a href="DataGroupElement Element.htm#scaleLoEng">scaleLoEng</a>, and <a href="DataGroupElement Element.htm#scaleHiEng">scaleHiEng</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Two-Poin5"></a>Two-Point Scaling by Data Group Elements (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies two reference data group element scales to it. The raw scale derives its values from two data group elements: <a href="Example Values.htm">raw0</a> and <a href="Example Values.htm">raw5</a>. The engineering scale derives its values from two data group elements: <a href="Example Values.htm">raw0</a> and <a href="Example Values.htm">raw100</a>. The result is 1220 because the raw scale divides 61 by 5, then the engineering scale multiplies 12.2 by 100.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleTpIdA desc="Two-Point Scale by DEIDs Method A" readOnly="true" type="ui2" ref="raw61" scaleLoRawId="raw0" scaleHiRawId="raw5" scaleLoEngId="raw0" scaleHiEngId="raw100"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#scaleLoRawId">scaleLoRawId</a>, <a href="DataGroupElement Element.htm#scaleHiRawId">scaleHiRawId</a>, <a href="DataGroupElement Element.htm#scaleLoEngId">scaleLoEngId</a>, and <a href="DataGroupElement Element.htm#scaleHiEngId">scaleHiEngId</a>.</p>
+        <h3><a name="Two-Poin3"></a>Two-Point Scaling by Data Group Elements (B)</h3>
+        <p>The following example uses two child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleTpIdB</b>. The second child element references the operation <a href="Available Reference Operations.htm#opTwoPointScaleId">opTwoPointScaleId</a> to apply two scales with reference data group element values to the value assigned by the first child element. The raw scale derives its values from two data group elements: <a href="Example Values.htm">raw0</a> and <a href="Example Values.htm">raw5</a>. The engineering scale derives its values from two data group elements: <a href="Example Values.htm">raw0</a> and <a href="Example Values.htm">raw100</a>. The result is 1220 because the raw scale divides 61 by 5, then the engineering scale multiplies 12.2 by 100.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleTpIdB desc="Two-Point Scale by IDs Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opTwoPointScaleId" scaleLoRawId="raw0" scaleHiRawId="raw5" scaleLoEngId="raw0" scaleHiEngId="raw100"/&gt;</p>
+                    <p class="Code">&lt;/ScaleTpIdB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, <a href="DataGroupElement Element.htm#scaleLoRawId">scaleLoRawId</a>, <a href="DataGroupElement Element.htm#scaleHiRawId">scaleHiRawId</a>, <a href="DataGroupElement Element.htm#scaleLoEngId">scaleLoEngId</a>, and <a href="DataGroupElement Element.htm#scaleHiEngId">scaleHiEngId</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

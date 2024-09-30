@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Date and Time">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using Timestamps</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Date and Time.htm">Date and Time</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Timestamps</span>
+        </div>
+        <h2>Using Timestamps</h2>
+        <p>A timestamp is a standard sequence of characters describing date and/or time. The format of the timestamp is consistent, and stores the date/time of an event occurrence (for example, alarm, file creation, modification, etc.).</p>
+        <p>CygNet stores data in Coordinated Universal Time (UTC). This is sometimes called Zulu (Z) or Greenwich Mean Time (GMT) elsewhere. Whereas input may be required in varying formats  depending on the interface, CygNet stores the date/time uniformly. The basic format (<b>YYYYMMDD</b> for date and <b>hhmmss</b> for time) or extended format (<b>YYYY-MM-DD</b> for date and <b>hh:mm:ss</b> for time) are both used.</p>
+        <h3>Time Zone</h3>
+        <p>By default, a UIS is assumed to be in the same time zone as its connected field devices. If a field device is not in the same time zone as its associated UIS, you must specify the time zone of the field device in the <b>Display Name</b> drop-down menu of the <b>Time Zone</b> page in the <a href="../EIEs - Remote Devices/Remote Device Editor - Time Zone.htm">remote device editor</a>. Drop-down options are only available if you have properly defined and installed a <a href="CygNetTimeZones.xml File.htm">CygNetTimeZones.xml file</a>.</p>
+        <p>If a field device returns timestamps, the values are stored unaltered in the DDS. When a field device provides timestamps on historical data records, they are converted to UTC time by the UIS when performing point processing.</p>
+        <p>The scenarios below are provided to help you understand how the time would be displayed on different computers. In all three scenarios, a host (UIS) polls a field device for data at 09:00 Central Standard Time (CST) and stores the data with a timestamp of 15:00 UTC (also referred to as Greenwich Mean Time or GMT).</p>
+        <ul>
+            <li value="1">Scenario 1: Two client computers are on CST. The timestamp on both would show as 09:00.</li>
+        </ul>
+        <ul>
+            <li value="1">Scenario 2: Client Computer #1 is on CST and client computer #2 is on Central Daylight Time (CDT). The timestamp on the client computer #1 shows 09:00. The timestamp on the client computer #2 shows 10:00. Both times are 15:00 GMT.</li>
+        </ul>
+        <ul>
+            <li value="1">Scenario 3: Client Computer #1 and client computer #2 are in different time zones — the client computer on CST would see a timestamp of 09:00. The client computer on Mountain Standard Time (MST) would see a timestamp of 08:00. Both times are 15:00 GMT.</li>
+        </ul>
+        <h3>Data Timestamped by an RTU</h3>
+        <p>If an RTU timestamps data, that timestamp is retained and displayed in CygNet. This is generally the case for history-type data groups, plunger times, etc. The timestamp may be for the beginning of the period (leading) or the end of the period (trailing); either way, it is RTU-specific.</p>
+        <p>There are some history-type data groups that return an array of data but do not timestamp the values. For example, a data group that returns an average value for each hour. In such cases, the DDS editor presents the data on the hour for each hour (07:00, 08:00, 09:00). That is because each value is representative of an hour slot. Since the data didn’t come with a timestamp, CygNet writes the timestamp as the data is written to a point. Depending upon the EIE, the data may be timestamped on the hour (07:00, 08:00, 09:00) or mid-hour (07:30, 08:30, 09:30).</p>
+        <h3>Contract Time</h3>
+        <p>Contract time is an offset from the device time, in number of hours as defined by the contract hour property. It is determined by the hour at which the contract day begins. Contract time is an option in several areas of CygNet. </p>
+        <p class="HyperlinkList">See <a href="../CygNet Measurement/Using Contract Hour in FMS.htm">Using Contract Hour in CygNet Measurement</a> for more information about the use of Contract time (C) in CygNet Measurement.</p>
+        <h3>XML-Based Schema</h3>
+        <p>For applications utilizing XML-based schemas, the timestamps must be in <a href="#dateTime" class="selected">dateTime format</a>, and can be modified with a <a href="#Time_Zone_Offset" class="selected">time zone offset</a>. 
+Energy Load Forecasting and Enterprise Objects are examples of CygNet operations based on XML schema. </p>
+        <p>When creating a data input file, you can specify the timestamp values in UTC time, or you can specify an offset from the UTC time. If the timestamp value does not specify either UTC time or a time zone offset, it is interpreted to be the local server time.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This offset method does not support any knowledge of daylight saving time. If you specify an offset you must adjust the offset for any daylight saving time period. If you do not adjust the offset, and the host server is set to adjust the clock for daylight saving time, then input values will be off by an hour for part of the year. See <a href="Daylight Saving Time.htm">Daylight Saving Time</a> for more information.</p>
+        </div>
+        <h4><a name="dateTime"></a>dateTime Format</h4>
+        <p>Timestamps used in elements and attributes in CygNet data input files must be in <i>dateTime</i> data type format, which takes the following form.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">YYYY-MM-DDThh:mm:ss</p>
+                </td>
+            </tr>
+        </table>
+        <p>Optional forms include the following.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">YYYY-MM-DDThh:mm:ss.s+</p>
+                </td>
+            </tr>
+        </table>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">YYYY-MM-DDThh:mm:ssZ</p>
+                </td>
+            </tr>
+        </table>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">YYYY-MM-DDThh:mm:sszzzzzz</p>
+                </td>
+            </tr>
+        </table>
+        <p>Timestamp components represent the following values.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 119px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Component</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>YYYY</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The year (four digits)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>-</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A separator between parts of the date</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>MM</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The month (two digits)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>-</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A separator between parts of the date</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>DD</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The day (two digits)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>T</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A separator indicating that time-of-day follows</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>hh</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The hour (must not be 24, unless both mm and ss are zero, and the first instant of the following day)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>:</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A separator between parts of the time</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>mm</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The minutes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>:</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A separator between parts of the time</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>ss</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The whole seconds</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>.s+</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The fractional seconds (optional)</p>
+                    <p>Must not end in '0'</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Z</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Zero-length time zone: UTC time (optional)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>zzzzzz</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The time zone offset (optional)</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">+03:00</p>
+                    <p>See <a href="#Time_Zone_Offset" class="selected">Time Zone Offset</a></p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If neither UTC time (Z) nor a time zone offset (zzzzzz) are specified, the timestamp is interpreted to be local time.</p>
+        </div>
+        <p class="Example">Example</p>
+        <p class="Indent">2010-09-10T12:00:00-05:00 (noon on 10 September 2010, Eastern Standard Time in the U.S.) is 2010-09-10T17:00:00Z, five hours later than 2010-09-10T12:00:00Z. </p>
+        <p>Input file examples are as follows.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;StartTime&gt;2010-01-01T09:00:00.000Z&lt;/StartTime&gt;</p>
+                    <p class="Code">&lt;EndTime&gt;2010-01-01T10:00:00.000Z&lt;/EndTime&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>or</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;start_time="2010-07-22T13:00:00.000Z" end_time="2010-07-22T14:00:00.000Z"&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Time_Zone_Offset"></a>Time Zone Offset</h4>
+        <p>To specify UTC time zone, you can enter a timestamp  with "Z" added after the time. Or you can specify an offset from the UTC time by adding a positive or negative time adjustment after the time, represented by zzzzzz (for example, "+03:00"). Specifying an offset of "-00:00" or "+00:00" would therefore be the equivalent of specifying "Z" (UTC time). </p>
+        <p>The time zone offset takes the following form.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">('+' | '-') hh ':' mm</p>
+                </td>
+            </tr>
+        </table>
+        <p>where</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 500px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 120px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 378px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">
+                        <p>Component</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>Represents</p>
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>+ / -</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>'+' indicates a nonnegative duration<br />'-'  indicates a nonpositive duration</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>hh</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The hours (two digits)</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>:</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A separator between parts of the time</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>mm</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The minutes (two digits)</p>
+                </td>
+            </tr>
+        </table>
+        <p>When a time zone is added to a UTC dateTime, the result is the date and time "in that time zone." </p>
+        <p class="Example">Example </p>
+        <p class="Indent">2010-10-10T12:00:00+05:00 is 2010-10-10T07:00:00Z </p>
+        <p class="Indent">2010-10-10T00:00:00+05:00 is 2010-10-10T19:00:00Z</p>
+        <p>Input file examples are as follows.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;StartTime&gt;2010-01-01T09:00:00.000-08:00&lt;/StartTime&gt;</p>
+                    <p class="Code">&lt;EndTime&gt;2010-01-01T10:00:00.000-08:00&lt;/EndTime&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>or</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;start_time="2010-07-22T13:00:00.000-07:00" end_time="2010-07-22T14:00:00.000-07:00"&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

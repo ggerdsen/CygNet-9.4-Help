@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|OPC EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>OPC EIE – Array Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OPC EIE.htm">OPC EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Array Data Group</span>
+        </div>
+        <h2>Array Data Group</h2>
+        <p>An array data group enables you to display array data elements in a table.  A single data group can include a combination of array and non-array data. An array data group is always read only.</p>
+        <p>There are different ways to handle an OPC array. An OPC&#160;server can return an array of data for a single item id. Once returned, it can be displayed as an OPC Array,  or it can be interpreted as either a single record or an array of records. If the array of records does not have a timestamp, it is considered a Non-Historical Array and does not receive point processing. If the array of records has a timestamp, it is referred to as an Historical Array and point processing can be performed. </p>
+        <ul>
+            <li value="1"><b>OPC Array</b> - The data that is returned from OPC server is not altered in any way. The OPC array value does not receive point processing by CygNet because a current value cannot simultaneously contain multiple values. The OPC array data is only displayed in the DDS.</li>
+            <li value="2"><b>OPC Record from Array</b>- The values retrieved for one OPC array data group element are interpreted as a simple record, where each item in the array is interpreted as an item in the record. Each item can have a conversion function. Each item in the record can receive point processing by CygNet. This data is displayed in the DDS, but it is also used by other services, like the UIS, VHS, and PNT.</li>
+            <li value="3"><b>Non-Historical Array</b>: The values retrieved for one OPC array data group element can be used to provide the values of other data group elements to create a two-dimensional array of records or table where each column is a data group element. Non-historical array data does not receive point processing by CygNet because the data is not timestamped, and a current value cannot simultaneously contain multiple values. Non-historical array data is only displayed in the DDS.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Historical Array</b>: The values retrieved for one OPC array data group element can be used to provide the values of other data group elements to create a two-dimensional array of records or table where each column is a data group element, and one column represents the timestamp.   Historical array data receives point processing by CygNet because a timestamp and a value combine to form a unique historical entity. This data is displayed in the DDS, but it is also used by other services, like the UIS, VHS, and PNT.</li>
+        </ul>
+        <p>Click the following image to see an array diagram:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/array_correlation.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="404" data-mc-height="334" src="../../Resources/Images/EIEs - Remote Devices/array_correlation_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ExampleOPCArray" class="selected">Example – OPC Array</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#StructureOPCArray" class="selected">Structure and Components – OPC Array</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ExampleRecordfromArray" class="selected">Example – Record from OPC Array</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#StructureRecordfrArray" class="selected">Structure and Components – Record from OPC Array</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#ExampleNonHistArrayRecord" class="selected">Example –  Non-Historical Array of Records</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#StructureNonHistArrayRecord" class="selected">Structure and Components – Non-Historical Array of Records</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#ExampleHistArrayRecord" class="selected">Example – Historical Array of Records</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#StructureHistArrayRecord" class="selected">Structure and Components – Historical Array of Records</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#ToCreate" class="selected">To Create an Array Data Group</a>
+            </li>
+        </ul>
+        <p>For more information, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <p class="Example"><a name="ExampleOPCArray"></a>Example – OPC Array</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;Arrays niceName="Arrays" <span style="background-color: #b0c4de;">hasArray="true"</span>&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4" type="vrnt"&gt;</p>
+                            <p class="Code3">&lt;N001 desc="RND array r8" itemId="Random.ArrayOfReal8" <span style="background-color: #b0c4de;">isArray="true"</span>/&gt;</p>
+                            <p class="Code3">&lt;N002 desc="RND array str" itemId="Random.ArrayOfString" <span style="background-color: #b0c4de;">isArray="true"</span>/&gt;</p>
+                            <p class="Code3">&lt;N003 desc="RND r8" itemId="Random.Real8"/&gt;</p>
+                            <p class="Code3">&lt;N004 desc="RND str" itemId="Random.String"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/Arrays&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="StructureOPCArray"></a>Structure and Components – OPC Array</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;DataGroup <a href="DataGroup Element.htm#hasArray" title="Click to go to the hasArray attribute." alt="Click to go to the hasArray attribute.">hasArray="true"</a>&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;DEID <a href="DataGroupElement Element.htm#isArray">isArray="true"</a>/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/DataGroup&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="ExampleRecordfromArray"></a>Example – Record from OPC&#160;Array</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;Record niceName="Record from array"&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4" type="vrnt"&gt;</p>
+                            <p class="Code3">&lt;RawArray desc="Raw data" itemId="Random.ArrayOfReal8" <span style="background-color: #b0c4de;">isArray="true"</span> hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;E0 desc="Record element 0"<span style="background-color: #b0c4de;"> sourceDeid="RawArray" index="0"</span>/&gt;</p>
+                            <p class="Code3">&lt;E1 desc="Record element 1" <span style="background-color: #b0c4de;">sourceDeid="RawArray" index="1"</span>/&gt;</p>
+                            <p class="Code3">&lt;E2 desc="Record element 2" <span style="background-color: #b0c4de;">sourceDeid="RawArray" index="2"</span>/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/Record&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="StructureRecordfrArray"></a>Structure and Components – Record from OPC&#160;Array</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;DataGroup <a href="DataGroup Element.htm#hasArray" title="Click to go to the hasArray attribute." alt="Click to go to the hasArray attribute.">hasArray="true"</a>&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;DEID <a href="DataGroupElement Element.htm#isArray">isArray="true"</a>/&gt;</p>
+                            <p class="Code3">&lt;DEID2 <a href="DataGroupElement Element.htm#sourceDeid">sourceDeid</a>="&lt;DEID&gt;" <a href="DataGroupElement Element.htm#index">index</a>=""/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/DataGroup&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="ExampleNonHistArrayRecord"></a>Example –Non-Historical Array of Records</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;RunTimes niceName="Event Directory" forceSave="true" <span style="background-color: #b0c4de;">hasArray="true"</span> maxCnt="3"&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4"<span style="background-color: #b0c4de;"> isArray="true</span>"&gt;</p>
+                            <p class="Code3">&lt;RawData desc="Raw data" type="ui2" itemId="RunTimeArray" recordItems="2" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;IdNum desc="ID" type="ui2" <span style="background-color: #b0c4de;">sourceDeid="RawData" index="0"</span>/&gt;</p>
+                            <p class="Code3">&lt;RunTime desc="RunTime" type="ui2"  <span style="background-color: #b0c4de;">sourceDeid="RawData" index="1"</span> units="sec"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/RunTimes&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="StructureNonHistArrayRecord"></a>Structure and Components – Non-Historical Array of Records</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;DataGroup <a href="DataGroup Element.htm#hasArray">hasArray="true"</a>&gt;</p>
+                            <p class="Code2">&lt;dgElements <a href="DataGroupElement Element.htm#isArray">isArray="true</a>"&gt;</p>
+                            <p class="Code3">&lt;DEID <a href="DataGroupElement Element.htm#recordItems">recordItems</a>=""/&gt;</p>
+                            <p class="Code3">&lt;DEID2  <a href="DataGroupElement Element.htm#sourceDeid">sourceDeid</a>="&lt;DEID&gt;" <a href="DataGroupElement Element.htm#index">index</a>=""/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/DataGroup&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="ExampleHistArrayRecord"></a>Example –Historical Array of Records</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;EvtDir niceName="Event Directory" forceSave="true" <span style="background-color: #b0c4de;">hasHistory="true"</span> maxCnt="3"&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4"<span style="background-color: #b0c4de;"> isArray="true"</span> type="ui4"&gt;</p>
+                            <p class="Code3">&lt;RawData desc="Raw data" itemId="Dynagraph.EventDirectory_P" recordItems="5" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;IdNum desc="Event ID" <span style="background-color: #b0c4de;">sourceDeid="RawData" index="0"</span>/&gt;</p>
+                            <p class="Code3">&lt;Reason desc="Code"  dMask="0x%04X" <span style="background-color: #b0c4de;">sourceDeid="RawData" index="1"</span>/&gt;</p>
+                            <p class="Code3">&lt;DateTime desc="Timestamp" type="r8" sourceDeid="RawData" index="2" cvtF="TimeSeconds" sourceType="ui4" baseTime="1/1/2000"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/EvtDir&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="StructureHistArrayRecord"></a>Structure and Components – Historical Array of Records</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;DataGroup <a href="DataGroup Element.htm#hasHistory" title="Click to go to the hasHistory attribute." alt="Click to go to the hasHistory attribute.">hasHistory="true"</a>&gt;</p>
+                            <p class="Code2">&lt;dgElements <a href="DataGroupElement Element.htm#isArray">isArray="true</a>"&gt;</p>
+                            <p class="Code3">&lt;DEID  <a href="DataGroupElement Element.htm#recordItems">recordItems</a>=""/&gt;</p>
+                            <p class="Code3">&lt;DEID2  <a href="DataGroupElement Element.htm#sourceDeid">sourceDeid</a>="&lt;DEID&gt;" <a href="DataGroupElement Element.htm#index">index</a>=""/&gt;</p>
+                            <p class="Code3">&lt;DateTime desc="Timestamp" <a href="DataGroupElement Element.htm#type" title="Click to go to the type attribute." alt="Click to go to the type attribute.">type=""</a> <a href="DataGroupElement Element.htm#sourceDeid"> sourceDeid</a>="&lt;DEID&gt;" <a href="DataGroupElement Element.htm#index">index</a>="" /&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/DataGroup&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToCreate"></a>To Create an Array Data Group</p>
+        <ol>
+            <li value="1">Using a text editor or XML editor, open the device template file to which you want to add an array data group. You might need to extract the device template file from a Device Definition Service (DDS) in order to edit it.<ol style="list-style-type: lower-alpha;"><li value="1">Define a <a href="DataGroup Element.htm"><i>DataGroup</i></a> element for the applicable data group. Add the attribute <a href="DataGroup Element.htm#hasArray">hasArray</a> or <a href="DataGroup Element.htm#hasHistory">hasHistory</a> and set its value to <b>true</b>.</li><li value="2">Define a <a href="dgElements Element.htm">dgElements</a> element that includes all required data group elements.</li><li value="3">For each array data group element, add the attribute <a href="DataGroupElement Element.htm#isArray">isArray</a> and set its value to <b>true</b>.</li><li value="4">If this data group includes a historical array, include a <b>DateTime</b> element to supply timestamps.</li></ol></li>
+            <li value="2">Save your edits.</li>
+            <li value="3">Validate the template, then load it to the applicable DDS. See <a href="../Devices/CygNet Device Template Manager Utility.htm">CygNet Device Template Manager Utility</a>.</li>
+            <li value="4">From the applicable DDS, poll the affected device to test data retrieval and confirm that the data group works as expected.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

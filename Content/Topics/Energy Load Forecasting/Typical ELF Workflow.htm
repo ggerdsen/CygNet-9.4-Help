@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Energy Load Forecasting|Using CygNet ELF">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Typical ELF Workflow</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Energy Load Forecasting root.htm">Energy Load Forecasting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet ELF.htm">Using CygNet ELF</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Typical ELF Workflow</span>
+        </div>
+        <h2>Typical ELF Workflow</h2>
+        <p>The following steps describe a typical workflow scenario for load forecasting. Successful implementation of the ELF system involves installation, system and meter configuration, data preparation and import, neural network configuration and training, forecasting energy load values, variance analysis and retraining, and presentation of the forecasted values.</p>
+        <p>Note that full configuration and implementation of an ELF system requires some jumping about on the pages of the ELF Editor. Perform the following steps in the order indicated.</p>
+        <ol>
+            <li class="HyperlinkList" value="1"><a href="#1" class="selected">Install or Upgrade</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#2" class="selected">Configure System Settings</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#3" class="selected">Configure Input Items</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#4" class="selected">Configure Meters and Input Owners</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#5" class="selected">Import Data</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#6" class="selected">Configure Neural Network Definition</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#7" class="selected">Train Neural Network</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#8" class="selected">Forecast Energy Load</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#9" class="selected">Analyze Variance</a>
+            </li>
+            <li class="HyperlinkList" value="10"><a href="#10" class="selected">Retrain Neural Network</a>
+            </li>
+        </ol>
+        <h3><a name="1"></a>1.	Install or Upgrade</h3>
+        <ul>
+            <li value="1">Install the ELF license.</li>
+        </ul>
+        <ul>
+            <li value="1">If upgrading, install and register the ELF interface components: UisElfDeviceDriver.dll and CxDdsElfEditors.dll and CxHmiElf.ocx. See <a href="Installing the CygNet ELF Components.htm">Installing the CygNet ELF Components</a>.</li>
+        </ul>
+        <ul>
+            <li value="1">If installing CygNet for the first time, registration is not required.</li>
+        </ul>
+        <ul>
+            <li value="1">Determine if you need a dedicated and separate UIS, VHS, GRP, and PNT. (You may need to use existing meter facilities in the VHS, PNT, FAC, DDS, and UIS).</li>
+        </ul>
+        <ul>
+            <li value="1">Determine what data should be copied over from the existing CygNet system to the ELF system.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="2"></a>2.	Configure System Settings</h3>
+        <ul>
+            <li value="1">Create an ELF device in the DDS. See <a href="CygNet ELF EIE Editor.htm">CygNet ELF EIE Editor</a>. When a new ELF device is created a baseline ELF configuration data set is created, which includes the following default input components, which are described below:<ul class="Circle"><li value="1">Gas load settings UDCs</li><li value="2">Facility attributes settings</li><li value="3">Facility types</li><li value="4">User status bits</li><li value="5">Input items</li><li value="6">Calendar inputs</li><li value="7">Categorical input items</li></ul></li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Device</b> page define the Device ID, Enable Device, and add a Description. See <a href="Configuring the ELF Device.htm">Configuring the ELF Device</a>.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>System Settings</b> page, configure the <a href="Configuring System Settings.htm#CygNet_Services">CygNet Services</a>: Primary and Alternate UIS, Group Service, and keep the default Config Root Group Node Desc.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>System Settings</b> page, configure the <a href="Configuring System Settings.htm#System_Defaults">System Defaults</a> by accepting the defaults or changing the values. The default global units cannot be overwritten at the meter level. The default neural network template that is configured in the baseline data set is currently associated with the ELF device, you will need to come back and reconfigure.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>System Settings</b> page, configure the <a href="Configuring System Settings.htm#Current_Value_Status_Bits">Current Value Status Bits</a>. <ul class="Circle"><li value="1">Determine which Value Bits in the real-time record will be used to indicate if a record’s value is the result of a Data Validation rule or a Filling rule. See Configuring Data Validation Settings and <a href="Configuring Data Filling Rules.htm">Configuring Data Filling Rules</a> for more information.</li><li value="2">If  you plan to override forecasted hourly values with externally provided forecast gas load data, set the Overridden Value Bit. See <a href="Configuring Value Adjustment.htm#Override_Forecast">Configuring Value Adjustment</a> for more information.</li></ul></li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>System Settings</b> page, configure the <a href="Configuring Gas Load Settings.htm">Gas Load Settings</a>. Select Gas Load Units, UDCs (see ELF-Related UDCs), Forecast Overide UDCs (if importing forecast gas load data), Validation Rules, and Filling Rules. Determine if the default Gas Load Settings UDCs meet your needs or if additional codes need to be created. See Configuring Data Validation Settings and <a href="Configuring Data Filling Rules.htm">Configuring Data Filling Rules</a> and <a href="Configuring Value Adjustment.htm#Override_Forecast">Configuring Value Adjustment</a> for more information.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>System Settings</b> page, configure the <a href="Configuring Facility Attribute Settings.htm">Facility Attributes Settings</a> used to store data and relationships. Determine if the default Facility Attribute Settings meet your needs, or create new ones if necessary. ELF requires the following user-defined Facility Attributes:</li>
+        </ul>
+        <p class="Indent2">
+            <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" cellspacing="0">
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-HelpTable2-Head-Header1">
+                        <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Facility Attribute</th>
+                        <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Type</th>
+                    </tr>
+                </thead>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Gas Load Type</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">table attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">External ID</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Value Assignment Type</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">table attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Description
+</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Import from File by Default for Description</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">yes/no attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Import from File Override for Description</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Energy Content Factor</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Import from File by Default for Energy Content</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">yes/no attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Import from File Override for Energy Content</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Hierarchy Count</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Import from File by Default for all Hierarchy Parent IDs</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">yes/no attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Import from File Override for all Hierarchy Parent IDs</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">text attribute</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Hierarchy Parent #1 - Hierarchy Parent #10</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">text attribute</td>
+                </tr>
+            </table>
+        </p>
+        <ul>
+            <li value="1">On the <b>System Settings</b> page, configure the <a href="Configuring System Settings.htm#Facility_Types">Facility Types</a>. Determine if the default Facility Types meet your needs, or create new ones if necessary. The default facility types include a Meter, Meter Station, Weather Station, and Weather Region. Build a hierarchy for the required facility types. For Owner Types you will need to <b>Assign Input Category</b> (Input Owner Categories are configured on the <b>Input Items</b> page, then come back to the <b>Facility Types</b> to assign). See <a href="Configuring Input Items.htm">Configuring Input Items</a> for more information.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="3"></a>3.	Configure Input Items</h3>
+        <p>Configure Input Items Category, Calendar Inputs and Input Owner Categories on the <a href="Configuring Input Items.htm">Input Items</a> page. </p>
+        <ul>
+            <li value="1">On the <b>Input Items</b> page, configure the <a href="Configuring Input Data Items Import.htm">Input Items</a>. <br />Determine if the default Input Items meet your needs for both historical data and forecast data or if additional Input Item categories need to be created. The baseline ELF configuration creates a single “Weather” input item category, with several input data items.<br />Examples of Input Items are weather items (temperature, humidity, wind speed, heating degree day, cooling degree day, etc.) An example of a non-weather Input Item would be an economic factor. This is the data that is being imported to the system, so it needs to match with the data in the import files.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Input Items</b> page, configure the <a href="Configuring Calendar Inputs.htm">Calendar Inputs</a>.<br />Create a list of Calendar inputs. The system creates U.S. Federal Holidays through 2020. You can add additional Calendar inputs as desired. Best practice dictates that you should categorize them.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Input Items</b> page, configure the <a href="Configuring Input Owner Categories.htm">Input Owner Categories</a>.<br />Create a list of entries for Categorical input items.</li>
+        </ul>
+        <ul>
+            <li value="1">Go back to the <b>System Settings</b> page and Assign Input Item Category to Owner Types.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="4"></a>4.	Configure Meters and Input Owners</h3>
+        <p>Create and configure meters, meter groups, input owners, and input owners groups in a hierarchy as necessary on the <a href="Configuring Meters and Input Owners.htm">Meters/Owners</a> page.</p>
+        <ul>
+            <li value="1">On the <b>Meters/Owners</b> page, right-click to expand hierarchy, add children and siblings, edit settings, and delete meters, meter groups, input owners, and input owners groups.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Meters/Owners</b> page, <b>General</b> page, configure <a href="Configuring Meter Meter Group General Settings.htm">general</a> meter or meter group properties, such as External ID, Target Description, Facility Type, Gas Load Type, and Energy Content. </li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Meters/Owners</b> page, <b>Assignments</b> page, configure the <a href="Configuring Meter Meter Group Assignments Settings.htm#Meter_Settings">Value Assignment Type</a> of forecast for each meter and meter group:<ul class="Circle"><li class="HyperlinkList" value="1">No Assignment (None)</li><li class="HyperlinkList" value="2">Direct Forecast</li><li class="HyperlinkList" value="3"><a href="Viewing Historical Value Rollup Rules.htm">Rollup Forecast</a></li><li class="HyperlinkList" value="4"><a href="Configuring Assignment From Parent.htm">Assignment from Parent</a></li><li class="HyperlinkList" value="5"><a href="Configuring Aggregation From Children.htm">Aggregation from Children</a></li><li class="HyperlinkList" value="6"><a href="Configuring Expression Redistribution.htm">Expression Redistribution</a></li><li class="HyperlinkList" value="7"><a href="Configuring Balancing Redistribution.htm">Balancing Redistribution</a></li></ul></li>
+        </ul>
+        <ul>
+            <li value="1">On the  <b>Meters/Owners</b> page, <b>Assignments</b> page, configure     <a href="Configuring Value Adjustment.htm">Value Adjustment</a> for each meter and meter group.</li>
+        </ul>
+        <ul>
+            <li value="1">On the  <b>Meters/Owners</b> page, <b>Assignments</b> page, configure the <a href="Configuring Meter Meter Group Assignments Settings.htm#Hierarchy_Memberships">hierarchy membership</a>, <a href="Configuring Meter Meter Group Assignments Settings.htm#Hierarchy_Parent">hierarchy parent</a>, and <a href="Configuring Meter Meter Group Assignments Settings.htm#Hierarchy_Children">hierarchy children</a> for each meter and meter group, as necessary.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Meters/Owners</b> page, since the default neural network definition is currently associated with the meter and meter group, you may need to come back after you create a new neural network definition.</li>
+        </ul>
+        <ul>
+            <li value="1">Now you are ready to define a neural network definition, but first you must import some data.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="5"></a>5.	Import Data</h3>
+        <p>The source, processing, and processed import folders are configured on the <a href="Configuring File Import Settings.htm">File Input</a> page. The system supports the import of the following types:</p>
+        <ul>
+            <li value="1">Historical Gas Load Data </li>
+            <li value="2">Forecast Gas Load Data*</li>
+            <li value="3">Historical Weather Data </li>
+            <li value="4">Forecast Weather Data</li>
+            <li value="5">Use of other input data is optional. If used, it requires both historical and forecast values.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> * It is possible to override forecasted hourly values with externally provided forecast gas load data, so that the best gas load values for meters or meter groups with a known gas load schedule are used as the forecast. See <a href="Configuring File Import Settings.htm">Configuring File Import Settings</a> and <a href="Configuring Value Adjustment.htm#Override_Forecast">Configuring Value Adjustment</a> for more information.</p>
+        </div>
+        <h4>Data Setup</h4>
+        <p>Specify up to 12 folders required for file import. These folders must be in a location available to both the source data application(s) and the ELF UIS. The ELF driver will create the specified folders automatically.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> All configured folders are interpreted as folders on the CygNet Services host machine’s file system. Relative paths are supported and are relative to the UIS data directory on the CygNet Service host machine.</p>
+        </div>
+        <ul>
+            <li value="1">Source — Historical Gas Load Data</li>
+            <li value="2">Source — Forecast Gas Load Data</li>
+            <li value="3">Source — Historical Input Data</li>
+            <li value="4">Source — Forecast Input Data</li>
+            <li value="5">Processing — Historical Gas Load Data</li>
+            <li value="6">Processing— Forecast Gas Load Data</li>
+            <li value="7">Processing — Historical Input Data</li>
+            <li value="8">Processing — Forecast Input Data</li>
+            <li value="9">Processed — Historical Gas Load Data</li>
+            <li value="10">Processed — Forecast Gas Load Data</li>
+            <li value="11">Processed — Historical Input Data</li>
+            <li value="12">Processed — Forecast Input Data</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Weather data and other input data can use the same folders.</p>
+        </div>
+        <h4>Data Preparation and Import</h4>
+        <p>Data needs to be reformatted into the correct XML format and must adhere to the ELF XML schema, which may require a tool to format the data. The input data must be hourly. See <a href="Understanding the CygNet ELF Import Schema.htm">Understanding the CygNet ELF Import Schema</a> for more information.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Data formatting and preparation is not a CygNet task.</p>
+        </div>
+        <ul>
+            <li value="1">If the ELF driver is running drop the import file into the source folder specified on the <a href="Configuring File Import Settings.htm">File Import</a> page. On import the data is written to the VHS.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure external data sources to copy the input files to the ELF import Source folders.</li>
+        </ul>
+        <ul>
+            <li value="1">View the <b>Data Import Log</b> on the <a href="Configuring the ELF Device.htm#Transact2">Device page</a> to see import results: Succeeded or Failed.</li>
+        </ul>
+        <p>The current values for device statistics can be viewed in the UIS. See <a href="CygNet ELF Device Statistics.htm">CygNet ELF Device Statistics</a>.</p>
+        <h4>Data Filling and Validation</h4>
+        <p>If filling rules are not configured and there are holes in your data the import will succeed with warnings. If you get import errors, add a filling rule to handle missing data, or fix errors in the data, replace the data file in source, and the import will occur again.</p>
+        <p>As each hour is imported into the system, filling rules are applied first, followed by validation rules.</p>
+        <h4>Sparsely Populated Data</h4>
+        <p>If your hourly data is sparsely populated, you can indicate this to the system when importing data, and set it to ignore defined filling rules, so as to more accurately represent current measurement data. You can import data at a later time to fill in the missing data with collected values. See <a href="XML GasLoadImport.htm">Gas Load Import</a> for more information about configuring this option.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="6"></a>6.	Configure Neural Network Definition</h3>
+        <p>Create and configure neural network templates and definitions in a hierarchy as necessary on the <a href="Configuring Neural Networks.htm">Neural Nets</a> page.</p>
+        <ul>
+            <li value="1">On the <b>Neural Nets</b> page, right-click to expand hierarchy, add children and siblings, edit settings, delete, view training, approve training, and reject training.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Neural Nets</b> page, configure a neural network definition based on the default neural network template. See <a href="Configuring Neural Network Definition Settings.htm">Configuring Neural Network Definition Settings</a>.</li>
+        </ul>
+        <ul>
+            <li value="1">On the <b>Neural Nets</b> page, configure the <a href="Configuring Neural Network Definition Settings.htm#Effectiv">Effective Time</a>, <a href="Configuring Neural Network Definition Settings.htm#Training">Training Hourly Intervals</a>, <a href="Configuring Neural Network Definition Settings.htm#Input">Input Data Items</a>, and <a href="Configuring Tuning Parameters.htm">Tuning Parameters</a> for the neural network definition.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="7"></a>7.	Train Neural Network</h3>
+        <p>Once your meters and inputs are configured, data is imported into the system, and a neural network definition is configured and associated with a meter, you are ready to train a neural network definition. The neural network “learns” the relationships between the known historical inputs and their effect on the known historical outputs allowing it to predict future outputs based upon reasonable forecasted values.</p>
+        <p>Training commands are configured on the <a href="Configuring UIS Commands.htm">UIS Commands page</a>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Neural network definition Training Results are in memory only, and are not written anywhere in the CygNet System.</p>
+        </div>
+        <ul>
+            <li value="1">Train the neural network definition using a <b>TRAIN</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure the default <b>TRAIN</b> command or create a new command as necessary.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure the properties of the <b>TRAIN</b> command to train all targets specified in the <a href="Configuring Meters and Input Owners.htm">Meter/Owners</a> page, or train a single target.</li>
+        </ul>
+        <ul>
+            <li value="1">Execute the <b>TRAIN</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Schedule automated tasks in the MSS, if desired.</li>
+        </ul>
+        <ul>
+            <li value="1">View the <b>Training Log</b> on the <a href="Configuring the ELF Device.htm">Device page</a> to see import results: Succeeded or Failed.</li>
+        </ul>
+        <ul>
+            <li value="1">View the <a href="Viewing Training Results.htm">Training Results</a> on the <a href="Configuring Neural Networks.htm">Neural Nets</a> page.</li>
+        </ul>
+        <ul>
+            <li value="1">Refine training settings if necessary.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="8"></a>8.	Forecast Energy Load</h3>
+        <p>Once a neural network definition has been successfully trained and made available to the energy load forecasting process, the system can use the trained neural network definition to generate energy load forecast values for its associated meter or meter group.</p>
+        <p>Neural network definitions are used to generate “gross” forecasts based on their configured forecast inputs values associated with the meter or meter group assigned to the neural network definition. All forecast data filling processes must have already been performed prior to the start of the forecasting process. The energy load forecasting process will utilize the "gross" energy load values calculated to perform all Assignments (Direct, <a href="Viewing Historical Value Rollup Rules.htm">Rollup</a>, <a href="Configuring Assignment From Parent.htm">Assignment from Parent</a>, <a href="Configuring Aggregation From Children.htm">Aggregation from Children</a>, Redistribution (<a href="Configuring Expression Redistribution.htm">Expression</a> and <a href="Configuring Balancing Redistribution.htm">Balancing</a>)) and <a href="Configuring Value Adjustment.htm">Value Adjustments</a>, that are dependent upon the new "gross" energy load forecast value.</p>
+        <p>Forecasting commands are configured on the <a href="Configuring UIS Commands.htm">UIS Commands page</a>.</p>
+        <ul>
+            <li value="1">Generate energy load forecast values by using a <b>FORECAST</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure the default <b>FORECAST</b> command or create a new command as necessary.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure the properties of the <b>FORECAST</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Execue the <b>FORECAST</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Schedule automated tasks in the MSS, if desired.</li>
+        </ul>
+        <ul>
+            <li value="1">View the <b>Forecast Log</b> on the <a href="Configuring the ELF Device.htm">Device page</a> to see import results: Succeeded or Failed.</li>
+        </ul>
+        <ul>
+            <li value="1">Verify the success of neural network training and forecasting, by creating a CygNet Studio screen to show forecasting results and system status. Forecasted points can be displayed on the <a href="CygNet ELF Trend Grid Control.htm">CygNet ELF Trend Control</a>.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="9"></a>9.	Analyze Variance</h3>
+        <p>Variance analysis compares the actual historical values to the forecasted values so that a neural network definition that is not performing well can be identified and retrained with the assumption that future estimates will improve. The variance analysis process must be scheduled to run after the forecasted time interval elapses and the actual output values become known. This allows the variance between estimated and actual output values to be determined. If the variance is too high, retrain the neural network with an improved set of historical input and output values.</p>
+        <p>Variance analysis commands are configured on the <a href="Configuring UIS Commands.htm">UIS Commands page</a>.</p>
+        <ul>
+            <li value="1">Compare actual historical values to the forecasted values by using a <b>ANALYZE</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure the default <b>ANALYZE</b> command or create a new command as necessary.</li>
+        </ul>
+        <ul>
+            <li value="1">Configure the properties of the <b>ANALYZE</b> command to analyze all targets specified in the <a href="Configuring Meters and Input Owners.htm">Meter/Owners</a> page, or analyze a single target.</li>
+        </ul>
+        <ul>
+            <li value="1">Execute the <b>ANALYZE</b> command.</li>
+        </ul>
+        <ul>
+            <li value="1">Schedule automated tasks in the MSS, if desired.</li>
+        </ul>
+        <ul>
+            <li value="1">View the <b>Variance Analysis Log</b> on the <a href="Configuring the ELF Device.htm">Device page</a> to see import results: Succeeded or Failed.</li>
+        </ul>
+        <ul>
+            <li value="1">Review summary information and take appropriate action in CygNet Studio screen (on the <a href="CygNet ELF Trend Grid Control.htm">CygNet ELF Trend Control</a>.) or in the ELF editor.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="10"></a>10.	Retrain Neural Network</h3>
+        <p>If the neural network is not forecasting correctly you will need to determine the neural network errors and modify accordingly.</p>
+        <ul>
+            <li value="1">Determine what put it into that state.</li>
+        </ul>
+        <ul>
+            <li value="1">Decide how to resolve.</li>
+        </ul>
+        <ul>
+            <li value="1">Loop back to <a href="#2" class="selected">System Configuration</a>, <a href="#4" class="selected">Meter Configuration</a>, <a href="#7" class="selected">Neural Network Training</a>, <a href="#8" class="selected">Forecasting</a>, and <a href="#9" class="selected">Variance Analysis</a>, reconfigure the system, and retrain the neural network definition as necessary.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

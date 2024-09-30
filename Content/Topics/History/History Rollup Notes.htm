@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|History Data">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Notes About History Rollups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Data.htm">History Data</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Notes About History Rollups</span>
+        </div>
+        <h2>Notes About History Rollups</h2>
+        <p>The following notes and examples provide insight into how rollups work with offsets and missing values. See <a href="History Rollups.htm">History Rollups</a> for a definition of the parameters described in these examples.</p>
+        <h3><a name="Offset"></a>Offset Notes</h3>
+        <p>The <b>RollupPeriod</b> for a <b>RollupType</b> of <i>Calculated Weighted Average</i>  tells the iterator how many days to include in each instance of the <b>RollupUnit</b>. If the <b>RollupUnit</b> is <i>Days</i> and the <b>RollupPeriod</b> is <i>2</i>, there will be an entry for each day with the <i>Calculated Weighted Average</i> of the 2 days previous to that day rolled into the calculation.</p>
+        <p>The <b>Offset</b> for <i>Calculated Weighted Average</i> tells the iterator where to start iterating. For example:</p>
+        <ul>
+            <li value="1">If you have an <b>EarliestTime</b> of 6/5/2017 and a <b>LatestTime</b> of 6/7/2017 and your <b>Offset</b> is <i>12</i>, the iteration will start on 6/4/2017 at noon and continue through 6/7/2017 at noon and you will have 4 rollup values:</li>
+        </ul>
+        <p class="Indent2">6/4/2017 12:00:00.000</p>
+        <p class="Indent2">6/5/2017 12:00:00.000</p>
+        <p class="Indent2">6/6/2017 12:00:00.000</p>
+        <p class="Indent2">6/7/2017 12:00:00.000</p>
+        <ul>
+            <li value="1">If you have an <b>EarliestTime</b> of 6/5/2017 and an <b>LatestTime</b> of 6/7/2017 and your <b>Offset</b> is <i>0</i> (midnight), the iteration will begin on 6/4/2017 at midnight and roll up the first day (6/4/2017 - 6/5/2017) and continue on through 6/7/2017 at midnight and you will have 3 rollup values:</li>
+        </ul>
+        <p class="Indent2">6/5/2017 00:00:00.000</p>
+        <p class="Indent2">6/6/2017 00:00:00.000</p>
+        <p class="Indent2">6/7/2017 00:00:00.000</p>
+        <p>For all the rollups, the <b>EarliestTime</b> is not where the rollups start, but where the first rollup ends at — an <b>EarliestTime</b> of 6/5/2017 with an <b>Offset</b> of <i>0</i> means that the first rollup will go from 6/4/2017 00:00:00.000 to 6/5/2017 00:00:00.000.</p>
+        <p>The <b>Offset</b> DOES affect how many rollups appear for any given rollup. If you give an <b>Offset</b> of <i>9</i> and an <b>EarliestTime</b> of 6/5/2017 00:00:00.000 with a <b>RollupPeriod</b> of <i>1 day</i> the iterator will try to <i>match</i> the times up by starting from 6/3/2017 09:00:00.000 - 6/4/2017 09:00:00.000 for the first rollup.</p>
+        <p>It does this because the 9 comes before midnight and it is trying to rollup to 9 so it has to go one extra day back. Think of it in terms of a timeline:</p>
+        <p>0__1__2__3__4__5__6__7__8__9__10__11__12__13__14__15__16__17__18__19__20__21__22__23__0</p>
+        <p class="Indent3">6/5/2017__________________________________                                                                             6/6/2017</p>
+        <p>To roll up to 9 given an <b>EarliestTime</b> of 6/5/2017 00:00:00.000, the iterator goes back to the previous 9, which is 6/4/2017 09:00:00.000 and uses that as the start time. This means that it has to go back to 6/3/2017 09:00:00.000 and roll forward to 6/4/2017 09:00:00.000 for the first rollup value.</p>
+        <h3><a name="Rules"></a>Rules of EarliestTime (Start Time) and LatestTime (End Time)</h3>
+        <ol>
+            <li value="1">If the <b>LatestTime</b> extends beyond the <b>Offset</b>, then the rollup will end the day <i>after</i> the <b>LatestTime</b>.</li>
+            <li value="2">If the <b>EarliestTime</b> comes before the <b>Offset</b>, then the rollup will start two days <i>before</i> the <b>EarliestTime</b> and the first rollup will end the day <i>before</i> the <b>EarliestTime</b>.</li>
+            <li value="3">If the <b>LatestTime</b> ends before the <b>Offset</b>, then the rollup will end at the <b>Offset</b><i> on</i> the <b>LatestTime</b> date.</li>
+            <li value="4">If the <b>EarliestTime</b> extends beyond the <b>Offset</b>, then the rollup will start exactly one day <i>before</i> the <b>EarliestTime</b> and the first rollup will end at the <b>Offset</b> <i>on</i> the <b>EarliestTime</b> date.</li>
+        </ol>
+        <h3>Example 1 — When to Start, When to End</h3>
+        <p>If you change the <b>EarliestTime</b> or <b>LatestTime</b> it could cause the rollups to go back further to start the rollup than you might expect depending on the <b>Offset</b>. This is because the <b>EarliestTime</b> is set as the end of the first <b>RollupPeriod</b> and if the end of the first <b>RollupPeriod</b> is not in line with the <b>Offset</b> then it could cause the calculation to go back further to look for a proper beginning point — this would mean, for a rollup with the following parameters:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 40pt;" />
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;"><b>Parameters</b>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd"><b>Values</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">RollupType:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">Calculated Weighted Average</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">EarliestTime:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">6/11/2017 15:59:59.999</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">LatestTime:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">6/12/2017 15:59:59.999</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">Offset:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">15 (3PM)</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">RollupUnit: </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">Days</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep" style="text-align: right;">RollupPeriod: </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">1</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The rollup will look at the <b>Offset</b> and time range and these will be the results:</p>
+        <p>The first rollup should end on 6/11/2017 15:00:00.000 and the <b>EarliestTime</b> is 6/11/2017 15:59:59.999.</p>
+        <p class="Indent2">6/11/2017 15:59:59.999 comes <i>after</i> 6/11/2017 15:00:00.000</p>
+        <p>There are more than 24 hours between (<b>EarliestTime</b> – (minus)  24 hours) and the <b>EarliestTime</b> so the first rollup will end on 6/11/2017 15:00:00.000. The second rollup will be from 6/11/2017 15:00:00.000 to 6/12/2017 15:00:00.00 with the <b>LatestTime</b> being after the <b>Offset</b> (15 is the unit and 15:59:59.999 is the time to stop). This means the rollup will go another record into the future and rollup from 6/12/2017 15:00:00.000 to 6/13/2017 15:00:00.000. The three records will then be:</p>
+        <p class="Indent2">6/11/2017 15:00:00.000</p>
+        <p class="Indent2">6/12/2017 15:00:00.000</p>
+        <p class="Indent2">6/13/2017 15:00:00.000</p>
+        <h3>Example 2 — Insufficient Data at Start Time</h3>
+        <p>This example uses the following parameters:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 40pt;" />
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;"><b>Parameters</b>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd"><b>Values</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">RollupType:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">Calculated Weighted Average</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">EarliestTime:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">6/11/2017 15:59:59.999</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">LatestTime:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">6/12/2017 15:59:59.999</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">Offset:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">16 (4PM)</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">RollupUnit: </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">Days</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep" style="text-align: right;">RollupPeriod: </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">1</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The rollup will look at the <b>Offset</b> and time range and these will be the results:</p>
+        <p>The first rollup should end on 6/11/2017 16:00:00.000 and the <b>EarliestTime</b> is 6/11/2017 15:59:59.999.</p>
+        <p class="Indent2">6/11/2017 15:59:59.999 comes <i>before</i> 6/11/2017 16:00:00.000</p>
+        <p>There are fewer than 24 hours between (<b>EarliestTime</b> – (minus)  24 hours) and <b>EarliestTime</b> so the first rollup will end on 6/10/2017 16:00:00.000 because it has to go back an extra day to be able to rollup 24 hours’ worth of data and end right at the 16:00:00.000 mark. The second rollup will be from 6/10/2017 16:00:00.000 to 6/11/2017 16:00:00.00. The <b>LatestTime</b> being before the <b>Offset</b> (16 is unit and 15:59:59.999 is the time to stop). This means that the rollup will stop at the <b>LatestTime</b> just as you want it to, that is: 6/12/2017 16:00:00.000. The three records will then be:</p>
+        <p class="Indent2">6/10/2017 16:00:00.000</p>
+        <p class="Indent2">6/11/2017 16:00:00.000</p>
+        <p class="Indent2">6/12/2017 16:00:00.000</p>
+        <h3>Example 3 — Missing Value at EarliestTime</h3>
+        <p>When the VHS goes to rollup values from a specific point in time to another specific point in time it uses a <i>Hard Window</i> to force a value to exist at the <b>EarliestTime</b> even if no value actually exist at the earliest time. The VHS carries over the last reported value at the time, and the iterator starts at exactly the point where <b>EarliestTime</b> specifies, taking into account the <i><a href="#Rules" style="font-style: normal;" class="selected">rules</a></i> described above. </p>
+        <p>It is very important to remember that, the value found exactly at the <b>EarliestTime</b> will be included even if no history entry exists at that time. This means that for a <b>RollupType</b>	 such as <i>Calculated Mean</i> this will add one to the denominator.</p>
+        <p>For example, assume we have the following raw values:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 40pt;" />
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep"><b>Value</b>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd"><b>Date and Time</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: left;">1</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">01/13/2017 08:01:00.000</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: left;">5</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">	01/13/2017 09:12:23.000</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: left;">10</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">	01/13/2017 10:12:23.000</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: left;">100</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">01/14/2017 08:12:23.000</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep" style="text-align: left;">1000</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">01/14/2017 20:16:31.000</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>And the iterator uses the following parameters:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 40pt;" />
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;"><b>Parameters</b>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd"><b>Values</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">RollupType:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">Calculated Mean</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">EarliestTime:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">01/14/2017</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">LatestTime:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">01/14/2017</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">Offset:</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">9</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: right;">RollupUnit: </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd">Days</td>
+                </tr>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep" style="text-align: right;">RollupPeriod: </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">1</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>We will see the following occur:</p>
+        <ul>
+            <li value="1">The <b>Offset</b> (<i>9</i>) is before the <b>EarliestTime</b> so the iterator will go back to 01/13/2017 09:00 and roll up to 01/14/2017 09:00 for the first rollup.</li>
+            <li value="2">The values used will be: (1 + 5 + 10 + 100) / 4 = 29. The <i>Calculated Mean</i> for the first rollup will be 29.</li>
+            <li value="3">This is because the VHS assumes the value at 01/13/2017 09:00:00.000 is 1, which was the last reported value at that time (from 08:01:00.000).</li>
+            <li value="4">If you alter the <b>Offset</b> to <i>10</i>, we will see the same issue where the value at 01/13/2017 09:12:23.000 is included in the calculation, even though it doesn't fit in the time window. This is because a value must exist at the <b>EarliestTime</b> for the rollup to work.</li>
+            <li value="5">You might see issues where it looks like 25 hours are being rolled into a day, when, in actuality, the VHS just has to assume the value at <b>EarliestTime</b> (according to the <a href="#Rules" class="selected">rules</a> above).</li>
+        </ul>
+        <h3><a name="Thin"></a>Thin Rollup Types</h3>
+        <p>For Thin Rollup types (<b>Thin Median</b>, <b>Thin Min/Max</b>, and <b>Thin Last</b>), the iterator looks for values within each <b>RollupPeriod</b>. If no values are found within that <b>RollupPeriod</b>, the iterator thins the results by not rolling up that period. This results in <b>RollupPeriods</b> that are missing from the output.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

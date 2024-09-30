@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="System Administration|System Administration Utilities|CygNet Host Manager Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Advanced Network Settings</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="System Administration.htm">System Administration</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="System Administration Utilities.htm">System Administration Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Host Manager Utility.htm">CygNet Host Manager Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Advanced Network Settings</span>
+        </div>
+        <h2>Configuring Advanced Network Settings</h2>
+        <p>Use <b>Advanced Network Settings</b> to configure <a href="#Configur" class="selected">Reliable User Datagram Protocol (RUDP) Fragment Sizes</a> and view <a href="#Network" class="selected">Network Address Translation (NAT) settings</a>.</p>
+        <h3><a name="Packets"></a>CygNet Data Packets and RUDP</h3>
+        <p><span class="CygNetVariablesSoftwareName">CygNet Software</span> uses the Reliable User Datagram Protocol (RUDP) for the transmission of packets between network end points. This is true even if the end points are on the same machine. As a transport layer protocol, RUDP packages data into datagrams (or packets). It then frames the packet with additional header information required at the lower level in the network stack. A frame contains three fields: address, payload (data), and error checking.</p>
+        <p>The data link layer almost always poses limits on the maximum frame size. This size is referred to as the maximum transmission unit (MTU). Ethernet has a standard frame of 1500 bytes. If the frame is larger than the MTU, it is broken up into smaller packets in a process referred to as "fragmentation." A software application can define its default fragment size, although the optimal fragment size depends on the application and the network. CygNet has default fragment size of 1218 bytes. (A maximum size CygNet message is 4120 bytes.)</p>
+        <p>Underlying network components such as routers, switches, NICs, etc. may have a smaller MTU than Ethernet, and in such cases the link (or interconnect) will fragment the packet again. Each IP fragment carries information about which part of the original IP packet it contains. The fragments are re-assembled by the receiving IP host and passed to the higher protocol layer.</p>
+        <p>While a larger packet can carry more data and thus need fewer packets, the downside is that a large packet will occupy a slow link for more time and cause delays to subsequent packets, thus increasing lag and latency. Furthermore, corruption in a single bit in a packet requires that the entire packet be retransmitted. Small packets can be retransmitted more quickly. At a given bit error rate, larger packets are more likely to be corrupted. On the other hand, a larger MTU means fewer packets, and in some systems per packet processing can be a critical performance limitation. For highly latent networks or network connections, it may be beneficial to use smaller fragments. </p>
+        <p>In CygNet, packets that come from the server and are sent to a client are generally large; however, there are tasks performed on a client that are not easily compressible and therefore may involve large packets being sent to the server, such as uploading files to a BLOB Storage Service (BSS) or editing Device Template Files (DTFs). </p>
+        <p>For more information, see <a href="CygNet Message Sniffer Lite Utility.htm">CygNet Message Sniffer Lite Utility</a>.</p>
+        <h3><a name="Configur"></a>Configuring CygNet RUDP Fragment Size Settings</h3>
+        <p>CygNet has RUDP fragment size options for both the host and the client that can be configured to reduce packet failure issues and maximize successful packet transmission. The CygNet settings for fragment size options are shown in the table below.</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Setting </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Fragment Size (bytes)</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Sized for</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Default fragmentation</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">1400</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Tiny fragments</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">534 </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Smallest  IPv4 MTU</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Small fragments</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">1030</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Medium fragments</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">1218 </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Smallest IPv6 MTU</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Large fragments</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">1400</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Disabled </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">4120 </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">Max buffer receive size</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Use the following tools to change RUDP Fragment Sizes, as necessary:</p>
+        <ul>
+            <li value="1">For CygNet services, use the <b>CygNet Host Manager</b> utility (CHostMgr.exe) on the host machine.</li>
+            <li class="HyperlinkList" value="2">For CygNet clients, use the <a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection Utility</a>  (CygConn.exe).</li>
+        </ul>
+        <p>The RUDP Fragment Sizes setting is found under <b>Properties</b> &gt; <b>Advanced Network Settings</b> in both utilities.</p>
+        <p>
+            <img src="../../Resources/Images/System Administration/cygnet_host_manager_rudp.png" title="Advanced Network Settings" alt="Advanced Network Settings" />
+        </p>
+        <p>On the host machine, changing the fragment size affects only service-to-service messaging. On the client machine, changing the fragment size affects the messaging between that client and the services (both client-to-service and service-to-client). </p>
+        <p>The CygNet RUDP fragment size setting is read at startup, so if you change the value you must restart all software components to which you would like the change applied. If the change is on the host machine, you must restart the CygNet services. If the change is on the client machine, you must restart the CygNet client applications.</p>
+        <h3>RUDP Info Items</h3>
+        <p>Several RUDP-related info items can be used to monitor RUDP packet receipt, corruption, cancellation, failures, etc.</p>
+        <p>See <a href="../Service Monitoring/Info Items - Network.htm">Network Info Items</a>  for more information.</p>
+        <h3><a name="Network"></a>Network Address Translation (NAT) Settings</h3>
+        <p>NAT Service and Client addresses can also be viewed on this dialog. </p>
+        <p>See <a href="Network Address Translation.htm">Network Address Translation</a> for more information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

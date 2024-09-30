@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|IoT EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>IoT EIE Device Template Properties</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="IoT EIE.htm">IoT EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Device Template Properties</span>
+        </div>
+        <h2>IoT EIE Device Template Properties</h2>
+        <p>The IoT EIE sample device template files include sections specific only to the IoT EIE.    This topic contains three examples of IoT-specific device template files and how they connect with payloads.</p>
+        <h3>Device Template Elements and Attributes for the IoT&#160;EIE</h3>
+        <p>Data in device templates define what the payload looks like and where to find specific items in the payload. The <b>payloadDef</b> section of an IoT EIE device template file contains elements and attributes that define the payload. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If a timestamp is not included in a payload item, the topic's timestamp is used. When a topic does not include a timestamp, the CygNet host's timestamp is used.</p>
+        </div>
+        <h4>Payload Definition</h4>
+        <p>The following table lists and describes elements found in the <b>payloadDef</b> section of the IoT EIE template files.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>mapTypes</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Maps data types in the payload to CygNet data types.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p class="Indent"><b>e<i>x</i></b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Each enumeration must begin with a lowercase e. It is then to be followed by a data type defined in the payload (e.g., data type 1 is represented as <b>e1</b> and data type "UInt" is represented as <b>eUInt</b>.)</p>
+                    <p>Each enumeration element must be unique, but its value does not need to be unique. For example, using <b>e1</b> twice within a single enumeration list is illegal, but using the value "ui2" for <b>e1</b> and <b>e2</b> is legal.</p>
+                    <p>Each enumeration must use a <a href="#value" class="selected">value</a> attribute to define  a constant value that corresponds to a valid CygNet data type.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>mapUnits</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Maps units in the payload to CygNet units. This section is needed only when the payload indicates data units that you want to import into CygNet. </p>
+                    <p>For example, CygNet represents kilograms as "kg", while a payload may use the text "KGRAM".  This section of the template file can be used to map the text string "KGRAM" from the payload to "kg" in CygNet.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p class="Indent"><b>e<i>x</i></b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Each enumeration must begin with a lowercase e. It is then to be followed by a "units" value defined in the payload (e.g., units "KGRAM" in the payload is represented as <b>eKGRAM</b>.)</p>
+                    <p>Each enumeration element must be unique, but its value does not need to be unique. For example, using <b>eKGRAM</b> twice within a single enumeration list is illegal, but using the value "kg" for <b>eKGRAM</b> and <b>eKILOGRAM</b> is legal.</p>
+                    <p>Each enumeration must use a <a href="#value" class="selected">value</a> attribute to define  a constant value that corresponds to a valid CygNet unit. See <a href="../Points/PNT Engineering Units.htm">PNT Engineering Units</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>paths</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Identifies a set of path IDs.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p class="Indent"><b>&lt;pathid&gt;</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Provides a path to items in the payload file (e.g., <b>pMetric</b> or <b>pPayload</b>). This value is user defined and unique to the device template.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p class="Indent2"><b>where</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Defines a set of clauses used to correlate a payload item to a data group element.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>formats</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Identifies a set of format IDs.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p class="Indent"><b>&lt;format ID&gt;</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Identifies the format of a payload item (e.g., <b>fMetric</b> or <b>fPayload</b>). This value is user defined and unique to the device template.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p class="Indent2"><b>value</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the value of the payload item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p class="Indent2"><b>type</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Defines the data type of the payload item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p class="Indent2"><b>dateTime</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Defines the timestamp of the  payload item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p class="Indent2"><b>isHistory</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Denotes whether the payload item represents a historical value. Default is false.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p class="Indent2"><b>isNull</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Denotes whether or not the payload item has a value. Default is false.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p class="Indent2"><b>units</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Defines the units of the payload item.</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Payload Definition Attributes</h4>
+        <p>The following table lists and describes IoT-specific attributes found in the <b>payloadDef</b> section of the IoT EIE&#160;template files.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="value"></a>value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>value</b> specifies a constant value of a payload item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>path</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The location of the item in the payload file. If the <b>path</b> is blank or missing, use the root node.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The <b>path</b> allows the following substitution strings:
+                    <ul><li value="1">%deviceId%</li><li value="2">%facilityId%</li><li value="3">%ordinal%</li></ul></p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>formatId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Identifies which format ID value from the <b>formats</b> element within <b>payloadDefs</b>  to use with this path. If the format ID&#160;is blank or missing, each key in the payload represents a value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>key</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Represents the identifier from the payload.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>attribute</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Identifies an attribute of a data group element. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Defines the data type to associate with a payload key.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1"><b>boolean</b>: Boolean</li>
+                        <li value="2"><b>i1</b>: Character</li>
+                        <li value="3"><b>i2</b>: Short integer</li>
+                        <li value="4"><b>i4</b>: Integer</li>
+                        <li value="5"><b>i8</b>: Integer<br /></li>
+                        <li value="6"><b>r4</b>: Float</li>
+                        <li value="7"><b>r8</b>: Double</li>
+                        <li value="8"><b>ui1</b>: Byte</li>
+                        <li value="9"><b>ui2</b>: Unsigned short integer</li>
+                        <li value="10"><b>ui4</b>: Unsigned integer</li>
+                        <li value="11"><b>ui8</b>: Unsigned integer</li>
+                        <li value="12"><b>string</b>: String</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>cvtF</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the conversion method used to convert source data of one format into a different target format. Specifically, it is used to convert a payload timestamp to a <b>COleDateTime</b> double. See <a href="cvtF Conversion Methods.htm">cvtF Conversion Method</a>.</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Data Group Attributes</h4>
+        <p>The following table lists and describes IoT-specific data group attributes.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>setUnreliableOnLostConnection</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If this value is set to "true", all CygNet points will be set to unreliable when the MQTT server loses the connection to the remote device or node. It requires that the data group element <b>_goodConn</b> be defined to identify the payload item that indicates connection status.</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Data Group Elements</h4>
+        <p>The following table lists and describes IoT-specific data group elements. These items are optional, but have special meaning in CygNet. If used, each item must have an <b>itemId</b> mapping it to a payload item.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Data Group Element ID</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>_topicTime</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The topic/payload data time. This value is used for point processing in the absence of a timestamp associated with each payload item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>_goodConn</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Boolean value indication that the MQTT connection to the remote device/node is good. </p>
+                </td>
+            </tr>
+        </table>
+        <h4>Data Group Element Attributes</h4>
+        <p>The following table lists and describes IoT-specific attributes of data group elements.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 161px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 637px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>itemId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the item in the payload file. This is used to map an item in a payload file to a CygNet data group element. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The <b>itemId</b> allows the following substitution strings:</p>
+                        <ul>
+                            <li value="1">%deviceId%</li>
+                            <li value="2">%facilityId%</li>
+                            <li value="3">%ordinal%</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>pathId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Identifies the <b>path</b> from the Payload Definition used to locate this item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>It is recommended that <b>type</b> variant ("vrnt") be used to preserve the data type provided in the payload.</p>
+                </td>
+            </tr>
+        </table>
+        <h3> IoT_Sample.dtf</h3>
+        <p>The following example displays a sample section of the IoT_Sample.dtf.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the template</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;payloadDef&gt;</p>
+                            <p class="Code2">&lt;mapTypes&gt;</p>
+                            <p class="Code3">&lt;e1 value="i1"/&gt;</p>
+                            <p class="Code3">&lt;e2 value="i2"/&gt;</p>
+                            <p class="Code3">&lt;e3 value="i4"/&gt;</p>
+                            <p class="Code3">&lt;e4 value="i8"/&gt;</p>
+                            <p class="Code3">&lt;e5 value="ui1"/&gt;</p>
+                            <p class="Code3">&lt;e6 value="ui2"/&gt;</p>
+                            <p class="Code3">&lt;e7 value="ui4"/&gt;</p>
+                            <p class="Code3">&lt;e8 value="ui8"/&gt;</p>
+                            <p class="Code3">&lt;e9 value="r4"/&gt;</p>
+                            <p class="Code3">&lt;e10 value="r8"/&gt;</p>
+                            <p class="Code3">&lt;e11 value="boolean"/&gt;</p>
+                            <p class="Code3">&lt;e12 value="string"/&gt;</p>
+                            <p class="Code3">&lt;e13 value="ui8"/&gt;</p>
+                            <p class="Code3">&lt;e14 value="string"/&gt;</p>
+                            <p class="Code2">&lt;/mapTypes&gt;</p>
+                            <p class="Code2">&lt;paths&gt;</p>
+                            <p class="Code3">&lt;pMetric path="metrics" formatId="fMetric"&gt;</p>
+                            <p class="Code4">&lt;!--path =&gt; $.metrics[?(@.name = /%itemId%/)]--&gt;</p>
+                            <p class="Code4">&lt;where&gt;</p>
+                            <p class="Code5">&lt;w key="name" attribute="itemId"/&gt;</p>
+                            <p class="Code4">&lt;/where&gt;</p>
+                            <p class="Code3">&lt;/pMetric&gt;</p>
+                            <p class="Code3">&lt;pPayload path="" formatId=""&gt;</p>
+                            <p class="Code4">&lt;!--blank/missing formatId =&gt; each key represents a value--&gt;</p>
+                            <p class="Code4">&lt;!--blank/missing path =&gt; use root node--&gt;</p>
+                            <p class="Code3">&lt;/pPayload&gt;</p>
+                            <p class="Code2">&lt;/paths&gt;</p>
+                            <p class="Code2">&lt;formats&gt;</p>
+                            <p class="Code3">&lt;fMetric&gt;</p>
+                            <p class="Code4">&lt;value key="*value"&gt;</p>
+                            <p class="Code5">&lt;!--note wildcard; key could be value, int_value, intValue--&gt;</p>
+                            <p class="Code4">&lt;/value&gt;</p>
+                            <p class="Code4">&lt;type key="datatype"/&gt;</p>
+                            <p class="Code4">&lt;dateTime key="timestamp" type="ui8" cvtF="TimeMs"/&gt;</p>
+                            <p class="Code4">&lt;isHistory key="is_historical"/&gt;</p>
+                            <p class="Code4">&lt;isNull key="is_null"/&gt;</p>
+                            <p class="Code4">&lt;units key="properties.Unit.value"/&gt;</p>
+                            <p class="Code3">&lt;/fMetric&gt;</p>
+                            <p class="Code2">&lt;/formats&gt;</p>
+                            <p class="Code">&lt;/payloadDef&gt;</p>
+                            <p class="Code">&lt;dataGroups udcCat="UDCALL" canSend="false" canRecv="false" uccSend="false" uccRecv="false" udcDefFac="true" baseOrd="0" devDG="false" maxCnt="1" forceSave="true"&gt;</p>
+                            <p class="Code2">&lt;Topic1 niceName="Topic 1"&gt;</p>
+                            <p class="Code3">&lt;dgElements secLev="4" type="vrnt" pathId="pMetric"&gt;</p>
+                            <p class="Code4">&lt;_topicSeq desc="Seq #" itemId="seq" pathId="pPayload"/&gt;</p>
+                            <p class="Code4">&lt;_topicUuid desc="UUID" itemId="uuid" pathId="pPayload"/&gt;</p>
+                            <p class="Code4">&lt;_topicTime desc="Date/time (#)" itemId="timestamp" pathId="pPayload" cvtF="TimeMs" sourceType="ui8" type="r8" hidden="true"/&gt;</p>
+                            <p class="Code4">&lt;_topicTs desc="Date/time (UTC)" ref="_topicTime" type="string" format="DateTime"/&gt;</p>
+                            <p class="Code4">&lt;SignedI1 desc="Signed byte" itemId="sbyte1"/&gt;</p>
+                            <p class="Code4">&lt;SignedI2 desc="Signed word" itemId="sword1"/&gt;</p>
+                            <p class="Code4">&lt;SignedI4 desc="Signed double word (scaled)" itemId="sdword1" cvtF="Scale" sourceType="i4" type="r4" scaleFactor=".01" units="in"/&gt;</p>
+                            <p class="Code4">&lt;SignedI8 desc="Signed quad word" itemId="sqword1"/&gt;</p>
+                            <p class="Code4">&lt;Unsigned1 desc="Unsigned byte" itemId="ubyte1"/&gt;</p>
+                            <p class="Code4">&lt;Unsigned2 desc="Unsigned  short word" itemId="uword1"/&gt;</p>
+                            <p class="Code4">&lt;Unsigned4 desc="Unsigned double word" itemId="udword1"/&gt;</p>
+                            <p class="Code4">&lt;Unsigned8 desc="Unsigned quad word" itemId="uqword1"/&gt;</p>
+                            <p class="Code4">&lt;Float desc="Float" itemId="float1"/&gt;</p>
+                            <p class="Code4">&lt;Double desc="Double" itemId="double1"/&gt;</p>
+                            <p class="Code4">&lt;Bool desc="Boolean" itemId="boolean1"/&gt;</p>
+                            <p class="Code4">&lt;String desc="String" itemId="string1"/&gt;</p>
+                            <p class="Code3">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;/Topic1&gt;</p>
+                            <p class="Code">&lt;/dataGroups&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h4>Payload
+</h4>
+        <p>The payload is the actual message content. The following is an example section of a payload file for the IoT_Sample.dtf.</p>
+        <table class="Code" style="width: 575px;">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the payload</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code"> {</p>
+                            <p class="Code2">"timestamp":"1540853441117",</p>
+                            <p class="Code2">"seq":1</p>
+                            <p class="Code2">"metrics" : [ {</p>
+                            <p class="Code3">"name" : "sbyte1",</p>
+                            <p class="Code3">"datatype" : 1,</p>
+                            <p class="Code3">"intValue" : 4294967295</p>
+                            <p class="Code2">}, {</p>
+                            <p class="Code3">"name" : "float1",</p>
+                            <p class="Code3">"datatype" : 9,</p>
+                            <p class="Code3">"floatValue" : 2.22865694E-7</p>
+                            <p class="Code2">}, {</p>
+                            <p class="Code3">"name" : "boolean1",</p>
+                            <p class="Code3">"datatype" : 11,</p>
+                            <p class="Code3">"booleanValue" : false</p>
+                            <p class="Code2">}, {</p>
+                            <p class="Code3">"name" : "string1",</p>
+                            <p class="Code3">"datatype" : 12,</p>
+                            <p class="Code3">"stringValue" : "String4321"</p>
+                            <p class="Code2">} ],</p>
+                            <p class="Code">}
+</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h4>Payload Properties</h4>
+        <p>The following table lists and describes IoT-specific attributes found in the sample payload file above.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 600px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>timestamp</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Represents the time at which the message was published. The value is an unsigned 64-bit integer representing milliseconds since 1/1/1970</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>seq</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The sequence number in the payload.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>metrics</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>An array of payload items.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>name</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The item identifier correlates to the <b>itemid</b> value in an IoT data group.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>datatype</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>This value in the payload must also appear in the <b>mapTypes</b> element of the device template.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>*value</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p> The value of the payload item. The <b>*</b> denotes a wildcard. For example, the key could be <b>value</b>, <b>int_value</b>, or <b>intValue</b>.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3> IoT_SampleSingleItem.dtf</h3>
+        <p>The following example displays a sample section of the IoT_SampleSingleItem.dtf.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the template</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;payloadDef&gt;</p>
+                            <p class="Code2">&lt;mapUnits&gt;</p>
+                            <p class="Code3">&lt;eKGRAM value="kg"/&gt;</p>
+                            <p class="Code3">&lt;eFEET value="feet"/&gt;</p>
+                            <p class="Code2">&lt;/mapUnits&gt;</p>
+                            <p class="Code2">&lt;paths&gt;</p>
+                            <p class="Code3">&lt;pPayload path="" formatId="fPayload"&gt;</p>
+                            <p class="Code4">&lt;!--blank/missing path =&gt; use root node--&gt;</p>
+                            <p class="Code3">&lt;/pPayload&gt;</p>
+                            <p class="Code2">&lt;/paths&gt;</p>
+                            <p class="Code2">&lt;formats&gt;</p>
+                            <p class="Code3">&lt;fPayload&gt;</p>
+                            <p class="Code4">&lt;value key="*value"/&gt;</p>
+                            <p class="Code4">&lt;dateTime key="ts" type="string"/&gt;</p>
+                            <p class="Code4">&lt;units key="units"/&gt;</p>
+                            <p class="Code3">&lt;/fPayload&gt;</p>
+                            <p class="Code2">&lt;/formats&gt;</p>
+                            <p class="Code">&lt;/payloadDef&gt;</p>
+                            <p class="Code">&lt;dataFormat/&gt;</p>
+                            <p class="Code">&lt;dataGroups udcCat="UDCALL" canSend="false" canRecv="false" uccSend="false" uccRecv="false" udcDefFac="true" baseOrd="0" devDG="false" maxCnt="1" forceSave="true"&gt;</p>
+                            <p class="Code2">&lt;Hydro niceName="Hydro"&gt;</p>
+                            <p class="Code3">&lt;dgElements secLev="4" type="ui4"&gt;</p>
+                            <p class="Code4">&lt;Hydro desc="Hydroelectric usage" pathId="pPayload"/&gt;</p>
+                            <p class="Code3">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;/Hydro&gt;</p>
+                            <p class="Code">&lt;/dataGroups&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h4>Payload
+</h4>
+        <p>The payload is the actual message content. The following is an example section of a payload file connected to the IoT_SampleSingleItem.dtf.</p>
+        <table class="Code" style="width: 575px;">
+            <tr>
+                <td>
+                    <p class="Code"> {"ts": "10/24/2018 14:35:00", "value": 3232, "units": "KGRAM"}</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Payload Properties</h4>
+        <p>The following table lists and describes IoT-specific attributes found in the payload file.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 591px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>ts</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Represents the time at which the message was published.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>value</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The value of the payload item.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>units</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Defines  units of the value.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3> <a name="KeyValue"></a>IoT_SampleKeyValue.dtf</h3>
+        <p>The following example displays a sample section of the IoT_SampleKeyValue.dtf.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the template</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;payloadDef&gt;</p>
+                            <p class="Code2">&lt;paths&gt;</p>
+                            <p class="Code3">&lt;pHeader path="" formatId=""&gt;</p>
+                            <p class="Code4">&lt;!--blank/missing path =&gt; use root node--&gt;</p>
+                            <p class="Code4">&lt;!--blank/missing formatId =&gt; each key represents a value--&gt;</p>
+                            <p class="Code3">&lt;/pHeader&gt;</p>
+                            <p class="Code3">&lt;pData path="data" formatId=""&gt;</p>
+                            <p class="Code4">&lt;!--blank/missing formatId =&gt; each key represents a value--&gt;</p>
+                            <p class="Code3">&lt;/pData&gt;</p>
+                            <p class="Code2">&lt;/paths&gt;</p>
+                            <p class="Code">&lt;/payloadDef&gt;</p>
+                            <p class="Code">&lt;dataFormat/&gt;</p>
+                            <p class="Code">&lt;dataGroups udcCat="UDCALL" canSend="false" canRecv="false" uccSend="false" uccRecv="false" udcDefFac="true" baseOrd="0" devDG="false" maxCnt="1" forceSave="true" setUnreliableOnLostConnection="true"&gt;</p>
+                            <p class="Code2">&lt;Topic1 niceName="Topic 1"&gt;</p>
+                            <p class="Code3">&lt;dgElements secLev="4" type="vrnt" pathId="pData"&gt;</p>
+                            <p class="Code4">&lt;_topicTime desc="Date/time (#)" itemId="createTime" pathId="pHeader" cvtF="TimeString" format="ISO8601" hidden="true"/&gt;</p>
+                            <p class="Code4">
+                &lt;_topicTs desc="Date/time" ref="_topicTime" type="string" format="DateTime"/&gt;</p>
+                            <p class="Code4">&lt;_goodConn desc="Connected to device" itemId="connected" pathId="pHeader"/&gt;</p>
+                            <p class="Code4">&lt;gwName desc="Gateway name"/&gt;</p>
+                            <p class="Code4">&lt;devName desc="Device name"/&gt;</p>
+                            <p class="Code4">&lt;BoolTag1 desc="Boolean 1"/&gt;</p>
+                            <p class="Code4">&lt;BoolTag2 desc="Boolean 2"/&gt;</p>
+                            <p class="Code4">&lt;BoolTag3 desc="Boolean 3" itemId="00003"/&gt;</p>
+                            <p class="Code4">&lt;BoolTag4 desc="Boolean 4" itemId="00004"/&gt;</p>
+                            <p class="Code4">&lt;AnaTag1 desc="Analog 1"/&gt;</p>
+                            <p class="Code4">&lt;AnaTag2 desc="Analog 2" itemId="40002"/&gt;</p>
+                            <p class="Code4">&lt;FloatTag1 desc="Float 1"/&gt;</p>
+                            <p class="Code4">&lt;StringTag0 desc="String 0" itemId="47002"/&gt;</p>
+                            <p class="Code4">&lt;StringTag1 desc="String 1"/&gt;</p>
+                            <p class="Code4">&lt;StringTag2 desc="String 2" itemId="49002"/&gt;</p>
+                            <p class="Code4">&lt;rtuIsAlive desc="RTU is alive"/&gt;</p>
+                            <p class="Code4">&lt;SeqNumb desc="Seq number"/&gt;</p>
+                            <p class="Code3">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;/Topic1&gt;</p>
+                            <p class="Code">&lt;/dataGroups&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p>Features of the DTF:</p>
+        <ul>
+            <li value="1">There are no formats defined in the <b>payloadDef</b> section because each item is represented simply by a key-value pair.</li>
+        </ul>
+        <h4>Payload
+</h4>
+        <p>The payload is the actual message content. The following is an example section of a payload file consisting simply of a group of key-value pairs. This is the simplest type of payload to define.</p>
+        <table class="Code" style="width: 575px;">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the payload</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code"> {</p>
+                            <p class="Code2">{"createTime": "2019-04-09T10:32:02.011Z",</p>
+                            <p class="Code2">
+  "connected": "true",
+</p>
+                            <p class="Code2">"data": {</p>
+                            <p class="Code2">"gwName": "GatewayName",</p>
+                            <p class="Code2">"devName": "FieldUnit",</p>
+                            <p class="Code2">"BoolTag1": false,</p>
+                            <p class="Code2">"BoolTag2": false,</p>
+                            <p class="Code2">"00003": false,</p>
+                            <p class="Code2">"00004": false,</p>
+                            <p class="Code2">"AnaTag1": 40,</p>
+                            <p class="Code2">"40002": 50,</p>
+                            <p class="Code2">"FloatTag1": 123.456,</p>
+                            <p class="Code2">"47002": "",</p>
+                            <p class="Code2">"StringTag1": "This is a string value",</p>
+                            <p class="Code2">"49002": "This is another string",</p>
+                            <p class="Code2">"rtuIsAlive": true,</p>
+                            <p class="Code2">"SeqNumb": 0</p>
+                            <p class="Code2">}
+</p>
+                            <p class="Code">}
+</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

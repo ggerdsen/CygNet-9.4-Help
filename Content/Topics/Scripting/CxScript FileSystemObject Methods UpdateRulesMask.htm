@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxScript|FileSystemObject Object">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>UpdateRulesMask</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxScript.htm">CxScript</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxScript FileSystemObject Object.htm">FileSystemObject Object</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">UpdateRulesMask</span>
+        </div>
+        <h2>UpdateRulesMask</h2>
+        <p>The <b>UpdateRulesMask</b> parameter is used to determine whether a file will be downloaded or uploaded.  It does this by comparing the file on the local file system with the file of the same name in the BLOB service.  You use this parameter to tell the function how you want the files compared.</p>
+        <p>The UpdateRulesMask parameter applies to the following functions: <a href="CxScript FileSystemObject Methods.htm#DownloadBlobFile">DownloadBlobFile</a>, <a href="CxScript FileSystemObject Methods.htm#DownloadBlobFileToDirectory">DownloadBlobFileToDirectory</a>, <a href="CxScript FileSystemObject Methods.htm#DownloadFromBlobPath">DownloadFromBlobPath</a>, <a href="CxScript FileSystemObject Methods.htm#DownloadBlobFileToDirectory">DownloadFromBlobPathToDirectory</a>, <a href="CxScript FileSystemObject Methods.htm#UploadFileToBlob">UploadFileToBlob</a>, and <a href="CxScript FileSystemObject Methods.htm#UploadFileToBlobPath">UploadFileToBlobPath</a>.</p>
+        <h3>Bit Values</h3>
+        <p>The following table shows the bit values for creating a mask.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Comparate</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Bit Value</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>Action</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>No comparison</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>&amp;h00</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Do not compare the files, always download or upload the file.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>File version</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>&amp;h01</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Compare the files' version, if they are different download or upload the file.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>File timestamp</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>&amp;h02</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Compare the files' timestamp (for the file on disk, this is the Modified Time), download the file if the time of the file in BLOB is newer, or upload the file if the  time of the file on disk is newer.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>File size</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>&amp;h04</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Compare the files' size, if they are different download or upload the file.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>File time different</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>&amp;h08</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Compare the files' timestamp (for the file on disk, this is the Modified Time), if they are different download or upload the file.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>File does not exist</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>&amp;h10</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Download the file only if it does not exist on disk, or upload the file only if it does not exist in the BLOB service.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>You can combine any of these bits into a single mask using OR to compare by more than one method.  If only one of the methods shows the file is different, it will be downloaded or uploaded.</p>
+        <p class="Example">Examples</p>
+        <p class="Indent">The following example compares the <i>file version</i> or <i>file size</i> for <b>MeterTest.csf</b> and downloads the file if differences are found.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objFileSystem</p>
+                    <p class="Code">Set objFileSystem = CreateObject("CxScript.FileSystemObject")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim bRet</p>
+                    <p class="Code">Dim updateRulesMask</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'This is equivalent to a hex value of &amp;h5 or an integer value of 5</p>
+                    <p class="Code">updateRulesMask = &amp;h01 Or &amp;h04</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">bRet = objFileSystem.DownloadBlobFile("CYGDEMO.BSS", "TEST", "MeterTest.csf, updateRulesMask)</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">The following example compares the <i>file version</i> or <i>file size</i> or <i>file time</i>  for <b>MeterTest.csf</b> and downloads the file if differences are found.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objFileSystem</p>
+                    <p class="Code">Set objFileSystem = CreateObject("CxScript.FileSystemObject")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim bRet</p>
+                    <p class="Code">Dim updateRulesMask</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'This is equivalent to a hex value of &amp;0D or an integer value of 13</p>
+                    <p class="Code">updateRulesMask = &amp;h01 Or &amp;h04 Or &amp;h08</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">bRet = objFileSystem.DownloadBlobFile("CYGDEMO.BSS", "TEST", "MeterTest.csf, updateRulesMask)</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">The following example downloads the file <b>MeterTest.csf</b> if it <i>does not exist</i> or if the <i>file time is different</i>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim objFileSystem</p>
+                    <p class="Code">Set objFileSystem = CreateObject("CxScript.FileSystemObject")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Dim bRet</p>
+                    <p class="Code">Dim updateRulesMask</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'This is equivalent to a hex value of &amp;h18 or an integer value of 24</p>
+                    <p class="Code">updateRulesMask = &amp;h10 Or &amp;h08</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">bRet = objFileSystem.DownloadBlobFile("CYGDEMO.BSS", "TEST", "MeterTest.csf, updateRulesMask)</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Utilities|VHS Data Analyzer Utility|Thinning Rules|Configuring Thinning Models">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Linear Slope Thinning Model</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Utilities.htm">VHS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Data Analyzer Utility.htm">VHS Data Analyzer Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Data Analyzer Thinning Rules.htm">Thinning Rules</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Linear Slope Thinning Model</span>
+        </div>
+        <h2>Linear Slope Thinning Model</h2>
+        <p>The linear slope model thins data by analyzing all the points in a time window and determining if they’re linear. If they are determined to be linear, then only the minimum and maximum values are saved. If the data is determined to be non linear, then none of the points are thinned. This model is optimum for series that have long periods of linear values with short bursts of change. With the right parameters specified, this model will only thin the long linear slopes and not touch the "interesting" data even if it has a partially linear component.</p>
+        <h3>Linear Slope Thinning Properties</h3>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Sample Window</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the size of the time window (in minutes) for which a calculation is performed. The sample window should be roughly equal in size to the expected periods of "interesting" data. Each sample window is calculated from the beginning of the day so if your sample window is not evenly divisible by the number of minutes in a day, then the last sample window in each day will be smaller.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Delete unreliable records</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If enabled, deletes all records that are marked as unreliable.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Only Analog point types marked as unreliable will be deleted. Use the <a href="VHS Data Analyzer Unreliable.htm">Unreliable</a> thinning model to delete all point types marked as unreliable.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">Period Definition</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Starting at day</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the number of days between today and timestamp of an entry. For example, a day value of 60 would correspond to all entries at least 60 days older than today. Must be a value greater than 0, no thinning can occur on entries from the current day.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">% of entries must have a variance &lt;</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the percentage of points that must have a variance less than the specified limit.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Define secondary limitation</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Click to enable a second limit.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">% of entries must have a variance &lt;</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Specify the settings for the second limit.</td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">To Create a Linear Slope Thinning Model</p>
+        <ol>
+            <li value="1">On the <b>Configure Thinning Models</b> dialog box, click <b>Create Model</b>.</li>
+            <li value="2">Type a <b>Model Name</b>. This name should fully identify the model to ease selection of the appropriate model when creating rules.</li>
+            <li value="3">Select the <b>Linear Slope</b> page. </li>
+            <li value="4">Specify the size of the <b>Sample Window</b>.</li>
+            <li value="5">If desired, enable <b>Delete unreliable records</b>.</li>
+            <li value="6">For each period range, type the <b>Starting at day</b>, percentage of points and variance value.</li>
+            <li value="7">Click <b>Add/Save</b> to add the range to the list box.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">To make changes to an existing range, select the range from the list and click <b>Edit</b>.</li>
+            <li value="2">To delete a range highlight  and click <b>Delete</b>. </li>
+            <li value="3">To delete all ranges click <b>Clear All</b>.</li>
+        </ol>
+        <ol start="8">
+            <li value="8">Repeat steps 6 and 7 for each desired range.</li>
+            <li value="9">Click <b>Save Model</b>. To discard all changes click <b>Cancel</b>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">To make changes to an existing model, select the model from the list and click <b>Edit Model</b>.</li>
+            <li value="2">To delete an entire model highlight the model name and click <b>Delete Model</b>. Models may only be deleted if no rules are currently set to use the model.</li>
+        </ol>
+        <ol start="10">
+            <li value="10">Click <b>OK</b> to return to the <b>Configure Thinning Rules</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure">To Edit a Linear Slope Thinning Model</p>
+        <ol>
+            <li value="1">On the <b>Configure Thinning Rules</b> dialog box, select an existing thinning rule, and click <b>Edit Rule</b>.</li>
+            <li value="2">On the <b>Configure Thinning Rules</b> dialog box, select an existing thinning rule, and click <b>View/Edit Models</b>.</li>
+            <li value="3">Select an existing Linear Slope thinning model, and click <b>Edit Model</b>.</li>
+            <li value="4">Edit the model as described in steps 4 -10 above.</li>
+        </ol>
+        <h3>Linear Slope Thinning Model Example</h3>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 406px;" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/History/VHS Data Analyzer Linear Slope.png" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample Linear Slope Thinning Model</td>
+            </tr>
+        </table>
+        <p>In the example above, history values newer than 30 days would not be subject to thinning. All values older than 30 days would be evaluated in 60 minute windows. For each sample window, a best fit slope would be calculated using the points in the window. Then each point value is compared to the best fit slope and if at least 90% of the points have a variance less than 0.4 and all points have a variance of less than 0.7, then the data will be determined to be linear. The minimum and maximum values would be saved and then the next sample window would be evaluated.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

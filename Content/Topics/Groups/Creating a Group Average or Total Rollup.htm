@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Groups|Group Rollups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Creating a Group (Average or Total) Rollup</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Groups.htm">Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Group Rollups.htm">Group Rollups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Creating a Group (Average or Total) Rollup</span>
+        </div>
+        <h2>Creating a Group (Average or Total) Rollup</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Unless specifically called out, this procedure assumes that all affected services are on the same site.</p>
+        </div>
+        <p>The following procedure explains a basic workflow for creating a group averaging or totalizing rollup. Creating a group rollup  depends in large part upon your specific needs, the complexity of your system, and other variables. Be sure to have a clear idea of what purposes your group rollup will serve before you start to create it.</p>
+        <p>Although group rollups can be created for group averages, totals, <i>and</i> alarms, the process for creating group alarm rollups is different in some significant ways. If you want to create a group alarm rollup, see <a href="Creating a Group Alarm Rollup.htm">Creating a Group Alarm Rollup</a>.</p>
+        <p>The following image shows a simplified group averaging or totalizing rollup creation workflow:</p>
+        <p>
+            <img src="../../Resources/Images/Groups/groups_rollups_basic_workflow.png" />
+        </p>
+        <p>For more information, see the following subsections below:</p>
+        <ol>
+            <li class="HyperlinkList" value="1"><a href="#1." class="selected">Before You Begin</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#2." class="selected">Install the Group Rollup Scripts</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#3." class="selected">Create a Summary Group Node</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#4." class="selected">Create a Calculation Target Point</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#5." class="selected">Create a Rollup HyperPoint</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#6." class="selected">Set the Rollup Trigger Time</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#7." class="selected">Check Your Work</a>
+            </li>
+        </ol>
+        <p>For information about creating groups, see <a href="Group Hierarchy Manager Utility.htm">Group Manager Utility</a>.</p>
+        <h3><a name="1."></a>1. Before You Begin</h3>
+        <p>Before you begin, make sure that you have taken the following steps:</p>
+        <ul>
+            <li value="1">Install, add, and configure all required communication  devices.</li>
+            <li value="2">Install, add, and configure all required remote devices.</li>
+            <li value="3">Map relevant uniform data codes (UDCs) for all relevant remote devices.</li>
+            <li value="4">Create points in the Point Service (PNT) for all relevant UDCs for all relevant remote device facilities.</li>
+            <li value="5">Use the <a href="Group Hierarchy Manager Utility.htm">Group Manager utility</a> to create and build all required group hierarchies. Make sure that all hierarchies build correctly.</li>
+            <li value="6">Have a clear idea of the purpose of your group rollup(s).</li>
+        </ul>
+        <p>If you have taken the steps above, proceed to <a href="#2." class="selected">2. Install the Group Rollup Scripts</a>.</p>
+        <h3><a name="2."></a>2. Install the Group Rollup Scripts</h3>
+        <p>The system library <b>GrpRollup_Scripts.txt</b> contains the scripts required to create group rollups. These scripts are the rollup code, a rollup template point, and a rollup trigger.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Depending on your patched version of CygNet, you might have more than one instance of GrpRollup_Scripts.txt. If you have multiple versions of the file, repeat the <b>To Install the Rollup Scripts</b> procedure immediately below for <u>each</u> version from oldest to newest.</p>
+        </div>
+        <p>For more information about the system library GrpRollup_Scripts.txt or the three scripts within it, see <a href="Group Rollup Scripts.htm">Group Rollup Scripts</a>.</p>
+        <p class="HeadingProcedure"><a name="ToInstallSystemLibraries"></a>To Install the Rollup Scripts</p>
+        <ol start="1">
+            <li value="1">Using Windows Explorer, browse to the <b>CygNet\Utilities</b> directory on the host server.</li>
+            <li value="2">Locate and double-click  the <a href="../Scripting/CygNet Point Script Copy Utility.htm">CygNet Point Script Copy Utility</a> program executable (PointCfgScriptCopy.exe).</li>
+            <li value="3">In the <b>PointCfg Service</b> drop-down menu, select the PNT to which you want to copy the rollup scripts.</li>
+            <li value="4">In the <b>Target HSS Service</b> drop-down menu, select the HyperPoint Scripting Service (HSS) to which you want to copy the rollup scripts.</li>
+            <li value="5">In the <b>Script Copy Source (Copy From)</b> area, select the <b>From File</b> option.</li>
+            <li value="6">Beside the <b>From File</b> field, click the <b>Browse</b> button and browse to the directory that contains the GrpRollup_Scripts.txt file. This is typically <b>CygNet\Utilities\ScriptLibrary</b>.</li>
+            <li value="7">Select the GrpRollup_Scripts.txt file and click <b>Open</b>.</li>
+            <li value="8">In the <b>Script</b> drop-down menu, select <b>*All Scripts in This File*</b>.</li>
+            <li value="9">In the <b>Script Copy Target (Copy to)</b> area, select <b>To Default Service Point in Source</b>.</li>
+            <li value="10">Click <b>Test Copy</b> to validate the copy. Closely read all test messages and resolve any errors before proceeding.</li>
+            <li value="11">If you are ready to perform a live copy, click <b>Perform Copy</b> to copy the scripts into the selected PNT and HSS.</li>
+            <li value="12">Click <b>Yes</b> if you are sure you want to copy the selected scripts.</li>
+        </ol>
+        <p>When you are finished installing all instances of GrpRollup_Scripts.txt, proceed to <a href="#3." class="selected">3. Create a Summary Group Node</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="3."></a>3. Create a Summary Group Node</h3>
+        <p>The following procedure defines certain root-group and/or sub-group  nodes in a Group Service (GRP) hierarchy as <b>Summary (~U)</b> node types.  All facilities with specified UDCs subordinate to a summary node roll up to the summary  node (see the <a href="Group Rollups.htm#GroupRollupsExample">Groups Rollups example</a>). If a summary node is subordinate to yet another summary node, the subordinate summary node's data rolls up to its parent.</p>
+        <p>Root-group and sub-group nodes are <u>not</u> summary  nodes by default,  so you must define existing root- and sub-group node types as Summary (~U). Which  root- and sub-group nodes you define as summary nodes depends on your specific needs. The <b>Reference ID</b> for summary nodes displayed in the <a href="Group Nodes.htm">GRP node property editor</a> and <a href="Group Service Explorer.htm">Group Service Explorer</a> is the facility ID of the summary GRP node's associated facility.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A <b>Summary</b> node (as displayed in the Group Manager utility hierarchy pane) is not the same thing as a node with an attribute <b>~type</b> Summary (~U). The following procedure refers to a node with an attribute <b>~type</b> Summary (~U). For more information, see <a href="Node Category, Type, and Attribute Identifier.htm">Node Category, Type, and Attribute Identifier</a>.</p>
+        </div>
+        <p class="HeadingProcedure">To Create a Summary Group Node</p>
+        <ol start="1">
+            <li value="1">Using Windows Explorer, browse to the <b>CygNet\Utilities</b> directory on the host server.</li>
+            <li value="2">Locate and double-click the <a href="Group Hierarchy Manager Utility.htm">Group Manager</a> program executable (GrpMgr.exe).</li>
+            <li value="3">Using the Group Manager utility, load the hierarchy for the correct GRP.</li>
+            <li value="4">Right-click in the hierarchy pane and click <b>View As-Built Hierarchies</b>. This opens the <a href="Group Service Explorer.htm">Group Service Explorer</a>.</li>
+            <li value="5">In the Group Service Explorer, open the <b>Hierarchy Type</b> drop-down menu and select either <b>Navigation Hierarchies</b> or <b>Web Hierarchies</b>.</li>
+            <li value="6">Expand the navigation hierarchy for which you want to generate rollup values so that you can see all nodes in its branch.</li>
+            <li value="7">Open the <b>Options</b> drop-down menu at the bottom of the Group Service Explorer and select <b>Show Details</b>.</li>
+            <li value="8"><a name="Step8"></a>Select a root- or sub-group node in the relevant branch that you want to become a summary node, click <b>Options</b> to open its drop-down menu, and click <b>Edit Group Node</b>. The selected node's details appear in the right-hand table. Which nodes you define as summary nodes depends on your specific needs. Keep in mind that all facilities with specified UDCs subordinate to a summary node roll up to the summary node.</li>
+            <li value="9">At the GRP node property editor that opens, click <b>Edit Node</b>.</li>
+            <li value="10">At the <b>Node Type</b> drop-down menu, select <b>Summary (~U)</b>.</li>
+            <li value="11">In the <b>Reference CygNet Entity</b> area, ensure that the <b>Type</b> is <b>Facility - CVS (E)</b>.</li>
+            <li value="12">In the <b>Reference Site</b> text box, ensure that the correct site name is entered here.</li>
+            <li value="13">In the <b>Service</b> text box, ensure that UIS is entered here.</li>
+            <li value="14"><a name="step14"></a>In the <b>Reference ID</b> text box, ensure that the correct facility is entered here. You can use the <b>Browse</b> button to select a rollup facility. The <b>Reference ID</b> for summary nodes  is the facility ID of the summary GRP node's associated facility.</li>
+            <li value="15">Click <b>Apply</b>, then click <b>OK</b> to save your changes.</li>
+            <li value="16">Repeat steps <a href="#Step8" class="selected">8 - 15</a> for each root- or sub-group node  that you want to become a summary node until they are all converted to Summary (~U) types.</li>
+            <li value="17">When you are done changing root- and sub-group nodes to Summary (~U) types, go to the Group Manager utility, click <b>Build</b>, then click <b>All for Group Service</b>.</li>
+        </ol>
+        <p>When you are finished creating summary nodes for all relevant rollup branches, proceed to <a href="#4." class="selected">4. Create a Calculation Target Point</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="4."></a>4. Create a Calculation Target Point</h3>
+        <p>A calculation target point is the current value service destination  of the value calculated by the rollup HyperPoint described in <a href="#5." class="selected">step 5</a> below. The current value service is typically a UIS. The calculation target point resides in the PNT&#160;and makes the calculated value (total, average, or alarm) available for use and display in CygNet. The calculation target point current value indicates whether or not a rollup is successful by displaying an expected value or an <a href="Error Messages - Group Rollups.htm">error message</a>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> For every calculation target point you create, you must create a corresponding rollup HyperPoint to perform the calculation.  The calculation target point long tag string (Site.Service:Facility_UDC) should be the same as that of the rollup HyperPoint, except that the service of the calculation target point long tag string is a UIS but the service of the rollup HyperPoint is an HSS. For example, the calculation rollup point long tag string  MYSITE.UIS:ALLSTATES_VGY becomes MYSITE.HSS:ALLSTATES_VGY.</p>
+        </div>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Values are calculated from more than one current value service (typically a UIS) within a site if you have added all relevant <a href="Defining Rules.htm#FacilitySources">Facility Sources</a>.</p>
+        </div>
+        <p class="HeadingProcedure">To Create a Calculation Target Point</p>
+        <ol start="1">
+            <li value="1"><a name="TargetStep1"></a>Using CygNet Explorer, open the <a href="../Points/Points.htm">Point Service (PNT)</a> in the service hierarchy.</li>
+            <li value="2">Right-click in the white space of the service pane and click <b>New</b>.</li>
+            <li value="3">On the <b>General</b> page, select the appropriate site and UIS combination as the <b>Site.Service</b>.</li>
+            <li value="4">In the <b>Facility ID</b> text box, type the name of a summary group node facility. You can also use the <b>Browse</b> button to search for the facility. The <b>Facility ID</b> corresponds to the <b>Reference ID</b> discussed in <a href="#step14" class="selected">step 14</a> above.</li>
+            <li value="5">In the <b>Uniform Data Code</b> box, type  the UDC of the data type you want to roll up. For instance, type PDIFF. You can also use the <b>Browse</b> button to search for the UDC. Using the <b>Browse</b> button filters your UDC results to only those currently mapped for the selected facility. If this target point is for an alarm, see <a href="Creating a Group Alarm Rollup.htm#5">Creating a Group Alarm Rollup</a>.</li>
+            <li class="HyperlinkList" value="6">Make <b>Point Type</b> settings accordingly. For more information, see <a href="../Points/Point Types.htm">Point Types</a>. If this target point is for an alarm, see <a href="Creating a Group Alarm Rollup.htm#5">Creating a Group Alarm Rollup</a>.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Because a calculation target point contains a calculated value, you might want to set the resolution of the value by going to the  <b>Scaling</b>  page  and checking <b>Enable Scaling</b>. Then check to enable <b>Set Decimal Places</b> and type the number of decimal places in the text box. For more information, see <a href="../Points/PNT Editor - Scaling Page.htm">PNT Editor – Scaling Page</a>.</p>
+            </div>
+        </ol>
+        <ol start="7">
+            <li value="7">Make any other relevant point settings, like descriptions and units, on the <b>General</b>  page . For more information, see <a href="../Points/PNT Editor - General Page.htm">PNT Editor – General Page</a>.</li>
+            <li value="8">Click the <b>History</b>  page , then click to check <b>Report History to VHS</b>. For more information about the <b>History</b>  page , see <a href="../Points/PNT Editor - History Page.htm">PNT Editor – History Page</a>.</li>
+            <li value="9">When you are finished creating the calculation target point, click <b>OK</b>.</li>
+            <li value="10">Repeat <a href="#TargetStep1" class="selected">steps 1 - 9</a> above for each calculation target point you require. Remember that each must eventually correspond to a rollup HyperPoint.</li>
+        </ol>
+        <p>When you are finished creating a calculation target point, proceed to <a href="#5." class="selected">5. Create a Rollup HyperPoint</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="5."></a>5. Create a Rollup HyperPoint</h3>
+        <p>A rollup <a href="../Scripting/HyperPoint Scripting.htm">HyperPoint</a> specifies the relevant calculation target point facility ID, the relevant UDC, and a calculation type (total, average, or alarm) by which to calculate a group rollup. The resultant calculation goes to the calculation target point.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> For every calculation target point you create, you must create a corresponding rollup HyperPoint to perform the calculation.  The calculation target point long tag string (Site.Service:Facility_UDC) should be the same as that of the rollup HyperPoint, except that the service of the calculation target point long tag string is a UIS but the service of the rollup HyperPoint is an HSS. For example, the calculation rollup point long tag string  MYSITE.UIS:ALLSTATES_VGY becomes MYSITE.HSS:ALLSTATES_VGY.</p>
+        </div>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Values are calculated from more than one current value service (typically a UIS) within a site if you have added all relevant <a href="Defining Rules.htm#FacilitySources">Facility Sources</a>.</p>
+        </div>
+        <p>For more information about HyperPoints, see <a href="../Scripting/HyperPoint Scripting.htm">HyperPoint Scripting</a>.</p>
+        <p class="HeadingProcedure">To Create a Rollup HyperPoint</p>
+        <ol start="1">
+            <li value="1"><a name="RollupStep1"></a>Using CygNet Explorer, open the <a href="../Points/Points.htm">Point Service (PNT)</a> in the service hierarchy.</li>
+            <li value="2">In the PNT service pane, right-click <b>SYSLIB_GRP_ROLLUP_TEMPLATE</b> and click <b>New</b>. Clicking <b>New</b> creates a copy of the SYSLIB_GRP_ROLLUP_TEMPLATE.</li>
+            <li value="3">In the <b>New Point</b> dialog box that opens, delete the contents of the <b>Long Point ID</b> and <b>Point ID</b> fields.</li>
+            <li value="4">In the <b>Facility ID</b> text box, type the name of your calculation target point facility to create a new facility on an ad hoc basis that uses an HSS as its service instead of a UIS or use the <b>Browse</b> button to select an existing facility.  The facility ID you enter here must match that of the corresponding calculation target point you created in <a href="#4." class="selected">step 4</a> above.</li>
+            <li value="5">In the <b>Uniform Data Code</b> text box, type  the UDC of the data type you want to roll up. For instance, type PDIFF. You can also use the <b>Browse</b> button to search for the UDC. Using the <b>Browse</b> button filters your UDC results to only those currently mapped for the selected facility. If this rollup HyperPoint is for an alarm, see <a href="Creating a Group Alarm Rollup.htm#6">Creating a Group Alarm Rollup</a>.</li>
+            <li value="6">Click to check the <b>HyperPoint</b> box.</li>
+            <li value="7">Click to check the <b>Activate Script</b> box.</li>
+            <li value="8">In the <b>Point Type</b> box, ensure that <b>String Input</b> is selected.</li>
+            <li value="9">Click the <b>Point Reference</b>  page  and select a rollup type from the <b>Type</b> drop-down menu. Relevant options are <b>Group Averager</b>, <b>Group Totalizer</b>, <b>&lt;N/A&gt;</b>, and <b>Group SYFACINFO Rollup</b>. <b>&lt;N/A&gt;</b> is the default type and means totalizer. If this rollup HyperPoint is for an alarm, see <a href="Creating a Group Alarm Rollup.htm#6">Creating a Group Alarm Rollup</a>.</li>
+            <li value="10">When you are finished creating the rollup HyperPoint, click <b>OK</b>.</li>
+            <li value="11">Repeat <a href="#RollupStep1" class="selected">steps 1 - 10</a> above for each rollup HyperPoint you require. Remember that each must eventually correspond to a calculation target point.</li>
+        </ol>
+        <p>If you are satisfied, proceed to <a href="#6." class="selected">6. Set the Rollup Trigger Time</a>.</p>
+        <p class="HeadingProcedure">To Specify a Different Calculation Target Point</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span>&#160;The following procedure is <u>not</u> best practice, nor is it required. Typically, to create a group rollup you must first create a calculation target point then create a corresponding rollup HyperPoint. These two points would have almost identical long tag strings, except that the service of the calculation target point long tag string is a UIS instead of an HSS. However, you can specify a different calculation target point for an existing rollup HyperPoint by making settings changes on the <b>Point Reference</b>  page  of the relevant rollup HyperPoint.</p>
+        </div>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the Point Service (PNT) in the service hierarchy.</li>
+            <li value="2">Double-click the rollup HyperPoint whose calculation target point you want to change.</li>
+            <li value="3">In the <b>Properties</b> dialog box that opens, click the <b>Point Reference</b>  page.</li>
+            <li value="4">Click <b>Edit</b>.</li>
+            <li value="5">Enter new settings in the <b>Site</b>, <b>Service</b>, <b>Point ID</b>, and/or <b>Long Point ID</b> fields to specify a new calculation target point for the selected rollup HyperPoint. Keep in mind that your UIS and HSS will no longer correspond by name. For more information, see <a href="../Points/PNT Editor - Point Reference Page.htm">PNT Editor – Point Reference Page</a>.</li>
+            <li value="6">When you are finished making settings changes, click <b>Save</b>.</li>
+        </ol>
+        <p>If you are satisfied, proceed to <a href="#6." class="selected">6. Set the Rollup Trigger Time</a>.</p>
+        <p>When you are finished adding a rollup HyperPoint, proceed to <a href="#6." class="selected">6. Set the Rollup Trigger Time</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="6."></a>6. Set the Rollup Trigger Time</h3>
+        <p>The trigger time point (<a href="Group Rollup Scripts.htm#SYSLIB_G2">SYSLIB_GRP_ROLLUP_TRIGGER</a>) is used to schedule the execution of the rollup code for <u>all</u> rollup points.</p>
+        <p class="HeadingProcedure">To Set the Rollup Trigger Time</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, open the Point Service (PNT) in the service hierarchy.</li>
+            <li value="2">Double-click the <b>SYSLIB_GRP_ROLLUP_TRIGGER</b> point to open its property sheet.</li>
+            <li value="3">Click the <b>Application</b>  page  and click <b>Edit</b>.</li>
+            <li value="4">Go to the <b>General 1</b> field and enter a trigger time. The default is 10000 milliseconds. The value is always in milliseconds. If this property is blank or non-numeric, execution is manual.</li>
+            <li value="5">When you are finished setting the rollup trigger time, click <b>Save</b>.</li>
+        </ol>
+        <p>When you are finished setting the rollup trigger time, proceed to <a href="#7." class="selected">7. Check Your Work</a>.</p>
+        <h3><a name="7."></a>7. Check Your Work</h3>
+        <p>Once you have created and configured all required summary GRP nodes, calculation target points, and rollup HyperPoints, check the results of your work to ensure that the averaging and/or totalizing rollups are operating correctly. Perform the two steps listed below. If this rollup is for an alarm, see <a href="Creating a Group Alarm Rollup.htm#8">Creating a Group Alarm Rollup</a>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> There might be additional ways to check your work besides those provided below.</p>
+        </div>
+        <p class="HeadingProcedure">To Double-Check Using a Manual Calculation</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the appropriate UIS. </li>
+            <li value="2">Locate a subset of UDC/facility combinations that you know are supposed to be aggregated by the rollup steps above.</li>
+            <li value="3">Refresh your UIS to see the latest results.</li>
+            <li value="4">Make a manual calculation of all child leaf nodes (facilities) of a summary GRP node to see if the calculation equals that of the summary GRP node displayed in the UIS. This might include consideration of child summary GRP nodes. For instance, if Summary Node A is configured to calculate a total of the CFGCO UDCs of two  child leaf nodes (facilities), add the values for those two  UDCs and compare it to the Summary Node A value for the same UDC. If the manually calculated value and the UIS-calculated are the same, Summary Node A is totalizing the two  leaf nodes correctly.</li>
+        </ol>
+        <p class="HeadingProcedure">To Double-Check the SUCCESS Value in HSS</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the appropriate HSS. </li>
+            <li value="2">Locate the rollup HyperPoint that you know is supposed to calculate the rollup you created above.</li>
+            <li value="3">Refresh your HSS to see the latest results.</li>
+            <li value="4">Check its <b>Value</b> column. If the value in the column is "SUCCESS", your HyperPoint (summary GRP node) is operating correctly. If another value is displayed, see <a href="Error Messages - Group Rollups.htm">Error Messages</a> to troubleshoot the issue.</li>
+        </ol>
+        <p>For information about troubleshooting groups and group rollups, see <a href="Troubleshooting - Groups.htm">Troubleshooting</a>.</p>
+        <p>If you are satisfied with the results of your rollups and tests, consider fine-tuning your rollups by using filters. For more information, see <a href="Filtering a Group Rollup.htm">Filtering a Group Rollup</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

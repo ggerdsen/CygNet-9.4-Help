@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Admin Menu|Configuring Admin Options|Unit Set Definitions">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Data Items Units</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Admin Menu.htm">Admin Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Administrative Options.htm">Configuring Admin Options</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS Data Items Units</span>
+        </div>
+        <h2>FMS Data Items Units</h2>
+        <p>The following EFM (electronic flow measurement) data item units are supported by CygNet Measurement, and describe FMS data item units required to be specified in the system. Supported unit types for <a href="#FMS" class="selected">FMS unit sets</a> are listed in the tables below. Some gas configuration items inherit their units from associated gas metering items and are listed in an additional <a href="#Gas" class="selected">table</a>. Some values in the system may be slightly affected by a recent change to how <a href="#Pressure" class="selected">pressure units</a> are converted, as described here.</p>
+        <h3><a name="Pressure"></a>Changes to Pressure Unit Conversion</h3>
+        <p>A recent modification was made to the CygNet unit conversion process to comply with API standards concerning the base temperature associated with pressure unit conversions. See <a href="../Points/Pressure Unit Conversion.htm">Converting Pressure Units</a> in the Points section for more information about this change. </p>
+        <p>This modification may affect certain unit conversions in FMS, for which the associated API  recommendations apply. Affected devices are those that return differential pressure in units other than inches of water (inH2O), for conversions to/from inH2O pressure units  from/to any other pressure units.</p>
+        <p>Depending on your licensed FMS mode and version, pressure unit conversions may affect FMS values in the following manner.</p>
+        <h4>REPOSITORY Mode</h4>
+        <p>In cases where raw data is being exported to another measurement system from a CygNet Measurement system in REPOSITORY mode, the pressure unit conversion could have the following impact.</p>
+        <ul>
+            <li value="1">For CygNet versions 8.1.2 or later, FMS maintains the raw data's native units for export whenever possible, so in most cases no conversion will occur. <div class="Note"><p><span class="NoteHeading">Note:</span> There may be specific circumstances that require data conversion affecting pressure values. For instance, devices may report raw data in unsupported metric units, therefore conversion to supported pressure units may still occur and may involve inH2O units. In such cases, you may notice a slight difference in pressure values using inH2O units.</p></div></li>
+            <li value="2">For CygNet versions 8.1.1 or prior, FMS normalized the raw data to  inH2O units prior to export. Because of this, you may notice a slight difference in pressure values using inH2O units.</li>
+        </ul>
+        <h4>FULL Mode</h4>
+        <p> In cases where raw data is being exported to another measurement system from a CygNet Measurement system in FULL mode, the pressure unit conversion could have the following impact. </p>
+        <ul>
+            <li value="1">For any CygNet version, FMS values for the Volume Correction Factor (VCF) will be slightly different for devices that return data in metric units. VCF is a ratio of recalculated volume to device volume,  that is  stored in the gas device record and is applied when recalculations occur, to ensure that the recalculated volume is consistent with the device’s reported volume.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="FMS"></a>FMS Unit Sets</h3>
+        <p>FMS unit sets can be configured using the unit type options listed in the tables below. The lists of supported units are sorted by the following data item types.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Configur" class="selected">Configuration Units</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#History" class="selected">Gas Units</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Liquid" class="selected">Liquid Units</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Shared" class="selected">Shared Units</a>
+            </li>
+        </ul>
+        <h4><a name="Configur"></a>Configuration Units</h4>
+        <p>The following unit types apply to FMS configuration data items. See <a href="#Shared" class="selected">Shared Units</a> and (for gas items) <a href="#Gas" class="selected">Gas Configuration Items that Inherit Units from Gas Metering Items</a> for more information.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 336px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: left;">
+                        <p>FMS Data Item Description</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>FMS    Unit Options</p>
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Atmospheric pressure     </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Base pressure </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Base temperature </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Cone coefficient of thermal expansion</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mm/mm-C (millimeters per millimeter - Celsius)</li>
+                        <li value="2">in/in-F (inches per inch - Fahrenheit)</li>
+                        <li value="3">1/C (per degree Celsius)</li>
+                        <li value="4">1/F (per degree Fahrenheit)</li>
+                        <li value="5">1/K (per kelvin)</li>
+                        <li value="6">1/R (per degree Rankine)</li>
+                        <li value="7">1000/C (thousand per degree Celsius)</li>
+                        <li value="8">1000/F (thousand per degree Fahrenheit)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Cone diameter </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mm (millimeters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">m (meters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Cone reference temperature     </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Coriolis calibration pressure</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Coriolis pressure effect</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">%/pa g (percent of rate per pascal gauge)</li>
+                        <li value="2">%/psig (percent of rate per psi gauge)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Elevation </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">m (meters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">mm (millimeters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">
+                    <p>Low flow cutoff - DP </p>
+                    <p>(differential pressure)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">
+                    <p>Low flow cutoff - Flow rate </p>
+                    <p>(volume flow rate)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">m3S (cubic meters per second)</li>
+                        <li value="2">m3M (cubic meters per minute)</li>
+                        <li value="3">m3H (cubic meters per hour)</li>
+                        <li value="4">m3D (cubic meters per day)</li>
+                        <li value="5">CFS (cubic feet per second)</li>
+                        <li value="6">CFM (cubic feet per minute)</li>
+                        <li value="7">CFH  (cubic feet per hour)</li>
+                        <li value="8">CFD (cubic feet per day)</li>
+                        <li value="9">Km3S (thousand cubic meters per second)</li>
+                        <li value="10">Km3M (thousand cubic meters per minute)</li>
+                        <li value="11">Km3H (thousand cubic meters per hour)</li>
+                        <li value="12">Km3D (thousand cubic meters per day)</li>
+                        <li value="13">MMCFH (million cubic feet per hour)</li>
+                        <li value="14">Mm3H (million cubic meters per hour)</li>
+                        <li value="15">Mm3D (million cubic meters per day)</li>
+                        <li value="16">Gm3D (billion cubic meters per day)</li>
+                        <li value="17">MCFS (thousand cubic feet per second)</li>
+                        <li value="18">MCFM (thousand cubic feet per minute)</li>
+                        <li value="19">MCFH (thousand cubic feet per hour)</li>
+                        <li value="20">MCFD (thousand cubic feet per day)</li>
+                        <li value="21">MMCFD (million cubic feet per day)</li>
+                        <li value="22">BCFD (billion cubic feet per day)</li>
+                        <li value="23">bbl/S (barrels per second)</li>
+                        <li value="24">bbl/M (barrels per minute)</li>
+                        <li value="25">bbl/H (barrels per hour)</li>
+                        <li value="26">bbl/D (barrels per day)</li>
+                        <li value="27">USgal/S (US gallons per second)</li>
+                        <li value="28">USgal/M (US gallons per minute)</li>
+                        <li value="29">USgal/H (US gallons per hour)</li>
+                        <li value="30">USgal/D (US gallons per day)</li>
+                        <li value="31">L/S (liters per second)</li>
+                        <li value="32">L/M (liters per minute)</li>
+                        <li value="33">L/H (liters per hour)</li>
+                        <li value="34">L/D (liters per day)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">
+                    <p>Low flow cutoff - Mass </p>
+                    <p>(mass flow rate)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">lb/S (pounds per second)</li>
+                        <li value="2">lb/M (pounds per minute)</li>
+                        <li value="3">lb/H (pounds per hour)</li>
+                        <li value="4">lb/D (pounds per day)</li>
+                        <li value="5">Klb/S (thousand pounds per second)</li>
+                        <li value="6">Klb/M (thousand pounds per minute)</li>
+                        <li value="7">Klb/H (thousand pounds per hour)</li>
+                        <li value="8">Klb/D (thousand pounds per day)</li>
+                        <li value="9">tons/S (tons (short) per second)</li>
+                        <li value="10">tons/M (tons (short) per minute)</li>
+                        <li value="11">tons/H (tons (short) per hour)</li>
+                        <li value="12">tons/D (tons (short) per day)</li>
+                        <li value="13">kg/S (kilograms per second)</li>
+                        <li value="14">kg/M (kilograms per minute)</li>
+                        <li value="15">kg/H  (kilograms per hour)</li>
+                        <li value="16">kg/D (kilograms per day)</li>
+                        <li value="17">tonne/S (metric tonne per second)</li>
+                        <li value="18">tonne/M (metric tonne per minute)</li>
+                        <li value="19">tonne/H (metric tonne per hour)</li>
+                        <li value="20">tonne/D (metric tonne per day)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Low flow cutoff - Pulse interval </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">ms (milliseconds)</li>
+                        <li value="2">sec (seconds)</li>
+                        <li value="3">min (minutes)</li>
+                        <li value="4">hr (hours)</li>
+                        <li value="5">dy (days)</li>
+                        <li value="6">wk (weeks)</li>
+                        <li value="7">yr (years)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Meter tube inside diameter </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mm (millimeters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">m (meters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Meter tube reference temperature </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Orifice coefficient of thermal expansion </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mm/mm-C (millimeters per millimeter - Celsius)</li>
+                        <li value="2">in/in-F (inches per inch - Fahrenheit)</li>
+                        <li value="3">1/C (per degree Celsius)</li>
+                        <li value="4">1/F (per degree Fahrenheit)</li>
+                        <li value="5">1/K (per kelvin)</li>
+                        <li value="6">1/R (per degree Rankine)</li>
+                        <li value="7">1000/C (thousand per degree Celsius)</li>
+                        <li value="8">1000/F (thousand per degree Fahrenheit)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Orifice plate bore size     </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mm (millimeters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">m (meters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Orifice plate reference temperature     </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Pipe coefficient of thermal expansion </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mm/mm-C (millimeters per millimeter - Celsius)</li>
+                        <li value="2">in/in-F (inches per inch - Fahrenheit)</li>
+                        <li value="3">1/C (per degree Celsius)</li>
+                        <li value="4">1/F (per degree Fahrenheit)</li>
+                        <li value="5">1/K (per kelvin)</li>
+                        <li value="6">1/R (per degree Rankine)</li>
+                        <li value="7">1000/C (thousand per degree Celsius)</li>
+                        <li value="8">1000/F (thousand per degree Fahrenheit)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Pipe length</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mm (millimeters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">m (meters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Water content</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mg/m3 (milligrams per cubic meter)</li>
+                        <li value="2">kg/m3 (kilograms per cubic meter)</li>
+                        <li value="3">kg/L (kilograms per liter)</li>
+                        <li value="4">g/cc (grams per cubic centimeter)</li>
+                        <li value="5">lb/in3 (pounds per cubic inch)</li>
+                        <li value="6">lb/ft3 (pounds per cubic foot)</li>
+                        <li value="7">lb/gal (pounds per US gallon)</li>
+                        <li value="8">lb/bbl (pounds per barrel)</li>
+                        <li value="9">lb/mmscf (pounds per million standard cubic feet)</li>
+                        <li value="10">lb/MMCF (pounds per million cubic feet)</li>
+                        <li value="11">API (degrees API)</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="History"></a>Gas Units</h4>
+        <p>The following units apply to FMS gas data items. See <a href="#Shared" class="selected">Shared Units</a> and <a href="#Gas" class="selected">Gas Configuration Items that Inherit Units from Gas Metering Items</a> for more information.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 336px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: left;">FMS Data Item Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">FMS    Unit Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Energy</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">J (joules)</li>
+                        <li value="2">KJ (kilojoules)</li>
+                        <li value="3">MJ (megajoules)</li>
+                        <li value="4">GJ (gigajoules)</li>
+                        <li value="5">cal (calories)</li>
+                        <li value="6">Gcal (gigacalories)</li>
+                        <li value="7">BTU (British thermal units)</li>
+                        <li value="8">MBTU (thousand British thermal units)<br /></li>
+                        <li value="9">MMBTU (million British thermal units)</li>
+                        <li value="10">BBTU (billion British thermal units)</li>
+                        <li value="11">kW-hr (kilowatt-hours)</li>
+                        <li value="12">hp-hr (horsepower-hours)</li>
+                        <li value="13">Nm (Newton meter)</li>
+                        <li value="14">in lbf (inch pound-force)</li>
+                        <li value="15">ft lbf (foot pound-force)</li>
+                        <li value="16">thm (therms)</li>
+                        <li value="17">Dth (decatherms)</li>
+                        <li value="18">MDth (thousand decatherms)</li>
+                        <li value="19">MMDth (million decatherms)</li>
+                        <li value="20">boe (barrels of oil equivalent)</li>
+                        <li value="21">bboe (billion barrels of oil equivalent)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="FLOW_RATE"></a>Flow rate</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">m3S (cubic meters per second)</li>
+                        <li value="2">m3M (cubic meters per minute)</li>
+                        <li value="3">m3H (cubic meters per hour)</li>
+                        <li value="4">m3D (cubic meters per day)</li>
+                        <li value="5">CFS (cubic feet per second)</li>
+                        <li value="6">CFM (cubic feet per minute)</li>
+                        <li value="7">CFH  (cubic feet per hour)</li>
+                        <li value="8">CFD (cubic feet per day)</li>
+                        <li value="9">Km3S (thousand cubic meters per second)</li>
+                        <li value="10">Km3M (thousand cubic meters per minute)</li>
+                        <li value="11">Km3H (thousand cubic meters per hour)</li>
+                        <li value="12">Km3D (thousand cubic meters per day)</li>
+                        <li value="13">MMCFH (million cubic feet per hour)</li>
+                        <li value="14">Mm3H (million cubic meters per hour)</li>
+                        <li value="15">Mm3D (million cubic meters per day)</li>
+                        <li value="16">Gm3D (billion cubic meters per day)</li>
+                        <li value="17">MCFS (thousand cubic feet per second)</li>
+                        <li value="18">MCFM (thousand cubic feet per minute)</li>
+                        <li value="19">MCFH (thousand cubic feet per hour)</li>
+                        <li value="20">MCFD (thousand cubic feet per day)</li>
+                        <li value="21">MMCFD (million cubic feet per day)</li>
+                        <li value="22">BCFD (billion cubic feet per day)</li>
+                        <li value="23">bbl/S (barrels per second)</li>
+                        <li value="24">bbl/M (barrels per minute)</li>
+                        <li value="25">bbl/H (barrels per hour)</li>
+                        <li value="26">bbl/D (barrels per day)</li>
+                        <li value="27">USgal/S (US gallons per second)</li>
+                        <li value="28">USgal/M (US gallons per minute)</li>
+                        <li value="29">USgal/H (US gallons per hour)</li>
+                        <li value="30">USgal/D (US gallons per day)</li>
+                        <li value="31">L/S (liters per second)</li>
+                        <li value="32">L/M (liters per minute)</li>
+                        <li value="33">L/H (liters per hour)</li>
+                        <li value="34">L/D (liters per day)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="FLOW_TEMP"></a>Flow temperature</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Heating value - Mass</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">MJ/kg (megajoules per kilogram)</li>
+                        <li value="2">BTU/lb (British thermal units per pound)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Heating value - Volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">J/m3 (joules per cubic meter)</li>
+                        <li value="2">MJ/m3 (megajoules per cubic meter)</li>
+                        <li value="3">GJ/m3 (gigajoules per cubic meter)</li>
+                        <li value="4">GJ/103m3 (gigajoules per thousand cubic meters)</li>
+                        <li value="5">BTU/CF (British thermal units per cubic foot)</li>
+                        <li value="6">BTU/MCF (British thermal units per thousand cubic feet)</li>
+                        <li value="7">MBTU/CF (thousand British thermal units per cubic foot)</li>
+                        <li value="8">MBTU/MCF (thousand British thermal units per thousand cubic feet)</li>
+                        <li value="9">BTU/gal (BTU per US gallon)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">K factor - Mass</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">p/kg (pulses per kilogram)</li>
+                        <li value="2">p/lbm (pulses per pound-mass)</li>
+                        <li value="3">p/klbm (pulses per thousand pound-mass)</li>
+                        <li value="4">p/tonne (pulses per metric tonne)</li>
+                        <li value="5">p/ton (pulses per  ton (short))</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">K factor - Volume  </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">p/m3 (pulses per cubic meter)</li>
+                        <li value="2">p/103m3 (pulses per thousand cubic meters)</li>
+                        <li value="3">p/CF (pulses per cubic foot)</li>
+                        <li value="4">p/MCF (pulses per thousand cubic feet)</li>
+                        <li value="5">p/MMCF (pulses per million cubic feet)</li>
+                        <li value="6">p/BCF (pulses per billion cubic feet)</li>
+                        <li value="7">p/L (pulses per liter)</li>
+                        <li value="8">p/gal (pulses per  US gallon)</li>
+                        <li value="9">p/bbl (pulses per barrel)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Mass</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">g (grams)</li>
+                        <li value="2">kg (kilograms)</li>
+                        <li value="3">tonne (metric tonne)</li>
+                        <li value="4">lb (pounds)</li>
+                        <li value="5">Mlb (thousand pounds)</li>
+                        <li value="6">Klb (kilopounds)</li>
+                        <li value="7">tons (tons (short))</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Uncorrected volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Hexane Plus]</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" rowspan="3">
+                    <div rowspan="3" class="Note">
+                        <p><span class="NoteHeading">Note:</span> Higher hydrocarbon items  are not configured through the <b>Unit Set Definitions</b> pane; they are configured through the Admin menu (Options button) in FMS Explorer.</p>
+                    </div>
+                    <p rowspan="3">See <a href="Configuring Composition Splits.htm">Configuring Composition Splits</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">[Heptane Plus]</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">[Nonane Plus]</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Liquid"></a>Liquid Units</h4>
+        <p>The following units apply to FMS liquid data items. See also <a href="#Shared" class="selected">Shared Units</a> for more information.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 336px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: left;">FMS Data Item Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">FMS    Unit Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Density</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mg/m3 (milligrams per cubic meter)</li>
+                        <li value="2">kg/m3 (kilograms per cubic meter)</li>
+                        <li value="3">kg/L (kilograms per liter)</li>
+                        <li value="4">g/cc (grams per cubic centimeter)</li>
+                        <li value="5">lb/in3 (pounds per cubic inch)</li>
+                        <li value="6">lb/ft3 (pounds per cubic foot)</li>
+                        <li value="7">lb/gal (pounds per US gallon)</li>
+                        <li value="8">lb/bbl (pounds per barrel)</li>
+                        <li value="9">lb/mmscf (pounds per million standard cubic feet)</li>
+                        <li value="10">lb/MMCF (pounds per million cubic feet)</li>
+                        <li value="11">API (degrees API)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Density pressure</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Density temperature</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>EVP </p>
+                    <p>(Equilibrium vapor pressure)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Gross standard volume </p>
+                    <p>(GSV)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Gross volume</p>
+                    <p>(GV)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Heating value - Mass</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">MJ/kg (megajoules per kilogram)</li>
+                        <li value="2">BTU/lb (British thermal units per pound)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Heating value - Volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">J/m3 (joules per cubic meter)</li>
+                        <li value="2">MJ/m3 (megajoules per cubic meter)</li>
+                        <li value="3">GJ/m3 (gigajoules per cubic meter)</li>
+                        <li value="4">GJ/103m3 (gigajoules per thousand cubic meters)</li>
+                        <li value="5">BTU/CF (British thermal units per cubic foot)</li>
+                        <li value="6">BTU/MCF (British thermal units per thousand cubic feet)</li>
+                        <li value="7">MBTU/CF (thousand British thermal units per cubic foot)</li>
+                        <li value="8">MBTU/MCF (thousand British thermal units per thousand cubic feet)</li>
+                        <li value="9">BTU/gal (BTU per US gallon)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Indicated volume </p>
+                    <p>(IV)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">K factor - Mass</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">p/kg (pulses per kilogram)</li>
+                        <li value="2">p/lbm (pulses per pound-mass)</li>
+                        <li value="3">p/klbm (pulses per thousand pound-mass)</li>
+                        <li value="4">p/tonne (pulses per metric tonne)</li>
+                        <li value="5">p/ton (pulses per ton (short))</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">K factor - Volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">p/m3 (pulses per cubic meter)</li>
+                        <li value="2">p/103m3 (pulses per thousand cubic meters)</li>
+                        <li value="3">p/CF (pulses per cubic foot)</li>
+                        <li value="4">p/MCF (pulses per thousand cubic feet)</li>
+                        <li value="5">p/MMCF (pulses per million cubic feet)</li>
+                        <li value="6">p/BCF (pulses per billion cubic feet)</li>
+                        <li value="7">p/L (pulses per liter)</li>
+                        <li value="8">p/gal (pulses per US gallon)</li>
+                        <li value="9">p/bbl (pulses per barrel)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Liquid product coefficient of thermal expansion</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mm/mm-C (millimeters per millimeter - Celsius)</li>
+                        <li value="2">in/in-F (inches per inch - Fahrenheit)</li>
+                        <li value="3">1/C (per degree Celsius)</li>
+                        <li value="4">1/F (per degree Fahrenheit)</li>
+                        <li value="5">1/K (per kelvin)</li>
+                        <li value="6">1/R (per degree Rankine)</li>
+                        <li value="7">1000/C (thousand per degree Celsius)</li>
+                        <li value="8">1000/F (thousand per degree Fahrenheit)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Liquid product compressibility factor</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Pa-1 (per pascal)</li>
+                        <li value="2">KPa-1 (per kilopascal)</li>
+                        <li value="3">MPa-1 (per megapascal)</li>
+                        <li value="4">mBar-1 (per millibar)</li>
+                        <li value="5">bar-1 (per bar)</li>
+                        <li value="6">mmHg-1 (per millimeter of mercury)</li>
+                        <li value="7">inHg-1 (per inch of mercury)</li>
+                        <li value="8">mmH2O-1 (per millimeter of water)</li>
+                        <li value="9">mH20-1 (per meter of water)</li>
+                        <li value="10">inH2O-1 (per inch of water)</li>
+                        <li value="11">ftH2O-1 (per foot of water)</li>
+                        <li value="12">atm-1 (per standard atmosphere)</li>
+                        <li value="13">cm2/kg (square cm per kg-force)</li>
+                        <li value="14">m2/kg (square m per kg-force)</li>
+                        <li value="15">psi-1 (per pound-force per square inch)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Liquid product temperature</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Mass</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">g (grams)</li>
+                        <li value="2">kg (kilograms)</li>
+                        <li value="3">tonne (metric tonne)</li>
+                        <li value="4">lb (pounds)</li>
+                        <li value="5">Mlb (thousand pounds)</li>
+                        <li value="6">Klb (kilopounds)</li>
+                        <li value="7">tons (tons (short))</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Net standard volume </p>
+                    <p>(NSV)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Odorized density</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mg/m3 (milligrams per cubic meter)</li>
+                        <li value="2">kg/m3 (kilograms per cubic meter)</li>
+                        <li value="3">kg/L (kilograms per liter)</li>
+                        <li value="4">g/cc (grams per cubic centimeter)</li>
+                        <li value="5">lb/in3 (pounds per cubic inch)</li>
+                        <li value="6">lb/ft3 (pounds per cubic foot)</li>
+                        <li value="7">lb/gal (pounds per US gallon)</li>
+                        <li value="8">lb/bbl (pounds per barrel)</li>
+                        <li value="9">lb/mmscf (pounds per million standard cubic feet)</li>
+                        <li value="10">lb/MMCF</li>
+                        <li value="11">API (degrees API)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Odorized volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Reid vapor pressure</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>S&amp;W percent </p>
+                    <p>(sediment &amp; water percent)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li rowspan="25" value="1">% (percent)</li>
+                        <li rowspan="25" value="2">Frac (fraction)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>S&amp;W volume </p>
+                    <p>(sediment &amp; water volume) </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Tank level</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mm (millimeters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">m (meters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Temperature</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">C (degrees Celsius)</li>
+                        <li value="2">F (degrees Fahrenheit)</li>
+                        <li value="3">K (kelvin)</li>
+                        <li value="4">R (degrees Rankine)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Uncorrected density</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">mg/m3 (milligrams per cubic meter)</li>
+                        <li value="2">kg/m3 (kilograms per cubic meter)</li>
+                        <li value="3">kg/L (kilograms per liter)</li>
+                        <li value="4">g/cc (grams per cubic centimeter)</li>
+                        <li value="5">lb/in3 (pounds per cubic inch)</li>
+                        <li value="6">lb/ft3 (pounds per cubic foot)</li>
+                        <li value="7">lb/gal (pounds per US gallon)</li>
+                        <li value="8">lb/bbl (pounds per barrel)</li>
+                        <li value="9">lb/mmscf (pounds per million standard cubic feet)</li>
+                        <li value="10">lb/MMCF (pounds per million cubic feet)</li>
+                        <li value="11">API (degrees API)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Vessel draft level</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">mm (millimeters)</li>
+                        <li value="2">cm (centimeters)</li>
+                        <li value="3">m (meters)</li>
+                        <li value="4">km (kilometers)</li>
+                        <li value="5">in (inches)</li>
+                        <li value="6">ft (feet)</li>
+                        <li value="7">yd (yards)</li>
+                        <li value="8">mi (miles)</li>
+                        <li value="9">n mi (nautical miles)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Volume</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">m3 (cubic meters)</li>
+                        <li value="2">103m3 (thousand cubic meters)</li>
+                        <li value="3">106m3 (million cubic meters)</li>
+                        <li value="4">CF (cubic feet)</li>
+                        <li value="5">MCF (thousand cubic feet)</li>
+                        <li value="6">MMCF (million cubic feet)</li>
+                        <li value="7">BCF (billion cubic feet)</li>
+                        <li value="8">L (liters)</li>
+                        <li value="9">US fl oz (US fluid ounces)</li>
+                        <li value="10">US l pt (US liquid pints)</li>
+                        <li value="11">USgal (US gallons)</li>
+                        <li value="12">bbl (barrels)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Weight</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">g (grams)</li>
+                        <li value="2">kg (kilograms)</li>
+                        <li value="3">tonne (metric tonne)</li>
+                        <li value="4">lb (pounds)</li>
+                        <li value="5">Mlb (thousand pounds)</li>
+                        <li value="6">Klb (kilopounds)</li>
+                        <li value="7">tons (tons (short))</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Shared"></a>Shared Units</h4>
+        <p>Some units are shared by multiple data items, such as gas configuration and gas metering items, or gas and liquid items. These units are included in the following table to identify unit options applicable to a variety of FMS data items.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 336px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: left;">FMS Data Item Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">FMS    Unit Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Composition</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li rowspan="25" value="1">% (percent)</li>
+                        <li rowspan="25" value="2">Frac (fraction)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Concentration</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">ppm (parts per million)</li>
+                        <li value="2">%con (percentage)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="DIFF_PRESSURE"></a>Differential pressure</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Flow time</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">ms (milliseconds)</li>
+                        <li value="2">sec (seconds)</li>
+                        <li value="3">min (minutes)</li>
+                        <li value="4">hr (hours)</li>
+                        <li value="5">dy (days)</li>
+                        <li value="6">wk (weeks)</li>
+                        <li value="7">yr (years)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Liquid content</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">GPM (US gallons per thousand cubic feet of gas)</li>
+                        <li value="2">m3/Km3 (cubic meters of liquid per thousand cubic meters of gas)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="LINE_PRESSURE"></a>Static pressure</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Pa (pascals)</li>
+                        <li value="2">KPa (kilopascals)</li>
+                        <li value="3">MPa (megapascals)</li>
+                        <li value="4">mBar (millibars)</li>
+                        <li value="5">bar (bars)</li>
+                        <li value="6">mmHg (millimeters of mercury)</li>
+                        <li value="7">inHg (inches of mercury at 60°F)</li>
+                        <li value="8">inHg32 (inches of mercury at 32.0°F)</li>
+                        <li value="9">inHgc (inches of mercury, conventional)</li>
+                        <li value="10">mmH2O (millimeters of water)</li>
+                        <li value="11">mH20 (meters of water)</li>
+                        <li value="12">inH2O (inches of water at 60°F)</li>
+                        <li value="13">inH2O39 (inches of water at 39.2°F)</li>
+                        <li value="14">inH2O68 (inches of water at 68°F)</li>
+                        <li value="15">inH2Oc (inches of water, conventional)</li>
+                        <li value="16">ftH2O (feet of water at 60°F)</li>
+                        <li value="17">ftH2O39 (feet of water at 39.2°F)</li>
+                        <li value="18">ftH2Oc (feet of water, conventional)</li>
+                        <li value="19">atm (standard atmospheres)</li>
+                        <li value="20">kg/cm2 (kg-force per square cm)</li>
+                        <li value="21">kg/m2 (kg-force per square m)</li>
+                        <li value="22">psi (pound-force per square inch)</li>
+                        <li value="23">psf (pound-force per square foot)</li>
+                        <li value="24">rKPa (square root kilopascals)</li>
+                        <li value="25">rinH2O (square root inches of water)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Viscosity</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">p (poise)</li>
+                        <li value="2">cp (centipoise)</li>
+                        <li value="3">Pa.s (pascal-seconds)</li>
+                        <li value="4">lbm/fts (pounds per foot second)</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Gas"></a>Gas Configuration Items that Inherit Units from Gas Metering Items</h4>
+        <p>The following gas configuration data items are not directly configured through the <b>Unit Set Definitions</b> pane, but they inherit their units from gas metering data items (referenced under FMS Unit Options) that are configured in this manner. See <a href="Creating or Editing Configuration Log Entries.htm">Creating or Editing Configuration Log Entries</a> for more information about setting threshold values based on these units.</p>
+        <table style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: left;">
+                        <p>FMS Data Item Description</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>FMS    Unit Options</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>FMS Gas Configuration Item </p>
+                        <p>String</p>
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="3" style="font-weight: bold;">&#160; Transducer Range Thresholds</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">DP Transducer Range Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" rowspan="2">
+                    <p>Units are inherited from Differential Pressure units. </p>
+                    <p>See  <a href="#DIFF_PRESSURE" class="selected">eFMS_PV_DIFF_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_DP_TRANSDUCER_RANGE_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">DP Transducer Range High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_DP_TRANSDUCER_RANGE_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">SP Transducer Range Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" rowspan="2">
+                    <p>Units are inherited from Static Pressure units. </p>
+                    <p>See  <a href="#LINE_PRESSURE" class="selected">eFMS_PV_LINE_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_SP_TRANSDUCER_RANGE_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">SP Transducer Range High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_SP_TRANSDUCER_RANGE_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Temp Transducer Range Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" rowspan="2">
+                    <p>Units are inherited from Flow Temperature units. </p>
+                    <p>See  <a href="#FLOW_TEMP" class="selected">eFMS_PV_FLOW_TEMP</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_TEMP_TRANSDUCER_RANGE_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Temp Transducer Range High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_TEMP_TRANSDUCER_RANGE_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="3"><b>Alarm Range Thresholds</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">DP Alarm Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Units are inherited from Differential Pressure units. </p>
+                    <p>See  <a href="#DIFF_PRESSURE" class="selected">eFMS_PV_DIFF_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_DP_ALARM_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">DP Alarm High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_DP_ALARM_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">SP Alarm Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Units are inherited from Static Pressure units. </p>
+                    <p>See  <a href="#LINE_PRESSURE" class="selected">eFMS_PV_LINE_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_SP_ALARM_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">SP Alarm High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_SP_ALARM_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Temp Alarm Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Units are inherited from Flow Temperature units. </p>
+                    <p>See  <a href="#FLOW_TEMP" class="selected">eFMS_PV_FLOW_TEMP</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_TEMP_ALARM_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Temp Alarm High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_TEMP_ALARM_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Flow Rate Alarm Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Units are inherited from Flow Rate units. </p>
+                    <p>See  <a href="#FLOW_RATE" class="selected">eFMS_PV_FLOW_RATE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_FLOW_RATE_ALARM_LOW </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Flow Rate Alarm High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_FLOW_RATE_ALARM_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">DP Backflow Alarm </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Units are inherited from Differential Pressure units. </p>
+                    <p>See  <a href="#DIFF_PRESSURE" class="selected">eFMS_PV_DIFF_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_DP_BACKFLOW_ALARM</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="3" style="font-weight: bold;">&#160; Calibration Range Thresholds</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">DP Calibrate Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Units are inherited from Differential Pressure units. </p>
+                    <p>See  <a href="#DIFF_PRESSURE" class="selected">eFMS_PV_DIFF_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_DP_CALIBRATE_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">DP Calibrate High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_DP_CALIBRATE_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">SP Calibrate Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Units are inherited from Static Pressure units. </p>
+                    <p>See  <a href="#LINE_PRESSURE" class="selected">eFMS_PV_LINE_PRESSURE</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_SP_CALIBRATE_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">SP Calibrate High</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_SP_CALIBRATE_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Temp Calibrate Low </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="3">
+                    <p>Units are inherited from Flow Temperature units. </p>
+                    <p>See  <a href="#FLOW_TEMP" class="selected">eFMS_PV_FLOW_TEMP</a></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_TEMP_CALIBRATE_LOW</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;">Temp Calibrate High </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">eFMS_CFG_TEMP_CALIBRATE_HIGH</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;">Temp Calibrate Zero </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">eFMS_CFG_TEMP_CALIBRATE_ZERO</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

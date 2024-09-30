@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Using TheFrame/TheView|Using Properties Substitutions">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Rule-Based Substitution</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using TheFrame TheView.htm">Using TheFrame/TheView</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Substitutions - Using Property.htm">Using Properties Substitutions</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Rule-Based Substitution</span>
+        </div>
+        <h2>Rule-Based Substitution</h2>
+        <p>A rule-based substitution allows for more complex operations by filtering properties based on conditions and then performing one or more actions. The parent elements for rule-based substitutions are <b>Rule</b>, <b>ViewRule</b>, and <b>FrameRule</b> elements. <b>Rule</b> is specific to objects on TheView. <b>ViewRule</b> is specific to TheView. <b>FrameRule</b> is specific to TheFrame.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example shows a sample rule-based substitution set:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Substitutions&gt;</p>
+                    <p class="Code2">&lt;Set Label="Rule-based Substitution"&gt;</p>
+                    <p class="Code3">&lt;Rule&gt; <i style="color: #ff0000;">&lt;!-- Rule applies to objects on TheView --&gt;</i></p>
+                    <p class="Code4">&lt;Conditions&gt; <i style="color: #ff0000;">&lt;!-- Conditions can include wildcards --&gt;</i></p>
+                    <p class="Code5">&lt;Tooltype&gt;TextTool&lt;/Tooltype&gt;</p>
+                    <p class="Code5">&lt;UDC&gt;P*&lt;/UDC&gt;</p>
+                    <p class="Code4">&lt;/Conditions&gt;</p>
+                    <p class="Code4">&lt;Actions&gt;</p>
+                    <p class="Code5">&lt;Text&gt;%privalue% %priunits%&lt;/Text&gt;</p>
+                    <p class="Code4">&lt;/Actions&gt;</p>
+                    <p class="Code3">&lt;/Rule&gt;</p>
+                    <p class="Code3">&lt;ViewRule&gt; <i style="color: #ff0000;">&lt;!-- ViewRule applies to TheView --&gt;</i></p>
+                    <p class="Code4">&lt;Conditions&gt;<i>&#160;</i></p>
+                    <p class="Code5">&lt;SiteService&gt;MYSITE.UIS&lt;/SiteService&gt;</p>
+                    <p class="Code4">&lt;/Conditions&gt;</p>
+                    <p class="Code4">&lt;Actions&gt;</p>
+                    <p class="Code5">&lt;PrintScale&gt;0.5&lt;/PrintScale&gt;</p>
+                    <p class="Code4">&lt;/Actions&gt;</p>
+                    <p class="Code3">&lt;/ViewRule&gt;</p>
+                    <p class="Code3">&lt;FrameRule&gt; <i style="color: #ff0000;">&lt;!-- FrameRule applies to TheFrame--&gt;</i></p>
+                    <p class="Code4">&lt;Conditions&gt;<i>&#160;</i></p>
+                    <p class="Code5">&lt;BorderStyle&gt;1&lt;/BorderStyle&gt;</p>
+                    <p class="Code4">&lt;/Conditions&gt;</p>
+                    <p class="Code4">&lt;Actions&gt;</p>
+                    <p class="Code5">&lt;Height&gt;768&lt;/Height&gt;</p>
+                    <p class="Code5">&lt;Width&gt;1024&lt;/Width&gt;</p>
+                    <p class="Code4">&lt;/Actions&gt;</p>
+                    <p class="Code3">&lt;/FrameRule&gt;</p>
+                    <p class="Code2">&lt;/Set&gt;</p>
+                    <p class="Code">&lt;/Substitutions&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Rule-based Substitution Elements</h3>
+        <p>Any number of <b>Rule</b> elements can be included in a substitution set. A <b>Rule</b> can have only one <b>Conditions</b> block and one <b>Actions</b> block. However, each block can contain multiple elements.</p>
+        <p>A rule-based substitution can be used to change only those properties exposed to VBScript. When substituting for properties with Boolean values, you must use <b>-1</b> for "true" and <b>0</b> for "false."</p>
+        <p>Unlike a standard substitution, <b>Rules</b>, <b>Conditions</b>, and <b>Actions</b> are processed in the order listed. Wildcarding is accepted for <b>Conditions</b>.</p>
+        <p>Be careful to apply rule-based substitutions only to objects that have the script-accessible properties. Use of <b>ToolType</b> as a Conditions element is useful for this purpose. If listed as the first condition, it will eliminate any non-applicable objects.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Well Test|Well Test Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Well Test Workflow</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Well Test.htm">Well Test</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Well Test Overview.htm">Well Test Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Well Test Workflow</span>
+        </div>
+        <h2>Well Test Workflow</h2>
+        <p>The following flow chart represents an example workflow for testing a specific well. The workflow consists of four distinct parts and the actions required to accomplish each part of the workflow are described in this topic. The logical blocks represented in this diagram correspond to sections in the configuration XML employed by the CygNet Well Test Module. The configuration XML is created via the CygNet.API.WellTest.Controls assembly and a well test configuration screen in Canvas. See <a href="Configuring Well Test Using Canvas.htm">Configuring Well Test Using Canvas</a> for more information.</p>
+        <p>Click the following image to see a sample well test workflow:</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Well Test/Well_Test_Workflow.png" data-mc-popup-alt="Sample Well Test Flowchart"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1128" data-mc-height="601" src="../../Resources/Images/Well Test/Well_Test_Workflow_thumb_0_48.png" alt="Sample Well Test Flowchart" title="Sample Well Test Flowchart" tabindex="" /></a>
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Well Test Workflow Diagram</td>
+            </tr>
+        </table>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Part1" class="selected">Part 1 — Set Position</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Part2" class="selected">Part 2 — Purge</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Part3" class="selected">Part 3 — Test</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Part4" class="selected">Part 4 — Process Result</a>
+            </li>
+        </ul>
+        <p>Each part of the workflow (and the steps within) described below includes reference links to the well test configuration control UI and the configuration XML where the actions types are described, and a sample block of XML code. </p>
+        <h3><a name="Part1"></a>Part 1 — Set Position</h3>
+        <p>The actions in this part of the workflow involve setting the device to the correct position. In this part, a command is sent to the device to set the position, then we poll the device until the position is right. This assumes that the writing of the desired position and the actual position are two separate registers.</p>
+        <h4>Step 1: Status the user</h4>
+        <p>Issue a set point to let the user know where we are in the process via the <a href="Well Test UI Config - Set Point Action Type.htm">Set Point</a> action type. This action will issue a set point on the "Separator" facility (as directed by the "relativeFacilityLink" attribute) with a udc of "MSG". The value is a hard-coded value of "Set Position".</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="SetPoint"</span> udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Set Position" /&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="very_small">&#160;</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The "Separator" facility is specified in the "tag" attribute of the &lt;<a href="XML Headers.htm">Header</a>&gt; element of the XML configuration.</p>
+        </div>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Set Point Action Type.htm">Set Point Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - SetPoint Action Type.htm">SetPoint Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 2: Issue a command</h4>
+        <p>Issue the appropriate UIS command to the device with the <a href="Well Test UI Config - UIS Command Action Type.htm">UIS Command</a> action type. This action will issue a command on the "Separator" facility (as directed by the "relativeFacilityLink" attribute) with a command name of "SETMSVPOS1". The UIS command will provide status to the "SYCMDSTAT" UDC, also on the "Separator" facility. This action isn't configured for <b>Parameters</b> in this example, but the option exists to do so.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="UisCommand"</span> command="SETMSVPOS1" relativeFacilityLink="Separator" statusUDC="SYCMDSTAT"&gt;</p>
+                    <p class="Code2">&lt;Parameters /&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - UIS Command Action Type.htm">UIS Command Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - UisCommand Action Type.htm">UisCommand Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML Parameters.htm">Parameters, Parts</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 3: Wait for the position to move</h4>
+        <p>Wait for the actual position to match the desired position. We are using the  <a href="Well Test UI Config - Test Action Type.htm">Test</a> action type for this, as it is a generic action type used to pause the process. In this case, we are going to wait for 60 seconds (timeoutValue="60"). Every 5 seconds (sleeptime="5000") we are going to perform the <b>Sleep Time Action</b> and evaluate a condition. The condition is defined by the "udc", "operator", "value", and "conditionRelativeFacilityLink" attributes.</p>
+        <p>In this case, we are going to evaluate a point on the "Separator" facility with a udc of "POMSV". If that point is equal to "1", then we are going to perform the <b>Condition</b> action (ExitOnTagValueActions) (of which there are none defined here) and then exit the action.</p>
+        <p>After we issue the UIS command, we are going to wait for the actual position to go to "1". We are going to wait a total of 60 seconds for this to happen. Every 5 seconds, we are going to poll the device and see if the position is equal to "1". If it does, then we exit the condition. After 60 seconds we exit the action regardless of the condition.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="Test"</span> timeoutValue="60" timeoutValueType="Self" timeoutValueUpdate="" timeoutRelativeFacilityLink="" udc="POMSV" operator="=" value="1" conditionRelativeFacilityLink="Separator" sleeptime="5000"&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">SleepTimerActions</span>&gt;</p>
+                    <p class="Code3">&lt;Action <span style="background-color: #b0c4de;">type="UisCommand"</span> command="POLL" relativeFacilityLink="Separator" statusUDC="SYCMDSTAT"&gt;</p>
+                    <p class="Code4">&lt;Parameters /&gt;</p>
+                    <p class="Code3">&lt;/Action&gt;</p>
+                    <p class="Code2">&lt;/SleepTimerActions&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">ExitOnTagValueActions</span>&gt;</p>
+                    <p class="Code2">&lt;/ExitOnTagValueActions&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Test Action Type.htm">Test Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - Test Action Type.htm">Test Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML SleepTimerActions.htm">SleepTimerActions</a>
+                            </li>
+                            <li class="HyperlinkList" value="3"><a href="XML ExitOnTagValueActions.htm">ExitOnTagValueActions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 4 :Validate the position</h4>
+        <p>In Step 3, we waited for the position to move to the desired port; however, there is a chance that it did happen, and we timed out. So, we need to make sure the position is correct. Here we are using a <a href="Well Test UI Config - Point Value Compare Action Type.htm">Point Value Compare</a> action type to check the position point against a hard-coded value. If the position is not equal to "1", then we are going to exit the well test. The "value1", "value1type", and "value1relativeFacilityLink" attributes are compared using the "operator" attribute with the "value2", "value2type", and "value2relativeFacilityLink" attributes.</p>
+        <p>In this case, if the "POMSV" point on the "Separator" facility is not equal to "1", then we are going post a value to the "MSG" point on the "Separator" facility saying "Position Not Set" and then exit the current well test.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="PointValueCompare"</span> operator="&amp;lt;&amp;gt;" value1="POMSV" value1type="UDC"  value1relativeFacilityLink="Separator" value2="1" value2type="SELF" value2relativeFacilityLink=""&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">TrueAction</span>&gt;</p>
+                    <p class="Code3">&lt;Action type="Exit" udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Position Not Set" /&gt;</p>
+                    <p class="Code2">&lt;/TrueAction&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">FalseAction</span>&gt;</p>
+                    <p class="Code2">&lt;/FalseAction&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Point Value Compare Action Type.htm">Point Value Compare Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - PointValueCompare Action Type.htm">PointValueCompare Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML TrueAction, FalseAction.htm">TrueAction, FalseAction</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Part2"></a>Part 2 — Purge</h3>
+        <p>The actions in this part of the workflow involve the purging process for the well. This part is simple in that all we are doing is waiting for a period of time to expire.</p>
+        <h4>Step 1: Status the user</h4>
+        <p>This is like Step 1 of Part 1 where we are going to issue a <a href="Well Test UI Config - Set Point Action Type.htm">Set Point</a> action to let the user know where in the process we are. This action will issue a set point on the "Separator" facility (as directed by the "relativeFacilityLink" attribute) with a udc of "MSG". The value is a hard-coded value of "Purging".</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="SetPoint"</span> udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Purging"" /&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Set Point Action Type.htm">Set Point Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - SetPoint Action Type.htm">SetPoint Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 2: Wait for a specified purge time</h4>
+        <p>In this step we need to wait for a period and as such, we are going to use the <a href="Well Test UI Config - Test Action Type.htm">Test</a> action type. The Test action type can be configured to wait a specific amount of time, as in Step 3 of Part 1, or we can specify a UDC that stores how long we should wait. In this step we are going to use the UDC method.</p>
+        <p>The "timeoutValue" attribute is specifying a "UDC" on the "Well" facility ("timeoutRelativeFacilityLink" is empty and this action is defined at a Well/Position level). The "timeoutValueType" attribute of "UDC" tells the "Test" action that we are going to get the timeout from a point. In this case, the point is on the "Well" facility with a UDC of "TMWTPUR". So, this action will wait the number of seconds of that point value.</p>
+        <p>While we wait, every 5 seconds (sleeptime="5000") we are going to poll the device (using the actions defined in the <b>Sleep Time Actions</b> node). Also, every 5 seconds, we are going to check the position to make sure it didn't move. This is done with the "udc", "operator", "value", and "conditionRelativeFacilityLink" attributes. In this case, we're expecting the position to be "1" and if it's not, then we are going to perform the actions defined in the <b>ExitOnTagValueActions</b> node. The action defined there will issue a status of "Position Moved" and exit the current well test.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="Test"</span> timeoutValue="TMWTPUR" timeoutValueType="UDC" timeoutValueUpdate="False" timeoutRelativeFacilityLink="" udc="POMSV" operator="&amp;lt;&amp;gt;" value="1" conditionRelativeFacilityLink="Separator" sleeptime="5000" &gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">SleepTimerActions</span>&gt;</p>
+                    <p class="Code3">&lt;Action <span style="background-color: #b0c4de;">type="UisCommand"</span> command="POLL" relativeFacilityLink="Separator" statusUDC="SYCMDSTAT"&gt;</p>
+                    <p class="Code4">&lt;<span style="background-color: #b0c4de;">Parameters </span>/&gt;</p>
+                    <p class="Code3">&lt;/Action&gt;</p>
+                    <p class="Code2">&lt;/SleepTimerActions&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">ExitOnTagValueActions</span>&gt;</p>
+                    <p class="Code3">&lt;Action <span style="background-color: #b0c4de;">type="Exit"</span> udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Position Moved" /&gt;</p>
+                    <p class="Code2">&lt;/ExitOnTagValueActions&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="very_small">&#160;</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The "Well" facility is specified in the "tag" attribute of the &lt;<a href="XML Wells.htm">Well</a>&gt; element of the XML configuration.</p>
+        </div>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Test Action Type.htm">Test Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="Well Test UI Config - UIS Command Action Type.htm">UIS Command Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="3"><a href="Well Test UI Config - Exit Action Type.htm">Exit Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - Test Action Type.htm">Test Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML SleepTimerActions.htm">SleepTimerActions</a>
+                            </li>
+                            <li class="HyperlinkList" value="3"><a href="XML Config - UisCommand Action Type.htm">UisCommand Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="4"><a href="XML Parameters.htm">Parameters, Parts</a>
+                            </li>
+                            <li class="HyperlinkList" value="5"><a href="XML ExitOnTagValueActions.htm">ExitOnTagValueActions</a>
+                            </li>
+                            <li class="HyperlinkList" value="6"><a href="XML Config - Exit Action Type.htm">Exit Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Part3"></a>Part 3 – Test</h3>
+        <p>The steps in this part of the workflow are very similar to the previous step. We are going to status the user and then wait for a period while making sure the position hasn't moved. The only difference in these steps will be in how we test to see if the position has moved.</p>
+        <h4>Step 1: Status the user</h4>
+        <p>This is like Step 1 of Part 2 where we are going to issue a <a href="Well Test UI Config - Set Point Action Type.htm">Set Point</a> to let the user know where in the process we are. This action will issue a set point on the "Separator" facility (as directed by the "relativeFacilityLink" attribute) with a "udc" of "MSG". The value is a hard-coded value of "Testing".</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="SetPoint"</span> udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Testing" /&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Set Point Action Type.htm">Set Point Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - SetPoint Action Type.htm">SetPoint Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 2: Wait for a specified test time</h4>
+        <p>This step is mostly the same as Step 2 of Part 2. We are going to wait for a period defined in the "timeoutValue" attribute (in this case "TMWTTGT"). However, we are not using the "udc", "value", and "conditionRelativeFacility" attributes to figure out if the position has moved. That is certainly a valid configuration here; however, in this case we are electing to use a <a href="Well Test UI Config - Point Value Compare Action Type.htm">Point Value Compare</a> action type as part of the <a href="XML Config - Test Action Type.htm">Sleep Time Actions</a> to perform that function. This leaves the action condition available for other purposes. For example, the condition could be set up to allow an external process (such as ForeSite) to cut the test time short for any reason.</p>
+        <p>This introduces another attribute that is part of the <b>Test</b> action type. In this example, the "timeoutValueUpdate" attribute is set to "true" here. So, for example, if we had a condition configuration and that condition was met after four hours of an eight-hour test, then we will update the "TMWTTGT" point to four hours (converted to seconds). The next time we test this well, it will start out with a test time of four hours, instead of eight.</p>
+        <p>The last attribute we are using here is the "timeoutActualUdc" attribute. This attribute specifies the UDC to use to post a running count of how long we have been in this action. Every 5 seconds (sleeptime="5000"), we will update this value to reflect how long we have been in this condition. This could also have been configured in the Purge step.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="Test"</span> timeoutValue="TMWTTGT" timeoutValueType="UDC" timeoutValueUpdate="true" timeoutRelativeFacilityLink="" timeoutActualUdc="TMWTACT" udc="" operator="" value="" conditionRelativeFacilityLink="" sleeptime="5000"&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">SleepTimerActions</span>&gt;</p>
+                    <p class="Code3">&lt;Action <span style="background-color: #b0c4de;">type="UisCommand"</span> command="POLL" relativeFacilityLink="Separator" statusUDC="SYCMDSTAT" /&gt;</p>
+                    <p class="Code3">&lt;Action <span style="background-color: #b0c4de;">type="PointValueCompare"</span> operator="&amp;lt;&amp;gt;" value1="POMSV" value1type="UDC"</p>
+                    <p class="Code3">value1relativeFacilityLink="Separator" value2="1"     value2type="SELF" value2relativeFacilityLink=""&gt;</p>
+                    <p class="Code4">&lt;<span style="background-color: #b0c4de;">TrueAction</span>&gt;											</p>
+                    <p class="Code5">&lt;Action <span style="background-color: #b0c4de;">type="Exit"</span> udc="MSG" relativeFacilityLink="Separator" valueType="Text"</p>
+                    <p class="Code4">attribute="" value="Position Moved" /&gt;</p>
+                    <p class="Code4">&lt;/TrueAction&gt;</p>
+                    <p class="Code4">&lt;<span style="background-color: #b0c4de;">FalseAction</span>&gt;</p>
+                    <p class="Code4">&lt;/FalseAction&gt;</p>
+                    <p class="Code3">&lt;/Action&gt;</p>
+                    <p class="Code2">&lt;/SleepTimerActions&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">ExitOnTagValueActions</span>&gt;</p>
+                    <p class="Code2">&lt;/ExitOnTagValueActions&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Test Action Type.htm">Test Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="Well Test UI Config - UIS Command Action Type.htm">UIS Command Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="3"><a href="Well Test UI Config - Point Value Compare Action Type.htm">Point Value Compare Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="4"><a href="Well Test UI Config - Exit Action Type.htm">Exit Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - Test Action Type.htm">Test Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML SleepTimerActions.htm">SleepTimerActions</a>
+                            </li>
+                            <li class="HyperlinkList" value="3"><a href="XML Config - UisCommand Action Type.htm">UisCommand Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="4"><a href="XML Config - PointValueCompare Action Type.htm">PointValueCompare Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="5"><a href="XML TrueAction, FalseAction.htm">TrueAction, FalseAction</a>
+                            </li>
+                            <li class="HyperlinkList" value="6"><a href="XML Config - Exit Action Type.htm">Exit Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="7"><a href="XML ExitOnTagValueActions.htm">ExitOnTagValueActions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Part4"></a>Part 4 – Process Result</h3>
+        <p>In this part of the workflow, we are going to process the well test result. Since the values for the well test record can come for different places depending on the field configuration, we need to script this part of the process. Any sort of unit manipulation, accumulator calculations, or any other logic needed to be performed to generate the proper values for a record must be scripted. If there isn't any requirement to manipulate the values prior to being stored in the well test record, there is a generic script that can be used to supply the necessary values for the record and the script will output the result in the proper format for the CygNet Well Test Module to store the record in the VHS.</p>
+        <h4>Step 1: Status the user</h4>
+        <p>This is like Step 1 of Part 2 where we are going to issue a <a href="Well Test UI Config - Set Point Action Type.htm">Set Point</a> to let the user know where in the process we are. This action will issue a set point on the "Separator" facility (as directed by the "relativeFacilityLink" attribute) with a "udc" of "MSG". The value is a hard-coded value of "Processing".</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="SetPoint"</span> udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Processing" /&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Set Point Action Type.htm">Set Point Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - SetPoint Action Type.htm">SetPoint Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 2: Was it a good test?</h4>
+        <p>In this step, we want to make sure we need to generate a well test record. There can be various conditions that must be met before we consider generating a record. In this example, we are performing a simple check to see if the actual runtime was greater than the minimum runtime. Both values come from points on the "Well" facility. A <a href="Well Test UI Config - Point Value Compare Action Type.htm">Point Value Compare</a> action type is used to perform this check.</p>
+        <p>Here if the actual time (value1="TMWTACT") point value is greater than or equal (operator="&amp;gt;=") to the minimum required time (value2="TMWTMIN"), then we will perform the action specified in the <b>True Action</b> node. See Step 3 below for details on that action. If we don't meet the minimum time requirement, we exit out of the well test and provide a status value as to why.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="PointValueCompare"</span> operator="&amp;gt;=" value1="TMWTACT" value1type="UDC"  value1relativeFacilityLink="" value2="TMWTMIN" value2type="UDC" value2relativeFacilityLink=""&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">TrueAction</span>&gt;</p>
+                    <p class="Code3">&lt;!—see next step --&gt;</p>
+                    <p class="Code2">&lt;/TrueAction&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">FalseAction</span>&gt;</p>
+                    <p class="Code3">&lt;Action type="Exit" udc="MSG" relativeFacilityLink="Separator" valueType="Text" attribute="" value="Short test" /&gt;</p>
+                    <p class="Code2">&lt;/FalseAction&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Point Value Compare Action Type.htm">Point Value Compare Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - PointValueCompare Action Type.htm">PointValueCompare Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML TrueAction, FalseAction.htm">TrueAction, FalseAction</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 3: Process the well test record</h4>
+        <p>This is a continuation of the previous step. If we meet the minimum test time requirements, we are going to execute a VB script to gather the appropriate values needed for the well test record and provide those back to the CygNet Well Test Module. The <a href="Well Test UI Config - Script Action Type.htm">Script</a> action type is used for this purpose.</p>
+        <p>The VB script contains all the necessary logic to retrieve the point values for oil, water, gas, etc. from the devices containing the information and then perform any required data manipulation on those values. If these values are in a point and no data manipulation is necessary, then the provided generic script can be used to generate the required output.</p>
+        <p>In the following Script action type, we have a generic script file located in the BSS. The script will be executed with the configured parameters. There are six parameters that the script file will parse and then output the same values in a format that the CygNet Well Test Module understands. Once the VB script is finished and presents the output, it is parsed into an XML string and posted to the result point. The result UDC is defined in the &lt;<a href="XML UdcConfiguration.htm">UdcConfiguration</a>&gt; element or can be overridden in the action using the "udc" attribute.</p>
+        <p class="Example">XML Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Action <span style="background-color: #b0c4de;">type="Script"</span> script="C4PROD.BSSCAN\WELLTEST\ProcessCalculationsGeneric.vbs" source="BSS" udc="WELLTEST" relativeFacilityLink=""&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">Parameters</span>&gt;</p>
+                    <p class="Code3">&lt;<span style="background-color: #b0c4de;">Parameter</span>&gt;</p>
+                    <p class="Code4">&lt;<span style="background-color: #b0c4de;">Part </span>type="Text" value="OIL=" /&gt;</p>
+                    <p class="Code4">&lt;Part type="PointValue" udc="ROIL" relativeFacilityLink="Separator" attribute="Value" /&gt;</p>
+                    <p class="Code3">&lt;/Parameter&gt;</p>
+                    <p class="Code3">&lt;Parameter&gt;</p>
+                    <p class="Code4">&lt;Part type="Text" value="WATER=" /&gt;</p>
+                    <p class="Code4">&lt;Part type="PointValue" udc="RH2O" relativeFacilityLink="Separator" attribute="Value" /&gt;</p>
+                    <p class="Code3">&lt;/Parameter&gt;</p>
+                    <p class="Code3">&lt;Parameter&gt;</p>
+                    <p class="Code4">&lt;Part type="Text" value="GAS=" /&gt;</p>
+                    <p class="Code4">&lt;Part type="PointValue" udc="RGAS" relativeFacilityLink="Separator" attribute="Value" /&gt;</p>
+                    <p class="Code3">&lt;/Parameter&gt;</p>
+                    <p class="Code3">&lt;Parameter&gt;</p>
+                    <p class="Code4">&lt;Part type="Text" value="DURATION=" /&gt;</p>
+                    <p class="Code4">&lt;Part type="PointValue" udc="TMWTACT" relativeFacilityLink="" attribute="Value" /&gt;</p>
+                    <p class="Code3">&lt;/Parameter&gt;</p>
+                    <p class="Code3">&lt;Parameter&gt;</p>
+                    <p class="Code4">&lt;Part type="Text" value="FACILITYTAG=" /&gt;</p>
+                    <p class="Code4">&lt;Part type="FacilityAttribute" relativeFacilityLink="" attribute="FacilityTag" /&gt;</p>
+                    <p class="Code3">&lt;/Parameter&gt;</p>
+                    <p class="Code3">&lt;Parameter&gt;</p>
+                    <p class="Code4">&lt;Part type="Text" value="TIMESTAMP=" /&gt;</p>
+                    <p class="Code4">&lt;Part type="PointValue" udc="TMWTACT" relativeFacilityLink="" attribute="Timestamp" /&gt;</p>
+                    <p class="Code3">&lt;/Parameter&gt;</p>
+                    <p class="Code2">&lt;/Parameters&gt;</p>
+                    <p class="Code">&lt;/Action&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Let's look at the configuration at the first <b>Parameter</b> node. The parameter will concatenate all parts into a single string to present to the script file. The first parameter starts off with a simple string of "OIL=". The next part of the parameter will retrieve a point value from the "ROIL" UDC on the "Separator" facility. For example, if the value is 184.5, the parameter would start out as OIL=184.5.</p>
+        <p>In this example, we retrieve the oil, water, and gas values from the same "Separator" facility. If these come from different devices and facilities, the "relativeFacilityLink" attribute can be used to resolve to the appropriate point and UDC. </p>
+        <p>The duration, facility tag, and timestamp values come from the "Well" facility. All those values will be concatenated and passed into the script. The generic script then turns around and passes those same values back out in the appropriate format. From there, the XML record gets generated and posted to the VHS as a BLOB string.</p>
+        <p class="Example">References</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">UI Configuration</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">XML Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="Well Test UI Config - Script Action Type.htm">Script Action Type</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li class="HyperlinkList" value="1"><a href="XML Config - Script Action Type.htm">Script Action Type</a>
+                            </li>
+                            <li class="HyperlinkList" value="2"><a href="XML Parameters.htm">Parameters, Parts</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

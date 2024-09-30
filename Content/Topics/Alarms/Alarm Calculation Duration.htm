@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Duration</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Duration Alarm Calculation</span>
+        </div>
+        <h2>Duration Alarm Calculation</h2>
+        <p>The Timed Alarm State uses the Duration Alarm (TIMED_ALARMSTATE) calculation type to monitor a list of CVS configurable alarm bits. Whenever the time designated in calcparm2 is reached, the system finds the first time all of the configurable alarm bits listed in calcparm1 were set. If that time meets or exceeds the time specified in calcparm2, the specified alarm bit will be set.</p>
+        <p>For more information, see <a href="Alarm Calculation Types.htm">Alarm Calculation Types </a>and <a href="../Points/Point Status Bits.htm">Point Status Bits</a>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Calculation parameters are user-provided.</p>
+        </div>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Timed Alarm State.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Timed_Alarm_State.png" title="Timed Alarm State" alt="Timed Alarm State" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>ConfigBits</b> (calcparm1) — Little Endian 15-bit binary string configuration read from left to right (CONFIG1 to CONFIG15)</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time</b> (calcparm2) — Length of time that all the configured CONFIG bits in calcparm1 have to be set before the alarm bit is set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 001100000000000</li>
+            <li value="2">calcparm2 = 30 seconds</li>
+        </ul>
+        <p>The following CVSMetadata.xml excerpt from a sample CygNet Enhanced Point Scheme shows a previously "Unused" configurable status bit now assigned to the "Timed Alarm State" as CONFIG14. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The CygNet Enhanced Point Scheme is available as a separately licensed entity. See <a href="../Points/Understanding the CvsMetadata File.htm">Understanding the CVS Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme.</p>
+        </div>
+        <table class="Code">
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">&lt;StatusBitDefinition bitid="CONFIG14" desc="Timed Alarm State" displayorder="1021" calcorder="16" calctype="TIMED_ALARMSTATE"&gt;</p>
+                        <p class="Code2">&lt;CalcParameter1 desc="ConfigBits"/&gt;</p>
+                        <p class="Code2">&lt;CalcParameter2 desc="Time"/&gt;</p>
+                        <p class="Code">&lt;/StatusBitDefinition&gt;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>In this example, the Timed Alarm State bit (CONFIG14) is set when CONFIG3 (Low Warning) and CONFIG4 (High Warning) bits (configured in calcparm1 = 001100000000000) have both been set for a minimum of 30 seconds (calcparm2 = 30).</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DurationAlarm.png" title="Timed Alarm State status bit" alt="Timed Alarm State status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

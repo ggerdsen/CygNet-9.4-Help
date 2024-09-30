@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Use scripting in Canvas to customize the logic governing screen design and text and tool object functionality. Canvas supports both C# and VB.NET programming languages. Script view. Order of event execution. " /><title>Scripting in Canvas</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Scripting in Canvas</span>
+        </div>
+        <h1><a name="aanchor195"></a>
+            <MadCap:concept term="Canvas Scripting" />Scripting in <span class="GeneralProduct_Short">Canvas</span></h1>
+        <p>Use scripting in your <span class="GeneralProduct_Short">Canvas</span> screens to customize the logic governing screen design and control object functionality. <span class="GeneralProduct_Short">Canvas</span> supports both C# and VB.NET programming languages. The choice is yours, but use a single programming language within each screen. The script will compile the same, and the controls will provide the same functionality, so use the language you prefer.</p>
+        <p>By default, the <span class="GeneralProduct_Mid">Canvas application</span> uses the C# script language. If you prefer to use VB.NET, select that option in the  <a href="../Using_Canvas/Backstage_View.htm">Backstage</a> view when opening a new screen. You can select your preferred default script language in the <a href="../Using_Canvas/Settings.htm">Settings</a> page, <a href="Accessing_Screen_Objects.htm">General</a> section.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Many outside resources are available, online and otherwise, to learn more about scripting and using specific programming languages. </p>
+        </div>
+        <h3>Enabling Script</h3>
+        <p>By default, the <span class="GeneralProduct_Short">Canvas</span> script editor and script engine are disabled. To enable scripting for any screen (or object), perform one of the following. Once enabled, scripting support cannot be disabled.</p>
+        <ul>
+            <li value="1">Select the <a href="../Using_Canvas/Pane_Screen_Script_View.htm">Script view</a> tab of the Screen pane. Click the link <b>Enable scripting for this screen</b> to switch to the <b>Script</b> view.</li>
+            <li value="2">In the <a href="../Using_Canvas/Pane_Events.htm">Events</a> pane, click the check box or event name for an event to switch to the <b>Script</b> view. </li>
+        </ul>
+        <h3>Script View</h3>
+        <p>The <a href="../Using_Canvas/Pane_Screen.htm">Screen</a> pane contains three views, accessible with the tabs at the bottom of the pane: the <a href="../Using_Canvas/Pane_Screen_Design_View.htm">Design view</a>, the <a href="../Using_Canvas/Pane_Screen_Script_View.htm">Script view</a> and the <a href="../Using_Canvas/Pane_Screen_Controls_View.htm">Controls view</a>. Work in the Script view to customize screens with script, validate script, and manage assembly references. The structure of the script view is color-coded to help you quickly identify read-only and writable portions.</p>
+        <ul>
+            <li value="1">White background — Indicates writable portions of script, and also contains helpful usage comments</li>
+            <li value="2">Gray background — Indicates read-only portions of script, and contains the structure and global class indicators for placing and manipulating the objects on your screen. It is recommended that you do not edit these portions without a compelling reason to do so. If deemed necessary to make it editable, you can do so - but be aware that it cannot be undone. Knowing this, to remove the read-only protections, right-click the gray script area to access the context-menu options, and then click <b>Make editable</b>. It will remain editable from that point forward. See <a href="../Using_Canvas/Script_View_Context_Menu.htm">Script View Context Menu</a>.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Use Ctrl+T to toggle between <b>Design</b> view and <b>Script</b> view in the Screen pane. If scripting is not yet enabled, click <b>Enable scripting for this screen</b> to open the <b>Script</b> view.</p>
+        </div>
+        <h3><a name="Screen"></a>Screen Load Time</h3>
+        <p>When a screen is saved in Canvas, any script assemblies are compiled into a uniquely named .dll file (using a GUID assigned to the screen) and the assembly is added to the .can file, so the script does not have to be recompiled  every time the screen is run. When a screen is loaded in Canvas preview or Canvas View, the precompiled .dll is extracted to a temp directory and the script assembly is loaded from disk. This results in faster load times by removing the need to recompile script. The screen property <a href="../Using_Canvas_Controls/All_Properties.htm#UniqueName">Unique name</a> (UniqueName) exposes this name. See <a href="../Using_Canvas/Running_Screens.htm#Load_times">Load time</a>.</p>
+        <h3>Script Examples</h3>
+        <p>
+            <p><span class="GeneralProduct_Short">Canvas</span> screen examples are available in two locations: </p>
+            <ul>
+                <li value="1">in the <b>CANEXAMP</b> folder in the <b>APPS</b></li>
+                <li value="2">in the <b>Clients\<span class="GeneralProduct_Short">Canvas</span>\Screens\Examples</b> folder on the local file system</li>
+            </ul>
+            <p>Be sure to browse through these files to familiarize yourself with how scripting is commonly added to object events.  </p>
+        </p>
+        <h4>In this section</h4>
+        <p>This section describes various <span class="GeneralProduct_Short">Canvas</span> scripting techniques and includes the following topics:</p>
+        <div class="MCMiniTocBox_0">
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Accessing_Screen_Objects.htm">Accessing Screen Objects</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Validating_Script.htm">Validating Script in Canvas</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Managing_External_Assemblies.htm">Managing External Assemblies</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Debugging_Screens.htm">Debugging Screens</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Order_of_Event_Execution.htm">Order of Event Execution</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Global_Dictionary.htm">Global Dictionary</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Hyperlinking_Screens.htm">Hyperlinking Screens</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Navigation_by_Facility.htm">Navigation by Facility</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Scripting_Custom_Searches.htm">Scripting Custom Searches</a>
+            </p>
+            <p class="MiniTOC1_0"><a class="MiniTOC1" href="Interscreen_Communication.htm">Interscreen Communication</a>
+            </p>
+        </div>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

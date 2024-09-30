@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using a ListView Control to Select Trends to Display</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using a ListView Control to Select Trends to Display</span>
+        </div>
+        <h2>Using a ListView Control to Select Trends to Display</h2>
+        <p>Multiple trends can be viewed on a <a href="Trend Tool.htm">Trend Tool</a> simultaneously. This functionality can allow the user to dynamically select one or more trends to view, if script is provided to do so. Several list controls could be used in this situation to display the set of values to trend, including a List Box, a set of Check Buttons, or any ActiveX list control. </p>
+        <p>The following example uses a Microsoft ListView Control (ActiveX) to take advantage of its option to show check boxes next to list items. It is assumed that the Site/Service and Facility are configured at the <b>View</b> level.</p>
+        <p class="HeadingProcedure">Using a ListView Control (ActiveX) to enable Display of Single or Multiple Trends</p>
+        <ol start="1">
+            <li value="1">Create a new Studio screen.</li>
+            <li value="2">Place a ListView control on the screen.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Click the <b>ActiveX</b> tool <img src="../../Resources/Images/Shared Images/activex.png" class="Inline" /> on the <b>Standard Tools</b> palette.</li>
+            <li value="2">Click and drag the outline of the list box on the screen. When the mouse button is released, an <b>Insert OLE Control</b> dialog box appears.</li>
+            <li value="3">In the dialog box, select <b>Microsoft ListView Control</b>.&#160; The version number may be included in the name.</li>
+            <li value="4">Right-click the control to open its properties. In the (<b>ObjectCode</b>) field, type "listControl."</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Place a <b>Trend</b> control on the screen.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Click the <b>Trend *</b><img src="../../Resources/Images/Shared Images/trend.png" /> on the <b>Standard Tools</b> palette.</li>
+            <li value="2">Click and drag the outline of the <b>Trend</b> control on the screen.</li>
+            <li value="3">Right-click the control to open its properties. In the (<b>ObjectCode</b>) field, type "trendControl."</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Add general declarations.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Open the Script Editor and navigate to (<b>General</b>), (<b>Declarations</b>). </li>
+            <li value="2">Enter the following script. Note that trend series are stored in a two dimensional array, where for each series, the list item, long point ID, and UDC, and axis number are stored in that order.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">'Set up trend colors</p>
+                    <p class="Code2">Dim trendColors(3)</p>
+                    <p class="Code2">trendColors(0) = vbRed</p>
+                    <p class="Code2">trendColors(1) = vbBlue</p>
+                    <p class="Code2">trendColors(2) = vbGreen</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Initialize trend series array</p>
+                    <p class="Code2">Dim SeriesArray(3,3)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Method to add a series to the array and trend control</p>
+                    <p class="Code2">Sub AddTrendSeries(longPointID, axisNum, listItem, udc)</p>
+                    <p class="Code3">SeriesArray(axisNum, 0) = listItem</p>
+                    <p class="Code3">SeriesArray(axisNum, 1) = longPointID</p>
+                    <p class="Code3">SeriesArray(axisNum, 2) = udc</p>
+                    <p class="Code3">SeriesArray(axisNum, 3) = axisNum</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">'Update trend control</p>
+                    <p class="Code3">With trendControl</p>
+                    <p class="Code4">.SiteService(axisNum) = TheView.SiteService</p>
+                    <p class="Code4">.FacilityId(axisNum) = TheView.Facility</p>
+                    <p class="Code4">.Udc(axisNum) = udc</p>
+                    <p class="Code4">.AutoScale(axisNum) = True</p>
+                    <p class="Code4">.OverlayYAxis(axisNum) = False</p>
+                    <p class="Code4">.PointIdLong(axisNum) = longPointID</p>
+                    <p class="Code4">.XAxisLabel = "Time"</p>
+                    <p class="Code4">.SeriesColor(axisNum) = trendColors(axisNum)</p>
+                    <p class="Code4">.LineType = 9 "Medium Thin Solid</p>
+                    <p class="Code4">.Restart()</p>
+                    <p class="Code3">End With</p>
+                    <p class="Code2">End Sub</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="5">
+            <li value="5">Add initialization script to the ListView Control.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the Script Editor, navigate to the listControl <b>EventInitialize</b> event.</li>
+            <li value="2">Enter the following script. Successive columns are defined as sub items of the first column. The second column (UDC) is used to store the UDC value for each item, and can be made invisible if desired.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub listControl_EventInitialize()</p>
+                    <p class="Code2">Dim This : Set This = listControl</p>
+                    <p class="Code2">This.Checkboxes = True</p>
+                    <p class="Code2">This.View = 3 'Report view</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Add columns</p>
+                    <p class="Code2">This.ColumnHeaders.Add , , "Choose one or more items to trend"</p>
+                    <p class="Code2">This.ColumnHeaders.Add , , "UDC"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Add descriptions in first column (changes these descriptions to match your application)</p>
+                    <p class="Code2">With This.ListItems</p>
+                    <p class="Code3">.Add , , "Vol Gas Today"</p>
+                    <p class="Code3">.Add , , "Vol Gas Yest"</p>
+                    <p class="Code3">.Add , , "Gas Rate"</p>
+                    <p class="Code2">End With</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Add UDCs in second column (change to match your application)</p>
+                    <p class="Code2">With This</p>
+                    <p class="Code3">.ListItems(1).SubItems(1) = "VGT"</p>
+                    <p class="Code3">.ListItems(2).SubItems(1) = "VGY"</p>
+                    <p class="Code3">.ListItems(3).SubItems(1) = "RGAS"</p>
+                    <p class="Code2">End With</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="3" class="Lower_alpha">
+            <li value="3">Click <b>OK</b> to close the script editor.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Add script to run when a user checks or unchecks an item in the ListView.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Still in the Script Editor, navigate to the listControl <b>EventItemCheck</b> event.</li>
+            <li value="2">Enter the following script. This event has one parameter, Item, the list item that called the event after being checked or unchecked.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub listControl_EventItemCheck(Item)</p>
+                    <p class="Code">Dim This : Set This = listControl</p>
+                    <p class="Code2">If Item.Checked = True Then</p>
+                    <p class="Code3">longPointID = TheView.Facility &amp; "_" &amp; Item.SubItems</p>
+                    <p class="Code3">For i = 0 To ubound(SeriesArray)</p>
+                    <p class="Code4">If SeriesArray(i, 0) = "" Then 'Fill in first empty spot</p>
+                    <p class="Code5">AddTrendSeries LongPointID, i, Item, Item.SubItems(1)</p>
+                    <p class="Code5">Exit For</p>
+                    <p class="Code4">End If</p>
+                    <p class="Code3">Next</p>
+                    <p class="Code2">Else 'Remove from series array</p>
+                    <p class="Code3">For i = 0 To ubound(SeriesArray)</p>
+                    <p class="Code4">If SeriesArray(i, 0) = Item Then</p>
+                    <p class="Code5">trendControl.DeleteSeries(SeriesArray(i, 3))</p>
+                    <p class="Code5">SeriesArray(i, 0) = ""</p>
+                    <p class="Code5">SeriesArray(i, 1) = ""</p>
+                    <p class="Code5">SeriesArray(i, 2) = ""</p>
+                    <p class="Code5">SeriesArray(i, 3) = ""</p>
+                    <p class="Code5">Exit For</p>
+                    <p class="Code4">End If</p>
+                    <p class="Code3">Next</p>
+                    <p class="Code3">ReIndexSeriesArray</p>
+                    <p class="Code2">End if</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="7">
+            <li value="7"><b>Save</b> the screen and switch to <b>Run</b> mode. Assuming that sufficient data values exist for the given UDCs, try turning series trends on and off to see the Trend control updated accordingly.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

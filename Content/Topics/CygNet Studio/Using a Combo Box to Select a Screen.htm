@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using a Combo Box to Select a Screen</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using a Combo Box to Select a Screen</span>
+        </div>
+        <h2>Using a Combo Box to Select a Screen</h2>
+        <p>The following example walks through the creation of a simple screen that includes a combo box for selecting different screen files, and a button to launch the selected screen. It demonstrates how to add elements to a combo box in Edit mode and change the screen displayed by a Hyperlink button in Run mode.</p>
+        <p class="HeadingProcedure">Using a Combo Box to Enable Screen Selection and Launch</p>
+        <ol start="1">
+            <li value="1">Open a new Studio file and add a Combo Box <img src="../../Resources/Images/CygNet Studio/030000154.png" class="Inline" /> to the View. Set its (<b>ObjectCode</b>) property to "cboViews."</li>
+            <li value="2">Click the value field of the <b>ListItems</b> property to open the <b>List Choices</b> dialog box. Click the <b>Add</b> button to create a list item. Change the text in the Name field to "Alarms" and leave the default value in the Value field.</li>
+            <li value="3">Click the <b>Add</b> button two more times to create two new list items, and fill in the names as shown below, leaving the default values.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/030000164.png" />
+        </p>
+        <ol start="4">
+            <li value="4">Click <b>OK</b> in the dialog box.</li>
+            <li value="5">Change the combo box’s <b>NumDropped</b> property to 3 to drop all three items in the menu.</li>
+            <li value="6">Click the button tool <img src="../../Resources/Images/CygNet Studio/ButtonToolIcon.png" /> in the object bar, then click TheView next to the combo box to place a button.</li>
+            <li value="7">In the button’s properties, change the (<b>ObjectCode</b>) to "btnGo."</li>
+            <li value="8">Change the button’s <b>Text</b> property to "Go."</li>
+            <li value="9">Ensure that HyperLink is selected in the button’s <b>[ButtonType]</b> property.</li>
+            <li value="10">If you want, use the text tool <img src="../../Resources/Images/CygNet Studio/030000184.png" class="Inline" /> to create a label above the combo box to read "Select a view."&#160; The screen will look something like the one below.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/030000194.png" />
+        </p>
+        <ol start="11">
+            <li value="11">Double-click the combo box to open the script editor. Navigate to the cboViews <b>EventChange</b> event.</li>
+            <li value="12">Enter the script as shown below. Change the names and locations of the screen files (here loaded from a fictitious MYSITE.BSS BLOB) to match screens on your system.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub cboViews_EventChange()</p>
+                    <p class="Code">Dim This : Set This = cboViews</p>
+                    <p class="Code2">Select Case This.Value</p>
+                    <p class="Code3">Case 0:</p>
+                    <p class="Code4">btnGo.FilePath = "MYSITE.BSS\SCREENS\Alarms.csf "</p>
+                    <p class="Code3">Case 1:</p>
+                    <p class="Code4">btnGo.FilePath = "MYSITE.BSS\SCREENS\Trend.csf"</p>
+                    <p class="Code3">Case 2:</p>
+                    <p class="Code4">btnGo.FilePath = "MYSITE.BSS\SCREENS\SiteData.csf"</p>
+                    <p class="Code2">End Select</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="13">
+            <li value="13">Switch to <b>Run</b> mode. Try selecting a view name from the combo box and ensure that the <b>Go</b> button displays  a different screen based on the selection.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

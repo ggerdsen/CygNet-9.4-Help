@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Controls Menu">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Explorer History Grid Control</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Controls Menu.htm">Controls Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS Explorer History Grid Control</span>
+        </div>
+        <h2>Using the History Grid Control</h2>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Grid16.png" /> Use the <b>History Grid</b> control as the main vehicle to view and edit<b>*</b> detailed measurement data for a single selected Node. You can create up to eight instances of this control.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">*Note:</span> Editing functionality is only available in systems licensed for FULL mode.</p>
+        </div>
+        <p>History data for <b>Gas Device</b>, <b>Liquid Device</b> (with periodic history support), or <b>Station</b> Nodes is available for viewing in this control.   You can view data for one Node at a time, selected from the filtered Node Chooser results. </p>
+        <p>The History grid plays a central role in producing valid measurement data, and can access a large variety of relevant data in order to display the data necessary for analysis. The grid can be quickly customized to display only the data needed for the current analysis task, and it can then be quickly changed again to facilitate the next analysis task. In this manner a large amount of measurement data can be validated and edited from this one control, switching Nodes and data views as often as is necessary to achieve acceptable measurement data.</p>
+        <p>Unsaved data edits made in the History Grid control can also be viewed in a History Graph control using the same Node and a similar time window, by refreshing the History Graph control to view the unsaved History Grid edits. In this way, the controls can be used in conjunction to create an environment in which you can view the effects of data edits before  saving them. See <a href="Using the History Graph Control.htm">Using the History Graph Control</a> for more information.</p>
+        <p><a name="AutoCalc"></a>In cases where <b>Volume</b>, <b>Mass</b>, or <b>Energy</b> values are not provided by the device, the CygNet Measurement system will automatically calculate and provide the values, and those values will appear in the History Grid. If all required volume/mass/energy values for a  device are missing, therefore all required values are system-calculated, this automatic calculation process produces a Data Source value of <b>System Calculated</b> for the record, and sets the VCF value equal to <b>1</b>. See <a href="CygNet Measurement Concepts.htm#DataSourceValues">Data Source Values</a> and <a href="CygNet Measurement Concepts.htm#Volume">VCF</a> in the CygNet Measurement Concepts topic for more information.</p>
+        <p>By default, the History Grid control is set to use the Session Node and Session options. You cannot set the Session Node from this control. </p>
+        <p>Each row of the grid displays historical data for a single selected device or station. For a Node that is station meter (a Gas Meter Node set to also function as a station), select in the <a href="#Toolbar" class="selected">toolbar</a> whether to view its data as a device or station. Each <a href="#Columns" class="selected">column</a> represents a category of data. </p>
+        <p>You can edit process variable data  directly from the History grid. Within a single numerical data column, you can also choose to view the <a href="#Average" class="selected">average and sum</a> of selected data cells. Optionally, you can also apply <a href="#Grid_color" class="selected">grid color</a> to further identify records containing suspect data.  The control <a href="#Toolbar" class="selected">toolbar</a> and the <a href="#Context" class="selected">context menus</a> allow you additional options to customize the view of data in the history grid and to perform edits.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+            <p class="Note">Editing can only be performed from one History Grid at a time, although multiple History Grid controls can be open simultaneously. </p>
+            <p class="Note">While performing edits in one History Grid control,  a lock icon <img src="../../Resources/Images/CygNet Measurement/ReadOnly16.png" /> will appear in the status bar of each additional instance of a History Grid control to indicate that it is currently read-only. Absence of the read-only icon indicates that the History Grid control you are viewing is currently editable.</p>
+            <p class="Note">When multiple open History Grid controls display the same Node data, edits entered in the editable control will appear in the additional controls. If a new History Grid control is opened, you must refresh the control to display any unsaved edited data.</p>
+            <p class="Note">When edits are performed in the History Grid control, History Graph controls displaying the same Node data can access the unsaved edits by refreshing the History Graph control. </p>
+        </div>
+        <p>You must have proper security authorization to perform these actions. See <a href="FMS Security.htm">FMS Security</a> for information about configuring security access for the <b>History Grid</b> control.</p>
+        <p>See <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> in the Devices section for more information about the data group elements that can be mapped to FMS data items.</p>
+        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> for more information about editing.</p>
+        <p>See <a href="FMS Explorer User Interface.htm">FMS Explorer User Interface</a> for more information about the FMS Explorer user interface. </p>
+        <h3>Viewing History Grid Data</h3>
+        <p>Use the History Grid control <a href="#Node" class="selected">Chooser</a> pane (unless the <b>Use Session Node</b> option is selected in the Options pane) and <a href="#Options" class="selected">Options</a> pane to filter the data to show in the grid. Either pane  can optionally be displayed or pinned to the left side.</p>
+        <h4><a name="Node"></a>Chooser Pane</h4>
+        <p>In the embedded Node Chooser for the History Grid control, select the Nodes you want to view data for from the <b>Device</b>, <b>Gas Device</b>, <b>Liquid Device</b> (periodic only), or <b>Station</b> Node  categories. Further filter the Nodes by name, description, or ID as desired. See <a href="Using the Node Chooser Control.htm">Using the Node Chooser Control</a> for more information.</p>
+        <h4><a name="Options"></a>Options Pane</h4>
+        <p>In the Session section of the Options pane, define the values for the data you would like to view. In the History Grid section, define additional display options.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Controls_History_Grid_Options_Apply.png" />
+        </p>
+        <p>History grid control options are as follows.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">
+                        <p colspan="2">Session</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Use Session Node</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click the check box to select/clear the option to <b>Use Session Node</b> instead of using the chooser.</p>
+                        <p>See <a href="Session Node.htm">Session Node</a> for more information.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                            </p>
+                            <p class="Note">The <b>Use Session Node</b> check box is selected by default for Data controls (Alarm, Configuration, History Graph, History Grid, and Raw Data). </p>
+                            <p>The <b>Use Session Node</b> check box is cleared by default for Summary controls (Dashboard, Exceptions), Reports controls, and Admin controls (Balance, Jobs;  not applicable to Close Period,  PPA).</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Use Session options</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to select/clear the option to <b>Use Session options</b> instead of entering a time window and time format.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                                <p class="Note">The <b>Use Session options</b> check box is selected by default for Data controls (Alarm, Configuration, History Graph, History Grid, and Raw Data).</p>
+                                <p class="Note">The <b>Use Session options</b> check box is cleared by default for Summary controls (Dashboard, Exceptions), Reports controls, and Admin controls (PPA, Balance, Jobs; not applicable to Close Period).</p>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Start date</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Date selections are in Contract days (C). </p>
+                        <p>Select the starting date, unless <b>Use Session options</b> is selected. Type the date into the text box or click <b>...</b> to <b>Select Date</b>.</p>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">End date</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Date selections are in Contract days (C). </p>
+                        <p>Select the ending date, unless <b>Use Session options</b> is selected. Type the date into the text box or click <b>...</b> to <b>Select Date</b>.</p>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Time format</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to access the drop-down menu to select the desired time format in which to view history data, unless <b>Use Session options</b> is selected.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Device</b>
+                            </li>
+                            <li value="2"><b>Contract</b>
+                            </li>
+                            <li value="3"><b>Local</b>
+                            </li>
+                        </ul>
+                        <p>Default value is Device time.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Unit set</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a unit set in which to view the data. </p>
+                        <p>Options appear in the drop-down menu, which is populated by the unit sets defined in the service, and includes a default unit set.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">
+                            <img src="../../Resources/Images/CygNet Measurement/Refresh16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Click to <b>Refresh</b> the available unit set list.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">
+                        <p colspan="2">History Grid</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Record span</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to access the drop-down menu to select a <b>Record span</b> for display of history data. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Daily</b>
+                            </li>
+                            <li value="2"><b>Hourly</b>
+                            </li>
+                            <li value="3"><b>Native</b>
+                            </li>
+                        </ul>
+                        <p>Default value is Native.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Record order</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to access the drop-down menu to select a <b>Record order</b> for display of history data.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Oldest first</b>
+                            </li>
+                            <li value="2"><b>Newest first</b>
+                            </li>
+                        </ul>
+                        <p>Default value is Oldest first.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><a name="Grid_color"></a>Grid color</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to access the drop-down menu to select a  Grid color element to visually identify problematic or edited records by applying color to the grid.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li style="font-weight: normal;" value="1">None</li>
+                            <li style="font-weight: normal;" value="2">Row background</li>
+                            <li style="font-weight: normal;" value="3">Row text</li>
+                            <li style="font-weight: normal;" value="4">Date/Time background</li>
+                            <li style="font-weight: normal;" value="5">Date/Time text</li>
+                        </ul>
+                        <p>Default value is Row background.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Grid color selections other than "None" will automatically apply color to records with "System..." or "User..." <b>Data Source</b> values.</p>
+                        </div>
+                        <p>For grid element color options other than "None" you can also optionally color records  with low data quality values  or records having exceptions. To color these problematic records, use the following <a href="#influence" class="selected">Low data quality threshold</a> and <a href="#exceptions" class="selected">Exceptions</a> options. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent2"><a name="influence"></a>Low data quality threshold</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>When a Grid color option other than "None" is selected, the <b>Low data quality threshold</b> menu becomes available.</p>
+                        <p>Select a value  from the options in the drop-down menu. Color will be applied to records with <i>lower data quality</i> than this selected value. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This grid color option also colors records with "Device" or "Device File" or "Imported" <b>Data Source</b> values.</p>
+                        </div>
+                        <p>Default value is the data quality value configured in your system settings, using the Admin menu. See <a href="Configuring Data Quality Settings.htm">Configuring Data Quality Settings</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent2"><a name="exceptions"></a>Exceptions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>When a Grid color option other than "None" is selected, the <b>Exceptions</b> check box becomes available.</p>
+                        <p>Click the check box to select/clear the option to color records red if they have exceptions (data failing the validation process). See <a href="CygNet Measurement Concepts.htm#Validation">Validation</a> and <a href="CygNet Measurement Concepts.htm#Exceptio">Exceptions</a> in the Concepts topic for more information.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This grid color option also colors records with "Device" or "Device File" or "Imported" <b>Data Source</b> values.</p>
+                        </div>
+                        <p>Default value is selected (color records with exceptions).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Show units</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click the check box to select/clear display of data units  in the column headers of the History grid, where applicable. </p>
+                        <p>Default value is cleared (units not displayed).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Apply</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Click to <b>Apply</b> the changes made through the Options pane. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When you click  <b>Apply</b> on the <b>Options</b> pane, any Node selection that has been made but not applied  on the <b>Chooser</b> pane will also be applied.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Columns"></a>Columns</h4>
+        <p>Columns can be reorganized for the most efficient viewing of data in the following ways.</p>
+        <ul>
+            <li value="1">Hover over a fixed column edge to display an icon to reset column width. Drag the column to the desired width.</li>
+            <li value="2">Drag a column header left or right to the desired location.</li>
+            <li value="3">Drag a column header off the grid entirely to  remove that data field from the view. The removed column header will appear on the <a href="Using the Field Chooser.htm">field chooser</a>. </li>
+            <li value="4">Drag a column  header from the  <a href="Using the Field Chooser.htm">field chooser</a>  to the column header row to add that data field to the view. </li>
+        </ul>
+        <p>When an edit is made in the History Grid, the control initially assumes that edit to be the new "master" record, which affects some summary and system data columns. If the changes are saved, and the data quality of the edit is below the data quality of the current best record, however, the data will immediately be updated with the actual "master" record. See <a href="CygNet Measurement Concepts.htm#Master">Master Record</a> for more information.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Certain considerations apply to viewing averaged pressure values in your data. See <a href="CygNet Measurement Concepts.htm#Station">Device Data and Station Data</a> in the CygNet Measurement Concepts topic for more information.</p>
+        </div>
+        <h5><a name="Average"></a>Average and Sum</h5>
+        <p>Within a single numerical data column,  click and drag to select contiguous cells, or <b>Ctrl</b> + click for non-contiguous cells, to display the <b>Average</b>, cell <b>Count</b>, and <b>Sum</b> of the selected data cells in the status bar. <a href="#Decimal_precision" class="selected">Decimal precision</a> of the displayed results is determined by the level you select in the context menu options.</p>
+        <p>Contiguous selected cells are indicated by color and a box around the entire range selected, with white background around the first cell selected. The average, count, and sum of the selected cells are displayed in the status bar below the data grid.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Controls_History_Grid_Avg_Sum1_600x352.png" style="width: 600;height: 352;" />
+        </p>
+        <p>Non-contiguous cells can be selected by pressing <b>Ctrl</b>+<b>click</b>. Selections are indicated by color, with a box around the last cell selected, which will also have a white background. The average, cell count, and sum of the selected cells are displayed in the status bar below the data grid.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Controls_History_Grid_Avg_Sum2_599x442.png" style="width: 599;height: 442;" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Managing History Grid Data</h3>
+        <h4><a name="Toolbar"></a>Toolbar</h4>
+        <p>Use the History Grid control toolbar  to access options to manage the data you are viewing. &#160;See <a href="Menus and Toolbars.htm">Menus and Toolbars</a> for more information.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/History_Grid_Toolbar_598x24.png" style="width: 598;height: 24;" />
+        </p>
+        <p>The following options appear on the toolbar; unavailable buttons appear dimmed. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Refresh16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Refresh</b> the control view.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The Refresh button will not take into account changes made through the Options  pane that have been selected but not yet applied.</p>
+                        </div>
+                        <p>See <a href="Menus and Toolbars.htm#Refresh">Refresh Button</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/SaveHS16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Save</b> data that has been edited. </p>
+                        <p>Edited records are not changed until they are committed using the <b>Save</b> action.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Cancel16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Cancel</b> uncommitted edits and refresh the control.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Open16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <img src="../../Resources/Images/CygNet Measurement/Toolbar_Open16.png" /> to <b>Open</b> and view the control as a .csv file, using the default setting: <b>Show all visible records</b>. </p>
+                        <p>Click the down arrow to access view options available in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Show all visible records - as currently displayed in the control</li>
+                            <li value="2">Show only master records - see <a href="CygNet Measurement Concepts.htm#Master">Master Record</a> in the CygNet Measurement Concepts topic for more information</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Print16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>[The Print button is not available on this control.]</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Export16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <img src="../../Resources/Images/CygNet Measurement/Toolbar_Export16.png" /> to <b>Export</b> the contents of the control to a .csv file, using the default setting: <b>Export all visible records</b>. </p>
+                        <p>Click the down arrow to access  export options available in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Export all visible records - as currently displayed in the control</li>
+                            <li value="2">Export only master records - see <a href="CygNet Measurement Concepts.htm#Master">Master Record</a> in the CygNet Measurement Concepts topic for more information</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Data view</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The <b>Data view</b> selector is made available only when a station meter Node (a Gas Meter Node configured to also function as a station) is selected.</p>
+                        </div>
+                        <p>When a station meter Node is selected, click to access the drop-down menu to select a <b>Data view</b> to use to view history data for the Node.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Device</b>
+                            </li>
+                            <li value="2"><b>Station</b>
+                            </li>
+                        </ul>
+                        <p>Default value is Device view.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Context"></a>Context Menu</h4>
+        <p>Use the context menu to access options to perform edits, view audit records, and modify your data view. Some of these actions, and some navigation of the data grid, can also be accomplished using keyboard shortcuts, as noted. See <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+        <p>Right-click in the column header row to access the option to display/hide the Field Chooser  so that you can customize which columns to display in the grid. See <a href="Using the Field Chooser.htm">Using the Field Chooser</a> for more information.</p>
+        <p>Right-click in a data cell, or drag to select multiple cells and then right-click, to access the following context menu options. See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> for more information about making edits using these options.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You must have sufficient security credentials to perform edits. See <a href="FMS Security.htm">FMS Security</a> for more information.</p>
+        </div>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Copy Row</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click <b>Copy Row</b> to copy the value of the entire row(s) selected, to paste into another location. </p>
+                        <p class="Note">See <a href="#Note" class="selected">Note</a> after this table regarding using the clipboard to copy/paste between FMS data grids and external applications.</p>
+                        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <b>Copy</b> to copy the value from the selected data cell(s) to paste into another location. </p>
+                        <p>Alternatively,  press <b>Ctrl+C</b> to copy values using a keyboard shortcut.</p>
+                        <p class="Note">See <a href="#Note" class="selected">Note</a> after this table regarding using the clipboard to copy/paste between FMS data grids and external applications.</p>
+                        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Paste</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Paste</b> the copied value from another data cell into the selected data cell.</p>
+                        <p>Alternatively,  press <b>Ctrl+V</b> to paste values using a keyboard shortcut.</p>
+                        <p class="Note">See <a href="#Note" class="selected">Note</a> after this table regarding using the clipboard to copy/paste between FMS data grids and external applications.</p>
+                        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Expand selected</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Highlight single or multiple parent rows and then click <b>Expand selected</b> to also view records for its children. </p>
+                        <p>Alternatively,  press <b>Ctrl</b>+(keyboard)<b>[=]</b> (or <b>Ctrl</b>+(numeric keypad)<b>[+]</b>)  to expand rows using a keyboard shortcut.</p>
+                        <p>See <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Collapse selected</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Highlight single or multiple rows and then click <b>Collapse selected</b> to hide any child rows from view and show records only for the parent rows. </p>
+                        <p>Alternatively,  press <b>Ctrl</b>+(keyboard)<b>[-]</b> (or <b>Ctrl</b>+(numeric keypad)<b>[-]</b>)  to collapse rows using a keyboard shortcut.</p>
+                        <p>See <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Mass fill</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Highlight multiple cells, in single or multiple columns, to set all editable cells to the same value within each selected column. </p>
+                        <p>Alternatively,  press <b>Ctrl+M</b> to perform a mass fill using a keyboard shortcut.</p>
+                        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Linear fill</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Highlight multiple cells, in single or multiple columns, to do linear interpolation between the first and last value within each selected column. </p>
+                        <p>Alternatively,  press <b>Ctrl+L</b> to perform a linear fill using a keyboard shortcut. </p>
+                        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Zero flow</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the record row(s) to reset, and then right-click to access the <b>Zero flow</b> context menu option, to zero out flow values for the selected record(s). The specific values to be zeroed out correspond to the device type selected. </p>
+                        <p>Values are set to zero as follows.</p>
+                        <ul class="table">
+                            <li value="1">Liquid devices with liquid periodic metering - Flow rate, Flow time, Pulses, Base density, Accumulated Energy, Mass, all Volume fields (e.g. GV, GSV, NSV, IV)</li>
+                            <li value="2">Gas devices with differential metering - Flow time, volume</li>
+                            <li value="3">Gas devices with linear metering - Flow time, pulses, volume</li>
+                        </ul>
+                        <p>Alternatively,  press <b>Ctrl+0</b> (zero) to perform a value adjustment using a keyboard shortcut.</p>
+                        <p>See <a href="Editing Data in the History Grid.htm#Using7">Editing Data in the History Grid</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Adjust value</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to access the <b>Adjust value</b> dialog box, to make edits to the selected cells. You can edit the cells either by numerical values or by percentage values.  </p>
+                        <p>Alternatively,  press <b>Ctrl+J</b> to perform a value adjustment using a keyboard shortcut.</p>
+                        <p>See <a href="Editing Data in the History Grid.htm">Editing Data in the History Grid</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a name="Recalculate"></a>Recalculate</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to recalculate the history record.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                            <p class="Note">The <b>Recalculate</b> option is available only for gas device records. It appears dimmed when station or liquid device records are selected.</p>
+                            <p class="Note">Once edits to a record produce a Data Source of <b>User Override</b>, further recalculations to the record can be accomplished either manually or automatically. To recalculate the history manually, use this <b>Recalculate</b> option.  Alternatively, recalculation of user-edited data can be configured as a system option to occur automatically.</p>
+                        </div>
+                        <p>See <a href="Editing Data in the History Grid.htm#Data">Editing Data in the History Grid</a> for more information about manual recalculation.</p>
+                        <p>See <a href="Configuring System Options.htm#Recalculate">Configuring System Options</a> for more information about automatic recalculation.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>View audit record</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to access the <b>History Grid Audit Record</b> dialog box, to retrieve and view the audit record for the selected data. </p>
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Controls_History_Grid_Audit_Record_307x169.png" style="width: 307;height: 169;" />
+                        </p>
+                        <p>The audit record (when it exists) displays the audit category, the date/time of the change, the name of the <i>Site</i>\<i>User</i> that made the change, and any comments that may have been entered regarding the change.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p><a name="Decimal_precision"></a>Decimal precision</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Click to select <b>Decimal precision</b> for the display from <b>0</b> - <b>10</b> decimal places.</p>
+                        <p>Default value is 7.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                            <p class="Note">If you modify a value to a decimal precision that exceeds the value configured for the control, the  edits will take one of two paths. If the edit causes the value to be rounded to a new, higher number, then the change is treated like an edit and the <b>Save</b> and <b>Cancel</b> buttons on the <a href="Using the Tools Menu.htm">Tools</a> menu become available. If the edit does not cause any rounding to occur, then the original value is restored and the <b>Save</b> and <b>Cancel</b> buttons remain disabled. </p>
+                            <p class="Note">Although values are shown in the History Grid control with a decimal precision of up to 10 places, device Node values are shown in the Batch, Ticket, Liquid Device QTR and Liquid Device Raw QTR reports with a decimal precision of 15 places.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a name="Note"></a>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can copy data between FMS data grids and external applications such as .xlsx documents. Copying data from non-contiguous rows or columns in .xlsx files into other grids may copy the entire span rather than copying only the selected cells. To avoid this possibility, you can first hide the unwanted columns or rows in your source document, and then copy/paste the desired cells. Redisplay the hidden columns when you are done.</p>
+        </div>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Editing Data in the History Grid.htm" class="More">Editing Data in the History Grid</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Editable Data Items - Gas.htm">Editable Data Items - Gas</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Editable Data Items - Liquid.htm">Editable Data Items - Liquid</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Using the Tools Menu.htm" class="More">Using the Tools Menu</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

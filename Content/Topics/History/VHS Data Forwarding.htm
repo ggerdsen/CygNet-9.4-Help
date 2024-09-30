@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VHS Data Forwarding</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VHS Data Forwarding</span>
+        </div>
+        <h2>VHS Data Forwarding</h2>
+        <p>The VHS Data Forwarding feature allows history data to be copied and pushed from a source VHS to up to three destination services. This allows the destination service(s) to serve as a long term repository for historical data.</p>
+        <h3>Forwarding Data to a Destination VHS for Long-Term Storage</h3>
+        <p>To use a destination VHS as a long-term storage solution, set its minimum retention period to a value greater than that of the source VHS. This allows the destination VHS to serve as a long-term historian while the source VHS can be configured to meet local needs.</p>
+        <p>One of the required configuration keywords of a VHS is its minimum retention period (<a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm#Service">MINIMUM_EXPIRE_DAYS</a>). This sets the minimum number of days data is stored in the VHS. Points also have a retention property (<a href="Value History Period.htm">Keep values within last</a>) that specifies  the period of time (in number of days) prior to <i>now</i> that CygNet will keep data points in the VHS.  If both options are active, the longer of the two retention periods will take precedence.</p>
+        <p>With destination services, the minimum retention is useful for setting the retention of the destination site to a period longer than that of the source site. For example, the field office may need history values as far back as one year (365 days) but the corporate office may want to keep data for four years. As such, the destination VHS at the corporate office can be configured for a minimum retention of 1460 days.</p>
+        <h3>Data Forwarding Considerations</h3>
+        <ul>
+            <li value="1">The VHS is the only service with Data Forwarding.</li>
+            <li value="2">The source VHS pushes data to the destination VHS in compressed blocks. Up to three separate destination services can be specified. The destination VHS may be on the same host server or on a different host server. </li>
+            <li value="3">A destination service can be any VHS on any Domain ID, including the same Domain ID as the source service.</li>
+            <li value="4">Both the source VHS and the destination VHS are live sources of data. Either source can be accessed for data display, trending, reports, etc. Typically the source VHS is configured and used for local data needs. The destination VHS is used for long-term storage and corporate reporting.</li>
+            <li value="5">Unlike replicated services, a destination VHS receiving forwarded data is not read-only. A user’s ability to read/write depends on the security of the destination VHS.</li>
+            <li value="6">Only data added to a VHS after Data Forwarding is started is pushed to the destination VHS. To backfill the destination VHS you must use the <a href="VHS Import Export Utility.htm">VHS Import/Export Utility</a>.</li>
+            <li value="7">Data deleted from the source VHS using the <a href="VHS Data Thinner Utility.htm">VHS Data Thinner Utility</a>, will also be deleted from the destination VHS service.</li>
+        </ul>
+        <p>In a multi-host environment, <span class="CygNetVariablesSoftwareName">CygNet Software</span> recommends that a destination VHS only receive data forwarded from a single source to ease recovery in case of a service failure. If the source VHS fails, the data files from the destination service can be copied into the source service’s folder. If two source services are forwarding data to the same destination VHS and one of the source services fails, you would have to export the data from the destination service back to the source service. This is a more time consuming task.</p>
+        <h3>Data Forwarding and Redundancy</h3>
+        <p>Both the active and standby VHS in a Redundancy server pair can be configured for VHS data forwarding. This allows an active service in a redundancy pair to forward data to another destination VHS keeping both services in sync. While this configuration allows the standby VHS in the redundancy pair to be configured for data forwarding, forwarding will be ignored and no data will be pushed unless the VHS is the active service of the pair.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p><a class="More">&#160;</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Forwarding How Works.htm">How VHS Data Forwarding Works</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Forwarding Sample Implementation.htm">Sample Forwarding Implementation</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Forwarding Configuring.htm">Configuring VHS Data Forwarding</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Forwarding Monitoring.htm">Monitoring VHS Data Forwarding</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

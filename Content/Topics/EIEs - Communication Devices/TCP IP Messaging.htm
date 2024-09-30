@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Communication Devices|Communication Devices Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>TCP/IP Messaging</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Communication Devices.htm">Communication Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Communication Devices Overview.htm">Communication Devices Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">TCP/IP Messaging</span>
+        </div>
+        <h2>TCP/IP Messaging</h2>
+        <p>The following subsections provides information about how messaging and cryouts works with TCP/IP.</p>
+        <h3>Maintain Connection Cryouts</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> References below to cryouts apply to a TCP/IP communication device with <b>Maintain connection</b> enabled. This feature allows cryout-configured RTUs to send cryouts over a constant communication channel. This is <u>not</u> the same thing as cryout listening. For information about cryout listening, see the <a href="Cryout Listen EIE.htm">Cryout Listen EIE</a>, which provides dedicated cryout listening for <a href="TCP IP EIE.htm">TCP/IP</a>, <a href="TCP IP MultiPoint EIE.htm">TCP/IP MultiPoint</a>, and <a href="UDP EIE.htm">UDP</a> EIEs. </p>
+        </div>
+        <p>If an RTU is directly connected by serial port to the serial communications channel of a server, a serial packet is put onto the comm channel destined for the RTU whenever a request is made for data by the host. Included in that serial packet is the unique ID of that RTU. However, when an RTU cries out, the RTU puts an unsolicited message on the comm channel and the serial driver hears the message. This causes the UIS to take action by responding to the cryout. The UIS response is based on protocol and device specifications.</p>
+        <h3>TCP/IP and Packet Data Modems</h3>
+        <p>With packet data modems, instead of issuing the serial packet out of the COM1 the serial data is encapsulated into an IP packet and is sent to the modem at the predetermined destination IP address and TCP port. The modem strips the TCP/IP headers off of the packet and takes the serial data and drops it onto the serial port of the modem. The RTU that is connected to the modem gets the packet and responds to the request, and the procedure is reversed. The reverse path can happen because the modem knows where the TCP/IP packet originated from and knows how to reply. This is called <i>encapsulation</i> and is performed by every serial terminal server.</p>
+        <p>Unsolicited messages are more complex. The modem must be configured with the IP address of the CygNet server, along with the CygNet TCP listening port. The RTU puts the message on the serial port, and the message is sent to CygNet. Once the message arrives, the UIS takes the source IP address of the packet and finds the communications device with that IP address. When it finds the communications device, it looks through all of the remote devices that use that comm device for the device address in the cryout packet. Once the device is found, the UIS responds to the cryout. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Where <a href="../Redundancy/Configuring Redundancy.htm">CygNet Redundancy</a> is in use, special consideration must be given to the fact that the IP address of the CygNet server receiving a cryout packet will change during a failover event. The modem  issuing the message may require additional configuration outside of the CygNet environment to accommodate failover. See <a href="../Redundancy/Failover - Other Considerations.htm#Cryouts">Monitoring Device Cryouts</a> for more information.</p>
+        </div>
+        <h3>Modems and Dynamic IP Addressing</h3>
+        <p>Packet data modems can be used to communicate with the remote devices. These modems come in a variety of choices for various network types (CDMA, GPRS, and CDPD). They attach to a cellular network and utilize the data capabilities of these wireless networks to provide IP transport of serial data. So, these are terminal servers and a cellular communication modems all in one. </p>
+        <p>Generally cellular packet data service providers issue dynamic IP addresses to the data packet modems on their network (although some providers allow users to purchase static IP addresses). The use of dynamic IP addressing provides a challenge where the IP address needs to be consistent, such as traditional SCADA systems.</p>
+        <p>To address this issue, some hardware providers offer a dynamic Domain Name Server (DDNS). This is not a recommended solution due to two factors: potential naming conflicts and reverse name resolution.</p>
+        <h4><b>Potential Naming Conflicts</b>
+        </h4>
+        <p>The DDNS attempts to keep track of the IP address of a modem based on the modem name. When the modem is assigned a new IP address it is registered in the DDNS. However, the DDNS may be shared by multiple customers and may not enforce unique modem naming.&#160; Therefore, when a new modem is added with the same name as an existing modem, the address of the "new" modem will be registered in the DDNS and the old modem will not be addressable.</p>
+        <h4><b>Reverse Name Resolution</b>
+        </h4>
+        <p>When the host gets an unsolicited IP message (such as a cryout), the source IP address in the message will not match an IP address in the host since the Communication Devices will be configured with names (such as modemname.provider.com) to accommodate the dynamic addressing. If the host does not have the IP already resolved within the local cache, it is forced to issue a reverse DNS lookup against the IP address. In most cases, the result of this reverse DNS lookup will not match the forward DNS lookup. From a CygNet perspective resources are tied up during this process and can cause other issues to arise such as timeouts. For example, you have a modem named "testmodem." When you perform a forward DNS resolution (using ping) to testmodem.provider.com, the DDNS will return the IP address. Then, if you perform a reverse DNS lookup on the IP address, using the command "nslookup &lt;ip address&gt;" on a Microsoft OS, it will fail because the network provider does not have a DNS that resolves the IP address to testmodem.provider.com.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

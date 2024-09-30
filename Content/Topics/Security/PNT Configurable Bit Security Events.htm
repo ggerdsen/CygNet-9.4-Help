@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Security|Security Reference - Services|Point Service (PNT)">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>PNT Configurable Bit Security Events</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Security.htm">Security</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Security Reference.htm">Security Reference - Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Point Service PNT.htm">Point Service (PNT)</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configurable Bit Security Events</span>
+        </div>
+        <h2>PNT Configurable Bit Security Events</h2>
+        <p>Two PNT&#160;Security Events relate to the way configurable bits are handled in the PNT Service. The CFGBITxx event and the CBxxdtps event each work in combination with both the <b>ACCESS</b> and <b>ALARMSET</b> events to potentially increase or decrease a user’s permissions to see or modify the properties associated with specific configurable bits. The events in the form of CFGBITxx can only increase a user’s security permissions but the events in the form of CBxxdtps can both increase or decrease a user’s security permissions. User permissions associated with these events are only enforced within the PNT Editor dialog when it is invoked from CygNet Studio or Canvas screens or to the COM API exposed through the CxPnt.dll. In contrast, invoking the PNT Editor from CygNet Explorer or one of the CygNet Utility applications will disable the enforcement of a user’s config-bit specific security permissions related to these events. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If a CFGBITxx event that exists for a status bit conflicts with a CBxxdtps event, the permission and behavior indicated by the CBxxdtps event supersedes the CFGBITxx event.</p>
+        </div>
+        <h5>CFGBITxx Event</h5>
+        <p>The <a href="Point Service PNT.htm#CFGBITxx">CFGBITxx</a> event (where xx represents the zero-padded bit number: Config Bit 01 - Config Bit 15) allows access to point record configurable bit properties for Analog, Digital, Enumeration, and String point types. This event can only increase a user's security privileges  from what is established by <b>ACCESS</b> and <b>ALARMSET</b> events. Permissions set on a specific CFGBITxx event will never decrease a user’s access to the properties of the specific configurable bit.</p>
+        <p>The CFGBITxx event format is displayed below:</p>
+        <table class="Code" style="width: ;">
+            <tr>
+                <td>
+                    <p class="Code">CFGBIT&lt;xx&gt; (eight character maximum) </p>
+                </td>
+            </tr>
+        </table>
+        <ul>
+            <li value="1">xx = Config Bit number (01 - 15) - required </li>
+        </ul>
+        <h5>CBxxdtps Event</h5>
+        <p>The <a href="Point Service PNT.htm#CBxxdtps">CBxxdtps</a> event controls access to who can see and edit specific configurable bit setting properties for Analog, Digital, Enumeration, and String point types. This event can increase or decrease a user's security privileges  from what is established by <b>ACCESS</b> and <b>ALARMSET</b> events. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When a user has no configured association to an existing CBxxdtps event, that user's access will resolve to NONE. </p>
+        </div>
+        <p>The CBxxdtps event can optionally be qualified by point type (dt) and point scheme (ps) to account for when configurable bits change their meanings across point types and point schemes. As an example, for the event "CB01AN01", user permission of "2-Update" would allow a user to edit the setpoint value for the status bit associated with Config Bit 01 for Analog Input/Output points for point scheme 1. </p>
+        <p>The CBxxdtps event format is displayed below:</p>
+        <table class="Code" style="width: ;">
+            <tr>
+                <td>
+                    <p class="Code">CB&lt;xx&gt;&lt;dt&gt;&lt;ps&gt; (eight character maximum) </p>
+                </td>
+            </tr>
+        </table>
+        <ul>
+            <li value="1">xx = Config Bit number (01 - 15) - required </li>
+            <li value="2">dt = Point Type (AI, AO, AN (I&amp;O), DI, DO, DG (I&amp;O), SI, SO, ST (I&amp;O), EI, EO, EN (I&amp;O) - optional</li>
+            <li value="3">ps = Point Scheme (0-15) - optional</li>
+        </ul>
+        <p class="Example">Examples</p>
+        <ul>
+            <li value="1">CB01AI01 controls access to read or modify settings of the status bit assigned to Config Bit 01 (CB01) of the Analog Input point data type (AI) defined within point scheme 1 (01).</li>
+            <li value="2">CB03EN controls access to read or modify settings of the status bit assigned to Config Bit 03 (CB03) for Enumeration Input/Output point types (EN) for all point schemes defined in the system.</li>
+            <li value="3">CB02 permissions apply to all status bits associated with Config Bit 02 (CB02) regardless of point type or point scheme.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Utilities|VHS Data Analyzer Utility|Thinning Rules|Configuring Thinning Models">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CSD (CygNet Swinging Door) Compression Thinning Model</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Utilities.htm">VHS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Data Analyzer Utility.htm">VHS Data Analyzer Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Data Analyzer Thinning Rules.htm">Thinning Rules</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CSD Compression Thinning Model</span>
+        </div>
+        <h2>CSD (CygNet Swinging Door) Compression Thinning Model</h2>
+        <p>The CSD Compression model thins data in a very similar manner as the <a href="VHS Data Analyzer Deadband Compression.htm">Deadband Compression</a> model. It starts with the first value in the period and begins iterating through successive values. When it finds a value that exceeds the linear definition, it saves the last value that met the definition, and continues the cycle. Where the deadband compression model looks for a value delta outside a deviation, this model looks for a linear slope. A series of values are determined to be linear if the line between the first and last value intersects the deviation range of all the values in the series. The deviation range is the value of the point +/- the specified deviation value.</p>
+        <p>See <a href="CygNet Swinging Door Compression.htm">CygNet Swinging Door Compression</a> for more information about this method of compression.</p>
+        <h3>CSD Compression Thinning Model Properties</h3>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Save records with status bit changes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If enabled, a new entry is saved if the status bits have changed even if the value doesn’t exceed the deviation.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Delete unreliable records</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If enabled, deletes all records that are marked as unreliable.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Only Analog point types marked as unreliable will be deleted. Use the <a href="VHS Data Analyzer Unreliable.htm">Unreliable</a> thinning model to delete all point types marked as unreliable.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Period Definition</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Starting at day</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the number of days between today and timestamp of an entry.  Must be a value greater than <b>0</b>; no thinning can occur on entries from the current day.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">A day value of 60 would correspond to all entries at least 60 days older than today.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Deviation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Value used to determine if consecutive values form a linear slope. The <a href="VHS Data Analyzer Thinning Simulator.htm">Thinning Simulator</a> can be used to help determine an appropriate deviation value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Preview</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to preview CSD Compression for the selected point in the Compression Preview feature. See <a href="Previewing Data Compression.htm">Previewing Data Compression</a> in the <b>History</b> chapter for more information.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Compression Type and Deviation are the only parameters passed to the Compression Preview dialog box. Deviation is the only setting passed back to the <b>CSD Compression</b> page.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Set Max Time</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If enabled, and the time elapsed between an entry and the last saved entry is greater than the specified max time, then the entry will be automatically saved even if it does not exceed the deviation.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>(seconds)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Type the Max Time in seconds.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure">To Create a CSD Compression Thinning Model</p>
+        <ol>
+            <li value="1">On the <b>Configure Thinning Models</b> dialog box, click <b>Create Model</b>.</li>
+            <li value="2">Type a <b>Model Name</b>. This name should fully identify the model to ease selection of the appropriate model when creating rules.</li>
+            <li value="3">Select the <b>CSD Compression</b> page.</li>
+            <li value="4">If desired, enable <b>Save records with status bit changes</b>.</li>
+            <li value="5">If desired, enable <b>Delete unreliable records</b>.</li>
+            <li value="6">For each period range, type the <b>Starting at day</b>, <b>Deviation</b>, enable <b>Set Max Time</b>, and (seconds).</li>
+            <li value="7">Click <b>Preview</b> to preview the compression settings. See <a href="Previewing Data Compression.htm">Previewing Data Compression</a>.</li>
+            <li value="8">Click <b>Add/Save</b> to add the range to the list box.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">To make changes to an existing range, select the range from the list and click <b>Edit</b>.</li>
+            <li value="2">To delete a range highlight  and click <b>Delete</b>. </li>
+            <li value="3">To delete all ranges click <b>Clear All</b>.</li>
+        </ol>
+        <ol start="9">
+            <li value="9">Repeat steps 6 and 7 for each desired range.</li>
+            <li value="10">Click <b>Save Model</b>. To discard all changes click <b>Cancel</b>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">To make changes to an existing model, select the model from the list and click <b>Edit Model</b>.</li>
+            <li value="2">To delete an entire model highlight the model name and click <b>Delete Model</b>. Models may only be deleted if no rules are currently set to use the model.</li>
+        </ol>
+        <ol start="11">
+            <li value="11">Click <b>OK</b> to return to the <b>Configure Thinning Rules</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure">To Edit an Existing CSD Compression Thinning Model</p>
+        <ol>
+            <li value="1">On the <b>Configure Thinning Rules</b> dialog box, select an existing thinning rule, and click <b>Edit Rule</b>.</li>
+            <li value="2">On the <b>Configure Thinning Rules</b> dialog box, select an existing thinning rule, and click <b>View/Edit Models</b>.</li>
+            <li value="3">Select an existing CSD Compression thinning model, and click <b>Edit Model</b>.</li>
+            <li value="4">Edit the model as described in steps 4 -10 above.</li>
+        </ol>
+        <h3>CSD Compression Thinning Model Example</h3>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/History/VHS Data Analyzer CSD.png" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample CSD Compression Thinning Model</td>
+            </tr>
+        </table>
+        <p>In the example above, history values newer than 30 days would not be subject to thinning. Values between 30 and 59 days old would be evaluated with a deviation of 0.2, all values between 60 and 89 days old would be evaluated with a deviation of 0.4, and all values older than 90 days would be evaluated with a deviation value of 0.65. The thinner would start with the oldest value  and assuming it is older than 90 days, it will use a deviation of 0.65. The next value will obviously meet the linear requirements since there are only two values being evaluated. When the third value in the iteration is reached, the slope between it and the first value will be calculated and it must intersect the value of the second value plus or minus 0.65. Assuming this criteria is met, the fourth value is evaluated and a slope is calculated between it and the first value. This slope must intersect the value of both values two and three plus or minus a value of 0.65. This process continues until a value is evaluated where the slope between it and the first value does not intersect the deviation range of all the contained values. In this example, assume that the tenth value evaluated failed this criteria. In that case, values two through eight would be deleted and the ninth value would become the last saved value, and the process would start over.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

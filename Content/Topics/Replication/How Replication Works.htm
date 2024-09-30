@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication|Replication Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How Replication Works</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Replication Overview.htm">Replication Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How Replication Works</span>
+        </div>
+        <h2>How Replication Works</h2>
+        <p>When replication is enabled, any new value (whether the value is the result of an edit, addition, or delete) is written to a change queue by the source service. The change queue is stored in memory, so internal access to it is very fast. Each item in the change queue is given a unique sequence number by the source service. The sequence number is incremented each time a change is made, and a sequence number is assigned to that change. </p>
+        <p>The size of the source service's change queue is specified by the <a href="Configuring Replication.htm">CHANGE_QUEUE_SIZE</a> keyword in the source service's configuration file (.cfg). The keyword  configures the number of entries allocated on the change queue. The default value  differs by service, but 100,000 is the default for most services. If no value is specified, then the minimum size will be used by default. </p>
+        <p>Keep in mind that setting a large CHANGE_QUEUE_SIZE for a service such as the ELS can be costly. However, if the CHANGE_QUEUE_SIZE is too small for a DBS-based service, it is more likely to rollover and trigger a full resynchronization too frequently, which may also place undue burden on the system. For most services, the default value of 100,000 is sufficient. </p>
+        <p>All non-Historian services write a record of their new values to a change queue, including replicated services. This allows replicated services to serve as the source service to another replicated service. If there is no additional replication you may wish to turn the change queue off for the replicated service, since it is unnecessary. To disable the change queue for the replicated service, uncomment the CHANGE_QUEUE_SIZE keyword in the replicated service’s configuration file and set its value to 0.</p>
+        <h3>Service Specific Replication Considerations</h3>
+        <p>Many CygNet services handle aspects of replication uniquely. Read the following sections for more information.</p>
+        <h4>Common Alarm Service and Current Value Services</h4>
+        <p>When replication is enabled in the CAS or a CVS, any new value is written to the source service’s change queue. When the replicated service is started a full resynchronization is triggered automatically, during which all records are compared against the source service and updated in the replicated service. Once the full resynchronization is complete the replicated service continues to check for any new changes in the source service and updates itself accordingly. Whenever the change queue rolls over, the source service stops, or the replicated service stops a full resynchronization is triggered, after which the incremental replication is resumed.</p>
+        <p>As with the DBS-based services, the change queue is maintained in memory by the source. In some cases, pending GNS, CAS, and VHS notifications may be lost in the event of system loss. </p>
+        <h5>Replication Command Forwarding from a Replicated CAS</h5>
+        <p>The CAS is able to forward commands (such as acknowledgment requests) by writing the commands in XML format to a specified location  on the replication server.  The CAS will validate the request and if command forwarding is configured, will write out the command and the associated information to an XML file. During startup the CAS will process and delete these files as necessary. See <a href="../Alarms/Replication Command Forwarding.htm">Replication Command Forwarding</a> for more information.</p>
+        <h4>DBS-based Services</h4>
+        <p>When replication is enabled in a DBS-based service, any new value (whether the value is the result of an edit, addition, or delete) is written to a change queue. The change queue is maintained in memory by the source. Each item in the queue is given a unique sequence number by the source service. The replicated service keeps track of the sequence number of the last record it received. If the sequence numbers match it indicates that the replicated service is up to date with the source service. If the sequence numbers of the most recent records are different, it indicates that there have been new changes to the source service. This triggers the replicated service to retrieve the new value from the source service. </p>
+        <p>When the source service is shut down in a normal fashion, the information in the change queue is written to the file .replnotify in the source’s service folder. When the service is restarted, the information from the file is written to the queue and replication operations resume. If the service has an abnormal shutdown, a complete resynchronization is triggered on service restart.</p>
+        <p>If the replicated service is not running and the source service’s change queue rolls over, when the replicated service is restarted it will begin a full resynchronization. Once a full resynchronization has been triggered the replicated service begins comparing and updating the most recent record and continues until it reaches the oldest record. While this resynchronization of "older" data is happening it keeps replication of new record changes as the top priority. These "new" changes are processed before the resynchronization of the "older" changes continues. This process continues until all records are up to date and then the normal replication process continues comparing sequence numbers against the source service and updating accordingly. </p>
+        <h4>Device Definition Service</h4>
+        <p>By default, DDS transaction records are not replicated from the source service to the replicated DDS. When any entry in a device record changes (with the exception of a transaction record), a full resynchronization of that device record will be triggered. When the replicated service resyncs the device record it will also copy over the transaction records. </p>
+        <p>Optionally, DDS transaction record replication for remote devices can be enabled for each data group through the <b>Data Group Properties</b> dialog box, as well as via the <a href="../Scripting/CxDds DdsClient Methods.htm#GetDataGroupTxHeader">CxDds</a> API and ODBC. See <a href="../EIEs - Remote Devices/Data Groups - Properties.htm#Transaction_Replication">Data Group Properties</a> for more information about this option.</p>
+        <p>Use the <a href="ReplValidator Utility.htm">ReplValidator Utility</a> to make sure that all tables in both the source and replicated DDS services are identical. If Transaction Replication is disabled for a data group the utility will note that in its test results (by Db key) and skip replication evaluation for the relevant transaction records.</p>
+        <h4>CygNet Measurement (FMS)</h4>
+        <p>See <a href="../CygNet Measurement/FMS Data Synchronization.htm">FMS Replication and Data Synchronization</a> for more information about how replication works for CygNet Measurement.</p>
+        <h4>Service Monitoring Service</h4>
+        <p>If you replicate a SVCMON, be aware that the data in the replicated service is data from the source system. For example, if the source SVCMON has a point to monitor available disk space, the value of the point applies to the source system and not the replicated system.</p>
+        <p>You may want to run a non-replicated SVCMON to monitor the replicated system.</p>
+        <h4><a name="Universa"></a>Universal Interface Service</h4>
+        <h5><a name="Sending"></a>Sending UIS Commands from a Replicated Service</h5>
+        <p>By default a replicated UIS operates in read-only mode and cannot execute UIS commands, or get and send data groups. However, a replicated UIS can be configured to forward UIS commands to its source UIS. If the command is configured as an allowed command, when a user attempts to execute the command from the replicated UIS, it will be passed back to the source service, at which point the source service will check security for the user and if appropriate, execute the command. </p>
+        <p>To enable this feature, the  <a href="../Service Configuration Keywords/UIS Configuration File Keywords.htm#ALLOWED">ALLOWED_REPL_COMMANDS</a> configuration keyword must be enabled and defined in both the replicated and the source UIS configuration files. This specifies which commands may be forwarded by the replicated service and which may be accepted by the source service. The keyword value is a list of UIS Command Names, separated by a space. Up to ten UIS commands can be configured as allowed commands. If specifying multiple commands, no spaces are allowed in the command names unless each individual command containing spaces is surrounded by quotes, for example, "CMD 1" "CMD 2" "CMD 3". See <a href="../Service Configuration Keywords/UIS Configuration File Keywords.htm#ALLOWED">UIS Configuration File Keywords</a> for more information.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This feature only works via Script.</p>
+        </div>
+        <p>A special token "EX_UIS_CMD" in the ALLOWED_REPL_COMMANDS keyword allows the forwarding of any UIS command without needing to specify the command in the keyword, and without limiting the user to ten commands. The special token must be specified in the keyword in both the UIS configuration file on the production and replicated sites.</p>
+        <h4>Value History Service</h4>
+        <p>
+            <p>VHS replication uses a pull model for replication like all other CygNet services that support replication. In this model, one or many services may replicate data from a source VHS. The replicated services are responsible for pulling data from the source service, which relieves the primary VHS of the burden of replication and distributes it to the replicated services instead. This prevents replication from negatively impacting the primary active VHS.</p>
+        </p>
+        <p>See <a href="VHS Replication.htm">VHS Replication</a> for more information about how replication works for the VHS.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Energy Load Forecasting|Energy Load Forecasting Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Neural Network Training</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Energy Load Forecasting root.htm">Energy Load Forecasting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Energy Load Forecasting Overview.htm">Energy Load Forecasting Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Neural Network Training</span>
+        </div>
+        <h2>Neural Network Training</h2>
+        <p>The process of training a neural network requires the configuration of the neural network to produce sufficiently accurate estimates into the future based upon forecasted input data. The training algorithm is such that the neural network “learns” the relationships between the known historical inputs and their affect on the known historical outputs allowing it to predict future outputs based upon reasonable forecasted values.</p>
+        <p>The basic steps to establish a trained neural network are as follows:</p>
+        <ol>
+            <li value="1">A neural network is defined such that, when the input values (for example, weather data, calendar events) are provided, a calculation for the output (energy load) results.</li>
+            <li value="2">Validated and scaled historical input data is “fed forward” through the configured neural network resulting in a calculated output.</li>
+            <li value="3">An error value is determined by comparing the calculated output value with the actual historical output value.</li>
+            <li value="4">The calculated error is “back-propagated” to the neural network’s calculation parameters thus improving its ability to accurately estimate the expected result.</li>
+            <li value="5">This process is repeated hundreds or thousands of times, with various sample datasets, each time refining the neural network’s calculation parameters, reducing the calculation errors and improving the overall accuracy of the estimates.</li>
+            <li value="6">When the calculated error falls below a specified threshold for all sample datasets, the training is deemed complete.</li>
+        </ol>
+        <p>The final step in the process occurs when the forecasted time interval elapses and the actual output values become known. This allows the variance between estimated and actual output values to be determined. If the variance is too high, retrain the neural network with the improved set of historical input and output values to provide more accurate estimations in the future.</p>
+        <h3>Neural Network Definitions</h3>
+        <p>In the CygNet ELF system <a href="Configuring Neural Network Definition Settings.htm">neural network definitions</a> are trained based on the configured historical inputs and historical gas load values associated with the meter or meter group assigned to the neural network definition.</p>
+        <p>The training process for a neural network definition is triggered by one of the following methods:</p>
+        <ul>
+            <li value="1">Training on demand by the execution of a direct user command for a specific neural network definition</li>
+            <li value="2">Training can be scheduled for one or more neural network definitions through the MSS</li>
+            <li value="3">Training can be initiated based on the results of the forecast variance analysis process.</li>
+        </ul>
+        <p>The first step performed when training a specific neural network definition is to verify that the neural network definition qualifies for training. A neural network definition is deemed qualified when its configuration has been validated, the required historical input data exists and is valid, and the required historical gas load data exists in the system and is valid. All data filling processes must have already been performed prior to training qualification.</p>
+        <p>The next step performed when training a specific neural network definition is to transform all input data based upon transformation (filling) rules specified in the neural network definition. Additionally, historical gas load data must always be normalized to energy or volume units, depending on system configuration, prior to training. If the neural network definition fails qualification, the trained state of the neural network definition is unchanged, but the general state of the neural network definition is set to indicate an invalid state. </p>
+        <p>Once the neural network definition has been configured and qualified for training, it is ready for training. If training is successful, the trained neural network definition is made available to the energy load forecasting process. However, the successfully trained neural network definition may be configured to require approval, and an authorized user must first review the training results and approve them before the trained neural network definition is made available to the energy load forecasting process.</p>
+        <h3>Configuration</h3>
+        <ul>
+            <li value="1"><b>Training</b> commands are configured on the <b>UIS Commands</b> page of the ELF Editor. See <a href="Configuring UIS Commands.htm">Configuring UIS Commands.</a></li>
+        </ul>
+        <ul>
+            <li value="1"><b>Input item categories</b>, <b>calendar inputs</b>, and <b>input owner categories</b> are configured on the <b>Input Items</b> page. See <a href="Configuring Input Items.htm">Configuring Input Items</a>.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Training intervals</b> and <b>inputs items</b> are configured on the <a href="Configuring Neural Network Template Settings.htm">Neural Network Template Settings</a> and the <a href="Configuring Neural Network Definition Settings.htm">Neural Network Definition Settings</a> dialog boxes. <b>Training parameters</b> can be fine tuned using the <a href="Configuring Tuning Parameters.htm">Tuning Parameters</a> dialog box.</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Training results</b> are displayed on the <b>Training Results</b> dialog box. See <a href="Viewing Training Results.htm">Viewing Training Results.</a></li>
+        </ul>
+        <ul>
+            <li value="1">The <b>Training</b> log can be viewed on the <b>Device</b> page. See <a href="Configuring the ELF Device.htm">Configuring the ELF Device</a>.</li>
+        </ul>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

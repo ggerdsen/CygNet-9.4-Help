@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxHmiFms|CxFmsNodeChooserCtrl Object">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CxFmsNodeChooserCtrl Example</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxHmiFms.htm">CxHmiFms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxHmiFms CxFmsNodeChooserCtrl Object.htm">CxFmsNodeChooserCtrl Object</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CxFmsNodeChooserCtrl Example</span>
+        </div>
+        <h2>CxFmsNodeChooserCtrl Example</h2>
+        <p>Use the <b>CxFmsNodeChooserCtrl</b> object to display and manipulate an ActiveX <a href="../CygNet Measurement/CygNet FMS Node Chooser Control.htm">CygNet FMS Node Chooser Control</a> in a CygNet Studio  screen environment.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/FMS_Screen_Node_Chooser.png" title="CygNet FMS Node Chooser Control" alt="CygNet FMS Node Chooser Control" />
+        </p>
+        <p>To see an example FMS Node Chooser control implemented in a pre-designed screen, open the <b>FMS Node&#160;Chooser Ctrl.csf</b> file in the <b>CygNet\Clients\CStudio\Screens\Examples</b> folder.</p>
+        <h3>CygNet Studio Screen Script: FMS Node Chooser Ctrl.csf</h3>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub btnGetSelections_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnGetSelections</p>
+                    <p class="Code2">Dim arySelected</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">arySelected = FmsNodeChooser.GetNodeSelection()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim i, strMsg</p>
+                    <p class="Code2">For i = 0 To UBound(arySelected) </p>
+                    <p class="Code3">strMsg = strMsg &amp; arySelected(i) &amp; Vbcr</p>
+                    <p class="Code2">Next</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">MsgBox strMsg</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnSetSelections_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnSetSelections</p>
+                    <p class="Code2">Dim aryNodes</p>
+                    <p class="Code2">Redim aryNodes(1)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">aryNodes(0) = "2540"</p>
+                    <p class="Code2">aryNodes(1) = "2541"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">FmsNodeChooser.SetNodeSelection aryNodes</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub FmsNodeChooser_EventUpdated()</p>
+                    <p class="Code">Dim This : Set This = FmsNodeChooser</p>
+                    <p class="Code2">Dim arySelected</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">arySelected = FmsNodeChooser.GetNodeSelection()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">If UBound(arySelected) &gt; 0 Then</p>
+                    <p class="Code3">MsgBox "Can only select one Node as the Session Node"</p>
+                    <p class="Code2">Elseif UBound(arySelected) = 0 Then</p>
+                    <p class="Code3">MsgBox arySelected(0) &amp; " set as the Session Node"</p>
+                    <p class="Code3">'add script here to set Session Node</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">MsgBox "You must select a Node first"</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

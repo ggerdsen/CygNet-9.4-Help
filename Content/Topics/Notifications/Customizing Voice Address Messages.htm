@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Configuring Notifications|Defining an Event Record and Configuring Messages">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Customizing Voice Address Messages</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Notifications.htm">Configuring Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Defining an Event Record and Configuring Messages.htm">Defining an Event Record and Configuring Messages</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Customizing Voice Address Messages</span>
+        </div>
+        <h2>Customizing Voice Address Messages</h2>
+        <p>Voice address notifications require a Dialogic board or SIP&#160;Server and text-to-speech software. The text-to-speech software (Microsoft Speech API or MSSAPI) provides a method for you to customize the spoken text using Microsoft Speech Application Language Tags (SALT tags). These tags are specific XML tags and require the same structure as a properly structured XML document. (The tags are removed in email messages and alphanumeric pages.)</p>
+        <p>Commonly used tags are described in the table below.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important Notes:</span>
+            </p>
+            <p class="Note">The full list of SALT tags and options is described in the Microsoft Speech API 5.1 documentation. This file is available on the <a href="http://msdn.microsoft.com/en-us/library/ms717077(VS.85).aspx" target="_blank">Microsoft</a> website. Search the document for "XML TTS Tutorial" for more information regarding the tags shown in the table below.</p>
+            <p class="Note">Tags are shown in Microsoft documentation enclosed in angle brackets. <b>Angle brackets cannot be used in the GNS.</b> They must be substituted with two curly brackets. For example, &lt;emph&gt; would be {{emph}}. See example below.</p>
+            <p class="Note">Quotation marks must be straight quotation marks and not curly quotation marks. The GNS editor uses straight quotes. If you copy and paste text into the editor the quotation marks are most likely curly. You will have to edit them in the GNS.</p>
+        </div>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;border-left-style: solid;border-left-width: 1px;border-left-color: #c0c0c0;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-top-style: solid;border-top-width: 1px;border-top-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 84px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Tag</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Spell</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Forces the voice to spell out the text.</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">{{spell}}BTU{{/spell}}</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>The voice would say B, T, U.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="background-color: #ffffff;">
+                    <p>Emph</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="background-color: #ffffff;">
+                    <p>Instructs the voice to emphasize a word or section of text. The tag cannot be empty. The method of emphasis may vary from voice to voice.</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">{{emph}}Alarm set{{/emph}} on %Facility_Desc%</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>"Alarm set" would be emphasized.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Silence</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Inserts a specified number of milliseconds of silence into the output audio stream. This tag must be empty, and must have one attribute: msec. The attribute value must be enclosed in single or double quotation marks.</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">Compressor stopped at {{silence msec="1000"/}} %Time%</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>A one second pause would be inserted prior to the voice stating the time of the alarm.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="background-color: #ffffff;">
+                    <p>Volume</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="background-color: #ffffff;">
+                    <p>Controls the volume of a voice. The Volume tag has one required attribute: Level. The value of this attribute should be an integer between 0 and 100. Values outside of this range will be truncated. The attribute value must be enclosed in single or double quotation marks. The tag can be empty, in which case it applies to all subsequent text, or it can have content, in which case it only applies to that content. The GNS configuration file contains a default volume setting. Use this tag to override that setting.</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">{{spell}}H2S{{/spell}} alarm. {{volume level="100"}} Evacuate immediately{{/volume}} Tell your coworkers</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>The words "Evacuate immediately" would be spoken at full volume.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Rate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Controls the rate of a voice. The tag can be empty, in which case it applies to all subsequent text, or it can have content, in which case it only applies to that content. The Rate tag has two attributes, Speed and AbsSpeed, one of which must be present. The value of both of these attributes should be an integer between -10 and 10. The attribute value must be enclosed in single or double quotation marks. The AbsSpeed attribute controls the absolute rate of the voice, so a value of ten always corresponds to a value of ten, a value of five always corresponds to a value of five. The GNS configuration file contains a default rate setting. Use this tag to override that setting.</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">Report to {{rate absspeed=2}} the field office{{/rate}} for the safety meeting</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>"the field office" would be spoken at a rate of 2.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="background-color: #ffffff;">
+                    <p>Pitch</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="background-color: #ffffff;">
+                    <p>Controls the pitch of a voice. The tag can be empty, in which case it applies to all subsequent text, or it can have content, in which case it only applies to that content. The Pitch tag has two attributes, Middle and AbsMiddle, one of which must be present. The value of both of these attributes should be an integer between -10 and 10. The attribute value must be enclosed in single or double quotation marks. The GNS configuration file contains a default pitch setting. Use this tag to override that setting.</p>
+                    <table class="Code">
+                        <tr>
+                            <td>
+                                <p class="Code">You are the winner of {{pitch absmiddle="8"}}a new truck{{/pitch}}.</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>"a new truck" would be spoken at a pitch of 8.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example</p>
+        <p class="Indent">Tags can be nested. Tokens can be used as the contents of a tag. See <a href="Using Tokens in Notifications.htm">Using Tokens in Notifications</a>.</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/Notifications/Voice_Address.png" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

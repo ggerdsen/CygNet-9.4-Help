@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Enhanced Alarm Configuration</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Enhanced Alarm Configuration</span>
+        </div>
+        <h2>Enhanced Alarm Configuration</h2>
+        <p>Enhanced Alarm Configuration (EAC)  expands the CygNet alarm rules to allow a user to extend the conditions by which a configurable status bit is allowed to be set or prevented from being set. When a configurable bit is prevented from being set, any subsequent alarms or notifications that would have been generated are prevented as well. EAC conditions are defined as a series of  logical expressions that reference real-time values of the same point or multiple other points. However, all points referenced must reside in the same CVS (UIS, HSS, etc.) as the point being configured. EAC conditions may contain up to 20 individual expressions, each of which could reference a separate point. The EAC configuration is available from the PNT Editor's Alarm Settings (Analog, Digital, Enumeration, String) pages.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> All PNT databases must be re-indexed when upgrading CygNet to a version that supports  EAC features. See the <i><a href="../../Resources/PDF_Repository/CygNet_94_Upgrade_Procedure.pdf" target="_blank">CygNet Upgrade Procedure</a></i> for more information.</p>
+        </div>
+        <h3>Enhanced Alarm Configuration Rules</h3>
+        <p>The evaluation of EAC conditions  that allow or prevent the setting of configurable bits occurs as part of the real-time value processing loop in the CVS. The EAC conditions are executed shortly after the configurable bit thresholds are evaluated to accommodate updates to any referenced points’ real-time values that might be recorded slightly out of sequence.</p>
+        <p>The rules for Enhanced Alarm Configuration expression are:</p>
+        <ul>
+            <li value="1">
+                Only referenced points residing in the same CVS as the source point are allowed.</li>
+        </ul>
+        <ul>
+            <li value="1">Real-time value updates associated with EAC rules account for the case when source point values arrive before referenced point values. The process attempts to ensure that referenced point values are up-to-date in relation to the source point value, e.g.,  when polling a data group and the processing sequence of the individual DEIDs  is not guaranteed to occur in referenced point-values-first order. </li>
+        </ul>
+        <ul>
+            <li value="1">Configuration metrics and errors associated with EAC are reported via PNT and CVS service log  entries as well as new SVCMON info items report metrics, such as the total number of points containing EAC rules and the number of configuration errors. See <a href="../Service Monitoring/Info Items - Shared Service Specific.htm">Shared Service Specific Info Items</a> for more information. <br /></li>
+        </ul>
+        <p>The <b>Point Properties</b> page for the various point types (Analog, String, Digital, Enumeration) includes an <b>Enhanced alarm settings</b> button <img src="../../Resources/Images/Alarms/EAC_Button.png" title="Enhanced alarm settings button" alt="Enhanced alarm settings button" /> that opens a new <a href="Enhanced Alarm Settings Dialog.htm">Enhanced Alarm Settings dialog box</a> for editing.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Enhanced Alarm Settings Dialog.htm" class="More">Enhanced Alarm Settings</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Enhanced Alarm Configuration Security.htm" class="More">Enhanced Alarm Configuration Security</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="../Points/Understanding the CvsMetadata File.htm" class="More">Understanding the CvsMetadata File</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

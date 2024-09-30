@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Controls Menu">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Explorer Close Period Control</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Controls Menu.htm">Controls Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS Explorer Close Period Control</span>
+        </div>
+        <h2>Using the Close Period Control</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This functionality is only available in systems licensed for FULL mode.</p>
+        </div>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Close16.png" /> Use the <b>Close Period</b> control to view and track closed periods, and to execute Close Period commands to close (or test close)  records for a specified period,  for a single or multiple selected Nodes. You can create up to eight instances of this control. See <a href="Command Parameters - Close Period.htm">Close Period</a> in the <a href="FMS Commands.htm">FMS Commands</a> section for more information about the command.</p>
+        <p>Available Node categories for this control include</p>
+        <ul>
+            <li value="1"><b>Group</b>  - (general group and station group Nodes) </li>
+            <li value="2"><b>Device</b> - (both gas and liquid Nodes)</li>
+            <li value="3"><b>Gas Device</b> - (gas meter or station meter Nodes)</li>
+            <li value="4"><b>Liquid Device</b> - (liquid device Nodes with periodic history support)</li>
+            <li value="5"><b>Station</b> - (station group and station meter Nodes) Group selections are resolved to their component Node entries in the control.</li>
+        </ul>
+        <p>To select multiple Nodes from the  filtered Node Chooser results, use the <b>Apply changes</b> option. See <a href="Using the Node Chooser Control.htm#Apply">Using the Node Chooser Control</a> for more information about using <b>Apply changes</b> to display multiple Nodes.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Although a General Group Node can be selected in the Node Chooser of the Close Period control, and a Close Period command can be executed against it, you cannot run a Close Period command against General Group Nodes in other parts of FMS Explorer. Outside of the Close Period control, run the command against each desired member Node of the target group.</p>
+        </div>
+        <p>All selections applied from the Node chooser are resolved down to their member Node entries, which are displayed in the control data grid. Each row of the data grid represents a group or station or device Node.  Each <a href="#Columns" class="selected">column</a> represents a data field. Above the data grid is a control <a href="#Toolbar" class="selected">toolbar</a> including a <b>Close through (C)</b> date selector, and buttons to <b>Test</b> <img src="../../Resources/Images/CygNet Measurement/Toolbar_Test16.png" /> and <b>Close Period</b> <img src="../../Resources/Images/CygNet Measurement/Close16.png" /> for the selected records. Use the <a href="#Context" class="selected">context menu</a> to access additional options to customize the data view directly from the grid. See <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information about using these elements.</p>
+        <p>Closed periods are always in <a href="Using the Session Menu.htm#Time">Contract time</a>&#160;(C), through midnight of the specified date. The record for each Node contains a timestamp of the end of the currently closed period. The closed period can only roll forward, and must be consecutive, therefore the start of a closed period is determined by the end of the previously closed period, and you only need enter a <b>Close through (C)</b> date to define the period. If a Node has never been closed previously, the start of the closed period is the timestamp when the Node first started receiving data. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Records can be identified as closed if their End DateTime value is prior to the Closed timestamp.</p>
+        </div>
+        <p>To close the period, data within the period must meet the close period criteria as configured in the system options page of the Administrative Options, accessed via the Admin menu. The configured options allow limits or conditions to be placed on closing periods.  Possible limits include allowing a period to be closed only if no exceptions (including linked exceptions) exist, only if data meets or exceeds minimum data quality settings, only if no data is missing, and/or only if there are no outstanding PPAs. See the <b>Close period</b> section in <a href="Configuring System Options.htm#Close">Configuring Systems Options</a> for more information.</p>
+        <p>Validation and recalculation behavior as a result of data changes follows the data change settings configured in the system options page of the Administrative Options, accessed via the Admin menu. Any changes made to a record after the period has been closed may generate a prior period adjustment. See the <b>Data change</b> section in <a href="Configuring System Options.htm#Data">Configuring Systems Options</a> for more information.</p>
+        <p>You must have proper security authorization to perform these actions. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CLOSE">CLOSE</a> security event) for information about configuring security access for the <b>Close Period</b> control.</p>
+        <p>See <a href="FMS Explorer User Interface.htm">FMS Explorer User Interface</a> for more information about the FMS Explorer user interface features. </p>
+        <h3>Viewing Close Period Data</h3>
+        <p>Use the Close Period control <a href="#Node" class="selected">Chooser</a> pane to filter the Nodes to show in the grid. The pane can optionally be displayed or pinned to the left side. (No Options pane is necessary for this control.)</p>
+        <h4><a name="Node"></a>Chooser Pane</h4>
+        <p>In the embedded Node Chooser for the Close Period control, select the Nodes you want to view data for from a selected Node  category. Further filter the Nodes by name, description, or ID as desired. See <a href="Using the Node Chooser Control.htm">Using the Node Chooser Control</a> for more information.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Selected Nodes will be resolved  to their  station entries (station meters and physical station groups) for display in the control.</p>
+        </div>
+        <h4><a name="Columns"></a>Columns</h4>
+        <p>Close Period data grid columns are fixed in position but can be adjusted for viewing in the following ways.  </p>
+        <ul>
+            <li value="1">Click on a column  header  to sort the data grid view based on that field, in either ascending or descending order. </li>
+            <li value="2">Hover over a fixed column edge to display an icon to reset column width. Drag the column to the desired width.</li>
+        </ul>
+        <p>Columns in the grid represent the following data fields.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Field</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Node Name</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The selected Node name</p>
+                        <p>Click on the column header to sort the displayed data (in ascending or descending order) based on <b>Node Name</b>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Node Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The selected Node description</p>
+                        <p>Click on the column header to sort the displayed data (in ascending or descending order) based on <b>Node Description</b>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Closed Through (C)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The "closed through" date for the selected Node</p>
+                        <p>Click on the column header to sort the displayed data (in ascending or descending order) based on <b>Closed Through (C)</b> date.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Closed periods are always in Contract day (C) through midnight for the selected date.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Result</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>The test result for the selected Node name </p>
+                        <p>Click on the column header to sort the displayed data (in ascending or descending order) based on test close <b>Result</b>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Managing Close Period Data</h3>
+        <h4><a name="Toolbar"></a>Toolbar</h4>
+        <p>Use the Close Period control toolbar  to access options to manage the data you are viewing. &#160;See <a href="Menus and Toolbars.htm">Menus and Toolbars</a> for more information. </p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Close_Period_Toolbar_603x28.png" style="width: 603;height: 28;" />
+        </p>
+        <p>The following options appear on the toolbar; unavailable buttons appear dimmed. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Refresh16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Refresh</b> the control view.</p>
+                        <p>See <a href="Menus and Toolbars.htm#Refresh">Refresh Button</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/SaveHS16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>[The Save button is not available on this control.]</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Cancel16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>[The Cancel button is not available on this control.]</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Open16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Open</b> and view the control as a .csv file. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Print16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>[The Print button is not available on this control.]</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Export16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <b>Export</b> to access the <b>Save As</b> dialog box, to export the contents of the control to a .csv file. Type a <b>File name</b> into the text box, select a file directory location, and then click <b>Save</b> to export the file.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="TestTB"></a>
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Toolbar_Test16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Test</b> close the selected Node records prior to committing a close period and access the <b>FMS Command: Close Period</b> dialog box. </p>
+                        <p>Alternatively, use the context menu <a href="#TestCM" class="selected">Test</a> option.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Test closing a period does not alter the database.</p>
+                        </div>
+                        <p> Test results for the selected Node(s) are listed in table form in the top pane of the dialog box. Click on any data row to display detailed results in the Command Results (bottom) pane. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Once the command dialog box is closed, results can be viewed in the Command Log. See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> for more information.</p>
+                        </div>
+                        <p>See <a href="Command Parameters - Close Period.htm">Close Period</a> for more information about the command that is triggered by this action.</p>
+                        <p>See <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information about the process.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="CloseTB"></a>
+                        <p>
+                            <img src="../../Resources/Images/CygNet Measurement/Close16.png" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Close Period</b> for the selected Node record(s) and access the <b>FMS Command: Close Period</b> dialog box. </p>
+                        <p>Alternatively, use the context menu <a href="#CloseCM" class="selected">Close period</a> option.</p>
+                        <p>Close period results for the selected Node(s) are listed in table form in the top pane of the dialog box. Click on any data row to display detailed results in the Command Results (bottom) pane. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Once the command dialog box is closed, results can be viewed in the Command Log. See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> for more information.</p>
+                        </div>
+                        <p>See <a href="Command Parameters - Close Period.htm">Close Period</a> for more information about the command that is triggered by this action.</p>
+                        <p>See <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information about the process.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Close through (C):</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select the contract day (C) through which to close period for the selected Node(s).</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> You can close periods up until two days ago (current date minus two contract days). Attempts to close through yesterday, today, or in the future will fail.</p>
+                        </div>
+                        <p>This can be done in the following ways.</p>
+                        <ul class="table">
+                            <li value="1">Click in the text box to select the date field desired, then type the month (type 1 letter to access first-letter matching), day (type 1 or 2 digits), or year (type 2 digits). </li>
+                            <li value="2">Click the single down arrow to display the calendar and navigate to the desired <b>Close Through (Contract Day)</b> date. Click to select the date.</li>
+                            <li value="3">Click to select the part of the <b>Close Through (Contract Day)</b> date you wish to change (e.g. month, day, or year) and navigate with the paired up/down arrows to change it.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4><a name="Context"></a>Context Menu</h4>
+        <p>Use the context menu  to access options to set the Session Node, or to test or close periods for selected Nodes directly from the data grid.</p>
+        <p>Right-click on the selected Node name row(s) to access the following options.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a name="TestCM"></a>Test</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to <b>Test</b> close records prior to committing a close period and access the <b>FMS Command: Close Period</b> dialog box. </p>
+                        <p>Alternatively, use the toolbar <a href="#TestTB" class="selected">Test</a> option.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Test closing a period does not alter the database.</p>
+                        </div>
+                        <p> Test results for the selected Node(s) are listed in table form in the top pane of the dialog box. Click on any data row to display detailed results in the Command Results (bottom) pane. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Once the command dialog box is closed, results can be viewed in the Command Log. See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> for more information.</p>
+                        </div>
+                        <p>See <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><a name="CloseCM"></a>Close period</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to <b>Close period</b> for the selected Node(s) and access the <b>FMS Command: Close Period</b> dialog box.</p>
+                        <p>Alternatively, use the toolbar <a href="#CloseTB" class="selected">Close period</a> option.</p>
+                        <p> Close period results for the selected Node(s) are listed in table form in the top pane of the dialog box. Click on any data row to display detailed results in the Command Results (bottom) pane. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Once the command dialog box is closed, results can be viewed in the Command Log. See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> for more information.</p>
+                        </div>
+                        <p>See <a href="Testing and Closing Periods.htm">Testing and Closing Periods</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Select all</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to select all available rows of data in order to <b>Test</b> or <b>Close period</b> for all of the displayed Nodes at once.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Set as Session Node</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Click <b>Set as Session Node</b> to set the selected Node as the Session Node. Alternatively,  press <b>Ctrl+Shift+S</b> to set the Session Node using a keyboard shortcut.</p>
+                        <p>See <a href="Session Node.htm">Session Node</a> and <a href="Using Keyboard Shortcuts.htm">Using Keyboard Shortcuts</a> for more information.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Testing and Closing Periods.htm" class="More">Testing and Closing Periods</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

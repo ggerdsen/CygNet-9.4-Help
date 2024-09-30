@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Using CygNet Studio Tools and Controls|Group Grid Tool">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Group Grid Tool - Manual User Value</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet Studio Tools and Controls.htm">Using CygNet Studio Tools and Controls</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Group Grid Tool.htm">Group Grid Tool</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Manual User Value</span>
+        </div>
+        <h2>Group Grid Tool - Manual User Value</h2>
+        <p>A User Value Column can be added to the grid. The value in this column can be populated via script, and can be edited in runtime.</p>
+        <p class="HeadingProcedure">To Configure a Manual User Value Column</p>
+        <ol start="1">
+            <li value="1">In Edit mode open the <b>OCXProperties</b> on the <b>ActiveX</b> page in the grid object’s <b>Property Sheet</b>.</li>
+            <li value="2">Select the <b>Columns</b> page.</li>
+            <li value="3">Click <b>New</b>.</li>
+            <li value="4">Set the <b>Label</b> property to <b>UserValue</b>.</li>
+            <li value="5">Set the <b>Point Selection Item</b> to <b>User Value</b>, under the <b>Current Value</b> items drop-down menu.</li>
+            <li value="6">Define additional column properties as desired. See <a href="Group Grid Tool Columns Tab.htm">Column Configuration</a> for description of the other properties.</li>
+            <li value="7">Click <b>OK</b> to save the column properties.</li>
+            <li value="8">Click <b>OK</b> to save the changes to the grid.</li>
+            <li value="9">Save the CygNet Studio file.</li>
+        </ol>
+        <p class="Indent3">
+            <img src="../../Resources/Images/CygNet Studio/Group_Grid_ManUserVal.png" title="Enter User Value" alt="Enter User Value" />
+        </p>
+        <p>Double-click on the <b>UserValue</b> column to edit or change the default value. In the example above the <b>Load Values</b> button would save the values to the screen.</p>
+        <p>The following script examples use CygNet Studio buttons to Load values to a column. </p>
+        <p>To Load Values use a "Button" and put scripting under Properties – Event – Eventclick. The following is an example script:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim row, rowCount</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">rowCount = GroupGridTool1.X.GetRows</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">For row = 0 To rowCount -1 </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">GroupGridTool1.X.SetCellValue 0, row, CStr( row * 100)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Next</p>
+                </td>
+            </tr>
+        </table>
+        <p>To Get Values use a "Button" and put scripting under Properties – Event – Eventclick. The following is an example script:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim row, rowCount</p>
+                    <p class="Code">Dim strValue</p>
+                    <p class="Code">Dim strAllValues</p>
+                    <p class="Code">rowCount = GroupGridTool1.X.GetRows</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">For row = 0 To rowCount -1 </p>
+                    <p class="Code2">strValue = CStr(GroupGridTool1.X.GetCellValue( 1, row ))</p>
+                    <p class="Code2">If( row &gt; 0 )Then</p>
+                    <p class="Code3">strAllValues = strAllValues + ", "</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">strAllValues = strAllValues + CStr(row) + "=" + strValue </p>
+                    <p class="Code">Next</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Exporting Grid Data</h3>
+        <p>In Run mode, a user can right-click in the top, left cell of the grid and select to export the data to Microsoft Excel. All of the data in the grid will be exported.</p>
+        <h3><a name="PrintingGridData"></a>Printing Grid Data</h3>
+        <p>In Run mode, a user can right-click in the top, left cell of the grid and select to print the grid.</p>
+        <p>You can configure the header and footer text for the report using the <b>PageFooter</b> and <b>PageHeader</b> properties on the <b>ActiveX</b> page in the grid object’s <b>Property Sheet</b>. The text can be static, tokens, or a combination of both. For example, Page %page% will print out as Page 1, Page 2, etc. An alignment token (%left%, %center%, %right%) must be listed to the left of the text to which it applies. To use a literal percent sign, enter two in succession (%%).</p>
+        <p>See <a href="Group Grid Tool General Tab.htm#Page">Page Setup</a> for more information.</p>
+        <p>Valid tokens are listed in the table below.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 400px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Item</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>Token</p>
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CygNet User ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%userid%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Current Date</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%date%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Current Time</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%time%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Current Page</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%page%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Page Count</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%pages%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Align Left</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%left%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Align Center</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%center%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Align Right</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%right%</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

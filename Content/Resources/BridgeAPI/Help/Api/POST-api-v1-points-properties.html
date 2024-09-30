@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/points/properties</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/points/properties</h1>
+<div>
+    <p>Retrieves properties for a set of pointTags.  Not all values of CygNetProperties are supported, the list of supported properties is quite long and therefore not fully enumerated.
+            If you want to request a facility property, the point tag format must be one of the long formats which include the facility service.</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">properties</td>
+                    <td class="parameter-documentation">
+                        <p>List of properties to attempt to return, properties for all point tags</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=CygNetProperty.html">CygNetProperty</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">pointTags</td>
+                    <td class="parameter-documentation">
+                        <p>Point tags for requested properties</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of string
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;properties&quot;: [
+    &quot;Value&quot;,
+    &quot;Units&quot;,
+    &quot;Description&quot;
+  ],
+  &quot;pointTags&quot;: [
+    &quot;CYGSITE.UIS::ANTIER_GM.ANHEP&quot;,
+    &quot;CYGSITE.UIS::BRADY_GM.ANHEP&quot;
+  ]
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p>Point properties for a set of pointTags</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">results</td>
+                    <td class="parameter-documentation">
+                        <p>List of point property result pairs</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=PointPropertyResultPairDTO.html">PointPropertyResultPairDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">errors</td>
+                    <td class="parameter-documentation">
+                        <p>List of point property errors</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=PointPropertyErrorPairDTO.html">PointPropertyErrorPairDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;results&quot;: [
+    {
+      &quot;pointTag&quot;: &quot;CYGSITE.UIS.00004637:ANTIER_GM_ANHEP:ANTIER_GM.ANHEP&quot;,
+      &quot;properties&quot;: [
+        {
+          &quot;property&quot;: &quot;Value&quot;,
+          &quot;value&quot;: &quot;0.03&quot;
+        },
+        {
+          &quot;property&quot;: &quot;Units&quot;,
+          &quot;value&quot;: &quot;%&quot;
+        },
+        {
+          &quot;property&quot;: &quot;Description&quot;,
+          &quot;value&quot;: &quot;Heptane&quot;
+        }
+      ]
+    }
+  ],
+  &quot;errors&quot;: [
+    {
+      &quot;pointTag&quot;: &quot;CYGSITE.UIS.00004637:BRADY_GM_ANHEP:BRADY_GM.ANHEP&quot;,
+      &quot;errors&quot;: [
+        &quot;Unable to read point config record for &#39;CYGSITE.UIS.00004637:ANTIER_GM_ANHEP:ANTIER_GM.ANHEP&#39;&quot;
+      ]
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

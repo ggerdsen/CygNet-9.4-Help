@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Well Test">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Processing and Storing Well Test Results</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Well Test.htm">Well Test</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Processing and Storing Well Test Results</span>
+        </div>
+        <h2>Processing and Storing Well Test Results</h2>
+        <p>Once the well test action sequence completes, the well test contents must be generated. Since the values for the well test record can come from various locations due to the unique configurations at the field-level, a programmable approach in the form of a VB script is required. After the test is complete, a Script action is necessary to process the results.</p>
+        <p>The path to the script file is configured in the <a href="Well Test UI Config - Script Action Type.htm">Script</a> action type in the well test configuration  XML. A sample script is provided to illustrate the concept of processing supplied arguments and providing the necessary output that the CygNet Well Test Module expects in order to process a well test record. The sample VB script will need to be customized for the user's specific environment.</p>
+        <p>See <a href="Sample Canvas Well Test Screens.htm">Sample Well Test Screens and Scripts</a> for more information.</p>
+        <h3>About Well Test Dates</h3>
+        <p>The CygNet Well Test Module uses the <i>same</i> timestamp for the date and time of the actual well test supplied within the well test record (retrieved via script) and the date and time when the well test record is posted to the VHS (the VHS entry date). To avoid confusion the date provided in the well test record is the same as the entry date in the VHS.  See <a href="../Date and Time/Timestamps.htm">Timestamps</a> for more information about CygNet timestamps.</p>
+        <h3>Script File Tokens</h3>
+        <p>The VB script referenced in the <a href="Well Test UI Config - Script Action Type.htm">Script</a> action type must output the well test values. The script action is expecting the well test variables to be returned in a specific way. </p>
+        <h4>Single Well Test Record</h4>
+        <p>There are seven (7) reserved token names that can be used to specify the value for a given process variable. For single well test records, the script tokens need to output in the following format:</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Example</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%OIL%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value for this token is expected to be a rate with units of barrels per day (bbl/D).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%OIL%80.6</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%WATER%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value for this token is expected to be a rate with units of barrels per day (bbl/D).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%WATER%172</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%GAS% </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value for this token is expected to be a rate with units of MCF per day (MCFD).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%GAS%149.9</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%DURATION%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value for this token is expected to be in seconds.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%DURATION%15.3</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%STATUS%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>A generic user-specified status value.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%STATUS%1:Good</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%DATETIME%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The timestamp of the well test record. It is expected to be local time of the server from where the well test is performed.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%DATETIME%1/6/2019 9:43:27 AM</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%FACILITYTAG%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The Facility Tag of the well associated with the well test record.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%FACILITYTAG%C4PROD.UIS::ELLIOT_WL</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Historical Well Test Record</h4>
+        <p>The historical well test record needs to indicate the type of output, so it will start with the %HISTORICAL% token.    The start of each record will start with the %RECORD% token.  The tokens and value used for an individual record are similar to those used for the single well test record format.  The main difference is that historical records will not have a %FACILITYTAG% token, but they will have a %POSITION% token instead.  The %POSITION% token and its subsequent value are used to lookup the facility tag.  The position that is defined in the <a href="Well Test UI Config - Headers Page.htm">Header</a> section of the well test configuration XML is the same position value used in the lookup.  Typically, a device isn’t going to know the facility tag.  It typically only knows of the position it is are currently on.  So, the %POSITION% token is used to figure out the well facility tag to post the well test result to.</p>
+        <p>For historical records, the script tokens need to output in the following format:</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 134px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Token</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Example</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%HISTORICAL%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Indicates the type of output: Historical well test record.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%RECORD%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The start of each historical record.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%RECORD%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%POSITION%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Used to lookup the facility tag.  The position defined in the <a href="Well Test UI Config - Headers Page.htm">Header</a> section of the well test configuration XML is the same position value used in the lookup.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%POSITION%1</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%DATETIME%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The timestamp of the well test record. It is expected to be local time of the server from where the well test is performed.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%DATETIME%1/1/2019 3:04:00 AM</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%OIL%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value for this token is expected to be a rate with units of barrels per day (bbl/D).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%OIL%417.3486</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%WATER%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value for this token is expected to be a rate with units of barrels per day (bbl/D).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%WATER%341.8908</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%GAS%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value for this token is expected to be a rate with units of MCF per day (MCFD).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%GAS%1.288</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%DURATION%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value for this token is expected to be in seconds.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%DURATION%9</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%RECORD%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">The start of each historical record.</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%RECORD%</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%POSITION%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Used to lookup the facility tag.  The position defined in the <a href="Well Test UI Config - Headers Page.htm">Header</a> section of the well test configuration XML is the same position value used in the lookup.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%POSITION%1</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%DATETIME%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The timestamp of the well test record. It is expected to be local time of the server from where the well test is performed.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%DATETIME%8/20/2018 1:01:00 AM</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%OIL%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value for this token is expected to be a rate with units of barrels per day (bbl/D).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%OIL%2465.628</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%WATER%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value for this token is expected to be a rate with units of barrels per day (bbl/D).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%WATER%9.639225</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>%GAS%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The value for this token is expected to be a rate with units of MCF per day (MCFD).</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>%GAS%1094.051</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>%DURATION%</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value for this token is expected to be in seconds.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>%DURATION%0</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Script Processing</h3>
+        <p>The oil, water, and gas values come from the separator facility, which is specified in the <a href="Well Test UI Config - Headers Page.htm">Tag</a> property on the <b>Headers</b> page of the well test configuration control ('tag' attribute of the &lt;<a href="XML Headers.htm">Header</a>&gt; element of the XML configuration). The duration, facility tag, and timestamp values come from the Well facility, which is specified in the <a href="Well Test UI Config - Headers Page.htm#Wells">Tag</a> property on the <b>Wells</b> section of the well test configuration control ('tag' attribute of the &lt;<a href="XML Wells.htm">Well</a>&gt; element). All values are concatenated and passed into the script. The generic script then turns around and passes those same values back out in the appropriate format. From there, the XML record gets generated and posted to the VHS as a BLOB string.</p>
+        <p>Well test records are stored as XML strings in VHS entries for each configured well. The module will pass out the tokens and the values, and generate an XML string and publish it to the "Result" UDC specified in the UDC configuration on the <b>General</b> page of the well test configuration control (or if configured, the override UDC specified in the <a href="Well Test UI Config - Script Action Type.htm">Script</a> action type).</p>
+        <p>The following is a sample script procedure to export the values in the correct manner.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code" style="color: #008000;">'---------------------------------------------------------------------</p>
+                    <p class="Code" style="color: #008000;">' Standard output method</p>
+                    <p class="Code" style="color: #008000;">'---------------------------------------------------------------------</p>
+                    <p class="Code"><span style="color: #0000ff;">Sub </span>WriteOutput(Oil, Water, Gas, Duration, Status, RecordTimeStamp)</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>oilToken = "%OIL%"</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>waterToken = "%WATER%"</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>gasToken = "%GAS%"</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>durationToken = "%DURATION%"</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>statusToken = "%STATUS%"</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>timeStampToken = "%DATETIME%"</p>
+                    <p class="Code2"><span style="color: #0000ff;">Const </span>facilityTagToken = "%FACILITYTAG%"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2"><span style="color: #0000ff;">Set </span>objStdOut = WScript.StdOut</p>
+                    <p class="Code2">objStdOut.Write oilToken</p>
+                    <p class="Code2">objStdOut.Write Oil</p>
+                    <p class="Code2">objStdOut.WriteBlankLines(1)</p>
+                    <p class="Code2">objStdOut.Write waterToken</p>
+                    <p class="Code2">objStdOut.Write Water</p>
+                    <p class="Code2">objStdOut.WriteBlankLines(1)</p>
+                    <p class="Code2">objStdOut.Write gasToken</p>
+                    <p class="Code2">objStdOut.Write Gas</p>
+                    <p class="Code2">objStdOut.WriteBlankLines(1)</p>
+                    <p class="Code2">objStdOut.Write durationToken</p>
+                    <p class="Code2">objStdOut.Write Duration</p>
+                    <p class="Code2">objStdOut.WriteBlankLines(1)</p>
+                    <p class="Code2">objStdOut.Write statusToken</p>
+                    <p class="Code2">objStdOut.Write Status</p>
+                    <p class="Code2">objStdOut.WriteBlankLines(1)</p>
+                    <p class="Code2">objStdOut.Write timeStampToken</p>
+                    <p class="Code2">objStdOut.Write RecordTimeStamp</p>
+                    <p class="Code"><span style="color: #0000ff;">End Sub</span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <h3>Retrieving Well Test Records</h3>
+        <p>Any third-party application can retrieve well test records using the <a href="Well Test Components.htm#API">CygNet.API.WellTest</a>. See <a href="Well Test Results - Retrieving.htm">Retrieving Well Test Records</a> for more information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

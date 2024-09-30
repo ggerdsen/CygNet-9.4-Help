@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Studio Profiling</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Studio Profiling</span>
+        </div>
+        <h2>CygNet Studio Profiling</h2>
+        <p>CygNet Studio profiling allows screen designers the option to assist in troubleshooting events or calls from within a CygNet Studio screen via script.  A LogManager Object  allows items to be logged when they come in or out of scope.</p>
+        <p>Adding these scripting options to CygNet Studio screens gives administrators the option to enable logging to aid in troubleshooting screen performance.  Screens can have minimal logging enabled to capture basic data and then the logging mode can be increased if troubleshooting a particular item is needed.  Screen designers can also use these methods to assist in finding out what scripts or calls are running inefficiently in order to improve screen performance during initial screen development. For example, the start and stop times of items coming in and out of scope could show the amount of time it takes to run a process.</p>
+        <h3>LogManager Methods</h3>
+        <p>The LogManager Object is used to manage CygNet Studio log files via script. All log messages will include the HyperPoint Name in the message string to identify the HyperPoint that generated it.
+
+See <a href="LogManager Methods.htm">LogManager Methods</a> for more information.</p>
+        <p>When editing existing script functions on CygNet Studio screens, enter one or more option(s) from the table below to invoke tracing line items to be logged. Enabling <b>LogAll</b>, <b>LogMin</b>, or <b>LogMax</b> settings will allow Studio log files to trace when an item comes in or out of scope. The <b>GetProfiler</b> option logs a timing message showing the duration of time it takes for a process or thread to execute, using the beginning and ending timestamps.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">LogManager Method</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LogManager.GetProfiler("message")</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>GetProfiler</b> method writes a profile message to the scripting log file. Returns an object that logs a profile timing message on creation and deletion (object goes in or out of scope). On creation PROFILE_MAX must be set and on deletion (object goes out of scope) PROFILE_MIN must be set.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LogManager.LogAll("message")</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>LogAll</b> method writes the message string to the scripting log file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">LogManager.LogMin("message")</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>LogMin</b> method writes the message string to the scripting log file if MIN_TRACE is set in the HSS service configuration file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">LogManager.LogMax("message")</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>LogMax</b> method writes the message string to the scripting log file  if MAX_TRACE is set in the HSS service configuration file.</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Enabling CygNet Studio Profiling</h3>
+        <p>After the CygNet Studio screen has the appropriate LogManager methods entered into the script sections to be logged,  close all Studio windows and open a  command prompt. Type the path <b>C:\CygNet\Clients\cstudio</b>, and add the appropriate command-line options from the table below to enable the desired log profiling.  Options are available to enable single log parameters or can be used in combination to display multiple logging options in the log files.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Logging Parameters</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">/LOG_ALL</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Logs all entries defined by the LogManager.LogAll script methods. Displays all logged items or events for the Studio screen.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>/LOG_MIN_TRACE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Logs only entries defined by the LogManager.LogMin script methods.  The log entries are defined when an item comes out of scope or a thread ends. Allows CygNet Studio screens to be created initially with logging script functions  but not invoked every time a screen is run.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>/LOG_MAX_TRACE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Logs only entries defined by the LogManager.LogMax script methods. The log entries are defined when the start of a process is executed or a thread begins. Allows CygNet Studio screens to be created initially with logging script functions  but not invoked every time a screen is run.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">/LOG_PROFILE_MIN</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Logs the duration or amount of time it takes for a process to run.  Creates a time entry when a process or thread ends or runs out of scope. </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">/LOG_PROFILE_MAX</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Creates an entry when a thread or process begins to run or comes in scope.</td>
+            </tr>
+        </table>
+        <h3> CygNet Studio and CygNet Vision Log Files</h3>
+        <p>The  log files  for the events used to capture and display the output of the data collected are held in the <b>CygNet\Clients</b> directory.    Log files can be viewed by double clicking on the log file.</p>
+        <ul>
+            <li value="1">CStudio001.log — Used to display log entries for standard Studio items.</li>
+            <li value="2">CxVision2001.log — Used to display log entries for nested view items on Studio screens.</li>
+        </ul>
+        <p>CygNet also has a utility that is designed to ease the view of displaying items in a log file.  The <a href="../Logging/Log File Viewer Utility.htm">Log File Viewer</a> utility,  located in the <b>CygNet\Utilities</b> directory, allows you to open, print, and search/filter for data within any log file  to assist or aid in troubleshooting. </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

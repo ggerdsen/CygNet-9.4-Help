@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Groups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Troubleshooting Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Groups.htm">Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Troubleshooting</span>
+        </div>
+        <h2>Troubleshooting Groups</h2>
+        <p>The following subsections offer possible solutions to problems encountered by users working with groups. Although these subsections attempt to be comprehensive, there is no way to anticipate all possible problems or solutions a user might encounter when working with groups. </p>
+        <h4>I created a hierarchy in the Group Manager, but I don't see facilities.</h4>
+        <p>Here are likely possibilities:</p>
+        <ul>
+            <li value="1">The <b>Group Manager</b> utility does not display actual facilities, even when you've performed a build for its hierarchies. It only displays the abstract <i>structure</i> of your hierarchy. However, the <a href="Group Service Explorer.htm">Group Service Explorer</a> displays the actual ("as-built") hierarchies, including all relevant facilities. Open the Group Service Explorer to view relevant facilities.</li>
+        </ul>
+        <ul>
+            <li value="1">If you are in the Group Service Explorer but still don't see facilities, facility attributes might be misconfigured. Open a missing facility in the Facility Service (FAC) and double-check its <b>Attribute</b>, <b>Description</b>, and <b>Value</b> columns to ensure that the correct information is there. If your attributes are incorrect, you might need <a href="../Facilities/Facility Attributes.htm">to add correct values and/or add correct attributes</a>. Be sure to <a href="Creating a Group Hierarchy.htm#7.">rebuild your hierarchies</a> in the Group Manager utility to implement changes.</li>
+        </ul>
+        <ul>
+            <li value="1">If you double-checked and/or edited facility attributes in the FAC and they are correct but desired facilities still do not appear in your as-built hierarchy in the Group Service Explorer, carefully <a href="Defining Rules.htm">review and correct rule definitions</a> to ensure that the desired facilities are included in your hierarchies.</li>
+        </ul>
+        <h4>My built hierarchy doesn't collect data from all of the facilities I expect.</h4>
+        <p>Most likely, you have not set up your facility attributes correctly or have not set up your levels correctly, particularly rule-based levels. Carefully <a href="../Facilities/Facility Attributes.htm">review and/or edit facility attributes</a> to make sure they are correct and carefully revise level definitions(s) (<a href="Defining Rules.htm">rules</a> and/or <a href="Defining Components.htm">components</a>) at the level of the missing data.</p>
+        <h4>I changed facilities, devices, or other GRP components, but they aren’t reflected in my group hierarchy.</h4>
+        <p>If you add, edit, or delete facilities and/or devices and you want the result reflected in your group hierarchies, use the Group Manager utility to <a href="Creating a Group Hierarchy.htm#7.">rebuild the affected hierarchies</a>. Doing so includes the changes in the GRP and ensures that these changes appear on CygNet Studio or CygNet Vision screens, in reports, and so forth.</p>
+        <h4>I deleted facilities and/or devices, but they are still in the GRP.</h4>
+        <p>If you delete facilities and/or devices from your system and they had GRP entries (that is, they were once part of a GRP build), manually delete these entries from the GRP.</p>
+        <h4>I deleted a node from the Group Manager but it is still in other GRP components.</h4>
+        <p>If you delete a node from the Group Manager, you probably only need to refresh the affected component to see the result.</p>
+        <h4>I deleted an administrative node from the GRP and now my hierarchy won’t build because of the missing node even though all of its child nodes still exist.</h4>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Best practice recommends <u>not</u> modifying nodes directly in the GRP. It is best to make GRP changes using the Group Manager utility.</p>
+        </div>
+        <p>If you do delete a required (usually administrative) node, you have at least two options:</p>
+        <ul>
+            <li value="1">Manually recreate the node in the GRP and reassociate it with its parent and child(ren). The Group Manager utility will not recreate an administrative node once you have deleted it from the GRP even if you rebuild.</li>
+        </ul>
+        <ul>
+            <li value="1">Delete the node’s children and recreate the mistakenly deleted node and its children in the Group Manager, then rebuild all.</li>
+        </ul>
+        <h4>I'm not sure that my rollups are working.</h4>
+        <p>Once you have created and configured required summary GRP nodes, calculation target points, and rollup HyperPoints, check the results of your work to ensure that the rollups are operating correctly. Perform at least one of the two steps listed below. There might be additional ways to check your work besides those provided here.</p>
+        <p class="HeadingProcedure"><a name="ToCheckInUIS"></a>To Check Results in a UIS</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the appropriate UIS and locate a subset of UDC/facility combinations affected by a rollup.</li>
+            <li value="2">Make a manual calculation of all child leaf nodes (facilities) of a summary group node to see if the calculation equals that of the summary group node displayed in the UIS. This might include consideration of child summary group nodes.</li>
+        </ol>
+        <p class="Example">Example</p>
+        <p class="Indent">If Summary Node A is configured to calculate a total of the CFGCO UDCs of two  child leaf nodes (facilities), add the values for those two UDCs and compare it to the Summary Node A value for the same UDC. If the manually calculated value and the UIS-calculated are the same, Summary Node A is totalizing the two  leaf nodes correctly.</p>
+        <p class="HeadingProcedure">To Check Results in an HSS</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the appropriate HSS and locate a subset of UDC/facility combinations affected by a rollup.</li>
+            <li value="2">Check the combinations' <b>Value</b> columns. If the value in the columns is "SUCCESS", your rollup HyperPoint (summary group node) is <i>probably</i> operating correctly. If another value is displayed, see <a href="Error Messages - Group Rollups.htm">Error Messages</a>.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> "SUCCESS"&#160;does not guarantee that the actual values reported to the affected UIS are what you require. It is safest to also <a href="#ToCheckInUIS" class="selected">check values in the UIS</a>.</p>
+            </div>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

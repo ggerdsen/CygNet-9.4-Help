@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxHmiFms|CxFmsDashboardCtrl Object">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CxFmsDashboardCtrl Example</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxHmiFms.htm">CxHmiFms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxHmiFms CxFmsDashboardCtrl Object.htm">CxFmsDashboardCtrl Object</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CxFmsDashboardCtrl Example</span>
+        </div>
+        <h2>CxFmsDashboardCtrl Example</h2>
+        <p>Use the <b>CxFmsDashboardCtrl</b> object to display and manipulate an ActiveX <a href="../CygNet Measurement/CygNet FMS Dashboard Control.htm">CygNet FMS Dashboard Control</a> in a CygNet Studio screen environment.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/FMS_Screen_Dashboard_600x180.png" style="width: 600;height: 180;" title="CygNet FMS Dashboard Control" alt="CygNet FMS Dashboard Control" />
+        </p>
+        <p>To see an example FMS Dashboard control implemented in a pre-designed screen, open the <b>FMS Dashboard Ctrl.csf</b> file in the <b>CygNet\Clients\CStudio\Screens\Examples</b> folder.</p>
+        <h3>CygNet Studio Screen Script: FMS Dashboard Ctrl.csf</h3>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub btnApply_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnApply</p>
+                    <p class="Code2">FmsDashboard.SessionNodeTag = editSessionNode.Text</p>
+                    <p class="Code2">FmsDashboard.SessionBeginDate = editStartDate.Text</p>
+                    <p class="Code2">FmsDashboard.SessionEndDate = editEndDate.Text</p>
+                    <p class="Code2">FmsDashboard.PITDateTime = editPIT.Text</p>
+                    <p class="Code2">FmsDashboard.UsePIT = checkUsePIT.Check</p>
+                    <p class="Code2">FmsDashboard.Apply True</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub btnCancel_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnCancel</p>
+                    <p class="Code2">FmsDashboard.Cancel</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub checkUsePIT_EventChange()</p>
+                    <p class="Code">Dim This : Set This = checkUsePIT</p>
+                    <p class="Code2">FmsDashboard.UsePIT = this.Check</p>
+                    <p class="Code2">editPIT.Enable this.Check</p>
+                    <p class="Code">End Sub </p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub TheView_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = TheView</p>
+                    <p class="Code2">editSessionNode.Text = FmsDashboard.SessionNodeTag</p>
+                    <p class="Code2">editStartDate.Text = FmsDashboard.SessionBeginDate</p>
+                    <p class="Code2">editEndDate.Text = FmsDashboard.SessionEndDate</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">checkUsePIT.Check = FmsDashboard.UsePIT</p>
+                    <p class="Code2">editPIT.Text = FmsDashboard.PITDateTime</p>
+                    <p class="Code2">editPIT.Enable = FmsDashboard.UsePIT</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

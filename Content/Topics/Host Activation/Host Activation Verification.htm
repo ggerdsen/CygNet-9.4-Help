@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Host Activation">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Host Activation Verification</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Host Activation.htm">Host Activation</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Host Activation Verification</span>
+        </div>
+        <h2>Host Activation Verification</h2>
+        <p>When a new system is brought online, the host activation status is set to <i>TRIAL</i> and you have 30 days to activate the host. To activate the host, you must get an Activation Key (or "Site" Key) from <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a>  and then apply that key to the host.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> CygNet hosts do not shut down automatically when they fall out of activation compliance. You will, however, receive warnings in various CygNet client applications (CygNet Explorer, CygNet Studio, CygNet Vision, and FMS Explorer) if a host is not activated. Best practice recommends using the <b>Service Monitoring Service</b> (SVCMON) to monitor status and set up notifications.</p>
+        </div>
+        <p>Various actions can cause a host activation state to change from <i>ENABLED</i> back to <i>TRIAL</i>. For example, a change in server hardware could result in the calculation of a new Activation Code. Since this new Activation Code would no longer match the original Activation Key, the state would change to <i>TRIAL</i> and the 30-day countdown would begin.  Other events that can trigger this change include a sustained failure in the Windows Management Instrumentation (WMI) service and load balancing from virtual machines to different physical hardware.</p>
+        <p>If a service cannot calculate an Activation Code, it cannot perform an activation check. In this case, its state would be set to <i>CODE CALC ERROR</i>. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> It is recommended that you monitor the Activation Status (see below) to watch for this situation.</p>
+        </div>
+        <p>While activation is generally thought of as a "host" event (thus the name <i>Host Activation</i>), in actuality every CygNet service performs activation checks. Each CygNet service calculates the Activation Code and verifies the code against the Activation Key at start-up and at  regular intervals — every 20 minutes for the Remote Service Manager (RSM); every 2 hours for all other services. To prevent the operating system from being overloaded by information requests, each service’s check in is offset from other services.</p>
+        <p>When you are using a CygNet client, a yellow notification bar appears if a host activation issue exists for services with which the client has communicated. Click on the yellow bar to display a <b>CygNet Activation/Licensing Issues</b> dialog box to display more information about the activation issue.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> After a host has been activated, the yellow bar may persist  until all services have verified the Activation Code against the Activation Key.</p>
+        </div>
+        <h3>Monitoring Host Activation</h3>
+        <p>It is recommended that you implement Service Monitoring (via the <a href="../Service Monitoring/CygNet ServiceMon Administration Utility.htm">CygNet ServiceMon Administration Utility</a>) to monitor the status of host activation  for your system. You can use the following <a href="../Service Monitoring/Info Items.htm">Info Items</a> to monitor the host activation status:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Service Monitoring/Info Items - Service Generic.htm">SVMACTDESC</a> — Activation Status Description</li>
+            <li class="HyperlinkList" value="2"><a href="../Service Monitoring/Info Items - Service Generic.htm">SVMACTSTAT</a> — Activation Status</li>
+        </ul>
+        <p>We strongly recommend that you use one of these info items to monitor the status of activation, and that you configure alarms and notifications so that you are alerted if the status changes to any value other than what you expect.</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">
+                        <p>SVMACTSTAT</p>
+                        <p>Enum Values</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>SVMACTDESC </p>
+                        <p>String Values</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        <p>Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">0</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>UNKNOWN</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Host activation is in an unknown state.	</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">1</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>TRIAL: X (where x is number of days remaining)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The host is in trial mode. If using SVMACTDESC to monitor the status, the string includes the number of days remaining in the trial.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">2</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>ENABLED</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The host is activated.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">3</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>DISABLED</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The host has been deactivated by a CygNet administrator.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">4</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>EXPIRED</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The 30-day trial has expired and the host was not activated.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">5</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>ERROR</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The activation key was not created for the system.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">6</td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>CODE CALC ERROR</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>The host activation could not be verified due to a hardware or operating system issue.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

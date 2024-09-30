@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|Using CygNet Measurement">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Measurement Contract Hour</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet Measurement.htm">Using CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Contract Hour</span>
+        </div>
+        <h2>Using Contract Hour in CygNet Measurement</h2>
+        <p>Contract hour is a dynamic property defined as an offset (in hours) from Device time. It applies to device Nodes and to physical Station Group Nodes (Nodes containing devices) from which data can be requested. Contract hour defines when the "contract day" begins and ends, and determines the "Contract time" displayed in FMS controls when <b>Contract</b>  time format is selected for data viewing.</p>
+        <p>Raw data comes into the system in Device time (D). Contract hour is a device configuration parameter (for most devices) used to establish the Contract day and Contract time (C). </p>
+        <ul>
+            <li value="1">Data request parameters in FMS are based on contract days (C). Contract hour values must be known prior to <a href="#Executin" class="selected">executing data requests</a>.</li>
+            <li value="2">Data is displayed in FMS Explorer based on contract days, assuming a contract hour of zero (0). The time format in which you view the data, however, can be selected in the Options pane of controls that display data for one Node at a time (Exceptions, Configuration, History Grid, Alarm, and Raw Data). Controls that allow selection of multiple Nodes (Dashboard, History Graph, Close Period, and Balance) always display data in Contract time (C). 
+			<div class="Note"><p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p><p class="Note">The PPA control always displays data in Local time (L), but you still have the option to view start/end dates in a selected time format.</p><p class="Note">The Reports control always displays data in Device time (D).</p></div></li>
+            <li value="3">When you <a href="#Changing" class="selected">change the contract hour</a> on a device, the contract hour in the FMS device properties must also be changed, so that the contract hour is consistent between FMS and the device(s) being polled. See <a href="Viewing and Editing Node Properties in FMS Explorer.htm">Viewing and Editing Node Properties</a> for more information.</li>
+            <li value="4">Contract hour changes are applied to the end of the contract day, to redefine the beginning of the next contract day. </li>
+            <li value="5">Validation rules can be set up to help you <a href="#Monitori" class="selected">monitor contract hour changes</a> in your system.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> To allow physical Station Group Nodes to roll up successfully, make sure that the contract hour value for the physical Station Group Node is equal to the contract hour value for each of its member Nodes.</p>
+        </div>
+        <h3><a name="Executin"></a>Executing Data Requests </h3>
+        <p>Request current configuration <i>prior to</i> executing data requests against Nodes, since contract hour is a necessary configuration parameter.  In FMS data requests, command parameters for date are based on contract days (C). The contract hour must be known prior to requesting data from devices, which provide data in Device time (D),  in order to establish consistent data timestamps. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When polling daily devices with contract hour changes, be aware of   the times of scheduled command tasks. If you are moving the contract hour back (earlier), make sure that you do not execute commands for the time period between the old and new contract hour. </p>
+        </div>
+        <h3><a name="Changing"></a>Changing Contract Hour</h3>
+        <p>Changing contract hour in FMS is a manual process that must occur whenever device contract hour changes. Edits to contract hour are made on the <b>Time</b> page of the  property sheet for Gas Meter, Chromatograph, Liquid Device, or Station Group Nodes. See <a href="Viewing and Editing Node Properties in FMS Explorer.htm">Viewing and Editing Node Properties</a> for more information.</p>
+        <p>In general, contract hour can only be changed <i>prior to</i> retrieving data. If data exists past the time to which you desire to change the contract hour, the change cannot be made. The only exception to this is if you must change contract hour for a daily gas metering device, as described in the <a href="#Exceptio" class="selected">Exception</a> section below.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Do not execute configuration polls around the time of the contract hour update; wait until all devices and FMS Node properties have been successfully updated. Even if a user creates a new configuration record with the correct offset, a configuration poll that brings back the wrong offset would supersede the user-created record, and could potentially cause problems.</p>
+        </div>
+        <p>When you change the contract hour for a Node, pressing <b>OK</b> causes the <b>Save FMS Record</b> dialog box to appear, where you can enter record change effective dates and audit information. Make sure that you select an accurate <b>Change begin</b> date for the new contract hour. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Warning:</span> Set the <b>Change begin</b> date with care. Leaving the <b>Change begin</b> date as "Indefinite" (the default) would overwrite all previously set contract hour values for the Node.</p>
+            <p>If no user edit is executed for a contract hour change, when polling by Contract time (C), the following polling issues could occur. </p>
+        </div>
+        <ul>
+            <li value="1">If all devices affected by the contract hour change are not updated within the appropriate time window (before the next contract day begins) incorrect data would be retrieved. </li>
+            <li value="2">If data recorded <i>after</i> the contract hour change occurs is requested <i>before</i> the change is received by FMS,  incorrect data would be retrieved.</li>
+        </ul>
+        <h4>Record Timestamps</h4>
+        <p>Records for hourly devices are timestamped each hour, whereas records for daily devices are timestamped at the start of each contract day. For devices with contract hour values other than <b>0</b>, the timestamp will be based on that contract hour value, instead of the 00:00:00  (midnight) default. Each contract hour change will result in device data appearing to contain either a "lean" day, with fewer than 24 hours, or a day ending with a "fat" hour.</p>
+        <h4>Fat Hours</h4>
+        <p>When the contract hour is increased (made later than the current contract hour), it creates a contract day with more than 24 hours of data. When this occurs, all extra hours are rolled into the 24<sup>th</sup> hour. Therefore a contract day with more than 24 hours of data would appear to have a "fat" 24<sup>th</sup> hour containing the additional data. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This is only an issue when viewing data in Contract time (C). When viewing data in Device time (D), each record will have the original timestamp.</p>
+        </div>
+        <h4><a name="Exceptio"></a>Exception for Contract Hour Changes</h4>
+        <p>There is an exception to the ability to change contract hour values only before data collection.</p>
+        <p>For periodic Gas Meter Nodes with "Daily" record spans, it is possible <i>although not recommended</i> to change the contract hour after records have been collected for the affected time span.</p>
+        <p>In such cases where data exists past the point in time for which you wish the contract hour change to be effective, all history must first be purged back to the intended contract hour change date and time and then, after the contract hour change, data must be recollected for the purged time period, as follows.</p>
+        <p class="HeadingProcedure">To Change Contract Hour for Daily Gas Meter Devices with Existing Records in the Affected Time Span</p>
+        <ul>
+            <li value="1">Review the <a href="Purging Device Data.htm">Purging Device Data</a> topic for  information about the Purge Data command.</li>
+            <li value="2">Determine exactly which Node(s) will be affected by the contract hour change.</li>
+            <li value="3">Establish the desired effective date and time for the intended contract hour change, in Device time (D).</li>
+            <li value="4">Use the <b>Purge Data</b> command on the Administrative menu to purge all categories of data simultaneously.<div class="Note"><p><span class="NoteHeading">Note:</span> Purged data will be irretrievably removed from the CygNet Measurement system, so make all selections carefully.</p></div></li>
+        </ul>
+        <ul class="Circle">
+            <li value="1">Select the Node(s) that will be affected, from the Node list. </li>
+            <li value="2">Enter a <b>Purge begin date</b> value for the desired effective contract hour change date/time, in Device time (D).
+			<div class="Note"><p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p><p class="Note">For hourly devices, make sure you select <b>Purge begin date</b> values to encompass the full hour containing the beginning of the data you want to purge. </p><p class="Note">For daily devices, make sure you select <b>Purge begin date</b> values to encompass the full day containing the data you want to purge, by setting the time equal to 00:00:00.</p></div></li>
+            <li value="3">It is recommended that the <b>Purge all records beyond begin date</b> check box remains selected.</li>
+            <li value="4">Optionally (not recommended) clear the <b>Purge all records beyond begin date</b> check box and enter a <b>Purge end date</b> value for the desired ending contract hour change date/time, in Device time (D).
+			<div class="Note"><p><span class="NoteHeading">Notes:</span></p><p class="Note">For hourly devices, make sure you select <b>Purge end date</b> values to encompass the full hour containing the end of the data you want to purge. </p><p class="Note">For daily devices, make sure you select <b>Purge end date</b> values to encompass the full day containing the data you want to purge, by setting the time equal to 12:00:00.</p></div></li>
+            <li value="5">Select check boxes to include all three types of <b>Records to purge</b> - it is essential they must all be selected simultaneously, in the same action: </li>
+        </ul>
+        <ul class="Square">
+            <li value="1">Alarm</li>
+            <li value="2">Configuration, event, and gas analysis </li>
+            <li value="3">Periodic history</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1">Review your entries and then <b>Purge</b> the data back to the intended effective date of the changed contract hour. </li>
+        </ul>
+        <ul>
+            <li value="1">Change the contract hour property in the Node Properties. For each affected device, manually change the contract hour to the new value. Make sure that the contract hour value at the device agrees with the updated contract hour value you are editing in the Node properties. See <a href="Viewing and Editing Node Properties in FMS Explorer.htm">Viewing and Editing CygNet Measurement Node Properties</a> for more information.</li>
+            <li value="2">Poll the affected device(s) for data. Use the Request New Data command to poll for data, starting from the date of the contract hour change. Do not use the Request Missing Data command for this purpose. See <a href="Running Node Commands.htm">Running Node Commands</a> for more information.</li>
+        </ul>
+        <h3><a name="Monitori"></a>Monitoring Changes to Contract Hour</h3>
+        <p>If desired, you can create a validation rule to help you monitor changes made to device configuration contract hour values. Setting up a configuration data validation rule for <b>Config Change (Contract Hour)</b> will cause an exception when a poll for configuration or events is executed after the contract hour change occurs. The exceptions generated can be viewed on the <a href="Using the Exceptions Control.htm">Exceptions control</a> in FMS Explorer.</p>
+        <p>See <a href="Managing Validation Engines.htm">Managing Validation Engines</a> for more information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

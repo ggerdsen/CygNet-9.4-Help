@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Enterprise Operations EIE Installation</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations EIE.htm">Enterprise Operations EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installation</span>
+        </div>
+        <h2>Enterprise Operations EIE Installation</h2>
+        <p>Installing the Enterprise Operations EIE requires installation of a driver file and an editor file, and inclusion in CygNet Explorer version management. </p>
+        <p>The driver file (UisEntOpsDeviceDriver.dll) is the Enterprise Operations Device Driver module, used by the UIS. It is stored in the <b>CygNet\Support</b> folder on the host server. The driver file must be registered on the CygNet host in order for the UIS to load any Enterprise Operations devices. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Optionally, the 64-bit driver file (UisEntOpsDeviceDriver64.dll) is stored in the <b>CygNet\Support64</b> folder on the host server.</p>
+        </div>
+        <p>The editor file (CxDdsEntOpsEditors.dll)  is the Enterprise Operations Device Editor module, used by CygNet Explorer. It must be loaded into the APPS and included in version management for CygNet Explorer. </p>
+        <p>The response list file  (CxDdsEntOpsEditors.rsp) must also be loaded into the APPS to facilitate proper installation and version management.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In order for version management to function properly, the procedures described in <a href="../Version Management/Version Management Overview.htm">Version Management</a> must be followed.</p>
+        </div>
+        <p>See the <a href="../../Resources/PDF_Repository/CygNet_94_System_Requirements.pdf" target="_blank"><i>CygNet System Requirements</i></a> document for installation prerequisites.</p>
+        <p class="HeadingProcedure">To Install the Enterprise Operations (EntOps) EIE on a CygNet Service Host</p>
+        <p class="HeadingProcedure">Step 1: Install the Driver File</p>
+        <ol>
+            <li value="1">Copy the driver file:</li>
+            <ul>
+                <li value="1"> For the 32-bit driver file (UisEntOpsDeviceDriver.dll), copy to the <b>CygNet\Support</b> folder on the host server. </li>
+                <li value="2">For the 64-bit driver file (UisEntOpsDeviceDriver64.dll), copy to the <b>CygNet\Support64</b> folder. </li>
+            </ul>
+            <li value="2">
+                Register the file using <b>regsvr32.exe</b>:</li>
+        </ol>
+        <ul>
+            <ul>
+                <li value="1">For the 32-bit driver file, <b>regsvr32.exe</b> is located in <b>Windows\System32</b> on a 32-bit operating system, or in <b>Windows\SysWOW64</b> on a 64-bit operating system.</li>
+                <li value="2"> For the 64-bit driver file, <b>regsvr32.exe</b> is located in <b>Windows\System32</b> for either operating system.        </li>
+            </ul>
+        </ul>
+        <p class="HeadingProcedure">Step 2: Install the Editor File</p>
+        <p>The files involved in version management are the .rsp file (CxDdsEntOpsEditors.rsp) and the .rsq file (CxDdsEntOpsEditors.rsq). The.rsp file lists all required files for the Enterprise Operations EIE editor.</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, upload the editor file (CxDdsEntOpsEditors.dll) and the .rsp file (CxDdsEntOpsEditors.rsp) to the <b>Support</b> group in APPS.</li>
+            <li value="2">Download the .rsq file (CxDdsEditors.rsq)  from the <b>Support</b> group in APPS. </li>
+            <li value="3">Add a line to  the .rsq file (CxDdsEditors.rsq) that includes the name of the .rsp file for the EntOps editor <table class="Code"><tr><td><p class="Syntax">[SUPPORT]..\SUPPORT\CxDdsEntOpsEditors.rsp</p></td></tr></table> <img src="../../Resources/Images/Enterprise Objects/EntOpsEIE rsq.png" /></li>
+            <li value="4">Upload the edited .rsq file (CxDdsEntOpsEditors.rsq) to the <b>SUPPORT</b> group in APPS.</li>
+            <li value="5">Use the <a href="../Version Management/Touch BSS Utility.htm">TouchBSS utility</a> found in the <b>CygNet\Utilities</b> directory to update the timestamp for .rsp and .rsq files in APPS.</li>
+        </ol>
+        <p class="HeadingProcedure">Step 3: Perform Version Management for CygNet Explorer</p>
+        <ol start="1">
+            <li value="1">Close all instances of CygNet Explorer.</li>
+            <li value="2">Launch CygNet Explorer from the <b>CygNet Client Installer</b>  to perform version management.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

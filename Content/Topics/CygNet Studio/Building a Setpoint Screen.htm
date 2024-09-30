@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Building a Setpoint Screen</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Building a Setpoint Screen</span>
+        </div>
+        <h2>Building a Setpoint Screen</h2>
+        <p>The following example shows how to create a simple setpoint screen for changing the value of a specific point. </p>
+        <p>See <a href="SetPoint Button Tool.htm">SetPoint Button Tool</a> for more information about adding a configurable <b>SetPoint</b> button to a screen.</p>
+        <p class="HeadingProcedure">To Build a Setpoint Screen</p>
+        <ol start="1">
+            <li value="1">Open CygNet Studio. In the <b>File</b> menu, click <b>New</b> to create a blank screen.</li>
+            <li value="2">Click the <b>Text</b> tool button<img src="../../Resources/Images/CygNet Studio/TextToolIcon.png" class="Inline" /> and drag a text label on the screen.</li>
+            <li value="3">Right-click the text tool to display its properties.</li>
+            <li value="4">Type "New Value" for the <b>Text</b> property. For the <b>DisplayItem</b> property, choose <b>Text</b>.</li>
+            <li value="5">Click the <b>Edit Box</b> tool<img src="../../Resources/Images/CygNet Studio/EditBoxIcon.png" class="Inline" /> and drag an edit box next to the text tool.</li>
+            <li value="6">In the Edit Box’s properties, type "txtValue" for the <b>ObjectCode</b>.</li>
+            <li value="7">Click the <b>Button</b> tool<img src="../../Resources/Images/CygNet Studio/ButtonToolIcon.png" class="Inline" /> and drag a button below the text fields.</li>
+            <li value="8">In the Button’s properties, type "btnSetPoint" for the <b>ObjectCode</b> and "Setpoint" for the <b>Text</b> property. For <b>ButtonType</b>, choose <b>Standard</b>.</li>
+            <li value="9">Right-click an empty area of the screen to open properties for TheView. Enter "Setpoint Dialog" for the <b>Title</b> property.</li>
+            <li value="10">Press <b>Ctrl+E</b> to run the screen (save the screen when prompted). Of course, nothing works at this point. The screen will look something like the following:</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/SetPointDialog.png" />
+        </p>
+        <ol start="11">
+            <li value="11">Press <b>Ctrl+E</b> again to return to Edit mode.</li>
+            <li value="12">Click the <img src="../../Resources/Images/Shared Images/scriptmode.png" /> icon in the <b>Layout</b> toolbar to open the script window for the screen.</li>
+            <li value="13">In the <b>Object</b> drop-down menu, choose btnSetPoint. This displays its EventClick procedure by default.</li>
+            <li value="14">Enter the following lines of code in this procedure. Replace <i>CYGDEMO.UIS:RTU1_PSTATIC</i> with relevant names for the tag string of any numeric-valued point.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub btnSetPoint_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnSetPoint</p>
+                    <p class="Code2">Dim strPoint</p>
+                    <p class="Code2">strPoint = "CYGDEMO.UIS:RTU1_PSTATIC"</p>
+                    <p class="Code2">Err.Clear</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Enable live mode (required for setpoint function)</p>
+                    <p class="Code2">EnableLiveMode(True)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Check text box value and execute setpoint if valid</p>
+                    <p class="Code2">If Not IsNumeric(txtValue.Text) Then</p>
+                    <p class="Code3">MsgBox "Enter a numeric value."</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">On Error Resume Next</p>
+                    <p class="Code2">SetPoint strPoint, CDbl(txtValue.Text)</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Check Err object for possible errors</p>
+                    <p class="Code2">If Err.Number &lt;&gt; 0 Then</p>
+                    <p class="Code3">MsgBox "Setpoint failed."</p>
+                    <p class="Code3">Exit Sub</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">MsgBox "Setpoint of " + strPoint + " succeeded."</p>
+                    <p class="Code">End If</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="15">
+            <li value="15">Press <b>Ctrl+E</b> to run the screen.</li>
+            <li value="16">Enter a value in the text box and click the <b>Setpoint</b> button.</li>
+            <li value="17">Open CygNet Explorer and navigate the point’s current value service to verify that the value was updated.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

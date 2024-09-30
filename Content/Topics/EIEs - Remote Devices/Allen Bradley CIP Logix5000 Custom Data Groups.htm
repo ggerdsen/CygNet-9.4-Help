@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Allen Bradley CIP EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Allen Bradley CIP – Creating Logix5000 Custom Data Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Allen Bradley CIP EIE.htm">Allen Bradley CIP EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Creating Logix5000 Custom Data Groups</span>
+        </div>
+        <h2>Creating Logix5000 Custom Data Groups</h2>
+        <p>Data groups for a Logix5000 controller (<code>CIP_Protocol="Native"</code>) must be defined
+on a case-by-case basis.</p>
+        <p>You must create data groups that satisfy the following requirements:</p>
+        <ul>
+            <li value="1">They must map to data items (that is, controller-scoped tags) that exist on associated
+field devices.</li>
+            <li value="2">They must structure data for optimized use in a CygNet SCADA system. For
+example, group data items to be polled frequently with other such
+data items.</li>
+        </ul>
+        <p>Controller-scoped tags are considered "global" to a controller; only global tags are accessible
+to the <b>Allen Bradley CIP EIE</b>. Program-scoped tags are considered "local" to a program;
+local tags are not accessible to the Allen Bradley CIP EIE. Define data groups that
+map to global tags and represent only those data items on an associated Allen-Bradley
+device that you want to include in your CygNet SCADA system.</p>
+        <p>Tag names are the primary mapping element between CygNet SCADA data groups and
+Logix5000 data items. A tag is merely the name portion of a name-value pair that represents
+the output of an Allen-Bradley function. A CygNet SCADA device template file
+uses the XML element <a href="DataGroupElement Element.htm#tagname">tagname</a> to correlate a CygNet SCADA data point with an Allen-
+Bradley tag.</p>
+        <p>Allen-Bradley configuration software (RSLogix 5000) enables you to output a CSV file
+with all global tags and corresponding data types. This file might help speed up your device template file creation.</p>
+        <p class="HeadingProcedure">To Create a Custom Data Group for CIP</p>
+        <ol>
+            <li value="1">Using a text editor of your choice (but not Notepad), open a new or existing device template file where <code>CIP_Protocol="Native"</code> is defined.</li>
+            <li value="2">Define a data group element, including a data group name and description.<ol style="list-style-type: lower-alpha;"><li value="1">Define a <b>dgElements</b> element.</li><li value="2">Define data group elements to meet your needs.<ul><li value="1">Each must be uniquely named.</li><li value="2">Each must map to a tag on the associated field device by correctly defining a <a href="DataGroupElement Element.htm#tagname">tagname</a> attribute.</li></ul></li><li value="3">Save your edits.</li></ol></li>
+            <li value="3">When you are done editing the template, use the <a href="../Devices/CygNet Device Template Manager Utility.htm">CygNet Device Template Manager</a> utility (DtfMgr.exe) to check your work, then load the template to the applicable Device Definition Service (DDS), and test it by reading and/or writing values.</li>
+        </ol>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the element</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;DateTime niceName="DateTime" dgProtocol="Native" canSend="true" canRecv="true" uccSend=" true" uccRecv="true" devDG="true" baseOrd="0" maxCnt="1" udcCat="~UDCALL" udcDefFac="true"&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4" type="i4"&gt;</p>
+                            <p class="Code3">&lt;Year desc="Controller Time Year" <span style="background-color: #b0c4de;">tagname</span>="ControllerTime.Yr" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;Month desc="Controller Time Month" tagname="ControllerTime.Mo" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;Day desc="Controller Time Day" tagname="ControllerTime.Da" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;Hour desc="Controller Time Hour" tagname="ControllerTime.Hr" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;Minutes desc="Controller Time Minutes" tagname="ControllerTime.Min" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;Seconds desc="Controller Time Seconds" tagname="ControllerTime.Sec" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;DtComp desc="Date Time" type="string" isRef="1"&gt;</p>
+                            <p class="Code4">&lt;ref prec="0" refOp="opTimeComp" deidYear="Year" deidMonth="Month"deidDay="Day" deidHour="Hour" deidMinute="Minutes" deidSecond="Seconds"/&gt;</p>
+                            <p class="Code4">&lt;ref prec="1" refOp="opFormat" format="DateTime"/&gt;</p>
+                            <p class="Code3">&lt;/DtComp&gt;</p>
+                            <p class="Code3">&lt;DtString desc="Date Time (string)" tagname="DateTimeString" type="string" len="32"/&gt; <b style="font-style: italic;">Note</b>: <i>The "len" attribute is optional. Maximum allowed string length is 470.</i></p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/DateTime&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

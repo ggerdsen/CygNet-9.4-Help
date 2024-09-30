@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Well Test">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring CygNet Well Test</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Well Test.htm">Well Test</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring CygNet Well Test</span>
+        </div>
+        <h2>Configuring CygNet Well Test</h2>
+        <p>While each production environment is unique in its configuration, the following steps provide a basic guideline for configuring and executing well test actions. Perform the following steps to install the necessary system components, create a CygNet well test configuration, and execute the test action to generate well test results.</p>
+        <ol>
+            <li value="1"><b>Install the CygNet license file with Well Test enabled</b>
+            </li>
+        </ol>
+        <p class="Indent2">Acquire the appropriate CygNet Well Test license file from your CygNet Sales account manager. Apply the license file to the Address Resolution Service (ARS) that is designated as the <a href="../License Management/License Master.htm">License Master</a> for your installation. </p>
+        <p class="Indent2">A license check will be performed when you open the CygNet Well Test Configuration plugin (<b>CygNet.API.WellTest.Controls.dll</b>) described below in <a href="#Plugin" class="selected">step 6</a>.</p>
+        <ol data-mc-continue="true">
+            <li value="2"><b>Install the CygNet Well Test Windows Service</b>
+            </li>
+        </ol>
+        <p class="Indent2">Using CInstall, install and launch the <b>CygNet Well Test Windows Service</b> application from the BIN BLOB folder. This will download the service executable to the <b>\Bin</b> directory and install a Windows service called <b>CygNet Well Test</b>.</p>
+        <p class="Indent2">See <a href="Well Test Components.htm#Service">CygNet Well Test Windows Service</a> for more information about this service.</p>
+        <ol data-mc-continue="true">
+            <li value="3"><b>Create the CygNet Well Test Windows Service Config File</b>
+            </li>
+        </ol>
+        <p class="Indent2">The service requires a Windows Service config file, which points to the configuration point that will contain the well test configuration XML (to be created in <a href="#Config" class="selected">step 7</a> below).</p>
+        <p class="Indent2">Using an XML or text editor create an XML file called "WellTestServiceConfig.xml" file and save it to the <b>\Bin</b> directory. The file should look like the following example. There can be one or more "Point" nodes that define from where the well test configuration XML will be loaded.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;WellTest&gt;</p>
+                    <p class="Code2">&lt;ConfigurationPoints&gt;</p>
+                    <p class="Code3">&lt;Point&gt;SITENAME.UIS:LONG_ID&lt;/Point&gt;</p>
+                    <p class="Code2">&lt;/ConfigurationPoints&gt;</p>
+                    <p class="Code">&lt;/WellTest&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <ol data-mc-continue="true">
+            <li value="4"><b>Configure the Well Test Configuration Point, Header Point, Header Queue Points, and other Well Test UDCs</b>
+            </li>
+        </ol>
+        <p class="Indent2">Using CygNet Explorer, create the well test configuration point in the PNT. Once the XML is created (in <a href="#Config" class="selected">step 7</a> below), you will save or copy the well test configuration XML into this point’s HyperPoint Script Text.</p>
+        <p class="Indent2">Also create the Header Point, Header Queue Points, any necessary well test UDCs. Make sure your well facility configurations are in order.</p>
+        <blockquote>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> There can be more than one configuration point.</p>
+            </div>
+        </blockquote>
+        <ol data-mc-continue="true">
+            <li value="5"><b>Configure the Relative Facilities File</b>
+            </li>
+        </ol>
+        <p class="Indent2">If you plan to reference relative facilities in your well test configuration, you will need to create a relative facilities definition file, prior to configuring the well test actions.</p>
+        <p class="Indent2">See <a href="Creating the Relative Facilities File.htm">Creating the Relative Facilities File</a> for more information about how to do this.</p>
+        <ol data-mc-continue="true">
+            <li value="6"><a name="Plugin"></a><b>Install the CygNet Well Test Configuration Plugin</b>
+            </li>
+        </ol>
+        <p class="Indent2">The <b>CygNet.API.WellTest.Controls.dll</b> is a plugin control assembly that can be made available for use in the Canvas application to allow the manual configuration of the well test configuration XML file. This plugin provides a user-friendly method for defining the necessary elements required to execute a well test via a Canvas screen. The plugin is in the <b>\Bin</b> directory.</p>
+        <p class="Indent2">Using this assembly and a well test configuration screen you can easily define the necessary well test properties: point scheme, data retention value, relative facilities, UDCs, headers, wells in the well test, header templates, positions, commands, and associated actions for each command.</p>
+        <p class="Indent2">See <a href="Configuring Well Test Using Canvas.htm">Configuring Well Test Using Canvas</a> for more information about installing the plugin.</p>
+        <ol data-mc-continue="true">
+            <li value="7"><a name="Config"></a><b>Configure the Well Test Configuration XML using Canvas</b>
+            </li>
+        </ol>
+        <p class="Indent2">The CygNet Well Test Module uses Canvas HMI screens to configure the well test actions. Several sample files have been provided to assist in this process. The well test sample files can be found on the CD_Image in the <b>Samples\Well Test</b> folder. You must copy the files from the CD_Image to a known location on your host server. See <a href="Sample Canvas Well Test Screens.htm">Sample Well Test Screens and Scripts</a> for more information.</p>
+        <p class="Indent2">Start with the sample screen <b>Well Test Configuration.can</b> to create the XML required to execute well test.</p>
+        <p class="Indent2">See <a href="Configuring Well Test Using Canvas.htm">Configuring Well Test Using Canvas</a> for more information about configuring the well test configuration XML.</p>
+        <ol data-mc-continue="true">
+            <li value="8"><b>Optional. Write the Well Text Configuration XML</b>
+            </li>
+        </ol>
+        <p class="Indent2">Alternately, if you prefer to work in the raw XML, use an XML or text editor to write the XML configuration to perform the well test actions.</p>
+        <p class="Indent2">See <a href="Configuring Well Test Using XML.htm">Configuring Well Test Using XML</a> for more information about the XML elements and attributes, and code examples.</p>
+        <ol data-mc-continue="true">
+            <li value="9"><b>Save/Copy the XML to the Well Test Configuration point in the PNT</b>
+            </li>
+        </ol>
+        <p class="Indent2">The XML configuration must be saved to the well test configuration point before executing the well test. This can be done automatically using the <b>Well Test Configuration.can</b> screen or saved manually via CygNet Explorer.</p>
+        <ol data-mc-continue="true">
+            <li value="10"><b>Test the Well Test Configuration</b>
+            </li>
+        </ol>
+        <p class="Indent2">The CygNet Well Test Module uses Canvas HMI screens to execute and visualize well test status and well detail information. The well test sample files can be found on the CD_Image in the <b>Samples\Well Test</b> folder. You must copy the files from the CD_Image to a known location on your host server.</p>
+        <p class="Indent2">The sample Canvas screens supplied with CygNet can be used to help test the well test configuration.</p>
+        <p class="Indent2">See <a href="Sample Canvas Well Test Screens.htm">Sample Well Test Screens and Scripts</a> for instructions on customizing the screens for your test environment. Also included in that section is a description on how to use the screens to interact with the well test process.</p>
+        <p class="Indent2">To test the configuration:</p>
+        <blockquote>
+            <blockquote>
+                <ul>
+                    <li value="1">Select a test facility to test</li>
+                    <li value="2">Add a well (or wells) to the queue</li>
+                    <li value="3">Start the queue</li>
+                    <li value="4">Verify that the actions work as expected</li>
+                </ul>
+            </blockquote>
+        </blockquote>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring Well Test Using Canvas.htm" class="More">Configuring Well Test Using Canvas</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring Well Test Using XML.htm" class="More">Configuring Well Test Using XML</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Creating the Relative Facilities File.htm" class="More">Creating the Relative Facilities File</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

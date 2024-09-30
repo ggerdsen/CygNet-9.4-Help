@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Logging">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Logging</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Logging.htm">Logging</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Logging</span>
+        </div>
+        <h2>Configuring Logging</h2>
+        <p>Logging is configured on a per service basis for each CygNet service, by setting the values of several keywords  in its service configuration file. Some logging options can also be entered via <a href="#CLI" class="selected">command-line parameters</a>.</p>
+        <h3>Service Configuration Files</h3>
+        <p>The service configuration file (<i>Service</i>.cfg) for each service is located in the <b>CygNet\Services\<i>Service</i></b> folder on your host server. In the file, use the following keywords to define logging for your service.</p>
+        <ul>
+            <li value="1">In the <a href="#Associat" class="selected">Associated Services</a> section of the file, the <b>ELS</b> keyword  specifies the name of the <b>Event Logging Service</b> to which information is written.</li>
+            <li value="2">In the <a href="#Logging" class="selected">Logging Keywords</a> section of the file, a group of keywords together specify what type(s) of events are logged, and specify log file maintenance details.
+    <p><img src="../../Resources/Images/Logging/els_keywords.png" /></p></li>
+        </ul>
+        <p>See <a href="../Service Configuration Keywords/Service Configuration Keywords.htm">Service Configuration Keywords</a> for each Service for more information about using these keywords.</p>
+        <h4><a name="Associat"></a>Associated Services ELS Keyword</h4>
+        <p>Associated Services keywords include an <b>ELS</b> keyword. </p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Definition</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ELS</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The Site and Service name of the service’s ELS,  in <i>Site.Service</i> format.</p>
+                </td>
+            </tr>
+        </table>
+        <p>Use this keyword value to specify the ELS or ELSALM to which log files for your service will be written. Type in the desired ELS Site and Service name, in <i>Site.Service</i> format, and save the file.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The logging keyword that defines the logging retention period (the number of days an ELS retains logging information) is a configuration parameter of the associated ELS, and is specified within that ELS service configuration file. See the <b>Retention Period Keywords</b> for <a href="../Service Configuration Keywords/ELS Configuration File Keywords.htm#Retentio">ELS</a> and for <a href="../Service Configuration Keywords/ELSALM Configuration File Keywords.htm#Retentio">ELSALM</a> for more information.</p>
+        </div>
+        <h4><a name="Logging"></a>Other Logging Keywords</h4>
+        <p>Logging keywords include LOGMASK and LOGFILE types. Use these keywords in conjunction with one another to specify logging behavior for the selected service.</p>
+        <h5>LOGMASK Keywords</h5>
+        <p>The LOGMASK keywords define what types of events are written to the designated logging service and to the service log files.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Definition</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="LOGMASK_ELS"></a>LOGMASK_ELS</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the types of service events to be logged to the associated ELS (specified in the <b>ELS</b> keyword). To disable logging to the ELS,  comment out the <b>ELS</b> keyword for the selected service. See the <b style="font-style: italic;">Note</b> below this table for more information about the keyword values.</p>
+                    <p>See <a href="#LOGMASK_ELS" class="selected">LOGMASK_ELS</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGMASK_ELS</a>	(	LMask ELS) info item will report the value of this keyword.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="LOGMASK_FILE"></a>LOGMASK_FILE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the type(s) of service events to be logged to the service’s log file (<i>[file name]</i>.log). During the current session of the service, data is written to the current log file. Log file names follow the naming convention of the selected logging mode (as set by the <b>LOGFILE_MODE</b> keyword value). See the <b style="font-style: italic;">Note</b> below this table for more information about the keyword values.</p>
+                    <p>See <a href="#LOGMASK_FILE" class="selected">LOGMASK_FILE</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGMASK_FILE</a>		(LMask File) info item will report the value of this keyword.</p>
+                </td>
+            </tr>
+        </table>
+        <p>For each LOGMASK keyword (LOGMASK_ELS&#160;or LOGMASK_FILE), use the following values to specify the type(s) of information to log to that location. Valid keyword values can be used alone or in combination. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Use the following keyword values to set  logging     options for the LOGMASK_ keywords.</p>
+            <ul>
+                <li value="1"><b>LOG_ALL</b> - logs all options. This is the highest level of logging and will log everything the service is programmed to log.    </li>
+                <li value="2"><b>CONTROL</b> - logs control operations, such as startups, shutdowns and UIS operational events, etc.     </li>
+                <li value="3"><b>ENTER_EXIT</b> - logs every entry and exit through functions. This is used primarily by a programmer to debug code, and is too verbose for the ELS (not applicable for LOGMASK_ELS).</li>
+                <li value="4"><b>EXCEPTIONS</b> - logs all exceptions thrown, not all of which are severe. An exception is an unexpected event occurring during execution of the service. It could be the result of a configuration error, an invalid command parameter, a bug, etc.</li>
+                <li value="5"><b>MAX_TRACE</b> - more verbose logging than MIN_TRACE. This is used primarily by a programmer to debug code, and is too verbose for the ELS (not applicable for LOGMASK_ELS).</li>
+                <li value="6"> <b>MIN_TRACE</b> - used primarily by a programmer to debug code.</li>
+                <li value="7"><b>PROG_STAT</b> - typically used to monitor the progress of the code through some logical steps. Some services, like the GNS, use it to add to the logging of the notifications, acknowledgments, and operations.</li>
+                <li value="8"><b>STATISTICS</b> - enables gathering and reporting of message processing statistics.</li>
+                <li value="9"><b>WARNING</b> - logs anomalies, not as serious as exceptions.</li>
+            </ul>
+        </div>
+        <p class="Example">Example</p>
+        <p class="Indent">A value for <b>LOGMASK_ELS</b> might be <b>CONTROL</b> + <b>EXCEPTIONS</b>.</p>
+        <p class="Indent">A value for <b>LOGMASK_FILE</b> might be <b>CONTROL</b> + <b>EXCEPTIONS</b> + <b>WARNING</b> + <b>PROG_STAT</b>.</p>
+        <h5>LOGFILE Keywords</h5>
+        <p>The LOGFILE keywords work together to define the way log file sets are maintained by the service.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Definition</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="LOGFILE_FILE_COUNT"></a>LOGFILE_FILE_COUNT</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the maximum number of log files that a service will create before it starts re-using log files. For example, a count of two will produce SVC001.log, then SVC002.log, and then start back at SVC001.log, where SVC is the name of the service. Specify any value from <b>2</b> to <b>100</b>.</p>
+                    <p>See <a href="#LOGFILE_FILE_COUNT" class="selected">LOGFILE_FILE_COUNT</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGFILE_FILE_COUNT</a>	(File Cnt) info item will report the value of this keyword.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="LOGFILE_FILE_SIZE"></a>LOGFILE_FILE_SIZE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>When the value of the <b>LOGFILE_LIMIT_MODE</b> keyword is set to <b>SIZE</b>, this keyword specifies the maximum size (in megabytes) allowed for a log file, before logging will be continued using the next log file. Possible maximum size values are user-determined, respecting the limits of your specific system configuration. The default value is <b>100</b> megabytes. When the specified limit is reached, the log finishes the current line, closes the current file, and then continues logging in the next available log file.</p>
+                    <p>See <a href="#LOGFILE_FILE_SIZE" class="selected">LOGFILE_FILE_SIZE</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGFILE_FILE_SIZE</a> (File Size) info item will report the value of this keyword.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="LOGFILE_LIMIT_MODE"></a>LOGFILE_LIMIT_MODE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies how to limit the size of each individual log file. Options are <b style="font-style: italic;">LINE</b> (maximum line count is determined by the <b>LOGFILE_LINE_COUNT</b> keyword) or <b style="font-style: italic;">SIZE</b> (maximum file size in megabytes) determined by the <b>LOGFILE_FILE_SIZE</b> keyword). </p>
+                    <p>The default value is <b style="font-style: italic;">LINE</b>.</p>
+                    <p>See <a href="#LOGFILE_LIMIT_MODE" class="selected">LOGFILE_LIMIT_MODE</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGFILE_LIMIT_MODE</a> 	(Limit Mode) info item will report the value of this keyword.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="LOGFILE_LINE_COUNT"></a>LOGFILE_LINE_COUNT</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>When the value of the <b>LOGFILE_LIMIT_MODE</b> keyword is <b style="font-style: italic;">LINE</b>, this keyword specifies the maximum number of lines per log file. When the specified line count is reached, the log file is truncated at the limit point, and logging is resumed using the next available log file. Specify any value from <b>1000</b> to <b>1000000</b>.</p>
+                    <p>See <a href="#LOGFILE_LINE_COUNT" class="selected">LOGFILE_LINE_COUNT</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGFILE_LINE_COUNT</a>	(Line Cnt) info item will report the value of this keyword.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="LOGFILE_MODE"></a>LOGFILE_MODE</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the operational mode for the log file, that is, how log files are maintained. Options are <b style="font-style: italic;">LEGACY</b> or <b style="font-style: italic;">EXTENDED</b>. The default value is <b style="font-style: italic;">LEGACY</b>. </p>
+                    <p>See <a href="#LOGFILE_MODE" class="selected">LOGFILE_MODE</a> in the <b>Logging</b> section of this Help for more information.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#LOG_INFOITEMS">LOGFILE_MODE</a>	(Logging Mode) info item will report the value of this keyword.</p>
+                    <h6><b>LEGACY</b>
+                    </h6>
+                    <p>In <b style="font-style: italic;">LEGACY</b> mode two log file sets are maintained: the current log file set and the previous log file set. When a service is stopped and restarted, a new log file is generated and log files from the previous session are renamed as follows:</p>
+                    <ul class="table">
+                        <li value="1"> The current log file is named <i>Service</i>001.log (for example, UIS001.log) and is populated up to the LOGFILE_FILE_COUNT and   configured file limits (the value of either the maximum LOGFILE_LINE_COUNT or LOGFILE_FILE_SIZE, as determined by the LOGFILE_LIMIT_MODE value.).</li>
+                        <li value="2">The previous log file set is renamed by prepending the file name(s) with a tilde (for example, the previous UIS001.log becomes <b>~</b>UIS001.log). Once another service restart occurs, these tilde files are no longer maintained, and are replaced by the subsequent file set.</li>
+                    </ul>
+                    <h6><b>EXTENDED</b>
+                    </h6>
+                    <p>In <b style="font-style: italic;">EXTENDED</b>&#160;mode multiple log file sets are created and maintained: the current log file set and multiple previous log file sets, up to the limits specified by the LOGFILE_FILE_COUNT and either the LOGFILE_LINE_COUNT  or LOGFILE_FILE_SIZE keywords.</p>
+                    <p>When a service is stopped and restarted, the most recent log file is opened to resume logging with current information. A new log file is created only when the LOGFILE_LINE_COUNT  or LOGFILE_FILE_SIZE for the file is exceeded, as follows:</p>
+                    <ul class="table">
+                        <li value="1">The current log file is named <i>Service</i>.log (for example, UIS.log)  and is populated up to the value of either the maximum LOGFILE_LINE_COUNT or LOGFILE_FILE_SIZE, as determined by the LOGFILE_LIMIT_MODE value.</li>
+                        <li value="2">Previous log files are renamed <i>Service</i>001.log, <i>Service</i>002.log (for example, UIS001.log, UIS002.log), and so on, up to the  LOGFILE_FILE_COUNT limit, with the highest number assigned to the oldest log file. Once the LOGFILE_FILE_COUNT limit is exceeded, the oldest log file is overwritten.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <p><a name="CLI"></a>
+        </p>
+        <h3>Command-Line Parameters</h3>
+        <p>Use the following standard command-line parameters to control log file creation.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">/MAX_LOG_FILES:&lt;maximum_number_of_log_files&gt;</p>
+                    <p class="Code">&#160;</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="Code">/MAX_LOG_LINES:&lt;maximum_number_of_log_file_lines&gt;</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/MAX_LOG_SIZE:&lt;maximum_size_of_log_file&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The log file is written to the current working directory.</p>
+        <p>The following standard command-line logging level parameters can also be used to define log file content.</p>
+        <table class="Code">
+            <col style="width: 156px;" />
+            <tr>
+                <td>
+                    <p class="Code">/LOG_ALL</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_NONE</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_CONTROL</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_EXCEPTIONS</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_WARNING</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_PROG_STAT</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_MIN_TRACE</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_MAX_TRACE</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_ENTER_EXIT</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_STATISTICS</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_PROFILE_MIN</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">/LOG_PROFILE_MAX</p>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> These options apply to most clients, services, and utilities. All options may not apply to all usages.</p>
+        </div>
+        <p>See <a href="Service Log Settings.htm">Service Log Settings</a> and <a href="Client Log Settings.htm">Client Log Settings</a> for more information about applicable logging options.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Installing and Deleting Services</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Services.htm">Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installing and Deleting Services</span>
+        </div>
+        <h2>Installing and Deleting Services</h2>
+        <p>The following procedures explain how to install and add a single new service to an existing system, and they explain how to delete a single service from an existing system.</p>
+        <p>If you are upgrading an <u>existing</u> CygNet system and do not already have the desired service installed on your host, you must manually install and add the service in order for it to become available. If you do not already have the service installed, performing an upgrade does not automatically install it, even though its files are included in the upgrade source files. Once you've manually installed and added the service to your existing system, future system upgrades will upgrade the service.</p>
+        <p>This procedure focuses on how to install a single instance of a service, but in some cases you can install and add multiple new services in a similar way. See service-specific documentation for more details about installing multiple kinds of the same service on a site.</p>
+        <p>If you are installing a service to a <u>new machine</u>, make sure that you perform the following steps, whenever relevant:</p>
+        <ul>
+            <li value="1">Acquire a license to run the new service on the new machine.</li>
+            <li value="2">Install <a href="../System Administration/Microsoft Core XML Services.htm">MSXML6</a> on the machine.</li>
+            <li value="3">Copy DCLND.dll to the <b>CygNet\Support</b> folder or DCLND64.dll to the <b>CygNet\Support64</b> folder.</li>
+            <li value="4">Add a Remote Service Manager (RSM) to your new machine and site so that you can control the new service(s) from CygNet Explorer.</li>
+            <li value="5">If you are adding a UIS, you must add a correlating DDS. A UIS and a DDS always have a 1:1 relationship.</li>
+            <li value="6">If you are adding a UIS, you must create a <b>Support</b> folder, and you must add and register the relevant drivers.</li>
+        </ul>
+        <p>Although all CygNet services may be installed at once during a fresh installation, the procedure below does <u>not</u> apply to such a scenario. </p>
+        <p>For a fresh <span class="CygNetVariablesSoftwareName">CygNet Software</span> installation, services are selected by default in the <b>CygNetSCADAServicesSetup.exe</b>. See the <i><a href="../../Resources/PDF_Repository/CygNet_94_Quick_Start.pdf" target="_blank">CygNet Quick Start</a></i> document or contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> to  access resources to assist with  initial CygNet Software installation.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A service name can contain up to 8 alphanumeric characters. Valid alphanumeric characters are: A through Z (uppercase); 0 through 9; underscore ( _ ); dollar sign ($); and exclamation point (!).</p>
+        </div>
+        <p class="HeadingProcedure">To Install and Add a Service</p>
+        <ol>
+            <li value="1">Using Windows Explorer, open your <b>CygNet\Services</b> directory and create a  new service folder there. (<u>Optionally</u>, create two new folders on different drives: one for executables and one for data.)</li>
+            <li value="2">Copy the required <a href="Startup Files.htm">service start-up files</a> to your new <b>Services\<i>XXX</i></b> folder.</li>
+            <li value="3">Edit the service .cfg file in one of the following two ways:<ul><li value="1">Use the <a href="Configuration File Manager.htm">Config File Manager</a>.</li><li value="2">Use a text editor to manually edit the file. For instance, replace relevant instances of XXX with the correct site name for the service. See also <a href="Service Configuration Files.htm">Configuration File Keywords</a>.</li></ul></li>
+            <li value="4">Add the new service to the relevant Address Resolution Service (ARS).<ol style="list-style-type: lower-alpha;"><li value="1">Using CygNet Explorer, open the ARS, right-click in its service pane, and click <b>New</b>.</li><li value="2">In the <b>New Service</b> dialog box, select the <b>Service Type</b>. See <a href="../Address Resolution Service/ARS Service Types.htm">ARS Service Types</a>.</li><li value="3">Type the <b>Site</b> and <b>Service</b> names.</li><li value="4">Type a <b>Description</b> for the service and click <b>OK</b>.</li></ol></li>
+            <li value="5">Add the new service to the Remote Service Manager (RSM).<ol style="list-style-type: lower-alpha;"><li value="1">Using CygNet Explorer, open the RSM, right-click in its service pane, and click <b>New</b>.</li><li value="2">In the <b>New RSM&#160;Entry</b> dialog box, select the new service and confirm or alter its default settings.</li><li value="3"><u>Optional</u>: If the service executable  and data folders are not under the same <b>Services</b> folder, type their   directory paths in the <b>Executable</b> and <b>Data</b> fields respectively.</li><li value="4"><u>Optional</u>: Click <b>Automatic Service Recovery…</b> and <a href="../Automatic Service Recovery/Automatic Service Recovery.htm">configure recovery settings</a>.</li><li value="5">Click <b>OK</b> to save RSM settings.</li></ol></li>
+            <li value="6">Once the service is added to the RSM, right-click its entry in the RSM and click <b>Start</b>.</li>
+            <li value="7">Add security settings for the new service. See <a href="../Security/Implementing Security.htm">Implementing Security</a>.</li>
+            <li value="8">Associate  other services  with the new service. Which service(s)&#160;you associate depends on the service(s) involved. See specific service documentation for more information.<ol style="list-style-type: lower-alpha;"><li value="1"><a name="a-f"></a>Using Windows Explorer, open your <b>CygNet\Services</b> directory and locate the associated service folder.</li><li value="2">Open the associated service folder, and open the configuration file found there.</li><li value="3">Go to the <b>Associated Services</b> section of the .cfg file and either un-comment-out the service entry or add a service entry in the same format as other associated services.</li><li value="4">Save and close the .cfg file.</li><li value="5">In CygNet Explorer, go to the RSM, locate the affected associated service in the service pane, right-click it, and click <b>Restart</b>. This completes the association process.</li><li value="6">Repeat <a href="#a-f" class="selected">steps a - e</a> for each associated service.</li></ol></li>
+            <li value="9">Now that your new service is installed and added, configure it to suit your needs. See specific service documentation for more information.</li>
+        </ol>
+        <p class="HeadingProcedure">To Delete a Service</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, go the relevant RSM, right-click the service you want to delete, and click Service Control &gt; <b>Stop</b>.</li>
+            <li value="2">In the same RSM, right-click the service you want to delete and click <b>Delete</b>.</li>
+            <li value="3">Using CygNet Explorer, go the relevant ARS, right-click the service you want to delete, and click <b>Delete</b>.</li>
+            <li value="4">Using Windows Explorer, delete the service's folder from your CygNet &gt; Services directory, and then delete any applicable back-up files and/or folders.</li>
+            <li value="5">Depending on the service deleted and your goals, there might be additional items to delete in your CygNet system. For instance, records related to the deleted service might be stored in associated services; these old records might need to be deleted as well.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

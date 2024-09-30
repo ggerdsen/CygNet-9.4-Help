@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="General Contract Monitor">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>General Contract Monitor Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="General Contract Monitor.htm">General Contract Monitor</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">General Contract Monitor Overview</span>
+        </div>
+        <h2>General Contract Monitor Overview</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Warning:</span> An advanced understanding of your CygNet system and your meters is required to implement GCM. Carefully plan your group and facility requirements before proceeding to install and configure this component.</p>
+        </div>
+        <p>The General Contract Monitor (GCM)&#160;architecture follows a relatively straightforward tree structure or navigation hierarchy for the meters being analyzed by the system. The tree has a root facility that branches down to its various navigational nodes, which include both meter stations and meter runs. Data originates at points in the meter runs on meter stations and travels up through nodes in this tree structure. The GCM can be configured to make calculations and rollups at various places along a branch, depending on your enterprise needs.</p>
+        <h3>GRP&#160;and FAC Configuration Requirements</h3>
+        <p>The GCM is a unique CygNet component that works in conjunction with other standard CygNet services. These dependencies mean that you must first meet Group Service (GRP) and Facility Service (FAC)&#160;requirements before installing and configuring your GCM device component. The Group service provides a blueprint for your GCM tree structure, while the Facility service provides a way to assign discrete nodes to this structure.</p>
+        <h4><a name="Group"></a>Group Service Requirements
+		</h4>
+        <p>The GCM uses a <a href="../Groups/Groups.htm">GRP</a> parent-child hierarchy to determine what gets calculated and to populate the CygNet GCM Nomination Grid with this data. The navigational hierarchy that defines these relationships must be configured in the GRP via the <a href="../Groups/Group Hierarchy Manager Utility.htm">Group Manager (GrpMgr)</a> utility before the GCM application can be used.	</p>
+        <h4><a name="Facility"></a>Facility Service Requirements
+		</h4>
+        <p><a href="../Facilities/Facilities.htm">Facilities</a> must be created, configured, and properly located for each level of your hierarchy, according to your enterrpise needs. Facilities in the navigational hierarchy must also meet certain criteria before they can be displayed in the CygNet GCM Nomination Grid. Default filters provide a basic guide to assigning facilities as navigation nodes, meter stations, and meter runs, but other filters and facilities can be created to suit your needs. Be careful to ensure that no required facilities are accidentally excluded from your hierarchy.</p>
+        <h4>Hierarchy Requirements</h4>
+        <p>Keep the following things in mind when creating your group hierarchy and assigning facilities to it:</p>
+        <ul>
+            <li value="1">You cannot move children nodes around in your hierarchy in GrpMgr once they are created. To reorder a hierarchy, you must create a new node in the correct place and delete the old one.</li>
+            <li value="2">Create a root facility and all required child facilities.</li>
+            <li value="3">All branches in a given hierarchy must end at the same node type. For instance, if one branch in a hierarchy ends with meter run nodes, all other branches in that hierarchy must also end in meter runs.</li>
+            <li value="4">Because all branches in a given hierarchy must end at the same node type, it is possible that certain nodes form other separate hierarchies. For instance, if a meter station in one hierarchy has children, but it is the only node in that hierarchy with children, it forms its own hierarchy. When a search is performed for this node's children, all other hierarchies on the Group service are searched for children of its facility. The first hierarchy that is found to have children for the facility is used.</li>
+            <li value="5">Branches end when they reach a meter station, unless there is a meter run below the meter station, then it ends at the meter run. If there is a meter station below another meter station, the child meter station is not considered.</li>
+            <li value="6">Branches must lead to active meter stations. Inactive meter stations or branches that do not include meter stations are not considered.</li>
+            <li value="7">A facility description in GRP cannot be (All…). (All…) indicates rollups.</li>
+        </ul>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Installing the GCM EIE.htm"> Installing the GCM EIE</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Setting Up a GCM System.htm"> Setting up a GCM System</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

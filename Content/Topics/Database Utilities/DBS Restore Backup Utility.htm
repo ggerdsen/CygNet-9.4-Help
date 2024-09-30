@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Storage|Database Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DBS Restore Backup Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Data Storage/Data Storage in CygNet.htm">Data Storage</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Database Utilities.htm">Database Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DBS Restore Backup Utility</span>
+        </div>
+        <h2>DBS Restore Backup Utility</h2>
+        <p>The <b>DBS Restore Backup</b> utility (DBSRestoreBackup.exe) is a command-line utility used to restore a database backup file from a <a href="../Data Storage for DBS-Based Services/Data Storage for DBS-Based Services.htm">DBS-based service</a>. This utility can be used to restore the database backup and apply any committed transactions between the time of the automatic backup and the time of database failure. The utility can also be used to restore a database to the state it was in at the time of the last successful backup.</p>
+        <p>Several optional parameters are provided to specify where to restore the backup to, where a backup is located, and the path to the service configuration file (to read the backup path). If no parameters are provided, then the current directory is where the restored database will be placed, using the configuration file in the current directory, and the backup path specified in the file. You are able to explicitly define each of the three pieces of information used to restore a backup: restore_from, restore_to, and config file path.</p>
+        <p>Be aware that this utility restores data from the data files only; it does not restore service files (configuration, executable, data dictionary, and metadata files).</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> See <a href="../Data Storage for DBS-Based Services/Hard Recovery.htm">Hard Recovery</a> for more information about how hard recovery works in ESE-based datastores.</p>
+        </div>
+        <h5>Service Status</h5>
+        <p>If you are restoring the database to the service’s data directory, the service must be stopped when running the utility. However, if you are restoring the database to a different location using the <b>/RESTORE_TO:</b> parameter, the service can be running. See <a href="#/restore" class="selected">/RESTORE_TO: Parameter</a> below.</p>
+        <h5>Backup Files and Directory</h5>
+        <p>A database service backup directory is comprised of the root directory and a child directory named <b>databackup</b>. The root directory is the location to which the service definition files are backed up. These files include the configuration file (.cfg), Data Dictionary File (.ddl), and any metadata files. The <b>databackup</b> directory has a subdirectory named <b>new</b>. This directory contains the backed-up data files which include the data, index, temporary storage, and any transaction (tx) log files that have been backed-up as the result of an incremental backup. The <b>new</b> directory is created as part of the atomic backup process.</p>
+        <h5>Backup Flag</h5>
+        <p>A DBS-based service backup file is automatically flagged with a bit set in the file header. This flag must exist in the backup file for the DBS Restore Backup utility to recognize and restore the file. The utility will fail if the flag is missing from the backup file. For example, if a service has been stopped and the database is copied to another location, a DBSRestoreBackup for the copied database file would fail, because the file has not been flagged as a backup file. </p>
+        <h3>Syntax</h3>
+        <p class="Syntax">DBSRestoreBackup [/RESTORE_TO:&lt;directory&gt;] [/RESTORE_FROM:&lt;directory&gt;] [/SNAPSHOT [/PURGE_TXLOGS]] [CFG_FILE]</p>
+        <p>Depending upon the location where the command is being run, the command line may need to include the path to the utility and/or to the service configuration file.</p>
+        <p>If the utility is run from the service’s data directory, you must include the path to the utility.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Services\ELS&gt;<span style="color: #0000ff;">C:\CygNet\Utilities\DBSRestoreBackup</span></p>
+                </td>
+            </tr>
+        </table>
+        <p>If the utility is not run from the service’s data directory, you must include the <b>CFG_FILE</b> parameter to specify the location of the service configuration file. This is because the location of the backup directory and the <b>txlogs</b> directory is read from the service configuration file.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Utilities&gt;<span style="color: #0000ff;">DBSRestoreBackup C:\CygNet\Services\ELS\Els.cfg</span></p>
+                </td>
+            </tr>
+        </table>
+        <p>If the utility has been copied to the service’s data directory, neither path is required.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Services\ELS&gt;<span style="color: #0000ff;">DBSRestoreBackup</span></p>
+                </td>
+            </tr>
+        </table>
+        <h3>DBS Restore Backup Parameters</h3>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        Parameter
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        Definition
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>/RESTORE_TO:&lt;directory&gt;</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>An optional parameter that tells the utility where to restore the backup. See <a href="#/restore" class="selected">/RESTORE_TO: Parameter</a> below for more information.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span>
+                        </p>
+                        <p class="Note">There is no space between the colon after "/RESTORE_TO" and the directory name.</p>
+                        <p class="Note">If the name of the restore directory contains a space, the path must be enclosed in quotation marks.</p>
+                        <p class="Note">The default is the same directory as CFG_FILE.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>/RESTORE_FROM:&lt;directory&gt;</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>An optional parameter that tells the utility where the backup is located.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span>
+                        </p>
+                        <p class="Note">There is no space between the colon after "/RESTORE_FROM" and the directory name.</p>
+                        <p class="Note">If the name of the restore directory contains a space, the path must be enclosed in quotation marks.</p>
+                        <p class="Note">The default is the same directory as CFG_FILE.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>/SNAPSHOT</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>An optional parameter that tells the utility to restore the database to a point-in-time rather than the complete data set. Restore backup to the state it was at the last successful backup. See <a href="#/snapsho" class="selected">/SNAPSHOT Parameter</a> below for more information.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span>
+                        </p>
+                        <p class="Note">If omitted the utility will restore the complete data set.</p>
+                        <p class="Note">The default is to include changes since the last backup.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>/PURGE_TXLOGS</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>An optional parameter that tells the utility to delete the service's <b>txlogs</b> directory after a successful backup. See <a href="#/purge_t" class="selected">/PURGE_TXLOGS Parameter</a> below for more information.     </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span>
+                        </p>
+                        <p class="Note">This parameter can only be used in conjunction with the <b>/SNAPSHOT</b> parameter. </p>
+                        <p class="Note">If the <b>txlogs</b> directory is removed, subsequent      non-<b>/SNAPSHOT</b> restores from the same backup source will fail.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>CFG_FILE</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>An optional parameter to specify the  path and file name of the service configuration file to read. The default value is the configuration file in the current directory.</p>
+                </td>
+            </tr>
+        </table>
+        <h3>DBSRestoreBackup Command</h3>
+        <p>DBSRestoreBackup (without the <b>/SNAPSHOT</b> parameter) provides a method to restore the complete data set. The complete data set is comprised of the data in the backup files, as well as the data stored in transaction log files, which are located in the service’s <b>txlogs</b> directory (meaning that data generated after the last backup will be recovered as part of the restore).</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup1.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <p class="Example">Example 1</p>
+        <p class="Indent">In this example, the utility writes the data from the ELS backup directory to restored files in the ELS data directory, then writes the data from the transaction log files that reside in the ELS’s <b>txlogs</b> directory to the restored files.</p>
+        <p class="Indent">Since the command is being run from the ELS’s data directory the path to the utility is included in the command line.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Services\ELS&gt;<span style="color: #0000ff;">C:\CygNet\Utilities\DBSRestoreBackup</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup2.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <p class="Example">Example 2</p>
+        <p class="Indent">This example is the same as Example 1 except that the utility is being run from the <b>Utilities</b> directory. As such, it includes <b>CFG_FILE</b> parameter to specify the location of the service configuration file.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Utilities&gt;<span style="color: #0000ff;">DBSRestoreBackup C:\CygNet\Services\ELS\Els.cfg</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup2.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <h3><a name="/restore"></a>/RESTORE_TO: Parameter</h3>
+        <p>This optional parameter provides a method to restore the backup to a location other than the service’s data directory. Processing is the same as using <b>DBSRestoreBackup</b>; that is, it results in the restoration of the complete data set.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup3.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <p>Note that there is no space between the <b>/RESTORE_TO:</b> parameter and the path it specifies. If the path contains spaces, it must be enclosed in quotation marks. The utility will create the destination directory if it does not exist.</p>
+        <p class="Example">Example 3</p>
+        <p>In this example, the utility writes the data from the ELS backup directory to restored files in the <b>ELS_Restored</b> directory, then writes the data from transaction log files that reside the ELS’s <b>txlogs</b> directory to the restored files.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Services\ELS&gt;<span style="color: #0000ff;">C:\CygNet\Utilities\DBSRestoreBackup /RESTORE_TO:c:\els_restored</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup4.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <p class="Example">Example 4</p>
+        <p>In this example the name of the restore directory includes a space so the path is enclosed in quotation marks.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Utilities&gt;<span style="color: #0000ff;">DBSRestoreBackup /RESTORE_TO:"C:\Restored ELS"  C:\CygNet\Services\ELS\Els.cfg</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup5.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <h3><a name="/snapsho"></a>/SHAPSHOT Parameter</h3>
+        <p>This optional parameter provides a method to restore the database to a point-in-time rather than the complete data set. The point-in-time is the last full backup and any transaction log files that have been backed-up as the result of an incremental backup. The <b>/SNAPSHOT</b> restore does not include the data contained in the transaction log files stored in the service’s <b>txlogs</b> directory.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup6.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <p class="Example">Example 5</p>
+        <p class="Indent">In this example, the utility writes the data from the ELS backup directory to restored files in the ELS data directory. The data from the transaction log files in the service’s <b>txlogs</b> directory is not included.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Services\ELS&gt;<span style="color: #0000ff;">C:\CygNet\Utilities\DBSRestoreBackup /SNAPSHOT</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup7.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <h3><a name="/purge_t"></a>/PURGE_TXLOGS Parameter</h3>
+        <p>This optional parameter can be used <i>only</i> in conjunction with the <b>/SNAPSHOT</b> parameter. This parameter provides a method to delete the files stored in the service’s <b>txlogs</b> directory. Use this option if you want to ensure that the database is restored to a point-in-time and that no updates since the backup will be applied. If you do not purge the transaction log files, the data from the log files will be written to the database as part of its normal processing.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup8.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p>
+        <p>Be aware that if the <b>/PURGE_TXLOGS</b> parameter is used, then any subsequent backups that expect the files in the <b>txlogs</b> directory will fail. This is because when the purge is complete, there will be no transaction log files in the service <b>txlogs</b> directory. The service will create new transaction log files when it restarts, starting the log file numbering at 1.</p>
+        <p class="Example">Example 6</p>
+        <p>In this example, the utility writes the data from the ELS backup directory to restored files in the ELS data directory. Since the command is being run from the ELS’s data directory the path to the utility is included in the command line.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\CygNet\Services\ELS&gt;<span style="color: #0000ff;">C:\CygNet\Utilities\DBSRestoreBackup /SNAPSHOT /PURGE_TXLOGS</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="Image">
+            <img src="../../Resources/Images/Database Utilities/dbsrestorebackup9.png" title="DBS Restore Backup example" alt="DBS Restore Backup example" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

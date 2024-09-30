@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations|CygNet Business Object Operations">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Business Object Operations</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations.htm">Enterprise Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Business Object Operations.htm">CygNet Business Object Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Business Object</span>
+        </div>
+        <h2>Business Object Operations</h2>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Read Operations</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="#GetObjec" class="selected">GetObjects</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Retrieves Business Objects for a given interface.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="#GetObjec2" class="selected">GetObjectAttributeHistory</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Returns history records for a specified business object. </p>
+                </td>
+            </tr>
+        </table>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Write Operations</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="#UpdateOb" class="selected">UpdateObjects</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Updates a list of business objects, identified by their object keys.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="GetObjec"></a>GetObjects</h3>
+        <p>The GetObjects operation retrieves Business Objects for a given Business Object Interface.</p>
+        <p>The Request must include the following.</p>
+        <ul>
+            <li value="1">Either a filter or a list of keys to indicate which objects to retrieve</li>
+            <li value="2">A list of attributes to export</li>
+            <li value="3">A list of parameters as applicable (i.e. point-in-time)</li>
+        </ul>
+        <p>The Response will include the following.</p>
+        <ul>
+            <li value="1">All requested attributes for all Business Objects that meet the selection criteria</li>
+            <li value="2">Any errors that occurred</li>
+        </ul>
+        <p>The Request and Response must validate against an Enterprise Operations EIE schema.</p>
+        <h4>Optional Attributes</h4>
+        <p>If a request includes an attribute defined as optional, then the attribute will be included in the operation. If the attribute does not exist (is not mapped, or is mapped to a point that does not exist) the operation for that object will fail, and an error will be reported in the response. Use the "ReportMissingOptionalData" parameter to change this default behavior as described in the following table of child elements.</p>
+        <h4>Usage</h4>
+        <p>The following table lists and describes all of the child elements of the request node (&lt;<i>GetObjectsReq</i>&gt;).</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AllowPartialFailure</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If this element is set to true, the operation will log an error and continue to run if it fails to retrieve an object.&#160; </p>
+                    <p>Otherwise, the operation will terminate immediately upon failing to retrieve an object.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>KeyList*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>No*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A list of keys which uniquely identify the objects to be retrieved.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AttrFilter*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A set of rules to filter the returned objects by required interface components.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AttrsToExport</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Includes a list of object attributes to include in the response.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" rowspan="2">
+                    <p>Parameters</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>“PIT” defines the optional point-in-time for which to retrieve objects.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If a request for data includes optional attributes which do not exist for a given target object, the default behavior is to report an error in the response.</p>
+                    <p>"ReportMissingOptionalData" provides optional alternatives to the default behavior.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Error (default)</li>
+                        <li value="2">Warning</li>
+                        <li value="3">Ignore</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p>* <span class="NoteHeading">Note:</span> One (and only one) of KeyList or AttrFilter must be specified.</p>
+        </div>
+        <h5>Filter</h5>
+        <p>Objects may be filtered by using the &lt;<i>AttrFilter</i>&gt; element.&#160; The attribute filter node must contain a set of rules to filter the objects which will be returned by this operation.&#160; The filter may consist of a hierarchy of expressions using the &lt;<i>MultiExpr</i>&gt; and &lt;<i>SingleExpr</i>&gt; tags.&#160; The following example will filter all objects for which CasingPressure.Timestamp is greater than four days ago AND WellID is greater than 1001.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;AttrFilter&gt;</p>
+                    <p class="Code2">&lt;MultiExpr operator="AND" inverse="false"&gt;</p>
+                    <p class="Code3">&lt;SingleExpr compare="GT" qualify="Timestamp"&gt;</p>
+                    <p class="Code4">&lt;CasingPressure.Timestamp&gt;d-4 H=0 M=0 S=0&lt;/CasingPressure.Timestamp&gt;</p>
+                    <p class="Code3">&lt;/SingleExpr&gt;</p>
+                    <p class="Code3">&lt;SingleExpr compare="GT" qualify="NumericInteger"&gt;</p>
+                    <p class="Code4">&lt;WellID&gt;1001&lt;/WellID&gt;</p>
+                    <p class="Code3">&lt;/SingleExpr&gt;</p>
+                    <p class="Code2">&lt;/MultiExpr&gt;</p>
+                    <p class="Code">&lt;/AttrFilter&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Examples</h4>
+        <h5>Request</h5>
+        <p>The following example represents a request which filters objects by a list of keys.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_CHK_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectsReq&gt;</p>
+                    <p class="Code3">&lt;KeyList&gt;</p>
+                    <p class="Code4">&lt;Key&gt;</p>
+                    <p class="Code5">&lt;WellNumber&gt;322543&lt;/WellNumber&gt;</p>
+                    <p class="Code5">&lt;WellHID&gt;1721674&lt;/WellHID&gt;</p>
+                    <p class="Code5">&lt;MeterHID&gt;1770584&lt;/MeterHID&gt;</p>
+                    <p class="Code4">&lt;/Key&gt;</p>
+                    <p class="Code4">&lt;Key&gt;</p>
+                    <p class="Code5">&lt;WellNumber&gt;322543&lt;/WellNumber&gt;</p>
+                    <p class="Code5">&lt;WellHID&gt;1721674&lt;/WellHID&gt;</p>
+                    <p class="Code5">&lt;MeterHID&gt;1842460&lt;/MeterHID&gt;</p>
+                    <p class="Code4">&lt;/Key&gt;</p>
+                    <p class="Code3">&lt;/KeyList&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;WellNumber/&gt;</p>
+                    <p class="Code4">&lt;Description/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code2">&lt;/GetObjectsReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example represents a request which filters objects by attributes.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectsReq&gt;</p>
+                    <p class="Code3">&lt;AttrFilter&gt;</p>
+                    <p class="Code4">&lt;MultiExpr operator="AND" inverse="false"&gt;</p>
+                    <p class="Code5">&lt;SingleExpr compare="GT" qualify="Timestamp"&gt;</p>
+                    <p class="Code6">&lt;CasingPressure.Timestamp&gt;d-4 H=0 M=0 S=0&lt;/CasingPressure.Timestamp&gt;</p>
+                    <p class="Code5">&lt;/SingleExpr&gt;</p>
+                    <p class="Code5">&lt;SingleExpr compare="GT" qualify="NumericInteger"&gt;</p>
+                    <p class="Code6">&lt;WellID&gt;1001&lt;/WellID&gt;</p>
+                    <p class="Code5">&lt;/SingleExpr&gt;</p>
+                    <p class="Code4">&lt;/MultiExpr&gt;</p>
+                    <p class="Code3">&lt;/AttrFilter&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;WellID/&gt;</p>
+                    <p class="Code4">&lt;CasingPressure.Value/&gt;</p>
+                    <p class="Code4">&lt;CasingPressureL4D.Value/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code3">&lt;Parameters&gt;</p>
+                    <p class="Code4">&lt;PIT&gt;d-4 H=0 M=0 S=0&lt;/PIT&gt;</p>
+                    <p class="Code3">&lt;/Parameters&gt;</p>
+                    <p class="Code2">&lt;/GetObjectsReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectsResp&gt;</p>
+                    <p class="Code3">&lt;Objects&gt;</p>
+                    <p class="Code4">&lt;Well&gt;</p>
+                    <p class="Code5">&lt;Key&gt;</p>
+                    <p class="Code6">&lt;WellID&gt;54687&lt;/WellID&gt;</p>
+                    <p class="Code5">&lt;/Key&gt;</p>
+                    <p class="Code5">&lt;CasingPressure.Value&gt;20&lt;/CasingPressure.Value&gt;</p>
+                    <p class="Code5">&lt;CasingPressureL4D.Value&gt;70&lt;/CasingPressureL4D.Value&gt;</p>
+                    <p class="Code5">&lt;WellID&gt;54687&lt;/WellID&gt;</p>
+                    <p class="Code4">&lt;/Well&gt;</p>
+                    <p class="Code3">&lt;/Objects&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-06-17T00:50:24.495Z" exec_duration="PT2.396S" /&gt;</p>
+                    <p class="Code2">&lt;/GetObjectsResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example represents an unsuccessful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_CHK_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectsResp&gt;</p>
+                    <p class="Code3">&lt;Objects /&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="false" resp_timestamp="2011-11-09T06:17:15.038Z" exec_duration="PT0.010S"&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50209"&gt;No associated FAC found for CYGDEMO.UIS&lt;/OperationResult&gt;</p>
+                    <p class="Code3">&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/GetObjectsResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="GetObjec2"></a>GetObjectAttributeHistory</h3>
+        <p>The GetObjectAttributeHistory operation retrieves historical data for a single simple attribute, point, or set of point attributes of a given Business Object instance.</p>
+        <p>If history is requested for a point element, then all attributes for that point element will be returned for the desired historical range.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> History cannot be retrieved for attributes that do not support history. Simple elements that are mapped to facility attributes or point configuration attributes do not support history. </p>
+        </div>
+        <p class="Example">Example</p>
+        <p class="Indent">If a simple attribute such as "operator" is mapped to a facility attribute, then this attribute will not support history. If "operator" is mapped to a real-time point value however, then history can be retrieved for the attribute.</p>
+        <p>Use a set of history parameters included in the request to specify rollup information, the time range to retrieve, and the maximum number of entries to include in the response.&#160; If the number of entries to be returned exceeds the maximum specified, the response XML will include a special element with continuation information. To continue the operation, the same request must then be repeated, with the additional inclusion of the continuation element from the last request. The return XML will indicate success or failure.</p>
+        <h4>Usage</h4>
+        <p>The following table lists and describes all of the child elements of the request node (&lt;<i>GetObjectAttributeHistoryReq</i>&gt;).</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Key</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The key which uniquely identifies the object for which to retrieve attribute history.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AttrToExport</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The attribute for which to retrieve history.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>HistoryParameters</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A set of parameters which specify the maximum number of entries to return, the time range for entries to retrieve, rollup information, and, if applicable, the time of the next entry to retrieve (if the request is a continuation from a previous request).</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Examples</h4>
+        <h5>Request</h5>
+        <p>The following example represents a request containing continuation information returned from a previous response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjs/TestPackage1_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectAttributeHistoryReq&gt;</p>
+                    <p class="Code3">&lt;Key&gt;</p>
+                    <p class="Code4">&lt;WellNumber&gt;9348&lt;/WellNumber&gt;</p>
+                    <p class="Code4">&lt;Field&gt;TEXAS_5346&lt;/Field&gt;</p>
+                    <p class="Code3">&lt;/Key&gt;</p>
+                    <p class="Code3">&lt;AttrToExport&gt;</p>
+                    <p class="Code4">&lt;Operator/&gt;</p>
+                    <p class="Code3">&lt;/AttrToExport&gt;</p>
+                    <p class="Code3">&lt;HistoryParameters&gt;</p>
+                    <p class="Code4">&lt;EarliestTime&gt;2011-09-01T00:00:00Z&lt;/EarliestTime&gt;</p>
+                    <p class="Code4">&lt;LatestTime&gt;2011-09-14T00:00:00Z&lt;/LatestTime&gt;</p>
+                    <p class="Code4">&lt;RollupType&gt;Calc Last&lt;/RollupType&gt;</p>
+                    <p class="Code4">&lt;RollupPeriod&gt;42&lt;/RollupPeriod&gt;</p>
+                    <p class="Code4">&lt;RollupUnits&gt;Hours&lt;/RollupUnits&gt;</p>
+                    <p class="Code4">&lt;MaxEntries&gt;1&lt;/MaxEntries&gt;</p>
+                    <p class="Code4">&lt;NextEntry&gt;</p>
+                    <p class="Code5">&lt;Time&gt;2011-09-09T18:00:00.000Z&lt;/Time&gt;</p>
+                    <p class="Code4">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;/HistoryParameters&gt;</p>
+                    <p class="Code2">&lt;/GetObjectAttributeHistoryReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjs/TestPackage1_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectAttributeHistoryResp&gt;</p>
+                    <p class="Code3">&lt;AttrHistoryEntry&gt;</p>
+                    <p class="Code4">&lt;Operator&gt;Michael Scott&lt;/Operator&gt;</p>
+                    <p class="Code4">&lt;Timestamp&gt;2011-09-09T18:00:00.000Z&lt;/Timestamp&gt;</p>
+                    <p class="Code3">&lt;/AttrHistoryEntry&gt;</p>
+                    <p class="Code3">&lt;NextEntry&gt;</p>
+                    <p class="Code4">&lt;Time&gt;2011-09-09T19:00:00.000Z&lt;/Time&gt;</p>
+                    <p class="Code3">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-04-23T00:10:12.383Z" exec_duration="PT0.000S" /&gt;</p>
+                    <p class="Code2">&lt;/GetObjectAttributeHistoryResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example represents an unsuccessful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_CHK_Well"&gt;</p>
+                    <p class="Code2">&lt;GetObjectAttributeHistoryResp&gt;</p>
+                    <p class="Code3">&lt;Key&gt;</p>
+                    <p class="Code4">&lt;MeterHID&gt;1770584&lt;/MeterHID&gt;</p>
+                    <p class="Code4">&lt;WellHID&gt;1721674&lt;/WellHID&gt;</p>
+                    <p class="Code4">&lt;WellNumber&gt;322543&lt;/WellNumber&gt;</p>
+                    <p class="Code3">&lt;/Key&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="false" resp_timestamp="2011-11-09T05:45:52.210Z" exec_duration="PT0.052S"&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50209"&gt;No associated FAC found for CYGDEMO.UIS&lt;/OperationResult&gt;</p>
+                    <p class="Code3">&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/GetObjectAttributeHistoryResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="UpdateOb"></a>UpdateObjects</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Optional attributes retrieved with GetObjects can be updated with UpdateObjects. </p>
+        </div>
+        <p>The UpdateObjects operation is used to update a list of objects, identified by their unique object keys. </p>
+        <p>The Request must include the following.</p>
+        <ul>
+            <li value="1">The unique object Key</li>
+            <li value="2">A list of one or more Attribute-Value pairs to update</li>
+        </ul>
+        <p>The list of attributes need not cover all configured attributes for the object.</p>
+        <p>If an attribute is not included in the update list, then that attribute must not be directly modified.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Some attributes can be modified indirectly, for example point state or point timestamp.</p>
+        </div>
+        <h4><a name="Historic"></a>Historical Value Mode Updates </h4>
+        <p>Selecting  "Historical Value mode"  Updates results in the following.</p>
+        <ul>
+            <li value="1">Real-time record updates will be processed in the CVS.</li>
+            <li value="2">Updates will not be reflected as the "current value" in the CVS.</li>
+            <li value="3">Updates will be transmitted from the CVS to the VHS.</li>
+            <li value="4">Updates will not be transmitted from the CVS to the GNS and CAS.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+            </p>
+            <p class="Note">The mapped point targeted by the historical value update must be configured to "report to VHS"; otherwise the update for the associated object will fail. </p>
+            <p class="Note">The update must include an attribute that is mapped to the Real-time Record (RTR) value; otherwise the update will fail.</p>
+        </div>
+        <p>"Historical Value mode" Updates allow the following.</p>
+        <ul>
+            <li value="1">Future timestamps. If a timestamp is provided for the mapped point, then the timestamp will be used. If a timestamp is not provided in the update, then the mapped relative time adjustment will be applied to the current time in order to calculate the timestamp to apply to the update.</li>
+            <li value="2">Updates to Interface components. Interface components (both point instances and flattened point attributes) that have been mapped with a relative Point-in-Time (PIT) adjustment can be updated in Historical mode.</li>
+        </ul>
+        <h4><a name="Current"></a>Current Value Mode Updates </h4>
+        <p>Selecting "Current Value mode" Updates results in the following.</p>
+        <ul>
+            <li value="1">The standard setpoint message is issued.</li>
+        </ul>
+        <p>"Current Value mode" Updates allow the following.</p>
+        <ul>
+            <li value="1">Timestamps. If a timestamp is provided for the mapped point, then the timestamp will be used. If a timestamp is not provided in the update, then the mapped relative time adjustment will be applied to the current time in order to calculate the timestamp to apply to the update.</li>
+            <li value="2">Updates to Interface components (both point instances and flattened point attributes) that have been mapped with a relative Point-in-Time (PIT) adjustment.</li>
+        </ul>
+        <h4>Attributes</h4>
+        <h5>Optional Attributes</h5>
+        <p>Optional attributes can be updated with UpdateObjects. If an UpdateObjects request includes an optional attribute, then the attribute will be updated. If the attribute does not exist (is not mapped, or is mapped to a point that does not exist) the update for that object will fail and will generate an error.</p>
+        <h5><a name="Writable"></a>Writable Attributes</h5>
+        <p>The administrator can configure interface components as either read-only or writable. The default is read-only. Optional interface components can be writable. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A writable interface component must not be mapped to an implicitly read-only CygNet native attribute (i.e. point state description).</p>
+        </div>
+        <h5>Table-driven Attribute Descriptions</h5>
+        <p>Table driven attribute descriptions are updatable via the UpdateObjects operation. A description update must be looked up in reverse in the TRS; if the description does not have an associated table entry, then the update will fail for the object in question. If the associated table entry for the provided description is found, then the PNT/FAC record will be updated with the table entry.</p>
+        <h5>Point Status Bits</h5>
+        <p>The PointStatus attribute is not writable; all point status/user bits are writable, however. If an object update occurrence includes a status bit update for a bit that is "enabled" (configured for CVS calculations), then the update will include an error for the object in question.</p>
+        <h4>Usage</h4>
+        <p>The following table lists and describes all of the child elements of the request node (&lt;<i>UpdateObjectsReq</i>&gt;).</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AllowPartialFailure</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If this element is set to true, the operation will log an error and continue to run if it fails to update an object.&#160; Otherwise, the operation will terminate immediately upon failing to update an object.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>HistoricalMode</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies whether or not “Historical Value mode” will be used.&#160; If this element is set to “No” or if it is not included in the request, “Current Value mode” will be used.&#160; See <a href="#Historic" class="selected">Historical Value Mode Updates</a> and <a href="#Current" class="selected">Current Value Mode Updates</a> for descriptions of these two modes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Objects</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A list of object keys (&lt;<i>Key</i>&gt;) paired with <a href="#Writable" class="selected">writable attributes</a> to update.</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Examples</h4>
+        <h5>Request</h5>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_Well"&gt;</p>
+                    <p class="Code2">&lt;UpdateObjectsReq&gt;</p>
+                    <p class="Code3">&lt;AllowPartialFailure&gt;false&lt;/AllowPartialFailure&gt;</p>
+                    <p class="Code3">&lt;Objects&gt;</p>
+                    <p class="Code4">&lt;Well&gt;</p>
+                    <p class="Code5">&lt;Key&gt;</p>
+                    <p class="Code6">&lt;WellID&gt;54687&lt;/WellID&gt;</p>
+                    <p class="Code5">&lt;/Key&gt;</p>
+                    <p class="Code5">&lt;Description&gt;New description&lt;/Description&gt;</p>
+                    <p class="Code4">&lt;/Well&gt;</p>
+                    <p class="Code4">&lt;Well&gt;</p>
+                    <p class="Code5">&lt;Key&gt;</p>
+                    <p class="Code6">&lt;WellID&gt;1000&lt;/WellID&gt;</p>
+                    <p class="Code5">&lt;/Key&gt;</p>
+                    <p class="Code5">&lt;CasingPressure.Value&gt;3&lt;/CasingPressure.Value&gt;</p>
+                    <p class="Code5">&lt;CasingPressureL4D.Value&gt;4&lt;/CasingPressureL4D.Value&gt;</p>
+                    <p class="Code4">&lt;/Well&gt;</p>
+                    <p class="Code4">&lt;Well&gt;</p>
+                    <p class="Code5">&lt;Key&gt;</p>
+                    <p class="Code6">&lt;WellID&gt;1001&lt;/WellID&gt;</p>
+                    <p class="Code5">&lt;/Key&gt;</p>
+                    <p class="Code5">&lt;CasingPressure_Value&gt;3&lt;/CasingPressure_Value&gt;</p>
+                    <p class="Code4">&lt;/Well&gt;</p>
+                    <p class="Code3">&lt;/Objects&gt;</p>
+                    <p class="Code2">&lt;/UpdateObjectsReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_Well"&gt;</p>
+                    <p class="Code2">&lt;UpdateObjectsResp&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-08-06T01:15:08.694Z" exec_duration="PT0.832S" /&gt;</p>
+                    <p class="Code2">&lt;/UpdateObjectsResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example represents an unsuccessful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/BusinessObjects/TestPackage_Well"&gt;</p>
+                    <p class="Code2">&lt;UpdateObjectsResp&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="false" resp_timestamp="2011-08-10T17:27:55.417Z" exec_duration="PT0.737S"&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50812"&gt;Key 'WellID=0' does not resolve to an object for interface 'Well'&lt;/OperationResult&gt;</p>
+                    <p class="Code3">&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/UpdateObjectsResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Storage|Database Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DBS TxLog Management Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Data Storage/Data Storage in CygNet.htm">Data Storage</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Database Utilities.htm">Database Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DBS Tx Log Management Utility</span>
+        </div>
+        <h2>DBS TxLog Management Utility</h2>
+        <p>The <b>DBS TxLog Management</b> utility (DbsTxLogManagement.exe) is a command-line utility that is used to change the value for the DBS_TRANSACTION_LOG_SIZE keyword in the service configuration file. The DBS_TRANSACTION_LOG_SIZE keyword specifies the size (in megabytes) of each log file in the <b>txlogs</b> directory, the directory where the service transaction log files are stored.</p>
+        <p>DbsTxLogManagement will perform the following steps:</p>
+        <ol>
+            <li value="1">Check if the .dat.edb and .inx.edb files are clean.</li>
+            <li value="2">If clean, the utility will change the DBS_TRANSACTION_LOG_SIZE to the new value.</li>
+            <li value="3">After the value is changed, the utility will delete the <b>txlogs</b> directory.</li>
+        </ol>
+        <p>Step 3 is potentially dangerous and the reason this utility is provided. If the .dat.edb and .inx.edb files are not clean and the <b>txlogs</b> directory doesn’t have good data, the databases will have to be restored from the previous backup.</p>
+        <p>Since incremental backups require that the transaction log file size be consistent, changing the value of the DBS_TRANSACTION_LOG_SIZE service configuration keyword without deleting the <b>txlogs</b> directory will cause the service to fail to start, reporting the error JET_errLogFileSizeMismatchDatabasesConsistent, meaning that the database is now brought up-to-date with its last committed transaction (if there was a bad shutdown). </p>
+        <p>This utility requires that the DBS-based service be stopped.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Warning:</span> Use this utility only in consultation with <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a>. A large log file size is good for databases that change frequently as the transaction logs will not rollover as quickly, but this can increase startup time if the majority of the services are configured with large file sizes. The default values for the DBS_TRANSACTION_LOG_SIZE keyword should be adequate, but the value is configurable if the default does not meet the specific environment. See the Service Configuration Keyword for each service (<a href="../Service Configuration Keywords/ACS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">ACS</a>, <a href="../Service Configuration Keywords/APPS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">APPS</a>, <a href="../Service Configuration Keywords/AUD Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">AUD</a>, <a href="../Service Configuration Keywords/BSS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">BSS</a>, <a href="../Service Configuration Keywords/DBS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">DBS</a>, <a href="../Service Configuration Keywords/DDS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">DDS</a>, <a href="../Service Configuration Keywords/ELS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">ELS</a>, <a href="../Service Configuration Keywords/ELSALM Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">ELSALM</a>, <a href="../Service Configuration Keywords/FAC Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">FAC</a>, <a href="../Service Configuration Keywords/GNS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">GNS</a>, <a href="../Service Configuration Keywords/GRP Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">GRP</a>, <a href="../Service Configuration Keywords/MSS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">MSS</a>, <a href="../Service Configuration Keywords/PNT Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">PNT</a>, and <a href="../Service Configuration Keywords/TRS Configuration File Keywords.htm#DBS_TRANSACTION_LOG_SIZE">TRS</a>) for the keyword default values, which differ for each service.</p>
+        </div>
+        <h3>Syntax</h3>
+        <p class="Syntax">DbsTxLogManagement NewSize ConfigFileName</p>
+        <h3>Parameters</h3>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 450px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        Parameter
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">
+                        Definition
+                    </th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>NewSize</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The size (in megabytes) of each log file in the <b>txlogs</b> directory. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ConfigFileName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The name of the service configuration file. If no ConfigFileName is specified, the utility uses the configuration file in the startup directory.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">DBSTxLogManagement 10 C:\CygNet\Services\AUD\Aud.cfg</p>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

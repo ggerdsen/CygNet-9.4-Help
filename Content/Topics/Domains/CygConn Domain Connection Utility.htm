@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Domains">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Domain Connection Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Domains.htm">Domains</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Domain Connection Utility</span>
+        </div>
+        <h2>CygNet Domain Connection Utility</h2>
+        <p>The <b>CygNet Domain Connection</b> utility (CygConn.exe) is used to define Domain IDs for a client computer, and to connect the computer to an ARS on a domain. You can also set the preferred ARS or forced ARS to connect to. Note that you must configure the <b>Preferred ARS</b> for replication to function properly. See <a href="#Preferred" class="selected">below</a> for more information.</p>
+        <p>Also see <a href="../Address Resolution Service/Address Resolution Service.htm">Address Resolution</a> for more information regarding Domain IDs and inter-component communications.</p>
+        <p>The CygNet Domain Connection utility file (CygConn.exe) is stored in the <b>CygNet\Utilities</b> directory on the host server.</p>
+        <h3>Starting CygNet Domain Connection</h3>
+        <h4>Installing and Launching</h4>
+        <p>To install and launch (start) the application or utility using <a href="../Version Management/Version Management Overview.htm">version management</a>:</p>
+        <ul>
+            <li value="1">Use <a href="../CygNet Client Installer/CygNet Client Installer.htm">CygNet Client Installer</a> to install and launch the application. Once installed you can use CygNet Client Installer to start the application.</li>
+        </ul>
+        <p class="Indent">-OR-</p>
+        <ul>
+            <li value="1">If previously installed, click <b>Start</b> &gt; <b>All Programs</b> &gt; <b>CygNet</b> &gt; &lt;<i style="font-weight: bold;">name of the application or utility</i>&gt; or double-click the desktop shortcut.</li>
+        </ul>
+        <p>Alternatively, browse to the <b>CygNet\Utilities</b> directory using Windows Explorer and double-click the program icon. You can also start an application or utility from a <a href="../Utilities/Running a Command Line Utility.htm">command line</a>. These methods do not provide version management. </p>
+        <p>The <b>CygNet Domain Connection</b> dialog box appears. The  utility lists the Domain IDs that have been defined for the computer, and information regarding the last ARS on each domain to which the client computer connected.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Domains/CygConn.png" />
+        </p>
+        <p>The utility stores the list of domains and ARS information in the computer’s registry, although different information is stored in different locations. If you are a member of the Administrators group on the computer, the <b>Default Domain</b> and <b>Last ARS Address</b> are stored in <b>HKEY_CURRENT_USER</b>:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">HKEY_CURRENT_USER\Software\Visual Systems, Inc.\CygNet\Dcl\Domains</p>
+                </td>
+            </tr>
+        </table>
+        <p>The <b>Preferred ARS Address</b> and <b>Forced ARS Address</b> are stored only in <b>HKEY_LOCAL_MACHINE</b> for both admin and non-admin users:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">HKEY_LOCAL_MACHINE\SOFTWARE\Visual Systems, Inc.\CygNet\Domains</p>
+                    <p class="Code2">and </p>
+                    <p class="Code">HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Visual Systems, Inc.\CygNet\Domains</p>
+                </td>
+            </tr>
+        </table>
+        <p>A non-Administrator cannot set these values.</p>
+        <h3>Domain Properties</h3>
+        <p>The properties of a Domain ID are described in the table below.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Domain ID</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A list of the Domain IDs that have been added to the client computer.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Description</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This option is not implemented.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Last ARS Address</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>Last ARS Address</b> is the IP address of the ARS on the Domain ID to which the computer last connected. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Last ARS Service</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The name of the <b>Last ARS Service</b> on the Domain ID to which the computer last connected.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="Preferred"></a><b>Preferred ARS Address</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>Preferred ARS Address</b> is the IP address on which to attempt to connect to the ARS on a domain. If the preferred ARS is stopped, the client will attempt to connect to another ARS on the same domain. The preferred ARS specifies the IP address of the ARS to which you prefer clients connect. On the host server, this is generally the IP address of the host machine. If an ARS is not running on this address, then the host machine will check its registry for other possible addresses. This address is primarily configured in the <a href="#">CygNet Domain Connection Utility</a>, but also in the <b>Network Settings</b> of the <a href="../System Administration/CygNet Host Manager Network Settings.htm">CygNet Host Manager</a>.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For replication to function correctly on separate subnets, you must configure the <b>Preferred ARS</b> for the domain ID of the source service where replicated data is being pulled.</p>
+                    </div>
+                    <p><b>Multiple Preferred ARS Addresses</b>
+                    </p>
+                    <p>You may need to configure multiple preferred ARS addresses per domain so that clients can communicate on a domain across a subnet. When configured on a host machine, each ARS service broadcasts its presence to all of the ARS services specified as preferred ARS addresses on startup and every five minutes after that. When searching for an ARS on a domain from that host, clients will attempt to find an ARS on each specified preferred IP address simultaneously. If one of the preferred ARS services on a different subnet fails over or becomes unavailable for another reason, clients will still be able to communicate with other configured preferred ARS addresses on that same domain.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Forced ARS Address</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>Forced ARS Address</b> is the one and only IP address on which the machine can connect to an ARS. If the ARS at this address is not available, CygNet communication will not be available. </p>
+                    <p>This option is not generally recommended because it excludes the chance of the client connecting with another ARS on the domain. This option takes precedence over the <b>Preferred ARS Address</b>. The Forced ARS address is primarily configured in the <a href="#">CygNet Domain Connection Utility</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Default Domain</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The Domain that a CygNet client uses when it starts. If you have a client application open and change the Default Domain, that client will continue use the domain that was the Default when it was started. All new instances of the client use the new Default.</p>
+                    <p>The Default Domain is indicated with an asterisk (*). </p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="CygNet"></a>CygNet Domain Connection Utility and UAC</h3>
+        <p>Note that performing domain connection tasks with User Account Control (UAC) enabled will require administrator-level permission by selecting <b>Run as Administrator</b> in the file menu. Standard users are limited to adding and removing settings for their user account only. See <a href="../Security/CygNet and User Account Control.htm">CygNet and User Account Control</a> for more information.</p>
+        <h3><a name="Configur"></a>Configuring RUDP Fragmentation Settings</h3>
+        <p>The <b>CygNet Domain Connection</b> utility can be used to change the RUDP fragment size  for CygNet messages between a CygNet client and the CygNet services (both client-to-service and service-to-client). The <b>RUDP Fragment Sizes</b> setting is found under <b>Properties</b> &gt; <b>Advanced Network Settings</b>. See <a href="../System Administration/CygNet Host Manager RUDP Settings.htm">Configuring Advanced Network Settings</a> for more information about CygNet Messaging and RUDP Fragmentation.</p>
+        <h3>Menu Options</h3>
+        <p>The following table lists and defines command options accessed using the <b>CygNet Domain Connection</b> utility menu bar.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: bold;">Option</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>File &gt; Exit</b>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to quit the CygNet Domain Connection utility.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>View &gt; Status Bar</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Hide or Show the status bar. The status bar displays the following information:</p>
+                    <ul class="table">
+                        <li value="1">Username 
+</li>
+                        <li value="2">Service name
+</li>
+                        <li value="3">Domain</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Properties &gt; Advance Network Settings</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select to access the Client Advanced Network Settings options. See <a href="../System Administration/CygNet Host Manager RUDP Settings.htm">Configuring Advanced Network Settings</a> for more information.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Help &gt; About CygConn</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Displays an <b>About CygNet Domain Administration Utility</b> dialog box  to view application information.</p>
+                    <p>Available information includes the following:</p>
+                    <ul class="table">
+                        <li value="1">The application name, version, and release date</li>
+                        <li value="2">Copyright information</li>
+                        <li value="3">The <span class="CygNetVariablesSoftwareName">CygNet Software</span> website address, including a hyperlink to the website</li>
+                        <li value="4">The log file location, including a hyperlink to the log file</li>
+                        <li value="5"> The location of the application's file executable</li>
+                    </ul>
+                    <p>In addition to information about the application, the <b>About</b> box includes the following buttons:</p>
+                    <ul class="table">
+                        <li value="1"><b>Client Settings</b> — opens the <b>Client Settings</b> dialog box to view and modify client log settings for the application on an ad hoc basis. See <a href="../Logging/Client Log Settings.htm">Client Log Settings</a> in the <b>Logging</b> section for more information.</li>
+                        <li value="2"><b>Diagnostics</b> — access the following options for additional analysis from the drop-down menu:</li>
+                    </ul>
+                    <ul style="list-style-type: circle;">
+                        <li value="1"><b>Loaded Modules</b> — use this option to view and search file information for modules loaded in your system. Double-click any result row to view properties for that module. See <a href="../CygNet Explorer/Loaded Modules.htm">Loaded Modules</a> for more information. </li>
+                        <li value="2"><b>Gather Logs</b> — accesses the Windows file directory where the open log files are located. Double-click to select and view an application log file.</li>
+                        <li value="3"><b>User Local Crash Dumps</b> — Local crash dumps are not enabled. See <a href="../System Administration/Generating Crash Dumps.htm">Generating Crash Dumps</a> for more information.</li>
+                    </ul>
+                    <ul class="table">
+                        <li value="1"><b>Close</b> — click to close the <b>About</b> box.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="CygConn Tasks.htm">CygNet Domain Connection Utility Tasks</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Multi-User Account Computer.htm">Multi-User Account Computer</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

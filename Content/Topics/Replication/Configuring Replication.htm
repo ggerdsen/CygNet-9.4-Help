@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication|Replication Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Replication</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Replication Overview.htm">Replication Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Replication</span>
+        </div>
+        <h2>Configuring Replication</h2>
+        <p>In order for a replicated service to start it must have  all required keywords enabled and configured in its configuration file. This also includes keywords for associated services, even though in the replicated system those services do not have a true relationship. For example, in the UIS service configuration file, the <b>PNT</b> keyword is a required parameter. In a non-replicated UIS this keyword specifies the name of the PNT that contains all operational parameters for real-time points in the CygNet system. In a replicated UIS, however, the service gets all of its information, including point information, from the source PNT, not the replicated PNT.</p>
+        <p class="HeadingProcedure">To Configure and Start Replication</p>
+        <ol start="1">
+            <li value="1">Add an ARS and RSM to the host server for the replicated services. These services <i>must</i> have the same name as the source services.</li>
+            <li value="2">Set the Domain ID of the replicated host server to an ID other than that of the source services host server.</li>
+            <li value="3">Add the folders and files for the replicated services.</li>
+            <li value="4">Configure the replicated services keyword using the <a href="../Services/Configuration File Manager.htm">Config File Manager</a>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the service configuration files, enable the replication keywords listed below.</li>
+            <li value="2">For <b>REPL_SOURCE</b>, specify the name of the source service.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Save the changes and close the file.</li>
+            <li value="6">Start the services. The replicated services will sync with the source services. The amount of time to complete the synchronization depends on the amount of data and the network bandwidth.</li>
+        </ol>
+        <h3><a name="Configur"></a>Configuration Keywords</h3>
+        <p>The following table contains descriptions for all the service configuration keywords required to enable replication. In general, a replicated service pulls data from a source service. As such, replication keywords are generally enabled in the <i>replicated</i> service. If a keyword needs to be enabled in the <i>source</i> service's configuration file, it is noted below.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CHANGE_QUEUE_SIZE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Sets the size of the service change queue that contains the incremental changes to the data in the source service. This is the number of changes the service will store to answer replication requests before expiring the oldest changes.</p>
+                    <div class="Note">
+                        <p class="Note"><span class="NoteHeading">Notes:</span>
+                        </p>
+                        <p class="Note">This keyword is initially commented out by default. Uncomment the line and enter a valid value to use anything other than the default value.</p>
+                        <p class="Note"> If <b>0</b> is specified, the change notification is disabled.</p>
+                        <p class="Note">This keyword is specified in the configuration file for the <b>source</b> service.</p>
+                    </div>
+                    <p>The <a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_SIZE">CHANGE_QUEUE_SIZE</a> (Change Update Queue Size) info item will report configured size of the service change queue.</p>
+                    <p>Applies to all services except ARS, FMS, and RSM.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>REPL_SOURCE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the <i>Domain</i> and <i>Site.Service</i> name for the source service to be replicated. If not specified, replication is disabled. Applies to all services except ARS, FMS, and RSM.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is specified in the configuration file for the <b>replicated</b> (destination) service.</p>
+                    </div>
+                    <p>The <a href="../Service Monitoring/Info Items - Replication.htm#REPL_SOURCE">REPL_SOURCE</a> (Repl Source Service) info item will report the source service name from which the replicated service is requesting changes.</p>
+                    <p>Use the <a href="../Services/Configuration File Manager - Editing Special Action Keywords.htm#REPL_SOURCE">Config File Manager</a> to automatically configure this keyword for all services in your CygNet environment.</p>
+                    <p>For the APPS and ELSALM services, be sure the <b>REPL_SOURCE</b> keyword is the site and service name of APPS or ELSALM respectively. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>REPL_CHECK_INTERVAL</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates the interval (in seconds) to check before performing the next replication synchronization. This value determines the replication synchronization frequency.</p>
+                    <p>After performing a sync, a replicating service will subtract the amount of time the sync took from the check interval time to determine how long to wait until the next sync. For example, if the check interval is 60 seconds and the sync takes 40 seconds, the service will only wait 20 seconds before starting the next sync. If the whole sync time exceeds the frequency, then the replicating service will wait for half the sync interval (30 seconds in this case) before starting the next sync.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is specified in the configuration file for the replicated (destination) service.</p>
+                    </div>
+                    <p>The <a href="../Service Monitoring/Info Items - Replication.htm#REPL_CHECK_INTERVAL">REPL_CHECK_INTERVAL</a> (Repl Poll Secs) info item will report the interval that a replicated service will check the source change queue for new updates. If the service is not replicating <b>REPL_CHECK_INTERVAL</b> will respond with an empty string.</p>
+                    <p>Applies to all services except the ARS and RSM.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">REPL_DELAY_MAX</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates the number of seconds a service is allowed to be behind in replication before it is considered to be behind. If this keyword is disabled, the value defaults to double the <b>REPL_CHECK_INTERVAL</b> time. Best practice recommends enabling and setting a meaningful value for <b>REPL_DELAY_MAX</b> for all replicating services. A recommended value would be a longer time interval than you would expect any sync interval to take. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is specified in the configuration file for the <b>replicated</b> service.</p>
+                    </div>
+                    <p>The <a href="../Service Monitoring/Info Items - Replication.htm#REPL_DELAY_MAX">REPL_DELAY_MAX</a> (Allowed repl delay) info item will report the time elapsed since the service was last fully in sync. Time is calculated as the delta between "now" and the end of the last full sync that has completed. If the time since the last successful sync exceeds the <b>REPL_DELAY_MAX</b> value, and the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_INT_VAL_STATE">REPL_INT_VAL_STATE</a>  (Int repl val state) info item is currently "Normal", then the <b>REPL_INT_VAL_STATE</b> info item is set to "Delayed." The state can only be set back to "Normal" when the time between two syncs is less than the <b>REPL_DELAY_MAX</b> time.</p>
+                    <p>Applies to all services except the ARS and RSM.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>REPL_RETRY_SECS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the interval (in seconds) for retrying a replication update that failed.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is specified in the configuration file for the <b>replicated</b> service.</p>
+                    </div>
+                    <p>Applies to all DBS-based services.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>REPL_ERR_QUEUE_MAX</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies how many error entries are allowed in temporary storage. When this number is exceeded, replication processing will only process the error queue, nothing else. No new notifications will be accepted, and if a resynchronization is in progress, it will be suspended. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is not currently implemented.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h3>Service Specific Replication Keywords</h3>
+        <p>Some services have replication specific keywords:</p>
+        <ul>
+            <li value="1"><b>ALLOWED_REPL_COMMANDS</b> — Allows a replicated <a href="../Service Configuration Keywords/UIS Configuration File Keywords.htm#ALLOWED">UIS</a> to forward UIS commands to its source UIS. See <a href="How Replication Works.htm#Universa">Sending UIS Commands from a Replicated Service</a>.</li>
+            <li value="2"><b>REPL_FORWARD_DIRECTORY</b> — Allows setpoint commands issued to a replicated <a href="../Service Configuration Keywords/CAS Configuration File Keywords.htm#REPL_FORWARD_DIRECTORY">CAS</a>&#160;or <a href="../Service Configuration Keywords/OPCIS Configuration File Keywords.htm#REPL_FORWARD_DIRECTORY">OPCIS</a> to be written out as an XML file to a specified directory. See <a href="../Alarms/Replication Command Forwarding.htm">Replication Command Forwarding</a> for more information.</li>
+            <li value="3"><b>REPL_FORWARD_MAX_FILES</b> — Specifies the maximum number of files specified by REPL_FORWARD_DIRECTORY. Applies only to <a href="../Service Configuration Keywords/CAS Configuration File Keywords.htm#REPL_FORWARD_MAX_FILES">CAS</a>&#160;or <a href="../Service Configuration Keywords/OPCIS Configuration File Keywords.htm#REPL_FORWARD_MAX_FILES">OPCIS</a>. See <a href="../Alarms/Replication Command Forwarding.htm">Replication Command Forwarding</a> for more information.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

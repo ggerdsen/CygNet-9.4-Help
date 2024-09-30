@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Backup and Restore|Backups and Service Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DBS-Based Services Backup</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Backup and Restore.htm">Backup and Restore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Backups and Service Types.htm">Backups and Service Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DBS-Based Services Backup</span>
+        </div>
+        <h2>DBS-Based Services Backup</h2>
+        <p>This topic describes automatic backup for CygNet DBS-based services. The DBS-based services include:</p>
+        <ul>
+            <li value="1">Access Control Service (ACS)</li>
+            <li value="2">BLOB Services (APPS and BSS)</li>
+            <li value="3">Audit Service (AUD)</li>
+            <li value="4">Database Service (DBS)</li>
+            <li value="5">Device Definition Service (DDS)</li>
+            <li value="6">Event Logging Services (ELS and ELSALM)</li>
+            <li value="7">Facility Service (FAC)</li>
+            <li value="8">General Notification Service (GNS)</li>
+            <li value="9">Group Service (GRP)</li>
+            <li value="10">Master Scheduling Service (MSS)</li>
+            <li value="11">Point Service (PNT)</li>
+            <li value="12">Table Reference Service (TRS)</li>
+        </ul>
+        <p>These services use Microsoft’s Extensible Storage Engine (ESE) technology, which provides for a robust transaction logging system and sophisticated recovery feature that guarantees data integrity and consistency in the event of a system crash. CygNet’s DBS-services support a configurable memory cache, configurable log file size and location, automatic backup, full and incremental backup, backup scheduling in the MSS, backup on demand, and database restoration from point in time. See <a href="../Data Storage for DBS-Based Services/Data Storage for DBS-Based Services.htm">Data Storage for DBS-Based Services</a> for more information about this technology.</p>
+        <p>The automatic backup feature backs up the database file (.dat.edb), the index file (.inx.edb), and the temporary storage files (ts.edb) to the <b>databackup\new</b> directory of the location specified in the BACKUP_PATH keyword. The service configuration file (.cfg), the data schema file (.ddl), and metadata.dat files are backed up to the root <b>Backup</b> directory for each service. Other files that are backed up to this <b>Backup</b> directory include: </p>
+        <ul>
+            <li value="1">ACS — <a href="../Security/Security Supervisors.htm">Admin.sec</a></li>
+            <li value="2">ARS — <a href="../Services/Startup Files.htm#CvsMetadata">CvsMetadata.xml</a>, CygNet.lic, CygNetDomainDefs.xml, CygNetMeter.db, CygNetTimeZones.xml, and ServiceDefs.####.db</li>
+            <li value="3">AUD — HeadersToBeUpdated.bak, HeadersToBeUpdated.dat</li>
+            <li value="4">CAS — AlmHistPersist.bak, AlmHistPersist.dat, CasMetadata.dat, CasPersist.bak, and CasPersist.dat</li>
+            <li value="5">CVS — CVS.Persist.bak, CVS.Persist.dat</li>
+            <li value="6">GNS — <a href="../Notifications/Configuring a PIN.htm">GnsAckFile.dat</a>, NotifQueuePersist.dat, and ReSendQueuePersist.dat</li>
+            <li value="7">NOTE — HeadersToBeUpdated.bak, HeadersToBeUpdated.dat</li>
+            <li value="8">PNT — PNTMetaData.dat</li>
+            <li value="9">RSM — SVCDEF.RSX</li>
+        </ul>
+        <h3>Backup Keywords</h3>
+        <p>Configure the following keywords with a valid parameter in each service configuration file to enable automatic backup for the selected DBS-based service:</p>
+        <ul>
+            <li value="1">BACKUP_PATH</li>
+            <li value="2">BACKUP_TIME</li>
+            <li value="3">COPY_BACKUP_TO</li>
+            <li value="4">DBS_BACKUP_ATOMIC (<a href="../Service Configuration Keywords/ELS Configuration File Keywords.htm#DBS_BACKUP_ATOMIC">ELS</a> only)</li>
+        </ul>
+        <p>See <a href="Backup Keywords and Paths.htm">Backup Keywords and Paths</a> for definitions. See the relevant DBS-based Service Configuration File Keywords document (<a href="../Service Configuration Keywords/ACS Configuration File Keywords.htm">ACS</a>, <a href="../Service Configuration Keywords/APPS Configuration File Keywords.htm">APPS</a>, <a href="../Service Configuration Keywords/AUD Configuration File Keywords.htm">AUD</a>, <a href="../Service Configuration Keywords/BSS Configuration File Keywords.htm">BSS</a>, <a href="../Service Configuration Keywords/DBS Configuration File Keywords.htm">DBS</a>, <a href="../Service Configuration Keywords/DDS Configuration File Keywords.htm">DDS</a>, <a href="../Service Configuration Keywords/ELS Configuration File Keywords.htm">ELS</a>, <a href="../Service Configuration Keywords/ELSALM Configuration File Keywords.htm">ELSALM</a>, <a href="../Service Configuration Keywords/FAC Configuration File Keywords.htm">FAC</a>, <a href="../Service Configuration Keywords/GNS Configuration File Keywords.htm">GNS</a>, <a href="../Service Configuration Keywords/GRP Configuration File Keywords.htm">GRP</a>, <a href="../Service Configuration Keywords/MSS Configuration File Keywords.htm">MSS</a>, <a href="../Service Configuration Keywords/PNT Configuration File Keywords.htm">PNT</a>, and <a href="../Service Configuration Keywords/TRS Configuration File Keywords.htm">TRS</a>) for configuration keyword defaults and options.</p>
+        <h3>Full and Incremental Backups</h3>
+        <p>The daily automatic backup that is defined in the service configuration file is a <i>full</i> backup. A full backup can be also scheduled through the MSS.</p>
+        <p>An <i>incremental</i> backup can be only scheduled thorough the MSS. If the backup process is an incremental one, the transaction log files are written to the backup directory (specified in the BACKUP_PATH keyword) and are stored there until a <i>full</i> backup is performed. When a full backup is performed, the database is checked to make sure it contains the information from the log files and then the log files are deleted from the system. Incremental backups only apply to DBS-based services.</p>
+        <p>See <a href="Scheduling a Backup with the MSS.htm">Scheduling a Backup with the MSS</a> for more information about scheduling incremental backups.</p>
+        <p>See <a href="Transaction Log Files and DBS Backup.htm">Transaction Log Files and DBS Backup</a> for more information about how transaction log files are handled during a full and incremental backup.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

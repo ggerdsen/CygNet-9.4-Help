@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|BSAP EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>BSAP EIE – Configuring Signal-Related Data Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="BSAP EIE.htm">BSAP EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Signal-Related Data Groups</span>
+        </div>
+        <h2>Configuring Signal-Related Data Groups</h2>
+        <p>The <b>BSAP EIE</b> offers the ability to add data groups on  an ad hoc basis to a device instance without configuring them first in the device template file. This functionality is handled through the "Configurable Data Group" (<b>cfgBSAP</b>) data group. Any number of device-level data groups can be added. This task is simplified if you have loaded one or more <a href="BSAP ACCOL Load File.htm">ACCOL Load Files</a> into the device. Otherwise, the edit mode will be limited.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The  data group type name of <b>cfgBSAP</b> cannot be changed by the user.</p>
+        </div>
+        <p>Three signal-related data group types can be configured using the "Configurable Data Group" (<b>cfgBSAP</b>) data group. </p>
+        <ul>
+            <li value="1">List — used to process a predefined list of signals and can be configured with the ACCOL load file on the device. Identified by dgStruct="List", and requires either a dgStructNum or one or more dgStructNum_ord&lt;Ord&gt; attributes to be present. </li>
+            <li value="2">Search — enables signal retrieval based on filter criteria. Available only for EGM 3530 and Teleflow models. Identified by dgStruct="Search". See <a href="BSAP Configuring Search Data Groups.htm">Configuring Search Data Groups</a>.</li>
+            <li value="3">Signal — a list of signals from the device. A signal represents a data element along with its fields (listed in columns). Identified by dgStruct="Signal".</li>
+        </ul>
+        <p>For more information about these and other data groups, see <a href="BSAP Data Group Usage Notes.htm">Data Groups</a>.</p>
+        <p>See the following subsections below for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#SignalCol" class="selected">Signal Column Definition</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#SigAttr" class="selected">Signal Column Attributes</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Columns" class="selected">Columns XML</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#ColName" class="selected">Column Names</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#SigItem" class="selected">Signal Item Definition</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#SigItAttr" class="selected">Signal Item Attributes</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Elements" class="selected">Data Group XML Element Formats</a>
+            </li>
+        </ul>
+        <p class="HeadingProcedure">To Configure a Signal-Related Configurable Data Group</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer,  in the DDS pane,  open the remote device to which you want to add a "Configurable Data Group".</li>
+            <li value="2">In the remote device <b>Properties</b> editor, select the <b>Data Group</b> page and click <b>Add</b>.</li>
+            <li value="3">Select <b>Configurable Data Group</b> from the list and click <b>OK</b>.</li>
+            <li value="4">In the <b>Data Group Properties</b> dialog box, configure the data group’s description, facility, etc. </li>
+            <li value="5">Click <b>Configure</b>. The <b>Configurable Data Group Definition</b> dialog box displayed is the first screen of a wizard that steps through the process of defining the data group.</li>
+        </ol>
+        <p class="Indent"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/bsap_configurable_data_group.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="547" data-mc-height="371" src="../../Resources/Images/EIEs - Remote Devices/bsap_configurable_data_group_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <ol start="6">
+            <li value="6">Configure the following general properties for the data group, then click <b>Continue</b>. For <b>List</b> data group types, be sure to define the source of the list (from the ACCOL file) in the <b>Ordinal-Structure Number</b> field.</li>
+        </ol>
+        <p class="Indent">
+            <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-HelpTable2-Head-Header1">
+                        <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                        <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                    </tr>
+                </thead>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The field pre-populates with the <b>cfgBSAP</b> data group.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Nice name</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The field pre-populates with <b>Configurable Data Group</b> and cannot be changed.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Ordinal</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p><b>Ordinal</b> pre-populates based on the sequence in which the data group is being added.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Bsap type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The data group type.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Ordinal-Structure number</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>For <b>List</b> data group types, defines the source of the list in the <b>Ordinal-Structure Number</b> field. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p style="font-weight: bold;">I/O abilities</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to enable the data group read/write options:</p>
+                        <ul class="table">
+                            <li value="1"><b>Can receive</b> — Read-only</li>
+                            <li value="2"><b>Can send</b> — Write-only</li>
+                            <li value="3"><b>Can receive</b> and <b>Can send</b> — Read/write (check both )</li>
+                            <li value="4"><b>Can UCC send</b> — Data group can be sent as part of a UIS command. </li>
+                            <li value="5"><b>Can UCC receive</b> — Data group can be received as part of a UIS command.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p style="font-weight: bold;">UDC processing</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p><b>Default UDC</b> — the name of the UDC category used by default when mapping UDCs to data group elements. Default is "~UDCALL".</p>
+                        <p><b>UDC follows facility</b> — when selected, the UDC mapping follows the facility assigned to the data group. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Security</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p><b>Default security level</b> — The security level for the data group. Level 4 is the default.</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <ol data-mc-continue="true">
+            <li value="7">The <b><a href="#SignalCol" style="font-weight: normal;" class="selected">Signal Column Definition</a></b> dialog box provides a method to add columns to the data group (see <a href="#Columns" class="selected">Columns</a>).</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Use the <b>&lt;</b> and <b>&gt;</b> navigation buttons to move items (<b>Ctrl+Click</b> to select multiple) between the <b>Available columns</b> and <b>Selected columns</b> lists. Use the <b>Up</b> and <b>Down</b> buttons to reorder the list.</li>
+            <li value="2">Define attributes for an individual column by double-clicking the column name in the <b>Selected columns</b> list. The <a href="#SigAttr" class="selected">Signal Column Attributes</a> dialog box opens.</li>
+            <li value="3">To define attributes for a group of columns, use the <b>Setup default attributes</b> button, define the attributes, and click <b>OK</b>. Then select the desired column names  in the <b>Selected columns</b> list, click <b>Apply default attributes</b>, and click <b>Yes</b> to apply.</li>
+            <li value="4">To add a derived column, select a column name to reference, click <b>Add ref col</b>, enter a name in the <b>New Column Name</b> field and click <b>OK</b>. Attributes can be configured for derived columns as usual.</li>
+            <li value="5">Click <b>Continue</b>.</li>
+        </ol>
+        <ol start="8">
+            <li value="8">Use the <a href="#SigItem" class="selected">Signal Item Definition</a> dialog box to select the signals (items) to include in the data group. All available signal names are included in this list.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Use the <b>&lt;</b> and <b>&gt;</b> navigation buttons to move individual items (<b>Ctrl+Click</b> to select multiple) between the <b>Available items</b> and <b>Defined items</b> lists. To select all items, click the <b>&lt;&lt;</b> or <b>&gt;&gt;</b> navigation buttons. Use the <b>Up</b> and <b>Down</b> buttons to reorder the list.</li>
+            <li value="2">Define attributes for an individual item by double-clicking the item name in the <b>Defined items</b> list. A dialog box opens, which provides configuration options for <a href="#SigItAttr" class="selected">Signal Item Attributes</a>. These attributes are defined in data elements. After defining the attributes, click <b>OK</b> in the dialog box.</li>
+            <li value="3">To define attributes for a group of items, use the <b>Setup default attributes</b> button, define the attributes, and click <b>OK</b>. Then select the desired items in the <b>Defined items</b> list, click <b>Apply default attributes</b>, and click <b>Yes</b> to apply.</li>
+            <li value="4">To add an item that references another item’s column value (see Format 2 in <a href="#Elements" class="selected">Data Group Element Formats</a>), select the item to reference, click <b>Add column item</b>, select the <b>Column Id</b> to reference, then click <b>OK</b>. Attributes can be configured for the added item as usual.</li>
+            <li value="5">To add  items based on columns,  select the item, and click <b>Add  items based on columns</b>.</li>
+        </ol>
+        <ol start="9">
+            <li value="9">Click <b>OK</b> in the <b>Signal Item Definition</b> dialog box to finish the data definition. After creating the definition, the <b>Modify Configurable Data Group</b> dialog box is used to access the individual screens of the wizard. This includes an <b>XML view</b> button that shows an XML representation of the data group as currently defined in the device template file format. Changes can be made directly to the XML file.</li>
+            <li value="10">Click <b>Finished</b> to save the data group. </li>
+        </ol>
+        <p class="Image">
+            <img src="../../Resources/Images/EIEs - Remote Devices/bsap_data_group.png" title="Modify Configurable Data Group dialog box" alt="Modify Configurable Data Group dialog box" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="SignalCol"></a>Signal Column Definition</h3>
+        <p>The <b>Signal Column Definition</b> dialog box defines the columns of data to be included in <b>List</b>, <b>Search</b>, and <b>Signal</b> data group types. The order in which they are listed in the <b>Selected columns</b> field are the order in which they are displayed, left to right, in the data group's <b>View Data</b> dialog box. </p>
+        <p>If you want to map a UDC for a value, you must add the <b>Value</b> column to the selected list. By default, a UDC is mapped to the <b>Value</b> column. You can map to other columns by using a <b>Column Item</b>. Refer to the <a href="#SigItem" class="selected">Signal Item Definition</a> section for more information on adding column items.</p>
+        <p class="Image"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/BSAP_Signal_Column.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="622" data-mc-height="571" src="../../Resources/Images/EIEs - Remote Devices/BSAP_Signal_Column_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 200px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;">Available columns</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The data elements available for display. The list is derived from the BSAP protocol. Whether or not an item has a value may be dependent upon the configuration of the device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p style="font-weight: bold;">Selected columns</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The data elements that have been selected for display.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;">Setup default attributes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Provides a method to define default display attributes for columns in the <b>Signal Column Attributes</b> dialog box.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p style="font-weight: bold;">Apply default attributes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Applies the default attributes defined in the <b>Signal Column Attributes</b> dialog box to all selected columns. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Default attributes take precedence over attributes defined for a particular column. As such, you should edit/apply the default attributes for all columns before configuring attributes for an individual column.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Add ref col</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Allows the creation of additional columns that derive their value from one of the underlying columns (Format 2 in <a href="#Elements" class="selected">Data Group Elements</a>). </p>
+                    <p>Valid characters (maximum of 10 characters) are A-Z, 0-9, dash (<b>-</b>), and underscore (<b>_</b>). Cannot contain spaces and must start with an alpha character.</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="SigAttr"></a>Signal Column Attributes</h4>
+        <p>The <b>Signal Column Attribute</b> dialog box defines attributes specific to the selected column. Additionally, you can define and apply default display attributes to selected columns.</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Remote Devices/BSAP_Signal_Column_Attributes.png" title="Signal Column Attribute dialog box" alt="Signal Column Attribute dialog box" />
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 200px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Column name</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The field pre-populates with the name of the column and cannot be edited.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Column description</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The field pre-populates with the description of the column and cannot be edited.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>Column label</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A label for the column in the data group's <b>View Data</b> dialog box. If blank, the <b>Column name</b> is used.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Reference column Id</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The name of the source column if the column is a reference column. </p>
+                    <p>Although not enforced, it is expected that derived columns refer to either the <b>Value</b> column or one of the bit columns (<b>ME</b>, <b>CE</b>, <b>AE</b>, or <b>OKData</b>). If the data group supports write operations, it is required that one of the derived columns be write-enabled.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Auto-add data rows</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>When you add a signal it will auto-add that column as a separate DEID using the column-row syntax.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Display attributes</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>Hidden</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If set, the column is hidden in the data group's <b>View Data</b> dialog box by default. You can toggle display of the column using the <b>Show all</b> option.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="mapOn"></a><b>Enum value mapping on</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If set, the displayed value (Val) will be converted to a string enumeration using the true/false values derived from the <b>SLog</b> column. To enable this feature, the <b>SLog</b> column must be included in the column list. Applies only to <b>Logical</b>, <b>ME</b>, <b>CE</b>, <b>AE</b>, and <b>OKData</b> columns. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>No automatic column fill-in</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>By default, columns specified in the columns section, but not mapped to a particular row and column, are retrieved, displayed, and updated, but are not available for point mapping and cannot be used in an update UIS command. Setting this option suppresses this behavior.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>No display</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If set, blocks display of the column in the data group's <b>View Data</b> dialog box. This attribute is commonly used for columns that serve as metadata only, such as <b>SDesc</b> and <b>SLog</b>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>No send</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If set, blocks updates for a given column. The only columns to which this applies are <b>Val</b>, and the <b>Inhibit/Enable</b> and <b>Quality</b> bit fields (<b>ME</b>, <b>CE</b>, <b>AE</b>, and <b>OKData</b>). Cannot be used to enable updates for any other column.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Columns"></a>Columns XML</h3>
+        <p>A column represents a field to retrieve and display for all signals in a data group. Column specifications are placed before the <b>dgElements</b> element in the device template file.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;<i>DataGroup</i> ...</p>
+                    <p class="Code2">&lt;Columns&gt;</p>
+                    <p class="Code3">&lt;<i>ColumnName [attributes]</i> /&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code2">&lt;/Columns&gt;</p>
+                    <p class="Code">&lt;dgElements ...</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="ColName"></a>Column Names</h4>
+        <p>The table below lists the columns that can be added to a signal-related data group. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 166px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 250px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Column name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Column description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>deid</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Data Group Element </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Identifies the data in the row. Column must be present for proper operation of signal dialog boxes. If not explicitly specified, it will be added automatically as the first column.  It may be moved to a different position relative to the other columns if it is explicitly specified. It may not be marked as "Hidden" or "No Display".</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>desc</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Template Description</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This column creates space in the column list for a data element ID (DEID) description.  If an individual DEID does not have a description and the  description column is specified, the column will be filled in from the description returned from the RTU.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Type and Inhibit byte</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Val</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Value</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Units</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Units</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Units/logical text</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Addr</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>MSD Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Signal name</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AAlmStat </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog Alarm Status</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog alarm status</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LAlmStat </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Logical Alarm Status</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Logical alarm status</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>SDesc </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Signal Description</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Descriptor text</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SLog</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Logical ON/OFF text</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Logical ON/OFF text. The display text ("on/off," "true/false," etc.) for logical bits as defined per data item — usually set to "No Display" or "Hidden". See the <a href="#mapOn" class="selected">Enum value mapping on</a> attribute.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Prot</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Protection</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Protection byte</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAlmPri </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LAlmPri</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Logical Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Logical alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Base</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>BaseName</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Base name</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Ext</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Extension</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Extension</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Attr</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Attribute</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Attribute</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LaAddr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Low Alarm MSD Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Low alarm deadband MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>HaAddr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>High Alarm MSD Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>High alarm deadband MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Ver</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>MSD Version</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>MSD version number</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LalAddr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Low Alarm Limit Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Low alarm limit MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>HalAddr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>High Alarm Limit Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>High alarm limit MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>XLalAddr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Extreme Low Alarm Limit Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Extreme low alarm limit MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>XHalAddr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Extreme High Alarm Limit Address</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Extreme high alarm limit MSD address</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>SigErr </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Signal Error</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Signal error</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LARptState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Logical Alarm Report State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Logical alarm report state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LAAckState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Logical Alarm Ack State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Logical alarm Ack state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LAState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Logical Alarm State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Logical alarm state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LATimeOk</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Logical Alarm Time State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Logical alarm time state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AALRptState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog Low Alarm Report State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog low alarm report state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AALAckState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog Low Alarm Ack State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog low alarm Ack state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AALState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog Low Alarm State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog low alarm state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAHRptState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog High Alarm Report State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog high alarm report state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AAHackState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog High Alarm Ack State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog high alarm Ack state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAHState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog High Alarm State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog high alarm state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AAXLRptState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog ExLow Alarm Report State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog ExLow alarm report state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAXLAckState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog ExLow Alarm Ack State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog ExLow alarm Ack state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AAXLState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog ExLow Alarm State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog ExLow alarm state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAXHRptState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog ExHigh Alarm Report State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog ExHigh alarm report state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AAXHAckState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog ExHigh Alarm Ack State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog ExHigh alarm Ack state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AXHState</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog ExHigh Alarm State</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog ExHigh alarm state</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LAType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Logical Alarm Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Logical alarm type</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LAPri</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Logical Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Logical alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AALPri</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog Low Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog low alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAHPri</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog High Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog high alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AAXLPri</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Analog ExLow Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Analog ExLow alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AAXHPri</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Analog ExHigh Alarm Priority</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Analog ExHigh alarm priority</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="3"><b>Columns added to Breakout Bits from the Type and Inhibit byte</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>DataType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Data Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Breakout bits from Type</p>
+                    <ul class="table">
+                        <li value="1">00 = logical</li>
+                        <li value="2">10 = analog</li>
+                        <li value="3">11 = string</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AlrmSig </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Alarm Signal</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Alarm Signal/Not Alarm Signal</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>DynSig </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Dynamic Signal</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Dynamic Signal/Constant Signal</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>ME </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Manual Enabled</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Manual Inhibit/Enable</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CE </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Control Enabled</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Control Inhibit/Enable</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>AE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Alarm Enabled</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Alarm Inhibit/Enable</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>OKData</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Data Quality</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Data Quality bit</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="SigItem"></a>Signal Item Definition</h3>
+        <p>The <b>Signal Item Definition</b> dialog box defines the data group elements for the "Configurable Data Group" (<b>cfgBSAP</b>) data group. You can select any items from the ACCOL file for the data group’s type and structure(s). For example, if the data group represents a specific list, you can add any of the elements from that list. If the data group represents three lists, you can add any element from any of the three lists.</p>
+        <p>The elements are listed top to bottom in the data group's <b>View Data</b> dialog box in the order in which they are listed in the <b>Defined items</b> field of the <b>Signal Item Definition</b> dialog box. </p>
+        <p class="Image"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/BSAP_Signal_Item.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="889" data-mc-height="570" src="../../Resources/Images/EIEs - Remote Devices/BSAP_Signal_Item_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Available items</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Items available in the ACCOL file for the type and structure(s) defined for the data group. Type and structure are defined in the <b>Data Group Properties</b> dialog box.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Defined items</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The data group elements that have been selected for display.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Setup default attributes</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Opens a dialog box that provides a method to define default display attributes for the data elements.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p style="font-weight: bold;">Apply default attributes</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Applies the defined default attributes  to all selected items. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Default attributes take precedence over attributes defined for a particular element. As such, you should edit/apply the default attributes for all elements before configuring attributes for an individual element.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Add column item</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Allows the creation of an additional column item for mapping. By default, only the value can be mapped.  </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="font-weight: bold;">
+                        <p>Add items based on columns</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Used to map UDCs for point processing.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4><a name="SigItAttr"></a>Signal Item Attributes</h4>
+        <p>For each selected element, you can define attributes specific to that element by double-clicking it and configuring the options described below. You can also define and apply default display attributes to selected elements. The <b>Source, Signal name, Row</b>, and <b>Column</b> fields cannot be edited. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When <b>Hidden</b>, <b>Enum value mapping</b>, <b>No send</b>, and <b>No send row</b> are specified at the element level, the attribute settings override the corresponding elements at the column level. The <b>Remove attribute</b> option in the <b>Display attributes</b> section removes the attribute from the XML so that the element will always use the column level setting as a default.</p>
+        </div>
+        <p>
+            <img src="../../Resources/Images/EIEs - Remote Devices/BSAP_Signal_Item_Attributes.png" title="Defining Signal Item Attributes" alt="Defining Signal Item Attributes" />
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 175px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>Data element ID</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The data element ID.  </p>
+                    <p>Valid characters (maximum of 10 characters) are A-Z, 0-9, dash (<b>-</b>), and underscore (<b>_</b>). Cannot contain spaces and must start with an alpha character.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Item description</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Description of the element. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-weight: bold;" colspan="2">Display attributes </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>Hidden</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If set, the column is hidden in the data group's <b>View Data</b> dialog box by default. You can toggle display of the column using the <b>Show all</b> option.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>Enum value mapping</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If set, the displayed value (<b>Val</b>) will be converted to a string enumeration using the true/false values derived from the <b>SLog</b> column. To enable this feature, the <b>SLog</b> column must be included in the column list. Applies only to <b>Logical</b>, <b>ME</b>, <b>CE</b>, <b>AE</b>, and <b>OKData</b> columns. </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>No send</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If set, blocks updates for a given column. The only columns to which this applies are Value (<b>Val</b>), and the Inhibit/Enable and Quality bit fields (<b>ME</b>, <b>CE</b>, <b>AE</b>, and <b>OKData</b>). Cannot be used to enable updates for other columns.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>No send row</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Allows write operations to be blocked on a per row basis.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Elements"></a>Data Group XML Element Formats</h3>
+        <p>Data items can be defined in one of two formats.</p>
+        <p>Format 1:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;<i>deid</i> desc=<i>description</i> src=<i>source</i> /&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Format 1 is used for typical data items, where source is replaced with the source specifier for the data item. For <b>List</b> type data groups, this is the numerical ordinal number of the item in the list. For <b>Signal</b> type data groups, this is either the fully qualified signal name or the MSD address of the signal. Any UDC mapping for a data item in this format will point to its Value (<b>Val</b>) column by default.</p>
+        <p>Format 2:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;<i>deid</i> desc=<i>description</i> row=<i>row</i> col=<i>col</i> /&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Format 2 is designed to point to a specific column of a data item defined in Format 1. Here, row is replaced with the name (DEID) of the row, and col is replaced with the name of the column. This format allows UDC mapping to data item attributes other than the value column.</p>
+        <p>The following true/false attributes can be added to a data item, and when used at the Data Group Element level will override the corresponding elements at the column level:</p>
+        <ul>
+            <li value="1"><b>Enum value mapping on</b>
+            </li>
+            <li value="2"><b>No send</b>
+            </li>
+            <li value="3"><b>Hidden</b>
+            </li>
+            <li value="4"><b>No Send Row</b>
+            </li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

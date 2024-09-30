@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Scripting in Canvas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Describes how to hyperlink screens, override SiteService and facility, and pass other objects." /><title>Hyperlinking Screens</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting_in_Canvas.htm">Scripting in Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Hyperlinking Screens</span>
+        </div>
+        <h2><a name="aanchor202"></a>
+            <MadCap:concept term="Canvas Controls;Canvas Scripting" />Hyperlinking Screens</h2>
+        <p>Hyperlinking in <span class="GeneralProduct_Short">Canvas</span> allows you to open another <span class="GeneralProduct_Short">Canvas</span> screen via script from the screen you are currently viewing. This is accomplished via script using the <b>Hyperlink</b> method on the sending (hyperlinking) screen and the <b>OpenedViaHyperlink</b> event on the receiving (hyperlinked) screen. Hyperlinking is supported between screens, objects, and nested views in <span class="GeneralProduct_Short">Canvas</span>, <span class="GeneralProduct_View_Short">Canvas View</span>, and <span class="GeneralProduct_View_Lite">Canvas View Lite</span>.</p>
+        <p>See <a href="#"><a href="#">Hyperlinking Screens</a></a> for more information about using this method.</p>
+        <h3>Hyperlink Method</h3>
+        <p>The <a href="../Using_Canvas_Controls/Screen_Methods.htm">Hyperlink</a> method is included on the <a href="../Using_Canvas_Controls/Screen_Methods.htm">Screen</a> object.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Objects.Screen.Hyperlink(<i>path</i>, source, mode);</p>
+        <h4>Parameters</h4>
+        <p>There are several parameters that can be passed in via the Hyperlink method:</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0" summary="Screen Hyperlink method parameters">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameters</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><i>path</i>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The path to the file to open. This parameter is <i>required</i>. </p>
+                        <p>
+                            <p>Linking between <span class="GeneralProduct_Short">Canvas</span> screens, objects, and nested views is quite flexible. You don't need to specify the service or folder information in the path to find related screens, objects, or nested views, although you can if desired. When specifying a path to another file, the following notes apply:</p>
+                            <p>If the screen or object file is in the APPS or BSS, you can specify the:</p>
+                            <ul class="table">
+                                <li value="1">full path of the file</li>
+                                <li value="2">folder\filename.can of the file (<span class="GeneralProduct_Short">Canvas</span> uses the source file's service)</li>
+                                <li value="3">filename.can of the file (<span class="GeneralProduct_Short">Canvas</span> uses source file's service and folder)</li>
+                            </ul>
+                            <p>If the screen or object file is in the local file system, you can specify the:</p>
+                            <ul class="table">
+                                <li value="1">full path of the file</li>
+                                <li value="2">filename.can of the file (<span class="GeneralProduct_Short">Canvas</span> uses source file's path)</li>
+                            </ul>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>source</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The source of the file to open. This parameter is optional. Options include: </p>
+                        <ul>
+                            <li value="1"><b>BSS</b> — Indicates that the file is stored in a <span class="GeneralSoftwareNameShort">CygNet</span> APPS or BSS folder</li>
+                            <li value="2"><b>Local</b> — Indicates that the file is stored in a local or network Windows file-system folder</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>mode</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The optional mode of hyperlinking. There are four possible modes and the behavior differs depending on the application initiating the hyperlink:</p>
+                        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0" summary="Screen Hyperlink method parameters">
+                            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+                            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+                            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+                            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+                            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+                            <thead>
+                                <tr class="TableStyle-HelpTable2-Head-Header1">
+                                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Method</th>
+                                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1"><span class="GeneralProduct_Short">Canvas</span>
+                                    </th>
+                                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Nested View</th>
+                                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1"><span class="GeneralProduct_View_Short">Canvas View</span>
+                                    </th>
+                                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1"><span class="GeneralProduct_View_Lite">Canvas View Lite</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="TableStyle-HelpTable2-Body-Body1">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p><b>Close</b>
+                                        </p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Close the dialog box that initiated the hyperlink.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Close the pane that initiated the hyperlink.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Close the screen/pane that contains the nested view. </p>
+                                        <p>If initiated from the main screen of Canvas.View.Lite, no change – the screen remains open. If initiated from a dialog box opened via a hyperlink from Canvas.View.Lite, close the dialog box that initiated the hyperlink.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                                        <p>If initiated from the main screen, no change –the screen remains open. </p>
+                                        <p>If initiated from a dialog box opened via a hyperlink, close the dialog box that initiated the hyperlink.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body2">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p><b>Open</b>
+                                        </p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Open a new dialog box (with toolbar) with the provided screen.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Open a new dialog box or floating pane with the provided screen.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Open a new floating pane with the provided screen.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                                        <p>Open a new dialog box with the provided screen.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body1">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p><b>OpenAndClose</b>
+                                        </p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Open a new dialog box and close the dialog box that initiated the hyperlink.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Open a new dialog box or floating pane with the provided screen and closed the screen that contains the nested view. </p>
+                                        <p>If initiated from the main screen of <span class="GeneralProduct_View_Lite">Canvas View Lite</span>, behave the same as <b>Open</b>.	</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Open a new floating pane and close the pane that initiated the hyperlink.	</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                                        <p>If initiated from the main screen, behave the same as <b>Open</b>. If initiated from a dialog box opened via a hyperlink, open a new dialog box and close the dialog box that initiated the hyperlink.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body2">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p><b>Replace</b>
+                                        </p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Replace the contents of the initiating screen’s dialog box with the new screen.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Replace the contents of the nested view with the new screen.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Replace the contents of the initiating screen’s pane with the new screen.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                                        <p>If initiated from the main screen, replace the main screen with the new screen. If initiated from a dialog box opened via a hyperlink, replace the dialog box's screen with the new screen.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body1">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p><b>ReplaceWithNavigation</b>
+                                        </p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Same as <b>Replace</b> but also adds a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a> to the top of the dialog box. </p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Same as <b>Replace</b> but also adds a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a> to the top of the nested view.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>Same as <b>Replace</b> but also adds a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a> to the top of the pane.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                                        <p>If initiated from the main screen, same as <b>Replace</b> but also adds a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a> to the top of the main screen. </p>
+                                        <p>If initiated from a dialog box opened via a hyperlink, same as <b>Replace</b> but also adds a <a href="../Popups/Navigation_Toolbar.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopupSmall" data-mc-width="330px" data-mc-height="200px">navigation toolbar</a> to the top of the dialog box.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body2">
+                                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">&#160;</td>
+                                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2" colspan="4">&#160;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>siteService</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>An optional string parameter that can be used to pass content to a hyperlinked screen. Used to pass a siteService to override the hyperlinked screen's siteService with a passed value.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>facilityID</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>An optional string parameter that can be used to pass content to a hyperlinked screen. Used to pass a facility ID to override the hyperlinked screen's facility ID with a passed value.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>An optional string parameter that can be used to pass content to a hyperlinked screen. Used to pass in an object to the hyperlinked screen, for example, a DateTime object, but it can be anything you want to send. This parameter is of type object, but is actually called data.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Example — Hyperlinking modes</p>
+        <p>The following example code shows the four hyperlink modes applied to four buttons on a screen. The path of the hyperlink is defined in the Objects.HyperlinkEditBox.Text:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Button4.Click += new EventHandler(this.Button4_Click);</p>
+                    <p class="Code2">Objects.Button2.Click += new EventHandler(this.Button2_Click);</p>
+                    <p class="Code2">Objects.Button1.Click += new EventHandler(this.Button1_Click);</p>
+                    <p class="Code2">Objects.Button3.Click += new EventHandler(this.Button3_Click);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Button3</p>
+                    <p class="Code">private void Button3_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.Hyperlink(Objects.HyperlinkEditBox.Text, CanvasFileSource.Local, HyperlinkMode.Open);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                    <p class="Code">#region Button1</p>
+                    <p class="Code">private void Button1_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.Hyperlink(Objects.HyperlinkEditBox.Text, CanvasFileSource.Local, HyperlinkMode.OpenAndClose);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                    <p class="Code">#region Button2</p>
+                    <p class="Code">private void Button2_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.Hyperlink(Objects.HyperlinkEditBox.Text, CanvasFileSource.Local, HyperlinkMode.Replace);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                    <p class="Code">#region Button4</p>
+                    <p class="Code">private void Button4_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.Hyperlink(Objects.HyperlinkEditBox.Text, CanvasFileSource.Local, HyperlinkMode.ReplaceWithNavigation);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <h3>OpenedViaHyperlink event</h3>
+        <p>The mechanism by which <span class="GeneralProduct_Short">Canvas</span> accesses this object is the <a href="../Using_Canvas_Controls/Screen_Events.htm">OpenedViaHyperlink</a> event on the hyperlinked screen, which is triggered whenever a screen is opened via a hyperlink. The screen issuing the hyperlink must also provide a value for a data parameter; without this custom data, the event will not fire.</p>
+        <p>The event requires a parameter that will contain the object that was passed into the Hyperlink method. This way the hyperlinking screen can pass generic data to the hyperlinked screen.</p>
+        <p>For example, Hyperlink_Screen_A.can can hyperlink to Hyperlink_Screen_B.can and pass in a SiteService and facility to the recipient text tool(s). The hyperlinked screen will load the screen, load the SiteService and facility as originally configured, then clear out the original values, and replace the screen with the overridden values from the hyperlinking screen.</p>
+        <p class="Example">Example — Passing a SiteService or facility</p>
+        <p>The following example code shows how to pass a SiteService and facility to a hyperlinked screen via a button click event:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Screen.OpenedViaHyperlink += new EventHandler(this.Screen_OpenedViaHyperlink);</p>
+                    <p class="Code2">Objects.Button2.Click += new EventHandler(this.Button2_Click);</p>
+                    <p class="Code2">Objects.Button1.Click += new EventHandler(this.Button1_Click);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Button1</p>
+                    <p class="Code">private void Button1_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.Hyperlink(@"C:\Canvas Screens\Hyperlink\Hyperlink_Screen_B.can",</p>
+                    <p class="Code2">CanvasFileSource.Local,</p>
+                    <p class="Code2">HyperlinkMode.Open,</p>
+                    <p class="Code2">Objects.Screen.SiteService.SiteService,</p>
+                    <p class="Code2">Objects.Screen.Facility.FacilityID,</p>
+                    <p class="Code2">DateTime.Now);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                    <p class="Code">#region Button2</p>
+                    <p class="Code">private void Button2_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.Hyperlink(@"C:\Canvas Screens\Hyperlink\Hyperlink_Screen_B.can",</p>
+                    <p class="Code2">CanvasFileSource.Local,</p>
+                    <p class="Code2">HyperlinkMode.ReplaceWithNavigation,</p>
+                    <p class="Code2">Objects.Screen.SiteService.SiteService,</p>
+                    <p class="Code2">Objects.Screen.Facility.FacilityID,</p>
+                    <p class="Code2">DateTime.Now);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example — Passing an object</p>
+        <p>The following example code snippet shows how to pass a DateTime object to a text tool on a hyperlinked screen:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Screen.OpenedViaHyperlink += new EventHandler(this.Screen_OpenedViaHyperlink);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Screen</p>
+                    <p class="Code">private void Screen_OpenedViaHyperlink(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">var hyperlinkEvent = args as OpenedViaHyperlinkEventArgs;</p>
+                    <p class="Code2">var date = (DateTime)hyperlinkEvent.Data;</p>
+                    <p class="Code2">Objects.TextTool3.Text = date.ToString();</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring a Context Menu</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring a Context Menu</span>
+        </div>
+        <h2>Configuring a Context Menu</h2>
+        <p>Custom items can be added to a Context Menu.</p>
+        <h3>TheView</h3>
+        <p>TheView has a <b>[ContextMenuView]</b> property that can be configured in design time. Context menu items added here are visible when the user opens a context menu on the View, not on an object. These items are appended to the standard context menu.</p>
+        <h3>Objects</h3>
+        <p>TheView also has a <b>[ContextMenuObjects]</b> property that sets the default items for context menus opened on objects, not on TheView itself. These commands can be added to and overridden for individual objects using their <b>[ContextMenu]</b> properties.</p>
+        <p>Each context menu item is configured with an Event ID, which must be unique within a context menu. When a context menu item is clicked, an event handler on the View (<b>EventContextMenuView</b> or <b>EventContextMenuObjects</b>) or on individual objects (<b>EventContextMenu</b>) can perform an action based on the Event ID and the calling object.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/CygNet Studio/Context_Menu_EventID.png" />
+        </p>
+        <p>The following example creates a small screen   using a <a href="Slider.htm">Slider</a> object to set a "scale factor," which could be used in graphical applications or to otherwise scale data sets. A context menu item, "Reset" is used on the value a <a href="Text Tool.htm">Text</a> tool to reset the value to the default scale factor. A context menu item on <b>TheView</b> toggles the visibility of the scale controls.</p>
+        <p class="HeadingProcedure">To Configure a Context Menu</p>
+        <ol start="1">
+            <li value="1">Create a new Studio screen.</li>
+            <li value="2">Add a <b>Slider</b> and a <a href="Text Tool.htm">Text</a> control to TheView. Name the <b>Slider</b> control "sldScaleFactor" and the <b>Text</b> control "txtScaleFactor" in the <b>(ObjectCode)</b> property of each tool. </li>
+            <li value="3"> In the <b>Slider</b> control’s properties, set <b>MinimumEq</b> to 0.1 and <b>MaximumEq</b> to 0.8. </li>
+            <li value="4">In the <b>Text</b> control’s properties, set <b>[DisplayItem]</b> to Text. </li>
+            <li value="5">Add a menu item to the <b>Text</b> control.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the <b>Text</b> control’s properties, click <b>[ContextMenu]</b>. This opens the <b>Context Menu Configuration</b> dialog box.</li>
+            <li value="2">Click <b>Add</b> to add a new menu item.</li>
+            <li value="3">For the new menu item,  set the <b>Item Text</b> to "Reset" and the <b>Event ID</b> to RESET.</li>
+            <li value="4">Click <b>OK</b>.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Add a menu item to <b>TheView</b>.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In <b>TheView</b>’s properties, click <b>[ContextMenuView]</b>. This opens the <b>Context Menu Configuration</b> dialog box.</li>
+            <li value="2">Click <b>Add</b> to add a new menu item.</li>
+            <li value="3">For the new menu item, set the <b>Item Text</b> to "Toggle Scale Visibility" and the <b>Event ID</b> to TOGGLESCALEVISIBILITY.</li>
+            <li value="4">Click <b>OK</b>.</li>
+        </ol>
+        <ol start="7">
+            <li value="7">Add the following script to the general declarations section.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Open the Script Editor and navigate to (<b>General</b>), (<b>Declarations</b>).</li>
+            <li value="2">Enter the following script to set a default scale factor.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim defaultScaleFactor</p>
+                    <p class="Code2">defaultScaleFactor = 0.1</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="8">
+            <li value="8">Add script to initialize the <b>Slider</b> and <b>Text</b> controls.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the script editor, enter the following script in the <b>Text</b> control’s <b>EventInitialize</b> event.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub txtScaleFactor_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = txtScaleFactor</p>
+                    <p class="Code2">This.Text = defaultScaleFactor</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="2" class="Lower_alpha">
+            <li value="2">In the script editor, enter the following script in the <b>Slider</b> control’s <b>EventInitialize</b> event.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub SldScaleFactor_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = SldScaleFactor</p>
+                    <p class="Code2">This.Value = defaultScaleFactor</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="9">
+            <li value="9">Add script to synchronize the <b>Slider</b> with the <b>Text</b> control.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the script editor, navigate to the <b>Slider</b> control’s <b>EventInitialize</b> event.</li>
+            <li value="2">Enter the following script.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub SldScaleFactor_EventChange()</p>
+                    <p class="Code">Dim This : Set This = SldScaleFactor</p>
+                    <p class="Code2">txtScaleFactor.Text = This.Value</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="10">
+            <li value="10">Add script to handle the <b>Reset</b> command on the <b>Text</b> control’s context menu.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the script editor, navigate to the <b>Slider</b> control’s <b>EventInitialize</b> event.</li>
+            <li value="2">Enter the following script. Note that checking for the <b>EventID</b> value is not necessary because only one menu item exists. However, this would be necessary for multiple menu items.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub txtScaleFactor_EventContextMenu(EventID)</p>
+                    <p class="Code2">Dim This : Set This = txtScaleFactor</p>
+                    <p class="Code2">If EventID = "RESET" Then</p>
+                    <p class="Code3">This.Text = defaultScaleFactor</p>
+                    <p class="Code3">SldScaleFactor.Value = defaultScaleFactor</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="11">
+            <li value="11">Add script to handle the visibility toggle command on the View’s context menu.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">In the script editor, navigate to the View’s <b>EventInitialize</b> event.</li>
+            <li value="2">Enter the following script. Note that checking for the EventID value is not necessary because only one menu item exists. However, this would be necessary for multiple menu items.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub TheView_EventContextMenuView(EventID)</p>
+                    <p class="Code2">Dim This : Set This = TheView</p>
+                    <p class="Code2">If EventID = "TOGGLESCALEVISIBILITY" Then</p>
+                    <p class="Code3">If txtScaleFactor.Visible = 1 Then 'True</p>
+                    <p class="Code4">txtScaleFactor.Visible = False</p>
+                    <p class="Code4">SldScaleFactor.Visible = False</p>
+                    <p class="Code3">Else</p>
+                    <p class="Code4">txtScaleFactor.Visible = True</p>
+                    <p class="Code4">SldScaleFactor.Visible = True</p>
+                    <p class="Code3">End If</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="12">
+            <li value="12">Save the screen and switch to Run mode. Try changing the Slider value, then right-click the <b>Text</b> control and click <b>Reset</b> on the <b>Context</b> menu. Then try right-clicking <b>View</b> to use the <b>Toggle Scale Visibility</b> menu item.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Device Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet DDS Command Copy Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Utilities.htm">Device Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DDS Command Copy Utility</span>
+        </div>
+        <h2>CygNet DDS Command Copy Utility</h2>
+        <p>Use the <b>CygNet DDS Command Copy</b> utility (DdsCommandCopy.exe) to copy <a href="../EIEs - Remote Devices/UIS Commands.htm">UIS commands</a> from one remote device to other devices within the same Device Definition Service (DDS). You can make several different kinds of changes in a single copy action, including updating one or many commands within a single remote device, selected remote devices, or all remote devices of a certain type; deleting replaced commands; and updating <a href="../EIEs - Remote Devices/UIS Commands - Command Components.htm">command components</a> in destination commands.</p>
+        <p>Best practice recommends that you first perform a copy in <b>Test Mode Only</b>. This produces a report at the bottom of the <b>CygNet DDS Command Copy</b> dialog box listing what changes would occur upon execution, and gives you the opportunity to make any necessary adjustments before proceeding.</p>
+        <p>The CygNet DDS Command Copy utility file (DdsCommandCopy.exe) is stored in the <b>CygNet\Utilities</b> directory on your host server. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If you want to make similar changes to data groups, see <a href="CygNet DDS Data Group Copy Utility.htm">CygNet DDS Data Group Copy Utility</a>.</p>
+        </div>
+        <h3><a name="Starting"></a>Starting DDS Command Copy</h3>
+        <h4>Installing and Launching</h4>
+        <p>To install and launch (start) the application or utility using <a href="../Version Management/Version Management Overview.htm">version management</a>:</p>
+        <ul>
+            <li value="1">Use <a href="../CygNet Client Installer/CygNet Client Installer.htm">CygNet Client Installer</a> to install and launch the application. Once installed you can use CygNet Client Installer to start the application.</li>
+        </ul>
+        <p class="Indent">-OR-</p>
+        <ul>
+            <li value="1">If previously installed, click <b>Start</b> &gt; <b>All Programs</b> &gt; <b>CygNet</b> &gt; &lt;<i style="font-weight: bold;">name of the application or utility</i>&gt; or double-click the desktop shortcut.</li>
+        </ul>
+        <p>Alternatively, browse to the <b>CygNet\Utilities</b> directory using Windows Explorer and double-click the program icon. You can also start an application or utility from a <a href="../Utilities/Running a Command Line Utility.htm">command line</a>. These methods do not provide version management. </p>
+        <p>The <b>CygNet DDS Command Copy</b> dialog box appears.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Devices/DDS_command_copy_utility.png" title="DDS Command Copy dialog box" alt="DDS Command Copy dialog box" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample CygNet DDS Command Copy Dialog Box</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Using"></a>Using the CygNet DDS Command Copy Utility</h3>
+        <p>Using the CygNet DDS Command Copy Utility involves deciding which UIS commands you want to copy to which remote device(s) and with what effects on the destination remote device(s).</p>
+        <p>Specifically, use the CygNet DDS Command Copy Utility to add, update, replace, and delete commands. The difference between updating a command and replacing a command is that with updating you can specify a subset of items to update within the command, whereas replacing the command is identical to deleting the command and adding it again.</p>
+        <p>When the <b>Add/Update</b> or <b>Update Only</b> options are selected in the <b>Copy Options</b> panel, the <b>Update Options</b> become available. You can select to update any or all of these items. If none of these items are selected, no changes are made to the command in the destination remote device.</p>
+        <p class="HeadingProcedure">To Copy Commands</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Best practice recommends copying commands in <b>Test Mode Only</b> first. Then, when you are ready to copy to a live remote device, copy to a single remote device and verify your results before copying to multiple remote devices.</p>
+        </div>
+        <ol>
+            <li value="1"><a href="#Starting" class="selected">Open</a> the DDS Command Copy utility, to access the  CygNet DDS Command Copy dialog box.</li>
+            <li value="2">Select the  <b>Test Mode Only</b> check box to ensure that you do not mistakenly copy commands before you have reviewed the changes.</li>
+            <li value="3">Provide information about the source and target devices and commands to copy. See the <a href="#DDS" class="selected">CygNet DDS Command Copy Utility Properties</a> table for more information.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <a href="#CopyFrom" class="selected">Copy From</a> group box, provide information about the source device and commands. </li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">In the <b>DDS Site.Service</b> field, browse for the DDS that contains the commands you want to modify and select it.</li>
+            <li value="2">In the <b>Device ID to Copy</b> field, browse for the remote device you want to copy commands from and select it.</li>
+            <li value="3">Click <b>Load Command List</b> to load all of the commands for the selected device ID into the <b>Commands to Copy</b> pane.</li>
+            <li value="4">Select commands to copy in the <b>Commands  to Copy</b> pane. To select multiple commands  at once, press <b>Shift</b> or <b>Ctrl</b> + the desired command  names.</li>
+        </ol>
+        <ol class="Lower_alpha" start="2">
+            <li value="2">In the  <a href="#CopyTo" class="selected">Copy To</a> group box, provide information about the target device(s) to copy the commands to.</li>
+            <li value="3">In the <a href="#CopyOptions" class="selected">Copy Options</a> group box, select the copy options to use.</li>
+            <li value="4">If an "update" copy option is selected (either <b>Add/Update</b> or <b>Update Only</b>), the <a href="#Update" class="selected">Update Options</a> group box becomes available. Select the update options to use. See <a href="#ToSelectSpecific" class="selected">To Select Specific Command Components for Copy</a> for more information about selecting specific command components to copy.</li>
+            <li value="5">Select the action to take <a href="#IfMissing" class="selected">If Component Is Missing On Destination Device</a>.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Test the command copy action. </li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">When you have provided all necessary information, click <b>Copy</b> to test the copy action. </li>
+            <li value="2">A report will be generated in the pane at the bottom of the <b>CygNet DDS Command Copy</b> dialog box, listing the changes.</li>
+            <li value="3">Review and verify the changes. </li>
+            <li value="4">If you want to save a file of your changes, click <b>Copy Log to Clipboard</b> and paste the log into a text editor of your choice. The log information can be helpful to troubleshoot errors in a real copy action.</li>
+            <li value="5">If necessary, adjust any settings or properties and repeat steps 3 and 4 until the results are satisfactory.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Perform the command copy action. <div class="Note"><p><span class="NoteHeading">Note:</span> Best practice recommends selecting only one remote device for your first live copy.</p></div></li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">When you are satisfied with your test copy results, clear the <b>Test Mode Only</b> check box and click <b>Copy</b> to perform a "live" copy. </li>
+            <li value="2">Results from your live copy appear in the pane at the bottom of the <b>CygNet DDS Command Copy</b> dialog box.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToSelectSpecific"></a>To Select Specific Command Components for Copy</p>
+        <ol>
+            <li value="1">In the Copy Options group box, click a copy option that includes updating (<b>Add/Update</b> or <b>Update Only</b>). The Update Options group box becomes accessible.</li>
+            <li value="2">In the Update Options group box, select the <b>Components</b> update option and then click <b>Options</b> to access the <b>Advanced Component Options</b> dialog box and do one of the following.
+        <ul><li value="1">To replace all of the components, click <b>Replace Whole List</b>, and then click <b>OK</b>.</li><li value="2">To replace only selected components, click <b>Add Selected Components</b>, click to select the components to update, and then click <b>OK</b>. <p><img src="../../Resources/Images/Devices/DDS_command_copy_components_dialog.png" title="Advanced Component Options dialog box" alt="Advanced Component Options dialog box" /></p></li></ul></li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="DDS"></a>CygNet DDS Command Copy Utility Properties</h4>
+        <p>The following table provides details about the properties of the <b>CygNet DDS Command Copy</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 175px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 525px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>General</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to perform a copy of all selected commands within the <b>Commands to Copy</b> field.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Close</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to close the <b>CygNet DDS Command Copy</b> dialog box.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Test Mode Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to enable Test Mode. </p>
+                        <p>When running in Test Mode, the status bar towards the bottom of the dialog box identifies the action as SIMULATION. The numbers next to each operation are the elapsed processing time in seconds.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Copy Log to Clipboard</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click to copy a log to the clipboard for output to a text file of your choice.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Clear</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click  to clear the copy log between copies.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent"><a name="IfMissing"></a>If Component Is Missing on Destination Device</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Three options are available when copying commands when a command component is missing on the destination device:</p>
+                        <ul class="table">
+                            <li value="1"><b>Skip Command</b> — skips command creation entirely if the command is missing components.</li>
+                            <li value="2"><b>Drop Component — </b>
+                            </li>
+                        </ul>
+                        <ul style="list-style-type: circle;">
+                            <li class="HyperlinkList" value="1"><b>Add/Update</b> Copy Option: If all components are dropped because they are missing, skips command creation entirely. Otherwise, creates the command with available components only. </li>
+                            <li value="2"> <b>Update Only</b> Copy Option: <ul style="list-style-type: square;"><li class="HyperlinkList" value="1">Adds the command to the destination device if the component exists on source device but not on destination device.</li><li class="HyperlinkList" value="2"> Updates the command if the component exists on both source device and destination device. </li><li class="HyperlinkList" value="3">Deletes the component if the component does not exist on the source device but does exist on the destination device.</li><li class="HyperlinkList" value="4">Deletes the command entirely if the destination list is empty or all components are marked to be removed.</li></ul></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><a name="CopyFrom"></a><b>Copy From</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">DDS Site.Service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The site and DDS service from which you want to copy commands or some of their properties.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Device ID to Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The device ID of the remote device you want to use as your command source remote device.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Commands to Copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This field lists all commands individually or by type for a specified device ID. Includes ordinal, description, and facility.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Load Command List</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to display all commands individually or by type for a specified device ID.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="CopyTo"></a><b>Copy To</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">All devices where type matches device ID to copy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>All remote devices of the same remote device type as the source device. This is the most common option.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">All devices of type</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>All remote devices of a designated type, but which are not the same as the source remote device type.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When copying commands from one remote device type to another, be sure that the destination device(s) support the copied commands. Copying from one type to another is usually only valid for remote device types from the same manufacturer or for user-configured remote devices, like Modbus remote devices.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Selected devices</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>A list of specific, individual remote devices. Multiple individual devices can be selected at once.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When copying commands from one remote device type to another, be sure that the destination device(s) support the copied commands. Copying from one type to another is usually only valid for remote device types from the same manufacturer or for user-configured remote devices, like Modbus remote devices.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Imported devices</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><a name="CopyOptions"></a><b>Copy Options</b>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>
+                            <p class="Indent">Add/Update</p>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If a source command is present in the destination device, update the command. Otherwise, add the command. </p>
+                        <p>Selecting this option enables <a href="#Update" class="selected">Update Options</a>.</p>
+                        <p>See <a href="#IfMissing" class="selected">If Component Is Missing on Destination Device</a> for information on how command components are handled when missing on the destination device.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Update Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If a source command  is present in the destination device, update the command. Otherwise, do nothing.</p>
+                        <p>Selecting this option enables <a href="#Update" class="selected">Update Options</a>.</p>
+                        <p>See <a href="#IfMissing" class="selected">If Component Is Missing on Destination Device</a> for information on how command components are handled when missing on the destination device.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Add Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Add the source command  to the destination remote device if it does not already exist. If it does exist, do nothing.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Add/Replace</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If a source command  is present in the destination remote device, replace the command  with the source command. Otherwise, add the command.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Replace Only</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If a source command  is present in the destination remote device, replace the command  with the source command. Otherwise, do nothing.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Delete</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If a source command  is present in the destination device, delete the command  from the destination device. Otherwise, do nothing.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <th class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><a name="Update"></a><b>Update Options</b>
+                    </th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Description</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination command  description with the source command  description.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Parameters</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Check to update the destination command parameters with the source command  parameters.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent">Can Schedule</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination <b>Can Schedule</b> option with the source <b>C</b><b>an Schedule</b> option.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p class="Indent">Security Info</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Check to update the destination command security settings with the source command security settings.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p class="Indent"><a name="Components"></a>Components</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Check to update the destination command components with the source command components. </p>
+                        <p>When selected, the <a href="#Options" class="selected">Options</a> button becomes available.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1"><a name="Options"></a>
+                        <p class="Indent2">Options</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>When <a href="#Components" class="selected">Components</a> is selected, click <b>Options</b> to access selection of specific command components to update. Use this option to change or add components to the destination device.</p>
+                        <p>For more information, see <a href="#ToSelectSpecific" class="selected">To Select Specific Command Components for Copy</a>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Common"></a>Common Copy Errors and Warnings</h3>
+        <p>The following table provides details about common error and warning messages of the <b>CygNet DDS Command Copy</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 500px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Message</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2" style="font-weight: bold;">Error Message</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>DDS has uninitialized facility ordinals. Run DDS Load to correct.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This message is displayed if a destination remote device has facilities for which the ordinal is -1. See <a href="CygNet DDS Import Export Utility.htm">CygNet DDS Import/Export Utility</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Advanced Component Options unavailable if more than one From command selected.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Occurs when the <b>Options</b> button is pressed, but more than one command is selected. Select one command at a time to use advanced UDC options.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2" style="font-weight: bold;">Log Error Message</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>You must have DDS Database administrator rights to run this program.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>This is a security issue. You must have administrator permission for the DDS ACCESS event to run this program. Contact your CygNet system administrator.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Using Relative Facilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Describes screen design considerations when configuring and resolving relative facilities. Describes the Order-in-Type-based relative facility definition. How to avoid the multi-parent problem using Canvas Objects." /><title>Resolving Relative Facilities — Design Considerations</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Relative_Facilities_Using.htm">Using Relative Facilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Design Considerations</span>
+        </div>
+        <h2><a name="aanchor193"></a>
+            <MadCap:concept term="Relative Facilities" />Resolving Relative Facilities — Design Considerations</h2>
+        <p>This topic discusses some of the basic rules of relative facility resolution</p>
+        <p>The relative facility model used by Canvas and in the CygNet .NET API is based on a linking technique and facility filters. Facility filters are used throughout the CygNet application to obtain a list of facilities that satisfy a given criterion. For example, a filter of <code>“facility_type=‘GASMTR’”</code> would return a list of all gas meters for a given Facility service.</p>
+        <p>However, in the case of relative facilities, we are asking a different question. We don’t want to know about <i>all</i> facilities; we want to know about a <i>single</i> facility. For example, we want to know about the gas meter facility associated with a specific well. We can get at this association by expanding the facility filter rule definition. For example, a filter of</p>
+        <p class="Indent2"><code>“facility_type=‘GASMTR’ AND facility_attr3=‘SITE.UIS::ASH_WL’”</code>
+        </p>
+        <p>would produce the gas meter facility that is linked to the  ‘SITE.UIS::ASH_WL’ facility. If this filter does not produce a single facility, then additional filter attributes are needed to ensure that a single facility resolution occurs. So, we use facility_attr3 as the means to “link” two facilities. In this case the ASH_GM facility would have ‘SITE.UIS::ASH_WL’ as a value for facility_attr3.</p>
+        <p>This example highlights the first rule of relative facility resolution. Resolution must result in a single facility. Keeping with the above example, if we are trying to build an Ash Well screen to show the gas rate of the well, how do we know which facility to use if we return more than one resolved facility?</p>
+        <h3>Relative Facility Definitions</h3>
+        <p>Paths between relative facility definitions are automatically created during <a href="../Using_Canvas/Settings_Relative_Facilities.htm">configuration</a>. These represent the route the relative facility model will use to resolve the links in the facility chain.</p>
+        <p>Consider the following example:</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Simple relative facilities definition">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Relative Facilities/RF_example_1.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1042" data-mc-height="434" src="../../Resources/Images/Relative Facilities/RF_example_1_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                        </p>
+                        <p class="Caption">Click the thumbnail to see a simple <br />relative facility definition for a well</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Here, paths are created from every definition to every other definition in the chain. For reference, the following table shows the paths created for the <b>Well</b> relative facility definition shown in the example above.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 40%;margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0" summary="Relative facilities definition for a well">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Destination	</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Gas Meter	</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Gas Meter</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Plunger	</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Plunger</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Delivery Station</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">%PARENT%</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Compressor	</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">%PARENT%:Compressor</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Compressor Gas Meter</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">%PARENT%:Compressor:Compressor Gas Meter</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>So, to resolve to the Compressor Gas Meter for a given Well facility, we will resolve each of the individual links in the chain. We first resolve the Well’s parent facility. Then we use that facility to resolve the Compressor facility. Once we have the Compressor facility, we resolve the Compressor Gas Meter facility. These resolutions can occur because each link in the chain resolves to a single facility and each definition is unique. This represents the second rule of relative facilities. Relative facility definitions can only be linked once, that is, each facility can only have one parent.</p>
+        <h3>Order-in-Type Definition and Multi-Parent Facilities</h3>
+        <p>Consider this modification to our example:</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Multi-parent relative facilities definition">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Relative Facilities/RF_example_2.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1043" data-mc-height="430" src="../../Resources/Images/Relative Facilities/RF_example_2_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                        </p>
+                        <p class="Caption">Click the thumbnail to see a<br />multi-parent relative facility definition</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Here we have the same definition, Gas Meter, linked to both the Well and Compressor definitions. So, if we were to build a Plunger screen and wanted to show the Gas Meter on it, which Gas Meter definition will be used? Which one do you want to show? This conundrum represents the multi-parent problem. And this problem is exacerbated when you have Order-in-Type-based definitions.</p>
+        <p>Here is an example of that.</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Order-in-type relative facilities definition">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Relative Facilities/RF_example_3.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1158" data-mc-height="604" src="../../Resources/Images/Relative Facilities/RF_example_3_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                        </p>
+                        <p class="Caption">Click the thumbnail to see an<br />Order-in-Type-based relative facility definition</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>In this example we have an <b>Order-in-Type</b>-based definition for Tank, which is the parent of two other definitions, Inlet Pump and Outlet Pump. Since there could be more than one Tank definition in the chain, then the Inlet Pump and Outlet Pump definitions could have multiple parents. This configuration will create challenges for representing all this data on a single screen when building Canvas screens.</p>
+        <p>In order to build these definitions without creating a multi-parent configuration, you would have to create a definition for each Tank (i.e., Tank 1, Tank 2, Tank 3, Tank 4, etc.). Then for each Tank you would need definitions for the Inlet Pump and Outlet Pump (i.e., Tank 1 – Inlet Pump, Tank 1 – Outlet Pump, Tank 2 – Inlet Pump, Tank 2 – Outlet Pump). You can quickly see how many definitions would be required to support a large number of Tanks with only two child definitions for each. This could create an administrative and maintenance challenge.</p>
+        <p>For this reason, the <a href="../Using_Canvas/Settings_Relative_Facilities.htm">Relative Facility Definitions</a> configuration dialog within Canvas does allow you to create these multi-parent configurations. However, in order to avoid resolution issues with these configurations we need to employ some clever design techniques when building screens.</p>
+        <h3>A Special Case</h3>
+        <p>There is a special case when resolving relative facilities. To illustrate this, consider this simplified configuration:</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Direct linked relative facilities definition">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Relative Facilities/RF_example_4.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="602" data-mc-height="403" src="../../Resources/Images/Relative Facilities/RF_example_4_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                        </p>
+                        <p class="Caption">Click the thumbnail to see a<br />Well and Test Separator direct link</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Here we have the same definition for Gas Meter, linked to a Well definition and to a Test Separator definition. If we build a Well-based screen and add a control using the relative facility link ‘Gas Meter’, it will resolve to the Gas Meter definition linked directly to the Well definition. If we switched the screen's facility to a ‘Test Separator’ facility, the control would resolve to the Gas Meter definition linked to the Test Separator definition.</p>
+        <p>The special case is that if there is a direct link between the definitions, then that link will be used. Thus, a Well can resolve directly to its Gas Meter without issue. Similarly, a Test Separator can resolve directly to its Gas Meter without issue. We just cannot go outside of those direct links for the facility resolution.</p>
+        <h3><a name="Solution"></a>A Solution</h3>
+        <p>With this in mind, we can use some special Canvas controls to help us build a screen that will resolve facilities in the way we want.</p>
+        <p>Consider the following Canvas screen:</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Canvas screen resolving relative facilities">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Relative Facilities/RF_example_screen.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1003" data-mc-height="666" src="../../Resources/Images/Relative Facilities/RF_example_screen_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                        </p>
+                        <p class="Caption">Click the thumbnail to see a sample <br />Canvas screen resolving relative facilities</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>In this screen the screen’s facility tag is driven by the <a href="../Using_Canvas_Controls/Tag_Chooser.htm">Tag Chooser</a> control on the left. The Tag Chooser passes the selected facility tag to the screen. The top most set of <a href="../Using_Canvas_Controls/Detail.htm">Detail</a> controls next to the Tag Chooser are related to the Well. These controls are configured to use the screen’s facility tag. The two sets of controls below the Well, the Gas Meter Detail controls and the Plunger <a href="../Using_Canvas_Controls/Donut.htm">Donut</a> control, are configured to resolve the screen’s facility tag using either the Gas Meter or Plunger definitions. The same is true for the Central Delivery Point and Tank Battery <a href="../Using_Canvas_Controls/Text_Tool.htm">Text Tools</a> on the upper right.</p>
+        <p>The challenging part of the screen is with facility resolution for the Tank 1 and Tank 2 controls on the lower right. The Tank definition is configured for Order-in-Type. And as such the Inlet Pump and Outlet Pump definitions have multiple parents. So, we cannot have controls representing the Inlet Pump or Outlet Pump directly on the screen. To solve the issue, we are using a Canvas <a href="../Using_Canvas_Controls/Object.htm">Object</a> on the screen to handle the facility resolution.</p>
+        <p>In Design mode the Canvas Object looks like this:</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Canvas object to resolve relative facilities">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Relative Facilities/RF_example_5_object.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="486" data-mc-height="187" src="../../Resources/Images/Relative Facilities/RF_example_5_object_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+                        </p>
+                        <p class="Caption">Click the thumbnail to see a<br />Canvas Object to resolve relative facilities</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Here the two controls in the center depicting the tank level (a vertical <a href="../Using_Canvas_Controls/Linear_Gauges.htm">Linear Gauge</a> control overlaid on a tank Image) and the facility description (a Text Tool) are configured to use the screen’s facility tag. The Inlet Pump and Outlet Pump controls (Text Tools (depicting facility ID and value) and an Image) are configured to resolve the screen’s facility tag to either the Inlet Pump or Outlet Pump relative facility definition. This Object will use the special case in the relative facility resolution from above to resolve to the right facility.</p>
+        <p>On the main Canvas screen <a href="#Solution" class="selected">above</a>, we are using two <a href="../Using_Canvas_Controls/Object.htm#Object_Viewer">Object Viewer</a> controls. The first Object (Tank 1) is configured to resolve the screen’s facility tag to the first Tank and the second Object (Tank 2) is configured to resolve the screen’s facility tag to the second Tank. We also could have used an <a href="../Using_Canvas_Controls/Object_Container.htm">Object Container</a> control to show all Tanks without having to call out each one individually.</p>
+        <p>The technique used here is to split up the relative facility resolution in the event you have a multi-parent situation. In this example we had that at the Tank and Inlet Pump/Outlet Pump level. If there were further multi-parent configurations after the pump, you use the same technique there by creating additional Canvas Objects.</p>
+        <p>The use of the various Object-based Canvas controls helps us reuse screen components reducing long-term screen maintenance.</p>
+        <h3>Summary</h3>
+        <p>Relative facility definitions represent the route that Canvas uses to resolve the links in a facility chain. Relative facility resolution must result in a single facility. When defining the filter for a definition, ensure that enough facility attributes are used to ensure a single facility is returned.</p>
+        <p>Order-in-type definitions allow for multiple child facilities of a certain type by defining a facility attribute to specify an order-in-type value (the facility ordinal). Order-in-type definitions that have children inherently create multi-parent paths, which cannot be resolved on a Canvas screen.</p>
+        <p>Multi-parent paths are created when a relative facility definition is used as a child link more than once. This creates a challenge to display these relationships when building Canvas screens. In these situations, create a Canvas Object that represents a single instance, for example, make an individual Tank Object with controls that are directly connected to the Tank relative facility definition. Then use the Object Viewer or Object Container controls to display the Canvas Objects on your screen.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands|Export: Device Data CSV">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Export Definition Files</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Command Parameters - Export Device Data CSV.htm">Export: Device Data CSV</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using an Export Definition File</span>
+        </div>
+        <h2>Using an Export Definition File</h2>
+        <p>Use an export definition file to customize how a device data .csv file is exported out of your system.  The process requires two files: the source data file (.csv) and the export definition file (.edf), which is referenced by the Device Data CSV export command. CygNet provides a sample .edf file which you can use as a starting point to <a href="#Creating" class="selected">create</a> your own customized export definition file and continue to <a href="#Editing" class="selected">edit</a> its content over time, as needed.</p>
+        <p>The .edf file is an XML file used to define customized file exports for a Device Data CSV export command. Using the .edf file during the export process, you can determine the file definition type (raw device data, or normalized data in hourly or daily format, as referenced within the file), and define customized column header names by mapping each default column header name (the FMS value)  to a  new column header name (a user-provided value).</p>
+        <p>For device data CSV export files, an  .edf file must be defined and  the value for the <b>File definition type</b>  parameter (required) specifies the file export definition within the file to reference.</p>
+        <p>See <a href="Command Parameters - Export Device Data CSV.htm">Export: Device Data CSV</a> for more information about preparing and exporting .csv files that utilize an .edf file.</p>
+        <h3><a name="Creating"></a>Creating the Export Definition File (EDF) </h3>
+        <p>CygNet Measurement provides a sample EDF file, to be used for  either daily or hourly periodic data. The sample is located in the <b>CygNet\Services\FMS\CommandDefs\ExportSamples</b> folder on your host server. The sample .edf file is located as shown in the following example.</p>
+        <p class="Example">Example</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Export_Definition_File_Directory.png" />
+        </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Do not edit the sample file.</p>
+        </div>
+        <p>To create your working export definition file, do not edit the sample file. Copy the sample file and place the copy in the <b>CygNet\Services\FMS\CommandDefs</b> folder. Remove the term "Sample" from the file name and save the change. In order for the FMS service to find the file, it must be named <b>CxFmsExportCsv.edf</b> and it must be located in the <b>CygNet\Services\FMS\CommandDefs</b> folder in the   directory, therefore the name and location of the EDF file must not be changed. Locate the working .edf file as shown in the following example.</p>
+        <p class="Example">Example</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Export_Definition_File_Directory_Active.png" />
+        </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Rename a copy of the sample EDF to <b>CxFmsExportCsv.edf</b> and place it in the <b>CygNet\Services\FMS\CommandDefs</b> directory. Then you can edit the file copy.</p>
+        </div>
+        <p>Various daily  and hourly export commands  reference different sections of the same .edf file. The section of the file used by each export command is specified by the value of the <b>File definition type</b> parameter (e.g. "Daily Periodic History Exports" or "Hourly Periodic History Exports") specified when configuring the export command.</p>
+        <h4>General Export Definition File Requirements</h4>
+        <p>The following general requirements apply to Export Definition Files.</p>
+        <ul>
+            <li value="1">The .edf must be named <b>CxFmsExportCsv.edf</b> so that the FMS service can find it by the expected name.</li>
+            <li value="2">The .edf must be located in the <b>CygNet\Services\FMS\CommandDefs</b> folder so that the FMS service can find it in the expected location. </li>
+            <li value="3">The .edf  includes (at least) one or (optionally) multiple file export definitions for exported data files; the name of each file export definition is defined in the file, and the file export definition to be used by the Device Data CSV export command is specified by  the <b>File definition type</b> command parameter.</li>
+            <li value="4">The .edf must be reloaded if dependent data in the file is changed after the definition has been loaded for the command, in order for those changes to take effect.
+                <ul class="Circle"><li value="1">A change  made (and saved) in an .edf file within the CommandDefs directory causes all files in the directory to be reloaded.   However, a change made to dependent data in one of the files (e.g. unit sets referenced by the .edf file) that occurs <i>after</i> the files have already been loaded for the command will not be included in the command definition until the affected file is reloaded. To ensure that changed information (e.g. unit sets) is included in the export, the file referencing the dependent data change must be reloaded. Manually open and save a file within the CommandDefs directory  to cause the FMS service to reload all files within the directory.</li></ul></li>
+            <li value="5">If column header names are to be shown (value of the command parameter <b>Use column header</b> = Yes),  columns  that have a header name value in the source .csv file must also have a <b>ColumnMapping name</b> value in the .edf file, mapped to the corresponding FMS data item token. 
+				<div class="Note"><p><span class="NoteHeading">Note:</span> Either use the default <b>ColumnMapping name</b> values provided in the sample, or replaced them with user-provided values as desired. Once the column is mapped to the new header name, it will only appear with that name; the FMS default name will no longer be shown.</p></div></li>
+            <li value="6">Data represented by valid FMS data item tokens is retrieved at runtime.<div class="Note"><p><span class="NoteHeading">Note:</span> Do not edit the data item token text. The FMS service can only recognize data item tokens by their expected names.</p></div></li>
+        </ul>
+        <h4>Export Definition File Structure </h4>
+        <p>An .edf file contains descriptive <a href="#EDF" class="selected">elements</a> and defining attributes including the file display formatting information, a list of tokens representing the data item values you are exporting and (optionally) the mappings for the text of the corresponding column header names. </p>
+        <p>Each <a href="#Supporte" class="selected">supported data item token</a> (e.g. <b>"BeginDate"</b>, <b>"NodeName"</b>, or <b>"NodeDesc"</b> in the example) returns the value of the FMS data item it represents, and the text entered as each corresponding ColumnMapping name value (e.g. <b>"Date"</b>, <b>"Meter"</b>, or <b>"Well"</b> in the example) appears as the column header name (when headers are used in the file). </p>
+        <p>You can define <a href="#Setting" class="selected">multiple export file types</a> within one EDF file.</p>
+        <p>The structure of an .edf file for exporting hourly periodic history data is shown in the following partial example (one export file type shown).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;FileExportDefinitions&gt;</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">&lt;FileExport DisplayIdentifier="Hourly Periodic History Export" TimeSpan="Hourly" Type="Periodic" UnitSet="XXXX" NodeSortOrder="Name ascending" DataMode="Normalized"&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Date" token="BeginDate" Format="YYYYMMDD"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Meter" token="NodeName"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="Well" token="NodeDesc"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="MCF" token="Volume"/&gt;</p>
+                    <p class="Code3">&lt;ColumnMapping name="MMBTU" token="Energy"/&gt;</p>
+                    <p class="Code3">...</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">&lt;/FileExportDefinitions&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="EDF"></a>Export Definition File Elements</h4>
+        <p>The  following .edf file elements and attributes can be used to custom define one or more export options for your file export.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> XML elements used in .edf files are case sensitive, unless noted otherwise.</p>
+        </div>
+        <p>The <a name="FileExportDefinitions"></a><b>FileExportDefinitions</b> element contains all types of individual export file definitions. It can contain multiple FileExport elements.</p>
+        <p>Each <a name="FileExport"></a><b>FileExport</b> element defines a single type of export file definition, and has further attributes to define the specific export type. Possible attributes are as follows.</p>
+        <ul>
+            <li value="1">The <b> DisplayIdentifier</b> attribute defines the format that will be used for the data contained in a single type of export file. The value entered here will also appear as a drop-down option for the <a href="Command Parameters - Export Device Data CSV.htm#File">File definition type</a>  parameter when configuring the command in the MSS. The possible values of this attribute are as follows.</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><b>Hourly Periodic History Export</b> —defines an hourly history export format for the data file; customizable from this default text</li>
+            <li value="2"><b>Daily Periodic History Export</b> — defines a daily history export format for the data file; customizable from this default text</li>
+            <li value="3"><b>Raw History Export</b> — defines a raw history export format for the data file; customizable from this default text</li>
+            <li value="4"><i>[User-created name variation]</i> — defines an additional user-defined type of export format for the data file; customizable</li>
+        </ul>
+        <ul>
+            <li value="1">The <b> TimeSpan</b> attribute defines the time span per row of data, that will be used for the data contained in the export file, for periodic history data. The possible values of this attribute are as follows.</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><b>Hourly</b> —defines an hourly time span per row of data for the export file</li>
+            <li value="2"><b>Daily</b> — defines a daily time span per row of data for the export file</li>
+        </ul>
+        <ul>
+            <li value="1">The <b>Type</b> attribute defines the format of the export file (currently only periodic format is supported). The possible values of this attribute are as follows (until additional options are supported).</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><b>Periodic</b> —defines a periodic data format for the export file</li>
+        </ul>
+        <ul>
+            <li value="1">The <b> UnitSet</b> attribute is optional, and when used defines the units that will be expected for the data contained in the export file. The possible values of this attribute are as follows.</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><i>[Valid Unit Set name]</i> — the name of any valid unit set defined in your CygNet Measurement system
+				 <p>If the unit set is not defined in the command parameters in the MSS, it must be defined here. If the unit set is defined in the command parameters, defining a value here will override that parameter value.</p></li>
+        </ul>
+        <ul>
+            <li value="1">The <b> NodeSortOrder</b> attribute is optional, and when used defines the order in which Nodes will be exported  in the export file. If not specified, the default value is Name ascending. The possible values of this attribute are as follows.			      </li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><b>Name ascending</b> — sorts by Node name, in ascending alphabetical order (a - z)</li>
+            <li value="2"><b>Name descending</b> — sorts by Node name, in descending alphabetical order (z - a)</li>
+            <li value="3"><b>Description ascending</b> —sorts by Node description, in ascending alphabetical order (a - z)</li>
+            <li value="4"><b>Description descending</b> — sorts by Node description, in descending alphabetical order (z - a)</li>
+        </ul>
+        <ul>
+            <li value="1">The <b>DataMode</b> attribute is optional, and when used defines the processing mode of the data values included in the export file, whether normalized or raw. If not specified, normalized data values are used. The possible values of this attribute are as follows.</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><b>Normalized</b> —defines normalized data values to be used for the export file</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1"><b>Raw</b> —defines raw data values to be used for the export file</li>
+        </ul>
+        <p>When column header names are used (<b>Use column header</b> = Yes), the <b>ColumnMapping</b> attribute defines each column header name. The properties of this attribute are as follows.</p>
+        <ul>
+            <li value="1">The <b>ColumnMapping name</b> attribute shows the name of the column header as you want it to appear in your export file.  Customizing the <b>ColumnMapping name</b> attribute is optional, and can be user defined. The default column name is shown between the quotation marks "<i>ColumnHeaderName</i>" and, if not mapped otherwise, its text will appear as the column header name for the export file.</li>
+            <li value="2">The <b>token</b> attribute shows the FMS data item  token name. The <b>token</b> name shown between the quotation marks "<i>TokenName</i>" describes the data item value that will be retrieved, and is defined in FMS.</li>
+            <li value="3">The <b>Format</b> attribute is an optional, and when used defines a date-only format. The <b>Format</b> attribute can be applied only to the tokens "BeginDate" or "AuditDate_Host" currently. Possible values are "YYYYMMDD" or "" (no value).</li>
+        </ul>
+        <h4><a name="Supporte"></a>Supported Data Item Tokens for Export Definition Files</h4>
+        <p>In general, data item tokens supported for the export definition file used to define <a href="Command Parameters - Export Device Data CSV.htm">Device Data CSV exports</a> are equivalent to the tokens supported for data tables by <a href="Gas Device Raw QTR Report Templates.htm">Gas Device Raw QTR reports</a> or <a href="Gas Device QTR Report Templates.htm#Configur2">(Gas) Device QTR reports</a>, but there are some cases where specific tokens are supported in one format and not the other. Also, whereas the QTR reports recognize valid token names enclosed in brackets <b>[</b><i>TokenName</i><b>]</b>, EDF files recognize equivalent valid token names enclosed in quotation marks <b>"</b><i>TokenName</i><b>"</b>.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">Valid token for QTR reports = <b>[</b><i>TokenName</i><b>]</b></p>
+        <p class="Indent">Valid token for EDF = <b>"</b><i>TokenName</i><b>"</b></p>
+        <p>See <a href="Supported Tokens - Device Data CSV.htm">Supported Tokens for Device Data CSV Exports</a> for a list of valid data item tokens for exports.</p>
+        <h4><a name="Setting"></a>Setting Up Multiple Export File Types</h4>
+        <p>A single export definition file can define multiple file export types (e.g. daily and hourly data, raw data, or different display formats).</p>
+        <p>If you will be performing more than one type of file export to accommodate different business purposes, the same .edf file accommodates the needed variations. Within the working export definition file (<a href="#FileExportDefinitions" class="selected">FileExportDefinitions</a> element), copy an existing file export definition (<a href="#FileExport" class="selected">FileExport</a> element, e.g. Daily Periodic History Export) and edit the copy to create a separate new file export definition within the file (e.g. Hourly Periodic History Export). </p>
+        <p>Clearly define each file export type  (its FileExport element) to reflect the appropriate type of data and customization (e.g. "NW Daily Periodic History Export" or "Section_3 Hourly Periodic History Export"), using the DisplayIdentifier attribute. Similarly define additional attributes to complete the file export definition. Each file export definition will then contain its own properly configured data-type-specific information within the EDF file. This new file export definition type (e.g. "NW Daily Periodic History Export") can be referenced in the corresponding Device Data CSV export command by the <a href="Command Parameters - Export Device Data CSV.htm#File">file definition type</a> parameter. See <a href="Command Parameters - Export Device Data CSV.htm">Export: Device Data CSV</a> for more information about command parameters.</p>
+        <p>This process can be repeated to customize the format and content of each additional device data CSV export file type you will be exporting.</p>
+        <h3><a name="Editing"></a>Editing the Export Definition File (EDF)</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Plan to make and save any edits to your EDF file for a time when it is convenient to also restart your FMS service. Once you edit the export definition file, the export command referencing the .edf file will be unavailable until the file changes are saved and the FMS service is restarted. The FMS service restart must occur in order to load the new version of the EDF  into your system, making it available for use by the file export command. </p>
+        </div>
+        <p>To change the file definition type, column header names, and other customized information contained in the .edf file, simply edit the referenced .edf file to contain the new information, save the changes, and then restart your FMS service.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

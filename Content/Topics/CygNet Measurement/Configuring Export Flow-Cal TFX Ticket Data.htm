@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Managing Node Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Export: Flow-Cal Ticket Data TFX Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Node Commands.htm">Managing Node Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Export: Flow-Cal Ticket Data TFX</span>
+        </div>
+        <h2>Configuring Export: Flow-Cal Ticket Data TFX Commands</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This command is provided as an optional feature. For this command to function, several <a href="#Command" class="selected">requirements</a> must be met.</p>
+        </div>
+        <p>If installed,  use the <b>Export: Flow-Cal Ticket Data TFX</b> command to export raw ticket data records for a defined time range  from FMS to a specified directory location as a .tfx file. Data that is not from a raw data source, e.g. has been imported into FMS via .csv files (categorized as a "User file" source), is not included in the export.</p>
+        <p>When the <b>Export: Flow-Cal Ticket Data TFX</b> command is executed, ticket data is resolved for each eligible device via the customizable <a href="#Editing" class="selected">command definition file</a> (CDF), and the FMS Service exports the raw data records, created within the specified command time window, to the specified directory location as a .tfx file.</p>
+        <p>See <a href="FMS Commands.htm">FMS Commands</a> and <a href="Command Parameters - Export Flow-Cal TFX Ticket Data.htm">Flow-Cal Ticket Data TFX</a> for more information about using this command via CygNet Explorer (MSS).</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3><a name="Command"></a>Command Requirements</h3>
+        <p>To enable the command to export raw data to Flow-Cal .tfx files, and see the command listed in command management options, the following elements must be present.</p>
+        <ul>
+            <li value="1"><b>Flow-Cal Export DLL</b> - CygNet Measurement provides an optional DLL file that must be installed on your system to support data exports from FMS to Flow-Cal. The file (<b>CxFmsFlowCalExport.dll</b>) must be installed and registered  in the <b>CygNet\Support</b> folder on the  computer hosting your FMS service.  See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation and registration of the export DLL file.</li>
+            <li value="2"><b>Flow-Cal Export CDF</b> - CygNet Measurement provides a  command definition file (CDF) that must be installed on your system to define how your raw ticket data is exported from FMS to Flow-Cal .tfx files. The CDF contains the data item mappings and actions necessary to execute the export command to  the corresponding Flow-Cal file version and type, and can be customized to define how the data items are handled. The specific CDF file (<b>ExportFlowCalTicket.cdf</b>) must be included in the <b>CygNet\Services\FMS\CommandDefs</b> folder on your host server.  See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation and registration of the export CDF file. See <a href="#Editing" class="selected">Editing or Customizing the Command Definition File</a> for more information about using and modifying the CDF file.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Refer to Flow-Cal documentation and/or contact your Flow-Cal representative for the most current information about differences between TFX versions, and specific Flow-Cal configuration details.</p>
+        </div>
+        <h3>Configuring an Export: Flow-Cal Ticket Data TFX Command</h3>
+        <p>If desired (optional), first <a href="#Editing" class="selected">edit or customize item mappings in the command definition file</a>.</p>
+        <p>Use the following procedure to configure Flow-Cal Ticket Data TFX exports. </p>
+        <p class="HeadingProcedure">To Configure an Export: Flow-Cal Ticket Data TFX Command</p>
+        <ol>
+            <li value="1">Open the <b>Command</b> menu in FMS Explorer.</li>
+            <li value="2">Click <b>Manage</b> to access the <b>FMS Command Definitions</b> dialog box and then click <b>Add</b> to access the <b>Create New FMS Command Definition</b> dialog box.
+			 <p><img src="../../Resources/Images/CygNet Measurement/Create_Command_Export_Flow-Cal_TFX_Ticket.png" /></p></li>
+            <li value="3">Define the <a href="#Device2" class="selected">command definition properties</a>.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Type a <b>Name</b> for the command into the text box. Maximum character count is 50.</li>
+            <li value="2">Select the <b>Command type</b> from the drop-down menu.</li>
+            <li value="3">Select a processing <b>Priority</b> from the drop-down menu.</li>
+            <li value="4">Select a <b>Logging</b> level from the drop-down menu. </li>
+            <li value="5">Click to select/clear the check box to <b>Prompt when command runs</b>. </li>
+        </ol>
+        <ol start="5">
+            <li value="5">Define the <a href="#Device" class="selected">command parameters</a>. The parameters for the Export: Flow-Cal Ticket Data TFX command are described in the <b>Command parameters</b> box, which includes the <b>Description</b>, a <b>Required?</b> indicator, and a configurable <b>Value</b> field. Set the value for each required parameter, as indicated in its <b>Value</b> field.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Click <b>Create New</b>. The new command will appear in the list of FMS Command Definitions.</li>
+        </ol>
+        <h3><a name="Device2"></a>Command Definition Properties</h3>
+        <p>The following command definition properties apply to Export: Flow-Cal Ticket Data TFX commands. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Name</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Type in a <b>Name</b> for the new command.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command type</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command type</b> from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command in the MSS. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Prompt when command runs</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Click to select/clear the check box to <b>Prompt when command runs</b>. Selecting this option means you will receive a prompt asking if you want to modify the parameters before the command is executed.</p>
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Device"></a>Command Parameters</h3>
+        <p>The following command parameters apply to Export: Flow-Cal Ticket Data TFX commands when creating or editing commands via FMS Explorer. </p>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Start date/time</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the beginning date and time of the range for which to export device records. </p>
+                        <p>Click <b>...</b> to access the <b>Select Date and Time</b> dialog box.</p>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                        <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">End date/time</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the ending date and time of the range for which to export device records.</p>
+                        <p>Click <b>...</b> to access the <b>Select Date and Time</b> dialog box.</p>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                        <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Directory to export file</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Enter the directory location to which the .tfx file will be exported.</p>
+                        <p>Type the directory location for the file into the text box or click <b>...</b> to access the <b>Browse For Folder</b> dialog box, browse to the directory location, and then click <b>OK</b>.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The directory specified is relative to the client computer.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Export directory format </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a file directory format for the .tfx export file, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Directory for each polling facility</li>
+                            <li value="2">Directory for each device</li>
+                            <li value="3">Single directory for all devices</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Name of export file</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a file name format for the .tfx export file, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Date the export file was created</li>
+                            <li value="2">Node name</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">File format version</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the version of the .tfx file created for the export, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">4.1</li>
+                            <li value="2">3.3</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Alternatively, file format version can be configured in the .cdf (command definition file) if desired.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Product data requirement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select whether to export product data, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Always export</li>
+                            <li value="2">Never export</li>
+                            <li value="3">Required to perform export</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Data exported  flag</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Select whether to flag device records as "exported" in the database, from the options in the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Ignore flag </li>
+                            <li value="2">Use flag; always update</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="Note"><a name="Note"></a>
+            <p><span class="NoteHeading">Note:</span> When using relative (rather than absolute) date/time, if both the start and end date/time have hour, minute, and second values of <b>00</b>, or if both are set to midnight, an additional day will be added to the date at the end of the range. This occurs because the service assumes the start of the day for the starting date/time and the end of the day for the ending date/time in these circumstances. Therefore requesting a time range from T to T will yield one day of data, and from T-1 to T will yield two days of data.  If only one day of data is desired when using relative date/time, the start and end date/times must therefore be the same. If any of the start or end date/time hour, minute, or second values are specified as a value other than zero (or midnight) however, the range will be used as specified.</p>
+        </div>
+        <h3>Editing or Deleting an Export: Flow-Cal Ticket Data TFX Command</h3>
+        <p>See <a href="Managing Node Commands.htm">Managing Node Commands</a> for information about editing or deleting this command. </p>
+        <h3>Running an Export: Flow-Cal Ticket Data TFX Command</h3>
+        <p>See <a href="Running Node Commands.htm">Running Node Commands</a> for information about running this command.</p>
+        <h3><a name="Editing"></a>Editing or Customizing the Command Definition File</h3>
+        <p>If you want to change specific data item mappings or values, use the following procedure to edit or customize the Export: Flow-Cal Ticket Data command definition file (CDF), before executing the Flow-Cal ticket data export command. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When you override a CDF mapping, you generally want to ensure that each newly mapped item is mapped to a field that uses the same <a href="FMS Data Items Units.htm">unit type</a> as the new item. If you decide to map an item requiring units  to a unitless field in the file however, the mapping will still be valid but the value reported from the device will appear exactly as read, and not associated with a unit set. Values are not converted in the file when they are sent to a unitless field.</p>
+        </div>
+        <ol>
+            <li value="1">In the <b>CygNet\Services\FMS\CommandDefs</b> folder, find the <b>ExportFlowCalTicket.cdf</b> (command definition) file. Verify that the word "Sample" has been removed from the file name (this was likely already done at <a href="Installing CygNet Measurement.htm#5.">installation</a> of the CDF) so that the file will be recognized by the FMS service, and then open the file.</li>
+            <li value="2">Edit ticket item mappings and/or values as desired. See <a href="../EIEs - Remote Devices/Device Template Files.htm">Device Template Files</a> and <a href="../EIEs - Remote Devices/FMS Ticket Items.htm">FMS Ticket Items</a> in the Devices section for more information.</li>
+            <li value="3">Some items are mapped using a MultiField, that accommodates multiple item mappings. For example, when mapping pulse or differential pressure values using the MultiField <b>PulsesOrDP</b>, the possible item enumeration strings that can be mapped to the field are based on the device type returned (eFMS_TICKET_METERED_PULSES for turbine or ultrasonic, or eFMS_TICKET_METERED_DIFFERENTIAL_PRESSURE for orifice). Only valid data items corresponding to the device type  will return values.
+        <ul><li value="1">For Item DeviceType values of eFMS_TICKET_METERED_TYPE_TYPE_TURBINE or eFMS_TICKET_METERED_TYPE_TYPE_ULTRASONIC, pulses (eFMS_TICKET_METERED_PULSES) can be mapped to the MultiField. </li><li value="2">For an Item DeviceType value of eFMS_TICKET_METERED_TYPE_TYPE_ORIFICE, differential pressure (eFMS_TICKET_METERED_DIFFERENTIAL_PRESSURE) can be mapped to the field. </li></ul></li>
+            <li value="4">Sometimes multiple items map to the same field, that accommodates only one item mapping. In this case the first value found in the CDF file with a corresponding valid value will be used. For example, when mapping <b>KFactor</b> values to the field provided, the value returned (eFMS_TICKET_METERED_K_FACTOR_MASS or eFMS_TICKET_METERED_K_FACTOR_VOLUME) maps to the same field, so the first mapped value will be used.</li>
+            <li value="5">Edit custom item mappings as desired. Custom FMS items can be mapped to the following Flow-Cal fields. 
+                <ul><li value="1">In v4.1 or v3.3, in the &lt;Custom&gt; section, FMS Ticket items with string values, <b>eFMS_TICKET_CUSTOM1_STRING</b> through <b>eFMS_TICKET_CUSTOM8_STRING</b>, can be mapped to Flow-Cal fields <b>CustomString01</b> through <b>CustomString08</b>. Items with numeric values, <b>eFMS_TICKET_CUSTOM1_FLOAT</b> through <b>eFMS_TICKET_CUSTOM8_FLOAT</b>, can be mapped to Flow-Cal fields <b>CustomNumeric01</b> through <b>CustomNumeric08</b>.</li><li value="2">Flow-Cal fields <b>CustomDate01</b> through <b>CustomDate04</b> are not supported for FMS mapping.</li></ul></li>
+            <li value="6"><b>Save</b> and close the edited <b>ExportFlowCalTicket.cdf</b> file.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Problems that arise while processing a command definition file are logged to the <b>Services &gt; FMS</b> log file.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

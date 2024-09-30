@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ScanCom EIE</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">ScanCom EIE</span>
+        </div>
+        <h2>ScanCom EIE</h2>
+        <p>The <b>ScanCom EIE</b> is designed to interface with much of the ScanCom device’s feature set while providing an organized data structure from the user’s perspective. Along with standard EIE functionality, the ScanCom EIE includes multiple levels of device security, custom error handling, and an editor for device-level data groups that can be configured specifically for a device instance.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If you use the ScanCom EIE, devices return data in metric units, not in imperial units.</p>
+        </div>
+        <h3>Device Definition Information</h3>
+        <h4>Device Security</h4>
+        <p>Successive security definitions override previous definitions. If no security is defined in the device template file or device properties, the factory default on the device is used.</p>
+        <p>Device security can be configured at any of three levels:</p>
+        <ul start="1">
+            <li value="1">Factory default</li>
+            <li value="2">Device template file</li>
+            <li value="3">Security fields in device properties (device-level security)</li>
+        </ul>
+        <p>The security definition in the device template file can be configured using the <b>idWrite</b>, <b>pwWrite</b>, <b>idRead</b>, and <b>pwRead</b> attributes in the <b>deviceDefinition</b> element.</p>
+        <h4><span>Device Attributes</span>
+        </h4>
+        <p>The <b>deviceDefinition</b> element of the ScanCom device template file includes three attributes  that are specific to the remote device. </p>
+        <ul>
+            <li value="1">The ADEPT-7 (application layer) application address is specified in the DTF using the <b>A7_applicationAddress</b> attribute.</li>
+        </ul>
+        <ul>
+            <li value="1">The ADEPT-4 (transport layer) network identifier is specified in the DTF using the <b>A4_networkid</b> attribute.</li>
+            <li value="2">The Trusted A4 Device Address is specified in the DTF using the <b>trustedId</b> attribute.</li>
+        </ul>
+        <p>These values must be entered in hex in the device template file and must match the values as configured on your remote device.</p>
+        <h4>Session Error Recovery</h4>
+        <p>For ScanCom devices using ADEPT protocol version 4.0, if there is an error (such as bad comms) that prevents the driver from sending the logout or disconnect to the  RTU, the session error recovery functionality will get the device out of this error state.  The following lines must be added to the device template file to enable this function.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;extendedFeatures&gt;</p>
+                    <p class="Code2">&lt;recoverFailedDisconnect/&gt;</p>
+                    <p class="Code">&lt;/extendedFeatures&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Error Codes</h3>
+        <p>The device template file includes a <b>ptDataError</b> element that defines how error states are handled for returned data values. Any number of status elements can be added, where each refers to a different error value (errValue). Here status is a placeholder for the name of the error state.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ptDataError&gt;</p>
+                    <p class="Code2">&lt;<i>status</i>&#160; errValue=<i>val</i></p>
+                    <p class="Code3">updateValue=<i>true|false</i></p>
+                    <p class="Code3">setUnreliable=<i>true|false</i></p>
+                    <p class="Code3">setUserBitPos=<i>bit</i> &gt;</p>
+                    <p class="Code2">&lt;/<i>status</i>&gt;</p>
+                    <p class="Code">&lt;/ptDataError&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 140px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;">errValue</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The error code on the device that corresponds to the value’s error status</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p style="font-weight: bold;">updateValue</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Whether or not to update the value when this error status is returned.&#160; </p>
+                    <p>For some error states, return values can be unpredictable.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;">setUnreliable</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Whether or not to set the unreliable bit to true when this error status is returned for a value</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p style="font-weight: bold;">setUserBitPos</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The user bit to set when this error status is returned for a value</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Specifications</h3>
+        <p>The following table lists and describes EIE specifications.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 700px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;text-align: left;">Manufacturer</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Barton</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;text-align: left;">
+                    <p style="font-weight: bold;">Protocol(s)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>ADEPT Protocol, versions 3.4 and 4.0</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;text-align: left;">
+                    <p style="font-weight: bold;">Model(s)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Firmware versions 3.4 and 4.1</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;text-align: left;">
+                    <p style="font-weight: bold;">Required Files</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>CxDdsScanComEditors.dll</p>
+                    <p>UisScanComDeviceDriver.dll</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;text-align: left;">
+                    <p style="font-weight: bold;">Sample Templates</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>ScanCom.dtf</p>
+                    <p>ScanCom_V342.dtf</p>
+                    <p>ScanCom_V413.dtf</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;text-align: left;">
+                    <p style="font-weight: bold;">Cryout Support</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>No</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;text-align: left;">
+                    <p>FMS Support</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Yes, using FMS Legacy <a href="EFM Data Items.htm">EFM data items</a></p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> In cases where only GMR support was previously available, CygNet Measurement now provides equivalent data support using FMS Legacy data items. If you were previously using GMR data items, you must update to use FMS Legacy data items. Update options are provided as part of your software upgrade procedure. See the <i><a href="../../Resources/PDF_Repository/CygNet_94_Upgrade_Procedure.pdf" target="_blank">CygNet Upgrade Procedure</a></i> for more information. </p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;text-align: left;">
+                    <p style="font-weight: bold;">Listen Mode</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Yes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;text-align: left;">
+                    <p><b>64-bit Support</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Yes. See <a href="../Devices/64-bit Device Drivers.htm">64-bit Device Drivers</a>.</p>
+                </td>
+            </tr>
+        </table>
+        <p>For more information, see sample device template files and manufacturer documentation.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom Device Page Properties.htm" class="More">Editor – Device Page</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom Data Group Usage Notes.htm" class="More">Data Groups</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom UIS Command Component Parameters.htm" class="More">UIS Command Component Parameters</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom Data Group Types.htm" class="More">Data Group Types</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom Device-Level Data Groups.htm" class="More">Device-Level Data Groups</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom Ordinalized Data Groups.htm" class="More">Ordinalized Data Groups</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="ScanCom FMS Legacy Configuration Data Mapping.htm" class="More">FMS Legacy Configuration Data Mapping</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Quick Recovery">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VHS Quick Recovery Actions</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Quick Recovery.htm">VHS Quick Recovery</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VHS Quick Recovery Actions</span>
+        </div>
+        <h2>VHS Quick Recovery Actions</h2>
+        <p>When VHS Quick Recovery is enabled, the service performs some initial recovery actions <a href="#Automatic" class="selected">automatically</a>. There are some additional steps that may be completed <a href="#Manual" class="selected">manually</a> to restore data using the VHS Recovery utility. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> These steps are optional but are probably desirable.</p>
+        </div>
+        <h3><a name="Automatic"></a>Automatic Recovery Steps</h3>
+        <p>If the VHS starts up when there has been an abnormal shutdown and Quick Recovery is enabled, Quick Recovery will perform the following steps automatically. </p>
+        <p class="HeadingProcedure">Step 1: "Dirty" Database is Archived</p>
+        <p>The existing "dirty" history database files are archived off into a subfolder in the VHS data folder. These files will be moved in their "failed" state for potential data recovery using the VHS Recovery utility or further analysis. These files will remain the archive directory indefinitely.</p>
+        <p>The archive folder will be named <b>QR_DirtyDB_YYYYMMDDhhmmss</b>, where the timestamp suffix is the time that the "dirty" database files were archived.</p>
+        <p class="HeadingProcedure">Step 2: Service Starts with a New Database</p>
+        <p>The VHS starts up with a blank database. This allows recent data stored on current value service queues to be immediately written to the history service. At this point in the recovery, all services and clients can access the VHS as normal.</p>
+        <p class="HeadingProcedure">Step 3: Service Writes Change Queue Data to the New Database</p>
+        <p>The VHS reads the recently archived "dirty" <a href="VHS Change Queue.htm">change queue</a> (VhsChangeQueue.dat) file and populates its database with all the recent changes that had occurred before the abnormal shutdown. Only data that meets the data integrity check will be imported to prevent corrupt changes from being written the new database.</p>
+        <p>The progress of this step of can be tracked on the VHS screen of <a href="../CygNet Console/CygNet Console.htm">CygNet Console</a> or by using a point that monitors the <a href="../Service Monitoring/Info Items - Service Specific.htm#QR">SVMVHSQRPR</a> SVCMON UDC.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/History/VHS Quick Recovery in Console.png" />
+        </p>
+        <h3><a name="Manual"></a>Manual Recovery Steps</h3>
+        <p>Since VHS Quick Recovery starts the VHS with a new database, it will not contain a majority of the data that was in the database prior to the abnormal shutdown. Additional history data can be manually recovered and imported into the new history database, once the automatic Quick Recovery steps are complete. Sources of additional data are Journal Files, the archived "dirty" database, or backed up history database files. To manually recover additional data and import it into the new database see the <a href="VHS Recovery Utility.htm">VHS Recovery</a> utility.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

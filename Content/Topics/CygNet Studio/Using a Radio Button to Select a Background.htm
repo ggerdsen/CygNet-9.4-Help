@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using a Radio Button to Select a Background Color</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using a Radio Button to Select a Background Color</span>
+        </div>
+        <h2>Using a Radio Button to Select a Background Color</h2>
+        <p>The following example shows how to configure a Radio Button object to have three options, and then to use the options to set the <b>BackColor</b> property of the View.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This example reads the radio button control’s <b>Value</b> property to determine which item is selected. In some situations, you may want to programmatically set which item is selected. This can be done by setting the <b>Value</b> property to the index of an item in the list.</p>
+        </div>
+        <p class="HeadingProcedure">To Configure a Radio Button Object to have Three Options and Set the BackColor Property</p>
+        <ol start="1">
+            <li value="1">Add a Radio Button object to the View. Set its (<b>ObjectCode</b>) to "rdoColor."</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/030000124.png" />
+        </p>
+        <ol start="2">
+            <li value="2">Click <b>ListItems</b> property. Rename the default list item from "RadioButton1" to "Red."</li>
+            <li value="3">Use the <b>Add</b> button to add two more items: "Blue" and "Magenta."</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/030000134.png" />
+        </p>
+        <ol start="4">
+            <li value="4">Click <b>OK</b> to save the list items. Notice that the <b>ListItems</b> property now says "3 Item(s)" and the control looks like that shown below. If you save the screen and switch to Run mode, the buttons will behave like regular option buttons, allowing you to select only one at a time. Since there is no script attached to the object, clicking the button will have no effect.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/030000144.png" />
+        </p>
+        <ol start="5">
+            <li value="5">Add the following code to the Radio Button’s (rdoColor) <b>EventInitialize</b> event. This sets its Value property to 0, which in turns sets the background color of TheView to red when the screen is opened in Run mode.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub rdoColor_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = rdoColor</p>
+                    <p class="Code2">This.Value = 0</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="6">
+            <li value="6">Add the following code to the Radio Button’s (rdoColor) <b>EventChange</b> event. This code checks the rdoColor’s Value property and sets TheView’s background color accordingly. Colors are defined by VBScript color constants (vbRed, vbBlue, and vbMagenta). Note that the <b>Value</b> property attached to each ListItem can be changed using the ListItem’s dialog box, but in this case, you are using the default zero-based values.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub rdoColor_EventChange()</p>
+                    <p class="Code">Dim This : Set This = rdoColor</p>
+                    <p class="Code2">If This.Value = 0 Then</p>
+                    <p class="Code3">TheView.Color = vbRed</p>
+                    <p class="Code2">Elseif This.Value = 1 Then</p>
+                    <p class="Code3">TheView.Color = vbBlue</p>
+                    <p class="Code2">Elseif This.Value = 2 Then</p>
+                    <p class="Code3">TheView.Color = vbMagenta</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="7">
+            <li value="7">Save the file and switch to <b>Run</b> mode. Click the radio buttons to change the background color of TheView. Note that when the screen starts, the background is red by default, even though no code was added to an initialize event to set the color to red. This is a result of the <b>EventChange</b> script being called during initialization in addition to user changes to the control.</li>
+        </ol>
+        <p>The example above reads the radio button control’s <b>Value</b> property to determine which item is selected. In some situations, you may want to programmatically set which item is selected. This can be done by setting the <b>Value</b> property to the index of an item in the list.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Service">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Service Replication and Data Synchronization</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Service.htm">FMS Service</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS Service Replication and Data Synchronization</span>
+        </div>
+        <h2>FMS Replication and Data Synchronization</h2>
+        <p>FMS can currently be configured for FMS data synchronization/replication, or to support FMS service redundancy in the event of a failover. Use of either feature is optional. </p>
+        <p>You must have the required security authorization to configure FMS data synchronization and replication or FMS redundancy. Your User ID must satisfy the user authentication requirements in your system (Microsoft Windows) to give you  permission to write to  the configuration files containing the required settings. See <a href="../Security/Security.htm">Security</a> for more information about configuring security access.</p>
+        <h3>FMS Redundancy</h3>
+        <p>The FMS redundancy feature set can be configured for data-center redundancy,  but not yet for local redundancy. Enabling the redundancy feature currently disables use of the data synchronization/replication feature, and  FMS replication and data synchronization keywords must be disabled if they have been previously configured. </p>
+        <p>See <a href="../Redundancy/Redundancy.htm">CygNet Redundancy</a> and <a href="Configuring FMS Redundancy.htm">Configuring FMS Redundancy</a> for more information.</p>
+        <h3>FMS Replication/Data Synchronization</h3>
+        <p>The FMS data synchronization feature set is similar to the replication implementation for all DBS-based services, in that the data model is a pull from, not a push to, the Master service, and a number of Slave services can be configured to replicate from a single Master service. Enabling the replication feature disables use of the redundancy feature, and once configured, FMS replication and data synchronization keywords must be disabled before inclusion of an FMS service  in a redundant environment.</p>
+        <p>In  CygNet Measurement,  in addition to the disaster recovery service defined as a part of the replication process, business services can also be defined. </p>
+        <ul>
+            <li value="1">Master service - A maximum of one FMS service is set as the data source for replicated services, and is designated as the "Master" service for the data synchronization relationship.</li>
+        </ul>
+        <ul>
+            <li value="1">DR Slave service - A maximum of one FMS service per Master can be set up as a disaster recovery service, and is designated as the "DR Slave" service in the relationship. It is replicated from the Master service. Once it is  replicated as a DR Slave, its database will exactly match all the data in the Master service.</li>
+        </ul>
+        <ul>
+            <li value="1">Business Slave service - A maximum of three FMS  services per Master can be set up for business purposes, and are designated as "Business Slave" services in the relationship. A Business Slave is also replicated from the Master service. Once it is replicated as a Business Slave, its database will be based on a subset of the data in the Master service, and will be essentially read-only; it cannot directly process data or execute FMS commands that modify the Master database, although it can execute FMS commands that normalize the data in or perform maintenance for its own database, export data, create reports, etc.</li>
+        </ul>
+        <h3>Replication Considerations</h3>
+        <p>There are some considerations to take into account prior to setting up your FMS system replication.</p>
+        <ul start="1">
+            <li value="1">Database contents - A database in replication mode is assumed only to contain data from the Master service. </li>
+            <li value="2">Database names - Each database name must be unique within a domain.</li>
+        </ul>
+        <ul class="Circle">
+            <li value="1">For systems using the FMS Internal Database, all database names for Master and Slave services must be unique.</li>
+            <li value="2">For systems using Microsoft SQL Server, database names for Master and Slave services on the same server must be unique, but database names for services residing on different servers can share the same name, if desired.</li>
+        </ul>
+        <ul start="1">
+            <li value="1">Service Domain - All services in the relationship do not need to be on the same domain. When the services are on different domains, the domain must be included in the service name, e.g. type <b style="font-style: italic;">[Domain]</b><i>Site.Service</i> instead of <i>Site.Service</i>.</li>
+            <li value="2">Database Schema - All replicated services must have the same version of the database schema. If the database schema version of the Master service is older or newer than that of the Slave service, the replication  will not begin. In such a case, both services would still run, but the replication would display a "configuration error" status.</li>
+            <li value="3">Data Retention Periods - Each service in the relationship must have a properly configured and coordinated DATA_RETENTION keyword in its configuration file. See <a href="Configuring FMS Replication.htm#Required2">Required Data Synchronization Keywords</a> for more information.</li>
+        </ul>
+        <h3>Replication Modes and Data Sharing Roles</h3>
+        <p>FMS Replication is an optional process and no replication is in place by default. Each FMS service's replication relationship is defined in its service configuration file (<b>CygNet\Services\FMS\fms.cfg</b>). Changes must be made before starting the service; they cannot be made at runtime. </p>
+        <p>Configuration file keywords required to define replication behavior can be set by authorized users. See <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#Replicat">FMS Configuration File Keywords</a> in the Services section for more information about Data Synchronization keywords used to define replication and data sharing roles.</p>
+        <p>If you do not want to set up replication for an FMS service, leave the Data Synchronization Keywords section of the configuration file commented out, or define  the value for the DS_MODE keyword (the data sharing mode) as <b>NONE</b>. </p>
+        <p>If you want to set up replication for your FMS services, define the value for the DS_MODE keyword as <b>REPLICATION</b> in the FMS configuration file (<b>CygNet\Services\FMS\fms.cfg</b>), and proceed to <a href="Configuring FMS Replication.htm">configure the service relationships</a> for each involved service.</p>
+        <p>When in replication mode, FMS services can function in one of three possible data sharing roles. </p>
+        <ul>
+            <li value="1">Master</li>
+            <li value="2">DR Slave</li>
+            <li value="3">Business Slave</li>
+        </ul>
+        <p>FMS services involved in replication can be defined in their configuration files as a <b>REPL_MASTER</b> (Master) service, a <b>REPL_SLAVE_DR</b> (Disaster Recovery&#160;Slave) service, or a <b>REPL_SLAVE_BUSINESS</b> (Business Slave) service. These data sharing roles and their relationships are defined in the configuration files for each service involved in the replication relationship. Only one service can be defined as the Master service. Only one service can be defined as the DR Slave service, which maintains an exact copy of the Master database. Multiple services can be defined as Business Slave services, which maintain a mostly read-only copy of the Master database, in accordance with a specified data retention period (if used).</p>
+        <h3><a name="Replicat"></a>Replication Mode Functionality</h3>
+        <p>Each replication mode (FULL/REPOSITORY) and service role (Master/Business Slave) supports applicable FMS commands. The following table lists available command functionality for each replication mode service role.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> DR Slave services are read-only, so command functionality is not applicable.</p>
+        </div>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" rowspan="2">FMS Command Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" colspan="2" style="text-align: center;">FULL Mode</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="2" style="text-align: center;">REPOSITORY Mode</th>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Master Service</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Business Slave Service</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Master Service</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Business Slave Service</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="4">
+                    <p>Device Communication Commands</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Request Current Configuration</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Request Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Request Missing Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Request New Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Request Product Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Send Gas Quality</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Flow-Cal Request Missing Data*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Flow-Cal Send Gas Quality*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="4">
+                    <p>Export Commands</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Device Data CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Normalization View Data CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">PPAs CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Flow-Cal Data CFX*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Flow-Cal Ticket Data TFX*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Flow-Cal Transaction Queue*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">PGAS Data XML*</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="4">
+                    <p>Import Commands</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Configuration CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">EmersonRoc Laptop</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Gas Analysis CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Gas Quality CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">History CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Totalflow laptop</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="4">
+                    <p>Reports Commands</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Balance Contribution</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Balance Details</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Balance Overview</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Batch</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Changed Device Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Changed Station Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Configuration</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Device QTR</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Device Total QTR</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Event</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Gas Analysis</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Gas Device Raw QTR</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Job***</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Late Job***</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Liquid Device QTR</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Liquid Device Raw QTR</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Missing Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Missing Data Overview</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Normalization View</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Ticket</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" colspan="4">
+                    <p>System Commands</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Archive Data**</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Detect New Devices</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Estimate Station Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Generate Smart Groups</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Perform Database Maintenance</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Precalculate Calibration Data*** </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Schedule Jobs*** </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Update Normalization Views</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" colspan="4">
+                    <p>User Commands</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Validate Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">N/A</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+            </tr>
+        </table>
+        <p>* If installed; provided as an optional feature</p>
+        <p>** If enabled in the FMS service configuration file (<b>CygNet\Services\FMS\fms.cfg</b>)</p>
+        <p>*** Available as a feature of CygNet Dispatch. Contact <a href="../CygNet Software/Contact CygNet Sales.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Sales contact information" data-mc-width="500px" data-mc-height="auto">CygNet Sales</a> for more information.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p>
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /> <a href="Configuring FMS Replication.htm" class="More">Configuring FMS Replication</a></p>
+        <p>
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /> <a href="Configuring FMS Redundancy.htm" class="More">Configuring FMS Redundancy</a></p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

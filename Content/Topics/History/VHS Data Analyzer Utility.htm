@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VHS Data Analyzer Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Utilities.htm">VHS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VHS Data Analyzer Utility</span>
+        </div>
+        <h2>VHS Data Analyzer Utility</h2>
+        <p>The <b>VHS Data Analyzer</b> utility helps determine those points in the VHS that are taking up the most hard-drive space. Some points may be taking up space because they have a high frequency of input, while others may have a high number of retention days. The VHS Data Analyzer provides statistics to help determine a management strategy for thinning unnecessary bulk from the VHS. As problem points are identified, the analyzer can be used to create thinning rules to determine how entries will be deleted from the VHS. Once created, these thinning rules may only be executed by a separate utility, the <a href="VHS Data Thinner Utility.htm">VHS Data Thinner</a>.</p>
+        <p>The Data Analyzer utility allows VHS data to be filtered and grouped into logical sets to simplify screen displays. It also provides statistics based on these groupings to help determine which sets of points are requiring the most storage space. The main indicators calculated for each point are the</p>
+        <ul>
+            <li value="1"><b>Daily Average</b> — the number of new entries per day, and the</li>
+            <li value="2"><b>Potential</b> — the total number of entries in a steady state. </li>
+        </ul>
+        <p><a name="steady"></a>A point in a steady state is one that has reached its history capacity; that is, the number of days of data is equal to the number of retention days set for the point.</p>
+        <p>As thinning rules are created, the analyzer calculates the estimated size savings realized from each thinning rule. This information helps you to test and compare different thinning models to determine the best course of action in reducing the VHS to a specific size before deleting any entries. Note that not all models can be approximated. To prevent old or temporary data from skewing the steady-state potential, users can define what constitutes an active point.</p>
+        <p>Due to the size of the average VHS, it is impossible for the analyzer to determine the exact impact of each point. Certain assumptions are used to allow the analyzer to run in timely manner. At first pass, the daily average for each point is calculated by taking the number of entries currently in the VHS and dividing by the date range between the first and last entry. It is assumed that for each point, values are added to the VHS in a somewhat consistent manner. For points that have thinning rules, the accuracy is enhanced by sampling the most recent 500 entries and extrapolating the frequency and data quality. This option can also be enabled on points that meet the minimum requirements set in the initial VHS analysis. </p>
+        <p>Once information is gathered or calculated for a point, it is stored for the duration of the execution of the analyzer and will not be re-read from the VHS. This caching of the data greatly increased performance, but prevents recent changes to the VHS from being reflected in the results. To incorporate recent changes to the VHS in your analysis, you must reload the VHS in question.</p>
+        <p>Data from the historian can be filtered and grouped to simplify its display. This utility provides a range of statistics based to help illustrate which points are taking up the most space in the VHS. Point’s can also be trended directly out of the data analyzer view to help illustrate data trend for an individual point. Based on the storage space statistics generated thinning rules can be configured to determine what data will be deleted from the historian using the <a href="VHS Data Thinner Utility.htm">VHS Data Thinner</a> utility.</p>
+        <p>The maximum number of points that you can simulate thinning in any single analysis is approximately 1000.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> While the VHS legacy datastore type is now obsolete, you can still run any VHS utility against a VHS legacy datastore.</p>
+        </div>
+        <p>The VHS Data Analyzer is stored in the <b>CygNet\Utilities</b> directory (VhsDataAnalyzer.exe) on the host server.</p>
+        <h3>Starting VHS Data Analyzer</h3>
+        <h4>Installing and Launching</h4>
+        <p>To install and launch (start) the application or utility using <a href="../Version Management/Version Management Overview.htm">version management</a>:</p>
+        <ul>
+            <li value="1">Use <a href="../CygNet Client Installer/CygNet Client Installer.htm">CygNet Client Installer</a> to install and launch the application. Once installed you can use CygNet Client Installer to start the application.</li>
+        </ul>
+        <p class="Indent">-OR-</p>
+        <ul>
+            <li value="1">If previously installed, click <b>Start</b> &gt; <b>All Programs</b> &gt; <b>CygNet</b> &gt; &lt;<i style="font-weight: bold;">name of the application or utility</i>&gt; or double-click the desktop shortcut.</li>
+        </ul>
+        <p>Alternatively, browse to the <b>CygNet\Utilities</b> directory using Windows Explorer and double-click the program icon. You can also start an application or utility from a <a href="../Utilities/Running a Command Line Utility.htm">command line</a>. These methods do not provide version management. </p>
+        <p>The <b>VHS Data Analyzer</b> dialog box appears.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/History/VHS Data Analyzer.png" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">VHS Data Analyzer Screen
+				</td>
+            </tr>
+        </table>
+        <h3>Interface</h3>
+        <ul>
+            <li value="1">The fields at the top of the screen are used to set filter and grouping options. Options include <a href="VHS Data Analyzer Limiting the Data.htm">Limit Data By</a>, <a href="VHS Data Analyzer Grouping the Data.htm">Group By</a>, <a href="VHS Data Analyzer Using Wildcards.htm">Wildcards</a>, and Refresh.</li>
+            <li value="2">The central pane displays the points that meet the filtering criteria as well as their associated size and space statistics. See <a href="VHS Data Analyzer Point or Group Statistics.htm">Point or Group Statistics</a>.</li>
+            <li value="3">The Summary area at the bottom shows cumulative statistics of the output for the whole VHS. See <a href="VHS Data Analyzer Summary Statistics.htm">VHS Summary Statistics</a>.</li>
+        </ul>
+        <h4>Menu Bar</h4>
+        <p>The following table lists and defines the options accessed using the VHS Data Analyzer utility menu.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Menu</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>File Menu</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Load From VHS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select <b>File</b> &gt; <b>Load from VHS…</b>  to read history data from a live VHS.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Load From File</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select <b>File</b> &gt; <b>Load from File…</b>  to read data from an Data Analyzer file (.vda). </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Save</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to save the raw data in a .vda file for future analysis. See <a href="VHS Data Analyzer Analyzing the Data.htm">Analyzing the Data</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Export to CSV</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to export the data analysis displayed in the view to a CSV (comma-separated values) file. See <a href="VHS Data Analyzer Analyzing the Data.htm">Analyzing the Data</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Configure Thinning Rules</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to determine how you might thin (delete) data in your VHS. See <a href="VHS Data Analyzer Thinning Rules.htm">Thinning Rules</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Exit</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to exit the VHS Data Analyzer utility.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Options Menu</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Enhanced Accuracy</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to analyze points in greater detail. See <a href="VHS Data Analyzer Setting Options.htm">Setting Analysis and Display Options</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Highlight Thinned Points</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to highlight points that meet the thinning model criteria in blue. See <a href="VHS Data Analyzer Setting Options.htm">Setting Analysis and Display Options</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Active Point Definition</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to define an active point. See <a href="VHS Data Analyzer Setting Options.htm">Setting Analysis and Display Options</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">
+                    <p><b>Simulator Menu</b>
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Run Simulator</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to run the simulator after you have selected the points you wish to simulate. See <a href="VHS Data Analyzer Thinning Simulator.htm">Thinning Simulator</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Add Points With Thinning Rules to Simulator</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to add all the points which are configured for thinning. See <a href="VHS Data Analyzer Thinning Simulator.htm">Thinning Simulator</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Clear Simulator</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to remove all points from the simulator. See <a href="VHS Data Analyzer Thinning Simulator.htm">Thinning Simulator</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2"><b>Trending Menu</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Time Range</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to specify the time range to use when trending values. See <a href="VHS Data Analyzer Configuring Trend Defaults.htm">Configuring Trend Defaults</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Mark Data Points</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to mark individual data points on the trend line. See <a href="VHS Data Analyzer Configuring Trend Defaults.htm">Configuring Trend Defaults</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Extend Last Value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to extend the last value to the end of the trend window. See <a href="VHS Data Analyzer Configuring Trend Defaults.htm">Configuring Trend Defaults</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Overlay Y-Axis</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to display multiple trended points on the same graph. See <a href="VHS Data Analyzer Configuring Trend Defaults.htm">Configuring Trend Defaults</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2"><b>Help Menu</b>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><b>About</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to open the <b>About CygNet VHS Data Analyzer Utility</b> dialog box to view application information. </p>
+                    <p>Available information includes the following:</p>
+                    <ul class="table">
+                        <li value="1">The application name, version, and release date</li>
+                        <li value="2">Copyright information</li>
+                        <li value="3">The <span class="CygNetVariablesSoftwareName">CygNet Software</span> website address, including a hyperlink to the website</li>
+                        <li value="4">The log file location, including a hyperlink to the log file</li>
+                        <li value="5"> The location of the application's file executable</li>
+                    </ul>
+                    <p>In addition to information about the application, the <b>About</b> box includes the following buttons:</p>
+                    <ul class="table">
+                        <li value="1"><b>Client Settings</b> — opens the <b>Client Settings</b> dialog box to view and modify client log settings for the application on an ad hoc basis. See <a href="../Logging/Client Log Settings.htm">Client Log Settings</a> in the <b>Logging</b> section for more information.</li>
+                        <li value="2"><b>Diagnostics</b> — access the following options for additional analysis from the drop-down menu:</li>
+                    </ul>
+                    <ul style="list-style-type: circle;">
+                        <li value="1"><b>Loaded Modules</b> — use this option to view and search file information for modules loaded in your system. Double-click any result row to view properties for that module. See <a href="../CygNet Explorer/Loaded Modules.htm">Loaded Modules</a> for more information. </li>
+                        <li value="2"><b>Gather Logs</b> — accesses the Windows file directory where the open log files are located. Double-click to select and view an application log file.</li>
+                        <li value="3"><b>User Local Crash Dumps</b> — Local crash dumps are not enabled. See <a href="../System Administration/Generating Crash Dumps.htm">Generating Crash Dumps</a> for more information.</li>
+                    </ul>
+                    <ul class="table">
+                        <li value="1"><b>Close</b> — click to close the <b>About</b> box.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h3>Choosing the Data Source</h3>
+        <p>The VHS Data Analyzer utility can read data from either a live VHS or from a file that was generated by a previous run of the utility.</p>
+        <ul>
+            <li value="1">Select <b>File</b> &gt; <b>Load from VHS…</b>  to read history data from a live VHS.</li>
+        </ul>
+        <ul>
+            <li value="1">Select <b>File</b> &gt; <b>Load from File…</b>  to read data from an Data Analyzer file (.vda). The .vda files  are unique to the VHS Data Analyzer utility. Multiple .vda files can be opened simultaneously and the contents of the files will be combined. This is useful for offline or offsite analysis and analysis of multiple services.</li>
+        </ul>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Analyzer Setting Options.htm">Setting Analysis and Display Options</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Analyzer Analyzing the Data.htm">Analyzing the Data</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Analyzer Thinning Rules.htm">Thinning Rules</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Data Analyzer Thinning Simulator.htm">Thinning Simulator</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

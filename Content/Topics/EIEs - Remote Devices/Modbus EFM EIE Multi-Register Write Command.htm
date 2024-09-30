@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Modbus EFM EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Modbus EFM EIE – Multi-Register Write Command</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Modbus EFM EIE.htm">Modbus EFM EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Multi-Register Write Command</span>
+        </div>
+        <h2>Multi-Register Write Command</h2>
+        <p>A multi-register write command is a UIS command made up of one or more command components that writes to a set of registers (i.e., data group elements) in one or more data groups. It applies to most Modbus data groups with write functionality. Each data group included in such a command must conform to one or the other of the procedures described below. This command is <u>not</u> the same thing as a single-element data group, which enables you to specify one and only one register to read from and write to.</p>
+        <p>There are two methods to configure a multi-register write command:</p>
+        <ul>
+            <li value="1">Accept the command component default parameters and write to all of a data group's registers.</li>
+            <li value="2">Override the command component default parameters and write to a  subset of a data group's registers.</li>
+        </ul>
+        <p>The two methods for creating multi-register write commands may be used in different command components to make up a single UIS command.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Acceptin" class="selected">Accepting the Command Component Default Parameters</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Example1" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Defaults" class="selected">To Configure a Multi-Register Write Command Using Defaults</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Overridi" class="selected">Overriding the Command Component Default Parameters</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#XMLExample2" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#ToConfigureMulti" class="selected">To Configure a Multi-Register Write Command Using uccSendParms</a>
+            </li>
+        </ul>
+        <p>For more information, see <a href="UIS Commands.htm">UIS&#160;Commands</a>.</p>
+        <h3><a name="Acceptin"></a>Accepting the Command Component Default Parameters</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In order for a data group to be available for inclusion in a command, the data group must be instantiated for the remote device, the data group's <a href="DataGroup Element.htm">DataGroup</a> element must define the attribute <b>uccSend</b> as "true", and the data group must include at least one properly defined <a href="modbusReadBlocks, modbusWriteBlocks Element.htm">modbusWriteBlocks</a> element.</p>
+        </div>
+        <p>If you want to include all data group elements in a data group in a UIS command, follow the procedure below. You do not need to write values to each of the corresponding registers, but each is included in the command message.</p>
+        <p class="Example"><a name="Example1"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of data group XML</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;Setup niceName="Setup" canSend="true" uccSend="true"&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="i2"&gt;</p>
+                            <p class="Code3">&lt;ABMode desc="AB Mode" regDef="1:1" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ABModeS desc="AB Mode" type="string" mapVal="EnableStates" ref="ABMode"/&gt;</p>
+                            <p class="Code3">&lt;Murphy desc="Murphy Mode" regDef="1:2" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;MurphyS desc="Murphy Mode" type="string" mapVal="EnableStates" ref="Murphy"/&gt;</p>
+                            <p class="Code3">&lt;DiffMode desc="Differential Pressure Mode" regDef="1:3" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;DiffModeS desc="Differential Pressure Mode" readOnly="true" type="string" mapVal="EnableStates" ref="DiffMode"/&gt;</p>
+                            <p class="Code3">&lt;OnHiS desc="On High Side" regDef="1:4" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OnLoS desc="On Low Side" regDef="1:5" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OffHiS desc="Off High Side" regDef="1:6" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OffLoS desc="Off Low Side" regDef="1:7" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ThreeVlv desc="Three Valve Mode" regDef="1:8" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ThreeVlvS desc="Three Valve Mode" type="string" mapVal="EnableStates" ref="ThreeVlv"/&gt;</p>
+                            <p class="Code3">&lt;ShrtCycle desc="Short Cycle Mode" regDef="1:9" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ShrtCycleS desc="Short Cycle Mode" type="string" mapVal="EnableStates" ref="ShrtCycle"/&gt;</p>
+                            <p class="Code3">&lt;BattLowTm desc="Battery Low Time" regDef="2:00" type="i4"/&gt;</p>
+                            <p class="Code3">&lt;MntPlngCnt desc="Maintenance Plunger Count" regDef="1:0"/&gt;</p>
+                            <p class="Code3">&lt;BattVLim desc="Battery Voltage Limit" regDef="3:00" type="r4" units="volts"/&gt;</p>
+                            <p class="Code3">&lt;SetPwd desc="Set Password" regDef="4:00"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks regByteLen="2"&gt;</p>
+                            <p class="Code3">&lt;block1 regOff="-40001" regNum="40009" regCnt="10" funcCode="3"/&gt;</p>
+                            <p class="Code3">&lt;block2 regOff="-40001" regNum="40091" regCnt="02" funcCode="3"/&gt;</p>
+                            <p class="Code3">&lt;block3 regOff="-40001" regNum="40315" regCnt="02" funcCode="3"/&gt;</p>
+                            <p class="Code3">&lt;block4 regOff="-40001" regNum="41001" regCnt="01" funcCode="3"/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code2">&lt;modbusWriteBlocks regByteLen="2"&gt;</p>
+                            <p class="Code3">&lt;block1 regOff="-40001" regNum="40009" regCnt="10" funcCode="16"/&gt;</p>
+                            <p class="Code3">&lt;block2 regOff="-40001" regNum="40091" regCnt="02" funcCode="16"/&gt;</p>
+                            <p class="Code3">&lt;block3 regOff="-40001" regNum="40315" regCnt="02" funcCode="16"/&gt;</p>
+                            <p class="Code3">&lt;block4 regOff="-40001" regNum="41001" regCnt="01" funcCode="16"/&gt;</p>
+                            <p class="Code2">&lt;/modbusWriteBlocks&gt;</p>
+                            <p class="Code">&lt;/Setup&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">The "Setup" data group command parameters as they appear on the <b alt="Example Edit Command Component dialog box" title="Click for more information">UIS&#160;Commands</b> editor:</p>
+        <p class="Indent"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/Modbus_UIS_Command_All_Parms.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="550" data-mc-height="469" src="../../Resources/Images/EIEs - Remote Devices/Modbus_UIS_Command_All_Parms_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p class="HeadingProcedure"><a name="Defaults"></a>To Configure a Multi-Register Write Command Using Defaults</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the Device Definition Service (DDS).</li>
+            <li value="2">Double-click the remote device.</li>
+            <li value="3">Click the <b>UIS Commands</b> page and click <b>Add</b>.</li>
+            <li value="4">Fill out the <b>UIS Command Info</b>.</li>
+            <li value="5">In the <b>UIS Command Components</b> group box, click <b>Add</b>.</li>
+            <li value="6">At <b>Component Type</b>, select <b>Send data group to device [DG_T_DEV]</b>.</li>
+            <li value="7">In the <b>Data Group Information</b> group box, click <b>Choose Group</b>. All available data groups with write capability appear in the <b>Choose Data Group</b> dialog box that opens. If you do not see the desired data group, it either does not have write capability or it has not yet been added to your device.</li>
+            <li value="8">Select the desired data group and click <b>OK</b>. All of the data group's parameters (i.e., data group elements or registers) appear by default in the <b>Parameters</b> field.</li>
+            <li value="9">Double-click a parameter and enter a new value. Repeat for each parameter you want to change on a field device.</li>
+            <li value="10">When you are done, click <b>OK</b> to save and exit.</li>
+        </ol>
+        <h3><a name="Overridi"></a>Overriding the Command Component Default Parameters</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In order for a data group to be available for inclusion in a command, the data group must be instantiated for the remote device, the data group's <a href="DataGroup Element.htm">DataGroup</a> element must define the attribute <b>uccSend</b> as "true", and the data group must include at least one properly defined <a href="modbusReadBlocks, modbusWriteBlocks Element.htm">modbusWriteBlocks</a> element.</p>
+        </div>
+        <p>If you want to write to a subset of data group element IDs in a data group in a UIS command, follow the procedure below. Each user-specified data group element ID is repackaged into its own message. Depending on your specific setup, this might be more or less efficient than just writing to all available registers.</p>
+        <p class="Example"><a name="XMLExample2"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of data group XML</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;Setup niceName="Setup" canSend="true" uccSend="true"&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="i2"&gt;</p>
+                            <p class="Code3">&lt;ABMode desc="AB Mode" regDef="1:1" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ABModeS desc="AB Mode" type="string" mapVal="EnableStates" ref="ABMode"/&gt;</p>
+                            <p class="Code3">&lt;Murphy desc="Murphy Mode" regDef="1:2" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;MurphyS desc="Murphy Mode" type="string" mapVal="EnableStates" ref="Murphy"/&gt;</p>
+                            <p class="Code3">&lt;DiffMode desc="Differential Pressure Mode" regDef="1:3" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;DiffModeS desc="Differential Pressure Mode" readOnly="true" type="string" mapVal="EnableStates" ref="DiffMode"/&gt;</p>
+                            <p class="Code3">&lt;OnHiS desc="On High Side" regDef="1:4" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OnLoS desc="On Low Side" regDef="1:5" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OffHiS desc="Off High Side" regDef="1:6" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OffLoS desc="Off Low Side" regDef="1:7" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ThreeVlv desc="Three Valve Mode" regDef="1:8" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ThreeVlvS desc="Three Valve Mode" type="string" mapVal="EnableStates" ref="ThreeVlv"/&gt;</p>
+                            <p class="Code3">&lt;ShrtCycle desc="Short Cycle Mode" regDef="1:9" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;ShrtCycleS desc="Short Cycle Mode" type="string" mapVal="EnableStates" ref="ShrtCycle"/&gt;</p>
+                            <p class="Code3">&lt;BattLowTm desc="Battery Low Time" regDef="2:00" type="i4"/&gt;</p>
+                            <p class="Code3">&lt;MntPlngCnt desc="Maintenance Plunger Count" regDef="1:0"/&gt;</p>
+                            <p class="Code3">&lt;BattVLim desc="Battery Voltage Limit" regDef="3:00" type="r4" units="volts"/&gt;</p>
+                            <p class="Code3">&lt;SetPwd desc="Set Password" regDef="4:00"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks regByteLen="2"&gt;</p>
+                            <p class="Code3">&lt;block1 regOff="-40001" regNum="40009" regCnt="10" funcCode="3"/&gt;</p>
+                            <p class="Code3">&lt;block2 regOff="-40001" regNum="40091" regCnt="02" funcCode="3"/&gt;</p>
+                            <p class="Code3">&lt;block3 regOff="-40001" regNum="40315" regCnt="02" funcCode="3"/&gt;</p>
+                            <p class="Code3">&lt;block4 regOff="-40001" regNum="41001" regCnt="01" funcCode="3"/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code2">&lt;modbusWriteBlocks regByteLen="2"&gt;</p>
+                            <p class="Code3">&lt;block1 regOff="-40001" regNum="40009" regCnt="10" funcCode="16"/&gt;</p>
+                            <p class="Code3">&lt;block2 regOff="-40001" regNum="40091" regCnt="02" funcCode="16"/&gt;</p>
+                            <p class="Code3">&lt;block3 regOff="-40001" regNum="40315" regCnt="02" funcCode="16"/&gt;</p>
+                            <p class="Code3">&lt;block4 regOff="-40001" regNum="41001" regCnt="01" funcCode="16"/&gt;</p>
+                            <p class="Code2">&lt;/modbusWriteBlocks&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;uccSendParms&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;PartialWrt desc="Partial Write" required="true" type="boolean"/&gt;</span>
+                            </p>
+                            <p class="Code3">&lt;BattVLim desc="Battery Voltage Limit" type="r4"/&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;/uccSendParms&gt;</span>
+                            </p>
+                            <p class="Code">&lt;/Setup&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">The "Setup" data group command parameters as they appear on the <b>UIS&#160;Commands</b> editor:</p>
+        <p class="Indent"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/Modbus_UIS_Command_Some_Parms.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="550" data-mc-height="303" src="../../Resources/Images/EIEs - Remote Devices/Modbus_UIS_Command_Some_Parms_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p class="HeadingProcedure"><a name="ToConfigureMulti"></a>To Configure a Multi-Register Write Command Using uccSendParms</p>
+        <ol>
+            <li value="1">Open the Modbus template for which you want to add send parameters.</li>
+            <li value="2">Go to the data group(s) you want to modify and add a valid <a href="uccRecvParms uccSendParms Elements.htm">uccSendParms</a> element.</li>
+            <li value="3">Add a <i><a href="RecParmName SendParmName Elements.htm">SendParmName</a></i> empty element called <b>PartialWrt</b>. Include <b>desc</b>, <b>required</b>, and <b>type</b> attributes along with relevant values in the <b>PartialWrt</b> element.</li>
+            <li value="4">Add a <i style="font-weight: bold;">SendParmName</i> empty element for each parameter (i.e., data group element or register) you want to send to a field device.</li>
+            <li value="5">Save your template changes and close the template.</li>
+            <li value="6">Validate and reload the template using the <a href="../Devices/CygNet Device Template Manager Utility.htm">CygNet Device Template Manager</a> utility.</li>
+            <li value="7">Perform <a href="#Defaults" class="selected">steps 1 – 10</a> above for the affected data group(s), setting the <b>PartialWrt</b> value to <b>Yes</b> in the <b>Edit Command Component</b> dialog box. Note that instead of all of the data group parameters  appearing by default in the <b>Parameters</b> field, only those you defined in the device template file appear.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

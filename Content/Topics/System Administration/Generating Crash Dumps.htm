@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="System Administration">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Generating Crash Dumps</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="System Administration.htm">System Administration</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Generating Crash Dumps</span>
+        </div>
+        <h2>Generating Crash Dumps</h2>
+        <p>Crash dumps are useful for diagnosing, analyzing, and debugging CygNet application crashes by keeping records of crashes to be used for analysis, and saving the results to a .DMP log file. CygNet Software does not have an internal process to generate crash dumps, although there are some methods for generating memory dumps provided by Microsoft.</p>
+        <h3>Use Windows Task Manager to Generate a Crash Dump</h3>
+        <p>You can use Windows Task manager to generate a memory dump file for any process while running.</p>
+        <p class="HeadingProcedure">To generate a crash dump file for a running CygNet process</p>
+        <ol start="1">
+            <li value="1">Start Task Manager by pressing <b>Ctrl+Shift+Esc</b>.</li>
+            <li value="2">Click the <b>Processes</b> tab.</li>
+            <li value="3">Right-click the name of the process for which you want to generate a crash dump, and select <b>Create dump file</b> from the context menu. If you are prompted for an administrator password or confirmation, type your password or click <b>Continue</b>. A dump file (&lt;<i>process name</i>&gt;.DMP) for the process is created in the following folder: <b>C:\Users\&lt;<i>UserName</i>&gt;\AppData\Local\Temp</b>.</li>
+        </ol>
+        <p class="Indent2">The following image shows a sample <b>Task Manager</b> dialog box with the <b>Create dump file</b> option:</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/System Administration/TskMgrProc.png" title="Task Manager" alt="Task Manager" />
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Task Manager always saves the dump file to the <b>Temp</b> directory, so it is recommended that once the file is generated, it should be moved so that it is not deleted if a Group Policy deletes the <b>Temp</b> directory for any reason.</p>
+            </div>
+        </p>
+        <ol start="4">
+            <li value="4">Once the dump file is successfully created, click <b>OK</b>.</li>
+            <li value="5">Move the file from the above Temp folder to a location of your choosing.</li>
+        </ol>
+        <h3>Use ProcDump to Generate a Crash Dump</h3>
+        <p>A powerful memory dump generator outside of CygNet is ProcDump, a command-line utility that is part of  the Windows Sysinternals suite. This tool can be used to generate N number of memory dumps in a row or generate a memory dump when a Performance Monitor (Perfmon) counter reaches a specific threshold. Using ProcDump, you can generate a memory dump in the event of some failures, rather than the more general exception logs.</p>
+        <p>Refer to the Microsoft topic <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank">ProcDump</a> for information about using the ProcDump utility. </p>
+        <h3>Windows Error Reporting</h3>
+        <p>While CygNet does not automatically forward crash dump files to Microsoft, you can set up your own internal Windows Error Reporting (WER) server to receive crash reports, which can be shared with CygNet Support or Microsoft  at a later point, if desired.</p>
+        <p class="HeadingProcedure">To configure a Windows Error Reporting Server</p>
+        <ol>
+            <li value="1">At a command prompt, type <b>gpedit.msc</b> and click <b>Enter</b>. The <b>Local Group Policy Editor</b> dialog box opens.</li>
+            <li value="2">Select <b>Computer Configuration</b> &gt; <b>Administrative Templates</b> &gt; <b>Windows Components</b> &gt; <b>Windows Error Reporting</b> &gt; <b>Advanced Error Reporting Settings</b></li>
+            <li value="3">Double click <b>Configure Corporate Windows Error Reporting</b> to open the dialog box.</li>
+            <li value="4">Enable and configure the corporate server name where you want to send error reports.</li>
+            <li value="5">Click <b>Apply</b> and <b>OK</b>.</li>
+        </ol>
+        <h3><a name="More"></a>More Information</h3>
+        <p>For information about transaction logs and crash recovery for the ESE data storage technology (for CygNet’s DBS-based services), see <a href="../Data Storage for DBS-Based Services/ESE File Types.htm#Transaction">Transaction Logs and Crash Recovery</a>.</p>
+        <p>The Microsoft topic <a href="https://docs.microsoft.com/en-us/windows/win32/wer/collecting-user-mode-dumps" target="_blank">Collecting User-Mode Dumps</a> contains information about configuring the <b>LocalDumps</b> registry setting so that user-mode dumps can be collected and stored locally after a user-mode application, such as CygNet, crashes.</p>
+        <p>CygNet recommends setting <b>DumpType</b> to 2 to generate a full dump, which is more helpful for extracting useful information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

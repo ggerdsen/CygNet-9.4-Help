@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Points|Points Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Point Schemes</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Points.htm">Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Points Overview.htm">Points Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Point Schemes</span>
+        </div>
+        <h2>Point Schemes</h2>
+        <p>A CygNet Point Scheme defines how the configurable bits of the status fields in the real-time record are calculated when a new value is assigned to a CygNet point associated with that point scheme.  A point scheme also defines how the combination of the configurable bits resolve to a specific "point state" and "alarm condition", along with the available "alarm priority categories" that may be assigned to each configurable bit setting.  A point state is configured in the point scheme with default foreground and background colors, which are often displayed in CygNet client applications, such as CygNet Studio. For more information, see <a href="PointState_AlarmCond.htm">Point State and Alarm Condition</a>.</p>
+        <p>A single CygNet domain will have one or more point schemes, identified by unique point scheme numbers, defined and available for all CygNet Points in that domain.  A specific point scheme number is associated with a specific CygNet point in the point definition record of the PNT service, which can be modified, when more than one point scheme is available, using the standard methods such as the <a href="PNT Editor - General Page.htm">PNT Editor</a>, the <a href="Point Configuration Manager Utility.htm">Point Configuration Manager</a> utility, or <a href="../ODBC/ODBC.htm">CygNet ODBC</a>.</p>
+        <p>Definitions for the point schemes that are available on a CygNet domain are configured in the CvsMetadata.xml file found in the <b>CygNet\Services\ARS</b> directory. For more information about point schemes and CVS Metadata,  see <a href="../Alarms/Alarm Calculation Types.htm">Alarm Calculation Types</a> and <a href="Understanding the CvsMetadata File.htm">Understanding the CvsMetadata File</a>.</p>
+        <h3><a name="CygNet"></a>CygNet Standard Point Scheme</h3>
+        <p>The default point scheme is known as the <i>CygNet Standard Point Scheme</i> (Point Scheme number 0). The information described in this Online Help is primarily for the default CygNet Standard Point Scheme.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Alarm blinking is available only for points created using the <a href="#CygNet2" class="selected">CygNet Enhanced Point Scheme</a> (Point Scheme number 1 - 15). The blinking feature is not available for points created using the default <a href="#CygNet" class="selected">CygNet Standard Point Scheme</a> (Point Scheme number 0).</p>
+        </div>
+        <h3><a name="CygNet2"></a>CygNet Enhanced Point Scheme</h3>
+        <p>An alternate point scheme is known as the <i>CygNet Enhanced Point Scheme</i>, that is available as a separately licensed entity. </p>
+        <p>See <a href="Understanding the CvsMetadata File.htm">Understanding the CVS Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme. </p>
+        <p>See <a href="../Alarms/Alarm Calculation Types.htm#Other">Other Alarm Calculation Types</a> for a list of alarm calculation types used in the CygNet Enhanced Point Scheme.</p>
+        <p>Contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> for more information about the CygNet Enhanced Point Scheme or the creation of other custom point scheme definitions.</p>
+        <h3><a name="Legacy"></a>Legacy Script Functions</h3>
+        <p>There are hidden "legacy" script functions related to the point state of a CygNet Point value, that are only valid when the referenced CygNet Point is associated with the CygNet Standard Point Scheme. Calling one of these legacy script functions with a reference to a CygNet Point that is not associated with the CygNet Standard Point Scheme will return an error.</p>
+        <p>The following are hidden legacy script functions that can only reference points associated with the CygNet Standard Point Scheme.</p>
+        <p>All point data types:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#GetAlarmState">GlobalFunctions.GetAlarmState</a>()</li>
+        </ul>
+        <p>Analog point data types:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsHighAlarm">GlobalFunctions.IsHighAlarm</a>()</li>
+            <li class="HyperlinkList" value="2"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsHighDeviation">GlobalFunctions.IsHighDeviation</a>()</li>
+            <li class="HyperlinkList" value="3"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsHighOutOfRange">GlobalFunctions.IsHighOutOfRange</a>()</li>
+            <li class="HyperlinkList" value="4"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsHighWarning">GlobalFunctions.IsHighWarning</a>()</li>
+            <li class="HyperlinkList" value="5"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsLowAlarm">GlobalFunctions.IsLowAlarm</a>()</li>
+            <li class="HyperlinkList" value="6"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsLowOutOfRange">GlobalFunctions.IsLowOutOfRange</a>()</li>
+            <li class="HyperlinkList" value="7"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsLowWarning">GlobalFunctions.IsLowWarning</a>()</li>
+        </ul>
+        <p>Digital point data types:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsDigitalAlarm">GlobalFunctions.IsDigitalAlarm</a>()</li>
+            <li class="HyperlinkList" value="2"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsDigitalChattering">GlobalFunctions.IsDigitalChattering</a>()</li>
+            <li class="HyperlinkList" value="3"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsDigitalWarning">GlobalFunctions.IsDigitalWarning</a>()</li>
+        </ul>
+        <p>String point data types:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsStringAlarm1">GlobalFunctions.IsStringAlarm1</a>()</li>
+            <li class="HyperlinkList" value="2"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsStringAlarm2">GlobalFunctions.IsStringAlarm2</a>()</li>
+            <li class="HyperlinkList" value="3"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsStringAlarm3">GlobalFunctions.IsStringAlarm3</a>()</li>
+            <li class="HyperlinkList" value="4"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsStringAlarm4">GlobalFunctions.IsStringAlarm4</a>()</li>
+            <li class="HyperlinkList" value="5"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsStringAlarm5">GlobalFunctions.IsStringAlarm5</a>()</li>
+            <li class="HyperlinkList" value="6"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsStringAlarm6">GlobalFunctions.IsStringAlarm6</a>()</li>
+        </ul>
+        <p>Enumeration point data types:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsEnumAlarm1">GlobalFunctions.IsEnumAlarm1</a>()</li>
+            <li class="HyperlinkList" value="2"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsEnumAlarm2">GlobalFunctions.IsEnumAlarm2()</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsEnumAlarm3">GlobalFunctions.IsEnumAlarm3</a>()</li>
+            <li class="HyperlinkList" value="4"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsEnumAlarm4">GlobalFunctions.IsEnumAlarm4</a>()</li>
+            <li class="HyperlinkList" value="5"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsEnumAlarm5">GlobalFunctions.IsEnumAlarm5</a>()</li>
+            <li class="HyperlinkList" value="6"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#IsEnumAlarm6">GlobalFunctions.IsEnumAlarm6</a>()</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

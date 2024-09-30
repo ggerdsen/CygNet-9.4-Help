@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Groups|Group Rollups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Filtering a Group Rollup</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Groups.htm">Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Group Rollups.htm">Group Rollups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Filtering a Group Rollup</span>
+        </div>
+        <h2>Filtering a Group Rollup</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The following procedures and subsections assume that you have properly <a href="Creating a Group Hierarchy.htm">configured and built all relevant group hierarchies</a>.</p>
+        </div>
+        <p>A filter is used to focus on a subset of data points within a rollup. For instance, a rollup might collect information from many meters for a given uniform data code (UDC), but you only want to use information from a subset of those meters. A filter enables you to focus on that subset.</p>
+        <p>Filters are inclusive, which means that they include only facilities that meet filter criteria, not those that do not meet filter criteria. They are based on one or more facility attribute values or group node attribute values.</p>
+        <p>Define filters using the <b>General Data Fields</b> located on the <b>Application</b> page of the relevant <a href="Creating a Group Average or Total Rollup.htm#5.">rollup HyperPoint</a> in the Point Service (PNT). Short filters (20 characters or less) can be defined directly on the <b>Application</b> page, while long filters (more than 20 characters) must reference a group node attribute of the relevant summary group node.</p>
+        <p>For more information, see the subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ToCreateFilter" class="selected">To Create a Short Filter (20 Characters or Less)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#ToCreatePNT" class="selected">To Create a Long Filter (More Than 20 Characters)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Facility" class="selected">Facility Attribute-Based Filter Syntax and Parameters</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Group" class="selected">Group Node Attribute-Based Filter Syntax and Parameters</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#General" class="selected">General Data Fields Descriptions</a>
+            </li>
+        </ul>
+        <p>For general information about group rollups, see <a href="Group Rollups.htm">Group Rollups</a>.</p>
+        <p>For information about Facility Service (FAC) attributes, see <a href="../Facilities/Facility Attributes.htm">Facility Attributes</a>.</p>
+        <p>For information about Group Service (GRP) attributes, see <a href="Node Category, Type, and Attribute Identifier.htm">Node Category, Type, and Attribute Identifiers</a>.</p>
+        <p class="HeadingProcedure"><a name="ToCreateFilter"></a>To Create a Short Filter (20 Characters or Less)</p>
+        <ol>
+            <li value="1">Decide whether your filter will use a facility attribute or a group node attribute, then note the attribute name and its value.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> In order to filter by an attribute, you might need to add a new facility attribute and/or value to the relevant facility record or add a new group node attribute and/or value to the relevant group record.</p>
+            </div>
+        </ol>
+        <ol start="2">
+            <li value="2">Go to the PNT and open the <a href="Creating a Group Average or Total Rollup.htm#5.">rollup HyperPoint</a> for the relevant UDC. You do <u>not</u> need to modify the corresponding <a href="Creating a Group Average or Total Rollup.htm#4.">calculation target point</a>.</li>
+            <li value="3">Click the <b>Application</b> page and click <b>Edit</b>.</li>
+            <li value="4">Type the attribute in the <a href="#General1" class="selected">General 1</a> field. Be sure to use the correct syntax. Multiple attributes may be used for stricter filtering by using semicolons to separate the attributes. For instance, you could combine two group node attributes like this: ~attr0=A;~attr1=B.</li>
+            <li value="5">When you are done, click <b>Save</b>.</li>
+            <li value="6">Verify success by opening the Universal Interface Service (UIS) where the rollup value is stored and confirm that the reported value is what you expect it to be. If the rollup is a total, the value should be the total of all included point values. If the rollup is an average, the value should be the average of all included point values.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToCreatePNT"></a>To Create a Long Filter (More Than 20 Characters)</p>
+        <ol start="1">
+            <li value="1">Choose the facility attribute and value by which you want to filter and note them.</li>
+            <li value="2">Open the <a href="Group Hierarchy Manager Utility.htm">Group Manager</a> utility.<ol start="1" style="list-style-type: lower-alpha;"><li value="1">Click <b>View</b>, then click <b>As-Built Hierarchies</b>. The <b>Group Service Explorer</b> appears.</li><li value="2">If the details pane is not open, click <b>Options</b> and click <b>Show Details</b>.</li><li value="3">In the <b>Hierarchy Type</b> drop-down menu of the Group Service Explorer, select <b>Navigation Hierarchies</b> and expand the tree that contains the relevant summary group node.</li><li value="4">Select the  relevant summary group node, click <b>Options</b>, then click <b>Edit Group Node</b>.</li><li value="5">On the node property sheet that appears, click <b>Attributes</b>, then click <b>Edit Node</b>.</li><li value="6"><a name="Facility"></a>Double-click an empty field and type the facility attribute by which you want to filter into the field. Be sure to use the correct <a href="#Syntax" class="selected">syntax</a>. For instance, if you want to filter by facility attribute 2, which has a value of <i>Floyd</i>, you must enter F:facility_attr2=Floyd.</li><li value="7">Click <b>Apply</b> then click <b>OK</b>.</li></ol></li>
+            <li value="3">Using CygNet Explorer, open the Point Service (PNT) then open the <a href="Creating a Group Average or Total Rollup.htm#5.">rollup HyperPoint</a> for the relevant UDC. You do <u>not</u> need to modify the corresponding <a href="Creating a Group Average or Total Rollup.htm#4.">calculation target point</a>.<ol start="1" style="list-style-type: lower-alpha;"><li value="1">Click <b>Application</b>, then click <b>Edit</b>.</li><li value="2">In the <a href="#General3" class="selected">General 3</a> field, enter the group attribute of the field where you entered the referenced facility attribute from <a href="#Facility" class="selected">step f</a> above. Be sure to use the correct <a href="#~attr" class="selected">group attribute syntax</a>; do <u>not</u> include a value. For instance, if the filter facility attribute F:facility_attr2=Floyd is located in the summary group node attribute field ~attr4, type <i>~attr4</i> in the <b>General 3</b> field.</li><li value="3">Click <b>Save</b>.</li></ol></li>
+            <li value="4">Verify success by opening the Universal Interface Service (UIS) where the rollup value is stored and confirm that the reported value is what you expect it to be. If the rollup is a total, the value should be the total of all included point values. If the rollup is an average, the value should be the average of all included point values.</li>
+        </ol>
+        <h3>Facility Attribute-Based Filter Syntax and Parameters</h3>
+        <p>Apply this filter in the <b>General 1</b> field (if under 20 characters) or <b>General 3</b> field (if over 20 characters) on the <b>Application</b> page of the relevant rollup HyperPoint property in the PNT Editor.</p>
+        <h5><a name="Syntax"></a>Syntax</h5>
+        <p class="Syntax">F:<i>facility_attrib</i>=<i>value</i></p>
+        <p class="Example">Example</p>
+        <p class="Indent">F:facility_attr2=Floyd would include only those facilities for which the facility text attribute 2 has the value <i>Floyd</i>.</p>
+        <h5>Parameters</h5>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Definition</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>F:</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>FAC directory </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>F:</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>facility_attrib</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Generic facility attribute name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Fac_Info_0, Fac_Info_1, facility_attr0 through facility_attr9, and facility_table0 through facility_table19</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Attribute value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Any valid value for the specified facility attribute</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> If the attribute is a table attribute, the value must equal the table entry, not the entry description. For example, F:facility_table1=R1 would filter out all facilities except those for which facility table attribute 1 equals R1 (R1 is the entry; Route 1 is the description).</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Group"></a>Group Node Attribute-Based Filter Syntax and Parameters</h3>
+        <p>Apply this filter in the <b>General 1</b> field (if under 20 characters) or <b>General 3</b> field (if over 20 characters) on the <b>Application</b> page of the relevant rollup HyperPoint property sheet Point Service (PNT).</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If you filter based on a group attribute that is mapped to a facility attribute and you change the facility attribute value, you must rebuild the group to reflect the change.</p>
+        </div>
+        <h5>Syntax</h5>
+        <p class="Syntax">~attr<i>n</i>=<i>value</i></p>
+        <p class="Example">Example</p>
+        <p class="Indent">~attr1=SALESMETER would include only those facilities for which group attribute 1 has the value <i>SALESMETER</i>.</p>
+        <h5>Parameters</h5>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Definition</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Options</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="~attr"></a>~attr<i>n</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Group node attribute ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Valid options are ~attr0 through ~attr9</p>
+                    <p>At the leaf-node level, some group node attributes are populated automatically with facility attribute values when the group is generated using the <a href="Group Service Explorer.htm">Group Service Explorer</a>.</p>
+                    <p>These group node attributes map as follows:</p>
+                    <ul class="table">
+                        <li value="1">Attribute0 (~attr0) = Facility ID</li>
+                        <li value="2">Attribute1 (~attr1) = Facility Type</li>
+                        <li value="3">Attribute2 (~attr2) = no mapping</li>
+                        <li value="4">Attribute3 (~attr3) = Facility Description</li>
+                        <li value="5">Attribute4 (~attr4) = Facility Text Attribute 0</li>
+                        <li value="6">Attribute5 (~attr5) = Facility Text Attribute 1</li>
+                        <li value="7">Attribute6 (~attr6) = Facility Info 0 (Facility Location)</li>
+                        <li value="8">Attribute7 (~attr7) = Facility Info 1 (Facility Contact)</li>
+                        <li value="9">Attribute8 (~attr8) = no mapping</li>
+                        <li value="10">Attribute9 (~attr9) = no mapping</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Attribute value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Any valid value for the specified attribute</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="General"></a>General Data Fields Descriptions</h3>
+        <p>The <b>General Data Fields</b> on the <b>Application</b> page of a point property sheet are used to define filters and references to attributes containing filters. The following table describes the various data fields and their uses.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Filter values cannot contain wildcards. Attribute names and attribute values are <u>not</u> case sensitive.</p>
+        </div>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Field</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="General1"></a>General 1</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this field to specify a filter definition. You can use <a href="#Facility" class="selected">facility attributes</a> or <a href="#Group" class="selected">group node attributes</a>.</p>
+                    <p>This field is a maximum of 20 characters. Use the field <b>General 3</b> to reference a Group Service (GRP) attribute if the filter definition exceeds 20 characters.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a name="General2"></a>General 2</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this field to change the leaf node type of a node that is a child of a <a href="Creating a Group Average or Total Rollup.htm#3.">summary group node</a>.</p>
+                    <p>By default, filtering is based on leaf nodes that are of the type <b>Facility</b> (~type=~F). This filter option works in conjunction with the <b>General 1</b> and/or <b>General 3</b> options.</p>
+                    <p>The only reason a leaf node would not be a facility type is if the group were manually created.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="General3"></a>General 3</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this field to specify a reference to a Group Service (GRP) attribute that contains a facility attribute filter definition. This field is useful a the filter string is too long to fit in the <b>General 1</b> field.</p>
+                    <p>For example, if the value used in the <b>General 3</b> field is ~attr8, group node attribute 8 contains the relevant facility attribute filter information. View the group node in the <a href="Group Service Explorer.htm">Group Service Explorer</a>.</p>
+                    <p>Group node attributes 4 through 7 allow up to 40 characters. Group node attributes 8 and 9 allow up to 60 characters.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

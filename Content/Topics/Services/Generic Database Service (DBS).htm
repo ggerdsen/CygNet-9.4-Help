@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Services|Services Overview|Database Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Generic Database Service (DBS)</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Services.htm">Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Services Overview.htm">Services Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Database Services.htm">Database Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Generic DBS Service (DBS)</span>
+        </div>
+        <h2>Generic Database Service (DBS)</h2>
+        <p>It is possible to set up a generic database service and customize it, using the <b>DBS</b> folder in the <b>Services</b> directory in the CygNet CD image. A generic database service uses the same engine as the other database services and can utilize the associated features such as backup, logging, auditing, and replication. To use the service you will need to define a schema and then program it to gather data, etc.  </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This service type, Database Service (DBS), will not appear in the CygNet Explorer service hierarchy unless it has been specifically set up.</p>
+        </div>
+        <p class="HeadingProcedure">To Configure a Generic Database Service</p>
+        <ol>
+            <li value="1">
+                Copy and paste the <b>DBS</b> folder from the <b>Services</b> directory of your CygNet CD image into your <b>CygNet\Services</b> directory.
+            </li>
+            <li value="2">In the <b>CygNet\Services\DBS</b> folder on your host server, open the <b>Dbs.cfg</b> file in a text editor.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Replace all instances of <i>XXX</i> with your site name.</li>
+            <li value="2">Change the value of the <b>SERVICE</b> keyword in the <b>Dbs.cfg</b> file  to “&lt;yoursitename &gt;.&lt;newservicetype&gt;”.</li>
+            <li value="3">Configure any other options desired in the <b>Dbs.cfg</b> file. The only required keywords are <b>ACS</b>, <b>TRS</b>, <b>MSS</b>, <b>DBS_MAIN_SEC_EVENT</b>, <b>SVC_PORT</b>, and <b>ACS_ID</b>.</li>
+            <li value="4">Save the configuration file and add the new DBS to the ARS and RSM of your site.</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Create the DDL File for your service:</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Designing a new DDL file is at the discretion of the user and beyond the scope of CygNet.</p>
+            </div>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Create a new file in your new <b>DBS</b> directory called “&lt;newservicetype&gt;.DDL”.</li>
+            <li value="2">Open the new DDL file and add the definitions to be used. To do this you must know the data types and sizes of the elements to bring into the database. For example, you can use the <a href="../Devices/CygNet DDS Viewer Utility.htm">DDS Transaction Viewer Utility</a> to view XML data for a device  or view another service’s DDL file to find data type(s) to fill the table(s).<br /></li>
+            <ul class="Circle">
+                <li value="1">Define Element ID(s)</li>
+                <li value="2">Define Segment ID(s)</li>
+                <li value="3">Define Database ID(s)</li>
+                <li value="4">Define Index(es)</li>
+            </ul>
+            <li value="3">Save the DDL file, go to the <b>CygNet\Utilities</b> directory on the host server, and run the <a href="../Database Utilities/ReIndex ESE Utility.htm">ReIndex ESE</a> command-line utility. If the file has not been properly configured, ReIndexEse will return errors. Carefully review any errors and correct them. If no errors are detected, the database file will be reindexed.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Start the new DBS by right-clicking the service in CygNet Explorer and selecting <b>Service Control</b> &gt; <b>Start</b>.</li>
+            <li value="5">Perform the following to add the new DBS to the <b>SERVICES</b> group in the ACS.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the ACS, select the <b>Groups</b> tab or right-click in the white space of the service pane and click <b>View Groups</b>.</li>
+            <li value="2">Double-click any entry in the <b>SERVICES</b> group. By default, the <b>SVC_DBS</b> group is the best choice. The <b>Group Member Properties</b> dialog box displays.</li>
+            <li value="3">Click the <b>View Group…</b> button. The <b>Properties for Group SERVICES (CygNet Services)</b> dialog box displays.</li>
+            <li value="4">Click <b>New</b> and in the <b>Type</b> field of the <b>Group Member Properties</b> dialog box, select <b>US – User</b> from the drop-down menu.</li>
+            <li value="5">In the <b>User</b> field, type the name of the new service.</li>
+            <li value="6">Click <b>OK</b> twice.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Perform the following to add the appropriate permissions to the new DBS using CygNet Explorer.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the ACS, select the <b>Permissions</b> page, right-click in the service window, and select <b>New App</b>. The <b>New Application</b> dialog box opens.</li>
+            <li value="2">Enter the type of the new service (DBS) in the <b>Application</b> field and a description of your choosing in the <b>Description</b> field. For example, if your service is called "TEST.GENDBS", then the description would be "GENDBS".</li>
+            <li value="3">In the <b>Events</b> section, click <b>New</b>. The <b>New Event</b> dialog box displays.</li>
+            <li value="4">Enter <b>ACCESS</b> in the <b>Event</b> field and a description of your choosing in the <b>Description</b> field and click <b>OK</b>.</li>
+            <li value="5">In the <b>Permissions</b> section of the <b>New Application</b> dialog box, click <b>New</b>. The <b>Permission Properties</b> dialog box opens.</li>
+            <li value="6">In the <b>Type</b> field, select <b>US – User</b> from the drop-down menu.</li>
+            <li value="7">In the <b>User</b> field, enter the name of your CygNet admin account.</li>
+            <li style="font-weight: normal;" value="8">In the <b>Access Level</b> field, select <b>5-Admin</b> from the drop-down menu and click <b>OK</b>.</li>
+            <li style="font-weight: normal;" value="9">In the <b>Events</b> section of the <b>New Application</b> dialog box, click <b>New</b>. The <b>New Event</b> dialog box displays.</li>
+            <li style="font-weight: normal;" value="10">Enter <b>ODBC</b> in the <b>Event</b> field and a description of your choosing in the <b>Description</b> field and click <b>OK</b>.</li>
+            <li style="font-weight: normal;" value="11">In the <b>Permissions</b> section of the <b>New Application</b> dialog box, click <b>New</b>. The <b>Permission Properties</b> dialog box opens.</li>
+            <li style="font-weight: normal;" value="12">In the <b>Type</b> field, select <b>US – User</b> from the drop-down menu.</li>
+            <li style="font-weight: normal;" value="13">In the <b>User</b> field, enter the name of your CygNet admin account.</li>
+            <li style="font-weight: normal;" value="14">In the <b>Access Level</b> field, select <b>5-Admin</b> from the drop-down menu and click <b>OK</b> twice.</li>
+        </ol>
+        <ol start="7">
+            <li value="7">Create the script to load the data into the new service, taking into account the DDL file created above.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> The right data types must be placed into the database for the service to work as designed. </p>
+            </div>
+        </ol>
+        <h3>Other Resources</h3>
+        <p>See these other resources for generic database support:</p>
+        <ul>
+            <li value="1">Config File — <a href="../Service Configuration Keywords/DBS Configuration File Keywords.htm">DBS Configuration File Keywords</a></li>
+        </ul>
+        <ul>
+            <li value="1">Service Security — <a href="../Security/Database Service DBS.htm">DBS Security</a></li>
+        </ul>
+        <ul>
+            <li value="1">Scripting —<a href="../Scripting/CxEditors CxDbsEditor Object.htm"> CxEditors CxDbsEditor Object</a></li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

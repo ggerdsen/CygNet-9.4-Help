@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FMS Explorer Administrative Menu</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS Explorer Administrative Menu</span>
+        </div>
+        <h2>Using the Administrative Menu</h2>
+        <p>Use the <b>Admin</b> menu  to perform and customize a variety of system administrative functions. </p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Validati" class="selected">Validation engines</a> management
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Estimati" class="selected">Estimation engines</a> management
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Purging" class="selected">Data purging</a> actions
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Managing" class="selected">Report definitions</a> management</li>
+            <li class="HyperlinkList" value="5"><a href="#Options" class="selected">Administrative options</a> configuration</li>
+        </ul>
+        <p class="Image">
+            <img src="../../Resources/Images/CygNet Measurement/Menus_Admin_3_600x138.png" style="width: 600;height: 138;" />
+        </p>
+        <p>You must have proper security authorization to perform administrative actions. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#ACCESS">ACCESS</a> security event) for information about configuring security access for the administrative menu.</p>
+        <h3><a name="Validati"></a>Validation Processing</h3>
+        <p>Validation engines and rules can be added, edited, and deleted. Access this functionality from the Administrative menu, via the <b>Validation</b> button. See <a href="Managing Validation Engines.htm">Managing Validation Engines</a> for configuration information.</p>
+        <p>The CygNet Measurement system can be configured to validate incoming data to ensure that analysts get as accurate a representation of the products flowing through a measurement device as possible. Since data coming from field devices or external systems may be of suspect or poor quality, incoming data can be optionally configured to go through an analysis process where records are validated against one or more custom configured validation rules to quickly identify problems in the data. </p>
+        <p>Multiple validation rules can be grouped together into validation engines with well-defined activation triggers. Within each engine, you can configure rules and their related parameters accordingly. If a device resolves to multiple validation rules or engines, all will be used.</p>
+        <p>When a record fails a validation rule, a related exception with a user-defined severity is generated, which can be viewed, sorted and edited on the Exceptions Control. There can be multiple exceptions for any given record. All raw data is validated, but user edits are <a href="Configuring System Options.htm#Data">optionally validated</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Estimati"></a>Estimation Processing</h3>
+        <p>Estimation Engines can be added, edited, and deleted. Access this functionality from the  Administrative menu, via the <b>Estimation</b> button. See <a href="Managing Estimation Engines.htm">Managing Estimation Engines</a> for configuration information.</p>
+        <p>When configured by the system administrator, the CygNet Measurement system  will find missing data, late data, and data of insufficient quality; and  estimate a better value. Estimation is only performed at the station level. An  estimated value is an edit of a record to improve its data  quality, which provides users with the most accurate overall view possible at  any given time. </p>
+        <p>Estimation is performed by an estimation engine, which defines what data  will be estimated and how to perform the estimation. Missing data and low quality data is estimated as soon as the record enters the measurement system. Late data estimation must be initiated by the <a href="Running Estimation Commands.htm">Estimate Station Data</a> command.</p>
+        <p>Each estimation engine supports multiple estimation rules, so that different estimation handling routines can be performed in a user-defined  order of precedence, given prescribed data constraints. For example, when estimating data, a  higher-ranked estimation rule may not have available data (e.g. nominations are  not being received). The system would then move to next defined estimation rule,  and so on. Once data is estimated, the system will never do another estimation,  even if more data becomes available.</p>
+        <p>Estimation can be configured on a group level (unique general  group) and/or a station level. Therefore one engine can be defined and applied to  a group, and hence indirectly to the multiple devices within that group. However, you can override the rules in the group-level engine by  applying different rules to specific stations within the group. The system  will try to resolve an estimation rule at the station level and if one isn't found, then check at  the group level.</p>
+        <p>It is possible to configure a different data quality level for each estimation rule. In  the case of invalid data, a maximum data quality can be configured so there is  the potential for the measurement system to only generate estimates for the most  invalid data. </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Purging"></a>Purging Data</h3>
+        <p>Device Node data can be purged from the system, for selected Nodes, from a specified beginning date/time until a specified ending date/time. Access this functionality from the Administrative menu, via the <b>Purge Data</b> button. See <a href="Purging Device Data.htm">Purging Device Data</a> for configuration information.</p>
+        <h3><a name="Managing"></a>Managing Reports</h3>
+        <p>FMS report definitions can be created and managed to best customize them for your system and business goals. Access this functionality from the Administrative menu, via the <b>Manage</b> button. See <a href="Managing Report Definitions.htm">Managing Report Definitions</a> for configuration information.</p>
+        <h3><a name="Options"></a>Configuring Options</h3>
+        <p>Several configuration options can be customized in order to process and display data most usefully in your system. Access this functionality from the Administration menu, via the <b>Options</b> button. See <a href="Configuring Administrative Options.htm">Configuring Administrative Options</a> for configuration information.</p>
+        <p>For more information about a specific administrative option, see one of the following configuration topics.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Configuring Audit Categories.htm">Audit Categories</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="Configuring Composition Splits.htm">Composition Splits</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="Configuring Custom Dashboard Columns.htm">Custom Dashboard Columns</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="Configuring Custom Device Data.htm">Custom Device Data</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="Configuring Data Quality Settings.htm">Data Quality Settings</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="Configuring Email Options.htm">Email Options</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="Configuring Normalization Views.htm">Normalization Views</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="Configuring System Options.htm">System Options</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="Configuring Unit Set Definitions.htm">Unit Set Definitions</a>
+            </li>
+        </ul>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Managing Validation Engines.htm" class="More">Managing Validation Engines</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Managing Estimation Engines.htm" class="More">Managing Estimation Engines</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Purging Device Data.htm" class="More">Purging Device Data</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Managing Report Definitions.htm" class="More">Managing Report Definitions</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring Administrative Options.htm" class="More">Configuring Administrative Options</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CygNet Scripting Guide">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Best Practices</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Scripting Guide.htm">CygNet Scripting Guide</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Best Practices</span>
+        </div>
+        <h2>Best Practices</h2>
+        <p>These best practices are guidelines that CygNet suggests that you adopt for building your scripts. They are based on lessons learned over several years of installing and maintaining CygNet systems. They reflect feedback we have received from customers, systems integrators, and our own engineers. Adherence to these best practices may likely save you considerable time, money, and frustration as you begin to take advantage of CygNet’s scripting environment. </p>
+        <h3>Convention and Style</h3>
+        <p>Prior to creating a large number of scripts for either CygNet Studio or for the HyperPoint Scripting Service, take the time to establish some style guidelines for creating your script. As with any flexible programming environment, the CygNet scripting environment provides you with many options for convention and style that you may adopt. Although the syntax of Microsoft Visual Basic script and the functions provided by the libraries are fixed, how you indent your code, add comments, name variables, handle error conditions and much more is up to you. Early adoption of a set of coding conventions will dramatically improve the maintainability of your script and form a solid foundation for expanding the system in the future. Since many of the examples provided in the reference guide have been extracted from production systems, you will find that the examples show a variety of styles and conventions. One style may or may not be superior to another, but deciding on one style and sticking with it is certainly a superior strategy.</p>
+        <p>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> When working with very large integers in script (15+ characters), be careful when incrementing by small values, as the value displayed may not reflect the actual value. This restriction is imposed by the way VB Script handles floating point calculations.</p>
+            </div>
+        </p>
+        <h3>Use the HyperPoint Value for Status Only</h3>
+        <p>You are given the option of where you write the results of the script processing. You may write results into the HSS point for which the script is associated, or you can write to any other point in a HSS or UIS. In most cases, it is better to use the value of the HyperPoint for the status of the script itself such as "INIT" to indicate that the HyperPoint has been initialized, "SUCCESS" to indicate successful script processing, and "FAILED" to indicate that a problem occurred in the script processing. This way, it is easy to make a visual health check of the scripts in the HSS, and you can alarm and get history of the problems that occur. Additionally, if you would like to use a numeric trending tool such as the <a href="../CygNet Studio/Trend Tool.htm">Trend Tool</a>, you can add a number at the beginning of the status description for the value such as "2:FAILED." The history of the status for scripts may then easily be trended.</p>
+        <h3>Write the Results of Calculations to the UIS</h3>
+        <p>It is usually better to write the results of calculations performed by scripts into points on a UIS. This practice will help insure that data associated with a device or a process are grouped with other associated point data. Browsing point data and developing templated human-machine interface (HMI) screens will then be much easier for our users and screen developers. </p>
+        <h3>Consider Using the MSS Instead of HyperPoint Script Timers</h3>
+        <p>Scripts may be set to run on a timed basis using the provided <a href="CxScript UpdateTimer Methods.htm">Timer.Set</a> function. This works well in many situations, but is not a good solution for handling a large number of related scripts or applying more complex timed execution sequences. When you want to have many scripts run at the same time or when you need more flexibility in scheduling, use the <a href="../Scheduler/Scheduler.htm">Master Scheduling Service</a> to run the scripts. The advantages include:</p>
+        <ul>
+            <li value="1">The MSS provides built-in scheduling flexibility </li>
+            <li value="2">MSS scheduled events may be easily suspended if necessary</li>
+            <li value="3">Script processing may be easily timed in relation to other MSS scheduled activities such as polls and control actions</li>
+        </ul>
+        <p>When using the MSS for scheduling the execution of scripts, create a "trigger" point in the HSS that you can reference in each of the related scripts. You will then set the MSS to perform a setpoint request to the trigger point. This will in turn trigger the script to process.</p>
+        <h3>Create Generic Template Code That Can Be Easily Copied </h3>
+        <p>A very valuable technique for creating a large number of scripts is to first create a template script and then copy the template script repeatedly until all scripts are entered. To limit the number of point specific changes necessary for each copied script, reference point tags in the script using the points' FACILITY/UDC designation. In this way, you can be clever in your script and dynamically reference either the facility or the UDC to reference a point and avoid having to enter specific point tag Ids in each script.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

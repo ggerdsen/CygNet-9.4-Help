@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Client to Server Communication</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Services.htm">Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Client to Server Communication</span>
+        </div>
+        <h2>CygNet Client to Server Communication</h2>
+        <p>User workstations, or clients, send request messages to CygNet services that are installed on servers. Only clients may initiate requests to services; services do not initiate requests to clients. Clients decide when information from a service is needed and only then do they initiate requests for information.</p>
+        <p>The method by which CygNet clients communicate with CygNet services is referred to as sessionless communications. This means that once a request is sent by a client and the associated response is received from the service, all resources associated with the connection are released and made available for other clients. Sessionless communication provides greater user accessibility, faster response times, more efficient bandwidth utilization, and less interruption to the overall CygNet system due to network error conditions.</p>
+        <p>All communications between CygNet clients and services involve one logical request message from a client followed by one logical response from a service. This exchange of messages is an autonomous operation that can be quickly and easily repeated if the client determines that it is necessary due to a data error or communication interruption.</p>
+        <p>Due to this sessionless communication model, there is no user logon to the CygNet system. A user launches CygNet client applications hosted by the Windows operating system environment. Once a user is logged on and authenticated to a Windows session, CygNet clients may be used to access server data. Client applications request data as needed, and once a response is received from the server, the transaction is complete. There is no logged on session maintained while a user operates within a client application. Multiple instances of CygNet client applications can be freely opened and closed, just like any other Windows application such as Microsoft Word, without logging on to a CygNet server. Each application instance will manage sending its own autonomous data requests in the model described above.</p>
+        <p>CygNet client requests check permissions for authenticated users to perform tasks in the software such as viewing data, changing configuration, or sending control commands. The service that administrates security is the <a href="../Security/Security.htm">Access Control Service</a> (ACS). Each time a user attempts to perform a security event for any given application, a message is sent to the ACS to verify the user’s permission level. The permission levels are set for Windows user IDs and can be set up by system administrators. When the user’s permission level meets or exceeds the required permission level for the event, the ACS grants access via a verification message. When the user permission level is deficient or the event is not found in the ACS, access is denied.</p>
+        <p>Auditing in CygNet consists of recording changes made by users to services or records in a format that facilitates periodic review. Actions such as starting or stopping a service, updating or deleting a value in history, changing configuration records, and issuing a data poll command or setpoint can be audited. The <a href="../Auditing/Auditing.htm">Audit Service</a> (AUD) is the service that stores the audit records. The level of detail contained in an audit record is configurable for each service. Auditing occurs on logical operations rather than individual CygNet messages because this level of recording would occur at too high a volume for efficient storage and retrieval. Rather, the aggregate operational changes to the system made by a user are stored for audit review.</p>
+        <p>The following diagram represents the client to server request and the server to client response.</p>
+        <p>
+            <img src="../../Resources/Images/Services/ClientServerComm.png" title="CygNet Client to Server Communication" alt="CygNet Client to Server Communication" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

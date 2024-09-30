@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Elements and Attributes">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>selection</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Elements and Attributes.htm">Elements and Attributes</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">selection</span>
+        </div>
+        <h2>selection</h2>
+        <p>The <b>selection</b> element is the parent element for assignment operation elements, which are processed sequentially and used to assign a conditional value to the parent data group element. In effect, the <b>selection</b> element defines assignment operations that make up an if-then-else sequence of evaluations. If used, <b>selection</b> must be part of a valid <a href="Basic and Advanced Reference Methods.htm">advanced reference method</a> that uses the appropriate <a href="Available Reference Operations.htm">reference operation</a> attributes. If a <a href="ref.htm">ref</a> element precedes the <b>ref</b> element that contains a <b>selection</b> element, the preceding <b>ref</b> value can be used to replace the initial value (i.e., <b>operandLeft</b> or <b>operandLeftId</b>) in the initial assignment operation of the <b>selection</b> element.</p>
+        <p>This element is:</p>
+        <ul>
+            <li value="1">Case sensitive</li>
+            <li value="2">Not required in a CygNet device template file</li>
+            <li value="3">If used, used 1 time each per CygNet data group</li>
+        </ul>
+        <p>To learn about how this element relates to other elements in a CygNet device template file, see <a href="Template File Hierarchy.htm">Template File Hierarchy</a>.</p>
+        <p>See also <a href="Assign a Value.htm#AssignConditionalA">Reference Methods – Assign a Conditional Value (A, B, and C)</a>.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the element</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!-- The following example illustrates three distinct constructs (<b>s0</b>, <b>s1</b>, and <b>s2</b>) of the assignment operations that can make up a <b>selection</b> element. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;Select desc="Alarm State" readOnly="true" type="string" isRef="1"&gt;</p>
+                            <p class="Code2">&lt;ref prec="0" refOp="opSelect"&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;selection&gt;</span>
+                            </p>
+                            <p class="Code4">&lt;<span style="background-color: #b0c4de;">s0</span> assign="Low Alarm" operandLeftId="raw0" op="GT" operandRight="0"/&gt;</p>
+                            <p class="Code4">&lt;<span style="background-color: #b0c4de;">s1</span> assignId="Medium Alarm" op="GT"&gt;</p>
+                            <p class="Code5">&lt;operandLeft deid="raw0" bMsk="0x0F"/&gt;</p>
+                            <p class="Code5">&lt;operandRight value="0"/&gt;</p>
+                            <p class="Code4">&lt;/<span style="background-color: #b0c4de;">s1</span>&gt;</p>
+                            <p class="Code4">&lt;<span style="background-color: #b0c4de;">s2</span> assign="High Alarm" andOr="and"&gt;</p>
+                            <p class="Code5">&lt;expr op="GT"&gt;</p>
+                            <p class="Code6">&lt;operandLeft deid="raw0" bPos="1"/&gt;</p>
+                            <p class="Code6">&lt;operandRight value="0"/&gt;</p>
+                            <p class="Code5">&lt;/expr&gt;</p>
+                            <p class="Code5">&lt;expr op="LT"&gt;</p>
+                            <p class="Code6">&lt;operandLeft deid="raw1"/&gt;</p>
+                            <p class="Code6">&lt;operandRight value="12"/&gt;</p>
+                            <p class="Code5">&lt;/expr&gt;</p>
+                            <p class="Code4">&lt;/<span style="background-color: #b0c4de;">s2</span>&gt;</p>
+                            <p class="Code4">&lt;defVal assign="No Alarms Found"/&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;/selection&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/ref&gt;</p>
+                            <p class="Code">&lt;/Select&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h3>Supporting Elements</h3>
+        <p>The following table lists and describes special child elements used within a <b>selection</b> element and/or its container elements.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>s<i>n</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>s</b><i style="font-weight: bold;">n</i> elements inside a <b>selection</b> element define assignment operations.</p>
+                    <p><b>s</b><i style="font-weight: bold;">n</i> elements must be numbered sequentially to define the order by which processing occurs. For example, <b>s0</b>, <b>s1</b>, <b>s</b><i style="font-weight: bold;">n</i> means that <b>s0</b> is processed first, then <b>s1</b>, and finally <b>s</b><i style="font-weight: bold;">n</i>.</p>
+                    <p>Each child element is evaluated in sequence from lowest number to highest. If a relational expression in a child element is true, the <a href="#assign" class="selected">assign</a> value of that element is assigned to that element, processing stops, and the assigned value is returned for the parent data group element.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="defVal"></a>defVal</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>defVal</b> defines a default value to be automatically returned in the event that certain conditions are not met in a container element.</p>
+                    <p>Currently, <b>defVal</b> is used in two situations. The first situation is when an enumeration requested by a referencing data group element, <b>eFMS</b>, or <b>eGMR</b> element does not match what is requested. The second situation is when no conditions defined in a <b>selection</b> element are met.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="expr"></a>expr</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>expr</b> defines an expression element where <b>expr</b> first defines the kind of relational operation to take place, then includes child elements that define the right and left operands in the operation. The <b>expr</b> value can then be compared to one or more other <b>expr</b> values.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="operandLeft2"></a>operandLeft</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>operandLeft</b> defines the constant value to be used to the left of a relational operator in a relational expression.</p>
+                    <p>This element can be used as an attribute. <a href="#operandLeft" class="selected">See below</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="operandLeftId2"></a>operandLeftId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>operandLeftId</b> defines the data group element value to be used to the left of a relational operator in a relational expression.</p>
+                    <p>This element can be used as an attribute. <a href="#operandLeftId" class="selected">See below</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="operandRight2"></a>operandRight</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>operandRight</b> defines the constant value to be used to the right of a relational operator in a relational expression.</p>
+                    <p>This element can be used as an attribute. <a href="#operandRight" class="selected">See below</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="operandRightId2"></a>operandRightId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>operandRightId</b> defines the data group element value to be used to the right of a relational operator in a relational expression.</p>
+                    <p>This element can be used as an attribute. <a href="#operandRightId" class="selected">See below</a>.</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Attributes</h3>
+        <p>The following table lists and describes attributes generally applicable to this element. However, not all of the attributes listed here are applicable to all EIEs. Additionally, some attributes are required for use in every device template file of a certain EIE, but others may be used on a case-by-case or device-by-device basis, depending on your specific needs. All attributes in templates are case sensitive; but the case sensitivity of attribute values is based on context.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Occasionally, device template files for different EIEs use attributes of the same name that do different things. Efforts are made in this document to highlight cases where an attribute by one name does different things in different EIEs.</p>
+        </div>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="andOr"></a>andOr</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>andOr</b> defines the conjunction used between statements and/or expressions.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Only <b>AND</b> or <b>OR</b> are valid values. <b>AND</b> indicates that all conditions must be met; <b>OR</b> indicates that any one condition must be met.</li>
+                        <li value="2">If <b>andOr</b> is not used in the relevant context, the default value is <b>AND</b>.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="assign"></a>assign</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>assign</b> sets a constant value  for a given expression if the expression's conditions are met.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">User-defined string. However, the data group of which this attribute is a part will attempt to convert the user-defined string if the string is  assigned for the data group <u>and</u> if the data group specifies a data <a href="DataGroupElement Element.htm#type">type</a> for its child elements.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="assignId"></a>assignId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>assignId</b> sets a data group element ID value for a given expression if the expression's conditions are met.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a valid data group element ID.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="bMsk"></a>bMsk</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>bMsk</b> (bit mask) performs a bitwise <b>AND</b> operation on a referenced value when multiple bits are to be affected. <b>bMsk</b> cannot be used in the same element as <b>bPos</b>. </p>
+                    <p>To make this attribute meter specific, append <b>_ord</b><i style="font-weight: bold;">n</i> to the attribute. For example, <b>bMsk_ord1</b>.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Requires a positive whole number. Can be hex. If using hex, the hex number must start with 0x (i.e., 0xF, 0x0F, 0x00F, or 0x000F).</li>
+                        <li value="2">Must be greater than or equal to 1 (0x1 hex).</li>
+                        <li value="3">Must fit in a 32-bit field.</li>
+                        <li value="4">Default is <b>unsigned</b> bit shift, but may be overridden with <a href="ref.htm#bitShift">bitShift</a> to indicate whether to shift off the masked low bits.</li>
+                    </ul>
+                    <p>See also <a href="Bit Mask.htm">Bit Mask Examples</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="bPos"></a>bPos</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>bPos</b> (bit position) requests the binary value of the bit in the bit position specified. <b>bPos</b> cannot be used in the same element as <b>bMsk</b>.</p>
+                    <p>To make this attribute meter specific, append <b>_ord</b><i style="font-weight: bold;">n</i> to the attribute. For example, <b>bPos_ord1</b>.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Requires non-negative decimal or hex numbers only. If using hex, the hex number must start with 0x (i.e., 0xF, 0x0F, 0x00F, or 0x000F).</li>
+                        <li value="2">Must be greater than or equal to 0 (0x0 hex) and less than or equal to 31 (0x1F).</li>
+                        <li value="3">0 - 7 are valid for an 8-bit field. 0 - 15 are valid for a 16-bit field. 0 - 31 are valid for a 32-bit field.</li>
+                        <li value="4">Always does an <b>unsigned</b> bit shift.</li>
+                    </ul>
+                    <p>See also <a href="Bit Position.htm">Bit Position Examples</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>deid</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>deid</b> specifies  the data group element ID (DEID) of a referenced data group element from which to use a value.</p>
+                    <p><b>eFMS</b> and <b>eGMR</b> elements usually require <b>deid</b>. However, in special cases a register number (<a href="eFMS, eGMR.htm#regNum">regNum</a>) can be used instead of a <b>deid</b> value to associate a data item with a data source.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Any DEID of a valid source <i>DataGroupElement</i> element within the same data group as <b>deid</b>.</li>
+                        <li value="2">The <b>deid</b> value cannot be recursive; that is, it cannot reference the <i>DataGroupElement</i> element of which it is a part.</li>
+                        <li value="3">The source <i>DataGroupElement</i> element cannot itself be a reference <i>DataGroupElement</i> element.</li>
+                    </ul>
+                    <p>See also <a href="ref.htm">ref</a> and <a href="eFMS, eGMR.htm">eFMS, eGMR</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="op"></a>op</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>op</b> defines the use of a relational operator.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1"><b>EQ</b>: equal to</li>
+                        <li value="2"><b>NE</b>: not equal to</li>
+                        <li value="3"><b>LT</b>: less than</li>
+                        <li value="4"><b>LE</b>: less than or equal to</li>
+                        <li value="5"><b>GT</b>: greater than</li>
+                        <li value="6"><b>GE</b>: greater than or equal to</li>
+                        <li value="7">If an attribute value is not present, <b>op</b> defaults to <b>EQ</b></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="operandLeft"></a>operandLeft</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>operandLeft</b> defines the constant value to be used to the left of a relational operator in a relational expression. For example, 3.13 in the expression 3.13 &gt; 1 is the leftmost value.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Accepts different data types as values and converts them whenever possible.</li>
+                    </ul>
+                    <p>This attribute can be used as an element. <a href="#operandLeft2" class="selected">See above</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="operandLeftId"></a>operandLeftId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>operandLeftId</b> defines the data group element ID value to be used to the left of a relational operator in a relational expression. For example, someData in the expression someData  &gt; 1 is the leftmost value.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a valid data group element ID.</li>
+                    </ul>
+                    <p>This attribute can be used as an element. <a href="#operandLeftId2" class="selected">See above</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="operandRight"></a>operandRight</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>operandRight</b> defines the constant value to be used to the right of a relational operator in a relational expression. For example, 3.13 in the expression  1 &lt; 3.13 is the rightmost value.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Accepts different data types as values and converts them whenever possible.</li>
+                    </ul>
+                    <p>This attribute can be used as an element. <a href="#operandRight2" class="selected">See above</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="operandRightId"></a>operandRightId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>operandRightId</b> defines the data group element ID value to be used to the right of a relational operator in a relational expression. For example, someData in the expression 1 &lt; someData  is the rightmost value.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a valid data group element ID.</li>
+                    </ul>
+                    <p>This attribute can be used as an element. <a href="#operandRightId2" class="selected">See above</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>value</b> specifies a constant value. The value used must be relevant to the context in which <b>value</b> is used.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Depends on context. Often numeric, but may be string in the appropriate circumstance.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

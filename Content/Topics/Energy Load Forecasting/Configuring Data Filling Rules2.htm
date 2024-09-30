@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Energy Load Forecasting|Using CygNet ELF|CygNet ELF EIE Editor|Configuring Input Items|Configuring Input Data Items">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Data Filling Rules</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Energy Load Forecasting root.htm">Energy Load Forecasting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet ELF.htm">Using CygNet ELF</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet ELF EIE Editor.htm">CygNet ELF EIE Editor</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Input Items.htm">Configuring Input Items</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Data Filling Rules</span>
+        </div>
+        <h2>Configuring Data Filling Rules</h2>
+        <p>Before training occurs, the data that is designated as inputs to the training process must be filled if necessary. As each hour is imported into the system, filling rules are applied first, followed by <a href="Configuring Data Validation Rules.htm">validation rules</a>.</p>
+        <p>Data filling settings must be associated with a particular Input Item Type (Ordinal or Categorical). If provided, the Input data filling parameters will be used to fill in the entry for an hourly interval when the hourly interval is missing from the import file. Missing hours will be filled with a placeholder with no value by the import process. </p>
+        <p>The import process detects missing hours by using the defined beginning and ending range in the import file. The adding of placeholder values during the import ensures a continuous stream of hourly data for the import data range. However, it is possible that training time ranges may specify a broader range for which there may be missing input data. Data filling will also occur for any additional missing hours that are specified in the training input ranges.</p>
+        <p>Values that are filled will be modified in the VHS. To indicate that the value was edited due to data filling, the ELF driver will flag a user bit on the stored entry for the hour. The particular Filled Value Bit is configurable on the <a href="Configuring System Settings.htm#Current_Value_Status_Bits">System Settings</a> page.</p>
+        <p class="HeadingProcedure">To Configure Data Filling Rules</p>
+        <p>This dialog box is accessible in two ways:</p>
+        <table class="TableStyle_NoBorder" style="width: 800px;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">
+                        <ol>
+                            <li value="1">Click the <b>System Settings</b> page of the ELF Editor.</li>
+                            <li value="2">Configure the system properties as described in <a href="Configuring System Settings.htm">Configuring System Settings</a>.</li>
+                            <li value="3">Click <b>Gas Load Settings</b>.</li>
+                            <li value="4">Click <b>…</b> next to the <b>Filling Rules</b> text box to view the <b>Data Filling Settings</b> dialog box.</li>
+                            <li value="5">Configure the rules using the properties described below.</li>
+                        </ol>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <ol>
+                            <li value="1">Click the <b>Input Items</b> page of the ELF Editor.</li>
+                            <li value="2">Click <b>Add Item</b> or <b>Edit Item</b> to view the <b>Add/Edit Input Data Item</b> dialog box.</li>
+                            <li value="3">Click <b>…</b> next to the <b>Filling Rules</b> text box to view the <b>Data Filling Settings</b> dialog box.</li>
+                            <li value="4">Configure the rules using the properties described below.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="TableStyle_NoBorder" style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" cellspacing="0">
+            <col class="Column-Column1" />
+            <col class="Column-Column1" />
+            <col class="Column-Column1" />
+            <tr class="Body-Body1">
+                <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: center;">
+                    <img src="../../Resources/Images/Energy Load Forecasting/input_data_items_edit_ordinal_filling.png" />
+                </td>
+                <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd" style="text-align: center;">
+                    <img src="../../Resources/Images/Energy Load Forecasting/input_data_items_edit_categorical_filling.png" />
+                </td>
+            </tr>
+            <tr class="Body-Body1">
+                <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep" style="text-align: center;">
+                    <p class="Caption">Data Filling Settings for <br />Ordinal Data Item Type
+                    </p>
+                </td>
+                <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColSep">&#160;</td>
+                <td class="TableStyle_NoBorder_Body_0_0_RowSep_ColEnd" style="text-align: center;">
+                    <p class="Caption">Data Filling Settings for<br />Categorical Data Item Type
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <p>The properties on the <b>Data Filling Settings</b> dialog box are described below.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Field  Name</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Data Item Type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Data filling settings must be associated with a particular Data Item Type (Ordinal or Categorical).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Data Generation</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>For Ordinal data item types, the available data filling actions include the following:</p>
+                    <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-HelpTable2-Head-Header1">
+                                <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Data Filling Action</th>
+                                <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>No Action</b>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">No value will be written to the VHS for the missing hour.</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Default Value</b>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Provide a default value to be directly written to the VHS.</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                    <p><b>Previous Value</b>
+                                    </p>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Write the value for the previous hour. If the previous value was filled, then that filled value will be used. This value may be used as fall-back value.</td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body2">
+                                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Linear Fill</b>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                                    <p>Write a value to the VHS using a linear fill calculation method. This value may be used as a calculation target value.</p>
+                                    <p>Linear Fill will generate hourly values where there is a hole in data by linearly interpolating the gap between the points on either side of the hole. For example, there is a gap between the 9:00 a.m. (100) and 11:00 a.m. (300) in an import file. To fill a value for 10:00 a.m., the filling infers the value between 100 and 300, and writes 200.</p>
+                                    <p>If there is <b>no</b> value to be found before or after the hole in the data, and Linear Fill has been selected for data generation, the Default Value will be used to calculate the linear fill value. For example, an import file contains the following values:</p>
+                                    <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+                                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                                        <col class="TableStyle-HelpTable2-Column-Column1" />
+                                        <thead>
+                                            <tr class="TableStyle-HelpTable2-Head-Header1">
+                                                <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: normal;"><b>Time</b>
+                                                </th>
+                                                <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: normal;text-align: center;"><b>Import Values</b>
+                                                </th>
+                                                <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="font-weight: normal;text-align: center;"><b>Values Written to the VHS</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tr class="TableStyle-HelpTable2-Body-Body1">
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                                <p>7:00 a.m.</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                                                <p>no value</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                                                <p>no value</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="TableStyle-HelpTable2-Body-Body2">
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                                <p>8:00 a.m.</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                                                <p>no value</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                                                <p>550</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="TableStyle-HelpTable2-Body-Body1">
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                                <p>9:00 a.m.</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                                                <p>100</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                                                <p>100</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="TableStyle-HelpTable2-Body-Body2">
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                                <p>10:00 a.m.</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                                                <p>no value</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                                                <p>550</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="TableStyle-HelpTable2-Body-Body1">
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                                <p>11:00 a.m.</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                                                <p>no value</p>
+                                            </td>
+                                            <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                                                <p>no value</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <p>The engine will check the VHS to see if there is already a value prior to 8:00 a.m. If no value is found, the Default Value setting (1000) will be used as the previous value from which to linearly fill (although not written to the VHS). Since there is no previous value for 7:00 a.m. in the import file (and no value in the VHS for 7:00 a.m.), the Default Value of 1000 is used for the 7:00 a.m. value. The value written for 8:00 a.m. is linearly interpolated from 1000 to 100, so 550 is written.</p>
+                                    <p>The same thing happens for the next missing value. If a value is needed to fill a missing value at 10:00 a.m. and there is no value at 11:00 a.m. from which to interpolate, the Default Value will be used in the calculation for the interpolation, but not written out for 11:00 a.m.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-HelpTable2-Body-Body1">
+                                <td class="TableStyle-HelpTable2-BodyB-Column1-Body1"><b>Leave Blank</b>
+                                </td>
+                                <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">An entry will be written to the VHS for the missing hour but the value of that entry will be empty.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>For Categorical data item types, the available data filling actions include the following:</p>
+                    <ul class="table">
+                        <li value="1"><b>No Action</b> — no value will be written to the VHS for the missing hour. </li>
+                        <li value="2"><b>Default Value</b> — provide a default value to be directly written to the VHS.</li>
+                        <li value="3"><b>Previous Value</b> (may be used as fall-back value) — assign the value for the previous hour. If the previous value was filled, then that filled value will be used.</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For any value that is filled, the Filled Value Bit will be set if configured on the <a href="Configuring System Settings.htm#Current_Value_Status_Bits">System Settings</a> page.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Default Value</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enter a Default Value.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

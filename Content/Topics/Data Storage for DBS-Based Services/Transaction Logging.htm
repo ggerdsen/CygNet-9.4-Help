@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Storage|Data Storage for DBS-Based Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Transaction Logging</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Data Storage/Data Storage in CygNet.htm">Data Storage</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Storage for DBS-Based Services.htm">Data Storage for DBS-Based Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Transaction Logging</span>
+        </div>
+        <h2>Transaction Logging</h2>
+        <p>In an ESE-based datastore, transaction logging is the process of writing database update operations to a log file and then committing the changes to the database when the system allows. This information is stored in a <i>Transaction Log</i> file. </p>
+        <p>Transaction log files should never be manually manipulated, renamed, moved, or deleted because data corruption can result. These files, which are binary files, are stored in a <b>txlogs</b> directory, which is by default in the service’s data directory. The directory location for the transaction log files is set with the service configuration keyword DBS_TRANSACTION_LOG_DIR. The default value for this keyword is <b>txlogs</b> and is set in the service’s configuration file.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The VHS has its own keyword for setting the <b>txlogs</b> directory location: <a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm#ESE">VHS_TRANSACTION_LOG_DIR</a>.</p>
+        </div>
+        <p>The current, open log file is named <b>edb.jtx</b>. When this log file is full ESE closes the file and appends to the file name a sequential number in hexadecimal format. ESE then creates a new edb.jtx file. The file name format of the closed log files is <b>edb&lt;file-number&gt;.jtx</b>. The file-number is an 8-digit hexadecimal number (for example, edb00000001.jtx). </p>
+        <p>CygNet uses the ESE option of asynchronous log file creation. This means that while the current transaction log file is being consumed, the database creates the next log file. The intent is to minimize the time spent switching from one transaction log file to the next under a heavy update load. ESE supports two types of transaction logging: circular and non-circular logging. CygNet supports both models; however, non-circular logging is the recommended method of logging. The following table compares the two methods:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 310px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Circular Logging</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Non-Circular Logging</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Log file size configurable</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Yes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Disk space requirements</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Less </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>More (while txlogs are on disk) </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Log file directory</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>txlogs</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>txlogs</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Backup process available</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Yes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Backup process can be defined in Master Scheduling Service (MSS)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>No (backup not available)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Yes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Incremental backups available</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>No (backup not available)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Yes</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Restore from point in time</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Yes</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Circular Logging </h3>
+        <p>Circular logging is enabled when the service backup is disabled in the service’s configuration file. The reason for this is because log files are cleaned up (deleted) only when a full database backup is performed. Without backups, the number of transaction log files could become unwieldy.</p>
+        <p>To disable backup, comment out the service configuration keyword BACKUP_PATH in the service’s configuration file.</p>
+        <p>It is possible that a service may have more than one transaction log file even though it is using circular logging. This occurs when too many transactions build up in the log file before they can be processed. In such cases, the service creates another log file. You should be aware that there is no automatic process to clean up the additional log files. They can, however, be deleted once the service has been cleanly shutdown. </p>
+        <p>Before deleting the additional log files, it is recommended that you use the utility ESENTUTL to ensure the shutdown was clean. See <a href="../Database Utilities/ESENTUTL Utility.htm">ESENTUTL</a> Utility for more information.</p>
+        <p>If you are using circular logging and find that a service consistently has multiple transaction log files, you can change the size of the file. The size is specified (in megabytes) in the service’s configuration file with the keyword DBS_TRANSACTION_LOG_SIZE. </p>
+        <p>Other items that can result in multiple transaction files with circular logging are a faulty SCSI controller or a hard drive that does not allow for the transaction to be completed in a timely manner. </p>
+        <p>The advantage of circular logging is that it requires less disk space. The disadvantage is that you can recover data only up until the last full backup; you cannot restore older backups and roll forward. Another advantage of circular logging is that the system will not reach the maximum number of log files. Due to naming limits, this number is 1048575. If this number is reached, the service must be shutdown cleanly and the old log files removed.</p>
+        <h3>Non-Circular Logging </h3>
+        <p>Non-circular logging is enabled when the service backup is enabled in the service’s configuration file. To enable backup, specify a valid path to the backup directory in the service configuration keyword BACKUP_PATH in the service’s configuration file.</p>
+        <p>With non-circular logging, a new log file is created when the current log file becomes full. The size for each log file is specified (in megabytes) in the service’s configuration file with the keyword DBS_TRANSACTION_LOG_SIZE. </p>
+        <p>Log files are stored in the <b>txlogs</b> folder until a backup process is successfully completed. Once this occurs, ESE cleans out all of the log files except the current and most recent log files. </p>
+        <p>If the backup process is an <i>incremental</i> backup, the log files are written to the backup directory (specified in the keyword BACKUP_PATH in the service’s configuration file) and are stored there until a <i>full</i> backup is performed. When a <i>full</i> backup is performed, the database is checked to make sure it contains the information from the log files and then the log files are deleted from the system. </p>
+        <p>The daily backup that is defined in the service configuration file is a full backup. The MSS must be used to schedule an incremental backup. Be aware that with non-circular logging the backup keywords must be enabled and the backup path must be valid even for incremental backups.</p>
+        <p>See <a href="../Backup and Restore/Backup and Restore.htm">Backup and Restore</a> for more information about backing up and restoration in CygNet.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

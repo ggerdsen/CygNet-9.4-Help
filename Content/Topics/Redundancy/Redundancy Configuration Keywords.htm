@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy|Configuring Redundancy">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Redundancy Configuration Keywords</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Redundancy.htm">Configuring Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Redundancy Configuration Keywords</span>
+        </div>
+        <h2>Redundancy Configuration Keywords</h2>
+        <p>In order for a replicated service to start it must have parameters for all required keywords defined in its configuration file. This includes keywords for associated services, and in the replicated system those services continue to have a true relationship. For example, in the UIS configuration file, the PNT is a required parameter. In a non-replicated UIS it specifies the name of the PNT that contains the point information. In a replicated UIS, the services gets all of its information, including point information, from the replicated UIS.</p>
+        <p>Use the <a href="../Services/Configuration File Manager.htm">Config File Manager</a> utility to mass modify configuration keywords for services on sites running on multiple networks.</p>
+        <h3>Configuration Keywords</h3>
+        <p>The following table contains descriptions for all the service configuration keywords required (or recommended) to enable redundancy. The keywords required to configure replication are described <a href="../Replication/Configuring Replication.htm">here</a>.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">AUDIT_LEVEL_REDUNDANCY</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Sets the audit level for changes made to the redundancy definition. When set to 0, auditing is off. See <a href="../Auditing/Service Audit Levels.htm#RSM">Service Audit Levels</a> for more information about this keyword.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is configured in the <a href="../Service Configuration Keywords/RSM Configuration File Keywords.htm#Auditing">RSM Service Configuration File</a> (Rsm.cfg).</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">REDUNDANT</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates whether Redundancy is enabled for this service and it is part of a redundant set with other services. </p>
+                    <ul class="table">
+                        <li value="1">Set to <b>TRUE</b> to enable Redundancy for this service and indicate that it is in a redundant relationship with another service within the redundancy environment. </li>
+                        <li value="2">Set to <b>FALSE</b> or commented out to disable Redundancy for this service.</li>
+                    </ul>
+                    <p>See <a href="Redundancy.htm">Redundancy</a> for more configuration details. A redundancy definition for your CygNet environment is configured in the <a href="Redundancy Editor.htm">CygNet Redundancy Editor</a>.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> A redundant RSM cannot be managed by another RSM in your redundancy environment. CygNet won’t allow an RSM to start an owned RSM if that RSM has the REDUNDANT keyword set to TRUE.</p>
+                    </div>
+                    <p>The  <a href="../Service Monitoring/Info Items - Service Generic.htm#IN_REDUNDANT_SET">IN_REDUNDANT_SET</a> (Service in redundant set) info item will report whether this service is part of a redundant relationship.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is configured in all <a href="../Service Configuration Keywords/Service Configuration Keywords.htm">Service Configuration Files</a>.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">REPL_CHECK_INTERVAL</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates the interval (in seconds) to check before performing the next replication synchronization. This value determines the replication synchronization frequency.</p>
+                    <p>After performing a sync, a replicating service will subtract the amount of time the sync took from the check interval time to determine how long to wait until the next sync. For example, if the check interval is 60 seconds and the sync takes 40 seconds, the service will only wait 20 seconds before starting the next sync. If the whole sync time exceeds the frequency, then the replicating service will wait for half the sync interval (30 seconds in this case) before starting the next sync.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is specified in the configuration file for the replicated (destination) service.</p>
+                    </div>
+                    <p>The <a href="../Service Monitoring/Info Items - Replication.htm#REPL_CHECK_INTERVAL">REPL_CHECK_INTERVAL</a> (Repl Poll Secs) info item will report the interval that a replicated service will check the source change queue for new updates. If the service is not replicating <b>REPL_CHECK_INTERVAL</b> will respond with an empty string.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is configured in all <a href="../Service Configuration Keywords/Service Configuration Keywords.htm">Service Configuration Files</a> except the ARS and the RSM.</p>
+                    </div>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For <a href="../CygNet Measurement/Configuring FMS Redundancy.htm">FMS Redundancy</a> the corresponding keyword you need to configure is <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_CHECK_INTERVAL">DS_CHECK_INTERVAL</a>.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">REPL_DELAY_MAX</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates the number of seconds a service is allowed to be behind in replication before it is considered to be behind. If this keyword is disabled, the value defaults to double the <b>REPL_CHECK_INTERVAL</b> time. Best practice recommends enabling and setting a meaningful value for <b>REPL_DELAY_MAX</b> for all replicating services. A recommended value would be a longer time interval than you would expect any sync interval to take. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is specified in the configuration file for the <b>replicated</b> service.</p>
+                    </div>
+                    <p>The <a href="../Service Monitoring/Info Items - Replication.htm#REPL_DELAY_MAX">REPL_DELAY_MAX</a> (Allowed repl delay) info item will report the time elapsed since the service was last fully in sync. Time is calculated as the delta between "now" and the end of the last full sync that has completed. If the time since the last successful sync exceeds the <b>REPL_DELAY_MAX</b> value, and the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_INT_VAL_STATE">REPL_INT_VAL_STATE</a>  (Int repl val state) info item is currently "Normal", then the <b>REPL_INT_VAL_STATE</b> info item is set to "Delayed." The state can only be set back to "Normal" when the time between two syncs is less than the <b>REPL_DELAY_MAX</b> time.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is configured in all <a href="../Service Configuration Keywords/Service Configuration Keywords.htm">Service Configuration Files</a> except the ARS and the RSM.</p>
+                    </div>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For <a href="../CygNet Measurement/Configuring FMS Redundancy.htm">FMS Redundancy</a> the corresponding keyword you need to configure is <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#DS_DELAY_MAX">DS_DELAY_MAX</a>.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">WAIT_TIME_FOR_FIRST_SYNC</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the number of seconds to delay the startup of the ARS, so that the service can synchronize with other ARS services on the same domain. Setting this keyword may prevent multiple services starting up and running on the same domain for a short time after a hard failover.</p>
+                    <p>For services in a redundant environment we recommend you start with a value of 30, then consider adjusting as needed. For non-redundant services, we recommend you leave the value at zero.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ADDITIONAL_DOMAINS</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>An optional keyword that specifies up to ten additional domains on which this ARS can run.</p>
+                    <p>Allowing an ARS to run on several domains will reduce the overhead of managing multiple RSM and ARS services in a complex redundant environment. Service shutdown and startup delay time will be reduced, as the last ARS in a failover event will continue to run after a local or data-center failover has occurred. Other systemic benefits include improved management by a single ARS in a failover set of the CAL, host activation, and other license-master-controlled entities (CvsMetadata, license master, CygNet time zones). The <b>ADDITIONAL_DOMAINS</b> keyword is not required if you’re using CygNet Redundancy and the ARS is marked as REDUNDANT in its config file.</p>
+                    <p>Additionally, you can specify a Domain when configuring the <b>AUD</b> service keyword in the ARS service configuration file. For a redundant environment, if the Audit service configured in the Ars.cfg file does not specify a Domain, any AUD services of that name on all Domains within the redundancy definition will receive audit entries from that ARS because the ARS is not a unique identity. By specifying a Domain for the AUD in the Ars.cfg file you can limit the sending of audit entries to just that individual service. Note that replicating AUD services won't accept entries from sources other than the replicated AUD. If a Domain is specified for the AUD keyword, and an ARS sends entries to a replicating AUD service, no error messages will be reported in the AUD or ELS log files, unlike other services.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is configured in the <a href="../Service Configuration Keywords/ARS Configuration File Keywords.htm">ARS Service Configuration File</a> (Ars.cfg).</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">AUD</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The Site and Service name of the service’s AUD,  in <i>Site.Service</i> format.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For a redundant environment, if the <b>AUD</b> service listed in the Ars.cfg does not specify a domain ID, then any AUD services of that name on all domains within the redundancy definition will receive audit entries from that ARS because it isn’t a unique identity. By specifying the domain ID for the <b>AUD</b> in the config file you can limit audit entries to just that individual service. Note that replicating AUD services won't accept entries from sources other than the replicated AUD.</p>
+                    </div>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This keyword is configured in the <a href="../Service Configuration Keywords/ARS Configuration File Keywords.htm">ARS Service Configuration File</a> (Ars.cfg).</p>
+                    </div>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

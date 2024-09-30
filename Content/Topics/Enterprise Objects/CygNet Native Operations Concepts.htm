@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations|Concepts">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Native Operations Concepts</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations.htm">Enterprise Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations Concepts.htm">Concepts</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Native Operations Concepts</span>
+        </div>
+        <h2>CygNet Native Operations Concepts</h2>
+        <p>Concepts applicable to Native Operations include the following.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Target" class="selected">Services</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Service," class="selected">Service, Facility, and Point Identifiers</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Schema" class="selected">Schema Files</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Service" class="selected">Service Filters</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Validati" class="selected">Validation</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#History" class="selected">History Rollups</a>
+            </li>
+        </ul>
+        <p>The following diagram illustrates the essential elements and basic path utilized in processing CygNet Native Operations.</p>
+        <p>
+            <img src="../../Resources/Images/Enterprise Objects/D Enterprise Objects - Native.png" />
+        </p>
+        <h3><a name="Target"></a>Services</h3>
+        <p>The target Service for a native operations request is determined by the service, facility, and point identifiers presented in the request file.</p>
+        <h3><a name="Service,"></a>Service, Facility, and Point Identifiers</h3>
+        <p>The information which must be specified for a CygNet Native Operation request determines which  element is used as an Identifier to provide data for the request. When an operation specifies an Identifier which does not have a relationship with that element, an <a href="Enterprise Operations Concepts.htm#Errors">error</a> will occur.</p>
+        <h4>Service Identifiers</h4>
+        <p>For operations in which a Service name must be specified, the element &lt;<i>SvcName</i>&gt; is used. The service identified by the element provides the data necessary for resolving the request. </p>
+        <p class="Example">Example </p>
+        <p class="Indent">If the request is GetCurrentAlarms and &lt;<i>SvcName</i>&gt; specifies a UIS, the UIS will resolve the request to the CAS associated with the UIS.</p>
+        <h4>Facility Identifiers</h4>
+        <p>For operations in which a Facility ID must be specified, the element &lt;<i>FacilityTag</i>&gt; is used. The format of a facility tag string is <i>Site.Service</i>::<i>FacilityID</i>.</p>
+        <h4>Point Identifiers</h4>
+        <p>For operations in which one or more CygNet Point Identifiers must be specified, the element &lt;<i>Tag</i>&gt; is used. The service providing the data necessary for resolving the request resolves the point identifier to the appropriate service. </p>
+        <p>Allowable tag string formats for &lt;<i>Tag</i>&gt; are as follows.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Format</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Example</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><i>Site.Service.PointID</i>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>MYSITE.UIS.00000122</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><i>Site.Service:LongID</i>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>MYSITE.UIS:MESA_PDIFF</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><i>Site.Service::Facility.UDC</i>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>MYSITE.UIS::MESA.PDIFF</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><i>Site.Service.PointID:LongID</i>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>MYSITE.UIS.00000122:MESA_PDIFF</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><i>Site.Service.PointID:LongID:Facility.UDC</i>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>MYSITE.UIS.00000122:MESA_PDIFF:MESA.PDIFF</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Schema"></a>Schema Files</h3>
+        <p>Native Operations schema files   (XSDs) are provided as a reference to schema structure, filters, and constraints. They are statically defined in the Enterprise Operations EIE. XML request files must be validated against the schema file if they are configured to do so. CygNet Native schemas stand alone and do not reference CygNet Business Object schemas. </p>
+        <p>Comments are included in each file to describe the services or operations for which the items are supported. The files are dropped into the <b>Temp</b> directory.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Schema File Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Contents</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Includes Schema</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CygEO_nnn_Operations.xsd </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Describes the operations, including the elements of the operation and, if applicable, filters.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>CygEO_nnn_RecordTypes.xsd</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CygEO_nnn_RecordTypes.xsd </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Describes record type definitions.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>CygEO_nnn_FilterTypes.xsd</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CygEO_nnn_FilterTypes.xsd </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Describes the filter types that can be used by the various operations.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>CygEO_nnn_AttributeListTypes.xsd</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CygEO_nnn_AttributeListTypes.xsd </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Describes references and attributes for list-types requests.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>CygEO_nnn_AttributeGroups.xsd</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CygEO_nnn_AttributeGroups.xsd </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Describes the attributes that can be used for filtering, retrieval, or updates. Those listed as 'mutable' are attributes that can be updated using Enterprise Operations.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>CygEO_nnn_BaseTypes.xsd</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CygEO_nnn_BaseTypes.xsd </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Describes comparison and Boolean operators, qualifiers, valid character strings, and history rollup types and units.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">&#160;</td>
+            </tr>
+        </table>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> "nnn" refers to the released version. The naming convention provides for version control, with new file names generated for every released version. For example, a sample file from the v8.5.0 version of the file would be named CygEO_850_Operations.xsd, the v8.5.1 version of the file would be named CygEO_851_Operations.xsd, and so forth.</p>
+        </div>
+        <h3><a name="Service"></a>Service Filters</h3>
+        <p>Native Operation service filters are defined in the Enterprise Operations EIE editor.</p>
+        <h3><a name="Validati"></a>Validation</h3>
+        <p>The Enterprise Operations EIE can optionally be configured to validate each incoming request XML file against the XSD schema before executing the operation. Additionally, each outgoing response XML file can be validated against the schema, if the Enterprise Operations EIE is configured to do so.  Enabling validation of XML requests and responses is recommended. These options can be configured in the device properties.</p>
+        <h3><a name="History"></a>History Rollups</h3>
+        <p>History Rollup attributes can be configured in some operations, as specified in the operation request.</p>
+        <p>See <a href="../History/History Rollups.htm">History Rollups</a> in the History section for more information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet .NET API</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet .NET API</span>
+        </div>
+        <h2>CygNet .NET API</h2>
+        <p>A .NET API is provided to allow programmatic access to CygNet services, clients, and other related entities. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span>The .NET API requires the Microsoft .NET Framework is installed on the host computer, in accordance with the <a href="../../Resources/PDF_Repository/CygNet_94_System_Requirements.pdf" target="_blank"><i>CygNet System Requirements</i></a> document.</p>
+        </div>
+        <h3>.NET Assemblies</h3>
+        <p>The .NET assemblies can be found in the <b>\Bin</b> directory of your CygNet installation, with the exception of the <a href="#Notifications" class="selected">CygNet.Notifications.dll</a>. The base .dlls work alongside the suffixed ones (32, 64), which are automatically loaded for a selected process. If the base .dlls are put into the Windows Global Assembly Cache (GAC), then the suffixed ones must be as well, and if the base .dlls are deployed alongside the target applications, then the suffixed ones must also be deployed. Any CPU targeting applications must deploy all three .dlls. x86 targeting apps only need to deploy the base and the 32.dll. x64 targeting apps only need to target the base .dll and the 64.dll.</p>
+        <p>The following table describes the .NET assemblies available in CygNet <span class="CygNetVariablesRelease">v9.4</span>.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Assembly .dlls</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">API Help</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.API.AccessControl.dll</p>
+                        <p>CygNet.API.AccessControl32.dll</p>
+                        <p>CygNet.API.AccessControl64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Provides access to the CygNet Access Control (ACS) service.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.Alarms.dll</p>
+                        <p>CygNet.API.Alarms32.dll</p>
+                        <p>CygNet.API.Alarms64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to the Common Alarm Service (CAS).</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.API.Cache.dll</p>
+                        <p>CygNet.API.Cache.Alarms.dll</p>
+                        <p>CygNet.API.Cache.Alarms32.dll</p>
+                        <p>CygNet.API.Cache.Alarms64.dll</p>
+                        <p>CygNet.API.Cache.Common.dll</p>
+                        <p>CygNet.API.Cache.Facilities.dll</p>
+                        <p>CygNet.API.Cache.Facilities32.dll</p>
+                        <p>CygNet.API.Cache.Facilities64.dll</p>
+                        <p>CygNet.API.Cache.Points.dll</p>
+                        <p>CygNet.API.Cache.Points32.dll</p>
+                        <p>CygNet.API.Cache.Points64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.Core.dll</p>
+                        <p>CygNet.API.Core32.dll</p>
+                        <p style="font-weight: normal;">CygNet.API.Core64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to miscellaneous core CygNet entities.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Includes <b>CygNet.API.Core.COM.ServiceInformation</b> namespace, which is a wrapper around <b>CygNet.API.Core.ServiceInformation</b> for access to general service features in COM. .NET Framework consumers should use <b>CygNet.API.Core.ServiceInformation</b> instead.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.API.Facilities.dll</p>
+                        <p>CygNet.API.Facilities32.dll</p>
+                        <p>CygNet.API.Facilities64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Provides access to the CygNet Facility (FAC) service, plus other helpful facility-related methods.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Includes <b>CygNet.API.Facilities.Relative </b>namespace, which provides relative facility definitions and associated methods.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.Groups.dll</p>
+                        <p>CygNet.API.Groups32.dll</p>
+                        <p>CygNet.API.Groups64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to the CygNet Group Service (GRP) service.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.API.Historian.dll</p>
+                        <p>CygNet.API.Historian32.dll</p>
+                        <p>CygNet.API.Historian64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Provides access to the CygNet Historian, plus other history-related enumerations. CygNet.API.Historian allows for the storage and retrieval of extended data, including rollups. See <a href="../History/VHS Extensibility.htm">VHS Extensibility</a> for more information about extended data.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.JobRunner.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to <a href="Job Runner.htm">Job Runner</a>.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.API.Logger.Desktop.dll</p>
+                        <p>CygNet.API.Logger.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.Notifications.dll</p>
+                        <p>CygNet.API.Notifications32.dll</p>
+                        <p>CygNet.API.Notifications64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to the CygNet General Notification Service (GNS) service.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><a name="Notifications"></a>CygNet.Notifications.dll                   </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Encapsulates the details of a CygNet GNS notification, and the interface for a Notification plugin.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> CygNet.Notifications.dll can be found in <b>CygNet\Services\GNS</b> folder.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.Points.dll</p>
+                        <p>CygNet.API.Points32.dll</p>
+                        <p>CygNet.API.Points64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to the CygNet Point (PNT) service, access to the connected CygNet Current Value Service (CVS), plus other helpful points-related methods.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.API.ServiceManager.dll</p>
+                        <p>CygNet.API.ServiceManager32.dll</p>
+                        <p>CygNet.API.ServiceManager64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Provides access to the CygNet Remote Service Management (RSM) service, including Automatic Service Recovery.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Includes <b>CygNet.API.ServiceManager.COM</b>, namespace, which is a wrapper around <b>CygNet.API.ServiceManager.Client</b> for access to the CygNet RSM service in COM. .NET Framework consumers should use <b>CygNet.API.ServiceManager.Client</b> instead.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.API.WellTest.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to <a href="../Well Test/Well Test.htm">CygNet Well Test Module</a>.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.COMAPI.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.Core.dll</p>
+                        <p>CygNet.Core32.dll</p>
+                        <p>CygNet.Core64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Provides access to miscellaneous core CygNet entities.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Includes <b>CygNet.Core.ReadOnlyCollectionHelpers</b>, namespace, which provides extension methods to convert from the more capable collection interfaces to the ReadOnly variants.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.Data.Alarms.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p> Represents miscellaneous alarm entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.Data.Cache.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.Data.Core.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Represents miscellaneous core CygNet entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.Data.Facilities.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p> Represents miscellaneous facility entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.Data.Groups.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p> Represents miscellaneous group entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.Data.Historian.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Encapsulates miscellaneous Historian entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.Data.Notifications.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p> Represents miscellaneous notification entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.Data.Points.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Encapsulates miscellaneous Point entities.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>CygNet.Data.ServiceManager.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Encapsulates CygNet service details.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Includes <b>CygNet.Data.ServiceManager.COM</b> namespace, which provides a COM interface for several interfaces: IFailoverSet, IFailoverStatus, IFailoverStep, IServiceDetails, IServiceInfo, IServiceInfoCache, and IZoneData. .NET Framework consumers should not use this interface.</p>
+                        </div>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Includes <b>CygNet.Data.ServiceManager.Redundancy</b> namespace, which provides Redundancy methods: DomainDetails, FailoverSet, FailoverStatus, FailoverStep, FailoverTriggerDetails, NetworkDetails, ZoneData, and ZoneDetails.</p>
+                        </div>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                        <img src="../../Resources/Images/Shared Images/check.png" class="Inline" title="Check" alt="Check" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>CygNet.Internal.Core.dll</p>
+                        <p>CygNet.Internal.Core32.dll</p>
+                        <p>CygNet.Internal.Core64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>CygNet.UI.dll</p>
+                        <p>CygNet.UI32.dll</p>
+                        <p>CygNet.UI64.dll</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">&#160;</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1" style="text-align: center;">&#160;</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Version Managing .NET Files</h3>
+        <p>See <a href="../Version Management/Rsq File.htm">.rsq File</a> for information about version managing these .NET assemblies.</p>
+        <h3>Online Help</h3>
+        <p>A standalone online help file <b>CygNet.API.chm</b> is available for user assistance and can be found in the <b>CygNet\Bin</b> directory.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

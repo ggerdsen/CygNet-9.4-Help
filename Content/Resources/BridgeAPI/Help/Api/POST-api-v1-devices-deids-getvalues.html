@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/devices/deids/getvalues</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/devices/deids/getvalues</h1>
+<div>
+    <p>Retrieves data group element values from the device</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 3</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Control</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">facilityTag</td>
+                    <td class="parameter-documentation">
+                        <p>Facility tag linked to the desired device to get data from</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">dataGroupType</td>
+                    <td class="parameter-documentation">
+                        <p>The data group type</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">dataGroupOrdinal</td>
+                    <td class="parameter-documentation">
+                        <p>The data group ordinal</p>
+                    </td>
+                    <td class="parameter-type">
+                        integer
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">dataElements</td>
+                    <td class="parameter-documentation">
+                        <p>List of data group elements to get from the device</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=DataElementDTO.html">DataElementDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">fromDeviceParameters</td>
+                    <td class="parameter-documentation">
+                        <p>Parameters that may be required when getting from the device; usually an empty string is passed</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">toDeviceParameters</td>
+                    <td class="parameter-documentation">
+                        <p>Parameters that may be required when sending to the device; usually an empty string is passed</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;facilityTag&quot;: &quot;CYGSITE.UIS::PINE_RD&quot;,
+  &quot;dataGroupType&quot;: &quot;AGAParams&quot;,
+  &quot;dataGroupOrdinal&quot;: 1,
+  &quot;dataElements&quot;: [
+    {
+      &quot;byUdc&quot;: false,
+      &quot;elementId&quot;: &quot;Ethane&quot;
+    },
+    {
+      &quot;byUdc&quot;: true,
+      &quot;elementId&quot;: &quot;CFGETHN&quot;
+    }
+  ],
+  &quot;fromDeviceParameters&quot;: &quot;&quot;,
+  &quot;toDeviceParameters&quot;: &quot;&quot;
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">dataElementValues</td>
+                    <td class="parameter-documentation">
+                        <p>List of data group element values retrieved from the device</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=DataElementValueDTO.html">DataElementValueDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;dataElementValues&quot;: [
+    {
+      &quot;dataElement&quot;: {
+        &quot;byUdc&quot;: false,
+        &quot;elementId&quot;: &quot;Ethane&quot;
+      },
+      &quot;value&quot;: &quot;1729&quot;
+    },
+    {
+      &quot;dataElement&quot;: {
+        &quot;byUdc&quot;: true,
+        &quot;elementId&quot;: &quot;CFGETHN&quot;
+      },
+      &quot;value&quot;: &quot;1.618&quot;
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

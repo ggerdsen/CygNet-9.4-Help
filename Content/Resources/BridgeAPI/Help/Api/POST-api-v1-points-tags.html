@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/points/tags</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/points/tags</h1>
+<div>
+    <p>Retrieves a list of point tags, contained within a PointTagsResponse object</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p>Filters the list of point tags returned</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">siteService</td>
+                    <td class="parameter-documentation">
+                        <p>CygNet SiteService of the point service to use the criteria against</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">filters</td>
+                    <td class="parameter-documentation">
+                        <p>List of filter criteria lists</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=FilterCriteriaListDTO.html">FilterCriteriaListDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">logicalOperator</td>
+                    <td class="parameter-documentation">
+                        <p>Logical operator specifying how to combine the criteria lists</p>
+                    </td>
+                    <td class="parameter-type">
+                        <a href="../ResourceModel@modelName=LogicalOperator.html">LogicalOperator</a>
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;siteService&quot;: &quot;CYGSITE.UIS&quot;,
+  &quot;filters&quot;: [
+    {
+      &quot;criteria&quot;: [
+        {
+          &quot;propertyId&quot;: &quot;Facility&quot;,
+          &quot;value&quot;: &quot;ANTIER_GM&quot;,
+          &quot;comparisonOperator&quot;: &quot;Equal&quot;,
+          &quot;comparisonMethod&quot;: &quot;String&quot;
+        },
+        {
+          &quot;propertyId&quot;: &quot;Facility&quot;,
+          &quot;value&quot;: &quot;BRADY_GM&quot;,
+          &quot;comparisonOperator&quot;: &quot;Equal&quot;,
+          &quot;comparisonMethod&quot;: &quot;String&quot;
+        }
+      ],
+      &quot;logicalOperator&quot;: &quot;Or&quot;
+    },
+    {
+      &quot;criteria&quot;: [
+        {
+          &quot;propertyId&quot;: &quot;UDC&quot;,
+          &quot;value&quot;: &quot;ANHEP&quot;,
+          &quot;comparisonOperator&quot;: &quot;Equal&quot;,
+          &quot;comparisonMethod&quot;: &quot;String&quot;
+        },
+        {
+          &quot;propertyId&quot;: &quot;UDC&quot;,
+          &quot;value&quot;: &quot;ANHEX&quot;,
+          &quot;comparisonOperator&quot;: &quot;Equal&quot;,
+          &quot;comparisonMethod&quot;: &quot;String&quot;
+        }
+      ],
+      &quot;logicalOperator&quot;: &quot;Or&quot;
+    }
+  ],
+  &quot;logicalOperator&quot;: &quot;And&quot;
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p>PointTagsResponse containing a list of point tags matching the filter constraints</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">tags</td>
+                    <td class="parameter-documentation">
+                        <p>List of point tags</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of string
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;tags&quot;: [
+    &quot;CYGSITE.UIS.00004637:ANTIER_GM_ANHEP:ANTIER_GM.ANHEP&quot;,
+    &quot;CYGSITE.UIS.00004638:ANTIER_GM_ANHEX:ANTIER_GM.ANHEX&quot;,
+    &quot;CYGSITE.UIS.00005065:BRADY_GM_ANHEP:BRADY_GM.ANHEP&quot;,
+    &quot;CYGSITE.UIS.00005066:BRADY_GM_ANHEX:BRADY_GM.ANHEX&quot;
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

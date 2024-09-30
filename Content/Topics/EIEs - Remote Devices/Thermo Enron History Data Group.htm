@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Thermo EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Thermo EIE – Enron History Data Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Thermo EIE.htm">Thermo EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Enron History Data Groups</span>
+        </div>
+        <h2>Enron History Data Groups</h2>
+        <p>Enron history data groups are used to read historical data from a field device using the protocol described in the Enron Modbus specification.</p>
+        <p>Enron history data group names are not constrained, but the <b>dgCat</b> attribute must be set to <b>enronHistory</b> in order to properly define the data group. A device can have several types of historical data, such as hourly and daily data, and Enron history data groups can be created to accommodate such types. An Enron history data group is the source of history data for FMS.</p>
+        <p>Historical index values and record timestamp values are cached for each successful and partially successful Enron history data group/ordinal retrieval. Cached transaction information is stored in the Device Definition Service (DDS) transaction as data group elements.</p>
+        <p>Some transaction details, including the current historical index and the maximum size of an index, are displayed on a per-transaction basis in the Enron history support data group data dialog box. Individual history record data, including retrieved values, is displayed in separate Enron history data groups. History retrieval optimization is based on historical index values and record timestamp values, which provide a starting point for subsequent optimized retrievals.</p>
+        <p>Enron history data groups depend on support data groups. Such data groups are defined in the <a href="supportDg Element.htm">supportDg</a> element in the Enron history data group.</p>
+        <p>Click the following image for more information:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/modbusEFM_hist_support_optimization.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="612" data-mc-height="275" src="../../Resources/Images/EIEs - Remote Devices/modbusEFM_hist_support_optimization_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p>Enron history data groups require a <b>modbusReadBlocks</b> element within the data group in the device template file.</p>
+        <p>For more information, see the following subsections:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Real" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Structural" class="selected">Structure and Components</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Create" class="selected">To Create a Data Group</a>
+            </li>
+        </ul>
+        <p>For more information about working with device template files, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <p class="Example"><a name="Real"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;HistHry niceName="History - Hourly" <span style="background-color: #b0c4de;">dgCat="enronHistory"</span> baseOrd="1" maxCnt="10" leadingTime="true" recordMinutes="60" queueSize="1080"&gt;</p>
+                            <p class="Code2">&lt;supportDg&gt;</p>
+                            <p class="Code3">&lt;HistIdx deidIndex="HrlyIdx"/&gt;</p>
+                            <p class="Code2">&lt;/supportDg&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="r4"&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;HistDate desc="Date" off="0" hidden="true"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;HistTime desc="Time" off="4" hidden="true"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;DateTime desc="DateTime" type="r8"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;FlowTime desc="Flow Time" off="8" units="min"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;FlowVol desc="Flow Volume" off="12"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;FlowE desc="Energy" off="16"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;FlowExt desc="Flow Ext " off="20"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;AvgTemp desc="Temp" off="24"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;AvgSP desc="SP" off="28"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;AvgDP desc="DP/Pulses" off="32"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;Index desc="Record Index" type="i4" hidden="true"/&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;SDate required="false" desc="Start Date" type="string"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;EDate required="false" desc="End Date" type="string"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;Cnt required="false" desc="Max Records to Read" type="ui2"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;Seq required="false" desc="Starting Sequence Number" type="ui4"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;GetLatest desc="Get Latest?" type="boolean" required="false"/&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks&gt;</p>
+                            <p class="Code3">&lt;block1 funcCode="3" regNum="701" ordIncrement="10" regCnt="1" regByteLen="4"/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code">&lt;/HistHry&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="Structural"></a>Structure and Components</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code" style="font-weight: normal;">&lt;!-- <b>DateTime</b> represents a standard timestamp (COleDateTime) calculated from the <b>HistDate</b> and <b>HistTime</b> data group elements.<b> HistDate</b> represents the event date. <b>HistTime</b> represents the event time. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;HistHry niceName="History - Hourly" <a href="DataGroup Element.htm#dgCat">dgCat="enronHistory"</a> &gt;</p>
+                            <p class="Code2">&lt;supportDg&gt;</p>
+                            <p class="Code3">&lt;HistIdx <a href="SupportDataGroup Element.htm#deidIndex">deidIndex=""</a>/&gt;</p>
+                            <p class="Code2">&lt;/supportDg&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;HistDate <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;HistTime <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;DateTime <a href="DataGroupElement Element.htm#type">type=""</a>/&gt;</p>
+                            <p class="Code3">&lt;FlowTime <a href="DataGroupElement Element.htm#off">off=""</a> <a href="DataGroupElement Element.htm#units">units=""</a>/&gt;</p>
+                            <p class="Code3">&lt;FlowVol <a href="DataGroupElement Element.htm#off"> off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;FlowE <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;FlowExt <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;AvgTemp <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;AvgSP <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;AvgDP <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;Index <a href="DataGroupElement Element.htm#type">type=""</a>/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks&gt;</p>
+                            <p class="Code3"><a href="block1.htm">&lt;block1</a>/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code">&lt;/HistHry&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="Create"></a>To Create a Data Group</p>
+        <ol>
+            <li value="1">Using a text editor or XML editor, open the device template file to which you want to add data groups.</li>
+            <li value="2">Define a new data group that uses the <b>dgCat</b> attribute value <b>enronEvents</b>.<ol style="list-style-type: lower-alpha;"><li value="1">Define a <a href="dgElements Element.htm">dgElements</a> element.</li><li value="2">Define all data group elements required by you to make up your data group. See above for the specific set.</li><li value="3">Define a <a href="uccRecvParms uccSendParms Elements.htm">uccRecvParms</a> element in the data group.</li><li value="4">Define one or more <a href="RecParmName SendParmName Elements.htm"><i>RecParmName</i></a> elements. See above for the specific set.</li></ol></li>
+            <li value="3">Define any other required data groups.</li>
+            <li value="4"><a href="Installing a Template.htm">Validate and load</a> your template.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

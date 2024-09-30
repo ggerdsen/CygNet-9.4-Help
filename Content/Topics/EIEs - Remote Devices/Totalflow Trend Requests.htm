@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Totalflow EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Totalflow EIE – Trend Requests</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Totalflow EIE.htm">Totalflow EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Trend Requests</span>
+        </div>
+        <h2>Trend Requests</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Totalflow devices using the DB1 protocol <u>do not</u> support trending. The following topic only applies to devices using the DB2 or DB2 Enhanced protocols.</p>
+        </div>
+        <p>The <b>Totalflow EIE</b> provides various ways to request trends, depending on the Totalflow device model, the specified protocol, and the device's firmware version. DB2 protocol devices issue trend requests by time range. DB2 Enhanced protocol devices issue trend requests based on time range as well as sequence number range. Both protocols support the <a href="#Get" class="selected">Get Latest From</a> option.</p>
+        <p>The three data groups that define trend requests are "Trend List", "Trend Config", and "Trend - Device Specific". "Trend List" lists all of the trends created for a given device type. "Trend Config" enables you to configure "Trend - Device Specific" data groups and it generates configuration XML, which becomes available for viewing and editing. "Trend - Device Specific" collects and displays the retrieved trend data for a given trend.</p>
+        <p>For more information, see the following subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Get" class="selected">Get Latest From Option</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Configur" class="selected">Configuring a Trend</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ToCreateTrend" class="selected">To Create a Trend Data Group</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#ToViewTrend" class="selected">To View Trend Data</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Trend" class="selected">Trend Retrieval Properties</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#ToViewXML" class="selected">To View or Edit Trend Data Group XML</a>
+            </li>
+        </ul>
+        <p>For more information, see <a href="../CygNet Studio/Trend Tool.htm">Trend Tool</a>.</p>
+        <h3><a name="Get"></a>Get Latest From Option</h3>
+        <p>The <b>Get Latest From</b> feature is part of the <b>Time Range</b> option. The <b>Get Latest From</b> feature retrieves trend data from the most recently cached trend timestamp. After you use the <b>Time Range</b> or <b>Sequence Number Range</b> option to poll history for the first time, a timestamp is cached in the remote device. The cached timestamp marks when the most recent poll occurred and when to begin the next <b>Get Latest From</b> poll. </p>
+        <p>After the initial poll, every time you poll using the <b>Get Latest From</b> option a new most recent trend timestamp is cached in the remote device. The <u>only</u> way you can establish a cached trend timestamp after the initial trend poll is by enabling the <b>Get Latest From</b> option. For instance, if you disable <b>Get Latest From</b> and enter a <b>Start Time</b> value and retrieve data, the data corresponds to the <b>Start Time</b> entered but the timestamp as indicated in the field beside <b>Get Latest From</b> does not change.</p>
+        <h3><a name="Configur"></a>Configuring a Trend</h3>
+        <p>The Totalflow EIE&#160;device template files include a file that retrieves data from an ABB trend. This trend must be configured on the Totalflow remote device before it can be polled. Although CygNet provides alternate ways to trend field device data, trending at the remote device level in the Device Definition Service (DDS)  is more reliable and precise since it does not depend on a communication device to constantly relay data.</p>
+        <p class="HeadingProcedure"><a name="ToCreateTrend"></a>To Create a Trend Data Group</p>
+        <ol start="1">
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to create a trend.</li>
+            <li value="2">Click the <b>Data Group</b> page.</li>
+            <li value="3">Double-click the <b>Application Config</b> data group. You must add and poll the <b>Application Config</b> data group before any trend- and register-based data groups will function.</li>
+            <li value="4">Click <b>Get from RTU</b>. This populates the <b>Application Config</b> data group with all of the device applications you purchased rights to for the connected Totalflow device.</li>
+            <li value="5">Close the <b>Application Config</b> dialog box and return to the <b>Data Group</b> page.</li>
+            <li value="6">Click <b>Add</b> and select <b>Trend List</b>.</li>
+            <li value="7">Double-click <b>Trend List</b> and click <b>Get from RTU</b>. The <b>Enter Trend Folder</b> dialog box appears.</li>
+            <li value="8">Click <b>OK</b>&#160;if you want to retrieve trend-available devices from the <b>\TREND\</b> folder. The <b>\TREND\</b> folder is the default folder for trend-available devices. Note the file name of the device for which you want to create a trend data group.</li>
+            <li value="9">Close the <b>Trend List</b> dialog box and return to the <b>Data Group</b> page.</li>
+            <li value="10">Click <b>Add</b> and select <b>Trend Config</b>.</li>
+            <li value="11">Double-click <b>Trend Config</b> and click <b>Get from RTU</b>. The <b>Enter Trend Folder</b> dialog box appears.</li>
+            <li value="12">Append <b>\TREND\</b> with the file name of the device for which you want to create a trend  and click <b>OK</b>. All available data group elements for the selected device  appear.</li>
+            <li value="13">Go to the bottom of the dialog box, select <b>Options</b>, then select <b>Create Data Group</b> and click <b>Yes</b>. A new device-specific trend appears on your <b>Data Group</b> page.</li>
+            <li value="14">Close the <b>Trend Config</b> dialog box.</li>
+            <li value="15">Continue adding "Trend - Device Specific" data groups to suit your needs.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToViewTrend"></a>To View Trend Data</p>
+        <ol>
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to create a trend.</li>
+            <li value="2">Click the <b>Data Group</b> page.</li>
+            <li value="3">Double-click the correct <b>Trend - Device Specific</b> data group and click <b>View Data</b>. A <b>Trend - Device Specific</b> dialog appears.</li>
+            <li value="4">Click <b>Get from RTU</b>. A <b>Trend Retrieval</b> dialog box appears. The <b>Trend Retrieval</b> dialog box looks similar to the two following examples. The first example is a DB2 <b>Trend Retrieval</b> dialog box for an initial poll. The second example is a DB2 Enhanced <b>Trend Retrieval</b> dialog box with a selected <b>Start Time</b> that is not the latest cache time.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/EIEs - Remote Devices/totalflow_DB2_trend_initial_poll.png" title="Trend Retrieval" alt="Trend Retrieval" />
+        </p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/EIEs - Remote Devices/totalflow_DB2enhanced_start_time_selected.png" title="Trend Retrieval" alt="Trend Retrieval" />
+        </p>
+        <ol start="5">
+            <li value="5">Set the <b>Start Time</b> and <b>End Time</b>, or <b>Sequence Number Range</b>, to suit your needs. For more information, see <a href="#Trend" class="selected">Trend Retrieval Properties</a> below.</li>
+            <li value="6">When you are done, click <b>OK</b>. The <b>Trend - Device Specific</b> data group table populates with data for the specified time or sequence parameters.</li>
+        </ol>
+        <h4><a name="Trend"></a>Trend Retrieval Properties</h4>
+        <p>The following table lists and describes the properties found on the <b>Trend Retrieval</b> dialog box.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p style="font-weight: bold;">Time Range</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b style="font-style: italic;">*DB1 and DB2 Enhanced.</b>
+                    </p>
+                    <p>Retrieves trend data for a user-specified time range. <b>Start Time</b> may be a user-defined value or the <b>Get Latest From</b> value. The <b>Get Latest From</b> value retrieves trend data from the most recently cached trend timestamp and displays the latest timestamp in the <b>Get Latest From</b> field.</p>
+                    <p>The <u>only</u> way you can establish a cached trend timestamp after the initial trend poll is by enabling the <b>Get Latest From</b> option. You must always specify an <b>End Date</b>, regardless of how the start time is set. For more information, see <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;">
+                    <p style="font-weight: bold;">Sequence Number Range <i>n</i> to <i>n</i></p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><i style="font-weight: bold;">*DB2 Enhanced Only.</i>
+                    </p>
+                    <p>Retrieves trend data based on a Totalflow sequence number range. This feature is useful for troubleshooting. To display sequence numbers for a given trend poll, click to check the <b>Show All</b> option on the trend data group's data dialog box.</p>
+                    <p>For more information about Totalflow sequence numbers, see Totalflow documentation or contact a Totalflow representative.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToViewXML"></a>To View or Edit Trend Data Group XML</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The following procedure is <u>not</u> supported; use it at your own risk.</p>
+        </div>
+        <ol>
+            <li value="1">In the remote device editor in the DDS, select the remote device for which you want to create a trend.</li>
+            <li value="2">Click the <b>Data Group</b> page.</li>
+            <li value="3">Highlight the correct <b>Trend - Device Specific</b> and click <b>Properties</b>. A <b>Data Group Properties</b> dialog box appears.</li>
+            <li value="4">Click <b>Configure</b>. The configured data group XML appears in an <b>Edit Definition</b> dialog box.</li>
+            <li value="5">View and edit trend data group XML&#160;at will and at your own risk.</li>
+            <li value="6">Click <b>OK</b>&#160;when you are finished editing XML.</li>
+        </ol>
+        <p class="Example">Example</p>
+        <p class="Indent">The following XML file is for a configured trend data group.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The XML in the following example includes an <b>off</b> (offset) attribute. The <b>off</b> attribute <u>only</u> applies to DB2 Enhanced devices. The attribute indicates the byte offset of the value in the event record from the field device. If the <b>off</b> attribute is specified in DB2 Enhanced XML, trend retrievals are optimized by including only relevant data records and excluding data definition information, which is included without the use of the <b>off</b> attribute.</p>
+        </div>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;TrendData dgCat="trend" canSend="false" canRecv="true" uccSend="false" uccRecv="true" niceName="\TREND\1111-01-01" cygUnits="true"&gt;</p>
+                    <p class="Code2">&lt;dgElements secLev="4"&gt;</p>
+                    <p class="Code3">&lt;Count desc="Count" type="ui2"/&gt;</p>
+                    <p class="Code3">&lt;Time desc="Timestamp" type="r8"/&gt;</p>
+                    <p class="Code3">&lt;Item00 desc="Nitrogen" type="r4" off="4" itemNum="0" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item01 desc="Carbon Dioxide" type="r4" off="8" itemNum="1" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item02 desc="Methane" type="r4" off="12" itemNum="2" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item03 desc="Ethane" type="r4" off="16" itemNum="3" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item04 desc="Propane" type="r4" off="20" itemNum="4" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item05 desc="n-Butane" type="r4" off="24" itemNum="5" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item06 desc="i-Butane" type="r4" off="28" itemNum="6" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item07 desc="n-Pentane" type="r4" off="32" itemNum="7" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item08 desc="i-Pentane" type="r4" off="36" itemNum="8" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item09 desc="n-Hexane" type="r4" off="40" itemNum="9" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item10 desc="n-Heptane" type="r4" off="44" itemNum="10" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item11 desc="n-Octane" type="r4" off="48" itemNum="11" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item12 desc="n-Nonane" type="r4" off="52" itemNum="12" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item13 desc="n-Decane" type="r4" off="56" itemNum="13" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item14 desc="Oxygen" type="r4" off="60" itemNum="14" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item15 desc="Argon" type="r4" off="64" itemNum="15" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item16 desc="Heavy Hydrocarbons" type="r4" off="68" itemNum="16" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item17 desc="Heat Content" type="r4" off="72" itemNum="17" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item18 desc="Specific Gravity" type="r4" off="76" itemNum="18" unitsTf="%" units="%"/&gt;</p>
+                    <p class="Code3">&lt;Item19 desc="Log Period Seq #" type="ui2" off="80" itemNum="19"/&gt;</p>
+                    <p class="Code2">&lt;/dgElements&gt;</p>
+                    <p class="Code">&lt;/TrendData&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

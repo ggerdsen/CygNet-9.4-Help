@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Using Relative Facilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Description to come." /><title>Scripting Relative Facilities</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Relative_Facilities_Using.htm">Using Relative Facilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Scripting Relative Facilities</span>
+        </div>
+        <h2><a name="aanchor194"></a>
+            <MadCap:concept term="Canvas Scripting;Relative Facilities" />Scripting Relative Facilities</h2>
+        <p>The following section provides details about the order of operation and script examples that can be used when defining relative facility relationships via script. The CygNet .NET API includes a <b>CygNet.API.Facilities.Relative</b> namespace, which contains the methods and properties needed to accomplish this.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">CygNet.API Help:</span> Refer to the following topics in the <b>CygNet.API Help</b> for more information about the methods and properties used in these examples:</p>
+            <ul>
+                <li value="1">CygNet.API.Facilities.Relative Namespace
+						<ul><li value="1">RelativeFacilityDefinitionSets Class</li><li value="2">RelativeFacilityDefinitions Class</li><li value="3">RelativeFacilityDefinition Class</li></ul></li>
+            </ul>
+        </div>
+        <p>The relationships and paths defined in a relative facility definition are stored in an XML string.</p>
+        <h4>Global Settings File</h4>
+        <p>Relative facilities are stored in the <span class="GeneralProduct_Short">Canvas</span> the <a href="../Using_Canvas/Settings.htm#Global_settings">global settings</a> file (.gsf). The global settings file is accessed with CygNet.Internal.SettingsPackage: </p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">string settings = CygNet.Internal.SettingsPackage.ReadSettings("RelativeFacilityContent", settingsPath, storageType);</p>
+                </td>
+            </tr>
+        </table>
+        <h4>RelativeFacilityDefinitionSets Class </h4>
+        <p>There is a <b>RelativeFacilityDefinitionSets</b> class as part of the <b>CygNet.API.Facilities.Relative</b> namespace.</p>
+        <p>To use any of the methods, the relative facility definition sets XML string must be loaded. To do this, first create a definition sets object:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">RelativeFacilityDefinitionSets definitionSets = new RelativeFacilityDefinitionSets();</p>
+                </td>
+            </tr>
+        </table>
+        <p>Then use the <b>Load</b> method and pass in the XML string as a parameter:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">definitionSets.Load(definitionSetsXml);</p>
+                </td>
+            </tr>
+        </table>
+        <p>There are three methods to get a specific relative facility definition set: by name, by configured facility service, and by the default definition set:</p>
+        <p>1. To get a definition by name, use the <b>GetDefinitionSetByName</b> method:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">RelativeFacilityDefinitions definitions = definitionSets.GetDefinitionSetByName(definitionName);</p>
+                </td>
+            </tr>
+        </table>
+        <p>2. To get a definition for a configured facility service, use the <b>GetDefinitionSetByFacilityService</b> method:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">RelativeFacilityDefinitions definitions = definitionSets.GetDefinitionSetByFacilityService(facilityServiceName);</p>
+                </td>
+            </tr>
+        </table>
+        <p>3. To get the default definition set, use the <b>GetDefaultDefinitionSet</b> method:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">RelativeFacilityDefinitions definitions = definitionSets.GetDefaultDefinitionSet();</p>
+                </td>
+            </tr>
+        </table>
+        <p>To obtain a unique list of definition names from all definition sets, use the <b>GetDefinitionNames</b> method:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">List&lt;string&gt; names = definitionSets.GetDefinitionNames();</p>
+                </td>
+            </tr>
+        </table>
+        <h4>RelativeFacilityDefinitions Class</h4>
+        <p>There is a <b>RelativeFacilitiesDefinitions</b> class as part of the <b>CygNet.API.Facilities.Relative</b> namespace.</p>
+        <p>To use any relative facility method, the relative facility definitions XML string must be loaded. To do this, first create a definitions object:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">RelativeFacilityDefinitions definitions = new RelativeFacilityDefinitions();</p>
+                </td>
+            </tr>
+        </table>
+        <p>Then use the <b>Load</b> method and pass in the XML string as a parameter:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">definitions.Load(xmlDocument.InnerXml);</p>
+                </td>
+            </tr>
+        </table>
+        <p>Use the <b>ToXml</b> method to get an XML representation of the definitions object:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">string definitionsXml = definitions.ToXml();</p>
+                </td>
+            </tr>
+        </table>
+        <p>There are two more useful methods that are available on the definitions object. The definitions XML only stores direct child links for a given definition; however, when loaded, the definitions class will generate all paths associated for the definition.</p>
+        <p>Use the <b>GetAllPaths</b> method to obtain a list of all paths generated for a definition:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">List&lt;string&gt; allPaths = definitions.GetAllPaths("Well");</p>
+                </td>
+            </tr>
+        </table>
+        <p>In this example, the returned list will contain the names of all definitions that a "Well" can reference.</p>
+        <p>Use the <b>GetPath</b> method to see the fully qualified path for any of the returned names:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">string resolvedPath = definitions.GetPath("Well", "Tank 1");</p>
+                </td>
+            </tr>
+        </table>
+        <p>In this example, the resolved path will be the path needed to go from a "Well" definition to a "Tank 1" definition. The result will be in a qualified filter format:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">%PARENT%:facility_type='TANKBAT':facility_type='Tank' AND facility_attr1='1'</p>
+                </td>
+            </tr>
+        </table>
+        <p>To resolve this path to a valid Facility service, use the <b>ResolveRelativeFacility</b> method of the <b>CygNet.API.Facilities.Client</b> class:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">//Create a facility client and connect to a facility service</p>
+                    <p class="Code">CygNet.API.Facilities.Client facilityClient = new Client(facilityService);</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">//Construct facility tag of the source facility</p>
+                    <p class="Code">FacilityTag facilityTag = new FacilityTag(facilityTagString);</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">//Resolve facility</p>
+                    <p class="Code">FacilityTag resolvedTag = facilityClient.ResolveRelativeFacility(definitionSet, tag, relationship);</p>
+                </td>
+            </tr>
+        </table>
+        <p>To add a new definition, first create a RelativeFacilityDefinition variable. Then set the name, filter, and links. Please note, that all links must be valid definitions and can be associated with the definition:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">RelativeFacilityDefinition definition = new RelativeFacilityDefinition();</p>
+                    <p class="Code">definition.Name = "Test";</p>
+                    <p class="Code">definition.Filter = "facility_type='TEST'";</p>
+                </td>
+            </tr>
+        </table>
+        <p>Next, use the <b>AddDefinition</b> method to create the new definition:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">definitions.AddDefinition(definition);</p>
+                </td>
+            </tr>
+        </table>
+        <p>Use the <b>AddLink</b> method to add a new link to an existing definition:</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">definitions.AddLink("CDP", "Test");</p>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

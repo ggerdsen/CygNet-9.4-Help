@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Facilities|Facility Import/Export Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using the Facility Import/Export Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Facilities.htm">Facilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Facility Load FacLoad Utility.htm">Facility Import/Export Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using the Facility Import/Export Utility</span>
+        </div>
+        <h2>Using the Facility Import/Export Utility</h2>
+        <p>When you start the <b>Facility Import/Export</b> utility, the utility dialog box appears. Use this interface to specify parameters to <a href="#Exportin" class="selected">export</a> or <a href="#Importin" class="selected">import</a> facility attribute .csv files, and to <a href="#Viewing" class="selected">view</a> the results. </p>
+        <p>See <a href="Facility Attributes FacLoad.htm">Facility Attributes CSV File</a> for more information about the CSV files and the facility attributes they contain.</p>
+        <p>
+            <img src="../../Resources/Images/Facilities/Facility_Import_Export_Utility.png" title="Facility Import/Export Utility" alt="Facility Import/Export Utility" />
+        </p>
+        <h3><a name="Exportin"></a>Exporting Facility Attributes</h3>
+        <p>Use <b>Export Facility Attributes</b> to save the specified facility or current value records to a .specified csv file. If the .csv file specified already exists, it will be replaced (overwritten) when the export is run. See <a href="#Excel" class="selected">Viewing a Facility Attribute CSV File with Excel</a>.</p>
+        <p class="HeadingProcedure">To Export Facility Attributes</p>
+        <ol start="1">
+            <li value="1"><a href="Facility Load FacLoad Utility.htm#Open">Open</a> the <b>Facility Import/Export</b> utility.</li>
+            <li value="2">In the <b>CygNet Facility Import/Export Utility</b> dialog box, select a <b>Facility or Current Value Service</b>. Either type the service name into the text box or click <b>...</b> to access the <b>Select Service</b> dialog box and select a Site and Service combination.</li>
+            <li value="3">In the <b>Export Facility Attributes</b> box, specify a <b>File</b> name to which to export the data. Either type the file name into the text box (including the .csv extension) or  click <b>…</b> to access the <b>Save As</b> dialog box and browse to a directory location for the file. Browsing will insert a default file name (<i>yoursite.service</i>_facattrs.csv), which you can overwrite with another name if desired. Once the location and name are as desired, click <b>Save</b>. The directory location appears in the File text box.<div class="Note"><p><span class="NoteHeading">Note:</span> If you do not specify a path, the file will be created in the same directory from which the utility is run (typically <b>CygNet\*</b>).</p></div></li>
+            <li value="4">Click <b>Export to CSV</b> to export the file. </li>
+            <li value="5">When the export is complete, a message box will be displayed, showing the number of records exported, and the file location. Click <b>OK</b>.</li>
+            <li value="6"> Export results are shown in the status window (bottom pane).  Optionally, to clear this pane in preparation for another action, click <b>Clear Messages</b>. See <a href="Status Window.htm">Status Window</a> for more information about messages displayed in this pane.</li>
+            <li value="7">Click <b>Close</b> when all export actions are complete.</li>
+        </ol>
+        <h3><a name="Importin"></a>Importing Facility Attributes</h3>
+        <p>Use <b>Import Facility Attributes</b> to upload facility attribute values from a specified .csv file to the selected FAC. Before uploading the file, the utility checks each line for validity. There are also several characteristics of import files to consider before proceeding.</p>
+        <h5><a name="Consider"></a>Considerations Before Importing a Facility Attribute CSV File</h5>
+        <p>Consider the following characteristics of .csv import files before importing facility attributes.</p>
+        <ul>
+            <li value="1">Required columns are  <b>site</b>, <b>service</b> and <b>id</b>. All other columns are optional.</li>
+            <li value="2">Column headings are case sensitive. </li>
+            <li value="3">Column order is irrelevant; the utility uses the column headings to determine the data of a column.</li>
+            <li value="4">Omitted  columns mean that the values for that attribute will not change.</li>
+            <li value="5">Deleted rows mean that the facility will be ignored during the import.</li>
+            <li value="6">Blank cells mean the value will be cleared. The exception to this is Yes/No attributes, which are ignored if the cell is cleared.</li>
+            <li value="7">When using the <b>CygNet Facility Import/Export</b> utility to import values for a table attribute, the value will be added to the table in the TRS (SYSFCTxx). If incorrect values are specified or if values are added in the wrong attribute in the .csv file, unwanted results can occur. When importing values for table-driven fields, the utility will try to resolve the values to the table’s current entries. If it is unable to resolve the value, it will add a new entry to the table. The text will be used as both the table <b>Entry</b> and <b>Description</b>. For example, you are using Table Attribute 7 for "State" and have defined the entries/descriptions as TX/Texas, NM/New Mexico, and OK/Oklahoma. However, your import file contains "Okla" as the state for one of its entries. The utility will add "Okla" as both the entry and description (Okla/Okla) since it doesn’t have an entry to which it can resolve. You will now have facilities that are in OK and Okla.</li>
+            <li value="8">Yes/No attributes recognize the values <b>yes</b>, <b>y</b>, or <b>1</b> to set the bit, and <b>no</b>, <b>n</b>, or <b>0</b> to clear the bit (the letters are not case sensitive). </li>
+            <li value="9">Cells containing the string “<b>&lt;ignored&gt;</b>” will not change the cell value when the .csv file is imported.</li>
+            <li value="10">Open facility records (because those records are locked) cause that facility to be skipped when the import is run.</li>
+            <li value="11"> Exceptions — Although you can edit any item in the .csv file using the text editor, some changes <i>will not be reflected</i> in the FAC service after the import, due to the following potential exceptions.<ul class="Circle"><li value="1"><b>Facilities that represent devices</b> (remote devices, comm devices, or import/export devices) — because these are <a href="#DDS-Owne" class="selected">DDS-owned facilities</a>, values for the attributes SITE, SERVICE, ID, Active Flag, Description, and Category will not be changed for these facility types; those properties must be changed in the DDS.</li><li value="2"><b>Facility ID</b> edits — the ID of a Facility (<a href="Facility Attributes FacLoad.htm#id">id</a>) in the .csv file is unique. If you change the Facility ID in the file, the utility will assume that the record corresponds to a new facility, and will add a facility to the service using the "new" (changed) Facility ID.</li></ul></li>
+        </ul>
+        <p class="HeadingProcedure">To Import Facility Attributes</p>
+        <ol>
+            <li value="1">Optionally, stop the Facility Service and backup your .dat.edb file. This step is not required but is highly recommended.</li>
+            <li value="2"><a href="Facility Load FacLoad Utility.htm#Open">Open</a> the <b>Facility Import/Export</b> utility.</li>
+            <li value="3">In the <b>CygNet Facility Import/Export Utility</b> dialog box, select a Facility or Current Value Service.  Either type the service name into the text box or click <b>...</b> to access the <b>Select Service</b> dialog box and select a Site and Service combination.</li>
+            <li value="4">In the <b>Import Facility Attributes</b> box, specify the <b>File</b> name containing the data to import. Either type the name of the file that contains the facility attributes into the text box (including the .csv extension) or  click <b>…</b> to access the <b>Open</b> dialog box and browse to a directory location. Browsing will insert a default file name (<i>.yourservice</i>_facattrs.csv), which you can overwrite with another name if desired. Click <b>Open</b>. The directory location appears in the File text box.</li>
+            <li value="5">Optionally select/clear the check box to <b>Skip line if any column exceeds max character count.</b> If the check box is cleared, when a value in the .csv file is longer than is allowed for the attribute, the value will be truncated. If the <b>Skip line if...</b> check box is selected, the row will be skipped instead of truncated (the entire row is skipped, not just the value(s) that exceed the character count).</li>
+            <li value="6">Click <b>Import from CSV</b>, then <b>Yes</b> to verify the location, and then <b>OK</b> to import the file. </li>
+            <li value="7">When the import is complete, a message box will be displayed showing the results of the import. Click <b>OK</b>.</li>
+            <li value="8"> Import results are shown in the status window (bottom pane).  Optionally, to clear this pane in preparation for another action, click <b>Clear Messages</b>. See <a href="Status Window.htm">Status Window</a> for more information about messages displayed in this pane.</li>
+            <li value="9">Click <b>Close</b> when all import actions are complete.</li>
+        </ol>
+        <h3><a name="Viewing"></a>Viewing Import/Export Results</h3>
+        <p>When the import/export action is complete, a box showing the number of records affected will be displayed. It shows the number of records added, updated, skipped, and an error count. "Skipped" means no updates were made because the attribute information in the .csv file matched the information in the facility record.</p>
+        <h3><a name="Excel"></a>Viewing and Editing a Facility Attribute CSV File with Excel</h3>
+        <p>The Excel default Number format is "General", which uses scientific notation for numbers of twelve or more digits. When using the <b>Export to CSV</b> function on the <b>Facility Import/Export</b> utility, opening the .csv file with Excel can cause a change of format and/or a loss of numeric characters in strings longer than twelve characters. This can cause issues if the <b>Import from CSV</b> function is then used to upload  that .csv file to CygNet. For .csv files containing numbers of twelve or more digits, perform the following before importing .csv export files to the selected FAC.</p>
+        <p class="HeadingProcedure">To Reformat a CSV File Containing Numbers of Twelve or More Digits</p>
+        <ol>
+            <li value="1">Open a blank Excel worksheet and select the <b>Data</b> tab.</li>
+            <li value="2">Click <b>From Text</b> to access the <b>Import Text File</b> dialog box.</li>
+            <li value="3">Select the facility attribute .csv file desired and click <b>Import</b>. The <b>Text Import Wizard</b> dialog box opens.</li>
+            <li value="4">In the <b>Original</b> data type section, select <b>Delimited</b> and click <b>Next</b>.</li>
+            <li value="5">In the <b>Delimiters</b> section, check <b>Tab</b> and <b>Comma</b> and click <b>Next</b>.</li>
+            <li value="6">In the <b>Data preview</b> area, select the numeric string column(s) to be formatted and then select <b>Text</b> in the <b>Column data format</b> section.</li>
+            <li value="7">Click <b>Finish</b>. The <b>Import Data</b> dialog box opens.</li>
+            <li value="8">Click <b>OK</b>.</li>
+        </ol>
+        <h3><a name="DDS-Owne"></a>DDS-Owned Facilities</h3>
+        <p>The Facility Service (FAC) stores facilities and their attributes, however not all facilities are "owned" by the FAC service. Facilities that represent devices (remote devices, import/export devices, or communication devices) are "owned" by the Device Definition Service (DDS). All other facilities are owned by the FAC. </p>
+        <p>If a facility’s "category" attribute value is one of the following, the facility is owned by the DDS. </p>
+        <ul>
+            <li value="1">REMDEV</li>
+            <li value="2">COMMDEV</li>
+            <li value="3">EXPDEV</li>
+        </ul>
+        <p>When using the CygNet Facility Import/Export utility (FacLoad.exe), be aware that facilities that are owned by the DDS have certain attributes that are passed to the FAC from the DDS. That means the values of these attributes must be edited in the DDS. These attributes are: <b>site</b>, <b>service</b>, <b>id</b>, <b>is_active</b>, and <b>desc</b>. (The <b>category</b> attribute is generated by the FAC service; DO NOT change it.) All other attributes are owned by the FAC. See <a href="Facility Attributes FacLoad.htm">Facility Attributes CSV File</a> for more information about facility attributes contained in the CSV files.</p>
+        <p>When you export facility attribute values using the CygNet Facility Import/Export utility (FacLoad.exe), the .csv file will include the attributes passed to the FAC from the DDS for DDS-owned facilities. Although you can edit the values in the .csv file, they will be ignored during the import since the CygNet Facility Import/Export utility (FacLoad.exe) only changes data in the FAC. To make bulk changes to device information, use the <a href="../Devices/CygNet DDS Import Export Utility.htm">CygNet DDS Import/Export Utility</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

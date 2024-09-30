@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Notifications Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Notification Record Types</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Notifications Overview.htm">Notifications Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Notification Record Types</span>
+        </div>
+        <h2>Notification Record Types</h2>
+        <p>A GNS notification record can be one of four types: </p>
+        <ul>
+            <li value="1"><a href="#Event" class="selected">Event</a>
+            </li>
+            <li value="2"><a href="#Group" class="selected">Group</a>
+            </li>
+            <li value="3"><a href="#Address" class="selected">Address</a>
+            </li>
+            <li value="4"><a href="#Unspecif" class="selected">Unspecified</a>
+            </li>
+        </ul>
+        <p>The purpose of the different record types is to help you structure the database in an easy to manage format. Each type has a specific set of rules. For example, only <b>Event</b> or <b>Unspecified</b> record types can be associated with an alarm. The record types and their associated rules are described below.</p>
+        <h3><a name="Event"></a>Event Record Type</h3>
+        <p>An <b>Event</b> record type has the following properties:</p>
+        <ul>
+            <li value="1">Can be associated with an alarm in the <a href="../Points/PNT Editor.htm">point configuration record</a>.</li>
+            <li value="2">Contains the alarm <b>Set</b> and alarm <b>Clear</b>&#160;<a href="Defining an Event Record and Configuring Messages.htm">messages</a>.</li>
+            <li value="3">Must have at least one message.</li>
+            <li value="4">Must have at least one recipient. Ideally the recipient(s) should be a <b>Reference Address</b> to a <b>Group</b> record type or an <b>Address</b> record type. </li>
+            <li value="5">Has security settings for acknowledgment and deletion of messages in the queue. See <a href="../Security/General Notification Service GNS.htm">General Notification Service (GNS)</a> security reference.</li>
+            <li value="6"><a href="Configuring an Address Record.htm#Propagate">Resend rules</a> (acknowledgment, report return to normal, resend, and blackout options) can be propagated down to all records chained to the <b>Event</b> record type via reference addressing.</li>
+            <li value="7"><a href="Defining an Event Record and Configuring Messages.htm">Messages</a> can be previewed by clicking <b>Play</b>. Note that tokens are not replaced with data during the preview. </li>
+            <li value="8">A <a href="Defining an Event Record and Configuring Messages.htm">test notification</a> can be sent to all recipients using the <b>Send Test Notification</b> button. </li>
+            <li value="9">The GNS ID associated with a <b>Reference Address</b> or <b>Next GNS ID to Notify</b> can be only a <b>Group</b> or <b>Address</b> record type.</li>
+            <li value="10">See <a href="Defining an Event Record and Configuring Messages.htm">Defining an Event Record and Configuring Messages</a>.</li>
+        </ul>
+        <h3><a name="Group"></a>Group Record Type</h3>
+        <p>A <b>Group</b> record type has the following properties:</p>
+        <ul>
+            <li value="1">Must have at least one recipient. Ideally recipient(s) should be <b>Reference Addresses</b> to Address record types; however, they can be raw addresses (that is, any notification type).</li>
+            <li value="2">Cannot contain alarm <b>Set</b> or alarm <b>Clear</b> messages. When an <b>Event</b> or <b>Unspecified</b> record type is changed to a <b>Group</b> record type, you have the option of clearing the messages or retaining them. Messages are disabled.</li>
+            <li value="3"><a href="Configuring an Address Record.htm#Propagate">Resend rules</a> (acknowledgment, report return to normal, resend, and blackout options) can be propagated down to all records chained to the <b>Group</b> record type via reference addressing.</li>
+            <li value="4">Cannot be associated with an alarm in the PNT.</li>
+            <li value="5">The GNS ID associated with a <b>Reference Address</b> or <b>Next GNS ID to Notify</b> can be only a <b>Group</b> or <b>Address</b> record type.</li>
+            <li value="6">See <a href="Adding an Address Record to a Group Record.htm">Adding an Address Record to a Group Record</a>.</li>
+        </ul>
+        <h3><a name="Address"></a>Address Record Type</h3>
+        <p>An <b>Address</b> record type has the following properties:</p>
+        <ul>
+            <li value="1">Only one address can be included in each record. If a recipient has more than one address, a separate <b>Address</b> record type must be created for each address. Use a <b>Group</b> record type to group multiple addresses for a recipient.</li>
+            <li value="2">Cannot contain alarm <b>Set</b> or alarm <b>Clear</b> messages. When an <b>Event</b> or <b>Unspecified</b> record type is changed to an <b>Address</b> record type, you have the option of clearing the messages or retaining them. Messages are disabled.</li>
+            <li value="3">Cannot be associated with an alarm in the PNT.</li>
+            <li value="4">See <a href="Configuring an Address Record.htm">Configuring an Address Record</a>.</li>
+        </ul>
+        <h3><a name="Unspecif"></a>Unspecified Record Type</h3>
+        <p>An <b>Unspecified</b> record type has no rules. It can be associated with an alarm in the PNT.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Best Practice for Setting Up Notification Record Types.htm">Best Practice for Setting up Notification Record Types</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Notification Record Properties.htm">Notification Record Properties</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

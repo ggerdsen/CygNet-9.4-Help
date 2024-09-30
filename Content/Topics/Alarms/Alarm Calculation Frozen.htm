@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Frozen</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Frozen Alarm Calculation</span>
+        </div>
+        <h2>Frozen Alarm Calculations</h2>
+        <p>There are three Frozen alarm calculation types that can be implemented with the CygNet Enhanced Point Scheme. See <a href="../Points/Understanding the CvsMetadata File.htm">Understanding the CVS&#160;Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#FrozPer" class="selected">Frozen Percent</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#FrozVal" class="selected">Frozen Value</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#FrozDelay" class="selected">Frozen Value with Delay</a>
+            </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Calculation Parameters are user-provided.</p>
+        </div>
+        <h4><a name="FrozPer"></a>Frozen Percent</h4>
+        <p>The Frozen (Percent) alarm uses the Frozen Percent (FROZE_PCT) calculation. Whenever the time interval is reached, the system will calculate the percentage change from the newest value older than the time interval and set the alarm bit if the percentage change is less than the threshold.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Frozen Percent alarm calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Froz_Perc.png" title="Frozen (Percent)" alt="Frozen (Percent)" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Minimum percentage threshold</b> (calcparm1)  — minimum required percentage difference over the  time interval</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time Interval in Seconds</b> (calcparm2) — time interval</li>
+        </ul>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Percent Change = fabs((Updated Value/Previous Value) -1) X 100</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If the Percent Change &lt; minimum allowed percentage change, alarm is set.</li>
+            <li value="2">If the Percent Change ≥ minimum allowed percentage change, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10%</li>
+            <li value="2">calcparm2 = 10 seconds</li>
+        </ul>
+        <p>In this example, the Frozen (Percent) alarm bit  is set because the percentage change (4.167%) is less than the minimum percentage threshold (10%). </p>
+        <ul>
+            <li value="1">Updated Value = 75</li>
+            <li value="2">Previous Value (newest older than time interval) = 72</li>
+        </ul>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Percent Change =    ((75/72) -1) X 100 = 4.167%</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_FrozPerVHS.png" title="Frozen (Percent) status bit" alt="Frozen (Percent) status bit" />
+        </p>
+        <h4><a name="FrozVal"></a>Frozen Value</h4>
+        <p>The Frozen alarm uses the Frozen Value (FROZE_VAL) calculation. Whenever the time interval is reached, the system sets the alarm bit if the point’s value has not changed in this time period, and clears the alarm every time a point is updated with a different value. The time interval is relative to the time that the CVS received the point value, not relative to the time of the point value’s timestamp. </p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Frozen Value alarm calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Froz_Val.png" title="Frozen Value" alt="Frozen Value" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Time Interval (sec)</b> (calcparm1) — the time span used to determine whether or not the point's value has changed</li>
+        </ul>
+        <ul>
+            <li value="1">If the previous value = current value after expiration of time interval, alarm is set.</li>
+            <li value="2">If the previous value ≠current value after expiration of time interval, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 3600</li>
+        </ul>
+        <p>In this example, the Frozen alarm bit is set because the point's value has not changed within the time span specified (3600 sec) in calcparm1.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_FrozValVHS.png" title="Frozen status bit" alt="Frozen status bit" />
+        </p>
+        <h4><a name="FrozDelay"></a>Frozen Value with Delay</h4>
+        <p>The Frozen Value Delay alarm uses the Frozen Value with Delay (FROZE_VAL_DELAY) calculation. Whenever the time interval is reached, the system calculates the change in engineering units from the newest value older than the time interval and sets the alarm bit if the change is less than the threshold.</p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Minimum engineering units threshold</b> (calcparm1) — minimum  threshold over the  time interval specified in the second parameter</li>
+        </ul>
+        <ul>
+            <li value="1"><b>Time Interval (sec)</b> (calcparm2) — time interval</li>
+        </ul>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Change in Value = ABS(Newest Value Older than Time Interval - Updated Value)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If Change in Value &lt; calcparm1, alarm is set</li>
+            <li value="2">If Change in Value ≥ calcparm1, alarm is not set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10</li>
+            <li value="2">calcparm2 = 10</li>
+        </ul>
+        <p>In this example, the Frozen Value Delay alarm bit  is set because the change in value (9) is less than the minimum threshold in calcparm1 (10).</p>
+        <ul>
+            <li value="1">Updated Value = 41</li>
+            <li value="2">Previous Value (newest older than time interval) = 50</li>
+        </ul>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Change in Value = 50 - 41 =  9</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_FrozDelayVHS.png" title="Frozen Value Delay status bit" alt="Frozen Value Delay status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Device Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Device Template Manager Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Utilities.htm">Device Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Device Template Manager Utility</span>
+        </div>
+        <h2>CygNet Device Template Manager Utility</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The CygNet Device Template Manager utility enables device type-specific device template file validation but it does not automatically correct errors found in your device template file(s). If you are performing an upgrade, you must first use the <a href="../System Administration/CygNet Service Migration Utility.htm">CygNet Service Migration Utility</a><b> Correct errors in template files </b>option for your current version of CygNet to check your device template files at the service level and to automatically repair many device template file errors. Then you must run the CygNet Device Template Manager utility to locate any errors the CygNet Service Migration Utility did not catch and repair. See the <i><a href="../../Resources/PDF_Repository/CygNet_94_Upgrade_Procedure.pdf" target="_blank">CygNet Upgrade Procedure</a></i> for more information.</p>
+        </div>
+        <p>The <b>CygNet Device Template Manager</b> utility (DtfMgr.exe) is useful for validating device template files (both .dtf and .xml) against the current validation rules of a specific EIE, loading valid device template files to a Device Definition Service (DDS), and comparing differences between device template files, among other things.</p>
+        <p>Deviations from a device template file's validation rules appear in the <b>Results</b> field of the CygNet Device Template Manager utility. These results help you to troubleshoot problems with your device template file. If you find that your device template file is invalid, open it in an XML editor and make the required changes. Once your device template file is in line with the appropriate device-specific validation rules, use the CygNet Device Template Manager utility to (re)load your valid device template file to the DDS.</p>
+        <p>The CygNet Device Template Manager utility is stored in the <b>CygNet\Utilities</b> directory (DtfMgr.exe) on the host server. To start the utility, use Windows Explorer to browse to the directory and double-click the program icon.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can also set up this utility to be installed and launched (started) via <b>CygNet Client Installer</b> so that the application can be version managed. See <a href="../Version Management/Version Management Overview.htm">Version Management</a> for instructions on how to do this.</p>
+        </div>
+        <p>For more information, see the subsections below:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ToValidate" class="selected">To Validate an Unloaded Device Template File</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#ToValidateAll" class="selected">To Validate Device Template Files in a DDS</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ToLoad" class="selected">To Load a Device Template File</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#ToCompare" class="selected">To Compare Two Device Template Files</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#DTF" class="selected">CygNet Device Template Manager Utility Properties</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Device-S" class="selected">Device-Specific Options</a>
+            </li>
+        </ul>
+        <p>For more information about device template file validation, see  <a href="../EIEs - Remote Devices/Validating Templates.htm">Validating Templates</a> and  template file subsections specific to your remote device types.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Devices/DTF_Manager_ALL_DTFs.png" title="CygNet Device Template Manager utility" alt="CygNet Device Template Manager utility" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Sample CygNet Device Template Manager Dialog Box</td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToValidate"></a>To Validate an Unloaded Device Template File</p>
+        <ol>
+            <li value="1">Go to the <b>CygNet\Utilities</b> directory on the host server and open the CygNet Device Template Manager utility (DtfMgr.exe).</li>
+            <li value="2">Make sure the <b>DDS Service</b> field is blank.</li>
+            <li value="3">In the <b>Template File Name</b> field, use the <b>Browse</b> button and/or wildcards to locate and select the device template file(s) you want to validate.</li>
+            <li value="4">Click <b>Validate Template(s)</b> to validate the device template file(s) displayed in the <b>Template File Name</b> field. The outcome of the validation appears in the <b>Results</b> pane.</li>
+            <li value="5">If your device template file(s) is not valid, locate the device template file(s) in your file system, open it in an XML editor, and make edits, then revalidate it to check your work. Issues are displayed one at a time, so you must rerun the CygNet Device Template Manager utility until all issues are repaired.</li>
+            <li value="6">Continue locating, selecting, and validating unloaded device template files to suit your needs.</li>
+            <li value="7">If you want to load a validated device template file(s) to a DDS, see <a href="#ToLoad" class="selected">To Load a Device Template File</a>.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToValidateAll"></a>To Validate All Device Template Files in a DDS</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following procedure is useful if you are performing a CygNet upgrade because CygNet device template file validation rules change from release to release. Validating all deployed device template files at once is more efficient than validating them one at a time. However, any issues found must be manually resolved one at a time before the device template file(s) can be reloaded into your DDS.</p>
+        </div>
+        <ol>
+            <li value="1">Use Windows Explorer to browse to the <b>CygNet\Utilities</b> folder on the host server.</li>
+            <li value="2">Start the CygNet Device Template Manager utility by double-clicking the program executable (DtfMgr.exe).<ol style="list-style-type: lower-alpha;"><li value="1">Browse to and select the relevant DDS.</li><li value="2">Leave the <b>Template File Name</b> field blank. If you mistakenly browse to and select a device template file for this field, it overrides template validation for the DDS selected above.</li><li value="3">Click <b>Validate Template(s)</b>. Doing so identifies all invalid templates for the selected DDS.</li><li value="4">Take note of each invalid template. If all templates are valid, skip to <a href="#step4c" class="selected">step 4c</a> below.</li></ol></li>
+            <li value="3">Using CygNet Explorer, open the relevant DDS.<ol style="list-style-type: lower-alpha;"><li value="1">Right-click in the DDS pane and select <b>Device Definitions...</b>.</li><li value="2">Select an invalid template and click <b>Extract from DDS</b>.</li><li value="3">Do so for each invalid template noted above.</li></ol></li>
+            <li value="4">Return to the CygNet Device Template Manager utility and use the <b>Browse</b> button beside <b>Template File Name</b> to select an extracted invalid template.<ol style="list-style-type: lower-alpha;"><li value="1"><a name="stepsa-e"></a>Click <b>Validate Template(s)</b>. Doing so displays issues with the extracted invalid template one at a time.</li><li value="2">For <u>each</u> issue that the CygNet Device Template Manager utility finds, manually edit and save the extracted device template file, then re-click <b>Validate Template(s)</b> in the CygNet Device Template Manager utility until no more issues are found for that template.</li><li value="3"><a name="step4c"></a>Compare your valid extracted template to the latest CygNet version available to ensure that your template is current and has all of the available functionality offered by CygNet.</li><li value="4">When no issues remain for a template and you've compared your valid version to the latest CygNet version and made any desired updates, return to the CygNet Device Template Manager utility, enter the name of a valid extracted template in the <b>Template File Name</b> field, and click <b>Load Template(s)</b>.</li><li value="5">Save the newly validated template to a location that identifies it as a valid and current template.</li><li value="6">Repeat <a href="#stepsa-e" class="selected">steps a - e</a> until all invalid templates are valid, current, and loaded into the relevant DDS.</li></ol></li>
+            <li value="5">Click <b>Close</b> to exit the utility.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToLoad"></a>To Load a Device Template File</p>
+        <ol start="1">
+            <li value="1">Go to the <b>CygNet\Utilities</b> directory on the host server and open the CygNet Device Template Manager utility (DtfMgr.exe).</li>
+            <li value="2">In the <b>DDS Service</b> field, enter the name of the destination DDS.</li>
+            <li value="3">In the <b>Template File Name</b> field, use the <b>Browse</b> button and/or wildcards to locate and select the device template file(s) you want to (re)load.</li>
+            <li value="4">Click <b>Load Template(s)</b> to load the device template file(s) displayed in the <b>Template File Name</b> field. The load process in the CygNet Device Template Manager utility performs an EIE-specific validation and only loads the device template file(s) if it is valid.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> If two device template files have the same file name and you load the new valid version to your DDS, it overwrites the old valid version.</p>
+        </div>
+        <ol start="5">
+            <li value="5">Continue loading device template files to suit your needs.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="ToCompare"></a>To Compare Two Device Template Files</p>
+        <ol>
+            <li value="1"> On the <b>CygNet Device Template Manager</b> dialog box under <b>Options</b>, click <b>Compare</b>. This opens the <b>Compare Templates</b> dialog box.</li>
+            <li value="2">Select a device template file for the <b>Template 1</b> field.</li>
+            <li value="3">Select a device template file for the <b>Template 2</b> field.</li>
+            <li value="4">Click <b>Compare</b>. The <b>Template Comparison</b> dialog box opens.</li>
+            <li value="5">On the <b>Template Comparison</b> dialog box, differences between the selected device template files are indicated by node on a tree view under the <b>Diff View</b> page. Highlight the indicated node to display specific differences between these nodes in the two device template files. </li>
+            <li value="6">Attributes and child elements of the highlighted node display in the <b>Attributes</b> and <b>Child Elements</b> fields. Differing attributes and child elements and their values are highlighted. Select highlighted differences to display additional details in the <b>More Information</b> fields, including a description of the difference.</li>
+            <li value="7">Click the <b>XML View</b> page to see a read-only version of the device template file you selected for the <b>Template 1</b> field.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="DTF"></a>CygNet Device Template Manager Utility Properties</h3>
+        <p>The following table lists and describes the various properties of the CygNet Device Template Manager utility.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 175px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 525px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>DDS Service</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the DDS affected by the validation and/or load. Carefully select the correct one.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Template File Name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The name of the device template file(s) you are validating and/or loading. File extension can be .dtf or .xml.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Results</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>This field displays the results of your validation and/or (re)load. Fails are clearly indicated, and notes provide information about the error(s).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Clear Results</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this button to clear unwanted result information in the <b>Results</b> field.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Load Template(s)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Initiates the load of one or more device template files to the selected DDS.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Important:</span> If two device template files have the same file name and you load the new valid version to your DDS, it overwrites the old valid version.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Validate Template(s)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Initiates the validation of one or more device template files.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>View/Edit</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enables the viewing and editing of a single device template file selected in the <b>Template File Name</b> field. </p>
+                    <p>It is useful for correcting invalid device template files on an ad hoc basis, then revalidating them in the CygNet Device Template Manager utility. If you use this button, the template opens in Notepad.</p>
+                    <p>Wildcards are not allowed for this operation because the CygNet Device Template Manager utility must know the specific device template file in order to open it for viewing.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Synch Registry</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>Synch Registry</b> button enables you to synchronize the client-side DDS&#160;registry with a connected host DDS. All device template files in the DDS are synchronized.</p>
+                    <p>Benefits include deleting all local device template file registry entries that no longer exist in the connected host DDS and ensuring that functionality between the client DDS and host DDS is consistent.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>Options</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Options include the following:</p>
+                    <ul class="table">
+                        <li value="1"><b>Compare</b>: Use the <b>Compare</b> option to compare two device template files. The feature helps you to focus on differences between device template files and to change them as needed. For more information, see <a href="#ToCompare" class="selected">To Compare Two Templates</a>.</li>
+                        <li value="2"><b>Device Specific</b>: The <b>Device Specific</b> option enables you to drill deeper into a specific remote device type device template file than standard validation does. Sets of information specific to the remote device type display, making troubleshooting simpler. This functionality varies by remote device type. For more information, see <a href="#Device-S" class="selected">Device-Specific Options</a>.</li>
+                        <li value="3"><b>Look for Potential Upper/Lower Case Errors</b>:&#160;Use this option to validate your device template file by case. It helps focus your troubleshooting on incorrect case errors, a common and subtle problem in device template files. This option is not foolproof: you must still manually check that each potential case error is an actual error in your specific template.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>Close</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click this button to exit the CygNet Device Template Manager utility.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Device-S"></a>Device-Specific Options</h3>
+        <p>The following table lists and describes device-specific options found on the <b>Options</b> drop-down menu with their associated EIEs.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Device Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p>AutoCom EIE</p>
+                    <p>EProd EIE</p>
+                    <p>FB EFM3000 EIE</p>
+                    <p>FlowAuto EIE</p>
+                    <p>Lufkin MPC EIE</p>
+                    <p>Lufkin SAM EIE</p>
+                    <p>NuFlo EIE</p>
+                    <p>Totalflow EIE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>Item ID Map</b>: Displays all Item IDs and their corresponding elements and data groups for a selected device template file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;">
+                    <p>Benchmark EIE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The following are all options for the device type selected:</p>
+                    <ul class="table">
+                        <li value="1"><b>GMR Config Info</b>: Displays all FMS Legacy config items and their corresponding parameters for a selected device template file.</li>
+                        <li value="2"><b>GMR Event Info</b>: Displays all FMS Legacy event items and their corresponding parameters for a selected device template file.</li>
+                        <li value="3"><b>GMR History Info</b>: Displays all FMS Legacy history items and their corresponding parameters for a selected device template file.</li>
+                        <li value="4"><b>Item ID&#160;Map</b>: Displays all Item IDs and their corresponding elements and data groups for a selected device template file.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p>Eagle EIE</p>
+                    <p>Modbus Realflo EIE</p>
+                    <p>Thermo EIE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The following are all options for the device type selected:</p>
+                    <ul class="table">
+                        <li value="1"><b>Cache Data Elements</b>: Displays all <a href="../EIEs - Remote Devices/When Clause.htm">when clause</a> items for a selected device template file.</li>
+                        <li value="2"><b>FMS Alarm Info</b>: Displays all FMS alarm items and their corresponding parameters for a selected device template file.</li>
+                        <li value="3"><b>FMS Config Info</b>: Displays all FMS config items and their corresponding parameters for a selected device template file.</li>
+                        <li value="4"><b>FMS Event Info</b>: Displays all FMS event items and their corresponding parameters for a selected device template file.</li>
+                        <li value="5"><b>FMS History Info</b>: Displays all FMS history items and their corresponding parameters for a selected device template file.</li>
+                        <li value="6"><b>Item ID&#160;Map</b>: Displays all Item IDs and their corresponding elements and data groups for a selected device template file.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;">
+                    <p>FB Net EIE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The following are all options for the device type selected:</p>
+                    <ul class="table">
+                        <li value="1"><b>GMR Config Info</b>: Displays all FMS Legacy config items and their corresponding parameters for a selected device template file.</li>
+                        <li value="2"><b>GMR Event Info</b>: Displays all FMS Legacy event items and their corresponding parameters for a selected device template file.</li>
+                        <li value="3"><b>GMR History Info</b>: Displays all FMS Legacy history items and their corresponding parameters for a selected device template file.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;">
+                    <p>Micro1C EIE </p>
+                    <p>Modbus EFM EIE</p>
+                    <p>Modbus Omni EIE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The following are all options for the device type selected:</p>
+                    <ul class="table">
+                        <li value="1"><b>FMS Config Info</b>: Displays all FMS config items and their corresponding parameters for a selected device template file.</li>
+                        <li value="2"><b>FMS Event Info</b>: Displays all FMS event items and their corresponding parameters for a selected device template file.</li>
+                        <li value="3"><b>FMS History Info</b>: Displays all FMS history items and their corresponding parameters for a selected device template file.</li>
+                        <li value="4"><b>Item ID&#160;Map</b>: Displays all Item IDs and their corresponding elements and data groups for a selected device template file.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;">
+                    <p>ProSoft EIE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The following are all options for the device type selected:</p>
+                    <ul class="table">
+                        <li value="1"><b>Cache Data Elements</b>: Displays all <a href="../EIEs - Remote Devices/When Clause.htm">when clause</a> items for a selected device template file.</li>
+                        <li value="2"><b>GMR Config Info</b>: Displays all FMS Legacy config items and their corresponding parameters for a selected device template file.</li>
+                        <li value="3"><b>GMR Event Info</b>: Displays all FMS Legacy event items and their corresponding parameters for a selected device template file.</li>
+                        <li value="4"><b>GMR History Info</b>: Displays all FMS Legacy history items and their corresponding parameters for a selected device template file.</li>
+                        <li value="5"><b>Item ID&#160;Map</b>: Displays all Item IDs and their corresponding elements and data groups for a selected device template file.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

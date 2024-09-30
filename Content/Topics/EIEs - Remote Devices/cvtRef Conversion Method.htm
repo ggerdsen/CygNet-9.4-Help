@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Conversion Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>cvtRef Conversion Method — Modbus Only</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Conversion Methods.htm">Conversion Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">cvtRef Conversion Method</span>
+        </div>
+        <h2>cvtRef Conversion Method — Modbus Only</h2>
+        <p>With Modbus-based devices, device-specific date-time register data must be converted from its source format to the  Microsoft standard date-time format. CygNet provides conversion methods to do so.  Data converted by a <b>cvtRef</b> conversion may itself be converted using a reference method.</p>
+        <p>Date-time conversions are always introduced using the <b>cvtRef</b> attribute at the data group element&#160;(<a href="DataGroupElement Element.htm" style="font-style: italic;">DataGroupElement</a>) level. Register data  must be supplied to a conversion method by one or more specific data group elements. Conversions depend on one or more specialized attributes to reference   the register data and  to modify that data.  Date-time conversions are not limited to the "Date and Time" data group; any Modbus data group can be configured to use the conversions supported by the <b>cvtRef</b> attribute.</p>
+        <p>For more information, click relevant conversion method links below:</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 600px;margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 200px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 200px;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 200px;" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" colspan="3">cvtRef Conversion Methods</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p class="HyperlinkList"><a href="#Time3Byt" class="selected">Time3Byte</a>
+                        </p>
+                        <p class="HyperlinkList"><a href="#TimeComp" class="selected">TimeComp</a>
+                        </p>
+                        <p class="HyperlinkList"><a href="#TimeEnro" class="selected">TimeEnron</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p class="HyperlinkList"><a href="#TimeStri" class="selected">TimeString</a>
+                        </p>
+                        <p class="HyperlinkList"><a href="#TimeT" class="selected">TimeT</a>
+                        </p>
+                        <p class="HyperlinkList"><a href="#TimeTLoc" class="selected">TimeTLocal</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p class="HyperlinkList"><a href="#TimeTLoc2" class="selected">TimeTLocal1980</a>
+                        </p>
+                        <p class="HyperlinkList"><a href="#TimeTLoc4" class="selected">TimeTLocal2000</a>
+                        </p>
+                        <p class="HyperlinkList"><a href="#TimeTLoc3" class="selected">TimeTLocalOffset</a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4><a name="Time3Byt"></a>Time3Byte</h4>
+        <p>This conversion method applies <u>only</u> to <a href="Thermo EIE.htm">Thermo SuperFlo II</a> devices. <b>Time3Byte</b> converts then combines three-byte date and time data into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidDate</b>: References a data group element that provides the source date value. Dates are converted from the format YYMMDD where the first byte corresponds to YY, the second byte corresponds to MM, and the third byte corresponds to DD. If this parameter is not specified, a default date is returned.</li>
+            <li value="2"><b>deidTime</b>: References a data group element that provides the source time value. Times are converted from the format  HHMMSS where the first byte corresponds to HH, the second byte corresponds to MM, and the third byte corresponds to SS. If this parameter is not specified, HH:MM:SS display as 00:00:00.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>DevTm</b> uses the conversion method <b>Time3Byte</b>. <b>Time3Byte</b> gets its source date from the data group element <b>UnitDate</b>. It gets its source time from the data group element <b>UnitTime</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DevTm desc="Device Time (Local)" type="r8" <span style="background-color: #b0c4de;">cvtRef="Time3Byte"</span><span style="background-color: #b0c4de;">deidDate="UnitDate"</span><span style="background-color: #b0c4de;">deidTime="UnitTime"</span>/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeComp"></a>TimeComp</h4>
+        <p><b>TimeComp</b> converts date and time component data into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidYear</b>: References a data group element that provides the source year value in a four-digit year format.</li>
+            <li value="2"><b>deidMonth</b>: References a data group element that provides the source month in a value 1-12.</li>
+            <li value="3"><b>deidDay</b>: References a data group element that provides the source day in a value 1-31.</li>
+            <li value="4"><b>deidHour</b>: References a data group element that provides the source hour in a value 0-23.</li>
+            <li value="5"><b>deidMinute</b>: References a data group element that provides the source minute in a value 0-59.</li>
+            <li value="6"><b>deidSecond</b>: References a data group element that provides the source second in a value 0-59.</li>
+            <li value="7"><b>deidDayOfWeek</b>: References a data group element that provides the source day of week in a value 1-7 where 1 = Sunday, 2 = Monday, and so forth.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>DevTm</b> uses the conversion method <b>TimeComp</b>. <b>TimeComp</b> gets its dates from the data group element <b>Year</b>, <b>Month</b>, and <b>Day</b>. It gets its times from the data group element <b>Hour</b>, <b>Minute</b>, and <b>Second</b>. And its day of the week comes from <b>DayOfWeek</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DevTm desc="Device Time (Local)" type="r8" <span style="background-color: #b0c4de;">cvtRef="TimeComp"</span><span style="background-color: #b0c4de;">deidYear="Year"</span><span style="background-color: #b0c4de;">deidMonth="Month"</span><span style="background-color: #b0c4de;">deidDay="Day"</span><span style="background-color: #b0c4de;">deidHour="Hour"</span><span style="background-color: #b0c4de;">deidMinute="Minute"</span><span style="background-color: #b0c4de;">deidSecond="Second"</span><span style="background-color: #b0c4de;">deidDayOfWeek="DayOfWeek"</span>/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeEnro"></a>TimeEnron</h4>
+        <p><b>TimeEnron</b> converts Enron-format date and time data into the  Microsoft standard date-time format. Referenced values must be specified in Enron format, which are decimal numbers representing MMDDYY.0 and/or HHMMSS.0.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidDate</b>: See <a href="ref.htm#deidDate">deidDate</a>.</li>
+            <li value="2"><b>deidTime</b>: See <a href="ref.htm#deidTime">deidTime</a>.</li>
+            <li value="3"><b>formatDate</b>: <u>Optional</u>. See <a href="ref.htm#formatDate">formatDate</a>.</li>
+            <li value="4"><b>formatTime</b>: <u>Optional</u>. See <a href="ref.htm#formatTime">formatTime</a>.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>DevTm</b> uses the conversion method <b>TimeEnron</b>. <b>TimeEnron</b> gets the Enron date from the data group element <b>UnitDate</b>. It gets the Enron time from the data group element <b>UnitTime</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DevTm desc="Device Time (Local)" type="r8" <span style="background-color: #b0c4de;">cvtRef="TimeEnron"</span> <span style="background-color: #b0c4de;">deidDate="UnitDate"</span> <span style="background-color: #b0c4de;">formatDate="MMddyy"</span> <span style="background-color: #b0c4de;">deidTime="UnitTime"</span> <span style="background-color: #b0c4de;">formatTime="HHmmss"</span>/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeStri"></a>TimeString</h4>
+        <p><b>TimeString</b> converts date and time string data into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidTime</b>: References a data group element that provides the source date/time value in a string format.</li>
+            <li value="2"><b>formatTime</b>: This attribute is required <u>only</u> if the time can be sent to the device. Describes the format of the string representation to be sent.  For example, strFormat="%m/%d/%y %H:%M:%S" would send a value to be interpreted like 01/30/07 10:22:00.</li>
+        </ul>
+        <h4><a name="TimeT"></a>TimeT</h4>
+        <p><b>TimeT</b> converts UTC date and time data (seconds since January 1, 1970) into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidTime</b>: References a data group element that provides the source date/time in UTC format.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>DateTime</b> uses the conversion method <b>TimeT</b>. <b>TimeT</b> gets its timestamp from the data group element <b>STime</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DateTime desc="Timestamp" type="r4" <span style="background-color: #b0c4de;">cvtRef="TimeT"</span><span style="background-color: #b0c4de;">deidTime="STime"</span>/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeTLoc"></a>TimeTLocal</h4>
+        <p><b>TimeTLocal</b> converts local device date and time data (seconds since January 1, 1970) into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidTime</b>: References a data group element that provides the source date/time in local device date and time format.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>DateTime</b> uses the conversion method <b>TimeTLocal</b>. <b>TimeTLocal</b> gets its timestamp from the data group element <b>STime</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DateTime desc="Timestamp" type="r4" <span style="background-color: #b0c4de;">cvtRef="TimeTLocal"</span><span style="background-color: #b0c4de;">deidTime="STime"</span>/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeTLoc2"></a>TimeTLocal1980</h4>
+        <p>This conversion method applies <u>only</u> to <a href="Modbus EFM EIE.htm">Weatherford WellPilot F-22 (CEO-IV)</a> devices. <b>TimeTLocal1980</b> converts local device date and time data (seconds since January 1, 1980) into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidTime</b>: References a data group element  that provides the source date/time in local device date and time format.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>DateTime</b> uses the conversion method <b>TimeTLocal1980</b>. <b>TimeTLocal1980</b> gets its timestamp from the data group element <b>AlOnTmRaw</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DateTime desc="Al On Time" type="r8" <span style="background-color: #b0c4de;">cvtRef="TimeTLocal1980"</span> arrSize="50" arrRegOff="2" <span style="background-color: #b0c4de;">deidTime="AlOnTmRaw"</span> hidden="true"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeTLoc4"></a>TimeTLocal2000</h4>
+        <p><b>TimeTLocal2000</b> converts local device date and time data (seconds since January 1, 2000) into the Microsoft standard date-time format.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidTime</b>: References a data group element that provides the source date/time in local device date and time format.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p class="Indent">In the following example, the data group element <b>CtrlDTOle</b> uses the conversion method <b>TimeTLocal2000</b>. <b>TimeTLocal2000</b> gets its timestamp from the data group element <b>CtrlDTRaw</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;CtrlDTOle desc="Controller Date/Time Ole" <span style="background-color: #b0c4de;">deidTime="CtrlDTRaw"</span><span style="background-color: #b0c4de;">cvtRef="TimeTLocal2000"</span> hidden="true"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="TimeTLoc3"></a>TimeTLocalOffset</h4>
+        <p><b>TimeTLocalOffset</b> converts local device date and time data  into the Microsoft standard date-time format. It does so by adding a user-defined string offset to January 1, 1970 then adding the referenced data group element value to the result of that sum. In effect, the arithmetic is January 1, 1970 + <b>secondsSince</b> string date offset + <b>deidTime</b> in seconds = date and time.</p>
+        <p>The following are all of the parameters specific to this conversion:</p>
+        <ul>
+            <li value="1"><b>deidTime</b>: References a data group element&#160;that provides a number of seconds. This value is added to the string date offset specified by <b>secondsSince</b>.</li>
+            <li value="2"><b>secondsSince</b>: Specifies the offset from January 1, 1970 from which to append the value returned from <b>deidTime</b>. The <b>secondsSince</b> value must be in format YYYYMMDDHHMMSSNNN, where NNN are optional milliseconds. The value must post-date January 1, 1970.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <p>In the following example, the data group element <b>DateTime</b> uses the conversion method <b>TimeTLocalOffset</b>. <b>secondsSince</b> specifies a post-January 1, 1970 string date in the format YYYYMMDDHHMMSS. The value in seconds from <b>deidTime</b> is then added to the string specified by <b>secondsSince</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;DateTime desc="Timestamp" type="r4" <span style="background-color: #b0c4de;">deidTime="STime"</span><span style="background-color: #b0c4de;">cvtRef="TimeTLocalOffset"</span><span style="background-color: #b0c4de;">secondsSince="19751001151035"</span>/&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

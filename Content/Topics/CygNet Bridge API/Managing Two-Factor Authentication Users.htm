@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Bridge API|Providing Two-Factor Authentication">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Managing Two-Factor Authentication Users</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Bridge API.htm">CygNet Bridge API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Providing Two-Factor Authentication.htm">Providing Two-Factor Authentication</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Managing Two-Factor Authentication Users</span>
+        </div>
+        <h2>Managing Two-Factor Authentication Users for CygNet Bridge API</h2>
+        <p>There will be circumstances where an administrative deactivation of two-factor authentication is required. A user's mobile device containing the authenticator app they use to access CygNet Bridge API might be lost or stolen, for example, so they will be unable to log in until two-factor authentication is deactivated for their account. User accounts can be reset by an administrator to allow a user to activate two-factor authentication for their account using a new device or 2FA app.</p>
+        <p>See <a href="../Security/CygNet Bridge API - Application.htm">CygNet Bridge API (BRDGAPI) Security</a> (ACCESS event) for information about configuring security access for Bridge API administrative functions.</p>
+        <p>See <a href="../Security/Group Service GRP.htm">Group Service (GRP) Security</a> (ACCESS event) for information about configuring security access for Bridge API administrative functions.</p>
+        <h3>Resetting Two-Factor Authentication User Accounts</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> An administrator must have security authorization level <b>4</b> for the [GRP]* <b>ACCESS</b> event for the Group service used to store user authentication data in order to make user data changes. [GRP]* = ACS security application name of the Group service dedicated to storing user authentication information. See <a href="Preparing your System for CygNet Bridge API.htm#Providin">Preparing your System for CygNet Bridge API</a> for more information about configuring permissions.</p>
+        </div>
+        <p>An administrator with the required permissions can deactivate two-factor authentication for a user account, in one of the following ways.</p>
+        <ul>
+            <li value="1">Use <a href="#Using" class="selected">CygNet Bridge API</a> as described below to call the ClientLoginApi reset deactivate two-factor authentication for a user account. This method allows you to manage user 2FA settings from outside your CygNet installation, via CygNet Bridge. The administrator must also have security authorization level <b>5</b>  for the <b>BRDGAPI</b><b>ACCESS</b> event to make user data changes using CygNet Bridge API.</li>
+        </ul>
+        <ul>
+            <li value="1">Use <a href="#Using3" class="selected">CygNet Studio</a> as described below to use the <b>CygNet Bridge API Two-Factor Authentication User Manager</b> screen provided in your Weatherford CygNetBridge source files to generate a screen that guides you through resetting the user authentication data. This method allows you to manage user 2FA settings within your CygNet installation, via CygNet Studio.</li>
+            <li value="2">Use <a href="#Using2" class="selected">CygNet Explorer</a> as described below to navigate to the dedicated Group service created to store user authentication data, and directly remove the user authentication data desired. This method allows you to manage user 2FA settings within your CygNet installation, via CygNet Explorer.</li>
+        </ul>
+        <h4><a name="Using"></a>Using CygNet Bridge API</h4>
+        <p>CygNet Bridge API provides an API method, <b>clientloginapi/api/login/tfa-reset?username={</b><i>username</i><b>}</b>, that allows you to deactivate two-factor authentication for a user account via CygNet Bridge.</p>
+        <p>Use the following procedure to deactivate two-factor authentication for a user account using CygNet Bridge API.</p>
+        <p class="HeadingProcedure">To Reset Two-Factor Authentication for a User Account via CygNet Bridge API</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The administrator must also have security authorization level <b>5</b>  for the <b>BRDGAPI</b><b>ACCESS</b> event to make user data changes using CygNet Bridge API.</p>
+        </div>
+        <ul>
+            <li value="1">Using your API client, call the ClientLoginApi reset method as follows to deactivate two-factor authentication  for  a user account.<ul class="Circle"><li value="1">Create a PUT <b>clientloginapi/api/login/tfa-reset?username={</b><i>username</i><b>}</b> request.</li><li value="2">Specify the user to reset, as the <i>username</i> query parameter value.</li><li value="3">Provide your user credentials (user name, password, and domain/workstation etc.) as applicable.</li><li value="4"><b>Send</b> the request to reset the user authentication data.</li></ul></li>
+        </ul>
+        <h4><a name="Using3"></a>Using CygNet Studio</h4>
+        <p>CygNet provides a sample CygNet Studio screen you can use to manage two-factor authentication user accounts.  When licensed for CygNet Bridge API, the sample user manager screen is located in your CygNet Bridge product source files.</p>
+        <p>The sample user manager screen contains the following fields.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>User data service</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Use the drop-down menu to select the <i>Site.Service</i> for the group service that was created specifically for storing user authentication information for your site. See <a href="Preparing your System for CygNet Bridge API.htm#Providin">Preparing your System for CygNet Bridge API</a> for more information about the process.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Refresh [service]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <b>Refresh</b> to update the list of available services.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Two-factor authentication users</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Lists the users of CygNet Bridge API who have set up two-factor authentication</p>
+                        <p>Select a user to view their setting details in the  user settings box below.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Refresh [users]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <b>Refresh</b> to update the list of two-factor authentication users.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Reset user</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click <b>Reset user</b> to remove the selected user's authentication settings from the user data Group service. This allows the user to set up new 2FA account settings if desired.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>User settings</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Displays two-factor authentication setting details for the selected user, including user identity, status, and (encrypted) Pre-Shared Key (PSK) number</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Use the following procedure to reset a two-factor authentication user account using CygNet Studio.</p>
+        <p class="HeadingProcedure">To Reset Two-Factor Authentication for a User Account via CygNet Studio</p>
+        <ol>
+            <li value="1">In  the <b>CygNet Bridge\BridgeAPISampleScreen</b> folder in your CygNet Bridge source files, locate the sample <b>CygNet Bridge API Two-Factor Authentication User Manager.csf</b> file and make a copy of it.</li>
+            <li value="2"> Upload the copied .csf file into your Blob Storage Service (BSS).</li>
+            <li value="3">In CygNet Studio, open the  screen from your BLOB service. Optionally make edits if desired, and <b>Save</b> any changes. See <a href="../CygNet Studio/CygNet Studio.htm">CygNet Studio</a> for more information about configuring screens.</li>
+            <li value="4">Using your <b>CygNet Bridge API Two-Factor Authentication User Manager</b> screen, provide information as follows to reset the desired user authentication data.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">From the <b>User data service</b> drop-down menu, select the <i>Site.Service</i> for the group service created to store the user authentication information for your site, to view the list of two-factor authentication users.</li>
+            <li value="2">In the <b>Two-factor authentication users</b> list box, select the user name you want to reset.</li>
+            <li value="3">Click <b>Refresh</b> to ensure you are viewing current information.</li>
+            <li value="4">In the <b>User settings</b> results box, verify that the user information shown contains the authentication details you want to reset.</li>
+            <li value="5">Click <b>Reset</b> to remove the existing two-factor authentication settings for the selected user.</li>
+            <li value="6">Click <b>Refresh</b> to view the revised data and verify that the user data was reset.</li>
+        </ol>
+        <h4><a name="Using2"></a>Using CygNet Explorer</h4>
+        <p>Administrators with required permission levels can also directly access the CygNet Group service that was created to contain the two-factor authentication user data, and edit the  data directly.</p>
+        <p>Use the following procedure to reset a two-factor authentication user account using CygNet Explorer.</p>
+        <p class="HeadingProcedure">To Reset Two-Factor Authentication for a User Account via CygNet Explorer</p>
+        <ol>
+            <li value="1">In CygNet Explorer, navigate to the Group service  that was created to contain your two-factor authentication user data (example: <b>USERDATA.GRP</b>) and double-click to open it.</li>
+            <li value="2">Navigate to the node representing the user data you want to reset, right-click to access the context menu, and click <b>Delete</b>  to remove the desired settings.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

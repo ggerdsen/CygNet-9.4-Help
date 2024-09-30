@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Enhanced Alarm Configuration">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Enhanced Alarm Configuration - Security</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enhanced Alarm Configuration.htm">Enhanced Alarm Configuration</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Enhanced Alarm Configuration Security</span>
+        </div>
+        <h2>Enhanced Alarm Configuration - Security</h2>
+        <p>Enhanced Alarm Configuration security events  control user access to the viewing and editing of EAC settings. Adding these events is optional, but in their absence, user access to the EAC settings will mirror any existing configurable bit permissions. Access to alarm settings properties and their configuration  in Enhanced Alarm Configuration is determined by a user's permissions levels. Each time a user attempts to perform an action that requires a certain security access level for a given application (for example, suppress an alarm for a point), access is granted or denied by the ACS based on the  built-in security event that governs that property.</p>
+        <p>These alarm settings properties use either the <a href="../Security/Point Service PNT.htm#ACCESS">ACCESS</a> security event or extended PNT security events. When a user has no configured association to either an EACALL or EAxxdtps event, that user's access resolves to the level that exists for the associated configurable bit. </p>
+        <p>As an example, if a user's access resolves to NONE, either explicitly with an existing permission setting or implicitly due to the absence of a permission assigned to an existing EAC-based event, their access will resolve to READ if the current level for the associated configurable bit is READ or higher. Otherwise, the access will remain as NONE.</p>
+        <h4>Security Events for EAC</h4>
+        <p>Security events specific to EAC are part of <a href="../Security/Point Service PNT.htm">PNT security</a>.</p>
+        <h5>EAxxdtps Event</h5>
+        <p>The <a href="../Security/Point Service PNT.htm#EAxxdtps">EAxxdtps</a> event controls who can see and edit specific configurable bit EAC settings in Alarm Settings and in the <b>Enhanced Alarm Settings </b>dialog box. This event can increase or decrease a user's security privileges from what is established by ACCESS and ALARMSET. </p>
+        <p>Since distinct EAC settings can be configured for individual configurable-bits, the EAxxdtps event provides specific configurable bit access control in the form of EAxx, where xx is replaced by the specific configurable-bit number (e.g. EA01, EA12). Additionally, since a specific configurable bit number may have a different meaning depending on a point’s assigned data type (Analog, String, etc.) and its point scheme, the EAxxdtps event allows for point data type and point scheme qualification, where "dt" is the data type, (e.g., AI, SI) and "ps" is the point scheme ID (e.g., 00, 01, 02). </p>
+        <p>  The EAxxdtps event format is displayed below:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">EA&lt;xx&gt;&lt;dt&gt;&lt;ps&gt; (eight character maximum) </p>
+                </td>
+            </tr>
+        </table>
+        <ul>
+            <li value="1">xx =Config Bit number (01 - 15)  - required </li>
+            <li value="2">dt = Point Type (AI, AO, AN (I&amp;O), DI, DO, DG (I&amp;O), SI, SO, ST (I&amp;O), EI, EO, EN (I&amp;O) - optional</li>
+            <li value="3">ps = Point Scheme (0-15) - optional</li>
+        </ul>
+        <p class="Example">Examples</p>
+        <ul>
+            <li value="1">EA03EI applies to Config Bit 03 for Enumeration Input points across all point schemes defined in the system. </li>
+            <li value="2">EA02AN00 applies to Config Bit 02 for Analog Input/Output point data types assigned to the CygNet Standard point scheme (00). </li>
+            <li value="3">EA01AN01 event, with user permissions of "2-Update", allows a user to edit the EAC settings for the status bit associated with Config Bit 01 (EA01) for Analog Input/Output point types (AN) defined within point scheme 1 (01). </li>
+            <li value="4">User permissions of "0-None" assigned to EA01AN01 event are ignored and the hiding of EAC settings for this bit is only achieved by hiding the associated Config Bit. </li>
+        </ul>
+        <p>Specific <b>Enhanced Alarm Settings </b>dialog box behaviors and allowable actions for each permission level associated with the configurable bits are shown in the table below.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 451px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Event</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Authorization</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Enhanced Alarm Settings Dialog Box</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td rowspan="6" class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>EAxxdtps</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>0-None</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Hides the status bit entry from the left-hand list.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>1-Read</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Shows the status bit in the left-hand list but prevents any modification to the condition or expressions.</p>
+                    <ul class="table">
+                        <li value="1">If "1-Read" access exists for all defined status bits, the <b>Export</b> button is enabled.</li>
+                        <li value="2">
+                            <p><b>Import</b> and <b>Clear All</b> are disabled if any one status bit is assigned "1-Read" permissions.</p>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>2-Update</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Shows the status bit in the left-hand list and allows modification of the comparison values within the expressions only.</p>
+                    <ul class="table">
+                        <li value="1">The <b>Export</b> button is enabled.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>3-Add</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Shows the status bit in the left-hand list, allows modification to the comparison values within the expressions, and allows conditions to be enabled or disabled.</p>
+                    <ul class="table">
+                        <li value="1">The <b>Export</b> button is enabled.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>4-Delete</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Shows the status bit in the left-hand list, allows full expression tree modification, allows conditions to be enabled or disabled, and allows the <b>Set status on …</b> drop-down menu to be modified.</p>
+                    <p>If "4-Delete" access exists for all defined status bits:</p>
+                    <ul class="table">
+                        <li value="1">
+                            <p>The <b>Export</b>, <b>Import</b> and <b>Clear All</b> buttons are enabled.</p>
+                        </li>
+                        <li value="2">
+                            <p>The ability to change the drop-down menu from <b>Separate conditions</b> to <b>Single conditions for all</b> is enabled.</p>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>5-Admin</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Same functionality as "4-Delete".</p>
+                </td>
+            </tr>
+        </table>
+        <h5>EACALL&#160;Event</h5>
+        <p>For systems that do not require specific configurable bit access control, the <a href="../Security/Point Service PNT.htm#EACALL">EACALL</a> event, working in combination with the ACCESS event, determines user access for all EAC settings regardless of the configurable bit number, point data type, or point scheme assigned. </p>
+        <p class="Example">Examples</p>
+        <ul>
+            <li value="1">If Read access is assigned to an Operators security group for the EACALL event, those users are limited to read-only access for all EAC settings.</li>
+            <li value="2">If Admin access is assigned to an Administrators security group, those users have full write access to all EAC settings.</li>
+            <li value="3">If ACCESS is "0-None", EACALL can increase to "1-Read", which provides read access to all EAC configurable bit settings.</li>
+            <li value="4"> If all EAC configurable bits resolve to "0-None" (e.g., ACCESS = 0-None and EACALL = 0-None with no EAxxdtps overrides), the <b>Enhanced Alarm Settings </b>dialog box is not available from an Alarm Settings page.          </li>
+        </ul>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Enhanced Alarm Settings Dialog.htm" class="More">Enhanced Alarm Settings</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="../Points/Understanding the CvsMetadata File.htm" class="More">Understanding the CvsMetadata File</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

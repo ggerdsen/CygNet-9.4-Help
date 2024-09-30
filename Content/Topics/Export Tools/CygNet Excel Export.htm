@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Export Tools">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Excel Export</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Export Tools.htm">Export Tools</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Excel Export</span>
+        </div>
+        <h2>CygNet Excel Export</h2>
+        <p>CygNet Excel Export is a sample usage of the CxExport dll automation interface to export data to a Microsoft Excel worksheet in tabular format. Using this feature, you can create reports from historical values, current values, or current values by group. The points included in the report can be specified using point identifiers, facility IDs/attributes and UDCs, or groups.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+            </p>
+            <p class="Note">The .dll can be used to create reports in a variety of applications, including Microsoft Excel,VBA, C++, Microsoft Word. CygNet Excel Export is a sample usage of the .dll with Excel, although it can be exercised completely outside of the Excel environment. Do not confuse this feature with the <a href="../History/CygNet History Export Utility.htm">CygNet History Export</a> (CExport.exe), which is a utility for exporting VHS-only data to a .csv file.
+                </p>
+            <p class="Note">The CygNet Excel Export application replaced CygNet Excel Reports, which reached its official end of life in July 2007.</p>
+            <p class="Note">There are two dlls, CxExport.dll and CxExport64.dll, found in CygNet\Support\ and CygNet\Support64\ respectively. The 32-bit CygNet Excel Export (CxExport.dll) works with 32-bit Excel; the 64-bit CygNet Excel Export (CxExport64.dll) works with 64-bit Excel.
+                </p>
+            <p class="Note">The CxExport dlls use native CygNet messaging.</p>
+        </div>
+        <h3>How CygNet Excel Export Works</h3>
+        <p>The CygNet Excel Export application is comprised of two software components:</p>
+        <ul>
+            <li value="1">a Microsoft Excel worksheet (ExlRpt.xls) — which contains the report configuration information. </li>
+        </ul>
+        <ul>
+            <li value="1">the CxExport dll automation interface — which  contains the code to get the data.</li>
+        </ul>
+        <p>The ExlRpt.xls file has two worksheets: <b>Main</b> and <b>CygNet Data</b>. The <b>Main</b> worksheet contains the report configuration information, including <b>Auto Run</b> parameters. The <b>CygNet Data</b> worksheet is the location where the exported data is stored.</p>
+        <p>The report configuration is performed in the <b>Setup</b> dialog box, which is accessed by clicking the <b>Configure</b> button on the <b>Main</b> worksheet. The <b>Setup</b> dialog box contains options for the report type, point specification, column specification, report format, and export file name.</p>
+        <p>Once you configure the report and click the <b>Get CygNet Data</b> button on the <b>Main</b> worksheet, the data is gathered and exported to a .csv file and then imported into the ExlRpt.xls file on the <b>CygNet Data</b> worksheet page.</p>
+        <p>If you configure the report to <b>Auto Run</b>, you can schedule it using a third-party scheduler, such as Microsoft’s Scheduled Tasks. <b>Auto Run</b> includes options for printing, exporting, and archiving the report. The export formats are comma-separated value (CSV) file, text (TXT), Hypertext Markup Language (HTML), or a Microsoft Excel Worksheet (XLS).</p>
+        <p>If the report contains a finite amount of points and values, you can add another worksheet to the .xls file for the final report. This worksheet can use references to cells on the <b>CygNet Data</b> worksheet page and contain formatting and functions.</p>
+        <p>Once you configure a report, save it with a unique file name otherwise it will be overwritten when version management occurs.</p>
+        <p>The ExlRpt.xls file contains macros, which must be enabled so that the data can be retrieved. See <a href="Installing and Configuring CygNet Excel Export.htm">Installing and Configuring CygNet Excel Export</a> for more information about enabling macros.</p>
+        <h4>Report Limits</h4>
+        <p>Be aware that the default Microsoft Excel report (ExlRpt.xls) is limited to 256 columns and 65,536 rows. A Microsoft Excel Macro-Enabled Workbook report  (ExlRpt.xlsm) is limited to 16,384 columns and 1,048,576 rows. As such, the amount of data that you can include in a report is limited.</p>
+        <p>To convert an Excel .xls file to an .xlsm file, save as "Excel Macro-Enabled Workbook (*.xlsm)" file type. Close and then re-open the Excel file prior to testing it out, to allow the changes to take place within the Workbook and remove the file from compatibility mode. This is important, since compatibility mode can cause the column and row restrictions of an .xls file to persist.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Installing and Configuring CygNet Excel Export.htm" class="More">Installing and Configuring CygNet Excel Export</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring a CygNet Excel Export Report.htm" class="More">Configuring a CygNet Excel Export Report</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Auto Run a CygNet Excel Export Report.htm" class="More">Auto Run a CygNet Excel Export Report</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Scheduling a CygNet Excel Export Report.htm" class="More">Scheduling a CygNet Excel Export Report</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="CygNet Excel Export Error and Status Messages.htm" class="More">CygNet Excel Export Error and Status Messages</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Version Managing CygNet Excel Export Reports.htm" class="More">Version Managing CygNet Excel Export Reports</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

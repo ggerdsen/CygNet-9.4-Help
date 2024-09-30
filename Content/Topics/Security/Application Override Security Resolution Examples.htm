@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Security|Application Override">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Application Override Security Resolution Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Security.htm">Security</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Application Override.htm">Application Override</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Application Override Security Resolution Examples</span>
+        </div>
+        <h2>Application Override Security Resolution Examples</h2>
+        <p>The following is a list of common security resolution contexts illustrating the various ways in which PNT and FAC security play a role to resolve the correct security permissions.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Application</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Resolution Example</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CygNet Explorer</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1">The CVS and CAS have Events (RTACCESS and ACCESS, respectively) that can be used to restrict the list of point and alarm records displayed. As such, this functionality extends to Application Override.</li>
+                        <li value="2">The VHS, AUD, ELS, and GRP services do not have an Event to restrict the list of records. As such, all items are listed regardless of an Application Override. However if you attempt to edit an item in the <b>Editor</b> dialog box you may be denied access based on the Application Override.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CygNet Studio</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1">Standard CygNet-aware Studio controls — CVS, PNT and FAC security is checked. Any object associated with a point for which the user does not have at least Level 1 (read) authorization is not displayed. (The behavior is based on the setting of the object’s <a href="../CygNet Studio/Properties.htm#UnknownTag">[UnknownTag]</a> property.) In addition, all right-click functionality on the object is blocked.</li>
+                        <li value="2"><a href="../CygNet Studio/Text Tool.htm">Text Tool</a>, all Shape Tools, <a href="../CygNet Studio/Ribbon Tool.htm">Ribbon Tool</a> — The object is displayed as unreliable.</li>
+                        <li value="3"><a href="../CygNet Studio/Image Tool.htm">Image Tool</a> and <a href="../CygNet Studio/Vector Image Tool.htm">Vector Image Tool</a> — The object’s "unreliable" image or "default" image is displayed.</li>
+                        <li value="4"><a href="../CygNet Studio/Comment Tool.htm">Comment Tool</a> — The comment tool is not displayed.</li>
+                        <li value="5"><a href="../CygNet Studio/UIS Command Button Tool.htm">UIS Command</a> and <a href="../CygNet Studio/DDS Editor Button Tool.htm">DDS Command</a> buttons — These are not affected by Application Override.</li>
+                        <li value="6"><a href="../CygNet Studio/Facility Navigation Bar Tool.htm">Facility Navigation Bar</a> — The Facility Navigation Bar will check FAC record security and filters out any entries to which the user does not have at least Level 1 (read) authorization.</li>
+                        <li value="7"><a href="../CygNet Studio/Group Navigation Bar Tool.htm">Group Navigation Bar</a> — The Group Navigation Bar will check FAC record security for all group nodes with a node type of “~F - CVS Facility” and filter out any entries in which the user does not at least have “1-Read” access.</li>
+                        <li value="8">Multi-point controls — CVS, PNT and FAC security is checked. Any object associated with a point for which the user does not have at least Level 1 (read) authorization is not displayed. (The behavior is based on the setting of the object’s <a href="../CygNet Studio/Properties.htm#UnknownTag">[UnknownTag]</a> property.) In addition, all right-click functionality on the object is blocked.</li>
+                        <li value="9"><a href="../Points/PNT Editor.htm">PNT configuration record</a> dialog boxes invoked from various CygNet Studio screens:</li>
+                        <ul style="list-style-type: circle;">
+                            <li value="1"><b>Alarm Settings</b> — See <a href="Point Service PNT.htm#ALARMSET">ALARMSET</a> and <a href="Point Service PNT.htm#CFGBITxx">CFGBITxx</a> events.</li>
+                            <li value="2"><b>Alarm Suppression Settings</b>  — See <a href="Point Service PNT.htm#ALMSUPP">ALMSUPP</a> event.</li>
+                            <li value="3"><b>Comments</b>  — See <a href="Point Service PNT.htm#COMMENT">COMMENT</a> event.</li>
+                            <li value="4"><b>Questionable State</b>  — See <a href="Point Service PNT.htm#QUESTION">QUESTION</a> event.</li>
+                        </ul>
+                        <li value="10"><a href="../CygNet Studio/WatchList Tool.htm">WatchList Tool</a> — A protected point appears blank.</li>
+                        <li value="11"><a href="../CygNet Studio/Group Grid Tool.htm">Group Grid Tool</a> — A protected point appears unreliable.</li>
+                        <li value="12"><a href="../CygNet Studio/Trend Tool.htm">Trend Tool</a> — A protected point appear as if the point has no history. An error message will be displayed: "Unable to resolve Series x" (where "x" represents the number in the series of points assigned to plot).</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Automation Interfaces (scripting)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <ul class="table">
+                        <li value="1"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#GetTagList">GetTagList</a> — Checks PNT and FAC level security and hides any data for which the user’s access is not at least Level 1 (read).</li>
+                        <li value="2"><a href="../Scripting/CxScript GlobalFunctions Methods.htm#GetFacilityList">GetFacilityList</a> — Checks FAC security and hides any data for which the user’s access is not at least Level 1 (read).</li>
+                        <li value="3"><a href="../Scripting/CxScript Points Object.htm">CxScript::Points Object</a> — Checks PNT security.</li>
+                        <li value="4"><a href="../Scripting/CxScript Facilities Object.htm">CxScript::Facilities Object</a> — Checks FAC security.</li>
+                        <li value="5"><a href="../Points/PNT Editor.htm">PNT configuration record</a> dialog boxes invoked via the COM API exposed through the <a href="../Scripting/CxPnt.htm">CxPnt.dll</a>.</li>
+                        <ul style="list-style-type: circle;">
+                            <li value="1"><b>Alarm Settings</b> — See <a href="Point Service PNT.htm#ALARMSET">ALARMSET</a> and <a href="Point Service PNT.htm#CFGBITxx">CFGBITxx</a> events.</li>
+                            <li value="2"><b>Alarm Suppression Settings</b>  — See <a href="Point Service PNT.htm#ALMSUPP">ALMSUPP</a> event.</li>
+                            <li value="3"><b>Comments</b>  — See <a href="Point Service PNT.htm#COMMENT">COMMENT</a> event.</li>
+                            <li value="4"><b>Questionable State</b>  — See <a href="Point Service PNT.htm#QUESTION">QUESTION</a> event.</li>
+                        </ul>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Utility Programs</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <ul class="table">
+                        <li value="1"><a href="../Groups/Group Hierarchy Manager Utility.htm">Group Manager</a> — The user running GrpMgr.exe must have admin rights to the connected GRP service before hierarchies can be configured or built. When configuring and building hierarchies, GrpMgr explicitly suppresses FAC and DDS record security checks so that it has access to the records that it needs.</li>
+                        <li value="2"><a href="../Facilities/Facility Load FacLoad Utility.htm">FacLoad</a> — The user running FacLoad.exe must have admin rights to the FAC service before facilities can be loaded.</li>
+                        <li value="3"><a href="../Points/Point Configuration Manager Utility.htm">PointCfgMgr</a> — Does not check PNT or FAC level security.</li>
+                        <li value="4"><a href="../Scripting/CygNet Point Script Copy Utility.htm">PointCfgScriptCopy</a> — Does not check security.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

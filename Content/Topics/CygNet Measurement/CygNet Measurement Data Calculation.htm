@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|CygNet Measurement Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Measurement Data Calculation</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Measurement Overview.htm">CygNet Measurement Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Measurement Data Calculation</span>
+        </div>
+        <h2>CygNet Measurement Data Calculation</h2>
+        <p>Calculation functionality is at the core of the CygNet Measurement application. Field values are received by the application and calculations are performed to generate corrected volume and energy values, and are used for validation of measurement data. Rollups are performed at station and group levels in support of operations and business functions.</p>
+        <p>The following calculation elements contribute to accurate measurement data calculations across the application.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Data" class="selected">Data Spreading</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Data2" class="selected">Data Aggregation</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Processi" class="selected">Processing of User Edits</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Calculat" class="selected">Calculation Types</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Recalcul" class="selected">Recalculation</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Calibrat" class="selected">Calibration Recalculation</a>
+            </li>
+        </ul>
+        <h3><a name="Data"></a>Data Spreading</h3>
+        <p>In CygNet Measurement you can enter daily/monthly data and have that data spread over the specified time period (e.g. to generate hourly records). Data entered at any  span greater than the native  span will be spread to the native span, which accommodates circumstances where the choice is made to enter daily/monthly data, or where hourly data may be unavailable. </p>
+        <p>Data spreading applies to the following editable history data items.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Editable Data Items - Gas.htm#Energy">Energy</a> - eFMS_PV_ACCUM_ENERGY</li>
+            <li class="HyperlinkList" value="2"><a href="Editable Data Items - Gas.htm#Mass">Mass</a> - eFMS_PV_FLOW_MASS</li>
+            <li class="HyperlinkList" value="3"><a href="Editable Data Items - Gas.htm#FlowTime">Flow Time</a> - eFMS_PV_FLOW_TIME</li>
+            <li class="HyperlinkList" value="4"><a href="Editable Data Items - Gas.htm#Volume">Volume</a> - eFMS_PV_FLOW_VOLUME</li>
+            <li class="HyperlinkList" value="5"><a href="Editable Data Items - Gas.htm#IV">Integral Value</a> - eFMS_PV_IV</li>
+            <li class="HyperlinkList" value="6"><a href="Editable Data Items - Gas.htm#Pulse">Pulse Count</a> - eFMS_PV_PULSES</li>
+            <li class="HyperlinkList" value="7"><a href="Editable Data Items - Gas.htm#Uncorrected">Uncorrected Volume</a> - eFMS_PV_UNCORRECTED_VOLUME</li>
+        </ul>
+        <p>See <a href="Using the History Grid Control.htm">Using the History Grid Control</a> and <a href="Editable Data Items - Gas.htm">Editable Data Items</a> for more information.</p>
+        <h3><a name="Data2"></a>Data Aggregation</h3>
+        <p>Aggregation of device level data varies. Sometimes it is summed (e.g. volume, energy) and sometimes it is averaged (e.g. pressure, temperature). The summation logic is simple, whereas the averaging logic is more complex.</p>
+        <h4>Averaging Liquid Device Data</h4>
+        <p>API 21.2 addresses averaging in the context of liquid device data. CygNet Measurement meets these requirements by ensuring that all averaging is "time-based" averaging (per section 9.2.13) to yield a weighted average for the volume, and specifically that if there is no flow time during the entire period being averaged, then a simple average will be used. </p>
+        <h5>Volume-weighted or Mass-weighted </h5>
+        <p>The following formula is used to calculate the weighted average, using the (volume-weight or mass-weight) time-based method:</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Measurement/CalculationLiquidAverage.png" />
+        </p>
+        <p class="Indent">where:</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">WA</span></b> = weighted average of a variable value (<i>Var</i>) for the total volume/mass measured</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">Var<sub>i</sub></span></b> = value of the variable sampled at time interval <i>i</i></p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">Q<sub>i</sub></span></b> = volume/mass measured during time interval <i>i</i></p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">Q<sub>tot</sub></span></b> = total volume/mass measured</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">t<sub>tot</sub></span></b> = total time interval</p>
+        <h4>Averaging Gas Device Data</h4>
+        <p>API 21.1 addresses averaging in the context of gas device data. CygNet Measurement meets these requirements by ensuring that all averaging is "flow time linear" averaging and specifically that if there is no flow time during the entire period being averaged, then a simple average will be used. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> One notable exception to these rules is the Volume Correction Factor (VCF) field. Since it directly relates to volume, it is averaged using a volume-weighted technique instead of flow time. This field is system calculated, not returned by the device, therefore API 21.1 rules don't apply. See <a href="CygNet Measurement Concepts.htm#Volume">Volume Correction Factor</a> in the CygNet Measurement Concepts topic for more information.</p>
+        </div>
+        <h4>Averaging Gas Station Data</h4>
+        <p>Aggregation of station level data also uses volume-weighted averaging. If there is no volume for the entire period, then a simple average is performed. Since station data can have negative values, the volume-weighted technique uses the absolute value of the volumes.</p>
+        <p>See <a href="CygNet Measurement Concepts.htm#Station">CygNet Measurement Concepts</a> for more information about the concepts of device data and station data in CygNet Measurement.</p>
+        <h3><a name="Processi"></a>Processing of User Edits</h3>
+        <p>Given the type of user edit, the following  processing is performed.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">User Edit Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Processing Performed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Volume, Energy, Mass</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>If  edited value is Volume or Mass, calculate Energy</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Periodic Metering Process Variable</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>If edited value is used by the calculation type for the device, calculate Volume, Energy, and/or Mass value</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Periodic Quality Process Variable</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>If edited value is used by the  calculation type for the device, calculate Volume, Energy, and/or Mass value</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Calculat"></a>Calculation Types</h3>
+        <p>CygNet Measurement supports a single set of gas metering/gas quality/gas analysis historical data calculations for a specified device, depending on its corresponding internal calculations. </p>
+        <p>The following calculation types are described in this section.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Gas" class="selected">Gas Quantity Calculations</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Physical" class="selected">Physical Properties Calculations</a>
+            </li>
+        </ul>
+        <h4><a name="Gas"></a>Gas Quantity Calculations</h4>
+        <h5><a name="Energy"></a>Energy</h5>
+        <p>Given the corrected volume from the gas flow computer and the heating value from the chromatograph or imported gas analysis, the application calculates the amount of energy delivered, using either Heating Value or Mass,  as follows.</p>
+        <p>The following formula is used to calculate Energy, using Heating Value Volume:</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Measurement/CalculationHeatingValueVolume.png" />
+        </p>
+        <p class="Indent">where:</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">E</span></b> = Energy</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">V<sub>c</sub></span></b> = Corrected Volume</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">H<sub>v</sub></span></b> = Heating Value Volume</p>
+        <p>The following formula is used to calculate Energy, using Heating Value Mass:</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Measurement/CalculationHeatingValueMass.png" />
+        </p>
+        <p class="Indent">where:</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">E</span></b> = Energy</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">M<sub>c</sub></span></b> = Corrected Mass</p>
+        <p class="Indent2"><b><span style="font-family:monospace; font-size:10pt;">H<sub>M</sub></span></b> = Heating Value Mass</p>
+        <h5>Mass</h5>
+        <p>Where mass is measured directly, the following calculations can be applied to obtain volume by using temperature, pressure, mole weight, and compressibility values.</p>
+        <ul>
+            <li value="1">AGA 11 (coriolis meters)</li>
+        </ul>
+        <h5>Corrected Volume</h5>
+        <p>Where raw volume values are not compensated for pressure and temperature for devices that return gas metering history, the following corrected volume calculations can be applied. </p>
+        <ul>
+            <li value="1">AGA 3 1985 (orifice meters)</li>
+            <li value="2">AGA 3 1992 (orifice meters)</li>
+            <li value="3">AGA 3 2013 (orifice meters)</li>
+            <li value="4">AGA 7  (pulse meters - turbine, ultrasonic meters)</li>
+            <li value="5">Cone</li>
+            <li value="6">Wafer cone</li>
+        </ul>
+        <h4><a name="Physical"></a>Physical Properties Calculations</h4>
+        <h5><a name="Gross"></a>Heating Value Volume, Relative Density, and Hydrocarbon Liquid Content</h5>
+        <p>Calculations of gas analysis physical property information include heating value volume (HVV,<b>*</b> for Wet, Dry, and As delivered), relative density, and liquid content of hydrocarbons (as GPM values), complying with the following calculation standard.</p>
+        <ul>
+            <li value="1">GPA 2172-09</li>
+            <li value="2">GPA 2145-16</li>
+        </ul>
+        <p>Editing a configured value for device base conditions (Temperature or Pressure) or heating value basis triggers a recalculation of values for relative density and liquid content of hydrocarbons. When this occurs, recalculations are based on heating value basis as follows:</p>
+        <ul>
+            <li value="1">HVV is recalculated based on the heating value basis as configured in the device (configured value)</li>
+            <li value="2">Relative density and  liquid content of hydrocarbons are recalculated based on the heating value basis as delivered with the gas analysis sample (imported gas analysis value)</li>
+        </ul>
+        <p>See <a href="Using the Configuration Control.htm">Using the Configuration Control</a> for more information about managing configuration log and gas analysis data.</p>
+        <p class="Note"><b>*</b>CygNet Measurement calculates HVV as "real" rather than "ideal" values. This is distinguished by how compressibility is handled. HVV ("real") heating value volume accounts for the compressibility value in its calculation, whereas GHV ("ideal") gross heating value assumes a compressibility factor of 1.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Although values may be shown in CygNet Measurement and elsewhere with up to 10 places of decimal precision, calculation precision and uncertainty is as reported for GPA 2172-09, "The properties... derive from experimental measurements that, in general, are accurate to no better than 1 part in 1000." Refer to <ins>GPA Standard 2172-09, API Manual of Petroleum Measurement Standards, Chapter 14.5</ins> for more information.</p>
+        </div>
+        <h5>Supercompressibility</h5>
+        <p>Supercompressibility calculations take into account how different gas compositions compress. These differences can be applied to corrected volumes using the following supercompressibility calculations.</p>
+        <ul>
+            <li value="1">AGA 8 Detailed 1992</li>
+            <li value="2">AGA 8 Gross Methods 1 &amp; 2 1992</li>
+            <li value="3">NX 19 Gravity/Carbon/Nitrogen (GCN) Method 1962</li>
+            <li value="4">NX 19 Complete 1962</li>
+        </ul>
+        <h3><a name="Recalcul"></a>Recalculation</h3>
+        <p>Many configuration items affect data calculation. See <a href="Configuration Items That Trigger Recalculation.htm">Configuration and Gas Analysis Items that Trigger Recalculation</a> for a list of the configuration items that will cause a recalculation of affected historical records.</p>
+        <h3><a name="Calibrat"></a>Calibration Recalculation</h3>
+        <p>Use of <a href="../CygNet Dispatch/CygNet Dispatch.htm">CygNet Dispatch</a> to integrate the effects of calibration changes affecting your measurement records can also result in data recalculation, upon approval. </p>
+        <p>Given the calibration changes, the change in process variable values, ∆pv (for temp, DP, or SP), is calculated as follows using linear interpolation and averages.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Measurement/CalculationCalibrationChange.png" />
+        </p>
+        <p>The adjusted process variable value, ∆pv<span style="vertical-align: sub;">adj</span>, is calculated as follows given its previous reported value and the calculated change.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Measurement/CalculationCalibrationChangeAdj.png" />
+        </p>
+        <p class="Indent">where:</p>
+        <p class="Indent2"><b>∆c</b><span style="vertical-align: sub;">n</span> = <b>s</b><span style="vertical-align: sub;">n</span> - <b>a</b><span style="vertical-align: sub;">n</span></p>
+        <p class="Indent3">calibration change (delta) for the point n; the difference between the standard value and the as-found value</p>
+        <p class="Indent2"><b>∆c</b><span style="vertical-align: sub;">n-1</span> = <b>s</b><span style="vertical-align: sub;">n-1</span> - <b>a</b><span style="vertical-align: sub;">n-1</span></p>
+        <p class="Indent3">calibration change (delta) for point n-1,  the point prior to point n; the difference between the standard value and the as-found value</p>
+        <p class="Indent2"><b>s</b><span style="vertical-align: sub;">n-1</span> &lt; <b>pv</b> <span style="vertical-align: sub;">flow</span> &lt; <b>s</b><span style="vertical-align: sub;">n</span></p>
+        <p class="Indent3">assuming the process variable value falls between the standard values for points n and n-1</p>
+        <p class="Indent">and:</p>
+        <p class="Indent2"><b>pv</b> = process variable value (for temperature, DP, or SP)</p>
+        <p class="Indent3">each process variable value, retrieved for the record span of the given device (hourly or daily), and between the effective date and the job complete date</p>
+        <p class="Indent2"><b>n</b> = ordinal value denoting the calibration data point</p>
+        <p class="Indent2"><b>c</b> = calibration value</p>
+        <p class="Indent2"><b>s</b> = standard value</p>
+        <p class="Indent2"><b>a</b> = as-found value</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="CygNet Measurement Data Calculation - AGA 8.htm" class="More">AGA 8 Data Ranges</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

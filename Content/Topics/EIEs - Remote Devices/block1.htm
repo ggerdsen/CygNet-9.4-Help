@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Elements and Attributes">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>block</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Elements and Attributes.htm">Elements and Attributes</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">block</span>
+        </div>
+        <h2>block</h2>
+        <p>The <b>block<i>n</i></b> element defines constraints used to map register data to data group&#160;elements (<a href="DataGroupElement Element.htm" style="font-style: italic;">DataGroupElement</a>) within a CygNet data group. Each block defines a structure that reads or writes contiguous registers. Multiple blocks can be used, depending on the requirements of the dependent data group(s). CygNet blocks are not restricted by the Modbus maximum message size of 250 data bytes; you can specify any number of contiguous registers to retrieve per block when using the <b>regCnt</b> attribute.</p>
+        <p>The first block is always <b>block1</b>. Subsequent blocks are <b>block<i>n</i></b>, where <i>n</i> represents the block number. Blocks must be enumerated consecutively; block enumerations can only be used once. So if you use three blocks, call the blocks <b>block1</b>, <b>block2</b>, and <b>block3</b>.  Fewer blocks means fewer communication transactions between the CygNet host and field device(s). It might be more efficient for you to use fewer blocks and bring back extra bytes than to create numerous blocks with few bytes.</p>
+        <p>To read to or write from a single register,  either define only one data&#160;element in the applicable data group or use a single-element data group.</p>
+        <p>This element is:</p>
+        <ul>
+            <li value="1">Case sensitive</li>
+            <li value="2">Required in <u>every</u> <b>modbusReadBlocks</b>/<b>modbusWriteBlocks</b>, <b>readBlocks</b>/<b>writeBlocks</b>, and <b>card</b> element</li>
+            <li value="3">Used 1 or more times per <b>modbusReadBlocks</b>/<b>modbusWriteBlocks</b>, <b>readBlocks</b>/<b>writeBlocks</b>, and <b>card</b> element</li>
+        </ul>
+        <p>To learn about how this element relates to other elements in a CygNet device template file, see <a href="Template File Hierarchy.htm">Template File Hierarchy</a>.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the element</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;BlockEx niceName="Block Example" devDG="false" maxCnt="4" forceSave="true" canSend="true" uccSend="true" baseOrd="1" ordLabel="Run#"&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4"&gt;</p>
+                            <p class="Code3">&lt;ABigStr1 desc="A big string 1" regDef="2:0" type="string" len="120"/&gt;</p>
+                            <p class="Code3">&lt;ABigStr2 desc="A big string 2" regDef="2:125" type="string" len="120"/&gt;</p>
+                            <p class="Code3">&lt;Num1 desc="A number 1" regDef="1:0" type="ui2"/&gt;</p>
+                            <p class="Code3">&lt;Num2 desc="A number 2" regDef="1:34" type="ui2"/&gt;</p>
+                            <p class="Code3">&lt;Num3 desc="A number 3" regDef="1:148" type="ui2"/&gt;</p>
+                            <p class="Code3">&lt;Num4 desc="A number 4" regNum="2087" type="ui2"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks regOff="0" regByteLen="2"&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;block1 regNum="2000" regCnt="208" funcCode="3"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;block2 regNum_ord1="3000" regNum_ord2="4000" regNum_ord3="5000" regNum_ord4="6000" regCnt="250" funcCode="3"/&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code2">&lt;modbusWriteBlocks regOff="0" regByteLen="2" txMaxRegCnt="100"&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;block1 regNum="2000" regCnt="208" funcCode="16"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;block2 regNum_ord1="3000" regNum_ord2="4000" regNum_ord3="5000" regNum_ord4="6000" regCnt="250" funcCode="16"/&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/modbusWriteBlocks&gt;</p>
+                            <p class="Code">&lt;/BlockEx&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h3>Attributes</h3>
+        <p>The following table lists and describes attributes generally applicable to this element. However, not all of the attributes listed here are applicable to all EIEs. Additionally, some attributes are required for use in every device template file of a certain EIE, but others may be used on a case-by-case or device-by-device basis, depending on your specific needs. All attributes in templates are case sensitive; but the case sensitivity of attribute values is based on context.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Occasionally, device template files for different EIEs use attributes of the same name that do different things. Efforts are made in this document to highlight cases where an attribute by one name does different things in different EIEs.</p>
+        </div>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: bold;">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>cardIncrement</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>cardIncrement</b> specifies a number of registers by which to increment when multiple dynagraph cards are available. The number of cards supported for each card type is defined by protocol.</p>
+                    <h6> Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="cardRep"></a>cardRep</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>cardRep</b> specifies the type of DynaCard data represented by a <b>card</b> or <b>block</b> element.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be defined at the <b>card</b> or <b>block</b> level for every block included in a <b>card</b> element.</li>
+                        <li value="2"><b>downhole</b>: Indicates that the data source is downhole. If set to <b>downhole</b>, <b>downholePtCount</b> must also be defined in the parent or grandparent element.</li>
+                        <li value="3"><b>none</b>: Indicates that the data source is neither downhole nor surface.</li>
+                        <li value="4"><b>surface</b>: Indicates that the data source is surface. If set to <b>surface</b>, <b>surfacePtCount</b> must also be defined in the parent or grandparent element.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;"><a name="funcCode"></a>funcCode</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>funcCode</b> specifies the Modbus function code for accessing a register or block of registers.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                        <li value="2">Must be a valid and supported Modbus function code.</li>
+                    </ul>
+                    <p>See <a href="#Function" class="selected">Function Codes</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="len"></a>len</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>len</b> specifies the number of bytes in a data group element or register.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>newTx</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>newTx</b> specifies that a  new message transaction starts at the <b>block</b> element in which <b>newTx</b> is defined and includes block data for all subsequent blocks until another definition of <b>newTx</b> set to <b>true</b> is encountered.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a Boolean value <b>true</b> or <b>false</b>.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>ordIncrement</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p><b>ordIncrement</b> specifies how many registers make up an increment  of registers. It is always used in combination with <a href="#regNum" class="selected">regNum</a>, which specifies a starting register number from which to increment.</p>
+                    <p>These two attributes are used to specify one or more groups of registers that correspond to data group ordinals. <b>ordIncrement</b> always depends on <b>regNum</b>, but <b>regNum</b> does not depend on <b>ordIncrement</b>. Optionally, use <a href="#regNum" class="selected">regNum_ord<i>n</i></a> in place of <b>ordIncrement</b> + <b>regNum</b>.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be an integer.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;"><a name="regBitLen"></a>regBitLen</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>regBitLen</b> specifies the length in bits of each register returned from the device for the specified <b>funcCode</b>. This setting can change from section to section and from register to register in the device. Refer to field device documentation for these settings.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                    </ul>
+                    <p>Modbus coil data groups using function code 1, 2, 5, or 15 must use <b>regBitLen</b>, not <b>regByteLen</b>.</p>
+                    <p>See also <a href="#regByteLen" class="selected">regByteLen</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p style="font-weight: bold;"><a name="regByteLen"></a>regByteLen</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>regByteLen</b> specifies the length in bytes of each register returned from the device for the specified <b>funcCode</b>. This setting can change from section to section and from register to register in the device. Refer to field device documentation for these settings.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                    </ul>
+                    <p>Modbus coil data groups using function code 1, 2, 5, or 15 must use <b>regBitLen</b>, not <b>regByteLen</b>.</p>
+                    <p>See also <a href="#regBitLen" class="selected">regBitLen</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p style="font-weight: bold;"><a name="regCnt"></a>regCnt</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>regCnt</b> specifies the number of registers to be returned in a block.  CygNet blocks are not restricted by the  Modbus maximum message size of 250 data bytes; you can specify any number of contiguous registers to retrieve per block when using the <b>regCnt</b> attribute.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p style="font-weight: bold;"><a name="regNum"></a>regNum</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>regNum</b> defines a starting register number.</p>
+                    <p>To make this attribute meter specific, append <b>_ord<i>n</i></b> to the attribute. For example, <b>regNum_ord1</b>.</p>
+                    <p>To define a logical register number, as with Modbus devices, use <b>regNum</b> in conjunction with <b>regOff</b>.</p>
+                    <p>To make this attribute request-type specific for use in DynaCard <a href="preCard.htm">preCard</a> and/or <a href="postCard.htm">postCard</a> elements, append <b>_singleCard</b> or <b>_multipleCard</b> to the attribute. For instance, <b>regNum_singleCard</b>. <b>regNum</b> without the appendix cannot be used in the same element as <b>regNum_singleCard</b> or <b>regNum_multipleCard</b>. If you use <b>_singleCard</b> or <b>_multipleCard</b>, you must also use the other in the same <b>block</b> element.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p style="font-weight: bold;"><a name="regOff"></a>regOff</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>regOff</b> defines a register offset that translates a logical register number into a physical register number. It is always used in conjunction with <b>regNum</b>. It may be defined  in the same element as <b>regNum</b>, or it may be defined in a parent element then inherited by one or more <b>regNum</b> attributes.</p>
+                    <p><b>regOff</b> enables you to translate Modbus coil/register numbers  into data addresses used by field devices. Modbus coil/register numbers are <u>not</u> the same thing as data addresses. For example, the Modbus register number 30001 typically uses the data address 0, which means that you would want to offset a <b>regNum</b> value of 30001 by -30001 in order to return a data address of 0 (or 0x0000).</p>
+                    <p>Typical offset constants are as follows:</p>
+                    <ul>
+                        <li value="1">-1</li>
+                        <li value="2">-10000, -10001</li>
+                        <li value="3">-30000, -30001</li>
+                        <li value="4">-40000, -40001</li>
+                    </ul>
+                    <p>You must consider the Modbus coil/register range convention you follow  and the data addressing convention you follow. In both cases, know the range starting number and the extent of the range. The offset can be determined from the field device manual or register map.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be an integer.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>toDevice</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>toDevice</b> specifies that a <b>block</b> element first writes a value to a field device before the rest of a read message is executed. Used when a specification must be sent before the field device "knows"&#160;what to load and return.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a Boolean value <b>true</b> or <b>false</b>.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>txMaxRegCnt</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p><b>txMaxRegCnt</b> specifies the maximum number of registers that may be communicated in a single transaction.  This attribute is optional and intended to provide a way to make messages for a single block smaller than the Modbus maximum message size of 250 data bytes. How many registers you read or write within byte constraints depends on the size of the registers with which you are communicating.</p>
+                    <p><b>txMaxRegCnt</b> is used in conjunction with the <b>regCnt</b> attribute. <b>regCnt</b> specifies the number of registers to be returned in a single block; <b>txMaxRegCnt</b> merely constrains the size of the message(s) used to communicate registers. For example, if you want to retrieve 125 2-byte registers in a single message, set <b>regCnt</b> to 125 and do not use <b>txMaxRegCnt</b>. But if you want to retrieve 125 2-byte registers in five messages, set <b>regCnt</b> to 125 and <b>txMaxRegCnt</b> to 25.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">Must be a positive whole number.</li>
+                        <li value="2">Cannot exceed the number of registers that the Modbus maximum message size of 250 data bytes can accommodate.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="type"></a>type</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p><b>type</b> defines the appropriate data type for one or more <i>DataGroupElement</i> elements; it can be inherited from a parent element.</p>
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1"><b>bin.hex</b>: Binary hex</li>
+                        <li value="2"><b>boolean</b>: Boolean</li>
+                        <li value="3"><b>i1</b>: Character</li>
+                        <li value="4"><b>i2</b>: Short integer</li>
+                        <li value="5"><b>i4</b>: Integer</li>
+                        <li value="6"><b>i8</b>: Integer<br /></li>
+                        <li value="7"><b>r4</b>: Float</li>
+                        <li value="8"><b>r8</b>: Double</li>
+                        <li value="9"><b>ui1</b>: Byte</li>
+                        <li value="10"><b>ui2</b>: Unsigned short integer</li>
+                        <li value="11"><b>ui4</b>: Unsigned integer</li>
+                        <li value="12"><b>ui8</b>: Unsigned integer</li>
+                        <li value="13"><b>string</b>: String</li>
+                        <li value="14"><b>struct</b>: Structure</li>
+                    </ul>
+                    <p>See also <a href="DataGroupElement Element.htm#sourceType">sourceType</a>.</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Function"></a>Function Codes</h4>
+        <p>The following Modbus function codes are supported by CygNet.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Code</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Name</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>1</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Read Coils</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Reads contiguous coil statuses from 1 - 2000. Registers must be read-only Boolean.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>2</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Read Discrete Inputs</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Reads contiguous discrete input statuses from 1 - 2000. Registers must be read/write Boolean.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>3</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Read Holding Registers</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Reads contiguous contents of a block of holding registers. Registers must be read-only 16 or 32 bit.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>4</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Read Input Registers</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Reads contiguous input registers from 1 - 125. Registers must be read/write 16 or 32 bit.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>5</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Write Single Coil</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Writes ON or OFF to a single coil. Registers must be read/write Boolean.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>6</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Write Single Register</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Writes data to a single holding register. Register must be 16 or 32 bit.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>7</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Read Exception Status</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Reads the contents of eight exception status outputs in a remote device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>15</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Write Multiple Coils</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Writes ON or OFF to multiple coils in sequence. Registers must be  Boolean.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>16</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Write Multiple Registers</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Writes data to a block of contiguous  registers from 1 - 123. Registers must be 16 or 32 bit.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

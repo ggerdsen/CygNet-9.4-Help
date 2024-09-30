@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Automatic Service Recovery|Configuring Automatic Service Recovery">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Recovery Stage Properties</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Automatic Service Recovery.htm">Automatic Service Recovery</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Automatic Service Recovery.htm">Configuring Automatic Service Recovery</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Recovery Stage Properties</span>
+        </div>
+        <h2>Recovery Stage Properties</h2>
+        <p>For each recovery stage you add, you must define the properties for that stage. This includes the name of the stage, the recovery action, and optionally a stage user command.</p>
+        <p class="Image">
+            <img src="../../Resources/Images/Automatic Service Recovery/recovery_stage_properties.png" title="Recovery Stage" alt="Recovery Stage" />
+        </p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Enabled</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to enable the recovery stage.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Label</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The name of the stage, displayed on the <b>Recovery Stages</b> list. This is not required; however, it aids in organization and stage ordering. This is a free-form text field (19 chars max).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><b>Stage Actions</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>See <a href="Automatic Service Recovery.htm">Automatic Service Recovery</a> for a full description of each action.</p>
+                    <ul class="table">
+                        <li value="1"><b>Failover service</b> — The RSM will send a message to the RSM that owns the service on the local standby service to perform a hard failover for this service only. The action will not be complete until the hard failover is initiated by the other RSM.</li>
+                        <li value="2"><b>Restart</b> — Restarts the service. This is the default action.</li>
+                        <li value="3"><b>Restore backup and restart</b> — Restores the service backup files before restarting. Only backups less than two days old will be restored.</li>
+                        <li value="4"><b>Restore backup with changes and restart</b> — Restores the most recent backup, including changes since the last backup, then restarts the service. Applies to DBS-based services only.</li>
+                        <li value="5"><b>Shutdown RSM</b> — Gracefully shuts down the RSM and all CygNet services.  </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><a name="Archive"></a><b>Archive</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enables copying service files to a "recovery" folder before attempting to restart the service. Every time this option runs a new recovery folder is created and the files are written to that folder. The name of the recovery folder is "Recovery\YYYYMMDDhhmmss," where "YYYYMMDDhhmmss" represents the timestamp when the folder was created.</p>
+                    <p>See <a href="../Date and Time/Timestamps.htm">Timestamps</a> in the Data section for more information.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The RSM will no longer use an archive once the recovery stage that created the archive is complete regardless of success or failure.</p>
+                    </div>
+                    <p>
+                        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 100%;" class="TableStyle-HelpTable2" cellspacing="0">
+                            <col class="TableStyle-HelpTable2-Column-Column1" />
+                            <col class="TableStyle-HelpTable2-Column-Column1" />
+                            <thead>
+                                <tr class="TableStyle-HelpTable2-Head-Header1">
+                                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Service Type</th>
+                                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Files Archived</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="TableStyle-HelpTable2-Body-Body1">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>DBS-Based Services </p>
+                                        <p>See <a href="Configuring Automatic Service Recovery for DBS-Based Services.htm">Configuring  Automatic Service Recovery for DBS-Based Services</a>.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">.cfg, .dat.edb, .ddl, .inx.edb, .log, .ts.edb</td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body2">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                                        <p>Current Value Services (HSS, OPCIS, SVCMON, UIS)</p>
+                                        <p>See <a href="Configuring Automatic Service Recovery for Other Services.htm">Configuring Automatic Service Recovery for Other Services</a>.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">.cfg, .dat, .log</td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body1">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                                        <p>ACS</p>
+                                        <p>See <a href="Configuring Automatic Service Recovery for DBS-Based Services.htm">Configuring  Automatic Service Recovery for DBS-Based Services</a>.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">.cfg, .dat.edb, .ddl, .inx.edb, .sec, .log, .ts.edb</td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body2">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ARS</td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">.cfg, .log</td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body1">
+                                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CAS</td>
+                                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">.cfg, .dat, .log</td>
+                                </tr>
+                                <tr class="TableStyle-HelpTable2-Body-Body2">
+                                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                                        <p>VHS</p>
+                                        <p>See <a href="Configuring Automatic Service Recovery for the VHS.htm">Configuring Automatic Service Recovery for the VHS</a>.</p>
+                                    </td>
+                                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                                        <p>.cfg, .dat.edb, .inx.edb, .log, .ts.edb</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><a name="Restore"></a><b>Restore archive on failure</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enables restoring the archive files from the "recovery" folder if the restart of the service fails. The <b>Archive</b> option must be enabled for this option to be enabled.</p>
+                    <p>This option is most appropriately used in combination with the <b>Restore backup and restart</b> action. In the event the backup files do not allow the service to restart, the archived files will be restored to the service folder. The stage using <b>Restore archive on failure</b> must be followed by a restart stage in order to start the service from these archived files. Otherwise the files will be moved back into the service folder and the service will remain stopped.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a name="Stage_Command"></a><b>Stage Command</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>You can specify a stage user command to be executed before performing the <b>Restart</b> action for the selected recovery stage.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><b>Command</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Type a user command (such as an .exe or .bat).</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Specify the full path to the .exe or .bat file.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent"><b>Command Line parameters</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Type any required command-line parameters for the user command.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent"><b>Append Site, Service, and Backup directory to command line</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to append  text tokens for %Site%, %Service%, and %BackupDirectory% to the command line.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><b>Recovery stage sequence</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A scrollable area at the bottom of the dialog box will list the sequence of configured steps that will occur for the recovery stage.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

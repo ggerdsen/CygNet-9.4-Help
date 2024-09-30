@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Utilities|FMS Toolbox|Migrating Files from GMR into FMS">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Migrating Contract Hour from GMR to FMS</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Utilities.htm">FMS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Toolbox Utility.htm">FMS Toolbox</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Migrating Files from GMR into FMS.htm">Migrating Files from GMR into FMS</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Migrating Data Groups from GMR to FMS</span>
+        </div>
+        <h2>Migrating Data Groups from GMR to FMS</h2>
+        <p>The <b>Migrate Data Groups</b> task helps you to migrate data groups (for Emerson device types only) from GMR to FMS for CygNet versions 8.2.0 or greater. </p>
+        <p>Use <b>FMS Toolbox</b>  to migrate  your GMR data groups to FMS data groups for the selected device types, and additionally filter the selections by device ID, if desired. This migration can be accomplished for device data groups that <i>only</i> exist as GMR data groups; where FMS data groups already exist they will be used as is and not altered. A migration results file is generated, to allow the process to be restarted without losing previously successful migration results in case of errors or omissions.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If the corresponding GMR history has  custom process variables  mapped to Emerson history points, the data group is migrated differently depending on device (meter) type. For liquid device types using custom process variables, they will map directly to FMS History data groups. For gas device types using custom process variables, they can be mapped to FMS History data groups via a CSV file containing the mappings.</p>
+        </div>
+        <p>You must have proper security authorization to migrate GMR data groups into FMS. See <a href="FMS Security.htm">FMS Security</a> for more information about security event authorization.</p>
+        <h3>Migrating GMR Data Groups</h3>
+        <p>For Emerson device types, use this procedure to automatically migrate your GMR data groups to FMS data groups.</p>
+        <p class="HeadingProcedure">To Migrate Data Groups from GMR to FMS</p>
+        <ol>
+            <li value="1"><a href="Installing and Starting FMS Toolbox.htm#Starting">Start</a> CygNet FMS Toolbox, and then click <b>GMR&#160;Migration</b>  to access associated tasks.</li>
+            <li value="2">Click <b>Migrate Data Groups</b> to access the Migrate Data Groups pane. <p><img src="../../Resources/Images/CygNet Measurement/FMS_Toolbox_Migrate_Data_Groups.png" /></p></li>
+            <li value="3">Enter information into the following fields.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1"><b>DDS</b> text box.
+                <ul class="table"><li value="1">To migrate data groups, either type into the text box, in  <i>MySite.</i>DDS format, the name of the DDS  from which you wish to migrate GMR data groups to FMS, or click <b>...</b> to access the <b>Select DDS</b> dialog box to browse to your selection and then click <b>OK</b>.</li></ul></li>
+            <li value="2"><b>Device type</b> list box. A list of Emerson device types available in the selected DDS appears in the list box. Click to select the device types for which you wish to migrate data groups. You may select  a single device type, or select multiple types by pressing <b>Ctrl+Click</b> or   <b>Shift+Click</b>. </li>
+            <li value="3"><b>Device ID filter</b>. Optionally specify a device ID filter. Type in a partial name, in conjunction with wildcard(s), to use as a search criteria. Wildcard values <b>*</b> (multiple character) and <b>?</b> (single character) are supported. Default filter value is "<b>*</b>" or all device IDs of the selected device types.</li>
+            <li value="4"><b>Custom PV file</b> text box. For gas device types only, if you are using customizable process variable (PV) item mappings in GMR that you wish to migrate to FMS, prepare mappings from the GMR data item enumerations (GMR Custom History items 1 - 8, e.g. eGMR_PROCESS_VAR_CUSTOM_1) to the FMS data item enumerations (FMS Custom Metering items 1 - 5 or Custom Quality items 1 - 5, e.g. eFMS_PV_PM_CUSTOM1, eFMS_PV_PQ_CUSTOM1), so that you can include these items in the migration via a CSV file. To specify what custom PV mapping file to use,  enter file name and location information as follows. </li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Type the file name into the <b>Custom PV file</b> text box.</li>
+            <li value="2">Click <b>...</b> to access the <b>Select Custom PV Mappings File to Load</b> dialog box to browse to your selected location, and then click <b>Open</b>.</li>
+        </ol>
+        <ol class="Lower_alpha" start="5">
+            <li value="5"><b>Results file</b> text box. A results file will be generated to facilitate completion of file migration for any portions that might initially fail. You can use the default or specify a results file name and directory location.  If no results file is specified, the file defaults to the current directory location of the CygNet FMS Toolbox utility. To specify a results file name and location, enter file information as follows.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Type the file name into the <b>Results file</b> text box.</li>
+            <li value="2">Click <b>...</b> to access the <b>Select Location to Save Results File</b> dialog box to browse to your selected location, and then click <b>Open</b>.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Click <b>Validate</b> to run a facilities check of the data group information that will be migrated. This process validates that each set of GMR data group ordinals being migrated (e.g. GMR Configuration Data, GMR Events Data, GMR History Data, etc.) shares the same facility, and that the facility for each set is unique.</li>
+            <li value="5">Click <b>Migrate</b> to migrate the validated data groups from GMR to FMS. <p>Migration status, including any errors, will be displayed in the results box. For longer processes a progress bar appears above the results box.</p></li>
+            <li value="6">Optionally click <b>Cancel</b> to stop the migration process if you need to stop it while in progress. Wait until processing is done before proceeding.</li>
+            <li value="7">If any migration errors have occurred, do the following.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Identify any migration errors that occurred. Migration status is displayed in the results text box.   </li>
+            <li value="2">Review the migration results file and manually correct any errors preventing successful migration of data groups.</li>
+            <li value="3">Manually make any desired changes and/or additions to the Migrate Data Groups configuration pane.</li>
+            <li value="4">Click <b>Migrate</b> to rerun the migration. 
+			<div class="Note"><p><span class="NoteHeading">Note:</span> When you rerun the migration, the process will skip devices for which data groups previously migrated successfully, and will migrate data groups for the remaining devices.</p></div></li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

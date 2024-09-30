@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Managing Notifications">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Acknowledging Notifications Via Email</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Notifications.htm">Managing Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Acknowledging Notifications Via Email</span>
+        </div>
+        <h2>Acknowledging Notifications Via Email</h2>
+        <p>You can acknowledge any notification by sending a reply email message back to the system. This method of acknowledgment is primarily used when replying to an SMTP mail message sent by the GNS, but can also be used to acknowledge pager and voice notifications. </p>
+        <p>Email acknowledgment requires some additional system configuration, including:</p>
+        <ul>
+            <li value="1"> configuration of a POP3-compliant mail server. See <a href="#Email_Server" class="selected">Incoming Email Server</a>  below.</li>
+            <li value="2"> configuration of the GNSPIN&#160;security event to give access to view and edit PIN and email addresses. See the <a href="../Security/General Notification Service GNS.htm">GNS&#160;security reference</a> for more information.</li>
+            <li value="3">configuration of users who are permitted to send acknowledgment emails. See <a href="Configuring a PIN.htm">Configuring a PIN</a> for more information.</li>
+        </ul>
+        <p>The acknowledgment email must contain both the acknowledgment code (Ack ID), which is provided in the original notification, and a user PIN, which is configured on the <a href="Configuring a PIN.htm">GNS PIN Manager</a>. See <a href="#Acknowle" class="selected">Acknowledgment Reply Format</a> (below) for information about the format of the acknowledgment email.</p>
+        <p>If the acknowledgment email is successful, you will receive a reply email indicating that the acknowledgment succeeded. If the acknowledgment failed you will receive a reply email indicating the <a href="#Failure" class="selected">reason for failure</a>. </p>
+        <h4>Acknowledging Email Notifications Via SMS</h4>
+        <p>In addition to acknowledging by email, you can acknowledge an SMTP&#160;email notification by SMS. SMS&#160;acknowledgment uses the same methodology as email acknowledgment by sending the message via an SMS&#160;gateway address, for example, <i>number@txt.att.net</i> or <i>number@vtext.com</i>, to the incoming email sever on the GNS.</p>
+        <p>See other <a href="#Addition" class="selected">SMS notes</a> below.</p>
+        <p>See the following subsections below for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Email_Server" class="selected">Incoming Email Server</a>
+                <ul class="Circle">
+                    <li class="HyperlinkList" value="1"><a href="#GNS" class="selected">GNS Configuration File Keywords</a>
+                    </li>
+                    <li class="HyperlinkList" value="2"><a href="#SSL" class="selected">SSL Encryption and Certificates</a>
+                    </li>
+                    <li class="HyperlinkList" value="3"><a href="#Disablin" class="selected">Disabling Email Acknowledgment</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Acknowle" class="selected">Acknowledgment Reply Format</a>
+                <ul class="Circle">
+                    <li class="HyperlinkList" value="1"><a href="#Email" class="selected">Email Examples</a>
+                    </li>
+                    <li class="HyperlinkList" value="2"><a href="#Addition" class="selected">Additional SMS Notes Related to Replies</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Failure" class="selected">Acknowledgment Email Failure</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Acknowle2" class="selected">Acknowledgment Email Logging</a>
+            </li>
+        </ul>
+        <h3><a name="Email_Server"></a>Incoming Email Server</h3>
+        <p>Email (and SMS) acknowledgment requires the configuration of an incoming POP3-compliant mail server, with a dedicated unique email account, user name, and password for each GNS. The GNS assumes complete control over the email account; no other GNS should have access to the account, even if it is on the same domain. It is acceptable to share an email server, as long as each GNS has a unique email account.</p>
+        <p>Keywords specifying the POP3 host, port, encryption method, update rate, timeout, and email parameters must be configured in the GNS configuration file. The <b>GNS Configuration Tester</b> utility (GNSConfig.exe) is provided for setting up this section of the configuration file so that the user name and password can be encrypted. See <a href="GNS Configuration Utility.htm">GNS Configuration Tester Utility</a> for more information.</p>
+        <p>The incoming POP3 server also supports SSL encryption. See <a href="#SSL" class="selected">SSL Encryption and Certificates</a> below.</p>
+        <h4><a name="GNS"></a>GNS Configuration File Keywords</h4>
+        <p>The keywords that must be configured to enable incoming POP3 mail are in two locations in the Gns.cfg. </p>
+        <p>See the <a href="../Service Configuration Keywords/GNS Configuration File Keywords.htm#POP3">POP3 Mail Keywords</a> for more information.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>POP3_HOST</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The POP3 server host name or IP address.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>POP3_PORT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The port number used by the POP3 server. POP3 usually listens on the well-known port 110. Optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>POP3_TLS_METHOD</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The encryption method used for the incoming POP3 server. Options include: NONE, SSL/TLS, or STARTTLS. See <a href="#SSL" class="selected">SSL Encryption</a> below for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>POP3_UPDATE_RATE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The refresh rate for retrieving email from the POP3 server.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>POP3_RECEIVE_TIMEOUT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Sets the maximum amount of time (in seconds) the GNS service will wait for a response from the POP3 server.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>POP3_EMAIL_RETAIN_COUNT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Describes the maximum number of received emails to save to a subdirectory named "mailcache". The value should be less than 4000.</p>
+                </td>
+            </tr>
+        </table>
+        <p>See the <a href="../Service Configuration Keywords/GNS Configuration File Keywords.htm#Shared">Shared Mail Settings Keywords</a> for more information.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>EMAIL_ADDRESS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The return (from) address for acknowledgment reply emails, such as name@company.com. The return address for all SMTP mail messages.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>EMAIL_USERNAME</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The username for the email server, if required. This value is shared by both the POP3 and SMTP email servers. It is required for the Incoming POP3 Server (for receiving acknowledgment reply emails) and optional for the outgoing SMTP Server (for sending SMTP mail messages). The username is encrypted with the common encryption key file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>EMAIL_PASSWORD</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The user password for the email server, if required. This value is shared by both the POP3 and SMTP email servers. It is required for the Incoming POP3 Server (for receiving acknowledgment reply emails) and optional for the outgoing SMTP Server (for sending SMTP mail messages). The password is encrypted with the common encryption key file. The password for the email server cannot be decrypted, as it is only ever compared against.</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="SSL"></a>SSL Encryption and Certificates</h4>
+        <p>The POP3_TLS_METHOD keyword indicates the encryption method used for the POP3 server. There are three SSL options:</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Method</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Preferred Port</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>NONE</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Clear text, no encryption.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">110</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>SSL/TLS</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">The entire transaction is encrypted from beginning to end.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">995</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>STARTTLS</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">The initial connection is not encrypted, but after connection the remainder of the transaction is encrypted.</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1" style="text-align: center;">110</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>POP3 servers usually listen on well-known port 110. If using NONE or STARTTLS encryption use port 110; otherwise use port 995. The decision about which port to use and which encryption method to choose should be made by your network administrator.</p>
+        <p class="HeadingProcedure">To Install a Self-Signed Certificate</p>
+        <p>If using a self-signed certificate, install the Root Certificate Authority by performing the following steps:</p>
+        <ol>
+            <li value="1">Open the <b>Microsoft Management Console</b>. Click <b>Start &gt; Run.…</b></li>
+            <li value="2">Type <i>mmc.exe</i>. Click <b>OK</b>.</li>
+            <li value="3">On the <b>File</b> menu, select <b>Add/Remove Snap-in.…</b></li>
+            <li value="4">Select <b>Certificates</b> in the left-hand pane and click <b>Add &gt;</b>.</li>
+            <li value="5">Select <b>Computer account</b> and click <b>Next &gt;</b>.</li>
+            <li value="6">Select <b>Local computer</b> and click <b>Finish</b>.</li>
+            <li value="7">Click <b>OK</b>.</li>
+            <li value="8">Expand the <b>Certificates</b> node.</li>
+            <li value="9">Expand the <b>Trusted Root Certification Authorities</b> node.</li>
+            <li value="10">Right-click <b>Certificates</b>, select <b>All Tasks &gt; Import.…</b></li>
+            <li value="11">Follow the Certificate Import Wizard to import your certificate.</li>
+        </ol>
+        <h4><a name="Disablin"></a>Disabling Email Acknowledgment</h4>
+        <p>Email (and SMS) acknowledgment of notifications can be disabled on a per service basis by disabling the incoming POP3 Server.</p>
+        <ul>
+            <li value="1">Remove the Server Name in the <a href="GNS Configuration Utility.htm">GNS Configuration Utility</a>.</li>
+        </ul>
+        <p class="Indent">-OR-</p>
+        <ul>
+            <li value="1">Comment out the POP3_HOST keyword in the <a href="../Service Configuration Keywords/GNS Configuration File Keywords.htm#POP3">Gns.cfg</a>.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Acknowle"></a>Acknowledgment Reply Format</h3>
+        <p>Email (and SMS) acknowledgment requires that the following items <b>must</b> be included in the body of the reply email:</p>
+        <ul>
+            <li value="1"> The <b>Ack ID</b> provided by the GNS in the original notification.</li>
+            <li value="2">The <b>PIN</b> associated with the user name and email address for the recipient. The system uses the PIN and the email address of the sender to identify the user to perform the acknowledgment. See <a href="Configuring a PIN.htm">Configuring a PIN</a> more information about users and PINs.</li>
+        </ul>
+        <p>The Ack ID will be automatically included in the original notification and must be included in the reply email. When replying to en email notification, the Ack ID is included in the reply if your email client is configured to do so. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> You may need to manually type the Ack ID in the  body of a reply email:</p>
+        </div>
+        <ul>
+            <li value="1">if your email client does not automatically include the original email (with Ack ID) in the reply</li>
+            <li value="2">if you are acknowledging an email notification via SMS and the original message is not included in the reply (for example, some SMS Gateway providers may not include the original message in the reply)</li>
+            <li value="3">if you are acknowledging a different type of notification, for example, you are composing a new reply message in response to a pager or voice notification.</li>
+        </ul>
+        <table class="TableStyle_NoBorder" style="mc-table-style: url('../../Resources/TableStyles/NoBorder.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col style="width: 300px;" />
+            <col style="width: 20px;" />
+            <col style="width: 300px;" />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">
+                        <p>The <b>Ack ID</b> must be in the format:</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Ack: ####</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">-or-</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">Ack ####</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="Indent2">where #### is the Ack ID.</p>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p>The <b>PIN</b> must be in the format:</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">Pin: ####</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">-or-</p>
+                                    <p class="Code">&#160;</p>
+                                    <p class="Code">Pin ####</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="Indent2">where #### is the PIN.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4><a name="Email"></a>Email Examples</h4>
+        <p>The following examples show a <b>High Alarm Notification</b> email, an <b>Acknowledgment</b> email, and a <b>Successful Acknowledgment Reply</b> email from the GNS.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <col class="TableStyle-Caption-Column-Column1" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">
+                    <img src="../../Resources/Images/Notifications/Ack_Example1.png" />
+                </td>
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">
+                    <img src="../../Resources/Images/Notifications/Ack_Example2.png" />
+                </td>
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/Notifications/Ack_Example3.png" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">
+                    <p>High Alarm Notification Email</p>
+                    <p>sent by the GNS
+
+				</p>
+                </td>
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">
+                    <p>Acknowledgment Email</p>
+                    <p>sent by Recipient</p>
+                </td>
+                <td class="TableStyle-Caption-BodyE-Column1-Body1">&#160;</td>
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <p>Successful Acknowledgment</p>
+                    <p>Reply sent by the GNS</p>
+                    <p>(The PIN&#160;is obscured in the reply.)</p>
+                </td>
+            </tr>
+        </table>
+        <h4><a name="Addition"></a>Additional SMS Notes Related to Replies</h4>
+        <p class="Note">SMS gateway providers may handle email replies differently. You may need to type both the Ack ID and PIN in the above format and test how your SMS gateway provider handles replies.
+        </p>
+        <p class="Note">Some SMS gateway providers limit messages to 160 characters. Others do not. Using  <a href="Using Tokens in Notifications.htm">tokens</a> to compose your outgoing notification message may increase the size of the reply message beyond the 160 character limit. Since the Ack ID is appended to the end of the message, it may be truncated. 
+        </p>
+        <p class="Note"> Some SMS&#160;gateway providers send email replies via the email address tied to the provider's account. You will need to add that email address to the <a href="Configuring a PIN.htm">GNS PIN Manager</a> list and test how your provider handles email replies. 
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Failure"></a>Acknowledgment Email Failure</h3>
+        <p>If the acknowledgment email is unsuccessful for any reason, you will receive an email indicating this, and the reason. The reasons are explained in the following table.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Failure Reason</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Acknowledgment code was not found.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The notification indicated by the Ack ID in the acknowledgment email was already acknowledged by another method or it never existed.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Security denied.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The user does not have permission to acknowledge the event associated with the Acknowledgment ID. You must have at least Level 3 authorization (Add) for the GNS service’s QUEUE event to acknowledge a notification. See <a href="../Security/General Notification Service GNS.htm">GNS Security Reference</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Email address or PIN is incorrect.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The system could not map the recipient's email address and PIN pairing to a username. See <a href="Configuring a PIN.htm">Configuring a PIN</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">PIN is not in message.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The string "Pin: ####" or "Pin ####" was not found in the acknowledgment email message.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Acknowledgment code not in message.</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The string "Ack: ####" or "Ack ####" was not found in the acknowledgment email message.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>The email address has been locked out.</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>The recipient's email address has been locked out because the number of email address and PIN&#160;combination attempts has exceeded the number configured for the PIN_LOCKOUT_MAX_ATTEMPTS keyword.</p>
+                        <p>See <a href="Email Lockout.htm">Email Lockout</a> for more information about this security feature.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Acknowle2"></a>Acknowledgment Email Logging</h3>
+        <p>Both successful and unsuccessful acknowledgment emails are logged as events in the configured ELS, if "CONTROL" is enabled for the LOGMASK_ELS keyword in the Gns.cfg file. The events will be logged to the service log file if "PROG_STAT" is enabled for the LOGMASK_FILE keyword. See <a href="../Service Configuration Keywords/GNS Configuration File Keywords.htm#Logging">GNS Configuration File Keywords</a> for more information about these keywords.</p>
+        <p>In the ELS, the <b>Event Type</b> is O for Operational and the <b>Category</b> is GNS for both the "SMTP Mail Sent" and "Email Ack received" events. The details for the "Email Ack received" event indicate the time the email acknowledgment was received, the Ack ID, the User ID, and the From address.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Modbus Realflo EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Modbus Realflo EIE – Editing a Template</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Modbus Realflo EIE.htm">Modbus Realflo EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Editing a Template</span>
+        </div>
+        <h2>Editing a Template</h2>
+        <p>This topic provides information about editing a Realflo template. It includes information that is general to editing a device template file, but it uses Realflo-specific situations that you might encounter.</p>
+        <p>For example,  you might need information that helps you support certain versions of Realflo software in the <b>Modbus Realflo EIE</b>.</p>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li value="1"><a href="#Supporti" class="selected">Supporting Software Versions</a>
+            </li>
+            <li value="2"><a href="#Specifyi" class="selected">Specifying Units for Static Pressure</a>
+            </li>
+            <li value="3"><a href="#ToEditTemplateUnits" class="selected">To Specify Units for Static Pressure</a>
+            </li>
+        </ul>
+        <p>For more information about working with device template files, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <h3><a name="Supporti"></a>Supporting Software Versions</h3>
+        <p>This subsection provides an example of edits you might need to make to support a version of Realflo software that is older than the version the sample template is written for. (The current sample template assumes that you are on v6.8 or later Realflo software.) You can use the subsection as a tutorial for making other similar edits.</p>
+        <h4><a name="Specifyi"></a>Specifying Units for Static Pressure</h4>
+        <p>In this example, the problem involves specifying units for static pressure. Such units are required for CygNet SCADA use as well as use with CygNet Measurement.</p>
+        <p>Assume that you have a fresh sample template and must make an edit to support v6.79 or earlier Realflo software. V6.79 or earlier Realflo software uses a single register to set the atmospheric pressure value, if it applies, <i>and</i> the unit type of static pressure. Register 7145 contains this value.</p>
+        <p>If the data group element <b>R49553</b> ("Atmospheric Pressure") is set to a non-zero value, the register 7145 value represents measured local atmospheric pressure. Such a configuration setting implies that your static pressure is gauge. (Atmospheric pressure plus gauge pressure make up absolute pressure.) You must edit your template to ensure that your static pressure units are gauge (that is, psig).</p>
+        <p>If the data group element <b>R49553</b> ("Atmospheric Pressure") is set to a zero (0) value, the register 7145 value is no longer used to represent measured local atmospheric pressure. Instead, such a configuration setting implies that your static pressure is absolute. (Atmospheric pressure plus gauge pressure make up absolute pressure.) You must edit your template to ensure that your static pressure units are absolute (that is, psi).</p>
+        <p>The following example and procedure provide details to help you correctly edit your template. They include information about remapping data group elements so that the correct register and units are used.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!--The following sample data group defines units for all meters. <b>MRunUnits</b> defines the register (7145) that static pressure depends on in order to establish its units. And it provides logic for setting the unit type to be used for static pressure when unit sets are used and more than one unit type is possible. Note that this data group depends on the <a href="DataGroup Element.htm#dgCat">dgCat</a> attribute value <b>cfgUnitSets</b> as well as <a href="unitSetDefinitions Element.htm">unitSetDefinitions</a>.--&gt;</p>
+                            <p class="Code">&lt;MRunUnits niceName="Meter Run Units" canSend="true" uccSend="true" baseOrd="1" maxCnt="10" <span style="background-color: #b0c4de;">dgCat="cfgUnitSets"</span>&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="r4"&gt;</p>
+                            <p class="Code3">&lt;InUnits desc="Input Units" regDef="1:0" unitSetName="input" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;InUnitsS desc="Input Units Type" type="string" ref="InUnits" mapVal="EUnitSet"/&gt;</p>
+                            <p class="Code3">&lt;OutUnits desc="Output Units" regDef="2:0" unitSetName="output" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;OutUnitsS desc="Output Units Type" type="string" ref="OutUnits" mapVal="EUnitSet"/&gt;</p>
+                            <p class="Code3">&lt;!--The following element specifies that register 7145 represents static pressure units.--&gt;</p>
+                            <p class="Code3">&lt;SPTypRaw desc="SP Sensor Type (raw)" regDef="3:0" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;!--The following element uses the value in register 7145 to determine which pressure unit to use for static pressure data group elements that include the <a href="DataGroupElement Element.htm#unitsCat">unitsCat</a> attribute value <b>staticPresIn</b>.--&gt;</p>
+                            <p class="Code3">&lt;SPTyp desc="SP Sensor Type #" isRef="1" <span style="background-color: #b0c4de;">unitsCat="staticPresIn"</span> <span style="background-color: #b0c4de;">unitSetName="input"</span> hidden="true" type="string"&gt;</p>
+                            <p class="Code4">&lt;!--In effect, the following logic provides an if-else statement to determine what units to use for static pressure depending on the value of the <b>SPTypRaw</b> data group element.--&gt;</p>
+                            <p class="Code4">&lt;ref prec="0" refOp="opSelect"&gt;</p>
+                            <p class="Code5">&lt;selection&gt;</p>
+                            <p class="Code6">&lt;s0 assign="0" operandLeftId="SPTypRaw" op="EQ" operandRight="0"/&gt;</p>
+                            <p class="Code6">&lt;s1 assign="1" operandLeftId="SPTypRaw" op="GT" operandRight="0"/&gt;</p>
+                            <p class="Code5">&lt;/selection&gt;</p>
+                            <p class="Code4">&lt;/ref&gt;</p>
+                            <p class="Code3">&lt;/SPTyp&gt;</p>
+                            <p class="Code3">&lt;SPTypS desc="SP Sensor Type" type="string" isRef="1"&gt;</p>
+                            <p class="Code4">&lt;ref prec="0" refOp="opSelect"&gt;</p>
+                            <p class="Code5">&lt;selection&gt;</p>
+                            <p class="Code6">&lt;s0 assign="0" operandLeftId="SPTypRaw" op="EQ" operandRight="0"/&gt;</p>
+                            <p class="Code6">&lt;s1 assign="1" operandLeftId="SPTypRaw" op="GT" operandRight="0"/&gt;</p>
+                            <p class="Code5">&lt;/selection&gt;</p>
+                            <p class="Code4">&lt;/ref&gt;</p>
+                            <p class="Code4">&lt;ref prec="1" refOp="opMapVal"&gt;</p>
+                            <p class="Code5">&lt;mapVal&gt;</p>
+                            <p class="Code6">&lt;e0 value="1-Absolute"/&gt;</p>
+                            <p class="Code6">&lt;e1 value="2-Gauge"/&gt;</p>
+                            <p class="Code5">&lt;/mapVal&gt;</p>
+                            <p class="Code4">&lt;/ref&gt;</p>
+                            <p class="Code3">&lt;/SPTypS&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks&gt;</p>
+                            <p class="Code3">&lt;block1 funcCode="3" regCnt="1" regNum="7100" ordIncrement="250" regByteLen="4"/&gt;</p>
+                            <p class="Code3">&lt;block2 funcCode="3" regCnt="1" regNum="7146" ordIncrement="250" regByteLen="4"/&gt;</p>
+                            <p class="Code3">&lt;block3 funcCode="3" regCnt="1" regNum="7145" ordIncrement="250" regByteLen="4"/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code2">&lt;modbusWriteBlocks&gt;</p>
+                            <p class="Code3">&lt;block1 funcCode="16" regCnt="1" regNum="7100" ordIncrement="250" regByteLen="4"/&gt;</p>
+                            <p class="Code3">&lt;block2 funcCode="16" regCnt="1" regNum="7146" ordIncrement="250" regByteLen="4"/&gt;</p>
+                            <p class="Code3">&lt;block3 funcCode="16" regCnt="1" regNum="7145" ordIncrement="250" regByteLen="4"/&gt;</p>
+                            <p class="Code2">&lt;/modbusWriteBlocks&gt;</p>
+                            <p class="Code">&lt;/MRunUnits&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToEditTemplateUnits"></a>To Specify Units for Static Pressure</p>
+        <ol>
+            <li value="1">
+Open a sample Realflo template in a text editor of your choosing.</li>
+            <li value="2">Delete the  <b>AtmPresN</b> data group element from the <b>FlwRunCfg</b> data group. Doing so removes the possibility of confusing the correct atmospheric pressure value with the incorrect one.</li>
+            <li value="3">Confirm that the <b>R49553</b> data group element is in the <b>FlwRunCfg</b> data group. This data group element is the source of atmospheric pressure for v6.79 or earlier Realflo software.</li>
+            <li value="4">Edit the <b>MRunUnits</b> data group to ensure that static pressure is associated with the correct unit type. <b>MRunUnits</b> defines the register (7145) that static pressure depends on in order to establish its units. And it provides logic for setting the unit type to be used for static pressure when unit sets are used and more than one unit type is possible. Note that this data group depends on the <a href="DataGroup Element.htm#dgCat">dgCat</a> attribute value <b>cfgUnitSets</b> as well as <a href="unitSetDefinitions Element.htm">unitSetDefinitions</a>.<ol style="list-style-type: lower-alpha;"><li value="1">Go to the <b>MRunUnits</b> data group and edit <b>block3</b> in the read <u>and</u> write blocks so that the <b>regNum</b> attribute is set to register 7145, not 7342. (Additional fine tuning of the read and write blocks might be desired.) This ensures that the register that data group element <b>R49553</b> is mapped to is the same for <b>SPTypRaw</b>, since both rely on the same value.</li><li value="2">Add logic to the <b>SPTyp</b> data group element to define what unit type to use if the value of register 7145 is zero (0) or non-zero. The logic determines which pressure unit type is used for <u>all</u>  data group elements that include the <a href="DataGroupElement Element.htm#unitsCat">unitsCat</a> attribute value <b>staticPresIn</b>. See the sample above for the new XML.</li></ol></li>
+            <li value="5"><u>Optional</u>: If you are using static pressure in an associated CygNet Measurement system, edit the applicable FMS configuration item mapping.<ol style="list-style-type: lower-alpha;"><li value="1">Locate the <b>eFMS_CFG_ATMOSPHERIC_PRESSURE</b> configuration item in the <b>fmsMaps</b> element.</li><li value="2">Change the configuration item's <b>deid</b> attribute value from <b>AtmPresN</b> to <b>R49553</b>. This ensures that the FMS configuration item is mapped to the correct atmospheric pressure value.</li></ol></li>
+            <li value="6">Save your changes, load the edited template to a Device Definition Service (DDS), and confirm that any data group element that includes the <b>unitsCat</b> attribute value <b>staticPresIn</b> displays the unit type (psi or psig) you expect.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

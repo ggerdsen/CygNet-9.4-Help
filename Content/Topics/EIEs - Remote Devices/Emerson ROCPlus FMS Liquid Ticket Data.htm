@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Emerson ROCPlus EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Emerson ROCPlus EIE – Collecting FMS Liquid Ticket Data</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Emerson ROCPlus EIE.htm">Emerson ROCPlus EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Collecting FMS Liquid Ticket Data</span>
+        </div>
+        <h2>Collecting FMS Liquid Ticket Data</h2>
+        <p>The Emerson ROC800L (809L and 827L) field devices  support the creation of liquid ticket devices. Perform the following to configure an FMS Liquid Ticket Device.</p>
+        <p class="HeadingProcedure">To Create and Configure a Liquid Ticket Device</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, go to the applicable Device Definition Service (DDS) and create a new remote device or open an existing one.</li>
+            <li value="2">If applicable, configure the remote device for basic use, including assigning a communication device and applicable facilities.</li>
+            <li value="3">Add a linked facility for the FMS meter using the <b>Facilities</b> page of the remote device editor.</li>
+            <li value="4">Click the <b>Data Group</b> page and poll the "ROC Config" (<b>RtuConfig</b>) data group. In the <b>ROC Config</b> data view, confirm that liquid point types (200, 201, 202, 203, 204, and 205) are available on the field device.</li>
+            <li value="5">Instantiate the following <a href="Emerson ROCPlus Data Group Usage Notes.htm">data groups</a>, making sure to carefully associate them with the applicable transaction set for each transaction set you want to poll from the host system, and making sure that each collection of the following data groups shares the same ordinal:</li>
+            <ul>
+                <li value="1"><b>TxHist</b> – "Transactional History" -  poll the data group.</li>
+                <li value="2"><b>TxHisPtCfg</b> – "Transactional History Point Cfg" -  poll the data group.</li>
+                <li value="3"><b>FmsTicket</b> – "FMS Liquid Ticket" -  set the <b>Facility ID</b> to the liquid meter, associate the data group with the applicable FMS ordinal and transaction set number, and map the  <b>Transactional history point</b> to the correct <b>Ticket item</b> for each ticket item you want to pull into FMS. Set a correct unit for each mapped item. For the "Ticket Device Type" ticket item, the options for ROC800L devices are: 1=Meter, 2=Tank, 3=Scale. </li>
+                <ul style="list-style-type: circle;">
+                    <li value="1">Poll the "FMS Liquid Ticket" (<b>FmsTicket</b>) data group. The data should match the start time and end time of the data polled from the "Transactional History" (<b>TxHist</b>) data group.</li>
+                </ul>
+                <div class="Note">
+                    <p><span class="NoteHeading">Note:</span> Be very careful to map the correct item for the "Ticket Device Type" (tkt026) ticket item as this will determine what the FMS Ticket report displays. The type of meter determines how the report works. An incorrect mapping means incorrect data in FMS, the Ticket report will contain no data, and you won’t be able to successfully export data to Flow-Cal.</p>
+                </div>
+            </ul>
+            <li value="6">Create the FMS node using the <b>FMS</b> Page  of the remote device editor.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Select meter and click <b>Add</b>.</li>
+            <li value="2">On the <b>FMS&#160;Node Type</b> dialog box, select <b>Liquid device</b> and click <b>OK</b>.</li>
+            <li value="3">In the <b>New Liquid Device</b> window, add <b>Device name</b> and <b>Description</b> and click <b>Next</b>.</li>
+            <li style="font-weight: normal;" value="4">In the <b>Properties</b> field, select <b>Device install date (Device Time)</b>.</li>
+            <li style="font-weight: normal;" value="5">In the <b>Supported data</b> field, select <b>Ticket history</b> and click <b>Next</b>.</li>
+        </ol>
+        <p class="Indent2">
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Selecting <b>Ticket history</b> is very important as you will not be able to poll the data into FMS without selecting this.</p>
+            </div>
+        </p>
+        <ol style="list-style-type: lower-alpha;" class="Lower_alpha" data-mc-continue="true">
+            <li value="6">Enter the <b>Contract offset</b> (the hours from midnight when the contract day begins), select the <b>Time zone</b>, and click <b>Finish</b>.</li>
+        </ol>
+        <ol start="7">
+            <li value="7">Open <b>FMS Explorer</b> and click <b>Retrieve Nodes</b>. </li>
+            <li value="8">Right-click the new node, select <b>Execute FMS command</b> &gt; <b>&lt;Quick Command&gt;</b>. The <b>Run FMS Command Definition</b> window opens.</li>
+            <li class="HyperlinkList" style="font-weight: normal;" value="9">From the <b>Command type</b> drop-down menu, select <b>Request New Data</b> and click <b>Run command</b>. The data should be pulled into FMS without error.</li>
+            <li class="HyperlinkList" style="font-weight: normal;" value="10">You should now be able to execute a <a href="../CygNet Measurement/Command Parameters - Build Report - Ticket.htm">Reports: Ticket</a> command to build a Ticket report.</li>
+        </ol>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Installing 64-bit CygNet API Libraries</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installing 64-bit CygNet API Libraries</span>
+        </div>
+        <h2>Installing 64-bit CygNet API Libraries</h2>
+        <p>CygNet Software supports a 32-bit version and a 64-bit version of each automation library. </p>
+        <ul>
+            <li value="1">The 32-bit versions are found in the <b>CygNet\Support</b> directory and are automatically installed and registered when the CygNet product is installed.</li>
+        </ul>
+        <ul>
+            <li value="1">The 64-bit versions are found in the <b>CygNet\Support64</b> directory. At this time the 64-bit versions are <i>not</i> automatically installed by the CygNet 64-bit Installer. Follow the steps below to manually install and register these files.</li>
+        </ul>
+        <p class="HeadingProcedure">To Install 64-bit API Libraries</p>
+        <ol>
+            <li value="1">Copy and paste the <b>Cx...64.dll</b> files from the <b>CD_Image\Support64</b> directory to your client machine. A good file location is <b>\CygNet\Support64</b> for easy administration, patching, and reference.</li>
+        </ol>
+        <ol data-mc-continue="true">
+            <li value="2">Install the <b>CygVS2010Redist64.exe</b>, <b>CygVS2012Redist64.exe</b>, or <b>CygVS2013Redist64.exe</b> found in the <b>CD_Image\System64</b> directory  to install the C++ libraries upon which the <b>Cx....64.dll</b> files rely.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can check whether the Redistributable program is already installed by opening the <b>Control Panel/Programs/Programs and Features</b> and looking for entries that say "Microsoft Visual C++ YYYY Redistributable (x64)" where YYYY is the year. The Redistributable program must be installed prior to registering the 64-bit CygNet API libraries.</p>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="3">Manually register each <b>Cx...64.dll</b> file using either:</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1"><b>CVersionInfo.exe</b> located in the <b>CygNet\Utilities</b> folder </li>
+                <li value="2"><b>regsvr32.exe</b> located in the <b>Windows\System32</b> folder, or <b>Windows\SysWOW64\regsvr32.exe</b> on a 64-bit operating system.</li>
+            </ul>
+        </blockquote>
+        <p class="Indent2">Make sure the user account you are using to register has full access to the registry and the file system to avoid registration errors. A common registration error is: 0x8007005, which means you do not possess the appropriate permissions to register the file. If you get an error and want to understand what the error means you can use the following steps:</p>
+        <p class="Indent2"><b>Converting Win32 Error Codes to "Human-Readable" Format</b>
+        </p>
+        <ol class="Lower_alpha">
+            <li value="1">Copy the last four hex digits from the error code, for example, copy "0005" from 0x8007<i>0005</i>.</li>
+            <li value="2">Convert the hex digits to decimal. You can use Windows Calculator (Calc.exe) located in the Windows\System32 folder in "Programmer" mode to accomplish this.</li>
+            <li value="3">Using a command prompt, type <code>net helpmsg &lt;decimal result from step 2&gt;</code> and then press <b>Enter</b>.</li>
+            <li value="4">The string produced will be the simplified description for the hex Win32 Error Code.</li>
+        </ol>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

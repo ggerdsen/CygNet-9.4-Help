@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CxScript|HyperPoint Object">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>HyperPoint Events</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxScript.htm">CxScript</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CxScript HyperPoint Object.htm">HyperPoint Object</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HyperPoint Events</span>
+        </div>
+        <h2>HyperPoint Events</h2>
+        <p>The <b>HyperPoint</b> object contains the following events:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#OnInitialize" class="selected">OnInitialize</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#OnInitializeEx" class="selected">OnInitializeEx</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#OnPointChange" class="selected">OnPointChange</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#OnTerminate" class="selected">OnTerminate</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#OnTerminateEx" class="selected">OnTerminateEx</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#OnTimer" class="selected">OnTimer</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#OnUpdate" class="selected">OnUpdate</a>
+            </li>
+        </ul>
+        <h3><a name="OnInitialize"></a>OnInitialize</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> This event is obsolete. However, it is still available to existing points that use this event. It is unavailable to new points. This and other obsolete events appear in italics in the script editor event drop-down menu.</p>
+        </div>
+        <p>Called when the script engine initializes.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnInitialize()</p>
+        <h4>Remarks</h4>
+        <p>This event operates in the same manner as the Microsoft Visual Basic event of the same name. Use the OnInitialize event of an object or class to prepare the object or class for use, setting any references to sub-objects or assigning values to module-level variables. Note that points added to the Points object in this method will not be immediately available for use; to get data immediately, call the Points.ResolveNow or Points.UpdateNow methods first.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The OnInitialize event is commonly used to initialize the Points object with points to be monitored, as in this example.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub DEMOPNT_OnInitialize()</p>
+                    <p class="Code2">Points.AddPoint "CYGDEMO.UIS:POINT1", DEMOPNT</p>
+                    <p class="Code2">'some code</p>
+                    <p class="Code2">. . .</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="OnInitializeEx"></a>OnInitializeEx</h3>
+        <p>Called when the script engine initializes.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnInitializeEx(This)</p>
+        <h4>Remarks</h4>
+        <p>This event operates in the same manner as OnInitialize, but provides an additional parameter to make further scripting easier. The "This" parameter allows the scripter to self-reference the hyperpoint instead of typing out its full name. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example shows the time that the point was intiliazed by self-referencing the point. </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub CYG_HSS_DEMOPNT_OnInitializeEx(This)</p>
+                    <p class="Code2">'This is possible:</p>
+                    <p class="Code2">MsgBox "Point initialized on " &amp; This.Timestamp</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'As opposed to this:</p>
+                    <p class="Code2">'MsgBox "Point initialized on " &amp; CYG_HSS_DEMOPNT.Timestamp</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="OnPointChange"></a>OnPointChange</h3>
+        <p>OnPointChange Event.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnPointChange(This, Tag)</p>
+        <h4>Remarks</h4>
+        <p>This event is fired when a point added through <a href="CxScript Points Methods.htm#pts_AddPoint">AddPoint</a> or <a href="CxScript Points Methods.htm#pts_AddPointsArray">AddPointArray</a> is modified. The "This" parameter allows the scripter to self-reference the hyperpoint instead of typing out its full name. The "Tag" parameter is the point tag of the point that has been changed.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example demonstrates the OnPointChange event. When TESTPOINT is first initialized, it calls <a href="CxScript Points Methods.htm#pts_AddPoint">AddPoint</a> and starts monitoring MonitoredPoint. When MonitoredPoint changes, the value of TESTPOINT is set to the current time.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub TESTPOINT_OnInitialize()</p>
+                    <p class="Code2">Points.AddPoint "CYGDEMO.UIS:MonitoredPoint", TESTPOINT</p>
+                    <p class="Code2">End Sub</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">Sub TESTPOINT_OnPointChange(This, Tag)</p>
+                    <p class="Code2">This.VALUE = Time</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="OnTerminate"></a>OnTerminate</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> This event is obsolete. However, it is still available to existing points that use this event. It is unavailable to new points. This and other obsolete events appear in italics in the script editor event drop-down menu.</p>
+        </div>
+        <p>Called when the script engine terminates.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnTerminate()</p>
+        <h4>Remarks</h4>
+        <p>This event operates in the same manner as the Visual Basic event of the same name. The OnTerminate event is fired when the last instance of an object or class is removed from memory. Instances of an object or class are removed from memory by explicitly setting the object variable to Nothing or by the object variable going out of scope.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="OnTerminateEx"></a>OnTerminateEx</h3>
+        <p>Called when the script engine terminates.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnTerminateEx(This)</p>
+        <h4>Remarks</h4>
+        <p>This event operates in the same manner as OnTerminate, but provides an additional parameter to make further scripting easier. The "This" parameter allows the scripter to self-reference the hyperpoint instead of typing out its full name. </p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example tells the user which point was terminated by self-referencing the point. </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub OnTerminateEx(This)</p>
+                    <p class="Code2">MsgBox This.LongTag &amp; " has been terminated"</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="OnTimer"></a>OnTimer</h3>
+        <p>Called when a timer event occurs.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnTimer(This)</p>
+        <h4>Remarks</h4>
+        <p>Timer events notify a HyperPoint when the timer’s countdown period expires. Before an event handler is invoked, the HyperPoint object is refreshed with the HyperPoint’s current contents from the HSS. After the handler completes, the HyperPoint contents in the HSS are updated from the HyperPoint object.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The following example sets the value of the point to the time at which this event is invoked.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub DEMOPNT_OnTimer()</p>
+                    <p class="Code2">'Set status of point to current time</p>
+                    <p class="Code2">DEMOPNT.Value = Now</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="OnUpdate"></a>OnUpdate</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> This event is obsolete. However, it is still available to existing points that use this event. It is unavailable to new points. This and other obsolete events appear in italics in the script editor event drop-down menu.</p>
+        </div>
+        <p>Called when a timer or point change event occurs.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax"><i>HyperPointObject</i>_OnUpdate(EventType)</p>
+        <h4>Parameters</h4>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 50px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>UpdateEventType</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p style="text-align: center;">Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Defines the type of event that is occurring, which is either a timer event or a point value change event. Use the <a href="CxScript UpdateEventType.htm">UpdateEventType</a> table to access this value.</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Remarks</h4>
+        <p>OnUpdate has two UpdateEventTypes — a Point event and a Timer event. Functions are provided to notify a HyperPoint when a Point event occurs, such as Points.AddPoint. Timer events notify a HyperPoint when the timer’s countdown period expires. Before an event handler is invoked, the HyperPoint object is refreshed with the HyperPoint’s current contents from the HSS. After the handler completes, the HyperPoint contents in the HSS are updated from the HyperPoint object.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The OnUpdate event is commonly used to obtain information from the Points object and perform related calculations. Also, it is good practice to use the value of a HyperPoint for its status. The following example of the OnUpdate event shows the status being updated and a UIS point receiving the value of the sum of two other UIS points — a calculation that will be executed each time OnUpdate is run. This example makes use of the global function SetPoint, explained in the "Global Functions" section.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub DEMOPNT_OnUpdate(EventType)</p>
+                    <p class="Code2">'Set status of current point</p>
+                    <p class="Code2">DEMOPNT.Value = "updated"</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Get Point object(s) for points being monitored</p>
+                    <p class="Code2">Set P1 = Points.Point("CYGDEMO.UIS:POINT1")</p>
+                    <p class="Code2">Set P2 = Points.Point("CYGDEMO.UIS:POINT2")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">'Set the sum to a new point</p>
+                    <p class="Code2">If IsNumeric(P1) And IsNumeric(P2) Then</p>
+                    <p class="Code2">SetPoint "CYGDEMO.UIS:POINTSUM", CStr(P1.Value + P2.Value)</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

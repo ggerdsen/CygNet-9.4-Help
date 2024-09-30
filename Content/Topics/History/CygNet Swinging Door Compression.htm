@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|History Data|History Reporting|Data Compression">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Swinging Door Compression</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Data.htm">History Data</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Reporting.htm">History Reporting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Compression.htm">Data Compression</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Swinging Door Compression</span>
+        </div>
+        <h2>CygNet Swinging Door Compression</h2>
+        <p>The CygNet Swinging Door (CSD) compression method significantly reduces the number of historical real-time values stored in the CygNet Historian (VHS). When CSD compression is configured to be performed for a CygNet point, a new value will be reported to the VHS when the slope of the line calculated between the last value reported to the VHS and the new value falls outside the slope deviation range.</p>
+        <p>Considerations for <a href="Reporting Options.htm#Maximum">Maximum reporting interval</a> and <a href="Reporting Options.htm#Minimum">Minimum evaluation time</a> will be evaluated before applying the compression settings.  For example, if a new value is received by the CVS that exceeds the configured <b>Maximum reporting interval</b>, it will be sent to the VHS directly regardless of whether it exceeds any compression settings.  Additionally, new values will always be sent to the VHS if their status bits have changed from one value update to the next, if the timestamp of the new value received is older than the previously received value, or if the value received is non-numeric.</p>
+        <p>CygNet Swinging Door (CSD) compression and associated slope deviation range are configured on the <a href="../Points/PNT Editor - History Page.htm">History</a> page of the point configuration record.</p>
+        <h3>Swinging Door Compression Algorithm</h3>
+        <p>The CygNet Swinging Door compression algorithm is based on the principle that within a point value trend, it is possible to identify many linear segments delineated by significant changes in trend curvature or slope. Storing only the end points of these linear segments is sufficient to adequately capture the necessary trend profile. The CSD algorithm acts sequentially as data values are received and is applied, based on configured settings, to each real-time data value processed by all CygNet Current Value Services (CVS). CSD compression minimizes the historical data stored in the VHS by capturing only the values necessary to represent an accurate trend profile within the configured threshold.</p>
+        <p>The CSD compression algorithm uses the following process to reduce the number of historical real-time values stored in the VHS. The key points to understand are as follows:</p>
+        <ul>
+            <li value="1">An "archived value" is one that is stored in the VHS.</li>
+            <li value="2">A "held value" is the last good value received by the CVS. We don’t know if the held value will be stored until the next value arrives to tell us if the slope has changed sufficiently.</li>
+            <li value="3">After a value is archived, the next new value becomes the held value.</li>
+        </ul>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 1.png" />
+        </p>
+        <p><b>Step 1:</b> Error bands are constructed around the held value.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 2.png" />
+        </p>
+        <p class="Indent2">where E = deadband / 2</p>
+        <p class="Indent2">Deadband corresponds to the deviation fields for the CSD configuration.</p>
+        <p><b>Step 2:</b> Two lines, U and L, are drawn connecting the archived value with the upper and lower ends of the error bands associated with the held value. The slope of lines U and L is calculated defining a <b>Critical Aperture Window</b>.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 3.png" />
+        </p>
+        <p><b>Step 3:</b> The next new value received by the CVS is evaluated and it is determined if the line N connecting the archived value with the new value is between the upper and lower slopes.</p>
+        <p class="Indent2">If yes, line N intersects the error bands of the held value and becomes the new held value. The previously held value is discarded.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 4.png" />
+        </p>
+        <p class="Indent2">The critical aperture window from the lowest upper slope and the highest lower slope is reconstructed to ensure that the conditions necessary to compress all previous values will be preserved.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 5.png" />
+        </p>
+        <p class="Indent2">Step 3 is repeated.</p>
+        <p class="Indent2">As each new value is received by the CVS, the process continues, narrowing the critical aperture window and discarding unnecessary values as you go. If the process continues long enough, the critical aperture window closes, converging on the slope of the trend for this segment.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 6.png" />
+        </p>
+        <p><b>Step 4:</b> A new value is received by the CVS and its slope is determined to lie outside of the critical aperture window. The held value is saved to the VHS, the new value becomes the held value, and the process resets to Step 1.</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/History/Swinging Door Compression 7.png" />
+        </p>
+        <h3>Additional Data Thinning </h3>
+        <p>For historical data that has already been written to the historian (uncompressed), the data can be thinned with the CSD compression method via the <a href="VHS Data Analyzer CSD Compression.htm">VHS Data Thinner Utility</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

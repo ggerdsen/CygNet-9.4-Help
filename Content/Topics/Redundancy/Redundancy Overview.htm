@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Redundancy Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Redundancy Overview</span>
+        </div>
+        <h2>Redundancy Overview</h2>
+        <p>The primary goal for CygNet Redundancy is to ensure high availability for CygNet services, regardless of the complexity of your CygNet setup. The CygNet Redundancy solution is designed to achieve continuous operation of all CygNet services in the wake of component failure in the system, whether failure is due to normal operational transition of data from one location to another (via replication to move data from a primary server to a DR server, or backup, or forwarding, etc.), or due to an unforeseen natural disaster.</p>
+        <p>A high availability redundant system can be simple or extremely complex. You might run CygNet locally or across multiple data centers. You might run a pair of redundant servers, or two servers in different data centers, or locally redundant servers in multiple data centers, which are themselves redundant. Add to this, and you might need to support multiple networks (for example, the main production network, a business network, a test network) participating in a CygNet Redundancy configuration.</p>
+        <p>To accomplish this potential environmental complexity, each site in your CygNet setup runs on  a unique domain and each domain has a specific role: Active, Local Standby, or Data-Center Standby. </p>
+        <p>When a failover is performed manually (triggered via human intervention) or automatically (triggered without warning), all sites will swap domains, and assume a different role. The benefit to this model is that clients will always connect to the same domain, regardless of where the domain is running, so they don’t have to make any changes as the result of a failover. The failover process involves stopping all the services and restarting them on a different domain, swapping to another domain, and assuming another role.</p>
+        <p>CygNet redundancy operates on top of the CygNet replication model and is supported by underlying replication functionality, although replication is disabled for all services in a redundant environment. See <a href="Configuring Redundancy.htm">Configuring Redundancy</a> for more on this.</p>
+        <p>CygNet Software supports high availability across servers in a redundant environment through the following areas of focus:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Centralized_Config" class="selected">Centralized Configuration</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Status" class="selected">Failover Readiness and Replication Status</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Failover_Performance" class="selected">Failover Duration and Performance</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Failover_Awareness" class="selected">Awareness of a Failover Event</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#No_Scripts" class="selected">Elimination of Replication Scripts</a>
+            </li>
+        </ul>
+        <h3><a name="Centralized_Config"></a>Centralized Configuration</h3>
+        <p>All configuration work required to set up redundant pairs, redundancy mode for services, and source and replicated services is centralized in a familiar CygNet workflow. </p>
+        <p>In a complex redundant environment it is possible that you might have several different CygNet domains running different sites, or rather different copies of the same site. This might entail a CygNet site hosting  24 or more services, and running multiple copies of that site on different domains, with some sites acting as the primary production site, some as the backup or test site, and some as a business site. Each site in the environment has multiple services; each service has its own configuration file. Manual configuration of such a vastly complex system would be prohibitively time consuming. </p>
+        <p>CygNet provides two administrative tools to simplify this mass configuration work allowing you to define all domains, servers, sites, modes, and keywords at play in one central place. The tools are the <b>CygNet Config File Manager</b> and the <b>CygNet Redundancy Editor</b>.</p>
+        <h4>CygNet Config File Manager</h4>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 50px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p>
+                            <p>The <b>CygNet Config File Manager</b> is a  configuration file management tool used to centrally manage all configuration files in your CygNet system (from both local and remote servers) even if you aren’t currently running the application on the host server. The tool will allow you to edit (via manual and mass-modification options) and validate your configuration files in one central location.</p>
+                        </p>
+                        <p>The CygNet Config File Manager is stored in the <b>CygNet\Bin</b> directory (ConfigFileMgr.exe) on the host server.</p>
+                        <ul class="table">
+                            <li value="1">See <a href="../Services/Configuration File Manager.htm">CygNet Config File Manager</a> for more information.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>CygNet Redundancy Editor</h4>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 50px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p>In addition to configuring the keywords in your service configuration files, it is necessary to define the redundant relationships between the servers in your CygNet setup.</p>
+                        <p>
+                            <p>The <b>CygNet Redundancy Editor</b> is a configuration tool where you can define the relationships between the servers, hosts, and sites in your redundancy environment. The Redundancy Editor is also where you set up the trigger conditions that will initiate the auto-failover process for each domain in the redundancy environment. Once all redundant relationships are known by the system, you can execute failover between machines, stop and start sites, and allow servers to switch the domains on which they are running, and support high availability across data centers.</p>
+                        </p>
+                        <p>The CygNet Redundancy Editor is accessible from the RSM service pane in CygNet Explorer on the primary host server. Once relationships are configured you can access the editor from any RSM in the redundant environment.</p>
+                        <ul class="table">
+                            <li value="1">See <a href="Redundancy Editor.htm">CygNet Redundancy Editor</a> for more information.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Once service configuration files and a redundancy definition for all sites are configured the system will use this information to make good decisions about how to execute a failover and what the downstream consequences will be. Each service configuration file will contain everything it needs to run in any mode.  When a redundant service starts, the RSM will tell it what domain to run in and if it’s replicating, where to replicate from.</p>
+        <h3><a name="Status"></a>Failover Readiness and Replication Status</h3>
+        <p>Once redundancy is configured, it's important to know what's happening in your system, to give you confidence that replication is working, that all data is getting backed up appropriately, to the right place, and in a timely manner and that your services are ready to failover.</p>
+        <p>The following tools will give you that visibility and confidence that redundancy, failover and replication are working as expected, the <b>CygNet Redundancy Dashboard</b> and the <b>CygNet ReplValidator</b> utility.</p>
+        <h4>CygNet Redundancy Dashboard</h4>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 50px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p>To provide visibility into the redundancy, failover and replication process, a customizable <b>CygNet Redundancy Dashboard</b> is available in CygNet Studio. The dashboard shows every service in your system, on which domain it is running, and if it is standby mode, whether it’s ready to become the active service. Other key pieces of information available on the dashboard include each service's status, the direction and status of replication, the system's readiness to execute local failover, and the system's readiness to execute data-center failover. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The <b>CygNet Redundancy Dashboard</b> comprises several sample CygNet Studio screens and script files found on the CygNet CD_Image in the <b>Samples\Redundancy Dashboard</b> folder. The Redundancy Dashboard screens utilize VBScript and the CygNet COM API to gather the necessary information from services to display on a CygNet Studio screen. These sample files are not part of the CygNet product and are provided for your convenience only. Feel free to copy and modify these files to suit the requirements of your own CygNet Redundancy environment.</p>
+                        </div>
+                        <p>The Redundancy dashboard is built in CygNet Studio so you can modify it, and add information that is meaningful in your environment and to your enterprise.</p>
+                        <ul>
+                            <li value="1">See <a href="Redundancy Dashboard.htm">Redundancy Dashboard</a> for more information.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>ReplValidator</h4>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 50px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">&#160;</td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <p>Another tool for monitoring replication is the <b>ReplValidator</b> utility, which validates the replication process by comparing the records of a replicated service against its source service, and determining how many records differ between the replicated and the source service. This utility is a replication validator that can be used to compare all services except the ARS, RSM, and VHS to identify any problems with your replicated data.</p>
+                        <ul>
+                            <li value="1">See <a href="../Replication/ReplValidator Utility.htm">ReplValidator Utility</a> for more information.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Failover_Performance"></a>Failover Duration and Performance</h3>
+        <p>The amount of time it takes to perform a failover is hugely dependent on the size and configuration of your system. A system with 10,000 devices in its UIS is not going to failover as quickly as a system with only 100 devices. A system running on older hardware and operating system is going to be much slower than a system running on a high-end newer server. CygNet Redundancy endeavors to perform local and data-center replication and failover as quickly and as efficiently as possible using minimum system resources.</p>
+        <h3><a name="Failover_Awareness"></a>Awareness of a Failover Event</h3>
+        <p>CygNet is fully aware that a failover event is occurring. This means that when a failover is initiated, all facets of CygNet (both client-side and server-side) are aware of that action, and a full resynchronization is not required in order to catch up or recover after the event. This also means that the system is aware and prepared to change the direction of replication, if needed, allowing for forwards and backwards failover between local and remote data centers within a relatively short period of time.</p>
+        <p>Recovery of a failed service is completely automated, and all you need to do is get the machine up and running again after a failover.</p>
+        <h3><a name="No_Scripts"></a>Elimination of Replication Scripts</h3>
+        <p>CygNet Redundancy provides a failover solution that eliminates the need for scripts. In the past users who wanted to automate a failover often had to run a set of scripts to copy configuration files, stop sites, and start sites. CygNet has taken that complex failover workflow and built it into the CygNet product, so that now once you have your configuration files and a redundancy definition configured, you can perform a failover with the click of a button and CygNet manages all the changes that need to take place.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Redundancy Concepts.htm" class="More">Redundancy Concepts</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Failover.htm" class="More">Failover</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Failover - Other Considerations.htm" class="More">Other Failover Considerations</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

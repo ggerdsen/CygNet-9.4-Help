@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Backup and Restore|Restoring from Backups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Total System Restore</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Backup and Restore.htm">Backup and Restore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Restoring from Backups.htm">Restoring from Backups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Total System Restore</span>
+        </div>
+        <h2>Total System Restore</h2>
+        <p>Follow these steps if a total system restoration is required.</p>
+        <p class="HeadingProcedure">Step 1: Confirm Operating System Installation</p>
+        <p>Approved operating systems for the host server are found in <i><a href="../../Resources/PDF_Repository/CygNet_94_System_Requirements.pdf" target="_blank">the <a href="../../Resources/PDF_Repository/CygNet_94_System_Requirements.pdf" target="_blank"><i>CygNet System Requirements</i></a> document</a></i>. For any operating system, the most recent service packs should be installed.</p>
+        <p class="HeadingProcedure">Step 2: Confirm the Server is on Network</p>
+        <p>The host server requires a static IP address. If possible, use the IP address that was assigned to the server that you are replacing. Client computers and other ARSs have knowledge of this address. If you cannot use the same IP address, you may need to manually connect ARSs and clients (see steps <a href="#8" class="selected">8</a> and <a href="#9" class="selected">9</a>).</p>
+        <p class="HeadingProcedure">Step 3: Reinstall Services</p>
+        <p>Use the CygNet SCADA Services Setup program on the CygNet product source to reinstall the services. Be sure to use the same Site name, select the correct backup folder, and select all of the required Equipment Interface Engines. Using the setup program ensures that all DLLs are registered. You may have to create the folders and ARS entries for uniquely named or special services (OPCIS, replicated VHS, etc.)</p>
+        <p class="HeadingProcedure">Step 4: Restore Backup Files for each DBS-Based Service</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This step applies to the DBS-based services only, which include the ACS, APPS, AUD, BSS, ELS, ELSALM, DDS, FAC, GNS, GRP, MSS, PNT, and TRS.</p>
+        </div>
+        <p>Run the DBS Restore Backup utility for each DBS-based service. See <a href="../Database Utilities/DBS Restore Backup Utility.htm">DBS Restore Backup Utility</a> for information about how to use this utility. See <a href="#6" class="selected">Step 6</a> for restoring the VHS.</p>
+        <p class="HeadingProcedure">Step 5: Copy Backup Files for Other Services</p>
+        <p>Copy the backup files for the other services to the newly installed services folders. If you don’t have a backup of the ARS or RSM databases and had custom entries in either you will have to manually re-enter the entries. If you are restoring a site in a multi-host environment, the ARS database should synchronize with the other ARSs in the system.</p>
+        <p class="HeadingProcedure"><a name="6"></a>Step 6: Restore History Data</p>
+        <p>Restore the history data from the replicated VHS.</p>
+        <p>If the replicated VHS contains data from multiple sources, you will have to start an empty VHS and then use the VHS Import/Export utility to export the data from the replicated service to the new VHS. See <a href="../History/VHS Import Export Utility.htm">VHS Import/Export Utility</a> for more information.</p>
+        <p class="HeadingProcedure">Step 7: Restart Services</p>
+        <p>Use CygNet Host Manager to restart the services.</p>
+        <p class="HeadingProcedure"><a name="8"></a>Step 8: Confirm Connection to Other Address Resolution Services</p>
+        <p>If you have a multi-host system, open CygNet Explorer and confirm that you can see the other sites. If you cannot see other sites, use the Connect ARS utility (ConnectARS.exe) to connect your ARS to another ARS.</p>
+        <p class="HeadingProcedure"><a name="9"></a>Step 9: Confirm Client Connections to Host Server</p>
+        <p>Go to a client computer and open CygNet Explorer and confirm that you can see the site. If you cannot see the site or get a DCL error (can’t find directory service) run the CygNet Domain Connection utility to enter the IP address of the site’s ARS. See <a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection Utility</a> for more information.</p>
+        <p class="HeadingProcedure">Step 10: Confirm Communication Port Connections</p>
+        <p>If the server is new, confirm that the peripherals are attached to the same communication ports as the old server. If the modem port assignments are different you will need to edit the GNS configuration file and/or the communication drivers in the DDS.</p>
+        <p class="HeadingProcedure">Step 11: Confirm Communications Hardware Operations</p>
+        <p>Confirm that communications hardware is operational (modems and other communication devices).</p>
+        <p class="HeadingProcedure">Step 12: Apply Patches</p>
+        <p>Apply any service and UIS device driver. Driver patches that were stored in the <b>CygNet\Support</b> folder may have been lost in the system loss, since the support folder is not backed up. These patches will need to be installed from a local copy or downloaded from the <span class="CygNetVariablesSoftwareName">CygNet Software</span> website.</p>
+        <p class="HeadingProcedure">Step 13: Install Clients</p>
+        <p>Use the CygNet Client Installer to reinstall clients on the host server. The services setup program will have created a shortcut for this program on the <b>Start</b> menu (<b>Start&gt;Programs&gt;CygNet&gt;CygNet Client Installer</b>).</p>
+        <p class="HeadingProcedure">Step 14: XML Support</p>
+        <p><span class="CygNetVariablesSoftwareName">CygNet Software</span> requires Microsoft Core XML Services (MSXML) 6.0 support. MSXML 6.0 is distributed with several older operating systems. If your services won’t start, it may be related to XML. If it is not pre-installed, download it from Microsoft (<a href="http://www.microsoft.com/en-us/download/details.aspx?id=3988" target="_blank">www.microsoft.com</a>) to match your specific operating system and hardware platform and follow the installation instructions.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

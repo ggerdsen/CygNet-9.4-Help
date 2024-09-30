@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication|VHS Replication">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Replication Missed Change Events</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Replication.htm">VHS Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Replication Missed Change Events</span>
+        </div>
+        <h2>Replication Missed Change Events</h2>
+        <p>In some cases a replicated VHS may miss some incremental changes. If a replicated service is shut down for an extended period of time and the source service fills its change queue, old changes may be overwritten while the replicated service is stopped. When the replicated service restarts the changes that have been overwritten will no longer be available.</p>
+        <p>If a replicated service detects that the changes it needs are no longer available on the change queue, it will mark some <a href="../Service Monitoring/Info Items.htm">Info Items</a> to indicate that a <b>Missed Change Event</b> occurred. The service keeps a counter of how many times it detects this. It also details the last ten events where it missed changes. For each of the last nine events, it keeps track of the last sequence number that it had synced to, as well as the last time that it thought it was synced up to. This data can help determine the missing periods of data aid in its manual recovery through the use of utilities such as <a href="../History/VHS Import Export Utility.htm">VHS Import/Export</a> and <a href="../History/VHS Recovery Utility.htm">VHS Recovery</a>. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+            </p>
+            <p class="Note">The <b>VHS Recover</b> utility can only import data into a replicated service when it is not in replicated mode. To stop replication, comment out the <b>REPL_SOURCE</b> keyword in the replicated service’s configuration file and stop and restart the replicated service. Once you have finished recovering data, replication must be re-enabled and the service must be stopped and restarted for the configuration change to take effect. </p>
+            <p class="Note">The <b>VHS Import/Export</b> utility can be used to import data from a live source VHS to a replicated destination VHS for the purpose of backfilling replication data. This works only when importing from a source VHS; if the source is a CSV file, or an offline datastore, the import will fail. The replicating VHS must be able to communicate with the source VHS across a firewall, subnet, etc.  See the <a href="../History/VHS Import Export Utility.htm#Importin">Importing to a Replicated VHS</a> note for more information.</p>
+        </div>
+        <p>These info items can be viewed in <a href="../CygNet Explorer/Viewing Service Details.htm">Service Details</a> in CygNet Explorer or through the use of SVCMON points. The Service Details screen will only show the last three missed change events and the <a href="../Service Monitoring/CygNet ServiceMon Administration Utility.htm">CygNet ServiceMon Administration</a> utility will only auto-create points for the last three missed change events. However, since the VHS stores up to the last nine missed change events, SVCMON points can be manually created for them using the same format as the points for the last three events. For example, the SVCMON point for the Last Missed Event Sequence Number uses the info item <b>VHS_REPL_MISS_SEQ_1</b> in its <b>General 2</b> field. This point can be copied to create a point for the 5th last missed change event. The info item <b>VHS_REPL_MISS_SEQ_5</b> must be entered in the <b>General 2</b> field.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

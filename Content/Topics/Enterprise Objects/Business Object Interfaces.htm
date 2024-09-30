@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|CygNet Business Object Builder Utility|Package Files">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Business Object Interfaces</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Business Object Builder.htm">CygNet Business Object Builder Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Business Object Package Files.htm">Package Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Business Object Interfaces</span>
+        </div>
+        <h2>Business Object Interfaces</h2>
+        <p>A Business Object Interface defines the external data model (how other systems view a given Business Object) in terms of a single logical business data entity, such as "WELL." Business Object Interface definitions include but are not limited to "Well," "Valve," "Meter," "Pipe Segment," "Compressor," "Booster," "Tank," etc.</p>
+        <p class="Example"><b>Example</b>
+        </p>
+        <p class="Indent">A Business Object Interface named "WELL" would define an attribute called "Operator" as type "string" but not as "FacilityAttr1," even though the SCADA data model defines "FacilityAttr1" as the "Operator." The Business Object Interface remains abstract with regard to the SCADA data model, therefore allowing external users of "WELL" data to refer to the "Operator" attribute instead of "FacilityAttr1."</p>
+        <p>This concept allows external users of "WELL" to access required data completely independently of the underlying SCADA data model. If the SCADA data model changes, and attribute definitions are changed, the external user of "WELL" would be unaffected.</p>
+        <p>
+            <img src="../../Resources/Images/Enterprise Objects/BOB Editor Object.png" />
+        </p>
+        <h3><a name="Business_Object_Interface_Attributes"></a>Business Object Interface Attributes</h3>
+        <p>Business Object Interfaces consist of a list of enterprise attributes mapped to a list of native CygNet attributes. These Business Object attributes can include both string element attributes and point element attributes. </p>
+        <h4>Simple Attributes</h4>
+        <p>Some Attributes of a Business Object are relatively simple and can be represented as strings. These string elements are referred to as Simple Attributes.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">A simple attribute for a "Well" object might be "Field Office." A given well object might have a "Field Office" value of  "Live Oak" or "Jalama" indicating its location.</p>
+        <p>Business Object Interfaces encapsulate string elements. See <a href="Business Object Mappings.htm#Mapping">Mapping Simple Attributes</a> for more information about data types which can be represented by string elements.</p>
+        <h5>Unique Key</h5>
+        <p>Each Business Object Interface supports a list of one or more Simple Attributes that compose the object's Unique Key. The value of the unique key for any given object instance must uniquely identify that object from all other objects in the system. The unique key can optionally be composed of multiple partial keys, each of which must be selected as <b>Is Key</b> in the Business Object Interface.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Unique Key can only be composed of Simple Attributes.</p>
+        </div>
+        <h4>Point Definition Attributes</h4>
+        <p>Many attributes of a Business Object are real-time data requiring a more complex construct than string elements. These complex real-time point elements are referred to as Point Definition Attributes.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The volume for "Well" can be expressed as a string, but there is much more to a well's volume data point than  its value; timestamp, units, alarm state, and description are all attributes of the 'volume' attribute as well. An attribute of this type is better expressed as a point element.</p>
+        <h5>Optional Attributes</h5>
+        <p>Business Object Interface Attributes are "read-only" by default. Optional attributes can also be configured as writable.</p>
+        <h5>Writable Attributes</h5>
+        <p>Optional Attributes are allowed to be configured as writable. Special writable attributes are configured by the administrator to be writable for specific purposes.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A writable interface component must not be mapped to an implicitly read-only CygNet native attribute (i.e. "point state description").</p>
+        </div>
+        <h3>Creating, Editing, Copying, and Deleting Business Object Interfaces</h3>
+        <p class="HeadingProcedure">To Create a Business Object Interface</p>
+        <ol>
+            <li value="1">In the Business Object Builder, click the <b>Edit</b> tab to open the Object Editor window. </li>
+            <li value="2">The <b>Navigation</b> pane is on the left. If the <b>Objects</b> list is not already displayed, click on the down arrow to display the list of objects. </li>
+            <li value="3">Click <b>Add New Object</b> and type in a name for the new Business Object. This opens the <b>Object Editor</b> for the newly named object.</li>
+            <li value="4">At the bottom of the <b>Interface for…</b> field, click on <b>Type new attribute here</b> to add a new item to the list.</li>
+            <li value="5">For each interface item, enter a name, and fields will be displayed allowing you to indicate whether it is a <b>Simple Attribute</b> or a <b>Point Definition</b> attribute. </li>
+            <li value="6">If it is a <b>Simple Attribute</b>, an adjacent check box will be displayed, allowing you to select <b>Is Key</b> to mark the associated item as a key.</li>
+            <li value="7">Select the <b>Optional</b> check box to mark the associated attribute as optional.</li>
+            <li value="8">Select the <b>Writable</b> check box to mark the associated attribute as writable.</li>
+            <li value="9">Click <b>Save</b>.</li>
+        </ol>
+        <p class="HeadingProcedure">To Edit a Business Object Interface</p>
+        <ol>
+            <li value="1">In the Business Object Builder, click the <b>Edit</b> tab to open the Object Editor window.</li>
+            <li value="2">The <b>Navigation</b> pane is on the left. If the <b>Objects</b> list is not already displayed, click on the down arrow to display the list of objects.</li>
+            <li value="3">Click to select the name of the <b>Object</b> you want to edit from the list.</li>
+            <li value="4">The <b>Object Editor</b> pane is on the right. Click to select the name of the Interface element you wish to edit.</li>
+            <li value="5">To edit an interface item name, double-click in the text box and make the desired change.</li>
+            <li value="6">To edit the attribute type, click the down arrow on the combo box and make the desired change.</li>
+            <li value="7">For a <b>Simple Attribute</b>, click the check box adjacent to <b>Is Key</b> to select/clear  the attribute's Key status.</li>
+            <li value="8">Click the check box adjacent to <b>Optional</b> to select/clear the attribute's Optional status.</li>
+            <li value="9">Click the check box adjacent to <b>Writable</b> to select/clear the attribute's Writable status.</li>
+            <li value="10">Click the <b>Delete</b> icon to the right of the attribute's characteristics to delete the Interface item.</li>
+            <li value="11">Click <b>Save</b>.</li>
+        </ol>
+        <p class="HeadingProcedure">To Copy a Business Object Interface</p>
+        <p>Copying a Business Object Interface can be achieved by exporting the interface with a new file name, and then importing the new file back into CygBOB from the Package page. Mappings can then be created or edited on the <b>Edit</b> page.</p>
+        <p>See <a href="File Import and Export Options.htm">File Import and Export Options</a> for more information.</p>
+        <p class="HeadingProcedure">To Delete a Business Object Interface</p>
+        <ol>
+            <li value="1">On the CygBOB menu, click the <b>Edit</b> tab to open the Object Editor window.</li>
+            <li value="2">The <b>Navigation</b> pane is on the left. If the <b>Objects</b> list is not already displayed, click on the down arrow to display the list of Objects.</li>
+            <li value="3">Click to select the name of the <b>Object</b> you want to delete from the list.</li>
+            <li value="4">Click on the <b>X</b> to the right of the Object Name to delete it. </li>
+            <li value="5">A message box will be displayed asking "Are you sure you want to remove this Object?" Select <b>Yes</b> to delete the Object or <b>No</b> to retain the Object.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

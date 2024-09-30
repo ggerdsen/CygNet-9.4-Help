@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Enumeration Mapping Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Enumeration Mapping Examples</span>
+        </div>
+        <h2><a name="Enumerat"></a>Enumeration Mapping Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf.</p>
+        <p>The referenced enumeration table can be scoped to a data group element, scoped to a device template file (using an <a href="enums Element.htm">enums</a> table), or be one of several <a href="#Global3" class="selected">global tables</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Enumerat3" class="selected">Data Group Element Enumeration Lookup (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Enumerat2" class="selected">Data Group Element Enumeration Lookup (B)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Global" class="selected">Template Enumeration Lookup (A)</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Template" class="selected">Template Enumeration Lookup (B)</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Global2" class="selected">Global Enumeration Lookup</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Global" class="selected">Global Enumeration Keyword Values</a>
+            </li>
+        </ul>
+        <p>For information about example data group elements and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="Enumerat3"></a>Data Group Element Enumeration Lookup  (A)</h3>
+        <p>The following <a href="Basic and Advanced Reference Methods.htm">basic reference method</a> example references the data group element <a href="Example Values.htm">raw5</a>, the value of which (5) is mapped to the <b>e5</b> enumeration in the <b>RefOpt</b> table.  The result is "Text 5". "Text 5" is then set as the value for the parent data group element <b>EnumA</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;EnumA desc="Enumeration Lookup Method A" readOnly="true" type="string" ref="raw5" mapVal="RefOpt"&gt;</p>
+                    <p class="Code2">&lt;RefOpt&gt;</p>
+                    <p class="Code3">&lt;e0 value="Text 0"/&gt;</p>
+                    <p class="Code3">&lt;e1 value="Text 1"/&gt;</p>
+                    <p class="Code3">&lt;e2 value="Text 2"/&gt;</p>
+                    <p class="Code3">&lt;e3 value="Text 3"/&gt;</p>
+                    <p class="Code3">&lt;e4 value="Text 4"/&gt;</p>
+                    <p class="Code3">&lt;e5 value="Text 5"/&gt;</p>
+                    <p class="Code3">&lt;e6 value="Text 6"/&gt;</p>
+                    <p class="Code3">&lt;defVal value="Default Text"/&gt;</p>
+                    <p class="Code2">&lt;/RefOpt&gt;</p>
+                    <p class="Code">&lt;/EnumA&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#mapVal">mapVal</a>, and <a href="enums Element.htm#Attribut">value</a>. The lowercase letter e represents an enumerated value when followed by a number. A useful element to know is <a href="enums Element.htm#Supporti">defVal</a>.</p>
+        <h3><a name="Enumerat2"></a>Data Group Element Enumeration Lookup (B)</h3>
+        <p>The following <a href="Basic and Advanced Reference Methods.htm">advanced reference method</a> example  references the data group element <a href="Example Values.htm">raw5</a>, the value of which (5) is mapped to the <b>e5</b> enumeration in the <b>mapVal</b> table.  The first <b>ref</b> element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <b>raw5</b> to assign the current value of <b>raw5</b> as the initial value for <b>EnumB</b>. The second <b>ref</b> element references the operation <a href="Available Reference Operations.htm#opMapVal">opMapVal</a> to request a mapped string value from the <b>mapVal</b> table using the assigned initial value. The result is "Text 5". "Text 5" is then set as the value for the parent data group element <b>EnumB</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;EnumB desc="Enumeration Lookup Method B" readOnly="true" type="string" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw5"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opMapVal"&gt;</p>
+                    <p class="Code3">&lt;mapVal&gt;</p>
+                    <p class="Code4">&lt;e0 value="Text 0"/&gt;</p>
+                    <p class="Code4">&lt;e1 value="Text 1"/&gt;</p>
+                    <p class="Code4">&lt;e2 value="Text 2"/&gt;</p>
+                    <p class="Code4">&lt;e3 value="Text 3"/&gt;</p>
+                    <p class="Code4">&lt;e4 value="Text 4"/&gt;</p>
+                    <p class="Code4">&lt;e5 value="Text 5"/&gt;</p>
+                    <p class="Code4">&lt;e6 value="Text 6"/&gt;</p>
+                    <p class="Code3">&lt;/mapVal&gt;</p>
+                    <p class="Code2">&lt;/ref&gt;</p>
+                    <p class="Code">&lt;/EnumB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, and <a href="enums Element.htm#Attribut">value</a>. Useful elements to know are <a href="ref.htm" style="font-style: normal;">ref</a> and <b>mapVal</b>. The lowercase letter e represents an enumerated value when followed by a number.</p>
+        <h3><a name="Global"></a>Template Enumeration Lookup (A)</h3>
+        <p>The following <a href="Basic and Advanced Reference Methods.htm">basic reference method</a> example shows an <b>EnumTA</b> data group element that references the data group element <a href="Example Values.htm">raw5</a>, the value of which (5) is mapped to the <b>e5</b> enumeration in the <b>enumRefOpt</b> table. The result is "Text 5". "Text 5" is then set as the value for the parent data group element <b>EnumTA</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;dataGroups&gt;</p>
+                    <p class="Code2">&lt;DataGroup&gt;</p>
+                    <p class="Code3">&lt;dgElements&gt;</p>
+                    <p class="Code4">&lt;EnumTA desc="Template Enumeration Lookup A" readOnly="true" type="string" ref="raw5" mapVal="enumRefOpt"/&gt;</p>
+                    <p class="Code3">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;DataGroup&gt;</p>
+                    <p class="Code">&lt;/dataGroups&gt;</p>
+                    <p class="Code">...</p>
+                    <p class="Code">&lt;enums&gt;</p>
+                    <p class="Code2">&lt;enumRefOpt&gt;</p>
+                    <p class="Code3">&lt;e0 value="Text 0"/&gt;</p>
+                    <p class="Code3">&lt;e1 value="Text 1"/&gt;</p>
+                    <p class="Code3">&lt;e2 value="Text 2"/&gt;</p>
+                    <p class="Code3">&lt;e3 value="Text 3"/&gt;</p>
+                    <p class="Code3">&lt;e4 value="Text 4"/&gt;</p>
+                    <p class="Code3">&lt;e5 value="Text 5"/&gt;</p>
+                    <p class="Code3">&lt;e6 value="Text 6"/&gt;</p>
+                    <p class="Code3">&lt;defVal value="Default Text"/&gt;</p>
+                    <p class="Code2">&lt;/enumRefOpt&gt;</p>
+                    <p class="Code">&lt;/enums&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are 
+		
+		<a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#mapVal">mapVal</a>, and <a href="enums Element.htm#Attribut">value</a>. A useful element to know is <a href="enums Element.htm">enums</a>. The lowercase letter e represents an enumerated value when followed by a number. A useful element to know is <a href="enums Element.htm#Supporti">defVal</a>.</p>
+        <h3><a name="Template"></a>Template Enumeration Lookup (B)</h3>
+        <p>The following <a href="Basic and Advanced Reference Methods.htm">advanced reference method</a> example shows an <b>EnumTB</b> data group element that references the data group element <a href="Example Values.htm">raw5</a>, the value of which (5) is mapped to the <b>e5</b> enumeration in the <b>enumRefOpt</b> table. The result is "Text 5". "Text 5" is then set as the value for the parent data group element <b>EnumTB</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;dataGroups&gt;</p>
+                    <p class="Code2">&lt;DataGroup&gt;</p>
+                    <p class="Code3">&lt;dgElements&gt;</p>
+                    <p class="Code4">&lt;EnumTB desc="Template Enumeration Lookup B" type="string" isRef="1"&gt;</p>
+                    <p class="Code5">&lt;ref prec="0" refOp="opAssignId" deid="raw5"/&gt;</p>
+                    <p class="Code5">&lt;ref prec="1" refOp="opMapVal" mapVal="enumRefOpt"/&gt;</p>
+                    <p class="Code4">&lt;/EnumTB&gt;</p>
+                    <p class="Code3">&lt;/dgElements&gt;</p>
+                    <p class="Code2">&lt;DataGroup&gt;</p>
+                    <p class="Code">&lt;/dataGroups&gt;</p>
+                    <p class="Code">...</p>
+                    <p class="Code">&lt;enums&gt;</p>
+                    <p class="Code2">&lt;enumRefOpt&gt;</p>
+                    <p class="Code3">&lt;e0 value="Text 0"/&gt;</p>
+                    <p class="Code3">&lt;e1 value="Text 1"/&gt;</p>
+                    <p class="Code3">&lt;e2 value="Text 2"/&gt;</p>
+                    <p class="Code3">&lt;e3 value="Text 3"/&gt;</p>
+                    <p class="Code3">&lt;e4 value="Text 4"/&gt;</p>
+                    <p class="Code3">&lt;e5 value="Text 5"/&gt;</p>
+                    <p class="Code3">&lt;e6 value="Text 6"/&gt;</p>
+                    <p class="Code3">&lt;defVal value="Default Text"/&gt;</p>
+                    <p class="Code2">&lt;/enumRefOpt&gt;</p>
+                    <p class="Code">&lt;/enums&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are 
+		
+		<a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#mapVal">mapVal</a>, and <a href="enums Element.htm#Attribut">value</a>. A useful element to know is <a href="enums Element.htm">enums</a>. The lowercase letter e represents an enumerated value when followed by a number. A useful element to know is <a href="enums Element.htm#Supporti">defVal</a>.</p>
+        <h3><a name="Lookup"></a>Template Enumeration-Enumeration Lookup</h3>
+        <p>The following <a href="Basic and Advanced Reference Methods.htm">advanced reference method</a> example references the data group elements <a href="Example Values.htm">raw5</a> and <a href="Example Values.htm">raw2</a>. The value of raw2 (2) indicates which enumeration from <b>EMapEnums</b> to use (EEnergy). The value of raw5 (5) is mapped to the <b>e5</b> enumeration in the <b>EEnergy</b> table ("BTU"). The resultant value of "BTU" is set as the value for the data group element <b>Enum2EnumG</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div>
+                        <p class="Code">&lt;Enum2EnumG desc="Global Enum-Enum Lookup" type="string" isRef="1"&gt;</p>
+                        <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw5"/&gt;</p>
+                        <p class="Code2">&lt;ref prec="1" refOp="opMapToMapVal" deid="raw2" mapVal="EMapEnums"/&gt;</p>
+                        <p class="Code">&lt;/Enum2EnumG&gt;</p>
+                        <p class="Code">. . .</p>
+                        <p class="Code">&lt;enums&gt;</p>
+                        <p class="Code2">&lt;EMapEnums&gt;</p>
+                        <p class="Code3">&lt;e0 value="EDistance"/&gt;</p>
+                        <p class="Code3">&lt;e1 value="EEnergy"/&gt;</p>
+                        <p class="Code3">&lt;e2 value="EPressure"/&gt;</p>
+                        <p class="Code2">&lt;/EMapEnums&gt;</p>
+                        <p class="Code2">&lt;EDistance&gt;</p>
+                        <p class="Code3">&lt;e0 value="in"/&gt;</p>
+                        <p class="Code3">&lt;e1 value="ft"/&gt;</p>
+                        <p class="Code3">&lt;e2 value="yd"/&gt;</p>
+                        <p class="Code3">&lt;e3 value="mi"/&gt;</p>
+                        <p class="Code3">&lt;e4 value="mm"/&gt;</p>
+                        <p class="Code3">&lt;e5 value="cm"/&gt;</p>
+                        <p class="Code3">&lt;e6 value="km"/&gt;</p>
+                        <p class="Code2">&lt;/EDistance&gt;</p>
+                        <p class="Code2">&lt;EEnergy&gt;</p>
+                        <p class="Code3">&lt;e0 value="J"/&gt;</p>
+                        <p class="Code3">&lt;e1 value="KJ"/&gt;</p>
+                        <p class="Code3">&lt;e2 value="MJ"/&gt;</p>
+                        <p class="Code3">&lt;e3 value="GJ"/&gt;</p>
+                        <p class="Code3">&lt;e4 value="cal"/&gt;</p>
+                        <p class="Code3">&lt;e5 value="BTU"/&gt;</p>
+                        <p class="Code2">&lt;/EEnergy&gt;</p>
+                        <p class="Code2">&lt;EPressure&gt;</p>
+                        <p class="Code3">&lt;e0 value="inH2O"/&gt;</p>
+                        <p class="Code3">&lt;e1 value="kPa"/&gt;</p>
+                        <p class="Code3">&lt;e2 value="psi"/&gt;</p>
+                        <p class="Code3">&lt;e3 value="mmH2O"/&gt;</p>
+                        <p class="Code3">&lt;e4 value="bar"/&gt;</p>
+                        <p class="Code3">&lt;e5 value="atm"/&gt;</p>
+                        <p class="Code2">&lt;/EPressure&gt;</p>
+                        <p class="Code">&lt;/enums&gt;</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are 
+		
+		<a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#mapVal">mapVal</a>, and <a href="enums Element.htm#Attribut">value</a>. A useful element to know is <a href="enums Element.htm">enums</a>. The lowercase letter e represents an enumerated value when followed by a number.</p>
+        <h3><a name="Global2"></a>Global Enumeration Lookup</h3>
+        <p>Global enumerations are hard-coded global tables that are accessed from within a device template file by using <a href="DataGroupElement Element.htm#mapVal">mapVal</a> to define one of the keywords below. Values are hard-coded strings that are displayed in CygNet SCADA when the applicable numeric value is provided by a field device.</p>
+        <p>The <b>GlobalEnum</b> element references the data group element <a href="Example Values.htm">raw1</a> to request a mapped string value from the global <b>RefGlobalEAISet</b> table. The result is "1-Alarm Set" because the value from <b>raw1</b> is used to reference the string that correlates to value 1 hard coded for <b>RefGlobalEAISet</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;GlobalEnum desc="Global Enumeration Lookup"  type="string" ref="raw1" mapVal="RefGlobalEAISet"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#mapVal">mapVal</a>.</p>
+        <h4><a name="Global3"></a>Global Enumeration Keyword Values</h4>
+        <p>The following table lists and describes global enumeration keyword values. Global enumerations are hard-coded global tables that are accessed from within a device template file by using <a href="DataGroupElement Element.htm#mapVal">mapVal</a> to define one of the keywords below. Values are hard-coded strings that are displayed in CygNet SCADA when the applicable numeric value is provided by a field device.</p>
+        <table style="width: 700px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 600px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: bold;">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>RefGlobalEAISet</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-No Alarm</li>
+                        <li value="2">1-Alarm Set</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">RefGlobalEDisEn</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Disabled</li>
+                        <li value="2">1-Enabled</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">RefGlobalEEnDis</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Enabled</li>
+                        <li value="2">1-Disabled</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">RefGlobalEFail</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Good</li>
+                        <li value="2">1-Fail</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">RefGlobalEGoBad</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Good</li>
+                        <li value="2">1-Bad</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">RefGlobalENoYes</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-No</li>
+                        <li value="2">1-Yes</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">RefGlobalEOnOff</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-On</li>
+                        <li value="2">1-Off</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">RefGlobalEOpen</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Open</li>
+                        <li value="2">1-Closed</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">RefGlobalEParity</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-None</li>
+                        <li value="2">1-Even</li>
+                        <li value="3">2-Odd</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">RefGlobalERange</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-In Range</li>
+                        <li value="2">1-Out of Range</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">RefGlobalERotat</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Clockwise</li>
+                        <li value="2">1-Counter clockwise</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">RefGlobalEValInv</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Valid</li>
+                        <li value="2">1-Invalid</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">RefGlobalEYesNo</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <h6>Value:</h6>
+                    <ul class="table">
+                        <li value="1">0-Yes</li>
+                        <li value="2">1-No</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

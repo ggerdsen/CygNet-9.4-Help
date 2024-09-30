@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="System Administration">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Network Address Translation (NAT)</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="System Administration.htm">System Administration</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Network Address Translation (NAT)</span>
+        </div>
+        <h2>Network Address Translation (NAT)</h2>
+        <p>Network Address Translation (NAT) requires special setup for CygNet clients and services. The CygNet <b>Address Resolution Service</b> (ARS) delivers the network addresses of the CygNet services. If there is a router performing NAT, those addresses cannot be used by the CygNet client. The CygNet client must send the request to the router and it will in turn send it to the appropriate NATted addresss via a table.</p>
+        <p>CygNet uses the registry to determine which services are behind a NAT router. The registry entries are a list of string values in:</p>
+        <p><b>For a 32-bit registry location, use</b>
+        </p>
+        <p>
+            <table class="Code">
+                <tr>
+                    <td>
+                        <p class="Code">HKEY_LOCAL_MACHINE\SOFTWARE\Visual Systems, Inc.\CygNet\Dcl\NattedServices</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <p><b>For a 64-bit registry location, use</b>
+        </p>
+        <p>
+            <table class="Code">
+                <tr>
+                    <td>
+                        <p class="Code">HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Visual Systems, Inc.\CygNet\Dcl\NattedServices</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <p>The string value names are the <b>Names</b> of the services (wildcarding is supported). The <b>Data</b> is the IP address of the router.</p>
+        <p>The router needs to be configured so that the UDP port of the CygNet service is routed to the internal IP address where the service lives. Presently, CygNet does not support port translations. So, the port must match the port in the CygNet service configuration file. If needed, the CygNet configuration file can be edited to choose a used port for the service.&#160; If a <a href="Firewall.htm">firewall</a> is involved, it will need to allow UDP traffic through those ports.</p>
+        <p>CygNet clients use ports 49152  to 65535. CygNet services use ports between 5001 and 32767. Routers can translate those ports to ports above 32767. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This also applies to CygNet services when they’re acting as a CygNet client. For example, when a point changes in the PNT, the PNT notifies the associated CVS. That notification uses a "client port" on the PNT side, but uses the "service port" on the CVS side. When the CVS reads the changed point in the PNT, the CVS uses a "client port" to talk to the "service port" on the PNT.</p>
+        </div>
+        <p class="HeadingProcedure">To Configure Network Address Translation (Natting)</p>
+        <p>This will require that you have access to the CygNet host, network firewall, as well as a client machine for configuring and testing.</p>
+        <ol>
+            <li value="1">Start by getting the following information.</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">The internal IP address of the ARS</li>
+                <li value="2">The external IP address of the client system (<span class="NoteHeading">Tip:</span> Use <a href="http://www.whatismyip.com/" target="_blank">http://www.whatismyip.com/</a>)</li>
+                <li value="3">The external IP address of the firewall</li>
+            </ul>
+        </blockquote>
+        <ol start="2">
+            <li value="2">Place the <a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection Utility</a> (CygConn.exe) on the client system and configure it to use the external IP address of the firewall. Apply these settings.</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Update the registry information on the client system under the following location: </li>
+            </ul>
+        </blockquote>
+        <p class="Indent2"><b>For a 32-bit registry location, use</b>
+        </p>
+        <p class="Indent2">
+            <table class="Code">
+                <tr>
+                    <td>
+                        <p class="Code">HKEY_LOCAL_MACHINE\SOFTWARE\Visual Systems, Inc.\CygNet\Dcl\NattedServices</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <p class="Indent2"><b>For a 64-bit registry location, use</b>
+        </p>
+        <p class="Indent2">
+            <table class="Code">
+                <tr>
+                    <td>
+                        <p class="Code">HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Visual Systems, Inc.\CygNet\Dcl\NattedServices</p>
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <blockquote>
+            <ul>
+                <li value="1">Specify which services will be accessible by the client. If all services are available to the user, you can use a wild card, or you can specify each site individually. The NattedServices registry key supports fully qualified domain site service names. The site service format is [XXXX]MYSITE.SVC where XXXX is the domain, MYSITE is the name of the site, and SVC is the name of the service. If no domain ID is specified, the default domain is used.</li>
+            </ul>
+        </blockquote>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Specifying the domain ID is especially important when configuring the NattedServices registry key on a machine that is replicating from another domain. If no domain ID is specified, local communication among the services (for example, a UIS communicating to its PNT, an RSM communicating to its subordinate services) will be performed against the primary domain, not the replication domain, as intended.</p>
+        </div>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Wildcarding is only supported in the site.service portion of the name, not the domain.</p>
+        </div>
+        <p class="Indent2"> For example:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 50px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <ul class="Circle">
+                            <li value="1">All Services: “[5410]MYSITE.*”=”172.16.212.146”</li>
+                            <li value="2">Individual Service(s): “[5410]MYSITE.ARS”=”172.16.212.146”</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ol start="3">
+            <li value="3">Once this is completed on the client system, configure port forwarding on the router/firewall.</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Set it up so that all CygNet UDP ports are forwarded to the internal IP of the CygNet host. </li>
+            </ul>
+        </blockquote>
+        <p class="Indent2">For example:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder.css');" class="TableStyle_NoBorder" cellspacing="0">
+            <col style="width: 50px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColSep">
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle_NoBorder_Body_0_0_RowEnd_ColEnd">
+                        <ul class="Circle">
+                            <li value="1">Port Range 6000-6050 are forwarded to internal IP 192.168.0.1</li>
+                            <li value="2">Port 5410 (default Domain) is also forwarded to 192.168.0.1</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ol start="4">
+            <li value="4">You should now be able to reach the ARS using the CygNet Domain Connection utility on the client machine. 
+        </li>
+        </ol>
+        <ol start="5">
+            <li value="5">Once the CygNet Domain Connection utility is able to communicate with the ARS, launch CygNet Explorer and verify that you are able to access each of the services that you want the customer’s system to have access to.<br /></li>
+            <li value="6">Verify that security is properly configured for the user who is accessing the system.<br /></li>
+            <li value="7">Now that we have access to the services, you can use CygNet Web to view any CygNet data.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

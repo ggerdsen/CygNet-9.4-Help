@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Flow Automation EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Flow Automation EIE – Function Type to Data Group Mapping</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Flow Automation EIE.htm">Flow Automation EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Function Type to Data Group Mapping</span>
+        </div>
+        <h2>Function Type to Data Group Mapping</h2>
+        <p>Flow Automation function types enable the collection and computation of a class of data for a special purpose. They must be manually loaded onto a field device. A function type is made up of a static numeric identifier and a name. Each function type is associated with one or more CygNet data groups. Which functions are available to you depends on field device firmware, field device configuration, and the device template file used.</p>
+        <p>In order for a function type to be used with CygNet, you must add at least one associated data group to the CygNet remote device. The associated CygNet data group is made up of all relevant messages required to support an associated function type. However, the relationship between function types and data groups is not strictly 1:1.</p>
+        <p>See the following possible scenarios for more information:</p>
+        <ul>
+            <li value="1"><b>One Function Type Supporting One or More Meters</b>: A single function type might support several meter runs on the Flow Automation field device. In CygNet, however, an associated data group must be added for each meter run instance.</li>
+            <li value="2"><b>One Function Type Supporting No Meters</b>: Not all function types support meter runs. If a function type does not support a meter run, you might need only one instance of an associated data group.</li>
+            <li value="3"><b>Multiple Associated Data Group Types</b>: In some cases, multiple associated data group types are available for use with a function. You do not necessarily need to add all of these in order to support the function type. Which data group(s) you choose depends on your specific needs.</li>
+        </ul>
+        <p>You may add any available data group to a remote device. However, if you attempt to retrieve data using a data group for which no associated function exists, the retrieval fails and an error message indicates the failure.</p>
+        <p>The error message in the UIS&#160;log is as follows:</p>
+        <ul>
+            <li value="1">Cmd: DG_F_DEV device:FLOWAUTO, status:2:FAILED: Could not validate request: <i>FunctionTypeName</i> function index not found.</li>
+        </ul>
+        <p>The error message dialog box in the DDS is as follows:</p>
+        <p>
+            <img src="../../Resources/Images/EIEs - Remote Devices/flow_auto_missing_function_error_dialog.png" title="Error Message" alt="Error Message" />
+        </p>
+        <p>Poll your "RTU Config" data group to update and view available function types.</p>
+        <h3>Function Types and Associated Data Groups</h3>
+        <p>The following table lists Flow Automation function types supported by CygNet and their associated data groups. The <b>Customer Code</b> helps determine whether or not a function type is available  for a given field device. For instance, <b>6 — Drip Control</b> is only available with CO field devices. The customer code appears in positions 5 and 6 of the field device's software ID, which can be viewed in the "RTU&#160;Config"&#160;data group dialog box.</p>
+        <table style="width: 550px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 160px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 230px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 160px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Function Type</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Associated Data Group(s)</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Customer Code</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>6 — Drip Control</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Drip Control Parms (native)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>9 — PID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PID Parms (native)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>EG, MB, DV, CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>11 — Analog History</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Historical Analog Config</p>
+                    <p>Historical Analog Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>EG, MB, DV, CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>12 — Tank Gauge</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Tank Function</p>
+                    <p>Tank Gauge Offsets</p>
+                    <p>Tank Sensor Configuration</p>
+                    <p>Tank Sensor Instantaneous Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>EG, MB, DV</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>12 — Auto Plunger</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Auto Plunger Lift Data (native)</p>
+                    <p>Auto Plunger Lift Parms (native)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>13 — Scanner</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Scanner Function Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>EG, MB, DV</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>13 — Manual Plunger</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Manual Plunger Lift Data</p>
+                    <p>Manual Plunger Lift Parms</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>14 — Tank Gauge</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Tank Function</p>
+                    <p>Tank Gauge Offsets</p>
+                    <p>Tank Sensor Configuration</p>
+                    <p>Tank Sensor Instantaneous Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>15 — Scanner</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Scanner Function Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>16 — PID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PID Parms (native)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>CO</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>20 — Manual Plunger</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Manual Plunger Lift Data</p>
+                    <p>Manual Plunger Lift Parms</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: left;">
+                    <p>EG, MB, DV</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>21 — Flow Plunger</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Flow Plunger Cycle History</p>
+                    <p>Flow Plunger Lift Data</p>
+                    <p>Flow Plunger Lift Parms</p>
+                    <p>Flow Plunger Summary</p>
+                    <p>Historical Minute Data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: left;">
+                    <p>EG, MB, DV</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

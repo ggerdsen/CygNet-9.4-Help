@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Storage|Data Storage for DBS-Based Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How ESE Works</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Data Storage/Data Storage in CygNet.htm">Data Storage</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Storage for DBS-Based Services.htm">Data Storage for DBS-Based Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How ESE Works</span>
+        </div>
+        <h2>How ESE Works </h2>
+        <p>Before changes are made to a database file, ESE writes the changes to a transaction log file. After a change has been safely logged, it can then be written to the database file. It is common for these changes to become available to users just after the changes have been secured to the transaction log, but before they have been written to the database file. </p>
+        <p>ESE employs a sophisticated internal memory management system that is tuned for high performance and can efficiently manage the caching of dozens of gigabytes (GBs) of database pages. Therefore, physically writing out changes to the database file is a low-priority task during normal operation.</p>
+        <p>If a database suddenly stops, cached changes are not lost just because the memory cache was destroyed. When the database restarts, ESE scans the log files, and reconstructs and applies any changes not yet written to the database file. This process is called replaying log files. The database is structured so that ESE can determine whether any operation in any log file has already been applied to the database, needs to be applied to the database, or does not belong to the database. </p>
+        <p>The following sequence describes this process in more detail: </p>
+        <ol>
+            <li value="1">When an operation occurs, the page that requires updating is placed in the ESE cache and the log buffer records the operation in memory. </li>
+            <li value="2">The changes are recorded by the database engine but not immediately written to disk. These are known as "dirty" pages because they have not been committed to the database. </li>
+            <li value="3">As the database pages are changed, the log buffer is notified to commit the change, and the transaction is recorded in a transaction log file (which may or may not require a log roll; that is, the creation of a new transaction log file). </li>
+            <li value="4">The dirty database changes are flushed to the database file. </li>
+            <li value="5">The log file checkpoint is advanced. </li>
+        </ol>
+        <h3><a name="Buffer"></a>Buffer Cache Management</h3>
+        <p>ESE uses a comprehensive buffer manager to decide how much memory the buffer cache should use via an internal feature called Dynamic Buffer Allocation (DBA). ESE continuously monitors the state of the cache, verifying system requirements, and adjusting cache size when necessary. DBA uses the following rules to determine how the buffer cache should grow or shrink over time:</p>
+        <ul>
+            <li value="1">The more memory available, the faster the cache grows.</li>
+            <li value="2">The more cache memory, the faster the cache  shrinks.</li>
+            <li value="3">The higher the memory load, the faster the cache  grows.</li>
+            <li value="4">The higher the available memory load, the faster the cache  shrinks.</li>
+        </ul>
+        <p>See the SVCINFO Security Event for the applicable CygNet Service in the <a href="../Security/Security Reference.htm">Security Reference</a> topics for more information about changing DBS and VHS disk cache minimum and maximum sizes.</p>
+        <p>The CygNet DBS-based services use the following service configuration keywords to define the memory limits that the system can allocate for the disk cache. The default value for these keywords is different for each DBS-based service and is set in the service’s configuration file.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>DBS_DISK_CACHE_IN_MEGS</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Specifies the maximum amount of memory that the system will allocate for the disk cache in megabytes. See <a href="#Buffer" class="selected">Buffer Cache Management</a> for more information.</p>
+                        <p>The <a href="../Service Monitoring/Info Items - Shared Service Specific.htm#DBS_FILE_CACHE_MAX">DBS_FILE_CACHE_MAX</a> (DBS file cache max) info item will report the value of this keyword.</p>
+                        <p>This database caching behavior takes advantage of the Windows File System Cache if the specified cache size is less than 10% of the sum of the database and index files (as calculated at startup). If this is the case, a line will be logged at startup in the service’s log file which contains "Enabling usage of the filesystem cache." The File System Cache is managed by the operating system and is used by many different processes. It allows each process to compete for the limited memory available on the machine based on need and priority. The benefit is that if you have a server with a lot of extra memory, it can be temporarily put to use as a database cache until a process with higher priority needs it. </p>
+                        <p>The only potential downside is that if the File System Cache grows to use all available memory, and you want to run a new process, it may take a little longer than usual for that process to start, as the memory needs to be reclaimed from the File System Cache. If this delay becomes an issue, you can avoid using the File System Cache by setting the <b>DBS_DISK_CACHE_IN_MEGS</b> value to more than 10% of the sum of the database and index files, or contact <a href="../CygNet Software/Contact CygNet Support.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Support contact information" data-mc-width="500px" data-mc-height="auto">CygNet Support</a> for assistance in limiting the maximum size of the File System Cache. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>DBS_MIN_DISK_CACHE_IN_MEGS</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Specifies the minimum amount of memory that the system will allocate for the disk cache in megabytes. Controls how eager the DBS’s data cache will be to consume memory in the absence of other memory pressure in the system.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><b>DBS_FILESYSTEM_CACHE_USAGE</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Allows a DBS service to configure its database engine with a small dedicated cache and allows Windows to donate spare memory to further improve the caching of database data. See <a href="#Buffer" class="selected">Buffer Cache Management</a> for more information about Windows File System Cache usage.</p>
+                        <ul class="table">
+                            <li value="1">Set to <b>ON</b> to enable the usage of the Windows File System Cache.</li>
+                            <li value="2">Set to <b>OFF</b> to disable the feature entirely.</li>
+                            <li value="3">Set to <b>HEURISTIC</b> to follow the 10% model used by the <b>DBS_DISK_CACHE_IN_MEGS</b> keyword, described <a href="#Buffer" class="selected">here</a>.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>ESE evaluates the availability of system memory 
+		resources before saving pages in the page cache. If memory is highly 
+		constrained, the cache will not grow even if the maximum setting has not 
+		been reached. </p>
+        <p>The VHS has its own service configuration keywords for configuring these parameters. See <a href="../History/VHS Database Page Cache.htm">VHS Database Page Cache</a> for more information.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>VHS_MAX_CACHE_SIZE_MB</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Specifies the maximum size of the database page cache for the VHS datastore in megabytes. The default for this keyword is 1000 megabytes.
+</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p><b>VHS_MIN_CACHE_SIZE_MB</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Specifies the minimum size of the database page cache for the VHS datastore in megabytes. The default for this parameter is 200 megabytes.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Transactions </h3>
+        <p>ESE is a sophisticated, transaction-based database engine. A transaction is bundle of one or more database update operations that are treated as an atomic (indivisible) unit. The term "update" is used generically to describe any operation that changes the database: updating, adding, or deleting records. All operations in a transaction are both completed and permanently saved, or no operations are performed.</p>
+        <p>In CygNet, a transaction could be a single operation (for example, updating a PNT record) or a series of operations (for example, creating or deleting a device). Be aware, though, that a seemingly single operation may actually be a series of operations, particularly if it involves updating indexes. For example, adding a PNT record would include the operations for adding the record and updating the index. </p>
+        <p>ESE transactions are highly reliable and are referred to as ACID transactions because they are identified by the following attributes: atomic, consistent, isolated and durable. See <a href="Terminology.htm#ACID">ACID</a> for more information. Such transactions allow CygNet to retrieve data only from reliable data states and maintain data consistency in the event of an unexpected process termination or system crash. </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

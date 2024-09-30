@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Import/Export Devices|Sonic Queue EIE (SonicQ)">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Sonic Queue (SonicQ) Scripting</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Import Export Devices.htm">Import/Export Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Sonic Queue EIE (SonicQ).htm">Sonic Queue EIE (SonicQ)</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Scripting</span>
+        </div>
+        <h2>Sonic Queue (SonicQ) Scripting</h2>
+        <p>CygNet utilizes Sonic's COM functions to communicate with their queue objects. Full communication in script with a queue has four separate steps: connection, receiving, sending, and browsing.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> To allow the following scripts to be run successfully, a SonicQ broker must be online and configured according to Sonic's recommendations.</p>
+        </div>
+        <h3>Scripting Options</h3>
+        <p>CygNet communicates with the SonicQ Broker with the following scripting options: <a href="#Connection" class="selected">Connection</a>, <a href="#Receiving" class="selected">Receiving</a>, <a href="#Sending" class="selected">Sending</a>, and <a href="#Browsing" class="selected">Browsing</a>.</p>
+        <h4><a name="Connection"></a>Connection</h4>
+        <p>To send, receive, or browse a queue, first the script must establish a connection. Establishing a connection is the most complicated process in Sonic's COM library. It requires the use of four separate objects: Factories, Connections, Sessions, and Queues. </p>
+        <p><b>Factory</b> - A Factory is the object that creates and establishes communication with the queue. Once established it creates the Connection object. The Factory must be given the URL of the queue, as well as the user name and password required for security. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim factory</p>
+                    <p class="Code">Set factory = CreateObject("JMSCOMClient.JMSQueueConnectionFactory")</p>
+                    <p class="Code">Call factory.initialize5(browserURL, username, password)</p>
+                </td>
+            </tr>
+        </table>
+        <p><b>Connection</b> - A Connection is the object created by a Factory that creates Sessions with a queue. Only a single Factory is needed to create many Connections to a queue. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim connection</p>
+                    <p class="Code">Set connection = factory.createQueueConnection</p>
+                    <p class="Code">connection.start</p>
+                </td>
+            </tr>
+        </table>
+        <p><b>Session</b> - A Session is created by a Connection and serves as the means for sending and receiving messages from the queue. It also creates a <b>Queue</b> object, which specifies the queue to communicate with during sending and receiving. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim session</p>
+                    <p class="Code">Dim queue</p>
+                    <p class="Code">Set session = connection.createQueueSession(False, 1)</p>
+                    <p class="Code">Set queue = session.createQueue(queueName)</p>
+                </td>
+            </tr>
+        </table>
+        <p>With a Session and a Queue, the script can create the objects necessary for sending, receiving, and browsing.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Receiving"></a>Receiving</h4>
+        <p>To receive a message off a Sonic queue, first the script must create a Receiver. This requires a Session and Queue object. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim receiver</p>
+                    <p class="Code">Set receiver = session.createReceiver(queue)</p>
+                </td>
+            </tr>
+        </table>
+        <p>Now, the receiver may be set up to read messages off the queue defined for the session.</p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim message</p>
+                    <p class="Code">Set message = m_receiver.receive</p>
+                    <p class="Code">message.acknowledge</p>
+                </td>
+            </tr>
+        </table>
+        <p>In the above example, the variable 'message' will have the contents of the first message off of the queue.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Sending"></a>Sending</h4>
+        <p>To send or write a message off to a Sonic queue, first the script must create a Sender. This requires a Session and Queue object. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim sender</p>
+                    <p class="Code">Set sender = session.createSender(queue)</p>
+                </td>
+            </tr>
+        </table>
+        <p>Now, the receiver may be set up to write messages to the queue defined for the session. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim message</p>
+                    <p class="Code">message.setText msgText</p>
+                    <p class="Code">Call sender.send(m_message)</p>
+                </td>
+            </tr>
+        </table>
+        <p>In the above example, the contents of the variable 'msgText' have been written to the queue.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Browsing"></a>Browsing</h4>
+        <p>Receiving a message requires the receiver to ask if a message is available, that is, if the queue has a message in it. If the queue is empty, a receive operation with return nothing. Browsing will wait for a message to be put on the queue and return it as soon as it is available.</p>
+        <p>To browse a Sonic queue, first the script must create a Browser, which creates a Browser Enumeration. This requires a Session and Queue object. </p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim browser</p>
+                    <p class="Code">Dim browserEnum</p>
+                    <p class="Code">Set browser = session.createBrowser(queue)</p>
+                    <p class="Code">Set browserEnum = browser.getEnumeration</p>
+                </td>
+            </tr>
+        </table>
+        <p>To check if a queue has any messages, call the following function of the Browser Enumeration:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">browseEnum.hasMoreElements</p>
+                </td>
+            </tr>
+        </table>
+        <p>To read the next message on the queue, you ask for the variable 'next element.'</p>
+        <p><b>Example</b>
+        </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Dim message</p>
+                    <p class="Code">Set message = browserEnum.nextElement</p>
+                </td>
+            </tr>
+        </table>
+        <p>In the above example, 'message' has the contents of the next message off the queue.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

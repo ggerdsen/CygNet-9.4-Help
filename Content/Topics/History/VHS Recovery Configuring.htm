@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|VHS Utilities|VHS Recovery Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring the VHS Recovery Utility</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Utilities.htm">VHS Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="VHS Recovery Utility.htm">VHS Recovery Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring the VHS Recovery Utility</span>
+        </div>
+        <h2>Configuring the VHS Recovery Utility</h2>
+        <p>The configuration of the VHS Recovery utility will vary depending on your unique recovery situation. For backfilling a new history database after a <a href="VHS Quick Recovery.htm">Quick Recovery</a> event, CygNet recommends restoring history from <a href="VHS Journal Files.htm">Journal Files</a> and then attempting to restore data from the "dirty" database created by the <a href="VHS Quick Recovery.htm">Quick Recovery</a> process. When restoring history data for any reason, CygNet recommends using filtering only where absolutely necessary. Unnecessary filter criteria can dramatically slow the recovery process. This is especially true when the filter contains UDC or Facility as the history service does not store this information and must cross reference against the Point service to obtain it.</p>
+        <p class="HeadingProcedure">Configuring the VHS Recovery Utility</p>
+        <ol start="1">
+            <li value="1">Click <b>…</b> to select the <b>VHS Service</b> to which you wish to restore data. </li>
+            <li value="2">Type the <b>Domain</b> on which the service is located.</li>
+            <li value="3">Click <b>…</b> to select a <b>Status Tag</b> if desired. See <a href="VHS Recovery Utility.htm#StatusTag">Status Tag</a> for more information.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Browse to select the <b>CVS Site.Service</b>.</li>
+            <li value="2">Select the <a href="VHS Recovery Utility.htm#StatusTag">Status Tag</a> from the list.</li>
+            <li value="3">Click the <b>OK</b> button.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Add a recovery item to the recovery plan.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Click either <b>Add Journal Recovery Item</b>&#160;<img src="../../Resources/Images/History/VHS Recovery Add File.png" class="Inline" /> or <b>Add Database Recovery Item</b>&#160;<img src="../../Resources/Images/History/VHS Recovery Add DB.png" class="Inline" /> icon on the toolbar, as appropriate.</li>
+            <li value="2">Browse to select either the <b>Journal File</b> or <b>Database Folder</b> of the history data you wish to restore. The multiple character wildcard (<b>*</b>) can be used to specify multiple journal files or database folders. </li>
+        </ol>
+        <p class="Indent4">For example, <b>*.JNL</b> will restore from all journal files in the selected folder; <b>Journal_20110505*.JNL</b> will restore data from all journal files created on May 5, 2011; and <b>Journal_20110505000014.JNL</b> will restore from exactly one file created on May 5, 2011 at 14 seconds past midnight. </p>
+        <p class="Indent4">Using a wildcard to specify multiple database folders may be useful after events such as a succession of power failures, where Quick Recovery has created several "dirty" database directories in a small amount of time. Setting the database folder to <b>QR_DirtyDB_20110505*</b> would recover data from all database files created on May 5, 2011. In the multiple power failure scenario, some of those database files may have been online long enough to collect data from the current value services before the power was lost and the databases were archived during Quick Recovery. It would be important to recover this data even though the database was only operational for a short time.</p>
+        <ol class="Lower_alpha" start="3">
+            <li value="3">If desired, enable <b>Include Only When File Time Suffix is After</b>. This will only include files or folders that are more recent than the time specified. This can be either a wildcard (for example, T-1) or an exact time.</li>
+        </ol>
+        <p class="Indent4">Journal files and "dirty" database folders are named with a suffix indicating the timestamp of their creation. The VHS Recovery utility can filter files/folders based on that timestamp using the <b>Include Only When File Time Suffix is After</b> option. </p>
+        <p class="Indent4">Click <b>…</b> to <b>Select Date and Time</b> after which files should be included. Options are: <b>Absolute Date/Time</b>, <b>Relative Date/Time</b>, or <b>Relative Day</b>. Click <b>OK</b> when done.</p>
+        <p class="Indent4">For example, to include only journal folders created today, specify that the <b>File Time Suffix</b> must be after <b>T-1</b> (yesterday). An absolute time may also be used instead of a relative date reference.</p>
+        <p class="Indent4">
+            <img src="../../Resources/Images/History/VHS Recovery Date Edit.png" />
+        </p>
+        <p class="Indent4">See <a href="../Date and Time/Date and Time Wildcards.htm">Date and Time Wildcards</a> for more information about using wildcards in timestamps.</p>
+        <ol class="Lower_alpha" start="4">
+            <li value="4">If desired, add filter rules. Click Edit Filter to view the <b>History Data Filter</b> dialog box. <a href="VHS Recovery Utility.htm#Filterin">Filtering</a> should be used only as necessary, as it can slow the recovery process. See <a href="../CygNet Studio/Filter Rules - Using.htm">Using CygNet Filter Rules</a> for a general discussion on using CygNet filter rules.</li>
+            <li value="5">Ensure <b>Enable Recovery Item</b> is enabled.</li>
+            <li value="6">Click <b>OK</b>.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Repeat step 4 until all the appropriate steps have been added to the recovery plan.</li>
+            <li value="6">Use the <b>Up</b>&#160;<img src="../../Resources/Images/Shared Images/moveup.png" class="Inline" /> and <b>Down</b>&#160;<img src="../../Resources/Images/Shared Images/movedown.png" class="Inline" /> icons on the toolbar to change the order of the recovery steps, if necessary.</li>
+            <li value="7">Click the <b>Save</b>&#160;<img src="../../Resources/Images/Shared Images/save.png" class="Inline" /> icon on the toolbar to save the configuration to an .xml file for re-use.</li>
+            <li value="8">To execute the recovery, select <b>Execute</b> from the <b>File</b> menu. When prompted to confirm, click <b>Yes</b> to start the recovery and begin writing history data to the specified service, or click <b>No</b> to cancel.</li>
+        </ol>
+        <h3>Command-Line Usage</h3>
+        <p>A recovery can be initiated via a command line. The command-line syntax is defined as:</p>
+        <p class="Syntax">[&lt;filename.xml&gt; [/A [/d &lt;domain&gt;] [/s &lt;site.service&gt;] ]]</p>
+        <p>where:</p>
+        <ul>
+            <li value="1"><b>filename.xml</b> is the name of the recovery XML file to open upon execution</li>
+            <li value="2"><b>/A</b> is the auto-run parameter, which when added will automatically perform the recovery steps defined in the recovery XML file <i>without</i> invoking the dialog box</li>
+            <li value="3">When the auto-run parameter (<b>/A</b>) is supplied, the following parameters can be added to override the values contained in the recovery XML file. This allows a single generic recovery file to be used in many similar circumstances.<ul class="Circle"><li value="1"><b>/d</b> to specify the domain, and/or</li><li value="2"><b>/s</b> to specify a history site and service. </li></ul></li>
+        </ul>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <TR>
+                <TD>
+                    <p class="Code">myfile.xml /A /d 31313 /s mysite.vhs</p>
+                </TD>
+            </TR>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

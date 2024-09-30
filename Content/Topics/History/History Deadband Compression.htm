@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|History Data|History Reporting|Data Compression">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>History Deadband Compression</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Data.htm">History Data</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Reporting.htm">History Reporting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Compression.htm">Data Compression</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">History Deadband Compression</span>
+        </div>
+        <h2>History Deadband Compression</h2>
+        <p>The History Deadband compression method is a second method for reducing the number of historical real-time values reported to the CygNet Historian (VHS). This method acts sequentially as data values are received by all CygNet CVSs. If a point’s value <i>exceeds</i> the configured deadband range it will be reported to the VHS. The deadband is a literal value, not a percentage value. In the following diagram the deviation is set at 1, with the deadband equal to 2.</p>
+        <p>
+            <img src="../../Resources/Images/History/History Deadband Compression 1.png" />
+        </p>
+        <p>If a point has a history deadband value configured, the previous value in the CVS before "leaving" the deadband range is sent to the VHS, <u>as well as</u> the next value that causes the deadband range to be exceeded. The following diagram shows which values will be sent to the VHS, assuming a deviation of 5, with incoming values of 10,13,14, and 20.  The colored areas indicate that the values of 14 and 20 will be sent to the VHS at the same time when the value of 20 comes in to the CVS.</p>
+        <p>
+            <img src="../../Resources/Images/History/History Deadband Compression 2.png" />
+        </p>
+        <p>Considerations for <a href="Reporting Options.htm#Maximum">Maximum reporting interval</a> and <a href="Reporting Options.htm#Minimum">Minimum evaluation time</a> will be evaluated before applying the compression settings.  For example, if a new value is received by the CVS that exceeds the configured <b>Maximum reporting interval</b>, it will be sent to the VHS directly regardless of whether it exceeds any compression settings.  Additionally, new values will always be sent to the VHS if their status bits have changed from one value update to the next, or if the timestamp of the new value received is older than the previously received value.</p>
+        <p>The History Deadband compression and its associated deadband range (deviation) are configured on the <a href="../Points/PNT Editor - History Page.htm">History</a> page of the point configuration record.</p>
+        <h3>Deadband Examples</h3>
+        <p>The following simple example compares the same points with no history deadband (0) and a small history deadband value (0.5).</p>
+        <p>Assume the following values are received by the CVS:</p>
+        <p class="Indent2">1 @ 1:00:00</p>
+        <p class="Indent2">2 @ 1:00:05</p>
+        <p class="Indent2">2 @ 1:00:10</p>
+        <p class="Indent2">2 @ 1:00:15</p>
+        <p class="Indent2">3 @ 1:00:20</p>
+        <p>For a point configured <i>without</i> deadbanding (value of 0), the following values will be sent to the VHS:</p>
+        <p class="Indent2">1 @ 1:00:00</p>
+        <p class="Indent2">2 @ 1:00:05</p>
+        <p class="Indent2">3 @ 1:00:20</p>
+        <p>For a point configured <i>with</i> a history deadband value of 0.5,  the following values will be sent to the VHS:</p>
+        <p class="Indent2">1 @ 1:00:00</p>
+        <p class="Indent2">2 @ 1:00:05</p>
+        <p class="Indent2">2 @ 1:00:15</p>
+        <p class="Indent2">3 @ 1:00:20</p>
+        <p>This simple example provides a visual aid for trending and gives a sense of the time interval between data points. Once you understand the basics, it’s easy to predict more complex examples:</p>
+        <p>For a deadband range set at 0.2, only the values in bold are sent to the VHS:</p>
+        <p class="Indent2"><b>1</b> -&gt; <b>2</b> -&gt; 2.1 -&gt; 2.2 -&gt; 2.1 -&gt; <b>2.3</b> -&gt; <b>2.6</b> -&gt; <b>4</b></p>
+        <p>For a deadband range set at 0.1, only the values in bold are sent to the VHS:</p>
+        <p class="Indent2"><b>1</b> -&gt; <b>2</b> -&gt; <b>3</b> -&gt; 3.1 -&gt; <b>3.2</b> -&gt; <b>3.5</b> -&gt; <b>4</b> -&gt; <b>6</b> -&gt; 6.1 -&gt; <b>10</b></p>
+        <p class="Indent2"><b>1</b> -&gt; <b>2</b> -&gt; 2.1 -&gt; 2 -&gt; <b>3</b></p>
+        <h3>Additional Data Thinning </h3>
+        <p>For historical data that has already been written to the historian (uncompressed), the data can be thinned with the Deadband compression method via the <a href="VHS Data Analyzer Deadband Compression.htm">VHS Data Thinner Utility</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

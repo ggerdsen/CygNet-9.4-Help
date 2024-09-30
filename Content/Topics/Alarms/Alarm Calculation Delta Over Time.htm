@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Delta Over Time</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Delta Over Time Alarm Calculation</span>
+        </div>
+        <h2>Delta Over Time Alarm Calculations</h2>
+        <p>The Delta Over Time alarm calculation types include variations detailed below. They can only be implemented with the CygNet Enhanced Point Scheme. See <a href="../Points/Understanding the CvsMetadata File.htm">Understanding the CVS&#160;Metadata File</a> for more information about the elements and attributes that define the CygNet Enhanced Point Scheme.</p>
+        <p>For more information, see <a href="Alarm Calculation Types.htm">Alarm Calculation Types</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Val" class="selected">Delta Value Over Time</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Pos" class="selected">Delta Value Over Time Positive</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Neg" class="selected">Delta Value Over Time Negative</a>
+            </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> All Calculation Parameters are user-provided.</p>
+        </div>
+        <h3><b><a name="Val"></a>Delta Value Over Time</b>
+        </h3>
+        <p>The Delta Over Time alarm uses the Delta Value over Time  (DELTA_OVER_TIME) calculation. On each update, the system finds the first value that is older than the time interval specified,  calculates the value and time deltas between that value and the updated value, and gets the Delta Over Time rate from those two values.  If the absolute value of the Delta Over Time rate exceeds the  MaxRate of calcparm1/calcparm2, the alarm is set.</p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum EU difference allowed</b> (calcparm1) — maximum allowed  change of value over the specified   time interval before the alarm is set
+            </li>
+            <li value="2"><b>Time Interval (sec)</b> (calcparm2) — the time span used to determine the difference (delta) of the two values</li>
+        </ul>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">MaxRate = calcparm1/calcparm2</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta Value = Updated (current) Val - Newest Val Older than Time Interval </p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Seconds between values = Updated time - Time of Newest Val Older than Time Interval </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col style="width: 336px;" />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Delta Over Time = Delta Value / Seconds between values</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If (ABS) Delta Over Time &gt; MaxRate, alarm is set</li>
+            <li value="2">If (ABS) Delta Over Time ≤ MaxRate, alarm is not set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 10</li>
+            <li value="2">calcparm2 = 30</li>
+        </ul>
+        <p>In this example, the Delta Over Time bit  is set because the Delta Over Time rate (0.5384)  is greater than the MaxRate (0.333).</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">MaxRate = 10/30 = 0.333</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta = 36 -15 = 21</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Seconds between values = 27:10 - 26:31 = 39 sec.</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta Over Time = 21/39 = 0.5384 (exceeds MaxRate of 0.333, so bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DeltaValVHS.png" title="Delta Over Time status bit" alt="Delta Over Time status bit" />
+        </p>
+        <h3><b><a name="Pos"></a>Delta Value Over Time Positive</b>
+        </h3>
+        <p>The Positive Delta Over Time alarm uses the Delta Value over Time Positive (DELTA_OVER_TIME_POS) calculation. On each update, the system finds the first value that is older than the time interval specified,  calculates the value and time deltas between that value and the updated value, and gets the Delta Over Time rate from those two values. If the Delta Over Time rate exceeds the MaxRate of calcparm1/calcparm2, the alarm is set.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Positive Delta over Time.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DeltaOvrTime_Pos.png" title="Positive Delta Over Time alarm" alt="Positive Delta Over Time alarm" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum EU difference allowed</b> (calcparm1) — maximum allowed  change of value over the specified   time interval before the alarm is set
+            </li>
+            <li value="2"><b>Time Interval (sec)</b> (calcparm2) — the time span used to determine the difference (delta) of the two values</li>
+        </ul>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">MaxRate = calcparm1/calcparm2</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta Value = Updated (current) Val - Newest Val Older than Time Interval </p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Seconds between values = Updated time - Time of Newest Val Older than Time Interval </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code" style="width: ;">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Delta Over Time = Delta Value / Seconds between values</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If Delta Over Time &gt; MaxRate, alarm is set</li>
+            <li value="2">If Delta Over Time ≤ MaxRate, alarm is not set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 1.01</li>
+            <li value="2">calcparm2 = 30</li>
+        </ul>
+        <p>In this example, the Positive Delta Over Time bit  is set because the Delta Over Time rate (2.5)  is greater than the MaxRate (0.0336).</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">MaxRate = 1.01/30 = 0.0336</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta = 97 - 12 = 85</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Seconds between values = 10:15:18 - 10:14:44 = 34 sec.</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code" />
+                        <p class="Code">Delta Over Time = 85/34 = 2.5 (exceeds MaxRate of 0.0336, so bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DeltaPosVHS.png" title="Positive Delta Over Time status bit" alt="Positive Delta Over Time status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><b><a name="Neg"></a>Delta Value Over Time Negative</b>
+        </h3>
+        <p>The Negative Delta Over Time alarm uses the Delta Value over Time Negative (DELTA_OVER_TIME_NEG) calculation. On each update, the system finds the first value that is older than the time interval specified,  calculates the value and time deltas between that value and the updated value, and gets the Delta Over Time rate from those two values. If the Delta Over Time rate is less than the negative MaxRate of calcparm1/calcparm2, the alarm is set.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Negative Delta over Time.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DeltaOvrTime_Neg.png" title="Negative Delta Over Time alarm" alt="Negative Delta Over Time alarm" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameters</b>
+        </p>
+        <ul>
+            <li value="1"><b>Maximum EU difference allowed</b> (calcparm1) — maximum allowed  change of value over the specified   time interval before the alarm is set
+            </li>
+            <li value="2"><b>Time Interval (sec)</b> (calcparm2) — the time span used to determine the difference (delta) of the two values</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The maximum EU difference allowed (calcparm1) must be entered as a positive value in the calculations.</p>
+        </div>
+        <p>Preliminary Calculations:</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">MaxRate = calcparm1/calcparm2</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta Value = Updated (current) Val - Newest Val Older than Time Interval </p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Seconds between values = Updated time - Time of Newest Val Older than Time Interval </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Equation</p>
+        <table class="Code" style="width: ;">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Delta Over Time = Delta Value / Seconds between values</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If Delta Over Time &lt; - MaxRate, alarm is set</li>
+            <li value="2">If Delta Over Time ≥ - MaxRate, alarm is not set</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 1.01</li>
+            <li value="2">calcparm2 = 30</li>
+        </ul>
+        <p>In this example, the Negative Delta Over Time bit  is set because the Delta Over Time rate (-0.0571)  is less than the -MaxRate (-0.0336).</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">MaxRate = 1.01/30 = 0.0336</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Delta = 20 - 32 = -12</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code">Seconds between values = 15:07:24 - 15:03:54 = 210 sec.</p>
+                        <p class="Code">&#160;</p>
+                        <p class="Code" />
+                        <p class="Code">Delta Over Time = -12/210 = -0.0571 (less than - MaxRate of -0.0336, so bit is set)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DeltaNegVHS.png" title="Negative Delta Over Time status bit" alt="Negative Delta Over Time status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

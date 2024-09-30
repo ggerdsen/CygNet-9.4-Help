@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Eagle EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Eagle EIE – History Retrieval Optimization</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Eagle EIE.htm">Eagle EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">History Retrieval Optimization</span>
+        </div>
+        <h2>History Retrieval Optimization</h2>
+        <p>This EIE provides multiple methods to retrieve historical data, at least one of which is optimized.</p>
+        <p>The non-optimized way to retrieve historical data uses static parameters like start date, end date, and index to define data retrieval. The number of messages retrieved by the non-optimized method might be greater than necessary and might include records you've already retrieved in a prior poll. This method for retrieving historical data ignores available cache information because the information is irrelevant to the non-optimized request. If a cache preexisted the non-optimized retrieval, the cache remains unaffected. If a cache did not preexist the non-optimized retrieval, the latest record retrieved is used to populate the cache.</p>
+        <p>The optimized ways to retrieve historical data take advantage of a host-side transaction cache that keeps track of one or two items, depending on EIE:</p>
+        <ul>
+            <li value="1">The most recently retrieved record ID</li>
+            <li value="2">The most recently retrieved timestamp</li>
+        </ul>
+        <p>The record ID and/or timestamp values are cached for each successful and partially successful retrieval. The cached information provides a starting point for subsequent optimized retrievals. Optimization is achieved by using this cached information to more quickly locate the new record(s) to poll and to reduce the number of messages by retrieving only the most recent historical data. A transaction cache is maintained for each historical data group ordinal. Cached transaction information is stored in the Device Definition Service (DDS) transaction as data group elements.</p>
+        <p>See the following subsections below for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#optimize" class="selected">Optimized Retrieval Method</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#initiate" class="selected">To Initiate a Get Latest Request Using a Data Group</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#initiate" class="selected">To Initiate a Get Latest Request Using a UIS Command</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#ClearCache" class="selected">To Clear the Cache for All Data Groups</a>
+            </li>
+        </ul>
+        <p>For information about the data groups affected by historical data optimization, see <a href="Eagle Data Group Usage Notes.htm">Data Groups</a>.</p>
+        <p><a name="optimize"></a>
+        </p>
+        <h3>Optimized Retrieval Method</h3>
+        <p>The optimized way to retrieve history data is called a <b>Get Latest Data</b> request. To "get latest" means to get history data that has been saved by the field device after the most recent timestamp cached by the host; it is the data you do not already have. <b>Get Latest Data</b> uses the latest successfully retrieved historical index record and timestamp combination as the point from which to collect history data in the next <b>Get Latest Data</b> request. This process ensures that, if properly used, you only get historical data that has not already been retrieved in a prior poll.</p>
+        <p>In the case of an initial poll (either the first poll of a device or after the cache is cleared), the latest successfully retrieved index record and timestamp combination are stored in the cache so that <b>Get Latest Data</b> optimization is available for subsequent polls.</p>
+        <p>Click the following image for a sample history parameters dialog box:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/modbus_history_parms_dialog.png" data-mc-popup-alt="Sample history parameters dialog box"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="274" data-mc-height="396" src="../../Resources/Images/EIEs - Remote Devices/modbus_history_parms_dialog_thumb_0_48.png" alt="Sample history parameters dialog box" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p>There are three different parameters associated with a <b>Get Latest Data</b> request, each of which may be combined with the others for different effects. They are as follows:</p>
+        <ul>
+            <li value="1"><b>Max Records to Read</b>: This specifies the maximum number of historical records to retrieve. This number is not absolute; it specifies the maximum possible and is relative to the cache, number of records available, specified start date, and/or specified end date. If no cache exists, retrieval begins at the oldest record in the index and reads forward. If no cache exists and this option is used with a start date, the start date is honored.</li>
+            <li value="2"><b>Start Date</b>: This specifies the oldest date limit in a date-range request.</li>
+            <li value="3"><b>End Date</b>: This specifies the most recent date limit in a date-range request.</li>
+        </ul>
+        <p>Best practice recommends creating a UIS command where <b>Get Latest Data</b> is selected, a <b>Start Date</b> value of T - 35 is specified, and an <b>End Date</b> value of T + 1 is specified. Issue the command on a recurring basis of fewer than 35 days to ensure that the latest data is always retrieved. If limiting communication traffic is a priority, consider using the <b>Max Records to Read</b> option as well.</p>
+        <p>Three <b>Get Latest</b> scenarios follow; each assumes that you are using the <b>Get Latest</b> option.</p>
+        <h4>Scenario 1</h4>
+        <p>In this scenario, you request history data from a time window where the <b>Start Date</b> and <b>End Date</b> span the latest timestamp cached. The result is that only records that come <u>after</u> the latest timestamp and <u>before or on</u> the <b>End Date</b> (records 7 and 8) are retrieved and displayed. Records that come before the cache have already been retrieved. The cache is then updated to reflect the latest record  retrieved (record 8).</p>
+        <p>Click the diagram below for more information:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/history_optimization_span_2.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="618" data-mc-height="145" src="../../Resources/Images/EIEs - Remote Devices/history_optimization_span_2_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <h4>Scenario 2</h4>
+        <p>In this scenario, you request history data from a time window where both the <b>Start Date</b> and <b>End Date</b> are before the latest timestamp cached. The result is "No Data Available," which is returned because all available data has already been retrieved. The existing cache is left unchanged.</p>
+        <p>Click the diagram below for more information:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/history_optimization_before_2.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="618" data-mc-height="145" src="../../Resources/Images/EIEs - Remote Devices/history_optimization_before_2_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <h4>Scenario 3</h4>
+        <p>In this scenario, you request history data from a time window where both the <b>Start Date</b> and <b>End Date</b> are after the latest timestamp cached. The result is that only history data for the window specified (records 8 - 12) is retrieved. The cached timestamp is set to the last record retrieved (record 12). Data between the cached timestamp and the <b>Start Date</b> is ignored (record 7). You might use this option because you know data immediately after a latest timestamp is unreliable for some reason, so you want to ignore it but still get the latest reliable data and bring the cache up to date.</p>
+        <p>Click the diagram below for more information:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/EIEs - Remote Devices/history_optimization_after_2.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="618" data-mc-height="145" src="../../Resources/Images/EIEs - Remote Devices/history_optimization_after_2_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p><a name="initiate"></a>
+        </p>
+        <p class="HeadingProcedure">To Initiate a Get Latest Request Using a Data Group</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following procedure is for a one-time poll. It is useful for testing purposes. For field deployment, schedule a UIS command to get latest.</p>
+        </div>
+        <ol>
+            <li value="1">In the Device Definition Service (DDS), open the  remote device you want to poll and click its <b>Data Group</b> page.</li>
+            <li value="2">Open the relevant historical data group and click <b>Get from RTU</b>.</li>
+            <li value="3">Select <b>Get Latest</b>.</li>
+            <li value="4">Specify retrieval parameters, like <b>Start Date</b>, <b>End Date</b>, and <b>Max Records to Read</b>. Different combinations of these parameters produce significantly different results. <b>Max Records to Read</b> limits the number of records to be retrieved in one request.</li>
+            <li value="5">Click <b>OK</b>.</li>
+        </ol>
+        <p class="HeadingProcedure">To Initiate a Get Latest Request Using a UIS Command</p>
+        <ol>
+            <li value="1">In the Device Definition Service (DDS), open the remote device you want to poll and click its <b>UIS Commands</b> page.</li>
+            <li value="2"><a href="UIS Commands - Configuring a UIS Command.htm">Set up a UIS command</a> to handle historical data retrievals.<ol style="list-style-type: lower-alpha;"><li value="1">If available, activate the <b>GetLatest</b> command parameter (1=True, 0=False).</li><li value="2">If available, specify retrieval parameters, like <b>Start Date</b>, <b>End Date</b>, and <b>Max Records to Read</b>. Different combinations of these parameters produce significantly different results. <b>Max Records to Read</b> limits the number of records to be retrieved in one request.</li><li value="3">When you are finished defining the UIS command, click <b>OK</b>.</li></ol></li>
+            <li value="3">If polling recurs on a regular basis, <a href="../Scheduler/UIS Command Task.htm">schedule polls in the Master Scheduling Service (MSS)</a>.</li>
+        </ol>
+        <p><a name="ClearCache"></a>
+        </p>
+        <p class="HeadingProcedure">To Clear the Cache for All Data Groups</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following procedure does not have a regular operational use. It might be useful for testing and/or removing cache values that are suspected of being corrupt.</p>
+        </div>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If you clear all caches using a UIS command, the cache values in each transaction of historical data groups are not reset; past transactions continue to display actual values. This is done for performance reasons so that each DDS transaction does not have to be updated. The driver ignores these cached values after the command has been issued.</p>
+        </div>
+        <ol>
+            <li value="1">In the Device Definition Service (DDS), open the remote device you want to modify and click its <b>UIS Commands</b> tab.</li>
+            <li value="2"><a href="UIS Commands - Configuring a UIS Command.htm">Set up a UIS command</a> to clear the cache.</li>
+            <li value="3">At the <b>Component Type</b> drop-down menu, select <b>Clear All History Tx Info [CLRHSTXA]</b>, then click <b>OK</b> twice.</li>
+            <li value="4">On the <b>UIS Commands</b> page, highlight the newly added UIS command, then click <b>Execute</b> and <b>Yes</b>. Doing so clears the cache of every data group/ordinal combination for the selected remote device.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

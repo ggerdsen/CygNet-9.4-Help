@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Date and Time">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring the CygNetTimeZones.xml File</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Date and Time.htm">Date and Time</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNetTimeZones.xml File</span>
+        </div>
+        <h2>Configuring the CygNetTimeZones.xml File</h2>
+        <p>Properly define and install a CygNetTimeZones.xml file to provide drop-down time zone options for your <span class="CygNetVariablesSoftwareName">CygNet Software</span> installation. </p>
+        <p>By default, a Universal Interface Service (UIS) is assumed to be in the same time zone as its associated field device. If the field device is not in the same time zone as the associated UIS, you must specify the time zone of the field device in the <b>Display Name</b> drop-down menu of the <b>Time Zone</b> page in the <a href="../EIEs - Remote Devices/Remote Device Editor - Time Zone.htm">remote device editor</a>. </p>
+        <p>The CygNetTimeZones.xml file is located in the <b>CygNet\Services\ARS</b> folder on your host server. This file enables the conversion of field device local time to Coordinated Universal Time (UTC) for point processing in the host system.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Timezones&gt;</p>
+                    <p class="Code2">&lt;TZ DisplayName="(GMT+04:30) Kabul" Mins="-270" CygNetKey="1" Active="0"&gt;</p>
+                    <p class="Code3">&lt;Standard Name="Afghanistan Standard Time" Mins="0" Year="0" Month="0" DayOfWeek="0" Day="0" Hour="0" Minute="0" Second="0" Milliseconds="0"/&gt;</p>
+                    <p class="Code3">&lt;Daylight Name="Afghanistan Daylight Time" Mins="-60" Year="0" Month="0" DayOfWeek="0" Day="0" Hour="0" Minute="0" Second="0" Milliseconds="0"/&gt;</p>
+                    <p class="Code2">&lt;/TZ&gt;</p>
+                    <p class="Code2">&lt;TZ&gt;</p>
+                    <p class="Code3"><i>ETC</i>…</p>
+                    <p class="Code2">&lt;/TZ&gt;</p>
+                    <p class="Code">&lt;/Timezones&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>A sample CygNet time zone file (CygNetTimeZones.xml) is available on the CygNet CD_Image in the <b>Samples\Misc</b> folder. Use the following procedure to configure a CygNetTimeZones.xml file to meet your specific needs.</p>
+        <p class="HeadingProcedure">To Configure a CygNetTimeZones.xml File</p>
+        <ol>
+            <li value="1">Define an XML file using the components listed in the tables below.</li>
+            <li value="2">Name the file CygNetTimeZones.xml and save it.</li>
+            <li value="3">Open CygNet Host Manager or CygNet Explorer and stop all services on the host.</li>
+            <li value="4">Install the valid CygNetTimeZones.xml file in your master <b>CygNet\Services\ARS</b> folder.</li>
+            <li value="5">Return to CygNet Host Manager or CygNet Explorer and restart all services.</li>
+            <li value="6">Open your DDS and (re)configure remote devices using the CygNetTimeZones.xml file.</li>
+        </ol>
+        <p>See <a href="../EIEs - Remote Devices/Remote Device Editor - Time Zone.htm">Time Zone Page</a> for more information.</p>
+        <h4>Elements Defined</h4>
+        <p>The following table provides the names of all relevant CygNetTimeZones.xml elements and useful information about each.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Timezones</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Root element.</li>
+                            <li value="2">No attributes available.</li>
+                            <li value="3">Child element is <b>TZ</b>.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>TZ</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <ul class="table">
+                            <li value="1">Child of <b>Timezones</b>.</li>
+                            <li value="2">Attributes are: <b>DisplayName</b>, <b>Mins</b>, <b>CygNetKey</b>, and <b>Active</b>.</li>
+                            <li value="3">Children are <b>Standard Name</b> and <b>Daylight Name</b>.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Standard Name</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Indicates a time zone's Standard Time name.</li>
+                            <li value="2">Child of <b>TZ</b>.</li>
+                            <li value="3">Attributes are <b>Mins</b>, <b>Year</b>, <b>Month</b>, <b>DayOfWeek</b>, <b>Day</b>, <b>Hour</b>, <b>Minute</b>, <b>Second</b>, and <b>Milliseconds</b>.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="font-weight: bold;">
+                        <p>Daylight Name</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <ul class="table">
+                            <li value="1">Indicates a time zone's Daylight Time name.</li>
+                            <li value="2">Child of <b>TZ</b>.</li>
+                            <li value="3">Attributes are <b>Mins</b>, <b>Year</b>, <b>Month</b>, <b>DayOfWeek</b>, <b>Day</b>, <b>Hour</b>, <b>Minute</b>, <b>Second</b>, and <b>Milliseconds</b>.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Attributes Defined</h4>
+        <p>The following table provides the names of all relevant CygNetTimeZones.xml attributes and useful information about each.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 550px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attributes</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2" style="font-weight: bold;">TZ </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>DisplayName</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The name of the time zone as you want it to appear in the <b>Display Name</b> drop-down menu of the <b>Time Zone</b> page in your remote device editor.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Mins</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Used in the <b>TZ</b> element, <b>Mins</b> is the number of minutes a certain time zone is offset from UTC. </p>
+                        <p>To get UTC, add the <b>Mins</b> value to that time zone's local time. For instance, if it is 8:00 a.m. local time in Anchorage, add 540 minutes to get UTC. If it is 8:00 AM&#160;local time in Riyadh, add -180 minutes to get UTC.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>CygNetKey</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>A unique numerical identifier for each <b>TZ</b> entry in a CygNetTimeZones.xml file. It is stored in the database records and used to identify a selected time zone. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Active</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Indicates whether this time zone is active or not in the DDS. 1 indicates active. 0 indicates inactive.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2" style="font-weight: bold;">Standard Name <span style="font-weight: normal;">and</span> Daylight Name</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Mins</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, <b>Mins</b> indicates a deviation from the <b>Mins</b> attribute value used in the <b>TZ</b> element. Typically, this is 0.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, <b>Mins</b> indicates a deviation from the <b>Mins</b> attribute value used in the <b>TZ</b> element. Typically, this is -60.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>Year</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the year Standard Time for the respective time zone begins. Typically, this is 0.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the year Daylight Time for the respective time zone begins. Typically, this is 0.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Month</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the month Standard Time for the respective time zone begins.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the month Daylight Time for the respective time zone begins.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>DayOfWeek</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the day of the week Standard Time for the respective time zone begins. This is the number of days after Sunday, so Sunday is 0, Monday is 1, etc.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the day of the week Daylight Time for the respective time zone begins. This is the number of days after Sunday, so Sunday is 0, Monday is 1, etc.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Day</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the day of the week in the month Standard Time for the respective time zone begins. The Day attribute works with the DayOfWeek attribute. 1 means the first day of week in the month, 2 means the second day of week in the month, up to 5 meaning the last day of week in month. For example, Month="11" DayOfWeek="0" Day="1" is the first Sunday of November.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the day of the week in the month Daylight Time for the respective time zone begins. The Day attribute works with the DayOfWeek attribute. 1 means the first day of week in the month, 2 means the second day of week in the month, up to 5 meaning the last day of week in month. For example, Month="3" DayOfWeek="0" Day="1" is the first Sunday of March.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>Hour</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the hour Standard Time for the respective time zone begins.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the hour Daylight Time for the respective time zone begins.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Minute</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the minute Standard Time for the respective time zone begins.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the minute Daylight Time for the respective time zone begins.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p>Second</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the second Standard Time for the respective time zone begins.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the second Daylight Time for the respective time zone begins.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="font-weight: bold;">
+                        <p>Milliseconds</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <ul class="table">
+                            <li value="1">Used in the <b>Standard Name</b> element, indicates the millisecond Standard Time for the respective time zone begins.</li>
+                            <li value="2">Used in the <b>Daylight Name</b> element, indicates the millisecond Daylight Time for the respective time zone begins.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Groups|Group Manager Utility">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Defining Rules</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Groups.htm">Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Group Hierarchy Manager Utility.htm">Group Manager Utility</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Defining Rules</span>
+        </div>
+        <map id="map3" name="map3">
+            <area shape="rectangle" coords="3,30,435,289" title="Rule Definition Properties (click for more info)" alt="Rule Definition Properties (click for more info)" href="#Rule" class="selected" />
+        </map>
+        <map id="map2" name="map2">
+            <area shape="rectangle" coords="8,8,593,167" title="Group Rule Properties (click for more info)" alt="Group Rule Properties (click for more info)" href="#Group" class="selected" />
+        </map>
+        <map id="map1" name="map1">
+            <area shape="rectangle" coords="9,32,588,317" title="Hierarchy Level Properties (click for more info)" alt="Hierarchy Level Properties (click for more info)" href="#Hierarch" class="selected" />
+        </map>
+        <h2>Defining Rules</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Although both rule-based views and component-based views are supported by CygNet, best practice recommends using rule-based views instead of component-based views. Rules provide a more comprehensive and fine-tuned way to create views.</p>
+        </div>
+        <p>A rule-based view requires a user to set up rules that define which facility records to include in a level and how to relate those records to the other level(s) of the view hierarchy. Unlike components, which are FAC or DDS single attribute based, a rule can use multiple attributes arranged in a variety of ways to include facility information.</p>
+        <p>Features of the rule-based view include the following:</p>
+        <ul>
+            <li value="1">A set of rules can specify what facilities are included in a level.</li>
+            <li value="2">A level can consist of a composite of several unique attributes.</li>
+            <li value="3">Source facilities can be specified by CVS (HSS, OPCIS, SVCMON) or UIS.</li>
+            <li value="4">Display text can consist of  facility attribute values or fixed text.</li>
+            <li value="5">A level can be iterative. For example, a facility attribute can be used to denote a parent facility tag.</li>
+            <li value="6">A level may include child views. A child view is a normal view that is linked to a level of a different view.</li>
+            <li value="7">Unbalanced trees are supported.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> Unbalanced trees are a product of iteratively-created levels based on a parent tag attribute or by including a child view. No CygNet tools recognize unbalanced trees or iterative levels. For example, on the Group Navigation Bar Tool, the <b>Auto Detect</b> feature does not detect the actual number of iterative levels; it only knows the number of levels in the hierarchy definition.</p>
+        </div>
+        <p>See the following subsections below for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#ToDefineARule" class="selected">To Define a Rule-Based Hierarchy Level and Views</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Hierarch" class="selected">Hierarchy Level Properties</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Group" class="selected">Group Rule Properties</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Rule" class="selected">Rule Definition Properties</a>
+            </li>
+        </ul>
+        <p>For detailed examples about using rules, see <a href="Rule Use Cases.htm">Rule Use Cases</a>.</p>
+        <p>For high-level information about using rules, see <a href="Groups Concepts.htm">Groups Concepts</a>.</p>
+        <h3>Defining a Rule-Based Hierarchy Level</h3>
+        <p>The Group Manager utility utilizes hierarchy levels that can be rule based, and that can include child views. A child view enables you to link predefined views to hierarchy levels, which creates the child view. Any view can be linked to a level of another view in the same navigation hierarchy. This enables a view to be displayed independently or as part of another view. Use the following procedure to configure a hierarchy level.</p>
+        <p class="HeadingProcedure"><a name="ToDefineARule"></a>To Define a Rule-Based Hierarchy Level</p>
+        <ol>
+            <li value="1">In the <b>Group Manager</b> utility, right-click on a rule-based view and click <b>Add Level</b> to access the <b>Hierarchy Level</b> dialog box. See <a href="#Hierarch" class="selected">Hierarchy Level Properties</a> for details about the properties. <p><img src="../../Resources/Images/Groups/hierarchy_level_dialog_box.png" usemap="#map1" style="border-left-style: solid;border-left-width: 0px;border-right-style: solid;border-right-width: 0px;border-top-style: solid;border-top-width: 0px;border-bottom-style: solid;border-bottom-width: 0px;" /></p></li>
+            <li value="2">Describe the new hierarchy level.
+				</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">The <b>Hierarchy Level</b> indicates what level the selected view occupies in the hierarchy.</li>
+            <li value="2">Type a <b>Description</b> for the level. This <b>Description</b> only describes the name of the level within your view.</li>
+            <li value="3">Define the <b>Display Text</b>. The <b>Display Text</b> field defines what text you want to use to identify facility data for this hierarchy level. The display text derives from any number of facility attributes, which can be dynamically built using tokens on the <b>Edit Display Text for Level n</b> dialog box. See <a href="../CygNet Studio/Using Text Tokens.htm">Using Text Tokens</a> for more information about building dynamic text using tokens.
+        <ul><li value="1">If the level represents display text values unique to itself, check <b>Level Represents Unique Display Text Values</b>. Doing so makes the <b>Iterate Level</b> option unavailable.</li><li value="2">If you did not check the <b>Level Represents Unique Display Text Values</b> box and you want to iterate this level, check <b>Iterate Level</b> and define <b>Max Iterations</b> and whether to truncate or merge once the maximum is reached.</li></ul></li>
+        </ol>
+        <ol start="3">
+            <li value="3">If this level is for a <a href="../Web/Web.htm">Web</a>-based hierarchy, select the following.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Use the browse button to select <b>Default UDCs</b>.</li>
+            <li value="2">Use the browse button to select <b>Default Page IDs</b>.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">Configure the rules for the level. After you have defined properties for a level, click <b>Rules</b> to access the Rules page, to define the facility sources and rules to include.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Define the Facility sources. Click <img src="../../Resources/Images/Groups/level_rule_add_button.png" /> to add a service or services from which to collect associated facility data. Multiple <b>Facility Sources</b> can be added.</li>
+            <li value="2"><a name="Steps9-14"></a>Define the rules for Facilities to include. Click <b>Edit Rules</b> to access the <b>Group Rule</b> dialog box to create new rules (or edit existing ones). 
+ See       <a href="#Group" class="selected">Group Rule Properties</a> for details about the properties.<p><img src="../../Resources/Images/Groups/group_rule_dialog_box.png" style="border-left-style: solid;border-left-width: 0px;border-right-style: solid;border-right-width: 0px;border-top-style: solid;border-top-width: 0px;border-bottom-style: solid;border-bottom-width: 0px;" usemap="#map2" /></p></li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">On the <b>Tree View</b> page, click <b>Add</b> to access the <b>Rule Definition</b> dialog box. See <a href="#Rule" class="selected">Rule Definition Properties</a> for details about the properties.<p><img src="../../Resources/Images/Groups/rule_definition_dialog_box.png" style="border-left-style: solid;border-left-width: 0px;border-right-style: solid;border-right-width: 0px;border-top-style: solid;border-top-width: 0px;border-bottom-style: solid;border-bottom-width: 0px;" usemap="#map3" /></p></li>
+        </ol>
+        <ol class="Upper_alpha">
+            <li value="1">Select a <b>Data Item</b> and other properties to define this rule. Depending on the properties you select, additional options might appear. As you define the rule, the rule is generated in string format in the text field toward the bottom of the dialog box.</li>
+            <li value="2">Click the <b>Enable Rule</b> check box to select/clear enabling of the rule.</li>
+            <li value="3">When you are finished creating a rule, click <b>OK</b>. Create as many rules as you require for a level (if this is a compound rule) or a view.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">If you define multiple rules for a single view, also define the logic governing the rules. On the <b>Tree View</b> page, double-click the root of the rule tree to access the <b>Compound Rule Properties</b> dialog box.<p><img src="../../Resources/Images/Groups/compund_rule_properties.png" /></p></li>
+        </ol>
+        <ol class="Upper_alpha">
+            <li value="1">In the <b>Rule Evaluation</b> box, select <b>Satisfy ALL of the Rules (AND)</b> or <b>Satisfy ANY of the Rules (OR)</b>. Rules can be combined using <b>AND</b> and <b>OR</b>, and can be nested within other rules. For example, ((a OR b OR c) AND d). You can also use the <img src="../../Resources/Images/Groups/group_rule_left_arrows_button.png" /> and <img src="../../Resources/Images/Groups/group_rule_right_arrows_button.png" /> controls on the <b>Tree View</b> of the <b>Group Rule</b> dialog box to define rule logic.</li>
+            <li value="2">Click the <b>Invert Result (NOT)</b> check box to select/clear whether or not to exclude items from your level.</li>
+            <li value="3">Optionally assign a <b>Rule Name</b>. Names can be helpful when navigating complex hierarchies.</li>
+            <li value="4">Click the <b>Enable Compound Rule</b> check box to select/clear enabling of the compound rule.</li>
+            <li value="5">When you are finished, click <b>OK</b> on all open rule dialog boxes to save your newly-defined rule(s).</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Configure the views for the level. After you have defined properties and rules for a level, click <b>Views</b> to access the Views page, to define the child views and rules to use.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Define the views. </li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Click <img src="../../Resources/Images/Groups/level_rule_add_button.png" /> to add a predefined view to the parent level. This makes the view a child of the level. All child nodes of the added view become child nodes of the parent level.</li>
+            <li value="2">Highlight the view you want to add and click <b>OK</b>.</li>
+        </ol>
+        <ol start="4" class="Lower_alpha">
+            <li value="4">Define the rules.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Click <b>Edit Rules</b> to define rules that govern the relationship  between the new child view and its parent level.</li>
+            <li value="2">Define the rule(s) to suit your needs. See <a href="#Steps9-14" class="selected">steps 9 - 14</a> above.</li>
+            <li value="3">When you are finished, click <b>OK</b> on all open rule dialog boxes to save your newly-defined rules and child views.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Hierarch"></a>Hierarchy Level Properties</h3>
+        <p>The following table lists and describes properties available on the <b>Hierarchy Level</b> dialog box.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Hierarchy Level</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Indicates the priority of a level within its respective view. If you only have one level in a view, the <b>Hierarchy Level</b> is 1. If you have two levels in a view, the <b>Hierarchy Level</b> for the highest priority level is 1 and the other level is 2.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Description</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">A free-form, useful description of the level. This <b>Description</b> only describes the name of the level (node) within your view.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Display Text</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>Display Text</b> field defines what text you want to use to identify facility data for this level. Choose tokens using the <b>Browse</b> button or enter fixed text directly into the field. Multiple tokens can be selected.</p>
+                    <p>The technique for specifying a display value is the same one used in CygNet Studio for the <b>Text</b> property. For example, a <b>Display Text</b> value of <i>%facility_desc% (%facility_attr1%)</i> results in a hierarchy entry like <b>New Haven 4-11U (Route 33)</b>. For more information, see <a href="../CygNet Studio/Using Text Tokens.htm">Using Text Tokens</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Level Represents Unique Display Text Values</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A level can consist of a unique set of attributes for all facility records that match its rules.</p>
+                    <p>For example, setting the <b>Display Text</b> to <i>%facility_attr1%</i> could yield many records with the same value. But if the level is configured to show a unique set of <b>Display Text</b> values, the hierarchy consists of a single entry for each unique value.</p>
+                    <p>If the level following a unique level has no rules defined, it consists of all facilities that were represented by the unique display text. That is, there is an implicit link between a unique level and its child level.</p>
+                    <p>If this level is <u>not</u> unique and it is <u>not </u><b>Hierarchy Level 1</b>, you must define its relationship to its parent facility within its rule definition.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Iterate Level</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A level may be defined as iterative. This means that the same rule is applied over and over again, until there are no facilities that meet the criteria.</p>
+                    <p>This is designed to support the case where a single facility attribute is used to represent the facility tag of the parent. It is possible to cap the number of iterations performed.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Max Iterations</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If you iterate levels, check <b>Max Iterations</b> and specify the maximum number of times to iterate or the maximum number of levels to create using the definition for this one level.</p>
+                    <p>When the maximum number of iterations has been performed, there are two choices: <b>Truncate at Max</b> and <b>Merge at Max</b>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Truncate at Max</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">To simply stop iterating once the maximum iterations number is met, select to <b>Truncate at Max</b>.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Merge at Max</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2"> To continue iterating once the maximum iterations number is met, but merge all lower levels together with the last level, select <b>Merge at Max</b>.
+</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Default UDCs</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">List of UDCs to display on the Web <b>History Report</b> page. For each specified UDC, specify the rollup type that is used to calculate history information. Use only if this is a Web-based hierarchy.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Default Page IDs</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Page IDs are used by the GRP to organize available Web pages for each level of a Web hierarchy. Use only if this is a Web-based hierarchy.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Set to Default</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Sets the default page IDs to the default. Overrides any user-defined page IDs defined here. Use only if this is a Web-based hierarchy.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="FacilitySources"></a>Facility Sources</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A facility source represents the data source for a facility; it is the service specified in a facility's property sheet. You can assemble a set of several facility sources for a level. Facility sources are the types CVS (HSS, OPCIS, SVCMON) and UIS.</p>
+                    <p>At least one facility source is required on the first level of a view. Subsequent levels can either specify a new source or sources or be left blank to use the source(s) from a previous level. If all levels of a hierarchy use the same source(s), only define the source(s) at the first level (<b>Hierarchy Level</b> = 1).</p>
+                    <p>Double-click an existing facility source to open the dialog box below. Check the <b>Active</b> box to activate a <b>Rule Source</b>. Uncheck the <b>Active</b> box to deactivate a <b>Rule Source</b>. A deactivated <b>Rule Source</b> is not evaluated when a hierarchy is built.</p>
+                    <p class="Example">Example</p>
+                    <p class="Indent">
+                        <img src="../../Resources/Images/Groups/active_inactive_rule_source.png" />
+                    </p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Rules for Facilities to Include</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click <b>Edit Rules</b> to add or edit rules that define what facilities to include at this level.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Views</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enables you to link a view to a level, which creates a child view. Any view can be linked to a level of another view in the same navigation hierarchy. This enables a view to be displayed independently or as part of another view. Once linked, the child view is subordinate to the level to which it was added, but it maintains all of its definitions.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Rules to Connect View to Parent Level</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click <b>Edit Rules</b> to add or edit rules that define the relationship between a child view and its parent level.</td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Group"></a>Group Rule Properties</h3>
+        <p>The following table lists and describes properties available on the <b>Group Rule</b> dialog box. Drag and drop individual rules to position them correctly.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Rules can be combined using <b>AND</b> and <b>OR</b>, and they can be nested within other rules. For example, ((a OR b OR c) AND d). See <a href="Rule Use Cases.htm">Rule Use Cases</a>.</p>
+        </div>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Tree View</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Displays rule(s) in a collapsible/expandable tree view.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Text View</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Displays rule(s) in a string format.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Add</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click <b>Add</b> to access the <b>Rule Definition</b> dialog box to configure a rule. This option is available in <b>Tree View</b>.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Delete</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Click <b>Delete</b> to delete the selected rule. This option is available in <b>Tree View</b>.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <img src="../../Resources/Images/Groups/group_rule_left_arrows_button.png" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click  to move the selected rule within the rule logic hierarchy. This option is available in <b>Tree View</b>. Once you have moved a rule, you can change its operators to redefine the rule's purpose in the level.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <img src="../../Resources/Images/Groups/group_rule_right_arrows_button.png" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Click to move the selected rule within the rule logic hierarchy. This option is available in <b>Tree View</b>. Once you have moved a rule, you can change its operators to redefine the rule's purpose in the level.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Export Rules</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click <b>Export Rules</b> to save a rule as an XML file to a specified file location. This option is available in <b>Tree View</b> or <b>Text View</b>.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Import Rules</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Click <b>Import Rules</b> to navigate to a selected file location to import a rule as an XML file. This option is available in <b>Tree View</b> or <b>Text View</b>.</td>
+            </tr>
+        </table>
+        <h3><a name="Rule"></a>Rule Definition Properties</h3>
+        <p>The following table lists and describes properties available on the <b>Rule Definition</b> dialog box.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Data Item</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click to select the <b>Data Item</b> for the rule from the drop-down menu. Expand categories in the list to see available options. These items correspond to (usually pre-defined) facility attributes.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Operator</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to select the <b>Operator</b> for the data item from the drop-down menu. Options include the following:</p>
+                    <ul class="table">
+                        <li value="1">Equals</li>
+                        <li value="2">Greater Than</li>
+                        <li value="3">Greater Than or Equal</li>
+                        <li value="4">Less Than</li>
+                        <li value="5">Less Than or Equal</li>
+                        <li value="6">Not Equal</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Qualifier</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to select a <b>Qualifier</b> for the operator from the drop-down menu. Options include the following:</p>
+                    <ul class="table">
+                        <li value="1">Case Insensitive</li>
+                        <li value="2">Case Sensitive</li>
+                        <li value="3">Integer</li>
+                        <li value="4">Real Number</li>
+                        <li value="5">Timestamp</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Comparison Type</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to select a <b>Comparison Type</b> for the operator from the drop-down menu. Options include the following:</p>
+                    <ul class="table">
+                        <li value="1"><b>User Value</b>: Enables you to specify the exact <b>Data Item</b> text by which to include a facility. For instance, if you specify <b>Facility Type</b> for a <b>Data Item</b>, then type FIELD in the <b>Comparison Type</b> box, only those facilities that have a <b>Facility Type</b> value of "FIELD" are included.</li>
+                        <li value="2"><b>Absolute Level</b>: Generates a <b>Level</b> drop-down menu with all relevant level selections for this rule. These options define the exact level at which a <b>Data Item</b> is compared with a <b>Comparison Item</b>.</li>
+                        <li value="3"><b>Relative Level</b>: Generates a <b>Level</b> drop-down menu with <b>Parent Level</b> and <b>Current Level</b> options. These options define what the <b>Comparison Item</b> will be relative to.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Level</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Choosing <b>Absolute Level</b> for the <b>Comparison Type</b> generates a <b>Level</b> drop-down menu with all relevant level selections for this rule.</p>
+                    <p>Choosing <b>Relative Level</b> for the <b>Comparison Type</b> generates a <b>Level</b> drop-down menu with all relevant level selections for this rule.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Comparison Item</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enables you to compare (substitute) a data item with another item.</p>
+                    <p>When you choose <b>User Value</b> for the <b>Comparison Type</b>, enter a text value here.</p>
+                    <p>When you choose <b>Absolute Level</b> or <b>Relative Level</b> for the <b>Comparison Type</b>, a drop-down menu enables you to choose from a number of available facility attributes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Rule Name (Optional)</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">A free-form text field for naming the rule.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Enable Rule</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to  enable the defined rule. A rule that is disabled is not acted upon.</p>
+                    <p>Some scripts have been written to enable/disable rules by name based on real-time considerations.</p>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Rule Use Cases.htm">Rule Use Cases</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

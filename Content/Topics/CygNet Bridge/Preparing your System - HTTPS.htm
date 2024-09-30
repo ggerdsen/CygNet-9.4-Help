@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Bridge|Preparing Your System for CygNet Bridge">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Preparing Your System:Installing IIS</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Bridge.htm">CygNet Bridge</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Preparing your System for CygNet Bridge.htm">Preparing Your System for CygNet Bridge</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Activating HTTPS</span>
+        </div>
+        <h2>Preparing Your System: Activating HTTPS</h2>
+        <p>Activation of a secure (HTTPS) communications channel for the IIS Web server is strongly recommended to run CygNet Bridge. Although CygNet Bridge will operate with HTTP, the software default selection is to use HTTPS  host-client communication. Selecting to use HTTP instead is not a secure option, and is not a safe choice for production environments. When you activate and use the HTTPS protocol, HTTPS traffic is encrypted from end to end, helping to ensure that data transmitted between the web server and your CygNet installation is more secure. To provide HTTPS, you must install an SSL certificate and configure HTTPS for your system.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> If you host multiple sites or install CygNet Bridge on an IIS Web server that also runs non-CygNet Bridge sites, additional configuration steps are required to ensure that the site port bindings do not collide with one another. Refer to Microsoft IIS online documentation for more information on these advanced configuration steps.</p>
+        </div>
+        <h3>Activating HTTPS</h3>
+        <p>Prior to installing CygNet Bridge or associated products, complete the following tasks, as appropriate to your operating system, to activate HTTPS for the server where you will be installing CygNet Bridge.</p>
+        <p>Refer to Microsoft online documentation  at <a href="https://msdn.microsoft.com/" target="_blank">https://msdn.microsoft.com/</a> for information beyond the scope of this document.</p>
+        <h4>Importing an SSL Certificate</h4>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> CygNet Bridge does not support self-signed SSL certificates; they are not secure.</p>
+        </div>
+        <ol>
+            <li value="1">Log in to the machine where you will be installing CygNet Bridge, using Administrative privileges.</li>
+            <li value="2">Open IIS Manager.<p>Depending on your software version, IIS Manager might be found under <b>Start</b> &gt; <b>Administrative Tools</b>.</p></li>
+            <li value="3">In IIS Manager, do the following.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <b>Connections</b> pane, click to select the name of the server where you will be hosting the CygNet Bridge software.</li>
+            <li value="2">In the <b>Home</b> pane, under <b>Features View</b>, double-click <b>Server Certificates</b>.</li>
+            <li value="3">In the <b>Actions</b> pane, click <b>Import</b> and complete the fields appearing in the resultant dialog box.</li>
+        </ol>
+        <h4>Configuring HTTPS Bindings</h4>
+        <ol>
+            <li value="1">Log in to the machine where you will be installing CygNet Bridge, using Administrative privileges.</li>
+            <li value="2">Open IIS Manager.<p>Depending on your software version, IIS Manager might be found under <b>Start</b> &gt; <b>Administrative Tools</b>.</p></li>
+            <li value="3">In IIS Manager, do the following to configure your site bindings.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <b>Connections</b> pane, click to select the CygNet Bridge website root directory.</li>
+            <li value="2">In the <b>Actions</b> pane, click <b>Bindings</b> to access the <b>Site Bindings</b> dialog box.</li>
+            <li value="3">In the <b>Site Bindings</b> dialog box, click <b>Add</b> and then do the following.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Click to access the <b>Type</b> menu, and select <b>https</b>.</li>
+        </ol>
+        <ol class="Upper_alpha">
+            <li value="1">Provide an IP address.</li>
+            <li value="2">Confirm that port 443 is selected.</li>
+            <li value="3">Optionally specify a host name.</li>
+        </ol>
+        <ol class="Lower-roman" start="2">
+            <li value="2">Click to access the <b>SSL certificate</b> menu, and select the SSL certificate to use. </li>
+        </ol>
+        <ol class="Upper_alpha">
+            <li value="1">Click <b>OK</b>.</li>
+            <li value="2">Select the default HTTP entry on port 80 and then click <b>Remove</b>.</li>
+            <li value="3">When asked if you are sure that you want to remove the selected binding, click <b>Yes</b> and then <b>Close</b>.</li>
+        </ol>
+        <ol start="4">
+            <li value="4">In IIS Manager, do the following to configure your CygNet Bridge website to require SSL communication.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">In the <b>Connections</b> pane, click to select the CygNet Bridge website root directory.</li>
+            <li value="2">In the <b>Home</b> pane, under <b>Features View</b>, double-click <b>SSL Settings</b>.</li>
+        </ol>
+        <ol class="Lower-roman">
+            <li value="1">Check the <b>Require SSL</b> box.</li>
+            <li value="2">Click <b>Apply</b>.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Test access to your secured site from outside of your firewall to verify your settings.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

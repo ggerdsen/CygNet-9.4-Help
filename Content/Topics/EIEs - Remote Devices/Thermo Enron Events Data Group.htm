@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Thermo EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Thermo EIE – Enron Events Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Thermo EIE.htm">Thermo EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Enron Events Data Group</span>
+        </div>
+        <h2>Enron Events Data Group</h2>
+        <p>The "Enron Events" (<b>EnrEvents</b>) data group is used to read events from a field device using the protocol described in the Enron Modbus specification. This data group is typically the source of event and alarm data for FMS. The "Enron Events" data group's names are not constrained, but the <b>dgCat</b> attribute must be set to <b>enronEvents</b>. Enron events are read from register number 32.</p>
+        <p>Enron specifications dictate the format of the fields in this data group, as well as the register from which to read data. It is not meter-run specific; all events reported for the field device are contained in a single event log.</p>
+        <p>Per Enron specification, events are cleared from the field device after they’ve been acknowledged. Events are acknowledged only when the <b>Acknowledge</b> flag is set in the UIS command and the communication device is in <b>Master</b> mode. Polls initiated from the data group editor never acknowledge events. Polls initiated from FMS always acknowledge events.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When changing the transaction retention settings for this data group type, you will be prompted to confirm the change. CygNet recommends that data be retained for at least 40 days to be available for CygNet Measurement. Either change the transaction retention settings to retain more data, or accept the settings, which may cause CygNet to lose data that cannot be retrieved again.</p>
+        </div>
+        <p>For more information, see the following subsections:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Example" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Structural" class="selected">Structure and Components</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ToCreate" class="selected">To Create a Data Group</a>
+            </li>
+        </ul>
+        <p>For more information about working with device template files, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <p class="Example"><a name="Example"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&lt;EnrEvents niceName="Enron Events" <span style="background-color: #b0c4de;">dgCat="enronEvents"</span>&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4"&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;EvtFlags desc="Event Flags" type="ui2" off="0" dMask="0x%04.4x"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;CfgChg desc="Cfg Change" ref="EvtFlags" type="boolean" bPos="9"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;EvtReg desc="Event Register" type="ui2" off="2"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;HistTime desc="Time" type="r4" off="4" hidden="true"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;HistDate desc="Date" type="r4" off="8" hidden="true"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;DateTime desc="DateTime" type="r8"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;AsFound desc="As Found" type="r4" off="12"/&gt;</span>
+                            </p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;AsLeft desc="As Left" type="r4" off="16"/&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3"><span style="background-color: #b0c4de;">&lt;Ack required="false" desc="Acknowledge/Clear Events" type="boolean"/&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/EnrEvents&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="Structural"></a>Structure and Components</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!--<b>AsFound</b> represents a value prior to an event. <b>AsLeft</b> represents a value after an event. <b>CfgChg</b> represents a reference to a single bit of the <b>Event Flags</b> data group element. It is true when the event is a configuration change and false when it is an alarm. <b>DateTime</b> represents a standard timestamp (COleDateTime) calculated from the <b>HistDate</b> and <b>HistTime</b> data group elements. <b>EvtFlags</b> represents event flags per Enron specification. <b>EvtReg</b> defines the register number of the event origination. <b>HistDate</b> represents the event date. <b>HistTime</b> represents the event time. <b>Ack</b> prevents unintended event acknowledgment. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;EnrEvents niceName="Enron Events" <a href="DataGroup Element.htm#dgCat">dgCat="enronEvents"</a>&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;EvtFlags <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;CfgChg/&gt;</p>
+                            <p class="Code3">&lt;EvtReg <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;HistTime <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;HistDate <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;DateTime/&gt;</p>
+                            <p class="Code3">&lt;AsFound <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code3">&lt;AsLeft <a href="DataGroupElement Element.htm#off">off=""</a>/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;Ack/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/EnrEvents&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToCreate"></a>To Create a Data Group</p>
+        <ol>
+            <li value="1">Using a text editor or XML editor, open the device template file to which you want to add data groups.</li>
+            <li value="2">Define a new data group that uses the <b>dgCat</b> attribute value <b>enronEvents</b>.<ol style="list-style-type: lower-alpha;"><li value="1">Define a <a href="dgElements Element.htm">dgElements</a> element.</li><li value="2">Define all data group elements required by you to make up your data group. See above for the specific set.</li><li value="3">Define a <a href="uccRecvParms uccSendParms Elements.htm">uccRecvParms</a> element in the data group.</li><li value="4">Define one or more <a href="RecParmName SendParmName Elements.htm"><i>RecParmName</i></a> elements. See above for the specific set.</li></ol></li>
+            <li value="3">Define any other required data groups.</li>
+            <li value="4"><a href="Installing a Template.htm">Validate and load</a> your template.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

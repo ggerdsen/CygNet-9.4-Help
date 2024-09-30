@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|Using CygNet Measurement">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Measurement Archiving</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet Measurement.htm">Using CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Archiving Data</span>
+        </div>
+        <h2>Archiving CygNet Measurement Data</h2>
+        <p>In the CygNet Measurement system, and its companion product CygNet Dispatch when used, archiving  is handled by running an <b>Archive Data</b> system command to move device data records that are older than a specified retention period from the FMS database to a specified offline archive file location. These user-specified values are defined using FMS service configuration file keywords. The Archive Data command can be performed manually or it can be scheduled using CygNet Explorer (via the MSS service), to trigger the <a href="#FMS" class="selected">archive process</a> to remove the specified device data from the measurement system and store it on an alternative storage medium.</p>
+        <p><a href="#Archivin" class="selected">Archiving device data</a> from your system makes more space available in your FMS database by moving monthly increments of records prior to the retention period to the off-site storage location.   The <a href="#Archivin" class="selected">FMS records</a> are stored in archived monthly files at the specified location, where they are still available for <a href="#Viewing" class="selected">access and viewing</a> by running a CygNet Measurement reports command (not applicable to Balance or Missing Data report types).</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Archived files are stored based on a full month  (using a first-of-the-month boundary), therefore a full month of data must be available before it will be archived. This means that retention dates falling in the middle of a month will wait for the next archive command (after the last-of-the-month boundary) to store that month's data.</p>
+        </div>
+        <p>In limited circumstances, depending on your system's operational mode and setup, <a href="#Alternat" class="selected">alternatives</a> to archiving data may be preferred.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Warning:</span> Archived data is read-only. Once data is archived, it cannot be edited and <b>new data cannot be brought into the system for the archived time period.</b></p>
+        </div>
+        <p>See <a href="Command Parameters - Archive Data.htm">Archive Data</a> in the FMS Commands section for more information about enabling and using the Archive Data command.</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling the Archive Data command through CygNet Explorer (MSS).</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3><a name="FMS"></a>FMS Archive Process</h3>
+        <p>When you choose to archive FMS data, historical device data records in the FMS database (that are older than the  specified data retention period) will be archived to a user-defined data storage location, leaving only newer data (within the specified retention period) in your database. This yields more available space  in your FMS database, and still provides access to the archived data records (via FMS reports commands) when needed. The following diagram illustrates this process.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/FMS Archive Process_700x543.png" style="width: 700;height: 543;" />
+        </p>
+        <p>The archive process includes the following types of device data records.</p>
+        <ul>
+            <li value="1">Periodic history</li>
+            <li value="2">Gas quality history</li>
+            <li value="3">Batch</li>
+            <li value="4">Ticket</li>
+            <li value="5">Product </li>
+            <li value="6">Configuration, event, and gas analysis</li>
+            <li value="7">Event </li>
+            <li value="8">Alarm</li>
+        </ul>
+        <p>There are some differences to consider between the accessibility of records in your database versus records  stored as archived files. Characteristics of the record types are compared in the following table.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Characteristic</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Records in FMS Database</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Records in Archived Files</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Time period</p>
+                        <p>&#160;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Contains all records from device installation until the present time, unless deleted, purged, or archived</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Contains only records older than a specified data retention period</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Accessing data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Records are read/write (excluding raw data)</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>All records are read-only</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Viewing data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Records are accessible for viewing via FMS Explorer or CygNet Studio as follows.</p>
+                        <ul class="table">
+                            <li value="1">Reports commands </li>
+                            <li value="2">System commands - file exports</li>
+                            <li value="3">Controls - data file exports </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Records are accessible for viewing via FMS Explorer or CygNet Studio as follows.</p>
+                        <ul class="table">
+                            <li value="1">Reports commands only</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Editing, adding data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Records can be edited </p>
+                        <p>Additional data can come into the CygNet Measurement system via polling, file imports, etc., and can be incorporated into the records </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>No editing allowed</p>
+                        <p>No additional data can come into CygNet Measurement for the archived time period</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Validating, estimating data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Data can be validated, re-validated, estimated</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Data cannot be re-validated or estimated</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Reporting data</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Records can be reported out of the system via  FMS Explorer or CygNet Studio as follows.</p>
+                        <ul class="table">
+                            <li value="1">Reports commands </li>
+                            <li value="2">System commands - file exports</li>
+                            <li value="3">Controls - data file exports </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Records can be reported out of the system via FMS Explorer or CygNet Studio as follows.</p>
+                        <ul class="table">
+                            <li value="1">Reports commands only</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Maximum data storage</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>Limited by capacity of storage medium on which FMS database is located</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Limited by capacity of storage medium on which archived FMS data files are located</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Archivin"></a>Archiving FMS Records</h3>
+        <p>To archive FMS records, you must first  enable archiving in the FMS configuration file (<b>CygNet\Services\FMS\fms.cfg</b>), and then execute an Archive Data system command. Once data is archived, the <i>archived data files are read only</i>. Therefore, the data cannot be edited and <i>new data cannot be brought into the system for the archived time period.</i> See <a href="Command Parameters - Archive Data.htm">Archive Data</a> for more information about the command.</p>
+        <h4>Incremental Archiving</h4>
+        <p>When a large amount of information is to be archived, it could take a lot of time and place a large processing burden on your system. Depending on how much data you have stored in your database and the capacity of your system resources, CygNet recommends that you archive the data in increments, from oldest to newest records. This decision can take into account the particular circumstances of your system, and the increment of time that will impact your work flow as little as possible.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">You have never archived data from your FMS database. The database is approaching capacity and you have two years (24 months) worth of measurement data, part of which you have decided to archive. After considering your system resources and work flow requirements, you determine that it is reasonable to archive 3 months worth of data at a time. </p>
+        <p class="Indent">Run a series of incremental Archive Data commands, with varying data retention periods configured. First, archive with a retention period of 21 months, then 18 months, then 15 months, and so on, until you have reached the period for which you want to maintain records in your FMS database.</p>
+        <p class="Indent">Once all desired data is archived to your chosen directory location, you can set the data retention period to the time period you'd like to retain in the database, and then schedule the Archive Data command to recur at an appropriate time each month, since you have determined the load that is effective for your system and work flow circumstances. If circumstances change, you can  reset the data retention period, and/or the schedule for your Archive Data command, as desired at that time.</p>
+        <h4>Viewing Archive Data Command Logs</h4>
+        <p>When the Archive Data command is executed by the FMS service, a history of the command actions is logged by the system, at the  level of detail configured for the command task. Command log history can be viewed in FMS Explorer. See <a href="Viewing Command Logs.htm">Viewing Command Logs</a> for more information.</p>
+        <h3><a name="Viewing"></a>Accessing and Viewing Archived Records</h3>
+        <p>To access and view records after they have been archived, run a CygNet Measurement report for the desired time period to build a report containing the requested data (not applicable to Balance or Missing Data report types). If you request information for a time period that is unavailable in the archived files, an informational message will appear.</p>
+        <p>See <a href="Running FMS Reports.htm">Running CygNet Measurement Reports</a> for more information.</p>
+        <h3><a name="Alternat"></a>Alternatives to Archiving  Records</h3>
+        <p>System usage determines how you want to handle older data in your system; whether you decide to archive or purge expired device data. The primary consideration is whether or not CygNet Measurement is used as your system of record for measurement data.</p>
+        <p>If CygNet Measurement <i>is</i> your system of record for measurement data (for example, your system operates in FULL mode), do the following.</p>
+        <ul>
+            <li value="1">Use the Archive Data command to manage data in a manner that will provide future access to the data via FMS reports. See <a href="Command Parameters - Archive Data.htm">Archive Data</a> for more information.  </li>
+        </ul>
+        <p>If CygNet Measurement <i>is not</i> your system of record for measurement data (for example, your system operates in REPOSITORY mode), do either of the following. (Although you may not technically need archiving for this circumstance, you can still choose to archive  historical records if you choose not to purge them from your system.) </p>
+        <ul>
+            <li value="1">Use the Archive Data command to manage data in a manner that will provide future access to the data via FMS reports. See <a href="Command Parameters - Archive Data.htm">Archive Data</a> for more information.  </li>
+            <li value="2">Use the Perform Database Maintenance system command to perform database tasks in your CygNet Measurement system, and set its <b>Purge expired device data</b> property to <b>Yes</b>. Deleting expired device data from the database is an optional part of the command. See <a href="Command Parameters - Perform Database Maintenance.htm">Perform Database Maintenance</a> for more information.</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Basic and Advanced Reference Methods</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Basic and Advanced Reference Methods</span>
+        </div>
+        <h2><a name="Referenc"></a>Basic and Advanced Reference Methods</h2>
+        <p>There are two different models for defining reference methods: basic and advanced. The basic model performs simple operations and is read/write. The advanced model performs very complex operations and is read only.</p>
+        <h3>Basic Model Methods</h3>
+        <p>The basic reference method model is identified by the attribute <a href="DataGroupElement Element.htm#ref">ref</a> and uses attributes to perform operations. A basic reference method set to write could overwrite its source data group element (<i><a href="DataGroupElement Element.htm">DataGroupElement</a></i>) data if a user changes the basic reference method’s value.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitPosA desc="Bit Position Method A" readOnly="true" type="ui2" <span style="background-color: #b0c4de;">ref</span>="raw61" <span style="background-color: #b0c4de;">bPos</span>="2"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Model"></a>Advanced Model Methods</h3>
+        <p>The advanced reference method model is identified by the attribute <a href="DataGroupElement Element.htm#isRef">isRef</a> and uses <a href="Available Reference Operations.htm">reference operations</a> to perform operations. It depends on one or more child elements ordered by precedence. An advanced reference method set to write does not overwrite its source data group element data if a user changes the advanced reference method’s value.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;SubConst desc="Subtract Constant Value" readOnly="true" type="ui2" <span style="background-color: #b0c4de;">isRef</span>="1"&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">ref</span> prec="0" refOp="<span style="background-color: #b0c4de;">opAssignId</span>" deid="raw10"/&gt;</p>
+                    <p class="Code2">&lt;<span style="background-color: #b0c4de;">ref</span> prec="1" refOp="<span style="background-color: #b0c4de;">opSubVal</span>" value="5"/&gt;</p>
+                    <p class="Code">&lt;/SubConst&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Referencing Reference Methods</h3>
+        <p>Reference methods may often – but not always – be used to reference other reference methods. Because of the additional complexity this implies, avoid this practice whenever possible.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> A basic reference method set to write could overwrite its source data group element data if a user changes the basic reference method’s value. An advanced reference method set to write does not overwrite its source data group element data if a user changes the advanced reference method’s value.</p>
+        </div>
+        <p>The following chart describes valid and invalid uses of reference methods that reference other reference methods.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 500px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 225px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 135px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 144px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">&#160;</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">...basic?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">...advanced?</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: left;font-weight: bold;">
+                    <p>Basic can reference...</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: normal;text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: left;font-weight: bold;">
+                    <p>Advanced can reference...</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: normal;text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

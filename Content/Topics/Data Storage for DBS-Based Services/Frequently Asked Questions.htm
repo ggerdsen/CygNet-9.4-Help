@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Storage|Data Storage for DBS-Based Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Frequently Asked Questions</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Data Storage/Data Storage in CygNet.htm">Data Storage</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Data Storage for DBS-Based Services.htm">Data Storage for DBS-Based Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Frequently Asked Questions</span>
+        </div>
+        <h2>Frequently Asked Questions</h2>
+        <p>The following FAQs may answer additional questions you might have about CygNet and ESE. </p>
+        <h3>Do ESE-based datastores have size limitations? </h3>
+        <p class="Indent">An ESE-based datastore can be used in an application that never has more than 1 megabyte (MB) of data; conversely, it can contain up to 2^32 pages of 4 KB sized pages or 16 TB of data. Be aware that this doesn’t mean that CygNet supports databases up to 16 TB; it just means that ESE is capable of databases of this size. Other factors to consider with database size include hard disk capacity, backup, restoration, defragmentation, and other database maintenance operations. </p>
+        <h3>How does this change affect replication? </h3>
+        <p class="Indent">It does not affect replication. In fact, you can replicate from a non-ESE-based datastore to an ESE-based datastore or vice-versa. See <a href="../Replication/Replication.htm">Replication</a> for more information.</p>
+        <h3>Can I use an older version client with an ESE-based datastore? </h3>
+        <p class="Indent">Yes. </p>
+        <h3>How does a shut down get flagged as dirty (abnormal)? </h3>
+        <p class="Indent">When a database is shut down before it has performed required maintenance, it is put into an inconsistent state. This kind of shutdown is flagged as a dirty shutdown. This term means that some transaction log files must be replayed before the database can be considered consistent. You cannot mount a database that was shut down in this state until the transaction logs have been replayed and the database has correctly detached from the current log stream. </p>
+        <p class="Indent">ESE caches the disk by swapping 8 KB pages of data in and out of memory. It updates the pages in memory and then writes updated pages back to the disk. A page that has been written with data and is still being held in memory is called a <i>dirty</i> page. When there is a dirty page in memory, the database is flagged as being in an <i>inconsistent</i> state. A database is only in a <i>consistent</i> state when pages are successfully transferred to disk during a shutdown in which no errors occur. </p>
+        <h3>ESE has rollback. What does that mean?</h3>
+        <p class="Indent">Rollback is specific to the atomic nature of a transaction. When the service restarts after an abnormal shutdown, any transactions that are uncommitted are rolled back (removed) from the database. (A "version store" tracks and manages transactions.) </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Backup and Restore|Backups and Service Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Backup Keywords and Paths</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Backup and Restore.htm">Backup and Restore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Backups and Service Types.htm">Backups and Service Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Backup Keywords and Paths</span>
+        </div>
+        <h2>Backup Keywords and Paths</h2>
+        <p>Configure the following keywords with a valid parameter in each service configuration file to enable automatic backup for the selected service.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Keyword</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>BACKUP_PATH</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the path to the backup directory for the service files. The path can be relative or absolute. If the path contains spaces it must be enclosed in quotation marks. The service will create the backup folder if it does not exist. Use the <a href="../Services/Configuration File Manager - Editing Special Action Keywords.htm#BACKUP_PATH">Config File Manager</a> to automatically configure this keyword for all services in your CygNet environment.&#160;</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>BACKUP_TIME</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the time for the daily backup to run  (24-hour format 0000 to 2359, do not use a colon). If this keyword is not enabled for a service or no time is specified, the automatic backup will not occur. Service backup will only occur if manually initiated or scheduled via the MSS. Use the <a href="../Services/Configuration File Manager - Editing Special Action Keywords.htm#BACKUP_TIME">Config File Manager</a> to automatically configure this keyword for all services in your CygNet environment.&#160;</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>COPY_BACKUP_TO</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enables copying of the backup service files to the specified directory once the backup process is complete. The path can be relative or absolute. If the directory does not exist the service will create it. If the path or directory name contains spaces, the parameter must be enclosed in quotation marks. If you specify a network drive and are running the CygNet services as system services, you must use the Universal Naming Convention (UNC) (\\Workstation\Path) to specify the path. The backup file  can be copied to a network drive only if the drive is mapped to the local  machine. Use the <a href="../Services/Configuration File Manager - Editing Special Action Keywords.htm#COPY_BACKUP_TO">Config File Manager</a> to automatically configure this keyword for all services in your CygNet environment.&#160;</p>
+                </td>
+            </tr>
+        </table>
+        <p>See <a href="../Service Configuration Keywords/Service Configuration Keywords.htm">Service Configuration Keywords</a> for configuration keyword defaults and options.</p>
+        <h3>Backup Folder Paths</h3>
+        <p><span class="CygNetVariablesSoftwareName">CygNet Software</span> recommends that the backup folder be on a different physical drive on the host server than the CygNet services for two reasons:</p>
+        <ul>
+            <li value="1">If the backup is targeted to the same drive on which the services reside and the drive crashes, the backup data would be lost along with the live data.</li>
+            <li value="2">If the backup is targeted to a network drive and the network connection is lost, the backup will fail.</li>
+        </ul>
+        <p>If you are running the CygNet services as operating system services under the Local System Account, the BACKUP_PATH and COPY_BACKUP_TO parameters must use the Universal Naming Convention (UNC) (\\Workstation\Path) to identify the network paths.</p>
+        <p>If running the CygNet services as processes, you have the option of using a mapped drive identifier. </p>
+        <p><b>BACKUP_TIME</b> defines the backup start time. The amount of time required to complete a backup depends upon the size of the database. Generally the backup times are staggered to improve performance (vs. attempting to backup all of the files at the same time). If the keyword is omitted, no automatic backup will occur. </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

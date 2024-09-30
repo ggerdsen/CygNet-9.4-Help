@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|DNP3 Emerson EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DNP3 Emerson EIE – Hist - Events Data Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DNP3 Emerson EIE.htm">DNP3 Emerson EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HistEvents Data Group</span>
+        </div>
+        <h2>Hist - Events Data Group</h2>
+        <p>The "Hist - Events" (<b>HistEvent</b>) data group is used to read events from the Emerson event file. The data group reads by date range, index number, or get latest data.</p>
+        <p><b>Get latest data</b>: There are three different parameters associated with a <b>Get latest data</b> request, each of which may be combined with the others for different effects:</p>
+        <ul>
+            <li value="1"><b>Max records to read</b>: Specifies the maximum number of historical records to retrieve. </li>
+            <li value="2"><b>Start date</b>: Specifies the oldest date limit. If there is no cached "last record," reading will begin at the indicated start date. If the "last record" has been cached, the start time will be used only if it is later than the cached record time.</li>
+            <li value="3"><b>End date</b>: Specifies the most recent date limit.</li>
+        </ul>
+        <p><b>Get data by index</b>: There are two parameters associated with this selection:</p>
+        <ul>
+            <li value="1"><b>Starting record index</b>: The number of the record index to start polling from.</li>
+            <li value="2"><b>Max records to read</b>: Specifies the maximum number of historical records to retrieve.</li>
+        </ul>
+        <p><b>Get data by date range</b>: There are two parameters associated with this selection:</p>
+        <ul>
+            <li value="1"><b>Start date</b>: Specifies the oldest date limit.</li>
+            <li value="2"><b>End date</b>:  Specifies the most recent date limit.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;HistEvent niceName="Hist - Events"&gt;</p>
+                            <p class="Code2">&lt;dgElements secLev="4" type="vrnt"&gt;</p>
+                            <div>
+                                <p class="Code3">&lt;Count desc="Event count"/&gt;</p>
+                                <p class="Code3">&lt;DateTime desc="Timestamp"/&gt;</p>
+                                <p class="Code3">&lt;RecVers desc="Rec version" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;Seq desc="Seq #"/&gt;</p>
+                                <p class="Code3">&lt;RecType desc="Type #" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;RecTypeT desc="Type" type="string" ref="RecType" mapVal="U107EvtType"/&gt;</p>
+                                <p class="Code3">&lt;SubType desc="Sub-type #" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;SubTypeT desc="Sub-type" type="string" isRef="1"&gt;</p>
+                                <p class="Code4">&lt;ref prec="0" refOp="opAssignId" deid="SubType"/&gt;</p>
+                                <p class="Code4">&lt;ref prec="1" refOp="opMapToMapVal" deid="RecType" mapVal="MapEvtType"/&gt;</p>
+                                <p class="Code3">&lt;/SubTypeT&gt;</p>
+                                <p class="Code3">&lt;UserName desc="ID"/&gt;</p>
+                                <p class="Code3">&lt;ComType desc="Comm type" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;ComNum desc="Comm #" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;Tag desc="Parameter"/&gt;</p>
+                                <p class="Code3">&lt;DataType desc="Data type" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;DataTypeT desc="Data type" type="string" hidden="true" ref="DataType" mapVal="EDataType"/&gt;</p>
+                                <p class="Code3">&lt;ValueOld desc="Old/found value"/&gt;</p>
+                                <p class="Code3">&lt;Value desc="New/left value"/&gt;</p>
+                                <p class="Code3">&lt;MeasTypOld desc="Meas type old #" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;UnitTypOld desc="Unit type old #" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;UnitsOld desc="Old/found units"/&gt;</p>
+                                <p class="Code3">&lt;MeasType desc="Meas type new #" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;UnitType desc="Unit type new#" hidden="true"/&gt;</p>
+                                <p class="Code3">&lt;Units desc="New/left units"/&gt;</p>
+                                <p class="Code3">&lt;Desc desc="Description"/&gt;</p>
+                            </div>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <div>
+                                <p class="Code2">&lt;uccRecvParms required="false"&gt;</p>
+                                <p class="Code3">&lt;Cnt desc="Max records to read" type="ui4"/&gt;</p>
+                                <p class="Code3">&lt;GetLatest desc="Get latest?" type="boolean"/&gt;</p>
+                                <p class="Code3">&lt;Seq desc="Sequence #" type="ui4"/&gt;</p>
+                                <p class="Code3">&lt;SDate desc="Start date" type="string"/&gt;</p>
+                                <p class="Code3">&lt;EDate desc="End date" type="string"/&gt;</p>
+                            </div>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/HistEvent&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

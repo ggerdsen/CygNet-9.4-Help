@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Redundancy</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Redundancy</span>
+        </div>
+        <h2>Configuring Redundancy</h2>
+        <p>While each redundant environment is unique in its configuration, the following steps provide a basic guideline for configuring your CygNet servers and services to provide high availability of CygNet Software locally or across data centers in the event of a failover situation.</p>
+        <ol>
+            <li value="1"><b>Establish a naming convention for all redundant RSMs.</b>
+            </li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Identify a naming scheme for all <b>redundant RSMs</b> in your redundancy environment. Best practice recommends using a name that identifies the network / data center / host in the RSM name, for example, <i>XXX.RSM_NDH</i>, where <i>N</i> denotes the network, <i>D</i> denotes the data center, and <i>H</i> denotes the host.</li>
+                <li value="2">Identify a naming scheme for all the <b>non-redundant RSM and ARS</b> services. You'll need one RSM / ARS pair per host, and one per potential domain. Best practice recommends using a name that identifies the data center / host / ordinal, for example, <i>XXX.RSMDH1</i>, where <i>D</i> denotes the data center, <i>H</i> denotes the host, and <i>1</i> denotes the ordinal.</li>
+                <li value="3">The ordinal is recommended because you cannot have two RSMs with the same name in one instance of the CygNet Host Manager. The lack of underscore is to separate the redundant from non-redundant RSM services.</li>
+            </ul>
+        </blockquote>
+        <ol start="2">
+            <li value="2"><b>Design your environment.</b> Identify the Primary Active Server and the Backup Standby Server redundant pairs in your system. Draw a schematic diagram of your CygNet environment to identify all sites, domains, replicating services, desired failover relationships, etc. This will help as you configure redundancy.</li>
+        </ol>
+        <ol start="3">
+            <li value="3"><b>Apply your naming convention.</b> Apply the naming convention to the sites and services in the schematic diagram.</li>
+        </ol>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;">
+            <col style="width: 60%;" />
+            <col style="width: 40%;" />
+            <tbody>
+                <tr style="vertical-align: top;">
+                    <td>
+                        <ol start="4">
+                            <li value="4"><b>Install and configure redundant services. </b>Install and configure all CygNet sites in the redundancy environment in the usual way.</li>
+                        </ol>
+                        <blockquote>
+                            <ul>
+                                <li value="1">Install the SCADA services on each host with one RSM. Each redundant RSM must be uniquely named.</li>
+                                <li value="2">Install the Measurement service (FMS) only if running on a Primary host.</li>
+                            </ul>
+                        </blockquote>
+                        <p class="Indent3">Note the following when setting up your services:</p>
+                        <blockquote>
+                            <ul>
+                                <li value="1"><b>Uniquely named RSMs</b> — All RSMs defined in the redundancy definition must be uniquely named. Redundant RSMs register on multiple domains so they must be uniquely named across multiple domains. The <a href="../System Administration/CygNet Host Manager Utility.htm">CygNet Host Manager</a> cannot own two RSM services with the same name. </li>
+                                <li value="2"><b>Primary domain.</b> A redundant RSM has the concept of a primary domain.</li>
+                                <li value="3"><b>RSM control.</b> All services must be controlled by an RSM. A redundant RSM cannot manage non-redundant services. Inversely, a non-redundant RSM cannot manage redundant services.</li>
+                                <li value="4"><b>Different domains.</b> The CygNet Host Manager can run services on different domains. The ambient domain may not match your current state.</li>
+                                <li value="5"><b>Don't mix redundant and non-redundant services</b> — Best practice recommends that you don’t mix redundant and non-redundant services on the same domain. You can't have non-redundant services running on the same domain where there are redundant services running. If you do configure your services in this way, there is the possibility that the non-redundant services will become unavailable after a failover.  If this is a required configuration, you can mitigate this risk by making sure you have a non-redundant ARS running on the domain (often referred to as a <a href="#Bastion" class="selected">bastion</a> ARS) that is the owner for the ARS records of the non-redundant services.</li>
+                                <li value="6"><b>Identical service sets</b> — All sites must have identical services sets. When configuring redundancy services with multiple sites and domains within a redundant environment, each site on each domain must have the exact same set of services across all redundant sets. For example, if you have four domains consisting of two sets of redundant pairs, each set must have the same list of services, as shown in the diagram to the right.</li>
+                                <li value="7"><b>AUD and ELS records.</b> All CygNet services guarantee delivery for AUD records, but not for ELS records. Consider using an AUD and an ELS in a <a href="#Bastion" class="selected">Bastion</a> host for seamless recording of audit and event records.</li>
+                                <li value="8"><b>Measurement redundancy.</b> The Measurement service (FMS) can only be configured for redundancy between data centers. The FMS only supports data-center failover; it does not support local redundancy. Local redundancy can be achieved with Microsoft SQL server replication and/or clustering.A redundant RSM will not start an FMS on a domain defined as in the local standby role. If you are configuring a local failover with a site that includes an FMS, the FMS can be included, but the local standby FMS service will not start. See <a href="../CygNet Measurement/Configuring FMS Redundancy.htm">Configuring FMS Redundancy</a> for more information.</li>
+                                <li value="9"><b>License master.</b> You should have a single ARS configured to be the <a href="../License Management/License Master.htm">license master</a> per domain. It's acceptable if this ARS is unavailable for short periods of time.</li>
+                                <div class="Note">
+                                    <p><span class="NoteHeading">Note:</span> In a multi-domain redundant system, since an ARS controlled by an RSM in redundancy mode  will now be on each domain on which it can potentially run, the decision about which ARS is configured to be the license master becomes more difficult to make. We recommend that one ARS in each <a href="Redundancy Editor - Network.htm">network</a>  be designated as the license master. If that ARS becomes unavailable for an extended period of time, then a different ARS should be promoted to the license master role, which will require a restart of that newly designated master ARS.</p>
+                                </div>
+                            </ul>
+                        </blockquote>
+                    </td>
+                    <td>
+                        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+                            <col class="TableStyle-Caption-Column-Column1" />
+                            <tr class="TableStyle-Caption-Body-Body1">
+                                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                                    <img src="../../Resources/Images/Redundancy/Redundancy_Identical_Services.png" />
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Caption-Body-Body1">
+                                <td class="TableStyle-Caption-BodyD-Column1-Body1">Identical Service Sets
+
+				</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ol start="5">
+            <li value="5"><b>Update the service configuration file keywords. </b>Use the <a href="../Services/Configuration File Manager.htm">CygNet Config File Manager</a> to apply mass changes to multiple services. CygNet Redundancy operates on top of the CygNet Replication model and is supported by underlying replication functionality. While replication is turned off for all participating services in a redundancy environment (<b>REPL_SOURCE</b>=FALSE), the application does require the configuration of some of the other replication keywords (<b>REPL_CHECK_INTERVAL</b> and <b>REPL_DELAY_MAX</b>). The <b>REDUNDANT</b> keyword turns redundancy on for each service.</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Set the <b>REDUNDANT</b> keyword to <b>TRUE</b> to enable redundancy for all redundant services to indicate each is in a redundant relationship with another service of the same type within the redundancy environment.</li>
+                <li value="2">Set the <b>REPL_CHECK_INTERVAL</b> keyword to 10 or other meaningful value.</li>
+                <li value="3">Set the <b>REPL_DELAY_MAX</b> keyword and set to 30 or other meaningful value.</li>
+                <li value="4">Disable the <b>REPL_SOURCE</b> keyword.</li>
+                <li value="5">Set the <b>WAIT_TIME_FOR_FIRST_SYNC</b> keyword to 30, and then adjust as needed.</li>
+                <li value="6">Consider changing the associated <b>AUD</b> and <b>ELS</b> keywords for each RSM to be domain specific.</li>
+            </ul>
+        </blockquote>
+        <ol start="6">
+            <li value="6"><b>Install and configure non-redundant services.</b>
+            </li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Add an additional RSM/ARS pair to each host per potential domain. At minimum, this is for the two domains in the redundant pair. On a control network, this also includes the primary domain from the opposing data center.</li>
+                <li value="2">Configure one ARS to be the license master per domain. We recommend that you set this for the ARS services on the primary host.</li>
+                <li value="3">Consider changing the associated <b>AUD</b> and <b>ELS</b> keywords for each RSM to be domain specific.</li>
+            </ul>
+        </blockquote>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;">
+            <col style="width: 60%;" />
+            <col style="width: 40%;" />
+            <tbody>
+                <tr style="vertical-align: top;">
+                    <td>
+                        <ol start="7">
+                            <li value="7"><b>Add and start all services using CygNet Host Manager. </b>
+                            </li>
+                        </ol>
+                        <blockquote>
+                            <ul>
+                                <li value="1">Add all RSM services to Host Manager as a System Service.</li>
+                                <li value="2">Make sure each RSM is configured to start on the expected domain, as shown in the example to the right.</li>
+                                <li value="3"> Start all RSMs in the redundant environment. Use CygNet Explorer to monitor service startup and shutdown. </li>
+                            </ul>
+                        </blockquote>
+                    </td>
+                    <td>
+                        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+                            <col class="TableStyle-Caption-Column-Column1" />
+                            <tr class="TableStyle-Caption-Body-Body1">
+                                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                                    <img src="../../Resources/Images/Redundancy/HostMgr_StartDomain.png" />
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Caption-Body-Body1">
+                                <td class="TableStyle-Caption-BodyD-Column1-Body1">Start on the Expected Domain
+
+								</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ol start="8">
+            <li value="8"><a name="Bastion"></a><b>Configure a Bastion Host.</b> Consider running a non-redundant <a href="Monitoring Services in a Redundancy Environment.htm#Bastion">bastion host</a> to monitor all sites in the redundancy environment.
+Install CygNet on the bastion host without any special redundancy configurations. Configure the following services:            </li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">A shared <b>AUD/ELS</b> service for all RSM/ARS services, providing complete failover history  in one place, otherwise audit and event records would be lost on most domains when they failover.</li>
+                <li value="2">A <b>GNS</b> to send notifications during failover. You can’t send notifications through a GNS that is failing over.</li>
+                <li value="3">A <b>BSS</b> to host Redundancy dashboard screens. If your screens are hosted in a redundant BSS, you can’t load new pages during a failover.</li>
+                <li value="4">A <b>SVCMON</b> for redundant domains</li>
+            </ul>
+        </blockquote>
+        <ol start="9">
+            <li value="9"><b>Create a Redundancy Definition.</b> Use the <a href="Redundancy Editor.htm">CygNet Redundancy Editor</a> to define the redundant relationships between service sets. Redundancy definitions are stored in the <b>redundancydefs.db</b> data file in the RSM directory. Verify all services are running on their expected domain, especially the ARS. If not, you may have <a href="../System Administration/Firewall.htm">firewall</a> issues between hosts. Pick any redundant RSM in the control network to configure for redundancy. The redundancy definition includes the following elements:</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1"><b>Network</b> — specify the names of the networks that will contain the failover sets. Examples might include production, business, or test networks</li>
+                <li value="2"><b>Domain</b> — identify the domains in your redundancy environment, the networks to which they belong, and the role each domain plays: Active, Local Standby, or Data-Center Standby</li>
+                <li value="3"><b>Zone</b> — specify the active (main) and standby (backup) zones running one or more redundant RSMs all operating on a single domain</li>
+                <li value="4"><b>Auto-failover</b> — specify auto-failover triggers for remote and local service recovery:<ul style="list-style-type: circle;"><li value="1"><b>Remote recovery</b> — specify the failover triggers that will be used to initiate an automatic failover. The Standby RSM(s) in the redundancy environment will monitor the Active RSM(s) for failure. If one or more Active RSMs become unavailable, the Standby RSM will initiate a failover.</li><li value="2"><b>Local Recovery</b> — specify the local automatic service recovery options for all services in the redundancy environment. The <i>Failover</i> action is used to trigger a failover and restart any failed local service.</li></ul></li>
+            </ul>
+        </blockquote>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;">
+            <col style="width: 60%;" />
+            <col style="width: 40%;" />
+            <tbody>
+                <tr style="vertical-align: top;">
+                    <td>
+                        <ol start="10">
+                            <li value="10"><b>Verify the redundancy configuration.</b> Once definitions are saved, you can verify the following:</li>
+                        </ol>
+                        <blockquote>
+                            <ul>
+                                <li value="1">That all replicating services start replicating</li>
+                                <li value="2">Redundant RSMs will appear on multiple domains. CygNet Host Manager will list the multiple domains for the redundant RSMs. The first domain listed is the primary domain, as shown in the example to the right.  This may change after a failover. </li>
+                            </ul>
+                        </blockquote>
+                    </td>
+                    <td>
+                        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+                            <col class="TableStyle-Caption-Column-Column1" />
+                            <tr class="TableStyle-Caption-Body-Body1">
+                                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                                    <img src="../../Resources/Images/Redundancy/HostMgr_Domains.png" />
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Caption-Body-Body1">
+                                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                                    <p>Redundant RSMs running on Multiple Domains</p>
+                                    <p>First Domain is Primary Domain
+								</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ol start="11">
+            <li value="11"><b>Perform Failover.</b> Use a tool such as the <a href="Redundancy Dashboard.htm">CygNet Redundancy Dashboard</a> to visualize your failover sets, review replication status, and execute failover, once Failover Readiness is achieved. Customize the CygNet Redundancy Dashboard to match your system. We recommend that you customize the checks to verify a host is ready to run a service on the active domain. With the dashboard you can:</li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Monitor failover readiness</li>
+                <li value="2">Monitor replication status</li>
+                <li value="3">Manually failover one or more services</li>
+                <li value="4">Monitor a failover</li>
+                <li value="5">View failover history</li>
+            </ul>
+        </blockquote>
+        <p class="Indent3">You can also execute failover via script using the CygNet API (CygNet.API.ServiceManager).</p>
+        <ol start="12">
+            <li value="12"><b>Validate/Troubleshoot.</b>
+            </li>
+        </ol>
+        <blockquote>
+            <ul>
+                <li value="1">Use the <a href="RSM Diagnostic Tool.htm">RSM Diagnostics Tool</a> to verify the consistency of redundancy definitions, as well as services and their owners across RSMs in a redundancy environment. The tool will tell you if your RSM services have properly synced. It does not attempt to fix configuration errors.</li>
+                <li value="2">If an RSM is incorrectly listed as owning a service, add the service back to the RSM in CygNet Explorer, then remove it.</li>
+                <li value="3">If an RSM that no longer exists is listed as owning a service, add the RSM name back into a zone, then wait a bit, and remove it.</li>
+            </ul>
+        </blockquote>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Redundancy Editor.htm" class="More">CygNet Redundancy Editor</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Redundancy Configuration Keywords.htm" class="More">Redundancy Configuration Keywords</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

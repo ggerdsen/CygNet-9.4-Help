@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview|Alarm Calculation Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Calculation - Default</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarm Calculation Types.htm">Alarm Calculation Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Default Alarm Calculation</span>
+        </div>
+        <h2>Default Alarm Calculations</h2>
+        <p>There are several default calculation types that are associated with point types and are included in the <a href="../Points/Point Scheme.htm">CygNet Standard Point Scheme</a>.</p>
+        <p>For more information, see <a href="Alarm Calculation Types.htm">Alarm Calculation Types</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Val" class="selected">Deviation Value</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Digital" class="selected">Digital Value Equal</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Max" class="selected">Maximum Value</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Min" class="selected">Minimum Value</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#String" class="selected">String Filter</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#ValRange" class="selected">Value Range</a>
+            </li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Calculation Parameters are user-provided.</p>
+        </div>
+        <h3><a name="Val"></a>Deviation Value</h3>
+        <p>The  Deviation alarm uses the Deviation Value (DEVIATION_VAL) calculation.  On each update, the system calculates the change in engineering units from the previous value and sets the alarm bit if the change equals or exceeds the threshold. This alarm calculation uses Calculation Parameter 1 only.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled  High Deviation calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_DevVal.png" title="Deviation Value" alt="Deviation Value" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameter</b>
+        </p>
+        <ul>
+            <li value="1"><b>Deviation Value</b> (calcparm1) – maximum allowed  threshold change before the alarm bit is set</li>
+        </ul>
+        <p class="Example">Equation</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">Deviation Value =    fabs(Updated Value - Previous Value)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li value="1">If deviation value ≥ maximum allowed change, alarm is set.</li>
+            <li value="2">If deviation value &lt; maximum allowed  change, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 25</li>
+        </ul>
+        <p>In this example, the High Deviation bit  is set because the absolute change in value (-79.052)   is greater than the calcparm value of 25.</p>
+        <table class="Code">
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="Code">   fabs(212.841 -285.893) = -79.052 </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_High_Dev.png" title="High Deviation status bit" alt="High Deviation status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Digital"></a>Digital Value Equal</h3>
+        <p>The  Digital alarm uses the Digital Value Equal (DIGITAL_EQUAL) calculation.  On each update,  if the value matches the state selected by the user, then the alarm bit is set, otherwise it is cleared.  This alarm calculation uses Calculation Parameter 1 only.</p>
+        <p>The following image shows the area of a <b>Digital Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled  Digital Alarm calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Digital_Equal.png" title="Digital Alarm" alt="Digital Alarm" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameter</b>
+        </p>
+        <ul>
+            <li value="1"><b>Applies when Off? (Y/N)</b> (calcparm1) – Digital State/Value</li>
+        </ul>
+        <ul>
+            <li value="1">On update, if current value = digital state/value, alarm is set.</li>
+            <li value="2">On update, if current value ≠ digital state/value, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = N</li>
+        </ul>
+        <p>In this example, the Digital Alarm bit  is set because the  updated state matches the calcparm state (N).</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Digital_EqualVHS.png" title="Digital Alarm status bit" alt="Digital Alarm status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Max"></a>Maximum Value</h3>
+        <p>The  High Alarm and High Warning alarms use the Maximum Value (MAX_VALUE) calculation.  On each update, the system will check the value and set the alarm bit if it is equal to or more than the threshold. This alarm calculation uses Calculation Parameter 1 only.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled  High Alarm calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Max_Val.png" title="High Alarm" alt="High Alarm" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameter</b>
+        </p>
+        <ul>
+            <li value="1"><b>Setpoint Value</b> (calcparm1) — threshold value at which the alarm is set when the updated value equals or exceeds the setpoint</li>
+        </ul>
+        <ul>
+            <li value="1">On update, if current value ≥ setpoint value, alarm is set.</li>
+            <li value="2">On update, if current value &lt; setpoint value, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 150</li>
+        </ul>
+        <p>In this example, the High Alarm bit  is set because the  updated value (165.1762) exceeds the  calcparm1 value (150).</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Max_ValVHS.png" title="High Alarm status bit" alt="High Alarm status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Min"></a>Minimum Value</h3>
+        <p>The  Low Alarm and Low Warning alarms use the Minimum Value (MIN_VALUE) calculation.  On each update, the system will check the value and set the alarm bit if it is less than or equal to the setpoint value. This alarm calculation uses Calculation Parameter 1 only.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Low Warning  calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Min_Val.png" title="Low Warning" alt="Low Warning" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameter</b>
+        </p>
+        <ul>
+            <li value="1"><b>Setpoint Value</b> (calcparm1) — threshold value at which alarm is set when the updated value is at or below this value</li>
+        </ul>
+        <ul>
+            <li value="1">On update, if current value ≤ setpoint value, alarm is set.</li>
+            <li value="2">On update, if current value &gt; setpoint value, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 12</li>
+        </ul>
+        <p>In this example, the Low Warning bit  is set because the  updated value (11.84) is less than the  calcparm1 value (12).</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_Min_ValVHS.png" title="Low Warning status bit" alt="Low Warning status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="String"></a>String Filter</h3>
+        <p>The String Alarm  has two calculation options: String Filter case-insensitive (STRING_VAL_CI) and String Filter case-sensitive (STRING_VAL_CS). On each update, if the new value matches the calcparm1 comparison string (without regards to case for case-insensitive, and with regards to case for case-sensitive) the alarm bit is set, otherwise it is cleared. This calculation supports wildcards. This alarm calculation uses Calculation Parameter 1 only.</p>
+        <p>The following image shows the area of a <b>String Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled String Filter (case-insensitive)  calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_String.png" title="String Alarm" alt="String Alarm" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameter</b>
+        </p>
+        <ul>
+            <li value="1"><b>Setpoint Value</b> (calcparm1) — user-provided comparison string.</li>
+        </ul>
+        <ul>
+            <li value="1">On update, if current value = setpoint value, alarm is set.</li>
+            <li value="2">On update, if current value ≠ setpoint value, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = EXCEPTION</li>
+        </ul>
+        <p>In this example for a STRING_VAL_CI calculation, the String Alarm bit  is set because the  updated value (Exception) matches the  calcparm1 value (regardless of case).</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_StringVHS.png" title="String Alarm status bit" alt="String Alarm status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="ValRange"></a>Value Range</h3>
+        <p>The various Out-of-Range alarms use the Value Range (VALUE_RANGE) calculation. On each update, the system will check the value and set the alarm bit if it is outside the allowed range.</p>
+        <p>The following image shows the area of an <b>Analog Alarm Settings</b> page of a <b>PNT Editor</b> with an enabled Out-of-Range calculation.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_OOR.png" title="Out-of-Range Alarm" alt="Out-of-Range Alarm" />
+        </p>
+        <p><b style="text-decoration: underline;">Calculation Parameter</b>
+        </p>
+        <ul>
+            <li value="1"><b>High OOR Value</b> (calcparm1) — maximum engineering units threshold</li>
+            <li value="2"><b>Low OOR Value</b> (calcparm2) — minimum engineering units threshold</li>
+        </ul>
+        <ul>
+            <li value="1">On update, if current value ≥ maximum threshold or ≤ minimum threshold, alarm is set.</li>
+            <li value="2">On update, if current value is within the range between maximum and minimum thresholds, alarm is not set.</li>
+        </ul>
+        <p class="Example">Example</p>
+        <ul>
+            <li value="1">calcparm1 = 25</li>
+            <li value="2">calcparm1 = 3</li>
+        </ul>
+        <p>In this example, the Out-of-Range bit  is set because the  updated value (2) is outside the range defined by calparm1 and calcparm2.</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Alarm_Calc_OORVHS.png" title="Out-of-Range status bit" alt="Out-of-Range status bit" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

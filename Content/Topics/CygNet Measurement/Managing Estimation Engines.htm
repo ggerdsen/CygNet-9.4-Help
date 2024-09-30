@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Admin Menu">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Estimation Processing</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Admin Menu.htm">Admin Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Managing Estimation Engines</span>
+        </div>
+        <h2>Managing Estimation Engines</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This functionality is only available in systems licensed for FULL mode.</p>
+        </div>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Estimation_Rules16.png" /> Use the <b>Estimation</b> button on the <b>Admin</b> menu  to access options to manage estimation engines and rules. The CygNet Measurement system supports the configuration of multiple estimation engines and rules. Estimation engines define when and what types of data will be estimated, and estimation rules define how to perform those estimations to arrive at better data values. You can <a href="#Creating" class="selected">add</a>, <a href="#Editing" class="selected">view</a> or <a href="#Editing" class="selected">edit</a>, or <a href="#Deleting" class="selected">delete</a> estimation engines and rules via this interface. Changes made to estimation engines and rules are <a href="#Saving" class="selected">historized</a> in the measurement system.</p>
+        <p>Estimation is only performed at the station level; it is not meaningful to estimate a meter run.</p>
+        <p>Data will be estimated when any of the following is true.</p>
+        <ul>
+            <li value="1">Data is missing - there are gaps in data that are not likely to be filled from the device.</li>
+            <li value="2">Data is late - data has not yet entered the system within a user-defined interval.</li>
+            <li value="3">Data is of insufficient quality - data has been received from the device but it is at or below a user-defined data quality threshold.</li>
+        </ul>
+        <p>Each estimation engine can be configured to contain multiple estimation rules, so that different estimation handling routines can be performed in a user-defined order of precedence, given data constraints.&#160;</p>
+        <p>Missing data and low quality data is estimated as soon as the record enters the measurement system. Late data estimation must be initiated by executing the <a href="Running Estimation Commands.htm">Estimate Station Data</a> command.</p>
+        <p>You must have proper security authorization to perform these actions. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#ACCESS">ACCESS</a> security event) for information about configuring security access to estimation engines and rules.</p>
+        <h3>Managing Estimation Engines</h3>
+        <p>Estimation Engines are configured via the <b>Admin</b> menu in FMS Explorer. Click <b>Estimation</b> on the Admin ribbon to access the <b>Estimation Engines</b> dialog box. </p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Estimation_Engine_List.png" />
+        </p>
+        <p>  The <b>Estimation Engines</b> dialog box lists all defined estimation engines in the measurement system. Each row displays a configured estimation engine name, the type(s) of data to which it applies, the active begin and end times, and whether or not the engine is enabled. Results can be filtered by the values of any column. You can also access options to <a href="#Creating" class="selected">add</a>, <a href="#Editing" class="selected">view or edit</a>, or <a href="#Deleting" class="selected">delete</a> estimation engines and rules from this dialog box.</p>
+        <h4><a name="Creating"></a>Creating Estimation Engines</h4>
+        <p>Click <b>Add</b>  to create a new estimation engine in your system. The <b>Create New Estimation Engine</b> dialog box will appear.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Estimation_Engine_Create.png" />
+        </p>
+        <p>The properties for the <b>Create New Estimation Engine</b> dialog box are as described for the <b>Estimation Engine Properties</b> dialog box          <a href="#Estimati" class="selected">below</a>, with the exception of the historization navigator.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Editing"></a>Viewing or Editing Estimation Engines</h4>
+        <p>Click an estimation engine name and then click <b>Edit</b> to view or modify the properties for an existing estimation engine, or to view its historized records. The <b>Estimation Engine Properties</b> dialog box will appear. </p>
+        <p class="Image">
+            <img src="../../Resources/Images/CygNet Measurement/estimation_engine_properties.png" />
+        </p>
+        <h5><a name="Estimati"></a>Estimation Engine Properties</h5>
+        <p>The properties for the <b>Estimation Engine Properties</b> dialog box are described below. This dialog box is similar to the <b>Create New Estimation Engine</b> dialog box <a href="#Creating" class="selected">above</a>.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Name</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the estimation engine.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Enabled</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to select/clear whether  or not to enable this estimation engine.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Node</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The name of the Node to which this estimation engine applies. Click <b>...</b> to select a Node.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When choosing a group Node, it must be a General Group Node of uniqueness type: Estimation Engine.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">Estimation categories</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Estimate missing data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to estimate missing data when there are gaps in data that are not likely to be filled from the device.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Estimate late data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to estimate late data. Data is late if it has not entered the system within a user-defined interval.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Hours before late</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Type the number of hours after which late data is considered "late" and will be estimated.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Estimate low quality data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to estimate or override data that is at or below a user-defined data quality threshold.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Low data quality </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select a low data quality threshold from the drop-down menu. Records with data quality at or below  the selected setting will be estimated.</p>
+                    <p>System data quality settings are configured on the <b>Administrative Options</b> dialog box. See <a href="Configuring Data Quality Settings.htm">Configuring Data Quality Settings</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Use station's low quality</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select to use the  low end of the station's data quality range. </p>
+                    <p>For stations with multiple devices of varying data quality, the lowest device data quality value will be used to determine estimation for the station.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Use station's high quality</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select to use the  high end of the station's data quality range. </p>
+                    <p>For stations with multiple devices of varying data quality, the highest device data quality value will be used to determine estimation for the station.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" colspan="2">Estimation Rules</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Estimation Rules</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A list of all the estimation rules that have been defined for this engine.</p>
+                    <p>Columns include the following.</p>
+                    <ul class="table">
+                        <li value="1">#</li>
+                        <li value="2">Rule</li>
+                        <li value="3">Assigned Data Quality</li>
+                        <li value="4">Minimum Data Quality</li>
+                        <li value="5">Hours Back</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">#</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Estimation rules will be performed in the specified order of precedence. Click <b>Move up</b> and <b>Move down</b> to reorder the rules.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Rule</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The type of estimation rule. See <a href="#Add" class="selected">Add Rule</a> below for a list of estimation rule types and their descriptions.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Assigned Data Quality</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The data quality level that will be assigned to the resultant estimated record, once it is estimated by the selected estimation rule. Click the down arrow to select a <b>Data Quality</b> value from the drop-down menu.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Min Data Quality</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The minimum data quality level for other records that are used as part of the estimation, for the selected estimation rule. </p>
+                    <p class="Example">Example </p>
+                    <p class="Indent">If the data quality for the last known value is higher than the assigned data quality for the estimated record, use the higher data quality value.</p>
+                    <p>Click the down arrow to select a <b>Data Quality</b> value from the drop-down menu.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Hours Back</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>For historical rules, the number of hours into the past to use to estimate a historical average.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="Add"></a>Add Rule</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click <b>Add Rule</b> to add a new estimation rule to the estimation engine. Select a rule type from the drop-down menu.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For estimating non-contiguous data, the estimated value can only be determined from data that already exists in the database (records that have previously been saved).  </p>
+                    </div>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1"><b>Last good value</b> — The estimation process will use the most recent "good value" (value with a data quality above the minimum data quality configured for the rule) as the estimated value. </li>
+                        <li value="2"><b>Historical</b> — The estimation process will estimate data using a historical average of previous data, for a time period defined in the rule.</li>
+                        <li value="3"><b>Interpolation</b> — The estimation process will use an average of good data from before and after the data to be estimated. Interpolation can be used to estimate missing data, and to estimate data of low quality (assuming there is a good record before and after). <p class="Example">Example </p><p class="Indent">If volume data is missing for three hours  and the <i>last</i> good record is 100 MCF, and the <i>next</i> good record is 200 MCF, then the first estimated record would be 125 MCF, the second 150 MCF, and the third 175 MCF.</p></li>
+                        <li value="4"><b>Custody/Check</b> — The estimation process will copy the data for a configured “linked station” for the time period being estimated.</li>
+                        <li value="5"><b>Same hour</b> — The estimation process will find values from the same hour of a previous day to fill in missing data. To be used, the data must be from the same hour within the day as the missing data, and must meet a specified data quality. If data for the same hour of the previous day is not of sufficient quality, the prior day will be checked, and so on, until an acceptable value is found. <div class="Note"><p><span class="NoteHeading">Note:</span> If the maximum time is exceeded without finding an acceptable same hour value, a warning will be generated in the FMS command log and the estimation process will proceed without estimating this value.</p></div></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Delete</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click <b>Delete</b> to delete a selected estimation rule.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Move up / Move down</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select any rule and then click <b>Move up</b> or <b>Move down</b> to change the rule execution order.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Details</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Select any rule and then click <b>Details</b> to access the Record Details for the selected estimation rule.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" colspan="2">Historization Navigator</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p class="Indent">Record details</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Where applicable, click <b>Record details</b> in the <a href="#Historiz" class="selected">historization navigator</a> to view sequential historized records for the selected estimation engine.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p class="Indent">Audit history</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Where applicable, click <b>Audit history</b> in the <a href="#Historiz" class="selected">historization navigator</a> to view detailed history of audit trail data changes for the selected estimation engine.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h4><a name="Deleting"></a>Deleting Estimation Engines</h4>
+        <p>Use the Delete button to either delete an Estimation Engine from a point in time, or to completely purge an Estimation Engine from the system. You can only take this action for one estimation engine at a time.</p>
+        <p>Click an estimation engine name and then click <b>Delete</b> to delete or purge the selected estimation engine. The <b>Delete Estimation Engine</b> dialog box will appear.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Estimation_Engine_Delete.png" />
+        </p>
+        <p>You will need to select whether to delete the estimation engine from a point in time, or to completely purge the estimation engine from the system. If you select to <b>Delete from a Point in Time</b>, also specify the <b>PIT (C)</b> using the date/time selector provided. See <a href="Using the Home Menu.htm">Using the Home Menu</a> for more information  about PIT.</p>
+        <ul>
+            <li value="1"><b>Delete from a Point in Time</b> removes (effectively deactivates) the selected Estimation Engine record from a specified Point in Time, and historizes the change. The Estimation Engine still exists in the system, and its properties can still be edited. Selecting this option causes the action button at the bottom of the dialog box to read <b>Delete</b>.</li>
+            <li value="2"><b>Purge from system</b> removes the selected Estimation Engine and its data records from the system entirely. The Estimation Engine will no longer exist. Selecting this option causes the action button at the bottom of the dialog box to read <b>Purge</b>.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Be certain of your selection, as there is NO "undo" for this action.</p>
+        </div>
+        <p>A message will appear asking you to confirm that you wish to delete/purge the selected Estimation Engine from your system. Select <b>Yes</b> or <b>No</b>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Historiz"></a>Historization Navigator</h3>
+        <p>The <b>Estimation Engine Properties</b> dialog box contains a historization navigator. Use the historization navigator to access sequential historized records for the same estimation engine, where applicable.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Historization_Navigator.png" />
+        </p>
+        <p>The following fields are displayed in the historization navigator.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Field</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>&lt;&lt;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click <b>&lt;&lt;</b> to navigate to the previous historized record, if applicable.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>[Begin date]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Displays the effective begin date, in Contract time (C), of the historized record currently selected.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>[End date]</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Displays the effective end date, in Contract time (C), of the historized record currently selected.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>&gt;&gt;</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click <b>&gt;&gt;</b> to navigate to the next historized record, if applicable.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Record details</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Use the <b>&lt;&lt;</b> and <b>&gt;&gt;</b> navigation buttons to select a historized record date span, in Contract time (C), for which you want to view record details. Next, click <b>Record details</b> to view details of the record such as who made the change, the date and time it was made, and optionally the audit category and/or any comments entered regarding the change.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Audit history</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Click <b>Audit history</b> to view detailed history of audit trail value changes for the selected Estimation Engine in its entirety.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Saving"></a>Saving FMS Record Changes</h3>
+        <p>After creating or editing an Estimation Rule,  you'll be asked to save your changes via the  <b>Save FMS Record</b> dialog box. Configure the date and audit information requested to historize the changes in your system.</p>
+        <p>
+            <img src="../../Resources/Images/CygNet Measurement/Save_FMS_Record_Change_End.png" />
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Change begin</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Set the effective date and time for the record change to begin.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Indefinite:</b> Click to make the record change begin date and time effective for an undefined amount of time. Effectively, it means all time.</li>
+                            <li value="2"><b>Choose date/time:</b> Click to make the record change begin date and time effective for a specific date and time. Use the date/time selector to select the specific begin date and time.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Change end</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Set the effective date and time for the record change to end. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Indefinite:</b> Click to make the record change end date and time effective for an undefined amount of time. Effectively, it means all time.</li>
+                            <li value="2"><b>Choose date/time:</b> Click to make the record change end date and time effective for a specific date and time. Use the date/time selector to select the specific end date and time.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Audit category</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select an appropriate <b>Audit category</b> from the drop-down menu.  The audit category type for this kind of edit is <b>Configuration Change</b>. </p>
+                        <p>Audit categories are configured on the <b>Admin</b> menu. See <a href="Configuring Audit Categories.htm">Configuring Audit Categories</a> for more information. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Comments</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Type <b>Comments</b> regarding creation or modification of the rule or Node in the text box. Although comments are optional, they become part of the record and can be helpful when auditing or reviewing records.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

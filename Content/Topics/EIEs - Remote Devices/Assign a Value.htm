@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Assignment Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Assignment Examples</span>
+        </div>
+        <h2>Assignment Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#AssignConditionalA" class="selected">Assign a Conditional Value (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#AssignConditionalB" class="selected">Assign a Conditional Value (B)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#AssignConditionalC" class="selected">Assign a Conditional Value (C)</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Assign2" class="selected">Assign a Constant</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Assign3" class="selected">Assign a Data Group Element Value</a>
+            </li>
+        </ul>
+        <p>For information about example data group element and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="AssignConditionalA"></a>Assign a Conditional Value (A)</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following construct is useful for simple evaluations of two operands. It may be used in conjunction with the constructs described in <a href="#AssignConditionalB" class="selected">Assign a Conditional Value (B)</a> and <a href="#AssignConditionalC" class="selected">Assign a Conditional Value (C)</a>.</p>
+        </div>
+        <p>In this example, a <a href="ref.htm">ref</a> element references the operation <a href="Available Reference Operations.htm#opSelect">opSelect</a>, and a <a href="selection element.htm">selection</a> element includes four child elements. The <b>selection</b> element defines assignment operations that make up an if-then-else sequence of evaluations. The first three child elements (<b>s0</b>, <b>s1</b>, and <b>s2</b>) define relational expressions. Each child element is evaluated in sequence from lowest number to highest. If a relational expression in a child element is true, the <a href="selection element.htm#assign">assign</a> value of that element is assigned to that element, processing stops, and the assigned value is returned for the parent data group element. If no relational expression is true, a default value (<a href="selection element.htm#defVal">defVal</a>) is returned for the parent data group element.</p>
+        <p>In this case, if raw0 = 0, raw1 = 1, and raw2 = 2, "High Alarm" is assigned to the data group element because <b>s2</b> is the first expression whose condition is met.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Select desc="Alarm State" readOnly="true" type="string" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opSelect"&gt;</p>
+                    <p class="Code3">&lt;selection&gt;</p>
+                    <p class="Code4">&lt;s0 assign="Low Alarm" operandLeftId="raw0" op="GT" operandRight="0"/&gt;</p>
+                    <p class="Code4">&lt;s1 assign="Medium Alarm" operandLeftId="raw1" op="GT" operandRight="2"/&gt;</p>
+                    <p class="Code4">&lt;s2 assign="High Alarm" operandLeftId="raw2" op="GT" operandRight="1"/&gt;</p>
+                    <p class="Code4">&lt;defVal assign="No Alarms Found"/&gt;</p>
+                    <p class="Code3">&lt;/selection&gt;</p>
+                    <p class="Code2">&lt;/ref&gt;</p>
+                    <p class="Code">&lt;/Select&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="selection element.htm#assign">assign</a>, <a href="selection element.htm#assignId">assignId</a>, <a href="selection element.htm#operandLeft">operandLeft</a>, <a href="selection element.htm#operandLeftId">operandLeftId</a>, <a href="selection element.htm#operandRight">operandRight</a>, <a href="selection element.htm#operandRightId">operandRightId</a>, and <a href="selection element.htm#op">op</a>. Useful elements to know are <a href="ref.htm" style="font-style: normal;">ref</a>, <a href="selection element.htm">selection</a>, and <a href="selection element.htm#defVal">defVal</a>.</p>
+        <h3><a name="AssignConditionalB"></a>Assign a Conditional Value (B)</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following construct is useful for evaluations of operands that require a bit position or bit mask. It may be used in conjunction with the constructs described in <a href="#AssignConditionalA" class="selected">Assign a Conditional Value (A)</a> and <a href="#AssignConditionalC" class="selected">Assign a Conditional Value (C)</a>.</p>
+        </div>
+        <p>In this example, a <a href="ref.htm">ref</a> element references the operation <a href="Available Reference Operations.htm#opSelect">opSelect</a>, and a <a href="selection element.htm">selection</a> element includes four child elements. The <b>selection</b> element defines assignment operations that make up an if-then-else sequence of evaluations. The first three child elements (<b>s0</b>, <b>s1</b>, and <b>s2</b>) define relational expressions. Each child element is evaluated in sequence from lowest number to highest. If a relational expression in a child element is true, the <a href="selection element.htm#assign">assign</a> value of that element is assigned to that element, processing stops, and the assigned value is returned for the parent data group element. If no relational expression is true, a default value (<a href="selection element.htm#defVal">defVal</a>) is returned for the parent data group element.</p>
+        <p>In this case, if raw0 = 0, raw1 = 1, and raw2 = 2, "MidAlarm" is assigned to the data group element because <b>s1</b> is the first expression whose condition is met.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Select desc="Alarm State" readOnly="true" type="string" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opSelect"&gt;</p>
+                    <p class="Code3">&lt;selection&gt;</p>
+                    <p class="Code4">&lt;s0 assignId="LowAlarm" op="GT"&gt;</p>
+                    <p class="Code5">&lt;operandLeft deid="raw0" bMsk="0x0F"/&gt;</p>
+                    <p class="Code5">&lt;operandRight value="0"/&gt;</p>
+                    <p class="Code4">&lt;/s0&gt;</p>
+                    <p class="Code4">&lt;s1 assignId="MidAlarm" op="GT"&gt;</p>
+                    <p class="Code5">&lt;operandLeft deid="raw1" bMsk="0x0F"/&gt;</p>
+                    <p class="Code5">&lt;operandRight value="0"/&gt;</p>
+                    <p class="Code4">&lt;/s1&gt;</p>
+                    <p class="Code4">&lt;s2 assignId="HighAlarm" op="GT"&gt;</p>
+                    <p class="Code5">&lt;operandLeft deid="raw2" bMsk="0x0F"/&gt;</p>
+                    <p class="Code5">&lt;operandRight value="0"/&gt;</p>
+                    <p class="Code4">&lt;/s2&gt;</p>
+                    <p class="Code4">&lt;defVal assign="No Alarms Found"/&gt;</p>
+                    <p class="Code3">&lt;/selection&gt;</p>
+                    <p class="Code2">&lt;/ref&gt;</p>
+                    <p class="Code">&lt;/Select&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="selection element.htm#assign">assign</a>, <a href="selection element.htm#assignId">assignId</a>, <a href="selection element.htm#operandLeft">operandLeft</a>, <a href="selection element.htm#operandLeftId">operandLeftId</a>, <a href="selection element.htm#operandRight">operandRight</a>, <a href="selection element.htm#operandRightId">operandRightId</a>, and <a href="selection element.htm#op">op</a>. Useful elements to know are <a href="ref.htm" style="font-style: normal;">ref</a>, <a href="selection element.htm">selection</a>, and <a href="selection element.htm#defVal">defVal</a>.</p>
+        <h3><a name="AssignConditionalC"></a>Assign a Conditional Value (C)</h3>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The following construct is useful for evaluations where multiple expressions are required to assign a value. It may be used in conjunction with the constructs described in <a href="#AssignConditionalA" class="selected">Assign a Conditional Value (A)</a> and <a href="#AssignConditionalB" class="selected">Assign a Conditional Value (B)</a>.</p>
+        </div>
+        <p>In this example, a <a href="ref.htm">ref</a> element references the operation <a href="Available Reference Operations.htm#opSelect">opSelect</a>, and a <a href="selection element.htm">selection</a> element includes four child elements. The <b>selection</b> element defines assignment operations that make up an if-then-else sequence of evaluations. The first three child elements (<b>s0</b>, <b>s1</b>, and <b>s2</b>) define relational expressions that are evaluated by an <b>AND</b>/<b>OR</b> operator (<a href="selection element.htm#andOr">andOr</a>). Each child element is evaluated in sequence from lowest number to highest. If a relational expression in a child element is true, the <a href="selection element.htm#assign">assign</a> value of that element is assigned to that element, processing stops, and the assigned value is returned for the parent data group element. If no relational expression is true, a default value (<a href="selection element.htm#defVal">defVal</a>) is returned for the parent data group element.</p>
+        <p>In this case, if raw0 = 0 and raw1 = 1,  "No Alarms Found" is assigned to the data group element because no expressions have conditions that are met.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Select desc="Alarm State" readOnly="true" type="string" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opSelect"&gt;</p>
+                    <p class="Code3">&lt;selection&gt;</p>
+                    <p class="Code4">&lt;s0 assign="Low Alarm" andOr="and"&gt;</p>
+                    <p class="Code5">&lt;expr op="GT"&gt;</p>
+                    <p class="Code6">&lt;operandLeft deid="raw0" bPos="1"/&gt;</p>
+                    <p class="Code6">&lt;operandRight value="0"/&gt;</p>
+                    <p class="Code5">&lt;/expr&gt;</p>
+                    <p class="Code5">&lt;expr op="LT"&gt;</p>
+                    <p class="Code6">&lt;operandLeft deid="raw1"/&gt;</p>
+                    <p class="Code6">&lt;operandRight value="12"/&gt;</p>
+                    <p class="Code5">&lt;/expr&gt;</p>
+                    <p class="Code4">&lt;/s0&gt;</p>
+                    <p class="Code4">&lt;s1 assign="Medium Alarm" andOr="and"&gt;</p>
+                    <p class="Code5">&lt;expr op="GT"&gt;</p>
+                    <p class="Code6">&lt;operandLeft deid="raw0" bPos="1"/&gt;</p>
+                    <p class="Code6">&lt;operandRight value="1"/&gt;</p>
+                    <p class="Code5">&lt;/expr&gt;</p>
+                    <p class="Code5">&lt;expr op="LT"&gt;</p>
+                    <p class="Code6">&lt;operandLeft deid="raw1"/&gt;</p>
+                    <p class="Code6">&lt;operandRight value="0"/&gt;</p>
+                    <p class="Code5">&lt;/expr&gt;</p>
+                    <p class="Code4">&lt;/s1&gt;</p>
+                    <p class="Code4">&lt;s2 assign="High Alarm" andOr="and"&gt;</p>
+                    <p class="Code5">&lt;expr op="GT"&gt;</p>
+                    <p class="Code6">&lt;operandLeft deid="raw0" bPos="1"/&gt;</p>
+                    <p class="Code6">&lt;operandRight value="2"/&gt;</p>
+                    <p class="Code5">&lt;/expr&gt;</p>
+                    <p class="Code5">&lt;expr op="LT"&gt;</p>
+                    <p class="Code6">&lt;operandLeft deid="raw1"/&gt;</p>
+                    <p class="Code6">&lt;operandRight value="10"/&gt;</p>
+                    <p class="Code5">&lt;/expr&gt;</p>
+                    <p class="Code4">&lt;/s2&gt;</p>
+                    <p class="Code4">&lt;defVal assign="No Alarms Found"/&gt;</p>
+                    <p class="Code3">&lt;/selection&gt;</p>
+                    <p class="Code2">&lt;/ref&gt;</p>
+                    <p class="Code">&lt;/Select&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="selection element.htm#assign">assign</a>, <a href="selection element.htm#assignId">assignId</a>, <a href="selection element.htm#andOr">andOr</a>, <a href="selection element.htm#expr">expr</a>, <a href="selection element.htm#op">op</a>, <a href="selection element.htm#operandLeft">operandLeft</a>, <a href="selection element.htm#operandLeftId">operandLeftId</a>, <a href="selection element.htm#operandRight">operandRight</a>, and <a href="selection element.htm#operandRightId">operandRightId</a>. Useful elements to know are <a href="ref.htm" style="font-style: normal;">ref</a>, <a href="selection element.htm">selection</a>, and <a href="selection element.htm#defVal">defVal</a>.</p>
+        <h3><a name="Assign2"></a>Assign a Constant</h3>
+        <p>In this example, the child element references the operation <a href="Available Reference Operations.htm#opAssign">opAssign</a> to assign the initial constant 61.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;Assign desc="Assign Constant" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssign" value="61"/&gt;</p>
+                    <p class="Code">&lt;/Assign&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, and <a href="ref.htm#value">value</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Assign3"></a>Assign a Data Group Element Value</h3>
+        <p>In this example, the child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> to assign the current value of the data group element <a href="Example Values.htm">raw61</a> as the initial value for <b>AssignId</b>.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;AssignId desc="Assign ID" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code">&lt;/AssignId&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, and <a href="ref.htm#deid">deid</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/devices/datagroups/poll</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/devices/datagroups/poll</h1>
+<div>
+    <p>Initiates polling of a device data group, optionally returning transaction data</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 3</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Control</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">siteService</td>
+                    <td class="parameter-documentation">
+                        <p>CygNet site and service (Site.Service) of the Universal Interface Service (UIS)</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">deviceId</td>
+                    <td class="parameter-documentation">
+                        <p>Device ID</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">dataGroupType</td>
+                    <td class="parameter-documentation">
+                        <p>The data group type</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">ordinal</td>
+                    <td class="parameter-documentation">
+                        <p>The data group ordinal</p>
+                    </td>
+                    <td class="parameter-type">
+                        integer
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">fromDeviceParameters</td>
+                    <td class="parameter-documentation">
+                        <p>Optional string of parameters that may be required when getting from the device; usually an empty string is passed</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">returnTransactionData</td>
+                    <td class="parameter-documentation">
+                        <p>Optional flag to return transaction data in the response; default value = false</p>
+                    </td>
+                    <td class="parameter-type">
+                        boolean
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">maxWaitInMs</td>
+                    <td class="parameter-documentation">
+                        <p>When returnTransactionData = true, the maximum time for the call to wait, in ms; default value = 60000</p>
+                    </td>
+                    <td class="parameter-type">
+                        integer
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;siteService&quot;: &quot;CYGSITE.UIS&quot;,
+  &quot;deviceId&quot;: &quot;EM107&quot;,
+  &quot;dataGroupType&quot;: &quot;BasicPoll&quot;,
+  &quot;ordinal&quot;: 0,
+  &quot;fromDeviceParameters&quot;: &quot;&quot;,
+  &quot;returnTransactionData&quot;: true,
+  &quot;maxWaitInMs&quot;: 120000
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p></p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">error</td>
+                    <td class="parameter-documentation">
+                        <p>Any error messages that may have occurred</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">transaction</td>
+                    <td class="parameter-documentation">
+                        <p>Transaction DTO, only used if transaction is requested</p>
+                    </td>
+                    <td class="parameter-type">
+                        <a href="../ResourceModel@modelName=DataGroupTransactionDTO.html">DataGroupTransactionDTO</a>
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;error&quot;: &quot;&quot;,
+  &quot;transaction&quot;: {
+    &quot;header&quot;: {
+      &quot;deviceId&quot;: &quot;EM107&quot;,
+      &quot;facilityId&quot;: &quot;EM107&quot;,
+      &quot;dataGroupType&quot;: &quot;BasicPoll&quot;,
+      &quot;dataGroupOrdinal&quot;: 0,
+      &quot;dataBaseKey&quot;: &quot;0000000123B0000001C0000029&quot;,
+      &quot;timestamp&quot;: &quot;2019-04-25T09:17:07&quot;,
+      &quot;type&quot;: &quot;Get&quot;,
+      &quot;userId&quot;: &quot;domain\\john.user&quot;,
+      &quot;statusCode&quot;: &quot;Succeeded&quot;,
+      &quot;statusMessage&quot;: &quot;Succeeded&quot;,
+      &quot;majorVersion&quot;: 2,
+      &quot;minorVersion&quot;: 2,
+      &quot;dataSize&quot;: 0,
+      &quot;headerSize&quot;: 300,
+      &quot;indexItem&quot;: &quot;&quot;,
+      &quot;appDefined1&quot;: 0,
+      &quot;appDefined2&quot;: 0,
+      &quot;appDefined3&quot;: 0,
+      &quot;appDefined4&quot;: 0,
+      &quot;hasPartialData&quot;: false,
+      &quot;compressSize&quot;: 753,
+      &quot;blobCount&quot;: 1
+    },
+    &quot;transactionDataXml&quot;: &quot;&lt;dgData xmlns:dt=\&quot;urn:schemas-microsoft-com:datatypes\&quot;&gt;\r\n&lt;ItemCnt dt:dt=\&quot;i4\&quot; desc=\&quot;Number of items\&quot;&gt;41&lt;/ItemCnt&gt;\r\n&lt;RespLen dt:dt=\&quot;i4\&quot; desc=\&quot;Response length\&quot;&gt;139&lt;/RespLen&gt;\r\n&lt;InDIs dt:dt=\&quot;i4\&quot; desc=\&quot;DIs installed\&quot;&gt;0&lt;/InDIs&gt;\r\n&lt;InTDIs dt:dt=\&quot;i4\&quot; desc=\&quot;TDIs installed\&quot;&gt;0&lt;/InTDIs&gt;\r\n&lt;InAIs dt:dt=\&quot;i4\&quot; desc=\&quot;AIs installed\&quot;&gt;8&lt;/InAIs&gt;\r\n&lt;InMtrRns dt:dt=\&quot;i4\&quot; desc=\&quot;Meter runs installed\&quot;&gt;4&lt;/InMtrRns&gt;\r\n&lt;InPIs dt:dt=\&quot;i4\&quot; desc=\&quot;PIs installed\&quot;&gt;1&lt;/InPIs&gt;\r\n&lt;InPIDs dt:dt=\&quot;i4\&quot; desc=\&quot;PIDs installed\&quot;&gt;0&lt;/InPIDs&gt;\r\n&lt;InTanks dt:dt=\&quot;i4\&quot; desc=\&quot;Tanks installed\&quot;&gt;0&lt;/InTanks&gt;\r\n&lt;InAOs dt:dt=\&quot;i4\&quot; desc=\&quot;AOs installed\&quot;&gt;1&lt;/InAOs&gt;\r\n&lt;InTDOs dt:dt=\&quot;i4\&quot; desc=\&quot;TDOs installed\&quot;&gt;1&lt;/InTDOs&gt;\r\n&lt;InDOs dt:dt=\&quot;i4\&quot; desc=\&quot;DOs installed\&quot;&gt;0&lt;/InDOs&gt;\r\n&lt;DiagPnt65 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic65 point\&quot;&gt;3.260691&lt;/DiagPnt65&gt;\r\n&lt;DiagPnt66 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic66 point\&quot;&gt;25.09796&lt;/DiagPnt66&gt;\r\n&lt;DiagPnt67 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic67 point\&quot;&gt;23.54124&lt;/DiagPnt67&gt;\r\n&lt;DiagPnt68 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic68 point\&quot;&gt;0.5418656&lt;/DiagPnt68&gt;\r\n&lt;DiagPnt69 dt:dt=\&quot;r4\&quot; desc=\&quot;Diagnostic69 point\&quot;&gt;79.55807&lt;/DiagPnt69&gt;\r\n&lt;AI03 dt:dt=\&quot;r4\&quot; desc=\&quot;AI03 value\&quot;&gt;586318.6&lt;/AI03&gt;\r\n&lt;AI33 dt:dt=\&quot;r4\&quot; desc=\&quot;AI33 value\&quot;&gt;586318.6&lt;/AI33&gt;\r\n&lt;AI34 dt:dt=\&quot;r4\&quot; desc=\&quot;AI34 value\&quot;&gt;586318.6&lt;/AI34&gt;\r\n&lt;MRGas00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 gas flow\&quot;&gt;717.4448&lt;/MRGas00&gt;\r\n&lt;MREnergy00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 cur energy\&quot;&gt;627.6673&lt;/MREnergy00&gt;\r\n&lt;MRMcf00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 MCF\&quot;&gt;119.1879&lt;/MRMcf00&gt;\r\n&lt;MRMmbtu00 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter00 MMBTU\&quot;&gt;104.2737&lt;/MRMmbtu00&gt;\r\n&lt;MRGas01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 gas flow\&quot;&gt;0&lt;/MRGas01&gt;\r\n&lt;MREnergy01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 cur energy\&quot;&gt;0&lt;/MREnergy01&gt;\r\n&lt;MRMcf01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 MCF\&quot;&gt;0&lt;/MRMcf01&gt;\r\n&lt;MRMmbtu01 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter01 MMBTU\&quot;&gt;0&lt;/MRMmbtu01&gt;\r\n&lt;MRGas02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 gas flow\&quot;&gt;0&lt;/MRGas02&gt;\r\n&lt;MREnergy02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 cur energy\&quot;&gt;0&lt;/MREnergy02&gt;\r\n&lt;MRMcf02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 MCF\&quot;&gt;0&lt;/MRMcf02&gt;\r\n&lt;MRMmbtu02 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter02 MMBTU\&quot;&gt;0&lt;/MRMmbtu02&gt;\r\n&lt;MRGas03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 gas flow\&quot;&gt;717.4448&lt;/MRGas03&gt;\r\n&lt;MREnergy03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 cur energy\&quot;&gt;627.6673&lt;/MREnergy03&gt;\r\n&lt;MRMcf03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 MCF\&quot;&gt;119.1879&lt;/MRMcf03&gt;\r\n&lt;MRMmbtu03 dt:dt=\&quot;r4\&quot; desc=\&quot;Meter03 MMBTU\&quot;&gt;104.2737&lt;/MRMmbtu03&gt;\r\n&lt;PIRawAcc01 dt:dt=\&quot;i4\&quot; desc=\&quot;PI01 raw acc\&quot;&gt;352584450&lt;/PIRawAcc01&gt;\r\n&lt;PIRate01 dt:dt=\&quot;r4\&quot; desc=\&quot;PI01 rate\&quot;&gt;0&lt;/PIRate01&gt;\r\n&lt;PItotal01 dt:dt=\&quot;r4\&quot; desc=\&quot;PI01 total\&quot;&gt;3.082857E-44&lt;/PItotal01&gt;\r\n&lt;AO00 dt:dt=\&quot;r4\&quot; desc=\&quot;AO00 value\&quot;&gt;3.222986E-44&lt;/AO00&gt;\r\n&lt;TDO00 dt:dt=\&quot;r4\&quot; desc=\&quot;TDO00 EU\&quot;&gt;3.363116E-44&lt;/TDO00&gt;\r\n&lt;UISCMDPRMS&gt;DGORD=0;DGTYPE=BasicPoll;&lt;/UISCMDPRMS&gt;\r\n&lt;UISCMDTYPE&gt;DG_F_DEV&lt;/UISCMDTYPE&gt;\r\n&lt;/dgData&gt;\r\n&quot;
+  }
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

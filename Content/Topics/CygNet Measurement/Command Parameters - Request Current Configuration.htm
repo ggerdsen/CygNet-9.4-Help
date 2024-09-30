@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Request Current Configuration Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Device Communication: Request Current Configuration</span>
+        </div>
+        <h2>Device Communication: Request Current Configuration</h2>
+        <p><b>Request Current Configuration</b> (<b>REQCONFIG</b> via script) is a Node-level command that triggers the service to retrieve current configuration data for each eligible device.</p>
+        <p>Devices are eligible if the following apply.</p>
+        <ul>
+            <li value="1">Their device record is set to "active"</li>
+            <li value="2">The associated device record in the DDS is enabled</li>
+            <li value="3">The user executing the command has the appropriate security access</li>
+            <li value="4">It passes the requirements of the "LastSuccess" parameter</li>
+            <li value="5">There are no outstanding data polls of the same type</li>
+        </ul>
+        <p>Use the <b>FMS Command Task</b> page of the New Schedule Task dialog box in the MSS to specify the command properties, the command parameters, and the device descriptors associated with the task you want to schedule. The table below lists the command parameters as they appear in the MSS. See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about specifying the command properties and device descriptors associated with scheduling the command, and configuring the schedule.</p>
+        <p>You must have proper security authorization to execute this command. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CMDDEV">CMDDEV</a> security event) for information about configuring security access for FMS commands.</p>
+        <p>See <a href="Configuring Request Current Configuration Commands.htm">Configuring Request Current Configuration Commands</a> and <a href="Running Node Commands.htm">Running Node Commands</a> for more information about using this command via FMS Explorer.</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3>Command Definition Properties</h3>
+        <p>The following command definition properties apply to <b>Request Current Configuration</b> commands, when scheduling, creating, or editing commands via CygNet Explorer.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">FMS service</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select a <i>Site.Service</i> for the command from the available <b>FMS service</b> list in the drop-down menu.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command</b> name from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Time format</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the desired <b>Time format</b> for the command from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Contract</li>
+                            <li value="2">Device</li>
+                        </ul>
+                        <p>Default value is Device time.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                            </p>
+                            <p class="Note">This parameter determines how the time window is selected in the database; not how the data is exported.</p>
+                            <p class="Note">For daily devices only, specifying start and end times of midnight (<b>00:00:00</b>), will always be interpreted as Contract time format, regardless of this selected parameter value.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command via the MSS service in CygNet Explorer. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer or via the FMS service in CygNet Explorer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Command Parameters</h3>
+        <p>The following command parameters apply to <b>Request Current Configuration</b> commands, when scheduling, creating, or editing commands via CygNet Explorer or scripting.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Usage Notes</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">LastDate</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Skip devices with good config after</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">DateTime</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If used, double-click to access the <b>Select Skip Devices With Good Config After</b> dialog box. </p>
+                    <p>Select the date after which devices with good configuration data will be skipped. See <a href="#Note" class="selected">Note</a> below this table.</p>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">LimitPend</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Limit to 1 pending poll/device (hours)</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Integer</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If used, double-click to access the <b>Enter Limit to 1 Pending Poll/device (hours)</b> dialog box.</p>
+                    <p>Enter the number of hours to limit the queue to 1 pending poll/meter. This limits the number of requests in the queue for a specific device. </p>
+                    <p class="Example">Example </p>
+                    <p class="Indent">The parameter is set to <b>1</b> hour and you poll at 8:00 a.m. If you poll again at 8:05 a.m., but the original request in still in the queue, the second message will be discarded since the pending time has not been exceeded.</p>
+                    <p>This parameter is optional.</p>
+                </td>
+            </tr>
+        </table>
+        <p><a name="Note"></a>
+        </p>
+        <div class="Note"><a name="Note"></a>
+            <p><span class="NoteHeading">Note:</span> Date/time - When using relative (rather than absolute) date/time, if both the start and end date/time have hour, minute, and second values of <b>00</b> (or if both are set to midnight), an additional day will be added to the date at the end of the range. This occurs because the service assumes the start of the day for the starting date/time and the end of the day for the ending date/time in these circumstances. Therefore requesting a time range from T to T will yield one day of data, and from T-1 to T will yield two days of data.  If only one day of data is desired when using relative date/time, the start and end date/times must therefore be the same. If any of the start or end date/time hour, minute, or second values are specified as a value other than zero (or midnight) however, the range will be used as specified.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

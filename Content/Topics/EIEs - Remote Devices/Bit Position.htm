@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Bit Position Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Bit Position Examples</span>
+        </div>
+        <h2><a name="Bit"></a>Bit Position Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf. In this topic, methods are described that compute a value from or provide a value for a <u>single</u> bit position.  To make multi-bit changes, see <a href="Bit Mask.htm#Bit2">Bit Mask</a>.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#BitPosFromRef" class="selected">Bit Position (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Bit5" class="selected">Bit Position (B)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Bit4" class="selected">Bit Stuff from Referenced Data Group Element</a>
+            </li>
+        </ul>
+        <p>For information about example data group elements and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="BitPosFromRef"></a>Bit Position (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and requests the binary value of the bit in bit position 2. The result of <b>BitPosA</b> is 1 because the binary value of the bit in bit position 2 of the decimal value 61 (binary 0011 1<u>1</u>01) is 1. (Bit position enumeration starts with 0, the least significant bit position.)</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitPosA desc="Bit Position Method A" readOnly="true" type="ui2" ref="raw61" bPos="2"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#bPos">bPos</a>.</p>
+        <h3><a name="Bit5"></a>Bit Position (B)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and references the operation <a href="Available Reference Operations.htm#opBitPos">opBitPos</a> to request the binary value of the bit in bit position 2. The result of <b>BitPosB</b> is 1 because the binary value of the bit in bit position 2 of the decimal value 61 (binary 0011 1<u>1</u>01) is 1. (Bit position enumeration starts with 0, the least significant bit position.)</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitPosB desc="Bit Position Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opBitPos" value="2"/&gt;</p>
+                    <p class="Code">&lt;/BitPosB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#value">value</a>, and <a href="ref.htm#deid">deid</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Bit4"></a>Bit Stuff from Referenced Data Group Element</h3>
+        <p>The following example uses two child elements to perform a bit stuff on the parent element. The first child element references the operation <a href="Available Reference Operations.htm#opAssign">opAssign</a> to assign the initial decimal value "0" to <b>BitStuff</b>. The second child element references the <a href="Available Reference Operations.htm#opBitStuff">opBitStuff</a> operation and inserts the Boolean value "1" from the data group element <a href="Example Values.htm">raw1</a> into bit position "1" of <b>BitStuff</b>. The final value for <b>BitStuff</b> is a decimal value of 2 (binary 0000 0010) because a 1 is inserted into bit position 1; this signifies a decimal value of 2. (Bit position enumeration starts with 0, the least significant bit position.)</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;BitStuff desc="Bit Stuff ID" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssign" value="0"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opBitStuff" deid="raw1" bPosDest="1"/&gt;</p>
+                    <p class="Code">&lt;/BitStuff&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#value">value</a>, <a href="ref.htm#deid">deid</a>, and <a href="ref.htm#bPosDest">bPosDest</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

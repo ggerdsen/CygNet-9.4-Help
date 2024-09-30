@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Scripting in Canvas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Describes how to script a custom search in the search box." /><title>Scripting Custom Searches using the Search Box</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder10.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting_in_Canvas.htm">Scripting in Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Scripting Custom Searches</span>
+        </div>
+        <h2><a name="aanchor204"></a>
+            <MadCap:concept term="Canvas Scripting" />Scripting Custom Searches using a Search Box</h2>
+        <p>The <span class="GeneralProduct_Short">Canvas</span> search box supports numerous actions on selected search results: facility sender, facility navigation, facility scripted, and custom searches. This topic describes how to script a custom search using the <a href="../Using_Canvas_Controls/Search_Box.htm">Search Box</a> control.</p>
+        <ul>
+            <li value="1">See <a href="../Using_Canvas_Controls/Search_Box_Config.htm#Search_FacilitySender">To configure a search box as a facility sender</a></li>
+            <li value="2">See <a href="../Using_Canvas_Controls/Search_Box_Config.htm#Search_Navigate">To configure a search box to navigate to another screen</a></li>
+            <li value="3">See <a href="../Using_Canvas_Controls/Search_Box_Config.htm#Search_Scripted">To configure a search box to execute a scripted selection action</a></li>
+        </ul>
+        <h3>Custom Searches</h3>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/NoBorder10.css');margin-left: 0;margin-right: auto;" class="TableStyle-NoBorder10" cellspacing="0" summary="Search Box - Custom">
+            <col class="TableStyle-NoBorder10-Column-Column1" />
+            <col class="TableStyle-NoBorder10-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder10-Body-Body1">
+                    <td class="TableStyle-NoBorder10-BodyB-Column1-Body1">
+                        <p>Custom searching is supported via script to allow you to query whatever you want, for example, a SQL database, a .csv file, even a web site. When a full or partial search term is entered in the search box, a custom script method is fired to search a specified item or object, and any matching terms are returned in a search results list. Further custom actions can be executed when selecting a search result.</p>
+                        <ol>
+                            <li value="1">Add a search box to your screen.</li>
+                            <li value="2">Configure the following properties in the Properties pane:</li>
+                        </ol>
+                        <ol class="Lower_alpha">
+                            <li value="1"><b>Include in script</b> — <p>The <b>Include in script</b> check box indicates that the control will appear in the objects collection of the screen (if scripting is enabled). To optimize performance, best practice dictates that you only include the controls you need to manipulate via script. Other controls should be excluded. When you add an event to a control, it will be automatically added to script and the Include in script property (and the <b>In Script</b> check box on the Controls view) will be set to <i>True</i>. </p><div class="Note"><p><span class="NoteHeading">Tip:</span> You can also change the Include in Script setting on the <a href="../Using_Canvas/Pane_Screen_Controls_View.htm">Controls view</a> of the Screen pane.</p></div> Click to enable.</li>
+                            <li value="2"><b>Enabled</b> — Click to enable. The <b>Enabled</b> check box indicates whether the control is enabled. The default value is <b>True</b>.<br /></li>
+                            <li value="3"><b>Search custom</b> — Click to enable.<p>The <b>Search custom</b> check box indicates whether a custom search will be performed. </p><p>This property invokes the <b>CustomSearch</b> script property, a delegate that references a custom search method, when a user searches for a string. </p><p class="Example">Example</p><table class="Code" summary="Code example"><tr><td><p class="Code">private void Search2_Initialize(object sender, EventArgs args)</p><p class="Code">{</p><p class="Code2">Objects.Search2.<span style="color: #ff0000;">CustomSearch</span> = DoCustomSearch;</p><p class="Code2">ParseCsvFile(@"C:\Temp\List.csv");</p><p class="Code">}</p></td></tr></table><p>See <a href="#">Scripting Custom Searches</a> for more information about this property.</p></li>
+                            <li value="4"><b>Selection action</b> — Select the <b>Script</b> option. Executes a script event when selecting a facility or custom item from the search results. If you are setting up a facility search, and want to script the selection action, you also need to enable the <b>Search facilities</b> check box. If you are setting up a custom search to query some other object, for example, a SQL database, a .csv file, even a web site, you also need to enable the <b>Search custom</b> check box. See <a href="#">Scripting Custom Searches</a> for more information.</li>
+                        </ol>
+                        <ol start="3">
+                            <li value="3">On the Events pane enable the <a href="../Using_Canvas_Controls/Search_Box_Events.htm">Initialize</a> and <a href="../Using_Canvas_Controls/Search_Box_Events.htm">SearchResultSelected</a> events.</li>
+                            <li value="4">On the Script view write appropriate script to define the custom search method, perform the custom search, return the search results or error message, format the search results, and fire an event for the selected search result. See the script example sample code below.</li>
+                        </ol>
+                        <ol start="5">
+                            <li value="5">Configure any other search box properties.</li>
+                            <li value="6"><a href="../Using_Canvas/Saving_Screens.htm">Save the screen</a>.</li>
+                            <li value="7"><a href="../Using_Canvas/Running_Screens.htm">Run the screen</a> to test your configuration.</li>
+                        </ol>
+                    </td>
+                    <td class="TableStyle-NoBorder10-BodyA-Column1-Body1">
+                        <table style="margin-left: auto;margin-right: auto;" summary="Custom search">
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <p>
+                                            <img src="../../Resources/Images/Controls/Search_Custom.png" title="Search Box - Custom Search" alt="Search Box - Custom Search" />
+                                        </p>
+                                        <p class="Caption">A search box scripted to search a .csv file.<br />Selecting the search results pops a message.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Custom Search Example</h4>
+        <p>The following code example shows how to query a .csv list of meeting attendees to find any results that match a Primary and Secondary value, as shown in the image above. </p>
+        <ul>
+            <li value="1">The script defines the custom search method <code>DoCustomSearch </code>which is passed as an argument to the <code>Objects.Search2.CustomSearch</code> property.</li>
+            <li value="2">When a full or partial string is entered in the search box, the  <code>DoCustomSearch </code>method is fired parsing the specified .csv file.</li>
+            <li value="3">The custom search results <code>CustomSearchBoxResult </code>are returned in a list, or if the search results are empty, an error message (No results found) is returned.</li>
+            <li value="4">When one of the search results is selected, a <code>MessageBox </code>is popped displaying the Primary value (Name).</li>
+        </ul>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">namespace Screen</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">public class Attendee</p>
+                    <p class="Code2">{</p>
+                    <p class="Code3">public string Name { get; set; }</p>
+                    <p class="Code3">public string Company { get; set; }</p>
+                    <p class="Code3">public string Title { get; set; }</p>
+                    <p class="Code2">}</p>
+                    <p class="Code2">public class ScreenClass</p>
+                    <p class="Code2">{</p>
+                    <p class="Code3">private List&lt;Attendee&gt; Attendees { get; set; } = new List&lt;Attendee&gt;();</p>
+                    <p class="Code3">public bool DoCustomSearch(string query, out List&lt;CustomSearchBoxResult&gt; results, out string error)</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">error = string.Empty;</p>
+                    <p class="Code4">results = new List&lt;CustomSearchBoxResult&gt;();</p>
+                    <p class="Code4">var queryResults = Attendees.Where(x =&gt; x.Name.ToUpper().Contains(query.ToUpper()) ||</p>
+                    <p class="Code5">x.Company.ToUpper().Contains(query.ToUpper()) ||</p>
+                    <p class="Code5">x.Title.ToUpper().Contains(query.ToUpper()));</p>
+                    <p class="Code4">foreach (var result in queryResults)</p>
+                    <p class="Code4">{</p>
+                    <p class="Code5">results.Add(new CustomSearchBoxResult() { Primary = result.Name, Secondary = result.Company });</p>
+                    <p class="Code4">}</p>
+                    <p class="Code4">return true;</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">private void ParseCsvFile(string path)</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">Attendees.Clear();</p>
+                    <p class="Code4">using (TextFieldParser parser = new TextFieldParser(path))</p>
+                    <p class="Code4">{</p>
+                    <p class="Code5">parser.SetDelimiters(new string[] { "," });</p>
+                    <p class="Code5">// Skip over header line.</p>
+                    <p class="Code5">parser.ReadLine();</p>
+                    <p class="Code5">while (!parser.EndOfData)</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">string[] fields = parser.ReadFields();</p>
+                    <p class="Code6">Attendees.Add(new Attendee()</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">Name = fields[0] + " " + fields[1],</p>
+                    <p class="Code7">Company = fields[3],</p>
+                    <p class="Code7">Title = fields[4]</p>
+                    <p class="Code6">});</p>
+                    <p class="Code5">}</p>
+                    <p class="Code4">}</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">public static void Main()</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">ScreenClass c = new ScreenClass();</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">/// &lt;summary&gt;</p>
+                    <p class="Code3">/// Constructor for screen. Used to hook-up event handlers and for any custom initialization code</p>
+                    <p class="Code3">/// &lt;/summary&gt;</p>
+                    <p class="Code3">public ScreenClass()</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">// control event handler code goes here -- do not modify</p>
+                    <p class="Code4">Objects.Search2.Initialize += new EventHandler(this.Search2_Initialize);</p>
+                    <p class="Code4">Objects.Search2.SearchResultSelected += new EventHandler(this.Search2_SearchResultSelected);</p>
+                    <p class="Code4">// add your custom initialization code here</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">#region Search2</p>
+                    <p class="Code3">private void Search2_Initialize(object sender, EventArgs args)</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">Objects.Search2.CustomSearch = DoCustomSearch;</p>
+                    <p class="Code4">ParseCsvFile(@"C:\Temp\RSVPs.csv");</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">private void Search2_SearchResultSelected(object sender, EventArgs args)</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">var searchResultArgs = args as Canvas.Controls.SearchBox.CanvasSearchBoxSearchResultSelectedEventArgs;</p>
+                    <p class="Code4">MessageBox.Show(searchResultArgs.Result.Primary);</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">#endregion</p>
+                    <p class="Code2">}</p>
+                    <p class="Code">}</p>
+                </td>
+            </tr>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

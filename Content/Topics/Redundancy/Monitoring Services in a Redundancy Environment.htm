@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy|Monitoring Redundancy and Failover">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Monitoring Services in a Redundancy Environment</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Monitoring Redundancy.htm">Monitoring Redundancy and Failover</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Monitoring Services in a Redundant Environment</span>
+        </div>
+        <h2>Monitoring Services in a Redundancy Environment</h2>
+        <p>The following describes the recommended solution for using the <b>Service Monitor Service</b> (SVCMON) to collect and monitor system, service, and site statistics on all the domains (active/live, local standby, data-center standby) in your redundancy environment. </p>
+        <ul>
+            <li value="1">The live or primary domain will have its own  SVCMON that will replicate everywhere, collecting data on the single live domain.  It will collect data on all the services except the RSM (since the name is different per each host).</li>
+        </ul>
+        <ul>
+            <li value="1">Best practice recommends that each data center has a bastion host with a SVCMON service collecting data for the other domains running in that data center.</li>
+        </ul>
+        <ul>
+            <li value="1">The bastion host SVCMON service will also collect data for <i>every</i> RSM running in that data center.  Since the RSMs are running on all possible domains, the bastion host SVCMON service will just have to pick one domain on which to talk to each RSM.</li>
+        </ul>
+        <ul>
+            <li value="1">For the data-center standby domain, since it can run in either data center, one of the bastion host services will be appointed to collect its statistics.  Presumably this will be the service it is most often running in.  When running in the other data center, the SVCMON info will go across the WAN, which is deemed acceptable.</li>
+        </ul>
+        <ul>
+            <li value="1">Machine specific statistics will be collected by the bastion SVCMON service via the RSM.  This is how you can review the health of your data center.</li>
+        </ul>
+        <ul>
+            <li value="1">Machine specific statistics will also be collected by the live domain via a different service (you can decide which).  This will allow you to easily align machine statistics (regardless of the host the live domain is running on) with the statistics of the live system for the purpose of troubleshooting issues.</li>
+        </ul>
+        <h3><a name="Bastion"></a>Services on the Bastion Host</h3>
+        <p>The following services should be running on the bastion host for all redundant RSMs to report to. At this time, only the ARS is required.  The others are recommended.</p>
+        <table class="TableStyle-HelpTable2" style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Service</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ARS</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Yes</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>An active running ARS for each domain running in each data center.  The purpose of the bastion ARS is  to make sure that clients can always connect to services on the domain, even during a failover. This ensures that if there is a failover, there will never be a domain without an active running ARS.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">AUD</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>An active running AUD that can be used to receive change records during failover. This ensures that a complete failover history is stored in one place since audit records would be lost on most redundant domains.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Best practice recommends configuring a single AUD service for all redundant RSMs in all data centers to report to as the RSM moves between domains during local and data-center failover. It is also recommended that it run on a different domain than all the domains that are part of the redundancy set.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">BSS</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">No</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">An active BSS can be used to host your Redundancy Dashboard screens.
+If these documents were hosted in a redundant BSS, you couldn't load the screens during a failover.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ELS</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">No</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>An active running ELS where system-generated and user-defined events can be logged during failover. This ensures that a complete failover history is stored in one place since event records would be lost on most redundant domains.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Best practice recommends configuring a single ELS for all redundant RSMs in all data centers to report to as the RSM moves between domains during local and data-center failover. It is also recommended that it run on a different domain than all the domains that are part of the redundancy set. <br /><br />All RSMs would report to the ELS, so the service would include more than just events during a failover, but all events by those RSMs.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">GNS</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">No</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>An active running GNS that can be used to send notifications during failover. You can’t send notifications from a redundant GNS that is failing over. See <a href="Sending Failover Notifications.htm">Sending Failover Notifications</a> for more information.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">SVCMON</td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="text-align: center;">No</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>An active running SVCMON service collecting data for the other domains running in that data center. Highly recommended.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> You must have a Bastion SVCMON configured to run the Failover status (SVMFOSTATU) point and retrieve values.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

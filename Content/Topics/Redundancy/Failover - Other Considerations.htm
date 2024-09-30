@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Redundancy|Redundancy Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Other Failover Considerations</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Redundancy.htm">Redundancy</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Redundancy Overview.htm">Redundancy Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Other Failover Considerations</span>
+        </div>
+        <h2>Other Failover Considerations</h2>
+        <p>The following miscellaneous items should be noted when performing a failover:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Security" class="selected">Failover Security</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Syncs" class="selected">Failover and Full Data Synchronization</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Delay" class="selected">Delay ARS Startup After Failover</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Freezing" class="selected">Read-Only "Freezing" State</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Auditing" class="selected">Auditing and Logging Failover</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#GNS" class="selected">Failover Notifications</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Persisted" class="selected">Persisted Data After a Failover</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#CygHostUpdater" class="selected">Using CygNet Host Updater After a Failover</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#FMS_Redundancy" class="selected">Measurement Redundancy</a>
+            </li>
+            <li class="HyperlinkList" value="10"><a href="#Cryouts" class="selected">Monitoring Device Cryouts</a>
+            </li>
+            <li class="HyperlinkList" value="11"><a href="#VHS_Data_Forwarding" class="selected">Redundancy and VHS Data Forwarding</a>
+            </li>
+        </ul>
+        <h3><a name="Security"></a>Failover Security</h3>
+        <p>A user needs to have Admin access for the <a href="../Security/Remote Service Manager RSM.htm">CHANGE</a> event on the RSM to initiate a failover. </p>
+        <p>See the SVCINFO Security Event for the applicable CygNet Service in the <a href="../Security/Security Reference.htm">Security Reference</a> topics for information about security access levels regarding change queue translations.</p>
+        <h3><a name="Syncs"></a>Failover and Full Data Synchronization</h3>
+        <p>Note the following constraints related to full syncs:</p>
+        <ul>
+            <li value="1">Local Failover — Any replicating service should be able to avoid a full data synchronization after executing a local failover</li>
+            <li value="2">Data-Center (Remote) Failover — Some replicating domains may need to do a full data synchronization after a data-center failover.</li>
+        </ul>
+        <h3><a name="Delay"></a>Delay ARS Startup After Failover</h3>
+        <p>If a failed redundant server is starting back up, a race condition may exist between the ARS doing a sync to get the latest settings, and the starting services registering with the ARS. A keyword, <a href="../Service Configuration Keywords/ARS Configuration File Keywords.htm#WAIT">WAIT_TIME_FOR_FIRST_SYNC</a>, is available in the ARS service configuration file (Ars.cfg) to specify the number of seconds to delay the startup of the ARS, so that the service can synchronize with other ARS services on the same domain. Setting this keyword may prevent multiple services starting up and running on the same domain for a short time after a hard failover. </p>
+        <p>For services in a redundant environment we recommend you start with a value of 30, then consider adjusting as needed. For non-redundant services, we recommend you leave the value at zero.</p>
+        <h3><a name="Freezing"></a>Read-Only "Freezing" State</h3>
+        <p>To prevent data loss during a soft (manual or planned) failover the RSM will trigger each redundant service that is active in its failover set to transition into a freezing state where all internal processing will begin to cease, followed by a read-only or <i>frozen</i> state where all internal processing has stopped. Services will cease all processing while  in the read-only state to prevent further changes to the database. For example, the HSS&#160;will stop all scripts, the OPCIS will stop all processing, the SVCMON will stop all timers, and the UIS will stop all polling and response processing.  All services will be evaluated and any other internal processing will be aborted.</p>
+        <p>The <a href="../Service Monitoring/Info Items - Service Generic.htm#FAILOVER_STATUS">FAILOVER_STATUS</a> info item (SVMFOSTATU) is available to monitor each service as it cycles through the various failover states. The RSM will also handle the case where a service fails to fully enter the read-only state, for whatever reason, and FAILOVER_STATUS will be set to "Error" causing the failover to abort. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In the case of a hard failover, the RSM will skip this step and the failover will proceed.</p>
+        </div>
+        <p>Each service will log these transition states (pre-failover, waiting, freezing, frozen, error, etc.) to its service log file. Any message sent to a real-only service will be denied and an error will be logged. The length of time each service takes to transition from “freezing” to “frozen” depends on the size of the service and the internal processing taking place at the time the failover is triggered.</p>
+        <h3><a name="Auditing"></a>Auditing Failover</h3>
+        <p>The master RSM in the redundancy environment audits and logs several details about each failover event, including:</p>
+        <ul>
+            <li value="1">the type of failover (Hard or Soft) </li>
+            <li value="2">the list of services being failed over</li>
+            <li value="3"> start and end of a failover sequence</li>
+            <li value="4">the status of the failover (Uninitialized, In Progress, Succeeded, Failed)</li>
+            <li value="5">the user who initiated the failover </li>
+            <li value="6">any failover comment entered by the user</li>
+        </ul>
+        <p>The <b>FailoverEventLog.log</b>  file found in the RSM folder for every redundant site logs the failover process and can be used to troubleshoot problems. This file is persisted between failover events, providing a historical record that exists beyond the last failover. A new file is created when the <b>FailoverEventLog.log</b> reaches 1MB and a maximum of five files are retained.</p>
+        <h3><a name="GNS"></a>Failover Notifications</h3>
+        <p>A GNS running on a Bastion host server can be configured to send notifications to alert users that a failover is occurring within the redundancy environment. Several failover-related attributes are passed from the redundant RSM to the reporting GNS, which resolve to several dynamic tokens. The <a href="Sending Failover Notifications.htm">tokens</a> can be used to configure a notification message for a GNS Event record in the GNS message editor. See <a href="Sending Failover Notifications.htm">Sending Failover Notifications</a> for more information.</p>
+        <h3><a name="Persisted"></a>Persisted Data After a Failover</h3>
+        <p>As services shutdown as part of a failover, many services will persist data that needs to be sent to another service once services restart. These services may have data records they can't immediately send due to the shutdown, for example, any service may have cached AUD entries, or the CAS may have cached ELSALM entries. As these services restart these data records will  be  sent to the appropriate services on the domain where they were previously running.</p>
+        <h3><a name="CygHostUpdater"></a>Using CygNet Host Updater After a Failover</h3>
+        <p>
+            <p>Users need to be cautious when running the CygNet Host Updater utility in an environment running multiple domains that have been fully or partially failed over. It is important to know that CygNet Host Updater is domain-aware and that awareness is of the domain originally installed on the host server, not the domain of the server that is currently running.</p>
+            <p>In addition to the CygNet Host Updater’s primary function of copying new CygNet files to the local host where the utility is running and dropping files into the APPS service folder, the utility also talks (via CygNet messaging) to any live APPS services in the CygNet environment. </p>
+            <p>After a full or partial failover, the domain on the server could be different to the one originally installed. CygNet Host Updater (and most other CygNet utilities) assumes that the domain on which it communicates, is the original domain on which the server was installed. After a failover the server is now running on a different domain, and CygNet Host Updater assumes it is talking to  services running on the local host, when in fact it may be actually talking to services running on a different host.</p>
+            <p>This behavior results in CygNet Host Updater doing messaging to one set of services, and updating the local APPS files for a different set of services, which may be not as expected.</p>
+        </p>
+        <h3><a name="FMS_Redundancy"></a>Measurement Redundancy</h3>
+        <p>
+            <p>The Measurement service (FMS) can only be configured for redundancy between data centers. The FMS only supports data-center failover; it does not support local redundancy. Local redundancy can be achieved with Microsoft SQL server replication and/or clustering.</p>
+            <p>A redundant RSM will not start an FMS on a domain defined as in the local standby role. If you are configuring a local failover with a site that includes an FMS, the FMS can be included, but the local standby FMS service will not start. See <a href="../CygNet Measurement/Configuring FMS Redundancy.htm">Configuring FMS Redundancy</a> for more information.</p>
+        </p>
+        <h3><a name="Cryouts"></a>Monitoring Device Cryouts</h3>
+        <p>During failover, the IP address of the CygNet server receiving a cryout message will change. Monitoring device cryouts may require additional configuration outside of the CygNet environment to accommodate failover. See <a href="../EIEs - Communication Devices/TCP IP Messaging.htm">TCP/IP&#160;Messaging</a> and the <a href="../EIEs - Communication Devices/Cryout Listen EIE.htm">Cryout Listen EIE</a> for more details about TCP/IP messaging and cryouts.</p>
+        <h3><a name="VHS_Data_Forwarding"></a>Redundancy and VHS Data Forwarding</h3>
+        <p>Both the active and standby VHS in a Redundancy server pair can be configured for VHS data forwarding. This allows an active service in a redundancy pair to forward data to another destination VHS keeping both services in sync. While this configuration allows the standby VHS in the redundancy pair to be configured for data forwarding, forwarding will be ignored and no data will be pushed unless the VHS is the active service of the pair.</p>
+        <p>See <a href="../History/VHS Data Forwarding.htm">VHS Data Forwarding</a> for more information.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

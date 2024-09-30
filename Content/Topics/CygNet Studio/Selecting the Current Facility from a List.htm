@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Selecting the Current Facility from a List</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Selecting the Current Facility from a List</span>
+        </div>
+        <h2>Selecting the Current Facility from a List</h2>
+        <p>A simple interface can be set up for selecting a facility from a list of facilities in a UIS.</p>
+        <p>Using the List Box control sets the view’s facility property accordingly and restarts the view.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This functionality can also be achieved using a Facility Navigation Bar.</p>
+        </div>
+        <p class="HeadingProcedure">Using a List Box Control to Enable Selection of a Facility from a UIS Facilities List </p>
+        <ol start="1">
+            <li value="1">Create a new Studio screen.</li>
+            <li value="2">Add a List Box control to the screen. In its (<b>ObjectCode</b>) field, type "listControl."</li>
+            <li value="3">Add script to initialize the facility names in the List Box control.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Open the Script Editor and navigate to listControl <b>EventInitialize</b> event.</li>
+            <li value="2">Enter the following script to manually add facility names to the list box. Replace these names with facilities in the UIS being used.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub listFacilities_EventInitialize()</p>
+                    <p class="Code">Dim This : Set This = listFacilities</p>
+                    <p class="Code2">This.AddString("MYFACILITY1")</p>
+                    <p class="Code2">This.AddString("MYFACILITY2")</p>
+                    <p class="Code2">This.AddString("MYFACILITY3")</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="4">
+            <li value="4">Add script to the EventChange event of the List Box control</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Navigate to listControl <b>EventChange</b> event.</li>
+            <li value="2">Enter the following script, which is run when a user changes the selection in the List Box. This script simply assigns the Value property of the list box to the View’s Facility property and restarts the screen.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub listFacilities_EventChange()</p>
+                    <p class="Code">Dim This : Set This = listFacilities</p>
+                    <p class="Code2">TheView.Facility = This.Value</p>
+                    <p class="Code2">TheView.Restart</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="5">
+            <li value="5">If necessary, set the SiteService property of the View to the UIS service that contains the facilities in the List Box. Save the screen and switch to Run mode. Any other controls placed on the screen that rely on the View’s facility will be updated when the listControl’s selection is changed.</li>
+        </ol>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

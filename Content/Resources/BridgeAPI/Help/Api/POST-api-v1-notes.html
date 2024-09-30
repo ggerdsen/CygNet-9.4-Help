@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/notes</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/notes</h1>
+<div>
+    <p>Retrieves a list of notes</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <p>None</p>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p>Request object for retrieving notes</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">siteService</td>
+                    <td class="parameter-documentation">
+                        <p>CygNet site and service (Site.Service) of the Note Service (NOTE)</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">facilityAssociations</td>
+                    <td class="parameter-documentation">
+                        <p>List of facility tags to retrieve associated notes for</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of string
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">pointAssociations</td>
+                    <td class="parameter-documentation">
+                        <p>List of point tags to retrieve associated notes for</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of string
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">start</td>
+                    <td class="parameter-documentation">
+                        <p>Start date and time of range to search for notes</p>
+                    </td>
+                    <td class="parameter-type">
+                        date
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">end</td>
+                    <td class="parameter-documentation">
+                        <p>End date and time of range to search for notes</p>
+                    </td>
+                    <td class="parameter-type">
+                        date
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">type</td>
+                    <td class="parameter-documentation">
+                        <p>Note type to retrieve (if not specified, retrieve all note types)</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">getBody</td>
+                    <td class="parameter-documentation">
+                        <p>If false, don&#39;t include body text in retrieved notes</p>
+                    </td>
+                    <td class="parameter-type">
+                        boolean
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">getAssociations</td>
+                    <td class="parameter-documentation">
+                        <p>If false, don&#39;t include facility or point associations in retrieved notes</p>
+                    </td>
+                    <td class="parameter-type">
+                        boolean
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;siteService&quot;: &quot;CYGSITE.NOTE&quot;,
+  &quot;facilityAssociations&quot;: [
+    &quot;CYGSITE.UIS::PEAK_WL&quot;,
+    &quot;CYGSITE.UIS::CALVIN_CDP&quot;
+  ],
+  &quot;pointAssociations&quot;: [
+    &quot;CYGSITE.UIS.00004638:ANTIER_GM_ANHEX:ANTIER_GM.ANHEX&quot;,
+    &quot;CYGSITE.UIS.00005065:BRADY_GM_ANHEP:BRADY_GM.ANHEP&quot;
+  ],
+  &quot;start&quot;: &quot;2017-12-31T16:00:00-08:00&quot;,
+  &quot;end&quot;: &quot;2018-01-31T16:00:00-08:00&quot;,
+  &quot;type&quot;: &quot;NOTE&quot;,
+  &quot;getBody&quot;: true,
+  &quot;getAssociations&quot;: true
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p>All notes found matching the request parameters</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">notes</td>
+                    <td class="parameter-documentation">
+                        <p>List of notes</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=NoteDTO.html">NoteDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;notes&quot;: [
+    {
+      &quot;noteTag&quot;: &quot;[5410]CYGSITE.NOTE~2&quot;,
+      &quot;body&quot;: &quot;This is a ranged note&quot;,
+      &quot;type&quot;: &quot;NOTE&quot;,
+      &quot;summary&quot;: &quot;This note is a custom note type&quot;,
+      &quot;createdUserId&quot;: &quot;DOMAIN\\user.name&quot;,
+      &quot;startTimestamp&quot;: &quot;2018-01-08T10:25:33&quot;,
+      &quot;endTimestamp&quot;: &quot;2018-01-09T10:25:33&quot;,
+      &quot;updatedTimestamp&quot;: &quot;2018-01-10T14:56:32&quot;,
+      &quot;facilityAssociations&quot;: [
+        &quot;CYGSITE.UIS::PEAK_WL&quot;
+      ],
+      &quot;pointAssociations&quot;: [],
+      &quot;textAttributes&quot;: [
+        &quot;atval1&quot;,
+        &quot;atval2&quot;,
+        &quot;&quot;,
+        &quot;atval3&quot;,
+        &quot;&quot;
+      ],
+      &quot;tableAttributes&quot;: [
+        &quot;&quot;,
+        &quot;NOTTBL2&quot;,
+        &quot;&quot;,
+        &quot;NOTTBL4&quot;,
+        &quot;&quot;
+      ],
+      &quot;yesNoAttributes&quot;: [
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      &quot;noteTag&quot;: &quot;[5410]CYGSITE.NOTE~3&quot;,
+      &quot;body&quot;: &quot;This is a ranged TBD note&quot;,
+      &quot;type&quot;: &quot;CUSTOM NOTE&quot;,
+      &quot;summary&quot;: &quot;TBD ranged note&quot;,
+      &quot;createdUserId&quot;: &quot;DOMAIN\\user.name&quot;,
+      &quot;startTimestamp&quot;: &quot;2018-01-01T14:17:19&quot;,
+      &quot;endTimestamp&quot;: null,
+      &quot;updatedTimestamp&quot;: &quot;2018-01-10T14:19:03&quot;,
+      &quot;facilityAssociations&quot;: null,
+      &quot;pointAssociations&quot;: [
+        &quot;CYGSITE.UIS.00004902&quot;,
+        &quot;CYGSITE.UIS.00004903&quot;
+      ],
+      &quot;textAttributes&quot;: [
+        &quot;at 1&quot;,
+        &quot;at 2&quot;,
+        &quot;&quot;,
+        &quot;at 4&quot;,
+        &quot;&quot;
+      ],
+      &quot;tableAttributes&quot;: [
+        &quot;&quot;,
+        &quot;NOTTBL2&quot;,
+        &quot;&quot;,
+        &quot;NOTTBL4B&quot;,
+        &quot;&quot;
+      ],
+      &quot;yesNoAttributes&quot;: [
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

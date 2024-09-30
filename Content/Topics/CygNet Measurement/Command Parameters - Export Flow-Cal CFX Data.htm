@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Export Flow-Cal Data CFX Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Commands.htm">FMS Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Export: Flow-Cal Data CFX</span>
+        </div>
+        <h2>Export: Flow-Cal Data CFX</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This command is provided as an optional feature. For this command to function, several <a href="#Command" class="selected">requirements</a> must be met.</p>
+        </div>
+        <p>If installed, <b>Export: Flow-Cal Data CFX</b> (<b>EXPCFX</b> via script) is the command that triggers the service to export raw periodic and/or batch data records for a defined time range from FMS to Flow-Cal as a .cfx file. Data which is not from a raw data source, e.g. has been imported into FMS via .csv files (categorized as a "User file" source), is not included in the export.</p>
+        <p>When the <b>Export: Flow-Cal Data CFX</b> command is executed, batch (liquid devices) and/or periodic (gas or liquid devices) data is resolved for each eligible device via the customizable CDF, and the FMS Service exports the raw data records, created within the specified command time window, to the specified directory location as a .cfx file. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> It is strongly recommended that the specified time range for the command include only record spans with fully collected data. The command only exports data for which records exist entirely within (not spanning beyond) the specified time range boundaries.</p>
+        </div>
+        <p>CFX export files retain the units associated with the collection of the raw data whenever possible. In certain circumstances, the FMS system will convert the units to achieve consistency. This could include cases such as the following.</p>
+        <ul>
+            <li value="1">The supplied raw data units are not supported by Flow-Cal. </li>
+            <li value="2">The raw data comes into the system in a different unit set than previously processed data of a similar type. </li>
+        </ul>
+        <p>You must have proper security authorization to execute this command. See <a href="FMS Security.htm">FMS Security</a> (and <a href="FMS Security Events.htm#CMDDEV">CMDDEV</a> security event) for information about configuring security access for FMS commands.</p>
+        <p>See <a href="Configuring Export Flow-Cal CFX Data.htm">Configuring Export: Flow-Cal Data CFX Commands</a> and <a href="Running Node Commands.htm">Running Node Commands</a> for more information about using this command via FMS Explorer.</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3><a name="Command"></a>Command Requirements</h3>
+        <p>To enable the command to export raw data to Flow-Cal .cfx files, and see the command listed in command management options, the following elements must be present.</p>
+        <ul>
+            <li value="1"><b>Flow-Cal Export DLL</b> - CygNet Measurement provides an optional DLL file that must be installed on your system to support data exports from FMS to Flow-Cal. The file (<b>CxFmsFlowCalExport.dll</b>) must be installed and registered  in the <b>CygNet\Support</b> folder on the  computer hosting your FMS service.  See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation and registration of the export DLL file.</li>
+            <li value="2"><b>Flow-Cal Export CDF</b> - CygNet Measurement provides a  command definition file (CDF) that must be installed on your system to define how your raw batch and/or periodic data is exported from FMS to Flow-Cal .cfx files. The CDF contains the data item mappings necessary to execute the export command to  the corresponding Flow-Cal file version and type, and can be customized to define how the data items are handled. The specific CDF file (<b>ExportFlowCal.cdf</b>) must be included in the <b>CygNet\Services\FMS\CommandDefs</b> folder on your host server.  See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation and registration of the export CDF file. See <a href="Configuring Export Flow-Cal CFX Data.htm#Editing">Editing or Customizing the Command Definition File</a> for more information about using and modifying the CDF file.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Refer to Flow-Cal documentation and/or contact your Flow-Cal representative for the most current information about differences between CFX versions, and specific Flow-Cal configuration details.</p>
+        </div>
+        <h3>Command Definition Properties</h3>
+        <p>The following command definition properties apply to <b>Export: Flow-Cal Data CFX</b> commands, when scheduling, creating, or editing commands via CygNet Explorer.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">FMS service</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Select a <i>Site.Service</i> for the command from the available <b>FMS service</b> list in the drop-down menu.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command</b> name from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Time format</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the desired <b>Time format</b> for the command from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Contract</li>
+                            <li value="2">Device</li>
+                        </ul>
+                        <p>Default value is Device time.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                            </p>
+                            <p class="Note">This parameter determines how the time window is selected in the database; not how the data is exported.</p>
+                            <p class="Note">For daily devices only, specifying start and end times of midnight (<b>00:00:00</b>), will always be interpreted as Contract time format, regardless of this selected parameter value.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command via the MSS service in CygNet Explorer. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer or via the FMS service in CygNet Explorer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Command Parameters</h3>
+        <p>The following command parameters apply to <b>Export: Flow-Cal Data CFX</b> commands, when scheduling, creating, or editing commands via CygNet Explorer or scripting.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Type</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Usage Notes</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExStDate</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Start date/time</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">DateTime</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Double-click to access the <b>Select Start Date/Time</b> dialog box. </p>
+                    <p>Select the starting date and time of the range for which to export records. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> It is strongly recommended that the specified time range for the command include only record spans with fully collected data. The command only exports data for which records exist entirely within (not spanning beyond) the specified time range boundaries.</p>
+                    </div>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExEndDate</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">End date/time</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">DateTime</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Double-click to access the <b>Select End Date/Time</b> dialog box. </p>
+                    <p>Select the ending date and time of the range for which to export records. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> It is strongly recommended that the specified time range for the command include only record spans with fully collected data. The command only exports data for which records exist entirely within (not spanning beyond) the specified time range boundaries.</p>
+                    </div>
+                    <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                    <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExPath</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Directory to export file </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">File Directory</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Double-click to access the <b>Enter Directory to Export File</b> dialog box. </p>
+                    <p>Type the directory location for the file into the text box or click <b>...</b> to access the <b>Browse for Folder</b> dialog box, browse to the directory location, and then click <b>OK</b>.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Notes:</span> <![CDATA[ ]]></p>
+                        <p class="Note">For exports via the MSS in CygNet Explorer, the directory specified is relative to the <u>host</u> computer for your FMS service.</p>
+                        <p class="Note">For exports via script, or when using a &lt;Quick Command&gt; via the FMS in CygNet Explorer, or via the FMS Explorer, the directory specified is relative to your <u>client</u> computer.</p>
+                    </div>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExDirFmt</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Export directory format </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Double-click to access the <b>Export Directory Format</b> dialog box. </p>
+                    <p>Select a file directory format for the .cfx export file.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Directory for each polling facility (<b>2</b> via script)</li>
+                        <li value="2">Directory for each device (<b>0</b> via script)</li>
+                        <li value="3">Single directory for all devices (<b>3</b> via script)</li>
+                    </ul>
+                    <p>This parameter is required. Default value is Directory for each polling facility.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExFileNm</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Name of export file</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Double-click to access the <b>Name of Export File</b> dialog box. </p>
+                    <p>Select a file name format for the .cfx export file.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Date the export file was created (<b>1</b> via script)</li>
+                        <li value="2">Date of first export history value (<b>3</b> via script)</li>
+                        <li value="3">Node name (<b>4</b> via script)</li>
+                    </ul>
+                    <p>This parameter is required. Default value is Date the export file was created.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExPmReq</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">PM data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>For periodic data, double-click to access the <b>PM Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export gas metering data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>AlwaysEx</b> via script)</li>
+                        <li value="2">Never export (<b>NeverExp</b> via script)</li>
+                        <li value="3">Required to perform export (<b>ReqToExp</b> via script) (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                    </ul>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExPqReq</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">PQ data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>For periodic data, double-click to access the <b>PQ Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export gas quality data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>AlwaysEx</b> via script)</li>
+                        <li value="2">Never export (<b>NeverExp</b> via script)</li>
+                        <li value="3">Required to perform export (<b>ReqToExp</b> via script) (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                    </ul>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExBatReq</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Batch data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>For batch data, double-click to access the <b>Batch Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export batch data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>AlwaysEx</b> via script)</li>
+                        <li value="2">Never export (<b>NeverExp</b> via script)</li>
+                        <li value="3">Required to perform export (<b>ReqToExp</b> via script) (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                    </ul>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExEvtReq</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Event data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>For periodic data, double-click to access the <b>Event Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export event data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>AlwaysEx</b> via script)</li>
+                        <li value="2">Never export (<b>NeverExp</b> via script)</li>
+                        <li value="3">Required to perform export (<b>ReqToExp</b> via script) (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                    </ul>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExAlmReq</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Alarm data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>For periodic data, double-click to access the <b>Alarm Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export alarm data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>AlwaysEx</b> via script)</li>
+                        <li value="2">Never export (<b>NeverExp</b> via script)</li>
+                        <li value="3">Required to perform export (<b>ReqToExp</b> via script) (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                    </ul>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExProdReq</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Product data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>For liquid product data, double-click to access the <b>Product Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export product data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>AlwaysEx</b> via script)</li>
+                        <li value="2">Never export (<b>NeverExp</b> via script)</li>
+                        <li value="3">Required to perform export (<b>ReqToExp</b> via script) (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                    </ul>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExExpCfg</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Config data requirement</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>For periodic data, double-click to access the <b>Config Data Requirement</b> dialog box. </p>
+                    <p>Select whether to export configuration data, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Always export (<b>Always</b> via script)</li>
+                        <li value="2">Never export (<b>Never</b> via script)</li>
+                        <li value="3">Exclude from export if missing events (<b>ExcMEvt</b> via script)</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Be careful to require <b>Configuration</b> data only if the Node  supports history data types that utilize configuration data. If selected for a Node where the supported history types do not utilize configuration data (e.g. Node supports Batch history, but not periodic history)  any commands that try to retrieve configuration data will fail since it does not exist.</p>
+                    </div>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">ExFileVer</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">File format version</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Double-click to access the <b>File Format Version</b> dialog box. </p>
+                    <p>Select the version of the .cfx file created for the export, from the options in the drop-down menu.</p>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">8.3.1 (supports batch and periodic data)</li>
+                        <li value="2">8.0.6 (supports batch and periodic data)</li>
+                        <li value="3">7.0.6* (supports batch and periodic data)</li>
+                        <li value="4">5.1 (supports periodic data)</li>
+                    </ul>
+                    <p>*7.0.5 is still supported, although 7.0.6 is provided in the current sample file. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Alternatively, file format version can be configured in the .cdf (command definition file) if desired.</p>
+                    </div>
+                    <p>This parameter is required.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ExDtExFlg</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Data exported  flag</td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">String Enum</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When this command is executed via a Business Slave FMS service, only the "Ignore flag" option is available for this parameter.</p>
+                    </div>
+                    <p>Double-click to access the <b>Data Exported Flag</b> dialog box. </p>
+                    <p>Select whether or not to use the flag to mark exported device records in the database. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> When a "Use flag" option is selected, the Data Exported flag is applied to the entire record, regardless of how many data type(s) are selected for export.</p>
+                    </div>
+                    <p>Options are as follows.</p>
+                    <ul class="table">
+                        <li value="1">Ignore flag (<b>IgnFlg</b> via script)</li>
+                        <li value="2">Use flag; always update (<b>UseMkAll</b> via script)</li>
+                        <li value="3">Use flag; only update if data complete* (<b>UseMkCplt</b> via script)</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">*Notes:</span> <![CDATA[ ]]></p>
+                        <p class="Note">The command only exports data for which records exist entirely within (not spanning beyond) the specified time range boundaries. </p>
+                        <p class="Note">When this option is selected, the Data Exported flag is set only for records that contain data, and for which data collection (all supported types) is complete.</p>
+                        <p class="Note">When exporting partial records (e.g. you are only exporting PM data at this time), it is recommended to use the "Ignore flag" option, preserving the option to flag the record at a later time, when the remaining record data types are exported.</p>
+                        <p class="Note">This parameter is required.</p>
+                    </div>
+                </td>
+            </tr>
+        </table><a name="Note"></a>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When using relative (rather than absolute) date/time, if both the start and end date/time have hour, minute, and second values of <b>00</b>, or if both are set to midnight, an additional day will be added to the date at the end of the range. This occurs because the service assumes the start of the day for the starting date/time and the end of the day for the ending date/time in these circumstances. Therefore requesting a time range from T to T will yield one day of data, and from T-1 to T will yield two days of data.  If only one day of data is desired when using relative date/time, the start and end date/times must therefore be the same. If any of the start or end date/time hour, minute, or second values are specified as a value other than zero (or midnight) however, the range will be used as specified.</p>
+        </div><a name="*"></a>
+        <div class="Note">
+            <p><span class="NoteHeading">*Note:</span> If this option is selected and no associated history data is available (<b>Collection Details</b> value does not equal <b>[blank]</b>), the command will fail and no CFX file will be created. See <a href="CygNet Measurement Concepts.htm#Collecti">Collection Details</a> in the <u>CygNet Measurement Concepts</u> topic for more information.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

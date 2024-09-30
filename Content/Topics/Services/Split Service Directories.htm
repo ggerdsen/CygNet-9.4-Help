@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Services">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Split Service Directories</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Services.htm">Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Split Service Directories</span>
+        </div>
+        <h2>Split Service Directories</h2>
+        <p>If you choose to configure your CygNet Services to use split directories, the executable file (<b>&lt;servicename&gt;.exe</b>) is located in one directory and the service configuration file (<b>&lt;servicename&gt;.cfg</b>) and data files (<b>&lt;servicename&gt;.ddl</b>, <b>.dat</b>, <b>.inx</b>, <b>.ts</b>) are located in a different directory.</p>
+        <p>If the directories are on different drives, you must be aware of the drive configuration to ensure that your configuration is supported. Mapped drives and Universal Naming Convention (UNC) connections are <i>not</i> supported, whether the drive is a SAN, NAS, or directly attached. This is due to performance issues that can arise with mapped and UNC connections, such as timeouts, bottlenecks during peak network usages, outages during disconnects, and user authentication, etc.</p>
+        <h3>Supported Configuration</h3>
+        <p>The following diagram represents the preferred network configuration for split directories.</p>
+        <p>
+            <img src="../../Resources/Images/Services/Supported_Config.png" title="Preferred network configuration" alt="Preferred network configuration" />
+        </p>
+        <p>In this configuration, the SAN drive is directly attached to the CygNet server using iSCSI with a dedicated private NIC (or an HBA card for Fiber Channel). This mounts or presents the drive and letter before the server operating system is up and running. The drive is recognized as another physical drive on the CygNet server.</p>
+        <h3>Non-supported Configuration</h3>
+        <p>The following diagram represents a non-standard network configuration and is not supported for split directories.</p>
+        <p>
+            <img src="../../Resources/Images/Services/NonSupported_Config.png" title="Non-supported network configuration" alt="Non-supported network configuration" />
+        </p>
+        <p>In this configuration, the CygNet service executable is running on the CygNet server. The data files directory is on a SAN drive. The SAN drive is recognized as a "mapped" drive to the CygNet server via a front-end CIFS share (usually a Windows server). This configuration is <i>not</i> supported.</p>
+        <h3>Start Split Services from Command Line</h3>
+        <p>In a system where the executable files are located in <b>C:\CygNet\Services</b> and the data files are located in  <b>E:\CygNet\Data\</b> restart any service using the following command line:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\&gt; start /D <b>[path to config]</b>ars.exe</p>
+                </td>
+            </tr>
+        </table>
+        <p>for example:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">C:\&gt; start /D <b>e:\cygnet\data\ars c:\cygnet\services\ars\</b>ars.exe</p>
+                </td>
+            </tr>
+        </table>
+        <p>Alternatively you can start the service from the data directory using the following command:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">E:\CygNet\Data\&gt; c:\cygnet\services\ars\ars.exe</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

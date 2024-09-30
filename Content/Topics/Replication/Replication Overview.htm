@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Replication Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Replication Overview</span>
+        </div>
+        <h2>Replication Overview</h2>
+        <p>Replication provides a method for copying data from one location to another. Replication applies to the services themselves, not individual data records. The advantages of replication are two-fold: </p>
+        <ol>
+            <li value="1">Replication  provides a backup; and </li>
+            <li value="2">Replication  can be used to centralize data. </li>
+        </ol>
+        <p>Centralizing data can be especially beneficial when the data would otherwise have to be accessed from remote sites that have low-bandwidth, high-latency data links such as satellites or dial-up modems. </p>
+        <p>Keep in mind that service replication processes results in increased network traffic and system load. See <a href="Service Replication.htm">Service Replication</a> for more information.</p>
+        <h3>What Data is Replicated?</h3>
+        <p>Replication provides a method for copying data from one location to another. When replication is enabled, any new value (whether the value is the result of an edit, addition, or delete) is written to a change queue by the source service, which is stored in memory. Our replication model includes replication of <b>all service data</b> including values written to each service's change queue.</p>
+        <p><b>Delayed  CAS alarms and GNS notifications records</b> are replicated from a source site to a destination site. In the event of a failover these records will be available on the standby site after the failover is complete.</p>
+        <p style="display: none; color: #ff0000;">The following sentences should be added if these features get implemented. See the story number.</p>
+        <p style="display: none; color: #ff0000;">Other types of CygNet data that is replicated includes semi-static files that don't change very often, such as the <b>CygNetTimeZones.xml</b> file in the ARS service directory (CR-29) and the <b>Admin.sec</b> file in the ACS service directory (CR-28). In the past it was challenging to manage replication for these types of files because you had to manually edit these files in multiple places.</p>
+        <p style="display: none; color: #ff0000;">Another replicated metadata-type file that changes infrequently is the <b>CvsMetadata.xml</b> file (CR-30), which defines the configuration for point schemes, colors, alarm priority categories, point state definitions, status bits, and point state instances  for a CygNet domain. When failover occurs from an active server to a backup server all CVS metadata settings will be in place ensuring expected behavior for your point scheme running on the backup server.</p>
+        <p style="display: none; color: #ff0000;">Also replicated is the <b>queue of current value records used to calculate alarms</b> (CR-35), which lives in the memory of the UIS and is used to calculate alarms that are only triggered if certain conditions are met over a period of time.</p>
+        <p style="display: none; color: #ff0000;">Another replicated item is the  <b>list of UIS executing commands triggered by an MSS</b> (CR-41). CygNet monitors the set of commands currently executing in the UIS, and if a failover is performed, and any commands get lost, all commands will be re-executed once the UIS and MSS start back up.</p>
+        <p style="display: none; color: #ff0000;">Also: DB Scripts (CR-47), CygNet.lic (CR-31), pending CAS alarms (CR-36), pending GNS Notifications (CR-37), pending VHS data (CR-39), pending data forwarding queues (CR-51), CAS alarm history queue (CR-161), ARS directory services registry keys (CR-162), MSS - aborted commands on startup (CR-42), Windows Scheduled tasks (CR-149), AUD/ELS internal queues of disk writes (CR-169).</p>
+        <p>CygNet also provides a <b>ReplValidator</b> utility to help you compare records between source and replicated services. See <a href="ReplValidator Utility.htm">ReplValidator Utility</a> for more information.</p>
+        <h3><a name="Replicat"></a>Replication Terminology</h3>
+        <p>The following terms describe the replication process for <span class="CygNetVariablesSoftwareName">CygNet Software</span>.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Item</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Change queue</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>When replication is enabled, any new value (whether the value is the result of an edit, addition, or delete) is written to a change queue by the source service. The change queue is stored in memory. Each item in the change queue is given a unique sequence number (ID) by the source service. </p>
+                    <p>The <a href="How Replication Works.htm">CHANGE_QUEUE_SIZE</a> configuration keyword specifies the size of the change queue.</p>
+                    <p>The <a href="../Service Monitoring/Info Items - Shared Service Specific.htm#CHANGE_QUEUE_NEWEST">CHANGE_QUEUE_NEWEST</a> info item represents the sequence number of the last change on the change queue. The info item will return a blank if there are no entries on the change queue. This behavior matches the behavior of the value returned when asking for the last replicated sequence number, represented by the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_LAST_SEQ">REPL_LAST_SEQ</a> info item, which also returns blank if there are no change queue entries. These info items are used to determine the need to perform a full sync after a failover.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Change queue mapping</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Each replicated service creates and stores a bidirectional change queue map, which is used to translate the sequence IDs in its own change queue with those in the change queue of its source.
+The last sequence number used in an incremental replication cycle is always mapped and is represented by <a href="../Service Monitoring/Info Items - Replication.htm#REPL_LAST_SEQ">REPL_LAST_SEQ</a>. </p>
+                    <p>The change queue maps are themselves replicated and stored alongside the change queue map of the replicated service. The mapping is persisted on shutdown and restored on startup.
+</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Data sync</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Upon start up, a replicated service performs a full data synchronization with its source. All data in the service is replicated.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Destination service</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>An unlimited number of replicated service destinations can be configured to pull data from the source service. Contact your Account Manager or <a href="../CygNet Software/Contact CygNet Sales.htm" class="MCTopicPopup MCTopicPopupHotSpot a aPopup" title="CygNet Sales contact information" data-mc-width="500px" data-mc-height="auto">CygNet Sales</a> for licensing information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Read/Write status</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Replicated services are always read-only.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Replicated service</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The destination service pulling data from the source service. </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Replicated service name and Domain ID</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The replicated service pulling the data must have the same name as the source service but must reside on a <i>different</i> host server, running under a <i>different</i> Domain ID.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Replicating service</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">The source service from where the data is pulled.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Replication method</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>A replicated service pulls data from the source service.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Resynchronization (ReSync)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If a replicated service or its source service is shut down, or the change queue rolls over, a full resynchronization of all records is performed, with one exception: the VHS <i>never</i> performs a full resynchronization.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Source service</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The service from where replicated data is pulled. The REPL_SOURCE keyword specifies the name of the source service.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> For replication to function correctly, you must configure the <b>Preferred ARS</b> for the domain ID of the source service where replicated data is being pulled. The <b>Preferred ARS</b> is configured in the <a href="../Domains/CygConn Domain Connection Utility.htm">CygNet Domain Connection</a>  utility.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Service Replication.htm" class="More">Service Replication</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="How Replication Works.htm" class="More">How Replication Works</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuring Replication.htm" class="More">Configuring Replication</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Monitoring Replication.htm" class="More">Monitoring Replication</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

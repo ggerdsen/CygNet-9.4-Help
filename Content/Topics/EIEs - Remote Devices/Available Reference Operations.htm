@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Reference Operations</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Reference Operations</span>
+        </div>
+        <h2><a name="Referenc"></a>Reference Operations</h2>
+        <p>Reference operations are required by advanced reference methods in order for advanced reference methods to compute data. The operations listed and described in the topics below enable you to interface with CygNet proprietary code to perform computations commonly required by device template file developers and administrators. Without an operation, a method would only define the components of a computation without performing the desired computation.</p>
+        <p>On their own, reference operations are useless; they must be included in a reference method in the correct way. Reference operations can be used singly or in conjunction with other reference operations, depending on the logic of the computation you want to perform. Operands derive from user-defined constants or referenced data group elements (<a href="DataGroupElement Element.htm" style="font-style: italic;">DataGroupElement</a>) from within the same device template file as the referencing method.</p>
+        <p>Define a reference operation by using the <a href="ref.htm#refOp">refOp</a> attribute in conjunction with the relevant operation name. Other supporting attributes and values might be required, depending on the operation used and the logic of your computation.</p>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of reference operations</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;StrkPeriod desc="Stroke Period (secs/stroke)" type="r4" isRef="1"&gt;</p>
+                            <p class="Code2">&lt;ref prec="0" <span style="background-color: #b0c4de;">refOp="opAssignId"</span> deid="PumpSpeed"/&gt;</p>
+                            <p class="Code2">&lt;ref prec="1" <span style="background-color: #b0c4de;">refOp="opDiv"</span> value="60"/&gt;</p>
+                            <p class="Code2">&lt;ref prec="2" <span style="background-color: #b0c4de;">refOp="opPow"</span> value="-1"/&gt;</p>
+                            <p class="Code">&lt;/StrkPeriod&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p>For more information, see <a href="Reference Methods.htm">Reference Methods</a>.</p>
+        <h3>Available Reference Operations</h3>
+        <p>The following table lists and describes all available CygNet reference operations. Use names of operations exactly as listed when including them within a device template file; spelling and case matter.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Operation</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>opAbs</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to assign the absolute value of a referenced value to a data group element.</p>
+                    <p><b>opAbs</b> is only valid when used with a preceding <b>ref</b> element that specifies the initial value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opAddVal"></a>opAdd</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this  operation to add a specified value  to a specified constant value. This operation was formerly known as <b>opAddVal</b>.</p>
+                    <p><b>opAdd</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Addition2">Arithmetic Examples – Addition (A)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opAddId"></a>opAddId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this  operation to add a specified value to a specified reference data group element value.</p>
+                    <p><b>opAddId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Addition">Arithmetic – Addition (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opAssign"></a>opAssign</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to set a constant value as the data group's initial value.</p>
+                    <p><b>opAssign</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Assign a Value.htm#Assign2">Assignment  Examples – Assign a Constant</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opAssignId"></a>opAssignId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to set a reference data group element value as the data group's initial value.</p>
+                    <p><b>opAssignId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Assign a Value.htm#Assign3">Assignment  Examples – Assign a Data&#160;Element Value</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opAverage"></a>opAverage</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to assign the average value from a set of data values.</p>
+                    <p><b>opAverage</b> is only valid when used with the child elements <a href="dataSet element.htm">dataSet and item</a>, which together form a simple structure of items from which an average value can be assigned.</p>
+                    <p><b>opAverage</b> can be used to assign an average value for its parent data group element using values that are outside of the data set, but at least one item in the data set must be present for <b>opAverage</b> to operate.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Average">Arithmetic Examples – Average Value (A and B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opBitMask"></a>opBitMask</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to convert a value  to a bit mask by using a constant value.</p>
+                    <p><b>opBitMask</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer or hex.</p>
+                    <p>For an example, see <a href="Bit Mask.htm#Bit3">Bit Mask  Examples – Bit Mask (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opBitPos"></a>opBitPos</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to return the binary value in a bit position that is specified by using a constant value.</p>
+                    <p><b>opBitPos</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer or hex.</p>
+                    <p>For an example, see <a href="Bit Position.htm#Bit5">Bit Position  Examples – Bit Position (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opBitStuff"></a>opBitStuff</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to "stuff"&#160;a bit (0 or 1) into a specified position of another binary value. The value returned is decimal.</p>
+                    <p><b>opBitStuff</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Bit Position.htm#Bit4">Bit Position  Examples – Bit Stuff from Referenced Data Group Element</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opBitXorMask"></a>opBitXorMask</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to apply a constant <b>XOR</b> bit mask to a specified value.</p>
+                    <p><b>opBitXorMask</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer or hex.</p>
+                    <p>For an example, see <a href="Bit Mask.htm#XOR">Bit Mask  Examples – XOR Bit Mask (C)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opDivVal"></a>opDiv</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this  operation to divide a specified value  by a specified constant value. This operation was formerly known as <b>opDivVal</b>.</p>
+                    <p><b>opDiv</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer, floating point, or hex.</p>
+                    <p>Because this operation introduces the illogical possibility of division by zero (0), special attributes are available to account for the possibility:</p>
+                    <ul class="table">
+                        <li value="1"><b>divZeroAction</b>: This attribute can use <b>returnSentinel</b>, <b>returnFalse</b>, or <i>blank</i> as its value. <b>returnSentinel</b> requires you to also use the attribute <b>divZeroSentinel</b>, where you specify a constant. <b>returnFalse</b> returns N/A and no computation takes place. <i>Blank</i> returns zero ("0") and no computation takes place.</li>
+                        <li value="2"><b>divZeroSentinel</b>:&#160;This attribute is only used if <b>returnSentinel</b> is used as the value for <b>divZeroAction</b>. Its value is a user-defined numeric constant.</li>
+                    </ul>
+                    <p>Division by zero could occur if you are using division operations, a multiplicative inverse, or two-point scaling.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Division2">Arithmetic  Examples – Division (A)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opDivId"></a>opDivId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this  operation to divide a specified value  by a specified reference data group element value.</p>
+                    <p><b>opDivId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>Because this operation introduces the illogical possibility of division by zero (0), special attributes are available to account for the possibility:</p>
+                    <ul class="table">
+                        <li value="1"><b>divZeroAction</b>: This attribute can use <b>returnSentinel</b>, <b>returnFalse</b>, or <i>blank</i> as its value. <b>returnSentinel</b> requires you to also use the attribute <b>divZeroSentinel</b>, where you specify a constant. <b>returnFalse</b> returns N/A and no computation takes place. <i>Blank</i> returns zero ("0") and no computation takes place.</li>
+                        <li value="2"><b>divZeroSentinel</b>:&#160;This attribute is only used if <b>returnSentinel</b> is used as the value for <b>divZeroAction</b>. Its value is a user-defined numeric constant.</li>
+                    </ul>
+                    <p>Division by zero could occur if you are using division operations, a multiplicative inverse, or two-point scaling.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Division">Arithmetic  Examples – Division (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>opExp</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>This operation has been <i>deprecated</i>; it is no longer available for use. If you currently use this operation, running the <a href="../System Administration/CygNet Service Migration Utility.htm">CygNet Service Migration Utility</a> during an upgrade automatically converts the operation to its latest equivalent, <a href="#opPow" class="selected">opPow</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>opExpId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>This operation has been <i>deprecated</i>; it is no longer available for use. If you currently use this operation, running the <a href="../System Administration/CygNet Service Migration Utility.htm">CygNet Service Migration Utility</a> during an upgrade automatically converts the operation to its latest equivalent, <a href="#opPowId" class="selected">opPowId</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opFormat"></a>opFormat</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to display an input date/time value in a different, user-specified string date/time format.</p>
+                    <p><b>opFormat</b> is only valid when used with the attribute <a href="ref.htm#format">format</a>. The value of <b>format</b> is a string.</p>
+                    <p>For an example, see <a href="Time Formatting.htm#Date/Tim">Time Formatting  Examples – Date/Time Format (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opFormatId"></a>opFormatId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to convert one reference data group element date/time value to a specified date/time format.</p>
+                    <p><b>opFormatId</b> is only valid when used with the attribute <a href="ref.htm#format">format</a>. The value of <b>format</b> must be a string.</p>
+                    <p>For an example, see <a href="Time Formatting.htm#Date/Tim2">Time Formatting  Examples – Date/Time Format (C)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opMapVal"></a>opMapVal</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to  return an enumerated value from a specified enumeration table.</p>
+                    <p><b>opMapVal</b> is only valid when used with the child element <b>mapVal</b> or in-line with the <a href="ref.htm#mapVal">mapVal</a> attribute.</p>
+                    <p>For an example, see <a href="Enumeration Mapping.htm#Enumerat2">Enumeration Mapping  Examples</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p>opMapToMapVal</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to handle a situation where one data group element indicates the enumeration to use and another data group element indicates the item in that enumeration.</p>
+                    <p><b>opMapToMapVal</b> requires attributes for <b>deid</b> and <b>mapVal</b>. The values within  <b>mapVal</b> represent the names of global enumerations. The value of the <b>deid</b> indicates which of those enumerations to use.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opMax"></a>opMax</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to assign the maximum value from a set of data values.</p>
+                    <p><b>opMax</b> is only valid when used with the child elements <a href="dataSet element.htm">dataSet and item</a>, which together form a simple structure of items from which a maximum value can be assigned.</p>
+                    <p><b>opMax</b> can be used to assign a maximum value for its parent data group element using values that are outside of the data set, but at least one item in the data set must be present for <b>opMax</b> to operate.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Maximum">Arithmetic Examples – Maximum Value (A and B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opMin"></a>opMin</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to assign the minimum value from a set of data values.</p>
+                    <p><b>opMin</b> is only valid when used with the child elements <a href="dataSet element.htm">dataSet and item</a>, which together form a simple structure of items from which a minimum value can be assigned.</p>
+                    <p><b>opMin</b> can be used to assign a minimum value for its parent data group element using values that are outside of the data set, but at least one item in the data set must be present for <b>opMin</b> to operate.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Minimum">Arithmetic Examples – Minimum Value (A and B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p>opMod</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to assign a modulus value  to a data group element.</p>
+                    <p><b>obMod</b> is only valid when used in conjunction with a <b>value</b> value. This value is the divisor of the previously defined initial value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opMultVal"></a>opMult</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this  operation to multiply a specified value  by a specified constant value. This operation was formerly known as <b>opMultVal</b>.</p>
+                    <p><b>opMult</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Multipli2">Arithmetic  Examples – Multiplication (A)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opMultId"></a>opMultId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this  operation to multiply a specified value  by a specified reference data group element value.</p>
+                    <p><b>opMultId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Multipli">Arithmetic  Examples – Multiplication (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opPow"></a>opPow</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to raise a value by a power specified by a constant value.</p>
+                    <p><b>opPow</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Exponent3">Arithmetic  Examples – Exponent/Raise to Power (A)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opPowId"></a>opPowId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to raise a value by a power specified by a reference data group element value.</p>
+                    <p><b>opPowId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Exponent4">Arithmetic  Examples – Exponent/Raise to Power (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opScaleFactor"></a>opScaleFactor</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to scale a value by a factor specified by a constant value.</p>
+                    <p><b>opScaleFactor</b> is only valid when used with the attribute <a href="ref.htm#scaleFactor">scaleFactor</a>. The value of <b>scaleFactor</b> must be an integer or floating point number.</p>
+                    <p>For an example, see <a href="Scaling by Factor and Offset.htm#Scaling">Scaling by Factor and Offset  Examples – Scaling by Factor Constant (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opScaleFactorId"></a>opScaleFactorId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to scale a value by a factor specified by a reference data group element value.</p>
+                    <p><b>opScaleFactorId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Scaling by Factor and Offset.htm#Scaling2">Scaling by Factor and Offset  Examples – Scaling by Factor Data Group Element (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opScaleOffset"></a>opScaleOffset</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to scale a value by an offset specified by a constant value.</p>
+                    <p><b>opScaleOffset</b> is only valid when used with the attribute <a href="ref.htm#scaleOffset">scaleOffset</a>. The value of <b>scaleOffset</b> must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Scaling by Factor and Offset.htm#Scaling3">Scaling by Factor and Offset   Examples – Scaling by Offset Constant (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opScaleOffsetId"></a>opScaleOffsetId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to scale a value by an offset specified by a reference data group element value.</p>
+                    <p><b>opScaleOffsetId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Scaling by Factor and Offset.htm#Scaling4">Scaling by Factor and Offset   Examples – Scaling by Offset Data Group Element (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opSelect"></a>opSelect</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation in a <a href="ref.htm" style="font-style: normal;">ref</a> element to specify that child elements make up a <a href="selection element.htm">selection</a> element.</p>
+                    <p>Can be used with <b>bitShift</b> and <b>bMsk</b>  to indicate whether or not to shift off the masked low bits.</p>
+                    <p>For an example, see <a href="Assign a Value.htm#AssignConditionalA">Assignment   Examples – Assign a Conditional Value (A, B, and C)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opSubVal"></a>opSub</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this  operation to subtract from a specified value a specified constant value. This operation was formerly known as <b>opSubVal</b>.</p>
+                    <p><b>opSub</b> is only valid when used with the attribute <a href="ref.htm#value">value</a>. The value of <b>value</b> must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Subtract2">Arithmetic – Subtraction (A)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opSubId"></a>opSubId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this  operation to subtract from a specified value a specified reference data group element value.</p>
+                    <p><b>opSubId</b> is only valid when used with the attribute <a href="ref.htm#deid">deid</a>. The value of <b>deid</b> must be valid and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Arithmetic.htm#Subtract">Arithmetic    Examples – Subtraction (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opTimeEnron"></a>opTimeEnron</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to convert date and time data into the Microsoft standard date-time format.</p>
+                    <p><b>opTimeEnron</b> is only valid when used with one or more of the following attributes: <a href="ref.htm#deidDate">deidDate</a> and/or <a href="ref.htm#deidTime">deidTime</a>. <a href="ref.htm#formatDate">formatDate</a> and <a href="ref.htm#formatTime">formatTime</a> are optional attributes.</p>
+                    <p>By default, source values are understood to be in Enron format, which is made up of decimal numbers representing MMDDYY.0 and/or HHMMSS.0. But the source value format can vary by device type. Use <a href="ref.htm#formatDate">formatDate</a> and <a href="ref.htm#formatTime">formatTime</a> to accommodate different source formats.</p>
+                    <p>For an example, see <a href="Time Formatting.htm#EnronDateTime">Time Formatting   Examples – Enron Date/Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opTimeComp"></a>opTimeComp</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to convert date and time components into the Microsoft standard date-time format.</p>
+                    <p><b>opTimeComp</b> is only valid when used with one or more of the following attributes: <a href="ref.htm#deidYear">deidYear</a> (4 digit), <a href="ref.htm#deidMonth">deidMonth</a>, <a href="ref.htm#deidDay">deidDay</a>, <a href="ref.htm#deidHour">deidHour</a>, <a href="ref.htm#deidMinute">deidMinute</a>, and <a href="ref.htm#deidSecond">deidSecond</a>.</p>
+                    <p>For an example, see <a href="Time Formatting.htm#ComponentDateTime">Time Formatting – Component Date/Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opTimeString"></a>opTimeString</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to convert date and time string data into the Microsoft standard date-time format.</p>
+                    <p><b>opTimeString</b> is only valid when used with one or more of the following attributes: <a href="ref.htm#deidDate">deidDate</a> and <a href="ref.htm#deidTime">deidTime</a>. Referenced values must be strings in a standard Microsoft date/time format.</p>
+                    <p>For an example, see <a href="Time Formatting.htm#StringDateTime">Time Formatting   Examples – String Date/Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opTime3Byte"></a>opTime3Byte</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to convert 3-byte date and time data into the Microsoft standard date-time format. This date-time representation is used by <a href="Thermo EIE.htm">Thermo SuperFlo II</a> devices.</p>
+                    <p><b>opTime3Byte</b> is only valid when used with one or more of the following attributes: <a href="ref.htm#deidDate">deidDate</a> and <a href="ref.htm#deidTime">deidTime</a>. Referenced values must be integers where each byte represents a date or time component. For date, the components are as follows: byte 0 = month, byte 1 = day, and byte 2 = 2-digit year. For time, the components are as follows: byte 0 = hour, byte 1 = minute, and byte 2 = second.</p>
+                    <p>For an example, see <a href="Time Formatting.htm#3ByteDateTime">Time Formatting   Examples – 3-Byte Date/Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opTimeSeconds"></a>opTimeSeconds</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to convert seconds  into the Microsoft standard date-time format.</p>
+                    <p><b>opTimeSeconds</b> is only valid when used with the attribute <a href="ref.htm#deidTime">deidTime</a>.</p>
+                    <p>The following optional attributes are also available for use:</p>
+                    <ul class="table">
+                        <li value="1"><b>isUTC</b>: Set to <b>true</b> to indicate that time is in UTC. May be used in conjunction with <b>baseTime</b>.</li>
+                        <li value="2"><b>baseTime</b>: Enables you to set a starting date. The default is January 1, 1970. May be used in conjunction with <b>isUTC</b>.</li>
+                    </ul>
+                    <p>For an example, see <a href="Time Formatting.htm#SecondsDateTime">Time Formatting   Examples – Seconds Date/Time</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opTwoPointScale"></a>opTwoPointScale</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to perform two-point scaling by using constant scale values.</p>
+                    <p><b>opTwoPointScale</b> is only valid when used with the attributes <a href="ref.htm#scaleLoRaw">scaleLoRaw</a>, <a href="ref.htm#scaleHiRaw">scaleHiRaw</a>, <a href="ref.htm#scaleLoEng">scaleLoEng</a>, and <a href="ref.htm#scaleHiEng">scaleHiEng</a>. The value of each of these attributes must be an integer, floating point, or hex.</p>
+                    <p>For an example, see <a href="Two-Point Scaling.htm#Two-Poin2">Two-Point Scaling   Examples – Two-Point Scaling by Constants (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><a name="opTwoPointScaleId"></a>opTwoPointScaleId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Use this operation to perform two-point scaling by using reference data group element scale values.</p>
+                    <p><b>opTwoPointScaleId</b> is only valid when used with the attributes <a href="ref.htm#scaleLoRawId">scaleLoRawId</a>, <a href="ref.htm#scaleHiRawId">scaleHiRawId</a>, <a href="ref.htm#scaleLoEngId">scaleLoEngId</a>, and <a href="ref.htm#scaleHiEngId">scaleHiEngId</a>. The value of each of these attributes must be a valid data group element and it cannot be recursive; that is, it cannot reference itself.</p>
+                    <p>For an example, see <a href="Two-Point Scaling.htm#Two-Poin3">Two-Point Scaling   Examples – Two-Point Scaling by Data Group Elements (B)</a>.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><a name="opUnitConversion"></a>opUnitConversion</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Use this operation to convert one unit type to another.</p>
+                    <p><b>opUnitConversion</b> is only valid when used with the attributes <a href="ref.htm#srcUnits">srcUnits</a> and <a href="ref.htm#destUnits">destUnits</a>. The value of each of these attributes must be a valid  unit type and the two unit types must be comparable.</p>
+                    <p>For an example, see <a href="Unit Conversion.htm#Units">Unit Conversion   Examples – Unit Conversion (B)</a>.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Managing Node Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Export: PGAS Data XML Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Node Commands.htm">Managing Node Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Export: PGAS Data XML</span>
+        </div>
+        <h2>Configuring Export: PGAS Data XML Commands</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This command is provided as an optional feature. For this command to function, additional file <a href="#Command" class="selected">requirements</a> must be met.</p>
+        </div>
+        <p>If installed, use the <b>Export: PGAS Data XML</b> command to export raw  data records for a defined time range from FMS to a specified directory location in a PGAS XML format (conforms to PGAS version 16). Data that is not from a raw data source, e.g. has been imported into FMS via .csv files (categorized as a "User file" source), is not included in the export.</p>
+        <p>When the <b>Export: PGAS Data XML</b> command is executed, data is resolved for each eligible device via hard coded data item mappings in the application. To achieve this, a <a href="#Editing" class="selected">command definition file</a> (CDF) must also be present, so that the FMS service can export the raw data records specified. The file is not editable at this time.</p>
+        <p>See <a href="FMS Commands.htm">FMS Commands</a> and <a href="Command Parameters - Export Flow-Cal CFX Data.htm">PGAS Data XML</a> for more information about using this command via CygNet Explorer (MSS).</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3><a name="Command"></a>Command Requirements</h3>
+        <p>To enable the command to export raw data to PGAS XML files, and see the command listed in command management options, the following elements must be present.</p>
+        <ul>
+            <li value="1"><b>PGAS Export CDF</b> - CygNet Measurement provides a command definition file (CDF) that must be made available on your system to enable the raw data to be exported from FMS to PGAS XML files. The data item mappings necessary to execute the export command to the corresponding PGAS file format are hard-coded in the system, and are not editable at this time.  See <a href="#Editing" class="selected">Utilizing the Command Definition File</a> for more information about data item mappings.
+    <p>The specific CDF file (<b>ExportPgasXml.cdf</b>) must be included in the <b>CygNet\Services\FMS\CommandDefs</b> folder on your host server, as follows.</p><ol><li value="1">On your host server, in the <b>CygNet\Services\FMS\CommandDefs\ExportSamples</b> folder, find the <b>SampleExportPgasXml.cdf</b> (command definition) file and copy it up one level to the <b>CygNet\Services\FMS\CommandDefs</b> folder. <span class="NoteHeading">Important:</span> Do not alter or add to the sample file contents.</li><li value="2">Remove the word "Sample"  from the file name (for the new copy of the file). The file must be named <b>ExportPgasXml.cdf</b> so that the file will be recognized by the FMS service.</li><li value="3"><b>Restart</b> the FMS service.</li></ol></li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Refer to Quorum PGAS documentation and/or contact your PGAS representative for the most current information about PGAS versions, and specific PGAS configuration details.</p>
+        </div>
+        <h3>Configuring an Export: PGAS Data XML Command</h3>
+        <p>If desired (optional), <a href="#Editing" class="selected">familiarize yourself with item mappings used by the system to export the raw data</a>. These items cannot currently be viewed in the file, and the file content must not be  altered.</p>
+        <p>Use the following procedure to configure PGAS Data XML exports.</p>
+        <p class="HeadingProcedure">To Configure an Export: PGAS Data XML Command</p>
+        <ol>
+            <li value="1">Open the <b>Command</b> menu in FMS Explorer.</li>
+            <li value="2">Click <b>Manage</b> to access the <b>FMS Command Definitions</b> dialog box and then click <b>Add</b> to access the <b>Create New FMS Command Definition</b> dialog box.
+    <p><img src="../../Resources/Images/CygNet Measurement/Create_Command_Export_PGAS_XML_Data.png" /></p></li>
+            <li value="3">Define the <a href="#Device2" class="selected">command definition properties</a>.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Type a <b>Name</b> for the command into the text box. Maximum character count is 50.</li>
+            <li value="2">Select the <b>Command type</b> from the drop-down menu.</li>
+            <li value="3">Select a processing <b>Priority</b> from the drop-down menu.</li>
+            <li value="4">Select a <b>Logging</b> level from the drop-down menu. </li>
+            <li value="5">Click to select/clear the check box to <b>Prompt when command runs</b>. </li>
+        </ol>
+        <ol start="5">
+            <li value="5">Define the <a href="#Device" class="selected">command parameters</a>. The parameters for the Export: PGAS Data XML command are described in the <b>Command parameters</b> box, which includes the <b>Description</b>, a <b>Required?</b> indicator, and a configurable <b>Value</b> field. Set the value for each required and each desired optional parameter, as indicated in its <b>Value</b> field.</li>
+        </ol>
+        <ol start="6">
+            <li value="6">Click <b>Create New</b>. The new command will appear in the list of FMS Command Definitions.</li>
+        </ol>
+        <h3><a name="Device2"></a>Command Definition Properties</h3>
+        <p>The following command definition properties apply to Export: PGAS Data XML commands. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Name</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Type in a <b>Name</b> for the new command.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command type</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command type</b> from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command in the MSS. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Prompt when command runs</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Click to select/clear the check box to <b>Prompt when command runs</b>. Selecting this option means you will receive a prompt asking if you want to modify the parameters before the command is executed.</p>
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Device"></a>Command Parameters</h3>
+        <p>The following command parameters apply to Export: PGAS Data XML commands when creating or editing commands via FMS Explorer. </p>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Date format</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the desired time format for data selection, from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Contract</li>
+                            <li value="2">Device</li>
+                            <li value="3">Local</li>
+                        </ul>
+                        <p>Default value is Device time.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Start date/time</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the beginning date and time of the range for which to export device records. </p>
+                        <p>Click <b>...</b> to access the <b>Select Start Date/time</b> dialog box. See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                        <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">End date/time</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the ending date and time of the range for which to export device records.</p>
+                        <p>Click <b>...</b> to access the <b>Select End Date/time</b> dialog box. See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                        <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Directory to export file</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Enter the directory location to which the file will be exported.</p>
+                        <p>Type the directory location for the file into the text box or click <b>...</b> to access the <b>Browse For Folder</b> dialog box, browse to the directory location, and then click <b>OK</b>.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Export directory format </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a file directory format for the XML export file, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Directory for each polling facility</li>
+                            <li value="2">Directory for each device</li>
+                            <li value="3">Single directory for all devices</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Name of export file</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Select a file name format for the XML export file, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Date the export file was created</li>
+                            <li value="2">Date of first export history value</li>
+                            <li value="3">Node name</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="Note"><a name="Note"></a>
+            <p><span class="NoteHeading">Note:</span> When using relative (rather than absolute) date/time, if both the start and end date/time have hour, minute, and second values of <b>00</b>, or if both are set to midnight, an additional day will be added to the date at the end of the range. This occurs because the service assumes the start of the day for the starting date/time and the end of the day for the ending date/time in these circumstances. Therefore requesting a time range from T to T will yield one day of data, and from T-1 to T will yield two days of data.  If only one day of data is desired when using relative date/time, the start and end date/times must therefore be the same. If any of the start or end date/time hour, minute, or second values are specified as a value other than zero (or midnight) however, the range will be used as specified.</p>
+        </div>
+        <h3>Editing or Deleting an Export: PGAS Data XML Command</h3>
+        <p>See <a href="Managing Node Commands.htm">Managing Node Commands</a> for information about editing or deleting this command. </p>
+        <h3>Running an Export: PGAS Data XML Command</h3>
+        <p>See <a href="Running Node Commands.htm">Running Node Commands</a> for information about running this command.</p>
+        <h3><a name="Editing"></a>Using the Command Definition File</h3>
+        <p>When the command is run, raw data is exported to an XML file format consumable by PGAS. CygNet Measurement uses an FMS-to-PGAS internal mapping to produce the XML file. Data is exported as follows.</p>
+        <ul>
+            <li value="1">If using a date-based export file name format and the selected file name already exists in the specified directory (as a valid PGAS XML file), any new data exported by the command will be exported to a new uniquely named file. The new file name is created by using the existing file name specified and appending a sequential two-digit index number to it, up to a maximum index of 99, after which point the export will no longer succeed.</li>
+            <li value="2">If using the Node name export file name format and the selected file name already exists in the specified directory, the export will fail. </li>
+        </ul>
+        <p>Use the following procedure to make the command definition file (CDF) available to the FMS service, before executing the Export: PGAS Data XML command.</p>
+        <ol>
+            <li value="1">On your host server, in the <b>CygNet\Services\FMS\CommandDefs\ExportSamples</b> folder, find the <b>SampleExportPgasXml.cdf</b> (command definition) file and copy it up one level to the <b>CygNet\Services\FMS\CommandDefs</b> folder. Remove the word "Sample"  from the file name of the new copy of the file, so that the file will be recognized by the FMS service. The file content must remain as-is; do not edit or add to the file.</li>
+            <li value="2"><b>Save</b> the <b>ExportPgasXml.cdf</b> file.</li>
+            <li value="3"><b>Restart</b> the FMS service.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Problems that arise while processing a command definition file are logged to the <b>Services &gt; FMS</b> log file.</p>
+        </div>
+        <h4>Mapping of FMS Data Items to PGAS&#160;Attributes</h4>
+        <p>CygNet Measurement automatically maps FMS data items to their related <a href="#PGAS" class="selected">Alarm</a>, <a href="#PGAS2" class="selected">Characteristics</a>, <a href="#PGAS3" class="selected">Event</a>, and <a href="#PGAS4" class="selected">Volume</a> PGAS XML attributes for export. To identify equivalent data items for informational purposes, the following tables indicate item mappings used.</p>
+        <h5><a name="PGAS"></a>PGAS Alarms Attributes</h5>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">FMS Alarm Data Item</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">PGAS XML Attribute - Alarm</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_EVENT_TYPE_DEVICE_ID</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>METER_ID</p>
+                        <p>This column is required</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_EVENT_TYPE_DATE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>ALARM_DATE</p>
+                        <p>This column is required</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><i>Text description of event</i>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">DESCRIPTION</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><i>Value that caused the alarm</i>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ALARM_VALUE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><i>Level of the alarm</i>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">ALARM_LEVEL</td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h5><a name="PGAS2"></a>PGAS Characteristics Attributes</h5>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">FMS Configuration Data Item</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">PGAS XML Attribute - Characteristics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CFmsDeviceRec.strName</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">METER_ID</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">ConfigLogRec.ddtDatetime</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">COLLECTION_DATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_METER_ID</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">METER_NAME</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METER_TYPE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">METER_TYPE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_BASE_PRESSURE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">PRESSURE_BASE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_BASE_TEMPERATURE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TEMPERATURE_BASE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_METER_TUBE_INSIDE_DIAMETER</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">TUBE_DIAMETER</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METER_TUBE_MATERIAL</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TUBE_MATERIAL</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_METER_TUBE_REF_TEMP</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">TUBE_REF_TEMP</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_SP_TAP_LOCATION</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TAP_LOCATION</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_DP_TAPS_TYPE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">TAP_TYPE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_ORIFICE_PLATE_BORE_SIZE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ORIFICE_DIAMETER</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ORIFICE_PLATE_MATERIAL</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ORIFICE_MATERIAL</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_ORIFICE_PLATE_REF_TEMP</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ORIFICE_REF_TEMP</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_DP_TRANSDUCER_RANGE_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">DP_HIGH_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_SP_TRANSDUCER_RANGE_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SP_HIGH_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_SP_SENSOR_TYPE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SP_TYPE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_TEMP_TRANSDUCER_RANGE_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TEMP_LOW_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_TEMP_TRANSDUCER_RANGE_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">TEMP_HIGH_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CALC_METHOD_FPV</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">COMPRESSIBILITY_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_INTEGRAL_VALUE_VARIABLES</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">EXTN_IV_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METER_FACTOR</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">METER_FACTOR</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_GAS_K_FACTOR_VOLUME</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">K_FACTOR</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CONTRACT_HOUR</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CONTRACT_HOUR</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ATMOSPHERIC_PRESSURE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ATM_PRESSURE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_PIPE_COEFFICIENT_THERMAL_EXPANSION</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TUBE_THERMAL_EXP_COEFFICIENT</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_ORIFICE_COEFFICIENT_THERMAL_EXPANSION</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">PLATE_THERMAL_EXP_COEFFICIENT</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METER_TYPE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DIFF_METER_TYPE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_METER_TUBE_MATERIAL</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">MATERIAL</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_METER_TUBE_REF_TEMP</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">REF_TEMP</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_DISCHARGE_COEFFICIENT</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">DISCHARGE_COEF</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_DP_CALIBRATE_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DP_HIGH_SPAN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_DP_CALIBRATE_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">DP_LOW_SPAN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_SP_CALIBRATE_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SP_HIGH_SPAN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_SP_CALIBRATE_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SP_LOW_SPAN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_TEMP_CALIBRATE_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TEMP_HIGH_SPAN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_TEMP_CALIBRATE_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">TEMP_LOW_SPAN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_CALC_METHOD_DISCHARGE_COEFFICIENT</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DISCHARGE_COEF_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_CALC_METHOD_GAS_EXPANSION_FACTOR</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">GAS_EXPANSION_FACTOR_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_SAMPLE_RATE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">SAMPLE_RATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_BASE_COMPRESSIBILITY_OF_AIR</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">BASE_COMPRESS_AIR</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_VISCOSITY</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ABS_VISCOSITY</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_DP_ALARM_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ALARM_DP_HIGH</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_DP_ALARM_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ALARM_DP_LOW</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_SP_ALARM_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ALARM_SP_HIGH</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_SP_ALARM_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ALARM_SP_LOW</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_TEMP_ALARM_HIGH</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ALARM_TEMP_HIGH</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_TEMP_ALARM_LOW</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ALARM_TEMP_LOW</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_FIXED_TEMP</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">DEFAULT_FIXED_TEMP</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_CFG_ELEVATION</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ELEVATION</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">eFMS_CFG_LATITUDE</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">LATITUDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">eFMS_CFG_LONGITUDE</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">LONGITUDE</td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h5><a name="PGAS3"></a>PGAS Event Attributes</h5>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">FMS Data Item</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">PGAS XML Attribute - Event</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">NodeName</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>METER_ID</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><i>Date of event</i>
+                        </p>
+                        <p>Date/Time entry value from Raw Data control</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>EVENT_DATE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><i>PGAS XML file column name</i>
+                        <p>See table of <a href="#Event" class="selected">PGAS Event Tag Names</a> below</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>TAG_NAME</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><i>Text description of event</i>
+                        </p>
+                        <p>'Category' + 'Type' column values from Raw Data control </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DESCRIPTION</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><i>Comment regarding event</i>
+                        </p>
+                        <p>'Additional Info' column value from Raw Data control</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">COMMENT</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><i>New record value</i>
+                        </p>
+                        <p>Value </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">NEW_VALUE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><i>Old record value</i>
+                        </p>
+                        <p>Value </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">OLD_VALUE</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5><a name="Event"></a>PGAS Event Tag Names</h5>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">FMS Data Item</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">PGAS TAG_NAME</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>OrificePlateBoreSize</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>ORIFICE_SIZE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>MeterTubeInsideDiameter</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>TUBE_DIAMETER</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">BaseTemperature</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>TEMP_BASE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">BasePressure</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>CONTRACT_PRES_BASE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">AtmosphericPressure</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SITE_ATMOS_PRES</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">OrificePlateMaterial</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>PLATE_MATERIAL</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>MeterTubeMaterial</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>TUBE_MATERIAL</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>DpTapsType</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>DIFF_TAP_TYPE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">SpTapLocation</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">STAT_TAP_LOCA</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">DpTransducerRangeHigh</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DIFF_HI_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">SpTransducerRangeHigh</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">STATIC_HI_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">TempTransducerRangeLow</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TEMP_LO_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">TempTransducerRangeHigh</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">TEMP_HI_RANGE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">MeterId</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">METER_NAME</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>DeviceType</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>METER_TYPE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Elevation</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">LOC_ELEVATION</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Latitude</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">LOC_LATITUDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Longitude</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">LOC_LONGITUDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>SpType</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>SP_TYPE</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>IntegralValueVariables</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>EXTN_IV_METHOD</p>
+                        <p>Variables included in IV</p>
+                        <p>Possible values are:</p>
+                        <p class="Indent">FLOW_ANDT</p>
+                        <p class="Indent">FLOW_ONLY</p>
+                        <p class="Indent">STANDARD</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>GasExpansionFactorCalc</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">GAS_EXPANSION_FACTOR_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>DischargeCoefficientCalc</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DISCHARGE_COEF_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>FpvCalc</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">COMPRESSIBILITY_METHOD</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Methane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">METHANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Ethane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ETHANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Propane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">PROPANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Isobutane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">IBUTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">n-Butane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">NBUTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Isopentane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">IPENTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">n-Pentane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">NPENTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Neopentane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">NEO_PENTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">n-Hexane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">HEXANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">n-Heptane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">HEPTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">n-Octane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">OCTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">n-Nonane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">NONANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">n-Decane</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DECANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Nitrogen</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">NITROGEN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CarbonDioxide</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CARBON_DIOXIDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Water</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">H2O</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">HydrogenSulfide</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">H2S</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Hydrogen</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">HYDROGEN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">CarbonMonoxide</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CARBON_MONOXIDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Oxygen</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">OXYGEN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Helium</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">HELIUM</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Argon</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">ARGON</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">DewPoint</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Dew Point</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">RelativeDensity</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">GRAVITY</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Viscosity</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">VISCOSITY</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">MeterTubeRefTemp</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">REF_TEMP</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">OrificePlateRefTemp</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ORIFICE_REF_TEMP</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">NodeContractHour</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CONTRACT_HOUR</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">KFactorVolume</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">K_FACTOR</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Device specific event information</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">Device Events: Device Specific</td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h5><a name="PGAS4"></a>PGAS Volume Attributes</h5>
+        <p>Items listed may be applicable for volume (V), quality (Q), or either (V, Q).</p>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">FMS Data Item</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">V/Q</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">PGAS XML Attribute - Volume</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">CFmsDeviceRec.strName</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V,Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">METER_ID</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">BeginDateTime</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">START_DATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">EndDateTime</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">END_DATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_FLOW_TIME</p>
+                        <p>FlowTime</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">FLOW_TIME_MINS</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_FLOW_VOLUME</p>
+                        <p>Volume</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">VOLUME</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_ACCUM_ENERGY</p>
+                        <p>Energy</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ENERGY</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_IV</p>
+                        <p>IV</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">FLOW_EXTENSION</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_DIFF_PRESSURE</p>
+                        <p>Dp</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DIFF_PRESS</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_LINE_PRESSURE</p>
+                        <p>Sp</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">STATIC_PRESS</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_FLOW_TEMP</p>
+                        <p>Temp</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">TEMPERATURE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_UNCORRECTED_VOLUME</p>
+                        <p>UncorrectedVolume</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">UNCORR_VOLUME</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_PULSES</p>
+                        <p>Pulses</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">FREQUENCY</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_IMV</p>
+                        <p>IMV</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CPRIME</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">eFMS_PV_FLOW_RATE</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">AVG_FLOW_RATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><i>PQ datetime stamp</i>
+                        </p>
+                        <p>'Begin Normalized Date/Time' column value from Raw Data control</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">SAMPLE_ON_DATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><i>PQ datetime stamp</i>
+                        </p>
+                        <p>'Begin Normalized Date/Time' column value from Raw Data control</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">EFFECTIVE_START_DATE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_NITROGEN</p>
+                        <p>Nitrogen</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">NITROGEN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_CARBON_DIOXIDE</p>
+                        <p>CarbonDioxide</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">CARBON_DIOXIDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_RELATIVE_DENSITY</p>
+                        <p>RelativeDensity</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">REAL_GRAVITY</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_HEATING_VALUE_VOLUME</p>
+                        <p>HeatingValueVolume</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">DRY_HEATING_VALUE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_METHANE</p>
+                        <p>Methane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">METHANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_ETHANE</p>
+                        <p>Ethane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">ETHANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_PROPANE</p>
+                        <p>Propane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">PROPANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_WATER</p>
+                        <p>Water</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">H2O</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_HYDROGEN_SULFIDE</p>
+                        <p>HydrogenSulfide</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">H2S</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_HYDROGEN</p>
+                        <p>Hydrogen</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">HYDROGEN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_CARBON_MONOXIDE</p>
+                        <p>CarbonMonoxide</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">CARBON_MONOXIDE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_OXYGEN</p>
+                        <p>Oxygen</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">OXYGEN</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_ISOBUTANE</p>
+                        <p>Isobutane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">IBUTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_N_BUTANE</p>
+                        <p>n-Butane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">NBUTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_ISOPENTANE</p>
+                        <p>Isopentane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">IPENTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_N_PENTANE</p>
+                        <p>n-Pentane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">NPENTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_N_HEXANE</p>
+                        <p>n-Hexane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">HEXANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_N_HEPTANE</p>
+                        <p>n-Heptane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">HEPTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_N_OCTANE</p>
+                        <p>n-Octane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">OCTANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_N_NONANE</p>
+                        <p>n-Nonane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">NONANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>eFMS_PV_N_DECANE</p>
+                        <p>n-Decane</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">DECANE</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>eFMS_PV_HELIUM</p>
+                        <p>Helium</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">HELIUM</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p>eFMS_PV_ARGON</p>
+                        <p>Argon</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">Q</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">ARGON</td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Reference Methods">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Scaling by Factor and Offset Examples</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Reference Methods.htm">Reference Methods</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Scaling by Factor and Offset Examples</span>
+        </div>
+        <h2>Scaling by Factor and Offset Examples</h2>
+        <p>This topic provides numerous useful examples of the various ways you can use reference methods in your device template files to perform conversions with constant values and/or reference data group element values. A sample device template file using each example is available upon request; it can be loaded to a DDS and used to test your reference methods. It is called ReferenceTester.dtf. The original, non-scaled input value must be preserved in a different data group element element.</p>
+        <p>See the following subsections for details:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Scaling9" class="selected">Scaling by Factor and Offset Data Group Element (A)</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Scaling10" class="selected">Scaling by Factor and Offset Data Group Element (B)</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Scaling5" class="selected">Scaling by Factor Constant (A)</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Scaling" class="selected">Scaling by Factor Constant (B)</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#Scaling6" class="selected">Scaling by Factor Data Group Element (A)</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Scaling2" class="selected">Scaling by Factor Data Group Element (B)</a>
+            </li>
+            <li class="HyperlinkList" value="7"><a href="#Scaling7" class="selected">Scaling by Offset Constant (A)</a>
+            </li>
+            <li class="HyperlinkList" value="8"><a href="#Scaling3" class="selected">Scaling by Offset Constant (B)</a>
+            </li>
+            <li class="HyperlinkList" value="9"><a href="#Scaling8" class="selected">Scaling by Offset Data Group Element (A)</a>
+            </li>
+            <li class="HyperlinkList" value="10"><a href="#Scaling4" class="selected">Scaling by Offset Data Group Element (B)</a>
+            </li>
+        </ul>
+        <p>For information about example data group element IDs and values used below, see <a href="Example Values.htm">Example Values</a>.</p>
+        <h3><a name="Scaling9"></a>Scaling by Factor and Offset Data Group Element (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a scale factor from <a href="Example Values.htm">raw10</a> and a scale offset from <a href="Example Values.htm">raw5</a> to it. The result is 615 because 61 is multiplied by a factor of 10, then 5 is added to 610.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleFOIdA desc="Scale Factor and Offset DEID Method A" readOnly="true" type="ui2" ref="raw61" scaleFactorId="raw10" scaleOffsetId="raw5"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a>, <a href="DataGroupElement Element.htm#scaleFactorId">scaleFactorId</a>, and <a href="DataGroupElement Element.htm#scaleOffsetId">scaleOffsetId</a>.</p>
+        <h3><a name="Scaling10"></a>Scaling by Factor and Offset Data Group Element (B)</h3>
+        <p>The following example uses three child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleFOIdB</b>. The second child element references the <a href="Available Reference Operations.htm#opScaleFactorId">opScaleFactorId</a> operation and applies a referenced scale offset from <a href="Example Values.htm">raw10</a> to the value assigned by the first child element. The result is 610. The third child element references the <a href="Available Reference Operations.htm#opScaleOffsetId">opScaleOffsetId</a> operation and applies a referenced scale offset from <a href="Example Values.htm">raw5</a> to 610. The final result is 615 because 5 is added to 610.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleFOIdB desc="Scale Factor and Offset DEID Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opScaleFactorId" deid="raw10"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="2" refOp="opScaleOffsetId" deid="raw5"/&gt;</p>
+                    <p class="Code">&lt;/ScaleFOIdB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, and <a href="ref.htm#deid">deid</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Scaling5"></a>Scaling by Factor Constant (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a constant scale factor of "10" to it. The result is 610 because 61 is multiplied by a factor of 10.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleFA desc="Scale Factor Constant Method A" readOnly="true" type="ui2" ref="raw61" scaleFactor="10"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#scaleFactor">scaleFactor</a>.</p>
+        <h3><a name="Scaling"></a>Scaling by Factor Constant (B)</h3>
+        <p>The following example uses two child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleFB</b>. The second child element references the <a href="Available Reference Operations.htm#opScaleFactor">opScaleFactor</a> operation and applies a constant scale factor of 10 to the value assigned by the first child element. The result is 610 because 61 is multiplied by a factor of 10.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleFB desc="Scale Factor Constant Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opScaleFactor" scaleFactor="10"/&gt;</p>
+                    <p class="Code">&lt;/ScaleFB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, and <a href="DataGroupElement Element.htm#scaleFactor">scaleFactor</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Scaling6"></a>Scaling by Factor Data Group Element (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a scale factor from <a href="Example Values.htm">raw10</a> to it. The result is 610 because 61 is multiplied by a factor of 10.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleFIdA desc="Scale Factor DEID Method A" readOnly="true" type="ui2" ref="raw61" scaleFactorId="raw10"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#scaleFactorId">scaleFactorId</a>.</p>
+        <h3><a name="Scaling2"></a>Scaling by Factor Data Group Element (B)</h3>
+        <p>The following example uses two child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleFIdB</b>. The second child element references the <a href="Available Reference Operations.htm#opScaleFactorId">opScaleFactorId</a> operation and applies a referenced scale factor from <a href="Example Values.htm">raw10</a> to the value assigned by the first child element. The result is 610 because 61 is multiplied by a factor of 10.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleFIdB desc="Scale Factor DEID Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opScaleFactorId" deid="raw10"/&gt;</p>
+                    <p class="Code">&lt;/ScaleFIdB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, and <a href="ref.htm#deid">deid</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Scaling7"></a>Scaling by Offset Constant (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a constant scale offset of "5" to it. The result is 66 because 61 is added to the offset 5.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleOA desc="Scale Offset Constant Method A" readOnly="true" type="ui2" ref="raw61" scaleOffset="5"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#scaleOffset">scaleOffset</a>.</p>
+        <h3><a name="Scaling3"></a>Scaling by Offset Constant (B)</h3>
+        <p>The following example uses two child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleOB</b>. The second child element references the <a href="Available Reference Operations.htm#opScaleOffset">opScaleOffset</a> operation and applies a constant scale offset of "5" to the value assigned by the first child element. The result is 66 because 61 is added to the offset 5.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleOB desc="Scale Offset Constant Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opScaleOffset" scaleOffset="5"/&gt;</p>
+                    <p class="Code">&lt;/ScaleOB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, <a href="ref.htm#deid">deid</a>, and <a href="DataGroupElement Element.htm#scaleOffset">scaleOffset</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p>
+        <h3><a name="Scaling8"></a>Scaling by Offset Data Group Element (A)</h3>
+        <p>The following example references the data group element <a href="Example Values.htm">raw61</a> and applies a scale offset from <a href="Example Values.htm">raw5</a> to it. The result is 66 because 61 is added to the offset 5.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleOIdA desc="Scale Offset DEID Method A" readOnly="true" type="ui2" ref="raw61" scaleOffsetId="raw5"/&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#ref">ref</a> and <a href="DataGroupElement Element.htm#scaleOffsetId">scaleOffsetId</a>.</p>
+        <h3><a name="Scaling4"></a>Scaling by Offset Data Group Element (B)</h3>
+        <p>The following example uses two child elements to compute a scaled value. The first child element references the operation <a href="Available Reference Operations.htm#opAssignId">opAssignId</a> and the data group element <a href="Example Values.htm">raw61</a> to assign the current value of <b>raw61</b> as the initial value for <b>ScaleOIdB</b>. The second child element references the <a href="Available Reference Operations.htm#opScaleOffsetId">opScaleOffsetId</a> operation and applies a referenced scale offset from <a href="Example Values.htm">raw5</a> to the value assigned by the first child element. The result is 66 because 61 is added to the offset 5.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;ScaleOIdB desc="Scale Offset ID Method B" readOnly="true" type="ui2" isRef="1"&gt;</p>
+                    <p class="Code2">&lt;ref prec="0" refOp="opAssignId" deid="raw61"/&gt;</p>
+                    <p class="Code2">&lt;ref prec="1" refOp="opScaleOffsetId" deid="raw5"/&gt;</p>
+                    <p class="Code">&lt;/ScaleOIdB&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>Useful attributes to know are <a href="DataGroupElement Element.htm#isRef">isRef</a>, <a href="ref.htm#prec">prec</a>, <a href="ref.htm#refOp">refOp</a>, and <a href="ref.htm#deid">deid</a>. A useful element to know is <a href="ref.htm" style="font-style: normal;">ref</a>.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

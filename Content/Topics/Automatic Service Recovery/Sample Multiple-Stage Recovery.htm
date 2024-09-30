@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Automatic Service Recovery|Configuring Automatic Service Recovery">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Sample Multiple-Stage Recovery</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Automatic Service Recovery.htm">Automatic Service Recovery</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Automatic Service Recovery.htm">Configuring Automatic Service Recovery</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Sample Multiple-Stage Recovery</span>
+        </div>
+        <h2>Sample Multiple-Stage Recovery</h2>
+        <p>This topic describes a sample multiple-stage recovery. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Multi-stage recovery is not recommended for DBS-based services. See <a href="Configuring Automatic Service Recovery for DBS-Based Services.htm">Configuring Automatic Service Recovery for DBS-Based Services</a> for more information.</p>
+        </div>
+        <p class="Image">
+            <img src="../../Resources/Images/Automatic Service Recovery/automatic_service_recovery_multistage.png" title="Multi-stage Recovery" alt="Multi-stage Recovery" />
+        </p>
+        <p>The first stage (<b>0: Archive and Restart</b>) archives the service files to a "recovery" folder and then attempts to restart the service. If the service does not run for 5 minutes the recovery moves to the second stage.</p>
+        <p>The second stage (<b>1: Restore from Backup</b>) archives the service files to a new "recovery" folder then copies the backup files from the backup folder to the service folder. It then attempts to restart the service using the backup files. If the service cannot be restarted, the RSM then copies the archive files created in this stage back into the service folder (<b>Restore archive on failure</b>). It does not attempt to restart again at this point.</p>
+        <p>The third stage (<b>2: Simple Restart</b>) attempts to restart the service again using the archive files that were re-added to the service folder as the last action of the second stage.</p>
+        <p>The fourth stage (<b>3: Shutdown RSM</b>) will send a shutdown command to the RSM to gracefully shutdown all services.</p>
+        <p>The difference between the archive of the first stage and the second stage is that the first stage archive includes the log files from when the service failed. The second stage archive includes the log files from the first restart attempt. The log files from the initial failure are most likely to contain information regarding the failure.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

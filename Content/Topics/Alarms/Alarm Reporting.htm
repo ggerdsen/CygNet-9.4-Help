@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Alarms|Alarms Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm Reporting</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Alarms.htm">Alarms</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Alarms Overview.htm">Alarms Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Alarm Reporting</span>
+        </div>
+        <h2>Alarm Reporting        </h2>
+        <p>Reporting of alarms to the Common Alarm Service (CAS) is independent of setting of an alarm bit in the Current Value Service (CVS).  </p>
+        <h3>Reporting to the CAS and GNS</h3>
+        <p>To report an alarm to the CAS, you must enable the <b>Report To CAS</b> property for the point. To report an alarm to the General Notification Service (GNS) to send an alert about the alarm, you must enable the <b>Report To GNS</b> property for the point. These options apply to all alarms for the point and are part of the point configuration record in the Point Service (PNT). </p>
+        <h3>Reporting Delay</h3>
+        <p>Alarms and notifications can be delayed by configuring the <b>Delay Reporting</b> and <b>Delay Value</b> properties in the point configuration. Delayed reporting delays the CVS from sending an alarm record to the CAS and the GNS. The alarm bit is set immediately once the CVS determines that the value meets or exceeds the alarm setpoint; however, the alarm record will not be sent to the CAS or the GNS until the delay time is met. </p>
+        <p>You might specify a delay in reporting an alarm or notification for a short period of time to see if the point goes out of alarm. Once the specified delay period is exceeded, if the point is still in alarm, the record is sent. Setting a reporting delay is useful for eliminating nuisance alarms or to enable other processes to catch up before reporting an alarm, such as allowing a pump to reduce a tank level before reporting the tank level as an alarm.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Delayed CAS alarms and GNS notifications records are <a href="Alarm Persistence.htm">persisted</a> on shutdown and startup and <a href="../Replication/Replication Overview.htm">replicated</a> from a source to a destination. In the event of a failover these records will be available on the standby site after the failover is complete.</p>
+        </div>
+        <h3>Reporting and Delay Configuration</h3>
+        <p>The properties to enable alarm and notification reporting are configured in the point  configuration in the <a href="../Points/PNT Editor.htm">PNT Editor</a>:</p>
+        <p>
+            <img src="../../Resources/Images/Alarms/Delay_Reporting.png" title="Alarm reporting" alt="Alarm reporting" />
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 175px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 400px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Report To CAS</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select to reporting point alarms to the Common Alarm Service (CAS). Options are <b>0</b> (No) or <b>1</b> (Yes). The individual alarm bits must be enabled.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Report To GNS</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select to report point alarms to the General Notification Service (GNS), which will send notifications when an alarm bit is set/reset. Options are <b>0</b> (No) or <b>1</b> (Yes). The individual alarm bits must be enabled.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>GNS ID</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the ID of the GNS record to use for the notification regarding the alarm. The record type must be "Event" or "Unspecified." Click <b>…</b> to select a GNS ID. See <a href="../Notifications/Configuring a GNS Record.htm">Configuring a GNS Record</a> for information about setting up GNS IDs.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Delay Reporting</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select to delay reporting of the alarm to the CAS or to the GNS for some period of time to see if the point goes out of alarm. Options are <b>0</b> (No) or <b>1</b> (Yes). The individual alarm bits must be enabled. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">
+                        <p><b>Delay Value</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Specify the amount of time to delay reporting alarms or processing notifications. The countdown begins when the alarm bit gets set. When set, that delay time governs all delay times for the point. Click … to enter the reporting delay value.</p>
+                        <p>The format is as follows:</p>
+                        <ul class="table">
+                            <li value="1"><b>hh:mm:ss</b> (for values up to 18 hours: 0-17 hours, 0-59 minutes, 0-59 seconds)</li>
+                            <li value="2"><b>DD:hh:mm</b> (for values up to 40 days: 0-39 days, 0-23 hours, 0-59 minutes)</li>
+                            <li value="3"><b>Y:DDD:hh</b> (for values up to 7 years: 0-6 years, 0-364 days, 0-23 hours)</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

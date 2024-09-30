@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CygNet Scripting Guide|CygNet Scripting Model">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VBScript Primer</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Scripting Guide.htm">CygNet Scripting Guide</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Scripting Model.htm">CygNet Scripting Model</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VBScript Primer</span>
+        </div>
+        <h2>VBScript Primer</h2>
+        <p>Microsoft Visual Basic for Scripting (VBScript) is a subset of Visual Basic created for client-side Internet scripting, although it is now used in many Microsoft Windows applications. The VBScript syntax is similar to that of Visual Basic and is relatively simple. The following sections outline some aspects of VBScript that you may find useful as a starter or refresher. </p>
+        <p>A helpful resource for learning VBScript is available online at <a href="http://www.w3schools.com/asp/asp_ref_vbscript_functions.asp" target="_blank">w3schools.com</a>.</p>
+        <h3>Properties</h3>
+        <p>Properties are attributes or values of an object that can be read and/or set. As long as the value returned by the property is not an object, reading and setting property values generally requires only a simple assignment statement. Object assignment lines must be prefaced by the Set keyword.</p>
+        <p>The following line of code reads the value of "Facility1_TankLevel" and stores it in the variable lngLevel.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">lngLevel = Facility1_TankLevel.Value</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following line of code sets the value of "Facility1_TankLevel":</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Facility1_TankLevel.Value = 100</p>
+                </td>
+            </tr>
+        </table>
+        <p>Not all properties can be written. If you attempt to set a property that is read-only, an error code will be generated.</p>
+        <h3>Methods</h3>
+        <p>Methods include functions and subroutines that are available for an object. A function returns a value, whereas a subroutine does not. Both functions and subroutines can take one or more arguments (or none), depending on how the method is defined. Methods are called by prefacing the method name with the object name, followed by a period.</p>
+        <p>The following line of code sets the strRefSite variable to the value returned by the MyPoint object’s GetAttribute method. The method takes one argument:&#160; the attribute to return.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">strRefSite = MyPoint.GetAttribute(ReferenceSite)</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following line of code calls the <a href="CxVhs VhsClient Methods.htm#vc_Connect">Connect</a> method of the <a href="CxVhs VhsClient Object.htm">VhsClient</a> object. In VBScript, the parentheses are optional when no arguments are required.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">VhsClient.Connect()</p>
+                </td>
+            </tr>
+        </table>
+        <p>When calling a function, it is necessary to include parentheses around the function arguments. On the other hand, the arguments of subroutines must not be enclosed in parentheses, unless passing a single variable. Some methods return objects, and must be used with the Set statement.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Set vhsPointIter = CreateObject("CxVhsLib.PointIterator")</p>
+                </td>
+            </tr>
+        </table>
+        <p>The examples in the following sections will explain how to create your own methods for HyperPoint and CygNet Studio objects.</p>
+        <h3>Events</h3>
+        <p>Events handlers are methods that are called by the script engine in response to an event. For example, when a CygNet Studio button is pressed, its EventClick custom event code is run. In the HSS, a HyperPoint’s <a href="CxScript HyperPoint Events.htm#OnInitializeEx">OnInitializeEx</a> event handler is run when the script engine initializes the point. </p>
+        <h3>Variables and Data Types</h3>
+        <p>In VBScript, all variables are variants, although there are many subtypes that the variant type can support. These include:</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 154px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p style="text-align: center;">Value</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Variant Subtype</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Constant</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>0</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Empty</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbEmpty</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Uninitialized.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>1</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Null</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbNull</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>No valid data.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>2</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Integer</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbInteger</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Signed integer stored in 2 bytes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>3</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Long</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbLong</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Signed integer stored in 4 bytes.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>4</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Single</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbSingle</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Single precision floating data point</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>5</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Double</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbDouble</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Double precision floating data point.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>6</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Currency</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbCurrency</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Special numeric format for storing monetary values.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>7</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Date</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbDate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Date or time value.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>8</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>String</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbString</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>String data of variable length.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>9</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>OLE Automation Object</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>VbObject</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Contains a reference to an object, typically an OLE automation object.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>10</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Error</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbError</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Used to store an error number.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>11</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Boolean</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbBoolean</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Logical data that is either True or False.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>12</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Array of Variant</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbVariant</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Variant array.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>13</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Data Access Object</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbDataObject</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Generic object.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>17</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Byte</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>vbByte</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Unsigned integer stored in 1 byte.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p style="text-align: center;">8192</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Array</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>vbArray</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Array.</p>
+                </td>
+            </tr>
+        </table>
+        <p>To determine the subtype, use the VarType or TypeName functions. VarType returns an integer that represents the subtype. TypeName returns the subtype name.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">VarType(variable) or TypeName(variable)</p>
+                </td>
+            </tr>
+        </table>
+        <p>Before manipulating data, it is sometimes necessary to validate the variant’s subtype. For example, if you are going to perform a calculation, make sure that the subtype is a numeric.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">If Not IsNumeric(Point1.Value) Then Exit Sub</p>
+                </td>
+            </tr>
+        </table>
+        <p>If necessary, convert the data into the appropriate subtype. The table below lists the VBScript conversion functions. For example, adding two point values may require that the values be of the double subtype, requiring the following line of code.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">SumPoint.Value = CDbl(Point1.Value) + CDbl(Point2.Value)</p>
+                </td>
+            </tr>
+        </table>
+        <p class="very_small">&#160;</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 140px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>Conversion Type</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a name="CBool"></a>CBool</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Converts variablename to Boolean data subtype. If variablename is 0 or "0" CBool returns False; otherwise it returns True (-1).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CByte</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Converts variablename to a Byte data subtype. Variable name can contain any numeric or string data that is capable of conversion into a number that is greater than or equal to 0 and less than or equal to 255. If variablename is out of range, VBScript displays on Overflow error message. If variablename is a floating point number, it is rounded to the nearest integer before being converted to byte data.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CDate</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Converts variablename to a Date/Time data subtype. This function accepts numeric or string data that appears to be a date, converting it to the correct format for the machine. The date is returned in the format specified by the local information on the client computer. On a machine set to the American date format MM/DD/YY, if you enter the British date format dd/mm/yy in a text box and then use this function on the contents of the text box, the text will be converted to the American format.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CCur</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Converts variablename to a Currency data subtype. This function accepts any numeric or string data that can be expressed as a currency value. The function recognizes the decimal and thousands separators based on local information on the client computer.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CDbl</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Converts variablename to a Double data subtype. This function accepts any numeric data within the limits of the Double data subtype or any string data that can be converted to a number within the range of the Double data subtype.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Cint</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Converts variablename to an Integer data subtype. This function accepts any numeric data within the limits of the Integer data subtype or any string data that can be converted to a number within the range of the Integer data subtype.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CLng</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Converts variablename to a Long data subtype. This function accepts any numeric data within the limits of the Long data subtype or any string data that can be converted to a number within the range of the Long data subtype.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>CSng</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Converts variablename to a Single data subtype. This function accepts any numeric data within the limits of the Single data subtype or any string data that can be converted to a number within the range of the Single data subtype.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>CStr</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Converts variablename to a String data subtype. This function accepts any kind of data.</p>
+                </td>
+            </tr>
+        </table>
+        <p>Refer to online documentation at <a href="http://msdn.microsoft.com/en-us/library/t0aew7h6%28v=VS.85%29.aspx" target="_blank">MSDN</a> for more information about the VBScript language.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|DNP3 EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DNP3 EIE - Best Practices</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DNP3 EIE.htm">DNP3 EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Best Practices</span>
+        </div>
+        <h2>Best Practices</h2>
+        <p>These best practices are guidelines that CygNet suggests you adopt for the DNP3 EIE and the DNP3 Emerson EIE. </p>
+        <h3><a name="Auto"></a>Auto Time Sync</h3>
+        <p>To have CygNet automatically perform a time synchronization whenever the device sets the <b>Need Time</b> flag in the "Internal Indications" data group, set <b>autoTimeSync</b>="<b>true</b>" in the device template file. To have more control over when time synchronizations occur, set <b>autoTimeSync</b>="<b>false</b>", map a point to the <b>Need Time</b> flag (IIN1.4) in the "Internal Indications" data group, and create an MSS task to perform the time sync based on the value of the CygNet point.</p>
+        <h3>Events</h3>
+        <p>The "Events" data group is designed to be used for regular/scheduled device polling. </p>
+        <p>When the "Events" data group is polled, CygNet point updates are made to any mapped deids in instantiated data groups with a matching <b>ptId</b>.</p>
+        <p class="Example"> Example:</p>
+        <p class="Indent">Data group "AnalogIn" has a deid using <b>ptId</b> AI.123, which is mapped to a CygNet point.</p>
+        <p class="Indent">When events are polled, if there is an event for <b>ptId</b> AI.123, the CygNet point will be updated accordingly.</p>
+        <p>When the Event Overflow bit (IIN2.3) is set in the "Internal Indications" data group, it means that events are not being polled often enough. The long term solution is to increase the polling schedule for events. As a stop-gap measure, we recommend issuing the "Integrity Poll" UIS command whenever the Event Overflow flag is set. The UIS command for an integrity poll is predefined in the template file. It requests class 1, 2, and 3 events and then the "All Points (Class 0)" (<b>AllPoints</b>) data group.</p>
+        <h3>Device Compliance Levels</h3>
+        <p>The DNP3 protocol requires that devices meet one of four compliance levels. Some devices using the DNP3 EIE or the DNP3 Emerson EIE may be limited in their functions according to the compliance level of the device.</p>
+        <ul>
+            <li value="1">Level 1 — the minimum implementation level for communication between a master station and an Intelligent Electronic Device (IED). Includes simple reads and writes and unsolicited messages.</li>
+            <li value="2">Level 2 — contains the Level 1 subset plus additional features, such as accepting freeze requests on Binary Counter objects, and parsing read requests for different variation and object combinations, including Binary Input Change objects and Frozen Counter objects. Typical communication is between a master station and a large IED or a small RTU with input and output points local to the device.</li>
+            <li value="3">Level 3 —  contains the Level 2 subset plus additional features, such as outstation processing of a wider range of read requests, enabling and disabling unsolicited responses for Class 1, Class 2, and Class 3 objects only, and assigning and reassigning data objects to classes dynamically. Typical communication is between a master station and a more advanced RTU.</li>
+            <li value="4">Level 4 —  contains the  Level 3 subset plus additional features, with typical communication between a master station and a medium size outstation. The additional features in Level 4 are self-address reservation, handling object group 0 (device attributes), double-bit input objects, variations with time (frozen counters and events, and AI events), floating point variations for analog input and output, analog input deadband, and events for binary and analog outputs. At this level, the device must provide an XML version of the device profile document containing both the capabilities and current values set in the device.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Devices can implement features from more advanced levels, but can only claim compliance when all requirements for a level are met. A manufacturer can claim compliance for a level as long as a request is handled correctly. For example, Level 1 compliance includes support for analog output values. If the device does not support them, but correctly returns "object unknown", then the device is Level 1 compliant.</p>
+        </div>
+        <p>For more specific information about DNP3 Implementation levels, see the appropriate manufacturer-provided documentation.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Energy Load Forecasting|Using CygNet ELF|CygNet ELF EIE Editor|Configuring Meters and Input Owners|Configuring Meter/Meter Group Assignment Settings">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Balancing Redistribution</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Energy Load Forecasting root.htm">Energy Load Forecasting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet ELF.htm">Using CygNet ELF</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet ELF EIE Editor.htm">CygNet ELF EIE Editor</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Meters and Input Owners.htm">Configuring Meters and Input Owners</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Balancing Redistribution</span>
+        </div>
+        <map id="map1" name="map1">
+            <area shape="rectangle" coords="7,24,80,45" href="#Enable_Rule" title="Enable Rule (click for more info)" alt="Enable Rule (click for more info)" class="selected" />
+            <area shape="rectangle" coords="98,24,693,45" href="#Comment" title="Comment (click for more info)" alt="Comment (click for more info)" class="selected" />
+            <area shape="rectangle" coords="59,46,266,69" title="Redistribution Type (click for more info)" alt="Redistribution Type (click for more info)" href="#Redistribution_Type" class="selected" />
+            <area shape="rectangle" coords="8,72,314,196" title="Sum of Receipts (click for more info)" alt="Sum of Receipts (click for more info)" href="#Sum_of_Receipts" class="selected" />
+            <area shape="rectangle" coords="381,72,694,196" title="Sum of Deliveries (click for more info)" alt="Sum of Deliveries (click for more info)" href="#Sum_of_Deliveries" class="selected" />
+            <area shape="rectangle" coords="8,202,314,344" title="Positive Value Distribution (click for more info)" alt="Positive Value Distribution (click for more info)" href="#Positive_Value_Distribution" class="selected" />
+            <area shape="rectangle" coords="381,202,694,344" title="Negative Value Distribution (click for more info)" alt="Negative Value Distribution (click for more info)" href="#Negative_Value_Distribution" class="selected" />
+            <area shape="rectangle" coords="325,242,373,288" title="Arrows (click for more info)" alt="Arrows (click for more info)" href="#Arrows" class="selected" />
+        </map>
+        <h2>Configuring Balancing Redistribution</h2>
+        <p>Use Balancing Redistribution to conditionally distribute a calculated forecast value for a group of meters based on whether the difference of two summed sets of meters is positive or negative. The two sets of meters represent a <b>Sum of Receipts</b> ( <span style="font-size: 10pt;"><span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Receipts</span></span> ) and a <b>Sum of Deliveries</b> ( <span style="font-size: 10pt;"><span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Deliveries</span></span> ). For example, this method of redistribution can assist you to make decisions about moving gas to and from storage as needed, or balancing gas receipts and deliveries across a pipeline.</p>
+        <p>For a <b>Positive Value Distribution</b>, if the 
+		<span style="font-size: 10pt;"><span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Receipts</span>&#160;&#160;&#160;&#160;<span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Deliveries</span>&#160;&#160;&gt;&#160;&#160;0</span>&#160;&#160;(is positive), the aggregated forecast value for a group of meters will be distributed to the configured set of child meters.</p>
+        <p>For a <b>Negative Value Distribution</b>, if the 
+		<span style="font-size: 10pt;"><span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Receipts</span>&#160;&#160;&#160;&#160;<span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Deliveries</span>&#160;&#160;&lt;&#160;&#160;0</span>&#160;&#160;(is negative), the aggregated forecast value for a group of meters will be distributed to a different configured set of child meters.</p>
+        <p>The distribution supports both a configured percentage assignment value (<b>Fixed Quantity Assignment</b> method) and a historical time offset forecast profile method (<b>Balance from Historical Profile Assignment</b> method). See <a href="Configuring Assignment From Parent.htm">Configuring Assignment From Parent</a> for more information.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> See <a href="Configuring Expression Redistribution.htm">Configuring Expression Redistribution</a> for information about Redistribution by expression.</p>
+        </div>
+        <p class="HeadingProcedure">To Configure Balancing Redistribution</p>
+        <ol>
+            <li value="1">Click the <b>Meters/Owners</b> page of the ELF Editor.</li>
+            <li value="2">Add a <b>New Child</b> or <b>New Sibling</b>, or double-click to <b>Edit</b> a configured meter.</li>
+            <li value="3">Configure the properties in the <a href="Configuring Meter Meter Group General Settings.htm">General</a> page.</li>
+            <li value="4">Click the <b>Assignments</b> page.</li>
+            <li value="5">Click <i>Balance Redistribution</i> from the <b>Value Assignment Type</b> drop-down menu.</li>
+            <li value="6">Click <b>Create New Rule…</b> or <b>Edit Meter's Rules…</b> or <b>Add to Existing Rules…</b> to view the <b>Edit Balancing Redistribution Rule</b> dialog box.</li>
+            <li value="7">Configure the rule using the properties described below.</li>
+        </ol>
+        <p class="Image">
+            <img src="../../Resources/Images/Energy Load Forecasting/meter_group_redistribution_balancing.png" usemap="#map1" style="border-left-style: solid;border-left-width: 0px;border-left-color: ;border-right-style: solid;border-right-width: 0px;border-right-color: ;border-top-style: solid;border-top-width: 0px;border-top-color: ;border-bottom-style: solid;border-bottom-width: 0px;border-bottom-color: ;" />
+        </p>
+        <p>The properties and buttons on the <b>Edit Balancing Redistribution Rule</b> dialog box are described below.</p>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="Enable_Rule"></a>Enable Rule</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Click to enable or disable the balancing redistribution rule.
+</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="Comment"></a>Comment</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Type an optional description or reason for the balancing. Maximum length is 80 characters.</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="Redistribution_Type"></a>Redistribution Type</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Select the redistribution type to indicate when during the  forecasting process to have redistribution occur. Options include:</p>
+                    <ul class="table">
+                        <li value="1"><b>Post Forecast</b> — Redistribution occurs after all direct forecasting is complete.</li>
+                        <li value="2"><b>Post Assignment</b> — Redistribution occurs after all assignments from parent groups  is complete.</li>
+                        <li value="3"><b>Post Aggregation</b> — Redistribution occurs after all group aggregation  is complete.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="Sum_of_Receipts"></a>Sum of Receipts</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specifies the source meters in the <b>Sum of Receipts</b> group. Columns include the Target ID, External ID, and Assignment Stage for each meter. </p>
+                    <ul class="table">
+                        <li value="1">Click <b>Add</b> to select source meter(s) to add to the list.</li>
+                        <li value="2">Click <b>Del</b> to remove a selected source meter(s) from the list.</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The <b>Assignment Stage</b> for the source meter(s) must match the <b>Redistribution Type</b>.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="Sum_of_Deliveries"></a>Sum of Deliveries</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specifies the source meters in the <b>Sum of Deliveries</b> group. Columns include the Target ID, External ID, and Assignment Stage for each meter.</p>
+                    <ul class="table">
+                        <li value="1">Click <b>Add</b> to select source meter(s) to add to the list.</li>
+                        <li value="2">Click <b>Del</b> to remove selected source meter(s) from the list.</li>
+                    </ul>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> The <b>Assignment Stage</b> for the source meter(s) must match the <b>Redistribution Type</b>.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="Positive_Value_Distribution"></a>Positive Value Distribution</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>If the 
+		<span style="font-size: 10pt;"><span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Receipts</span>&#160;&#160;&#160;&#160;<span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Deliveries</span>&#160;&#160;&gt;&#160;&#160;0</span>&#160;&#160;(is positive), the aggregated forecast value will be distributed to this set of child meters. Columns include the Target ID, External ID, and Assignment Rule for each meter.</p>
+                    <ul class="table">
+                        <li value="1">Click <b>Assignments</b> to view or modify the assignment rules for the children  in the <b>Positive Value Distribution</b> group. See <a href="Configuring Assignment From Parent.htm">Configuring Assignment From Parent</a> for more information.</li>
+                        <li value="2">Click <b>Add</b> to select balance redistribution destination meter(s) to add to the list.</li>
+                        <li value="3">Click <b>Del</b> to remove selected destination meter(s) from the list.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="Negative_Value_Distribution"></a>Negative Value Distribution</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>If the 
+		<span style="font-size: 10pt;"><span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Receipts</span>&#160;&#160;&#160;&#160;<span style="font-family: Symbol;">S</span>&#160;<span style="vertical-align: sub;">Deliveries</span>&#160;&#160;&lt;&#160;&#160;0</span>&#160;&#160;(is negative), the aggregated forecast value will be distributed to this set of child meters. Columns include the Target ID, External ID, and Assignment Rule for each meter.</p>
+                    <ul class="table">
+                        <li value="1">Click <b>Assignments</b> to view or modify the assignment rule for the children in the <b>Negative Value Distribution</b> group. See <a href="Configuring Assignment From Parent.htm">Configuring Assignment From Parent</a> for more information.</li>
+                        <li value="2">Click <b>Add</b> to select balance redistribution destination meter(s) to add to the list.</li>
+                        <li value="3">Click <b>Del</b> to remove selected destination meter(s) from the list.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a name="Arrows"></a>
+                        <img src="../../Resources/Images/Energy Load Forecasting/meter_group_redistribution_balancing_arrows1.png" />
+                    </p>
+                    <p>
+                        <img src="../../Resources/Images/Energy Load Forecasting/meter_group_redistribution_balancing_arrows2.png" />
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to move a destination meter from a positive distribution to a negative distribution, or from a negative distribution to a positive distribution.</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Validation Errors</h3>
+        <p>If the balancing redistribution rules are misconfigured in any way, validation errors will be displayed at the bottom of the dialog box. Errors must be resolved before  <b>OK</b> is enabled.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Configuring Notifications">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using Tokens in Notifications</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Notifications.htm">Configuring Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using Tokens in Notifications</span>
+        </div>
+        <h2>Using Tokens in Notifications</h2>
+        <p>Notification messages can be dynamically created using current data in the  Point Service, the Current Value Service, or the Facility Service. The identifiers used to create dynamic messages are called "tokens." A token represents a point attribute and can include any property from the point configuration record, the point’s CVS record, or its facility attributes. When the notification is sent, the GNS will replace the token(s) with the appropriate data. Notification messages can also include other points (data values or descriptive information) using a reference point token substitution method.</p>
+        <p>Tokens and reference points can be used to define a dynamic string of text for both <b>Set</b> and <b>Clear</b> notification messages in the following places:</p>
+        <ul>
+            <li value="1">subject line of an email or SMS message</li>
+            <li value="2">body of an alphanumeric message or email message or SMS message or voice address message</li>
+            <li value="3">file path and/or file name of a  WAV message file (see <a href="#WAV_Example" class="selected">example</a> below).</li>
+        </ul>
+        <p>See the following subsections for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Configure" class="selected">Configure Token Strings</a>
+                <ul class="Circle">
+                    <li class="HyperlinkList" value="1"><a href="#ToBuildString" class="selected">To Build a String Using Text Tokens</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Example" class="selected">Notification Message Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Categories" class="selected">Notification Token Categories</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#WAV_Example" class="selected">WAV File Example</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Beware" class="selected">Beware of Typographical Errors</a>
+            </li>
+        </ul>
+        <h3><a name="Configure"></a>Configure Token Strings</h3>
+        <p>Tokens are configured on the <b>Edit &lt;item&gt;</b> token chooser dialog box, which is accessed by clicking the appropriate <b>Browse</b> button on the right of the <b>Messages</b> page of the <b>Notifications Properties</b> dialog box.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The title of this dialog box depends on the item you are editing: <b>Edit Subject</b> if you are editing and adding tokens to the email subject, <b>Edit Message</b> if you are editing and adding tokens to the notification message, or <b>Edit Wave Message File Path</b> if you are editing and adding tokens to the WAV file path or name.</p>
+        </div>
+        <p>
+            <img src="../../Resources/Images/Notifications/Tokens.png" />
+        </p>
+        <p>The properties on the <b>Edit &lt;item&gt;</b> dialog box are described below.</p>
+        <table style="width: 800px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: bold;">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p><b>Edit Text</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Shows the text and/or tokens that will be displayed.</p>
+                        <p>In the GNS, this field displays the text that will be used in the notification message (subject line, body, or WAV file name). This field may include tokens that refer to the source (current) point that is triggering the notification AND reference tags to other related points.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p><b>Drop-Down Menu</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Available attributes are categorized into logical groups for ease of lookup. Select a desired category from the drop-down menu. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p><b>Attribute</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>All current attributes defined in the CygNet system. For each category, select the desired value. See <a href="../CygNet Studio/Token Categories.htm">Token Categories</a> for a complete list of values by category.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p><b>Insert Token</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to insert the desired token into the <b>Edit Text</b> field. Repeat to display multiple values.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Add static text, spaces between tokens, parentheses, and other punctuation, as desired.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                        <p>Insert New Line</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Click <b>Insert New Line</b> to add a line immediately after the current token.</p>
+                        <p>In the GNS, only notification messages allow the use of multiple lines of text. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> While the <b>Edit Text</b> field has focus <b>Ctrl+Enter</b> will insert a new line wherever the cursor is located.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                        <p><b>Reference Tag</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> This option is <b style="font-style: italic;">ONLY</b> available in the General Notification Service.</p>
+                        </div>
+                        <p>Use <b>Reference Tag</b> to include  other points (data values or descriptive information) in a notification message using reference point token substitution.</p>
+                        <p>See <a href="Including Other Points in Notifications.htm">Including Other Points in Notifications</a> for more information about how to format and build up a reference tag for a point other than the point triggering the notification.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="font-weight: bold;">
+                        <p><b>Formatting</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Display formats can be applied to tokens. The format string is included in the token string within square brackets. An example of a format applied to a value token would be %value[0.0]%, where [0.0] is the display format. See <a href="../CygNet Studio/Properties.htm#DisplayFormat">[DisplayFormat]</a> property for more information regarding display formats.</p>
+                        <p>Click <b>Formatting</b> to specify a custom display format for the token. See <a href="../CygNet Studio/Displaying Service Monitor Point Date Time.htm">Displaying Service Monitor Point Date/Time</a> for more information about formatting strings of text.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="HeadingProcedure"><a name="ToBuildString"></a>To Build a String Using Text Tokens</p>
+        <p>See <a href="../CygNet Studio/Using Text Tokens.htm">Using Text Tokens</a> in the CygNet Studio section for general information about using tokens.</p>
+        <ol start="1">
+            <li value="1">Show the <b>Edit &lt;item&gt;</b> dialog box by clicking <b>…</b> next to the item for which you want to add a token (<b>Email Subject</b>, <b>Message</b>, or <b>Wav Msg</b>).</li>
+            <li value="2">Clear the text in the <b>Edit Text</b>  field.</li>
+            <li value="3">Select a <a href="../CygNet Studio/Token Categories.htm">category</a> from the drop-down menu.</li>
+            <li value="4">Select an attribute from the list and click <b>Insert Token</b> to add it to the field. Double-clicking a token will also add it.</li>
+            <li value="5">Repeat to add more tokens, as desired.</li>
+            <li value="6">Type in the <b>Edit Text</b> field to add static text, spaces between tokens, parentheses, and other punctuation.</li>
+            <li value="7">To include a reference tag to a point other than the point triggering the notification, add a desired token, click inside the token, then select <b>Reference Tag</b> to open the <b>Reference Tag</b> dialog box. See <a href="Including Other Points in Notifications.htm">Including Other Points in Notifications.</a></li>
+            <li value="8">To format a token, click inside the token’s closing percent sign and click <b>Formatting</b> to view the <b>Display Format</b> dialog box. Select an appropriate display formatting option from the <b>Display Format</b> drop-down menu.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/CygNet Studio/Display_Format.png" />
+        </p>
+        <ol start="9">
+            <li value="9">To add a new line, place the cursor where you want the break and then click <b>Insert New Line</b>. You also can use <b>Ctrl+Enter</b> to insert a new line wherever the cursor is located. (Only body messages support multiple lines.) </li>
+            <li value="10">Click <b>OK</b> to save the string.</li>
+        </ol>
+        <h3><a name="Example"></a>Notification Message Example</h3>
+        <p class="Indent">The following message uses both static and dynamic text:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b style="color: #0000ff;">%description%</b> alarm on <b style="color: #0000ff;">%facility_desc%</b> (<b style="color: #0000ff;">%facility_id%</b>). The value is <b style="color: #0000ff;">%value%</b>&#160;<b style="color: #0000ff;">%primaryunits%</b>. Time of alarm: <b style="color: #0000ff;">%time%</b>. <b style="color: #0000ff;">%facility_desc%</b> is on <b style="color: #0000ff;">%facility_table2_desc%</b>.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">The resulting notification would be as shown below. The dynamic text is shown in bold.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b>Differential pressure</b> alarm on <b>SugarCreek East</b> (<b>SUGARCREEK1</b>). The value is <b>11.37PSI</b>. Time of alarm: <b>16:06:44 December19 2012</b>. <b>SugarCreek East</b> is on <b>Route 1</b>.</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="Categories"></a>Notification Token Categories</h3>
+        <p>The <b>Edit &lt;item&gt;</b> token chooser categorizes the tokens into logical groupings for ease of lookup. The two GNS specific categories are <b>Notification Current Values</b> and <b>Notification Timeout</b>. See <a href="../CygNet Studio/Token Categories.htm">Token Categories</a> in the CygNet Studio section for more information.</p>
+        <h4>Notification Configurable Bit  Tokens</h4>
+        <p>The following tokens in the <a href="../CygNet Studio/Token Categories - Notifications.htm">Notification Current Values</a> category can be used to identify the alarm to which a notification maps.</p>
+        <ul>
+            <li value="1">Notification Configurable Bit Name (%cfgbitactivename%)</li>
+            <li value="2">Notification Configurable Bit Calc Parm 1 (%cfgbitactivecalcparm1%) </li>
+            <li value="3">Notification Configurable Bit Calc Parm 1 Description (%cfgbitactivecalcparm1desc%)</li>
+            <li value="4">Notification Configurable Bit Calc Parm 2  (%cfgbitactivecalcparm2%)</li>
+            <li value="5">Notification Configurable Bit Calc Parm 2 Description (%cfgbitactivecalcparm2desc%)</li>
+        </ul>
+        <p>You can include these tokens in a <b>Set</b> or <b>Clear</b> message (or email subject) to identify the name and description of the configurable bit for the point state that initiated the specific notification. The <b>Notification Configurable Bit</b> tokens are relative to the configurable bit that is causing the alarm to occur. </p>
+        <p>For example, you could configure the following notification message for any limit alarm or warning, without knowing the specific configurable bit number, its designated name, or the current limit configured:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><span style="color: #0000ff; font-weight: bold;">%description%</span> on facility <b style="color: #0000ff;">%facility_desc%</b> has a value of <b style="color: #0000ff;">%value%</b>, which falls outside the <b style="color: #0000ff;">%cfgbitactivename%</b> limit of <b style="color: #0000ff;">%cfgbitactivecalcparm1%</b> <b style="color: #0000ff;">%units%</b>!</p>
+                </td>
+            </tr>
+        </table>
+        <p>If the notification was triggered because Battery Voltage on Well-1234 fell below the configurable Low Warning  value of 3.5, the resulting notification message would read as follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b>Battery Voltage</b> on facility <b>Well-1234</b> has a value of <b>3.24567</b>, which falls outside the <b style="color: #0000ff;">Low Warning</b> limit of <b style="color: #0000ff;">3.5</b> <b>volts</b>!</p>
+                </td>
+            </tr>
+        </table>
+        <p>Conveniently, the same formatted message string works without modification if, for instance, the notification was triggered because Tank Level on Tank-789 rose above the configurable High Alarm value of 20 feet.  In this case, the resulting notification message would read as follows:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b>Tank Level</b> on facility <b>Tank-789</b> has a value of <b>20.2343</b>, which falls outside the <b style="color: #0000ff;">High Alarm</b> limit of <b style="color: #0000ff;">20</b> <b>feet</b>!</p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="WAV_Example"></a>WAV File Example</h3>
+        <p class="Indent">You use Facility Table 3 in the FAC service to describe the area in which a remote device resides. The entries are Area1, Area2, and Area3. You also have WAV files for each area that are named Area1.wav, Area2.wav, and Area3.wav. When an alarm occurs in a particular area, you want to play that area’s WAV file. In the <b>Wave Msg</b> field in the GNS, you can enter %facility_table3%.wav, for example:</p>
+        <p class="Indent2">
+            <img src="../../Resources/Images/Notifications/Wave_Msg_Example.png" />
+        </p>
+        <p class="Indent">When an alarm occurs in Area1, the WAV file name would be substituted with Area1.wav. </p>
+        <p class="Indent"><a name="Beware"></a>
+        </p>
+        <h3>Beware of Typographical Errors</h3>
+        <p class="Indent">If you have a typographical error in a token, the resulting text will include the typo. If you  use <b>%Desc%</b> instead of <b>%Description%</b>, the message will include <b>%Desc%</b> as shown below, since <b>%Desc%</b> is not a valid token.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code"><b>%Desc%</b> High Alarm on McKee 2-1. Value is 45.0128.</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent">
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Tokens are formatted in bold to make mistakes easer to identify.</p>
+            </div>
+        </p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Including Other Points in Notifications.htm" class="More">Including Other Points in Notifications</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="License Management">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>License Master</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="License Management.htm">License Management</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">License Master</span>
+        </div>
+        <h2>License Master</h2>
+        <p>The License Master is an Address Resolution Service (ARS) in your system that is designated to be the service that distributes license information to any other ARS instances in your installation. In a CygNet system, only one ARS must be configured as the License Master. In a single-host system this would be the only ARS present. In a multi-host system it can be any ARS you select.</p>
+        <h3>Designating the ARS as the License Master</h3>
+        <p>Define the designated ARS as the License Master  in its service configuration file.</p>
+        <p class="HeadingProcedure">To Designate an ARS as the License Master</p>
+        <ol>
+            <li value="1"><b>Stop</b> your services using CygNet Host Manager.</li>
+            <li value="2">Locate the selected ARS service in the <b>CygNet\Services\</b>  folder on your host server, and open its configuration file (<b>Ars.cfg</b>). </li>
+            <li value="3">In the configuration file, find the <b>Service Info</b> keyword section. The value of the <b>LICENSE_MASTER</b> service info keyword determines whether the ARS will distribute or consume licensing information. Possible keyword values are <b>YES</b> (<i>is</i> the license master service) or <b>NO</b> (<i>is not</i> the license master service). </li>
+            <li value="4">To set the ARS as the license master, type in the desired value (<b>YES</b>) for the LICENSE_MASTER keyword, and save the file.</li>
+            <li value="5">For any other ARS on the same domain, follow steps 2 and 3, and then verify or type in the desired value (<b>NO</b>) for the LICENSE_MASTER keyword, and save the file.</li>
+            <li value="6">When you restart your services, the selected ARS will function as the license master (and any other ARS services will not).</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In multi-host systems, once an ARS is configured to be the license master,  the value of the LICENSE_MASTER keyword in all other Ars.cfg files on the domain must equal <b>NO</b>. Only one ARS on a domain can be specified as the license master. If more than one ARS is configured as the license master, the second ARS attempting to start up in that role will fail.</p>
+        </div>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In a multi-domain redundant system, since an ARS controlled by an RSM in redundancy mode  will now be on each domain on which it can potentially run, the decision about which ARS is configured to be the license master becomes more difficult to make. We recommend that one ARS in each <a href="../Redundancy/Redundancy Editor - Network.htm">network</a>  be designated as the license master. If that ARS becomes unavailable for an extended period of time, then a different ARS should be promoted to the license master role, which will require a restart of that newly designated master ARS.</p>
+        </div>
+        <p>See <a href="../Services/Service Configuration Files.htm">Service Configuration Files</a> and <a href="../Service Configuration Keywords/ARS Configuration File Keywords.htm#Service">ARS Configuration File Keywords</a> for more information.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

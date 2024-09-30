@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|Administering the VHS">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Disk Space Allocation</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Administering the VHS.htm">Administering the VHS</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Disk Space Allocation</span>
+        </div>
+        <h2>Disk Space Allocation</h2>
+        <p>Planning the disk space requirements for the VHS requires knowledge of the number of points (or anticipated number of points) configured to <a href="../Points/PNT Editor - History Page.htm">report history</a>, the reporting options enabled for those points (maximum reporting interval, minimum evaluation time, and force evaluation on update), data compression options, the anticipated rate of change, and the retention period for the point values. Disk space allocations should also take <a href="VHS Journal Files.htm">VHS Journal Files</a>, "dirty" databases that may be created by <a href="VHS Quick Recovery.htm">VHS Quick Recovery</a>, and <a href="VHS Change Queue.htm">VHS Change Queue</a> size into consideration. </p>
+        <p>By default, the service allocates 10 GB of disk space for history. This is set by the <a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm">HISTORY_FILE_SIZE_MAX_GB</a> keyword in the VHS configuration file (Vhs.cfg). As your system grows, you can safely increase this allocation to meet your needs. When your system is at a steady state, the file size requirements should stabilize unless reporting options are changed. Before increasing the allocation, be sure to check the amount of available disk space on the server and keep in mind the requirements (both present and future) of other services. Reducing the file size after the service has been in operation, although possible, may result in the loss of data and is not recommended.</p>
+        <p>As the VHS datastore grows, the VHS will resize the database by the amount set in the <a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm#ESE">VHS_FILE_SIZE_GROW_BY_MB</a> keyword. Note that larger databases tend to perform better with a larger "grow by size" setting.</p>
+        <p>When the VHS disk space allocation is full, the service screen shows the <b>Value File Size</b> as 100%. Once the VHS is full, if the service receives data for an existing point it will discard the point’s oldest data to make room for the new data. If the service is full and a new point starts reporting data, the service will allocate 1 value block (127 entries) for the point. If additional value blocks have been allocated for new points the <b>Value File Usage</b> may be greater than 100%.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> <b>Value File Size</b> is the actual size of the file on disk as a percent of the maximum configured size. <b>Value File Usage</b> is of that size on disk, how much of it internally is being used to store values.  When the VHS needs to grow larger, it takes up a chunk of free disk space at a time, and then starts adding values to that free space it just allocated.</p>
+        </div>
+        <p><span class="CygNetVariablesSoftwareName">CygNet Software</span> recommends that you use <a href="../Service Monitoring/Service Monitoring SVCMON Points.htm">Service Monitoring Service</a> points to monitoring the VHS file. You can monitor the actual file size, the percent full, and rates of change.</p>
+        <h3>Very Large VHS Datastores and File Fragmentation</h3>
+        <p>The VHS uses <a href="VHS Data Storage.htm">ESE</a> as its database technology, the same database technology used in Microsoft’s Exchange Server. This database technology allows for very large repository sizes (~5 TB), but the Windows NT File System (NTFS) has some limitations that can cause issues when any one file becomes very large and is experiencing fragmentation. If your production VHS database is larger than 500 GB, it's import to understand that a highly fragmented VHS database file, coupled with a small disk allocation size, can lead to potentially failure. </p>
+        <p>The following articles from Microsoft provide information about how files are stored within a NTFS volume:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="https://blogs.technet.microsoft.com/askcore/2009/10/16/the-four-stages-of-ntfs-file-growth/" target="_blank">The Four Stages of NTFS File Growth</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="https://blogs.technet.microsoft.com/askcore/2015/03/12/the-four-stages-of-ntfs-file-growth-part-2/" target="_blank">The Four Stages of NTFS File Growth, Part 2</a>
+            </li>
+        </ul>
+        <p>It's important to be aware of the following facts and how they affect large database files such as the VHS history file:</p>
+        <ol>
+            <li value="1">NTFS has a limitation on how large the <b>File Attribute List</b> (FAL size) can grow.</li>
+            <li value="2">File fragmentation accelerates with the growth of the Attribute List.</li>
+            <li value="3">Larger files require more Attribute Lists.</li>
+            <li value="4">Once you run out of room for growth on the Attribute List, the database file can grow no further.</li>
+        </ol>
+        <h4>What does this failure look like?</h4>
+        <p>The VHS will crash and report the following error:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">1.Unknown software exception 40000015</p>
+                </td>
+            </tr>
+        </table>
+        <p>Restarting the VHS will not resolve the issue. The service will restart but will be unable to grow the VHS history file and will return the following error in the log file: </p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">1.EXCEPTION(S): JetUpdate(nobookmark): JET_errDiskIO, Disk IO error (class CEseError) Handled: VhsHistoryReceiver.cpp</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Possible Solutions</h4>
+        <p>Unfortunately, there isn’t a SVCMON point that can provide insight into this fragmentation problem. You can use the Microsoft <b>Contig.exe</b> utility to analyze fragmentation and help determine the root cause of the issue. Run <b>contig</b> with the "-a" switch and  analyze the fragmentation count of the file. If <b>contig</b> reports ~1.5 million fragments then you are dangerously close to the failure condition described above.</p>
+        <p>There are a couple options you can take to avoid this issue:</p>
+        <ol>
+            <li value="1">Maintain a smaller VHS. Use <a href="VHS Data Thinner Utility.htm">thinning</a> mechanisms either on point update, or as part of a <a href="VHS Data Analyzer Utility.htm">thinning rule</a>.</li>
+            <li value="2">Adjust your NTFS volume to allow for more data to be stored in the sector sizes.</li>
+        </ol>
+        <p>If you choose option number two, be aware that you will need to do the following:</p>
+        <ol>
+            <li value="1">Copy all files off the affected drive.</li>
+            <li value="2">Reformat the affected volume to increase the sector size.</li>
+            <li value="3">Copy all files back on the newly formatted drive.</li>
+        </ol>
+        <p>Copy and pasting files from one volume to another will also make them contiguous, so any fragmentation of the file will be addressed as part of that operation.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using Business Objects with ODBC</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using Business Objects with ODBC</span>
+        </div>
+        <h2>Using Business Objects with ODBC</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> At this time, the functionality described in this topic only applies to simple attributes and is read only.</p>
+        </div>
+        <p>The <a href="CygNet Business Object Builder.htm">CygNet Business Object Builder utility</a> may be used in conjunction with ODBC to expose business objects as tables in a virtual database. ODBC is used to create a relational view of disparate data where business objects and their attributes become rows and columns in a table. Such tables of abstracted data consolidate information from across many CygNet sites and services, representing it in ways meaningful within your business data model. This functionality is supported by the 32-bit and the 64-bit CygNet ODBC drivers.</p>
+        <p>For example, you may configure a business object called WELL that represents an entity familiar to you and your business data model. WELL may be assigned a number of relevant attributes. The CygNet Business Object Builder utility enables you to use that business object's mappings to draw from multiple CygNet sites and services at once, viewing it in a federated virtual database instead of multiple, disparate databases. This single federated view of CygNet data may then be output to database applications that support ODBC, like Microsoft Access, Microsoft Excel, or TIBCO Spotfire for useful business purposes.</p>
+        <p>See also <a href="../ODBC/ODBC.htm">ODBC</a>.</p>
+        <h3>Object Historical Tables</h3>
+        <p>An important feature of the functionality described above are virtual historical tables. For every object exposed as a table in your virtual database, dynamic historical tables are created for the display of historical point values. The table types are <b>History</b>, <b>DailyRecord</b>, <b>HourlyRecord</b>, and <b>FifteenMinutelyRecord</b>. The tables are made up of rows representing historical values for objects at a given time. The columns include the record timestamp, object ID(s), and historical fields. Timestamps in ODBC are strongly typed. See <a href="http://msdn.microsoft.com/en-us/library/ms190234(v=sql.90).aspx" target="_blank">ODBC Datetime Format</a>. The <b>History</b> table is only exposed for objects that are mapped to exactly one UDC.</p>
+        <p>Each historical table type defines the blocks of time in which data for a time range displays. For example, you may use SQL to specify the retrieval of historical values over the course of three days in hourly blocks of time. Be aware that if you use the SQL SELECT * command to select all data for one or more object historical tables, the amount of data returned might be very large. To avoid retrieving too much data at once, write queries that filter based on object ID and/or timestamp(s). For example, the SQL sample below efficiently returns only the requested data:</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p>SELECT * FROM MeterHourlyRecord</p>
+                    <p>WHERE ID = '008450'</p>
+                    <p>AND timestamp &gt; {ts '2012-12-06 04:00:00.000'}</p>
+                    <p>AND timestamp &lt; {ts '2012-12-08 04:00:00.000'}</p>
+                </td>
+            </tr>
+        </table>
+        <p>In the case of each of the three historical table types, the most recent value reported for a given object within a given block of time (i.e., the row) is selected for the column value. For instance, if the most recent value for an hourly block that spans 1:00pm - 2:00pm was timestamped at 1:56pm, the value that corresponds to the timestamp 1:56pm is the value reported for the hour 1:00pm - 2:00pm.</p>
+        <h3> Exposing Business Objects as ODBC Tables</h3>
+        <p><a name="FollowTheseSteps"></a>Follow these steps to federate CygNet data into a virtual ODBC database:</p>
+        <ol>
+            <li value="1"><a href="#Create" class="selected">Create your business objects package.</a>
+            </li>
+            <li value="2"><a href="#Install" class="selected">Install and register the relevant files.</a>
+            </li>
+            <li value="3"><a href="#Specify" class="selected">Specify the business object package to be used in a data source.</a>
+            </li>
+            <li value="4"><a href="#Confirm" class="selected">Confirm that your virtual tables are successfully created.</a>
+            </li>
+            <li value="5"><a href="#Open" class="selected">Open and edit your tables in a common database application.</a>
+            </li>
+        </ol>
+        <p class="HeadingProcedure"><a name="Create"></a>1. Configure Your Business Objects Package</p>
+        <p>This <span class="CygNetVariablesHelp_Product">CygNet Help</span> topic's procedures assume that you have preexisting, properly configured business objects and at least one package. See <a href="Business Object Package Files.htm">Business Object Package Files</a>.</p>
+        <p class="HeadingProcedure"><a name="Install"></a>2. Install and Register the Relevant Files</p>
+        <ol>
+            <li value="1">Obtain, install, and register a new license file that has the CygNet Business Object - ODBC token enabled.</li>
+            <li value="2">If you have not done so already, install and register the appropriate CygNet ODBC driver. See <a href="../ODBC/Installing the ODBC Driver.htm">Installing the CygNet ODBC Driver</a>.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="Specify"></a>3. Specify the Business Object Package to Be Used in a Data Source</p>
+        <ol>
+            <li value="1">Using Windows Explorer, locate and run the <b>ODBC&#160;Administrator</b> utility (odbcad32.exe).<ul><li value="1">If your operating system is 32 bit, odbcad32.exe is in the Windows\System32 directory.</li><li value="2">If your operating system is 64 bit, odbcad32.exe is in the Windows\SysWOW64 directory.</li></ul></li>
+            <li value="2">When the odbcad32.exe utility opens, click the <b>System DSN</b> tab, select <b>CygNet_CBO</b>, then click <b>Configure.…</b> If <b>CygNet_CBO</b> does <u>not</u> appear in the <b>Name</b> column as a system data source, you have not properly installed and registered the appropriate CygNet ODBC driver.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/Enterprise Objects/ODBC_Data_Source_Admin.png" />
+        </p>
+        <ol start="3">
+            <li value="3">On the <b>General</b> page of the <b>DataDirect OpenAccess SDK Local ODBC Driver Setup</b> dialog box, type a data source name of your choosing and enter a path to the relevant business object package file in the <b>Custom Properties</b> box. The path can be to a Windows storage location or to a <a href="../BLOB Storage Service/BLOB Storage Service.htm">CygNet BLOB</a> storage location.</li>
+        </ol>
+        <p class="Indent2">
+            <img src="../../Resources/Images/Enterprise Objects/ODBC_Driver_Setup.png" />
+        </p>
+        <ol start="4">
+            <li value="4">Once you've specified the path to your business object package, click <b>OK</b>.</li>
+        </ol>
+        <p class="HeadingProcedure"><a name="Confirm"></a>4. Confirm That Your Virtual Tables Are Successfully Created</p>
+        <ol>
+            <li value="1">Using Windows Explorer, locate and run the <b>DataDirect OpenAccess SDK Interactive SQL ODBC</b> utility (ODBCISQL.exe). It is located by default in the following directory: <b>CygNet\Support\ODBC</b>.</li>
+            <li value="2">Connect to your business object package. Use the following SQL command to do so:</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p>CONNECT cygnet_cbo</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="3">
+            <li value="3">View all of the federated tables; ensure that each table corresponds to a business object in the relevant package. You may use the following SQL commands to do so:</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p>SELECT table_name FROM oa_tables</p>
+                </td>
+            </tr>
+        </table>
+        <p class="Indent2">OR</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p>SELECT * FROM oa_tables</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="4">
+            <li value="4">View tables (i.e., objects and attributes) on a table-by-table basis. You may use the following SQL command to do so:</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p>SELECT * FROM <i style="font-weight: normal;">objectname</i></p>
+                </td>
+            </tr>
+        </table>
+        <ol start="5">
+            <li value="5">Further refine your SQL actions to suit your needs.</li>
+            <div class="Note">
+                <p><span class="NoteHeading">Note:</span> Timestamps in ODBC are strongly typed as are datetime data types for columns where the corresponding business object attribute is mapped to the <b>PointTimestamp</b> attribute. See <a href="http://msdn.microsoft.com/en-us/library/ms190234(v=sql.90).aspx" target="_blank">ODBC Datetime Format</a>.</p>
+            </div>
+        </ol>
+        <p class="Example">Example</p>
+        <p class="Indent">A simple queried table might look like this in the <b>DataDirect OpenAccess SDK Interactive SQL ODBC</b> utility:</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/Enterprise Objects/odbcisql_cbo.png" />
+        </p>
+        <p class="Indent">The same simple table might look like this in the <a href="../ODBC/SQL Executor Utilty.htm">CygNet SQL Executor Application</a> (SqlExecutor.exe):</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/Enterprise Objects/sql_executor_cbo.png" />
+        </p>
+        <p class="HeadingProcedure"><a name="Open"></a>5. Open and Edit Your Tables in a Common Database Application</p>
+        <p>After you have performed <a href="#FollowTheseSteps" class="selected">steps 1 - 4</a> above, you may display and interact with the data from your federated database in any of a number of common database applications, like Microsoft Access, Microsoft Excel, or TIBCO&#160;Spotfire. Exactly how you access the ODBC data source varies from application to application.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">The simple example tables from <a href="#Confirm" class="selected">step 4</a> above might look like this in Microsoft Access:</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/Enterprise Objects/access_ROC_CBO_database.png" />
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

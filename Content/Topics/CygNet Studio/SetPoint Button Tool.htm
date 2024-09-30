@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Using CygNet Studio Tools and Controls">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>SetPoint Button Tool</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using CygNet Studio Tools and Controls.htm">Using CygNet Studio Tools and Controls</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">SetPoint Button Tool</span>
+        </div>
+        <h2>SetPoint Button Tool</h2>
+        <p>
+            <img src="../../Resources/Images/CygNet Studio/icon_setpoint_button_tool.png" class="Inline" title="SetPoint Button Tool" alt="SetPoint Button Tool" /> A <b>SetPoint Button</b> can be used to modify the current value, timestamp, and/or unreliable bit for a <a href="SetPoint Button Tool Configuring General Properties.htm#TargetTag">target point</a> in either a templated or fully qualified point tag format. </p>
+        <p>This tool can be used in very simple scenarios to update a target point’s current value or in more complex scenarios where a process is initiated by virtue of changing a point’s value and the progress of that process is available for monitoring. An example of a complex use of this tool would be the triggering of an HSS script to run and then monitoring its progress. Another more complex use of the SetPoint Button tool would be to provide supervisory control over the processes managed by remote PLCs in a plant environment. In circumstances where there is no native driver communicating with plant devices, you can program a SetPoint Button to interact with a plant environment controlled by a PLC, via an OPCIS communicating with the plant's OPC server, which writes to the PLC’s registers. The PLC performs plant operations (for example: closing a valve, opening a gate, controlling a flow, updating a process, enabling alarm conditions), feedback passes through the PLC, and comes back into the CygNet point system.</p>
+        <p>See <a href="SetPoint Button Tool Applications.htm">SetPoint Button Applications</a> for more information about applications for the SetPoint Button.</p>
+        <h3>Configuration</h3>
+        <p>All design-time configuration for the SetPoint Button tool is found under the <b>[SetPoint]</b> property on the tool's property sheet. Additionally, all properties of the SetPoint Button are exposed to the VBScript environment of CygNet Studio allowing them to be manipulated at runtime. The SetPoint Button contains a similar user interface to the <a href="UIS Command Button Tool.htm">UIS Command Button</a> offering many of the same configuration features, plus other more sophisticated options, including:</p>
+        <h4>Target Point</h4>
+        <ul>
+            <li value="1">The <a href="SetPoint Button Tool Configuring General Properties.htm">target point</a> to be modified can be very explicitly defined, allowing a templated point tag, inheriting some or all of the point identifier properties from the button properties or from a reference facility. Alternatively you can specify a fully qualified point tag for the target point.</li>
+            <li value="2">You can request that a <a href="SetPoint Button Tool Configuring General Properties.htm#Advanced">confirmation message</a> be shown when the SetPoint operation completes.</li>
+            <li value="3">You can set a <a href="SetPoint Button Tool Configuring General Properties.htm#Advanced">timeout</a> for the  SetPoint operation to complete.</li>
+        </ul>
+        <h4>Default Value</h4>
+        <ul>
+            <li value="1">The <a href="SetPoint Button Tool Configuring Default Value.htm">default value</a> for the target point is highly configurable and can be limited to a particular point data type, predefined as a specific value, retrieved from a point attribute of the target point, or retrieved from the current value of another templated or fully qualified point.</li>
+            <li value="2">The <a href="SetPoint Button Tool Configuring Default Value.htm#Timestamp">timestamp</a> for the SetPoint can be the current time or you can specify a different absolute or relative time.</li>
+            <li value="3">You can persist, set, or clear the <a href="SetPoint Button Tool Configuring Default Value.htm#Unreliable">unreliable bit</a> for the target point.</li>
+        </ul>
+        <h4>Prompt</h4>
+        <ul>
+            <li value="1">The button can be configured to <a href="SetPoint Button Tool Configuring a Prompt.htm">prompt</a> the user for a value, or optionally include an <a href="SetPoint Button Tool Configuring a Prompt.htm#Analog">analog slider</a> with a configurable range of <a href="SetPoint Button Tool Configuring a Prompt.htm#Min_Max_Value">minimum and maximum</a> values. The min and max values can be specific values, retrieved from the target point, or retrieved from the current value of another templated or fully qualified point.</li>
+            <li value="2">The <a href="SetPoint Button Tool Configuring a Prompt.htm#Value">value</a> on the prompt dialog box can be set to be editable, read-only, or hidden, and you can choose to display the target point's units or use different units.</li>
+            <li value="3">The <a href="SetPoint Button Tool Configuring a Prompt.htm#Timestamp">timestamp</a> and <a href="SetPoint Button Tool Configuring a Prompt.htm#Unreliable">unreliable bit</a> on the prompt dialog box can be set to be editable, read-only, or hidden.</li>
+            <li value="4">The look and feel of the user prompt is <a href="SetPoint Button Tool Configuring a Prompt.htm#Prompt">customizable</a>, and it can be <a href="SetPoint Button Tool Configuring a Prompt.htm#Preview">previewed</a> before committing to a design.</li>
+        </ul>
+        <h4>Status Point</h4>
+        <ul>
+            <li value="1">Lastly, you can configure a <a href="SetPoint Button Tool Configuring a Status Point.htm">status point</a> to monitor the status of a SetPoint operation as it completes. As with the target point, the status point can be defined as a templated point tag, inheriting some or all of the point identifier properties from the button properties or from a reference facility. Alternatively you can specify a fully qualified point tag for the status point.</li>
+            <li value="2">When monitoring the status of the SetPoint operation you can <a href="SetPoint Button Tool Configuring a Status Point.htm#Initial">initialize</a> the value of the status point to a specific value, set an initialization delay, and toggle into and out of Manual Mode when initializing the value of the status point.</li>
+            <li value="3">You can enable and disable the button while the SetPoint operation is in action, set a status point timeout, set the SetPoint operation as complete when the status point value matches the target point value, or any of a list of completion values.</li>
+        </ul>
+        <h4>Script Support</h4>
+        <ul>
+            <li value="1">Script can be added to the SetPoint Button as necessary allowing customized logic when firing events at runtime. See <a href="SetPoint Button Tool Scripting SetPoint Properties.htm">SetPoint Button Tool Scripting SetPoint Properties</a>.</li>
+        </ul>
+        <h3>Other Useful Properties</h3>
+        <p>The default button shape is a rectangular button. The <b>ButtonShape</b> property can be used to change the shape to an active tab or an inactive tab.</p>
+        <p>The face of the button can show a label or point attributes, and it can be configured to show a bitmap and point state (concurrently or independently). The object’s <b>[DisplayItem]</b> property determines the point attribute to be displayed. If this property is set to <b>Text</b>, the text listed in the <b>Text</b> property will be displayed. Use this configuration for a label. The <b>Text</b> property can contain both static and dynamic text. The dynamic portion of the string is built using one or more <a href="Using Text Tokens.htm">tokens</a>. All other options in the <b>[DisplayItem]</b> property are point attributes. These attributes include point configuration attributes, point CVS record attributes, and facility attributes.</p>
+        <p>To show point attributes or the point state on the button face, the button must be associated with a point using the point identifier properties to form a fully qualified <a href="Configuring Point Identifiers.htm">CygNet tag string</a>. The point identifier properties are <b>[1:SiteService]</b>, <b>[2:Point ID]</b>, <b>[3:Long Point ID]</b>, <b>[4:Facility ID]</b>, and <b>[5:UDC]</b>. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> If the button is on a templated screen, only use the <b>[5:UDC]</b> property.</p>
+        </div>
+        <p>The <b>[AlarmElement]</b> property can be set to show the <a href="Customizing Point State Colors.htm">point state color</a> in the object’s <b>Background Color</b>, the <b>Foreground Color</b>, or not at all (<b>None</b>). When set to <b>None</b>, the color specified for each component is shown. If set to one of the other options, the component color is replaced with the point state color.</p>
+        <p>The <b>[UseCustomStateColors]</b> property enables the object to use its own custom point state colors. If set to <b>1 - Yes</b>, the colors used are those defined by the object’s <b>[CustomStateColors]</b> property. If set to <b>0 - No</b>, the colors are those defined by the TheView’s <b>[CustomStateColors]</b> property.</p>
+        <h3>SetPoint Button Security</h3>
+        <p>All standard CygNet security settings and user permission levels for point, facility, or service are in place for the SetPoint Button and its actions.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="SetPoint Button Tool Applications.htm" class="More">SetPoint Button Applications</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="SetPoint Button Tool Configuring.htm" class="More">Configuring the SetPoint Button Tool</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="SetPoint Button Tool Using the Tool in Run Mode.htm" class="More">Using the SetPoint Button Tool in Run Mode</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="SetPoint Button Tool Selecting an Image.htm" class="More">SetPoint Button Tool - Selecting an Image</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="SetPoint Button Tool Properties Events and Methods.htm" class="More">SetPoint  Button Tool - Properties, Events, and Methods</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

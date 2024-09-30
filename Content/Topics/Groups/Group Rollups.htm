@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Groups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Group Rollups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Groups.htm">Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Group Rollups</span>
+        </div>
+        <h2>Group Rollups</h2>
+        <p>Group rollups enable the "rolling up" or aggregation of information from the leaf nodes of a hierarchy to designated summary root- and sub-group nodes in the <a href="Group Service (GRP).htm">Group Service (GRP)</a>. When a rollup request is issued, it moves down the hierarchy to all relevant leaf nodes (facilities) searching for specified uniform data codes (UDCs), then rolls back up the hierarchy with the current value collected from the leaf nodes' specified current value service. This information is used to calculate totals, averages, and facility alarms.</p>
+        <p>Special summary nodes are designated in a GRP branch to indicate the place(s) data is to be rolled up. Each designated summary node enables the rollup of all its subordinate leaf nodes (facilities). The subordinate leaf nodes (facilities)&#160;contain the UDCs that represent the actual current value data you are interested in.</p>
+        <p>Calculations using this data are performed by the HyperPoint Scripting Service (HSS) <a href="Group Rollup Scripts.htm">system library script functions</a>. Special rollup <a href="../Scripting/HyperPoint Scripting.htm">HyperPoints</a> define the type of rollup to occur (total, average, or alarm) and must be created manually in the Point Service (PNT). Each rollup HyperPoint requires the specification of a rollup type and a facility/UDC combination. For instance, if you want total, average, and alarm rollup points for the UDC called PDIFF for Facility A/Node A, you must create 3 rollup points for Facility A/Node A: total + PDIFF, average + PDIFF, and alarm + PDIFF. The <a href="Group Rollup Scripts.htm#SYSLIB_G">SYSLIB_GRP_ROLLUP_TEMPLATE</a> point provides a means to easily copy numerous rollup points.</p>
+        <p>The calculation value produced by the rollup HyperPoint must be mapped to a UIS calculation "target" point for display and use in CygNet. The aggregation of UDC data can be automated for collection at regular intervals according to what is called "trigger time."</p>
+        <p class="Example"><a name="GroupRollupsExample"></a>Example</p>
+        <p class="Indent">In the following example, rollup HyperPoints have been defined for three nodes: Utah, Route 1, and Route 2. In this case, these rollup HyperPoints calculate the total values from the purple leaf nodes (facilities) for the UDC&#160;called VGY. VGY means volume gas yesterday. So, values collected by the rollup HyperPoints represent totals for the previous day's gas volume. Notice that, in this case, aggregates compound at logical positions as they move higher up the hierarchy.</p>
+        <p class="Indent">
+            <img src="../../Resources/Images/Groups/groups_concepts_image_5.png" />
+        </p>
+        <p>Filters can be applied to existing rollups. Instead of merely collecting all information for a UDC in a given rollup, you can filter out irrelevant nodes. For instance, you might want to view totals for only a subset of available meters, like sales meters in the above example. You can use a filter to get information from those meters only.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Creating a Group Average or Total Rollup.htm">Creating a Group (Average or Total) Rollup</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Creating a Group Alarm Rollup.htm">Creating a Group Alarm Rollup</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Filtering a Group Rollup.htm">Filtering a Group Rollup</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Group Rollup Scripts.htm">Group Rollup Scripts</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="Error Messages - Group Rollups.htm">Error Messages</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

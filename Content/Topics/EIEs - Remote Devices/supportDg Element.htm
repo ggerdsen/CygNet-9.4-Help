@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Device Template Files|Elements and Attributes">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>supportDg</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Device Template Files.htm">Device Template Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Elements and Attributes.htm">Elements and Attributes</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">supportDg</span>
+        </div>
+        <h2>supportDg</h2>
+        <p>The <b>supportDg</b> element is the parent element for reference data group elements. The reference data group element contents define referenced data group elements and data group elements within those referenced data group elements. <b>supportDg</b> functionality is <u>not</u> available in a device template file for all EIEs. When available, it can be used on a data group-by-data group basis.</p>
+        <p>This element is:</p>
+        <ul>
+            <li value="1">Case sensitive</li>
+            <li value="2">Required if you want to use support data groups in the structure illustrated below</li>
+            <li value="3">Used 1 time per CygNet data group</li>
+        </ul>
+        <p>To learn about how this element relates to other elements in a CygNet device template file, see    <a href="Template File Hierarchy.htm">Template File Hierarchy</a>.</p>
+        <p>For general information about data group dependencies, see <a href="Data Groups - Dependencies.htm">Data Group Dependencies</a>. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> In the <b>supportDg</b> list in the device template file for FMS data groups, if you want to include a data group that is not included on the FMS ordinal, that data group must be on ordinal 0.
+        </p>
+        </div>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the element</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!-- The following example shows the use of a <b>supportDg</b> section in an <a href="Data Groups - EFM Data Groups.htm">EFM Data Group</a>. The data&#160;element "HrlyIdx" is a child of "DpSupt". "DpSupt" is another data group elsewhere in the template from which this sample came. --&gt;</p>
+                            <p class="Code">&lt;DpHrlyGQ niceName="DP Hourly Hist GQ" dgCat="enronHistory" forceSave="true" baseOrd="1" maxCnt="12" leadingTime="true" recordMinutes="60" queueSize="840"&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;supportDg&gt;</span>
+                            </p>
+                            <p class="Code3">&lt;DpSupt deidIndex="HrlyIdx"/&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;/supportDg&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="r4"&gt;</p>
+                            <p class="Code3">&lt;HistDate desc="Date" off="0" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;HistTime desc="Time HHMMSS" off="4" hidden="true"/&gt;</p>
+                            <p class="Code3">&lt;DateTime desc="DateTime" type="r8"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks regByteLen="4"&gt;</p>
+                            <p class="Code3">&lt;block1 regNum="704" ordIncrement="2" regCnt="1" funcCode="3"/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;SDate required="false" desc="Start Date" type="string"/&gt;</p>
+                            <p class="Code3">&lt;EDate required="false" desc="End Date" type="string"/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/DpHrlyGQ&gt;</p>
+                            <p class="Code">...</p>
+                            <p class="Code">&lt;DpSupt niceName="DP Hist Support" forceSave="true" baseOrd="1" maxCnt="12"&gt;</p>
+                            <p class="Code2">&lt;dgElements byteOrder="bigEndian" secLev="4" type="r4"&gt;</p>
+                            <p class="Code3">&lt;DlyIdx desc="Current Daily Hist Index" regDef="1:0"/&gt;</p>
+                            <p class="Code3">&lt;HrlyIdx desc="Current Hourly Hist Index" regDef="1:1"/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;modbusReadBlocks regByteLen="4"&gt;</p>
+                            <p class="Code3">&lt;block1 regNum="7101" ordIncrement="2" regCnt="2" funcCode="3"/&gt;</p>
+                            <p class="Code2">&lt;/modbusReadBlocks&gt;</p>
+                            <p class="Code">&lt;/DpSupt&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example">Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the element</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!-- The following example shows the use of a <b>supportDg</b> element in a composite data group. "SupportDG1," "SupportDG2," and "SupportDG3" are other data groups elsewhere in the template from which this sample came. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;MyComp niceName="My Composite Data Group" dgCat="composite" canSend="false" dgProtocol="Internal"&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;supportDg&gt;</span>
+                            </p>
+                            <p class="Code3">&lt;SupportDG1 required="true"/&gt;</p>
+                            <p class="Code3">&lt;SupportDG2 required="false"/&gt;</p>
+                            <p class="Code3">&lt;SupportDG3 required="false"/&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;/supportDg&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;dgElements secLev="4" type="ui2"&gt;</p>
+                            <p class="Code3">&lt;Gravity desc="Gravity" type="vrnt" sourceDg="SupportDG1" sourceDeid="Grav"/&gt;</p>
+                            <p class="Code3">&lt;DP desc="Differential Pressure" type="vrnt" units="psi" fromSupportDg="true"&gt;</p>
+                            <p class="Code4">&lt;source sourceDg="SupportDG2"/&gt;</p>
+                            <p class="Code4">&lt;source sourceDg="SupportDG3" sourceDeid="R1PrPt"/&gt;</p>
+                            <p class="Code3">&lt;/DP&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;!--uccRecvParms only required if a support data group has associated receive parameters--&gt;</p>
+                            <p class="Code3">&lt;RecParmName desc="Receive Parameter" required="true"/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/MyComp&gt;</p>
+                            <p class="Code">...</p>
+                            <p class="Code">&lt;SupportDG1&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;Grav/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDG1&gt;</p>
+                            <p class="Code">...</p>
+                            <p class="Code">&lt;SupportDG2&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;DP/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDG2&gt;</p>
+                            <p class="Code">...</p>
+                            <p class="Code">&lt;SupportDG3&gt;</p>
+                            <p class="Code2">&lt;dgElements&gt;</p>
+                            <p class="Code3">&lt;R1PrPt/&gt;</p>
+                            <p class="Code2">&lt;/dgElements&gt;</p>
+                            <p class="Code">&lt;/SupportDG3&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h3>Attributes</h3>
+        <p>The following table lists and describes attributes generally applicable to this element. However, not all of the attributes listed here are applicable to all EIEs. Additionally, some attributes are required for use in every device template file of a certain EIE, but others may be used on a case-by-case or device-by-device basis, depending on your specific needs. All attributes in templates are case sensitive; but the case sensitivity of attribute values is based on context.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Occasionally, device template files for different EIEs use attributes of the same name that do different things. Efforts are made in this document to highlight cases where an attribute by one name does different things in different EIEs.</p>
+        </div>
+        <table style="width: 700px;margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 600px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Attribute</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-style: normal;font-weight: bold;">
+                    <p><a name="required"></a>required</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="font-style: normal;">
+                    <p>Specifies whether or not applicable elements are required.</p>
+                    <h6>Value</h6>
+                    <ul class="table">
+                        <li value="1">Must be a Boolean value <b>true</b> or <b>false</b>.</li>
+                        <li value="2">Set to <b>true</b> to fail the FMS message if the support data group/ordinal is not configured.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

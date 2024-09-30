@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Managing Notifications">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring a PIN</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Notifications.htm">Managing Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring a PIN</span>
+        </div>
+        <h2>Configuring a PIN</h2>
+        <p>In order to acknowledge notifications from the GNS service, you must configure the users who are permitted to send acknowledgment emails (and SMSs).  Each user requires a PIN&#160;and email address to authenticate the user to the system when acknowledging a notification via email or text message.</p>
+        <p>Users can configure up to two email addresses. Either email address can be used to accommodate an SMS gateway address for the sending of text messages back to the CygNet system, for example, <i>number@txt.att.net</i> or <i>number@vtext.com</i>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Some SMS providers send email replies via the email address tied to the provider's account. You will need to add that email address to the GNS PIN Manager list and test how your provider handles email replies.</p>
+        </div>
+        <p>You must have at least Level 5 authorization (Admin) for the GNS service’s <b>GNSPIN</b> event in order to view and edit the properties of a user record. See the <a href="../Security/General Notification Service GNS.htm">GNS&#160;security reference</a> for more information.</p>
+        <p>
+            <img src="../../Resources/Images/Notifications/GNS_PIN_Manager.png" />
+        </p>
+        <p class="HeadingProcedure">To Configure GNS Users</p>
+        <p>All GNS users who want to acknowledge notifications by email must be configured in the GNS PIN Manager. Perform the following steps to configure a GNS&#160;user, with up to two email addresses, and a PIN:</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, right-click in the GNS pane and select <b>View PIN Manager</b>. The <b>GNS PIN Manager</b> dialog box will display all configured users.</li>
+            <li value="2">Click on any row to populate the properties on the right and click <b>Edit</b>.<br />-OR-<br />Click <b>Edit</b> and <img src="../../Resources/Images/Notifications/GNS_PIN_Manager_Add.png" class="Inline" /> to add a new user.</li>
+            <li value="3">Type the Username, Primary Email address, Secondary Email address (if desired), PIN, and PIN Confirm.</li>
+            <li value="4">Click <b>Apply</b> to apply the changes to the list.</li>
+            <li value="5">Click <b>Save</b> to save the properties for the user to the GNS metadata file.</li>
+            <li value="6">Click <b>Close</b> to close the PIN Manager.</li>
+        </ol>
+        <p class="HeadingProcedure">To Unlock a Locked Email Address</p>
+        <p>An email lockout feature is provided to prevent an unknown user from overloading the system, or to block access to the system by an unauthorized user. See <a href="Email Lockout.htm">Email Lockout</a> for more information about this feature and how it is configured. An unknown or unauthorized user will be prevented from acknowledging notifications by email after 5 unsuccessful attempts. The default lockout is for 30 minutes, after which the user is again able to attempt acknowledgment by email. Both of these values (number of attempts before lockout and lockout duration) are <a href="Email Lockout.htm">configurable</a>.</p>
+        <p>Perform the following steps to unlock an  email address before the lockout expires:</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, right-click in the GNS pane and select <b>View PIN Manager</b>. The <b>GNS PIN Manager</b> dialog box will display all configured users.</li>
+            <li value="2">Click on the row containing the locked user and click <b>Edit</b>.<br /></li>
+            <li value="3">Uncheck the <b>Locked</b> check box.</li>
+            <li value="4">Click <b>Apply</b> to apply the changes to the list.</li>
+            <li value="5">Click <b>Save</b> to save the properties for the user to the GNS metadata file.</li>
+            <li value="6">Click <b>Close</b> to close the PIN Manager.</li>
+        </ol>
+        <h3><a name="GNS"></a>GNS Metadata File</h3>
+        <p>The properties for each user (username, email addresses, and encrypted PIN) are saved in a metadata file named <b>GnsAckFile.dat</b>. This file, which is an XML file, is stored in the GNS service folder. This is an important file and it will be backed up to the <b>Backup</b> root folder as part of the automatic backup feature in CygNet. The file will also be replicated as part of any service replication.</p>
+        <p>Only one user at a time can modify the contents of the GNS metadata file via the <b>GNS PIN Manager</b>. All changes made to the GNS metadata file are recorded in the Audit Service (AUD) and can be viewed in the AUD service pane as a NOTIFICATION_CHANGE.</p>
+        <h3>GNS PIN&#160;Manager Properties</h3>
+        <p>The properties on the <b>GNS User Manager</b> dialog box are described in the following table.</p>
+        <table style="caption-side: top;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="font-weight: bold;">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>User Name</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Specify the username for the user who will be sending the acknowledgment email.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>Primary Email</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The primary email address of the GNS user.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">Secondary Email</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The secondary email address of the GNS user. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Either email address can be used for an SMS Gateway address, for example, number@txt.att.net, number@vtext.com.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">Pri. Login Attempts</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates the number of unsuccessful login attempts for the primary email address. When this number reaches the number configured for the PIN_LOCKOUT_MAX_ATTEMPTS <a href="Email Lockout.htm#GNS">keyword</a>, the user will be locked out. The default value is 5.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">Pri. Locked (Column)</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates if the primary email address is locked out. See <a href="Email Lockout.htm">Email Lockout</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">Primary Email Locked (Check Box)</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click the check box to unlock this email address. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This check box is only for unlocking locked email addresses. It cannot be used to temporarily block a configured email address.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;"> Sec. Login Attempts</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates the number of unsuccessful login attempts for the secondary email address. When this number reaches the number configured for the PIN_LOCKOUT_MAX_ATTEMPTS <a href="Email Lockout.htm#GNS">keyword</a>, the user will be locked out. The default value is 5.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">Sec. Locked (Column)</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Indicates if the secondary email address is locked out. See <a href="Email Lockout.htm">Email Lockout</a> for more information.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">Secondary Email Locked (Check Box)</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click the check box to unlock this email address. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This check box is only for unlocking locked email addresses. It cannot be used to temporarily block a configured email address.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>PIN</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Specify a secure numeric PIN. </p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> Pin must be numeric (0-9), between 1 and 72 characters long, no special characters are allowed, no spaces are allowed.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <p><b>PIN Confirm</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Retype the PIN.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <p><b>Apply</b>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to apply the changes to the list.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="font-weight: bold;">
+                    <img src="../../Resources/Images/Notifications/GNS_PIN_Manager_Add.png" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Click to add a new user to the system.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="font-weight: bold;">
+                    <img src="../../Resources/Images/Notifications/GNS_PIN_Manager_Delete.png" />
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Click to delete an existing user from the system.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

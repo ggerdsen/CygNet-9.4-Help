@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/points/{pointTag}/history/rollups/hours</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/points/{pointTag}/history/rollups/hours</h1>
+<div>
+    <p>Retrieves hour-aligned history rollup values for a point</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">pointTag</td>
+                    <td class="parameter-documentation">
+                        <p>CygNet point tag</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p>Details of the rollup to be performed</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">hourRollupInterval</td>
+                    <td class="parameter-documentation">
+                        <p>The unit of time that history is being rolled up into</p>
+                    </td>
+                    <td class="parameter-type">
+                        <a href="../ResourceModel@modelName=HourIntervals.html">HourIntervals</a>
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">start</td>
+                    <td class="parameter-documentation">
+                        <p>The start datetime of the time range being rolled up</p>
+                    </td>
+                    <td class="parameter-type">
+                        date
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">end</td>
+                    <td class="parameter-documentation">
+                        <p>The end datetime of the time range being rolled up</p>
+                    </td>
+                    <td class="parameter-type">
+                        date
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">rollupType</td>
+                    <td class="parameter-documentation">
+                        <p>The type of rollup being applied to history in date range</p>
+                    </td>
+                    <td class="parameter-type">
+                        <a href="../ResourceModel@modelName=HistoryRollupType.html">HistoryRollupType</a>
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;hourRollupInterval&quot;: &quot;SixHours&quot;,
+  &quot;start&quot;: &quot;2018-09-07T08:00:00Z&quot;,
+  &quot;end&quot;: &quot;2018-09-15T03:00:00Z&quot;,
+  &quot;rollupType&quot;: &quot;CalculatedMean&quot;
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p>Historical point values for a time range</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">historyRecords</td>
+                    <td class="parameter-documentation">
+                        <p>List of requested history records</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=HistoryRecordDTO.html">HistoryRecordDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;historyRecords&quot;: [
+    {
+      &quot;value&quot;: &quot;125.49&quot;,
+      &quot;timestamp&quot;: &quot;2018-09-13T03:32:53.152Z&quot;
+    },
+    {
+      &quot;value&quot;: &quot;1.02&quot;,
+      &quot;timestamp&quot;: &quot;2018-09-17T17:10:10.43Z&quot;
+    },
+    {
+      &quot;value&quot;: &quot;1.02&quot;,
+      &quot;timestamp&quot;: &quot;2018-09-17T17:17:14.294Z&quot;
+    },
+    {
+      &quot;value&quot;: &quot;1.65&quot;,
+      &quot;timestamp&quot;: &quot;2018-09-17T17:32:14.322Z&quot;
+    },
+    {
+      &quot;value&quot;: &quot;2.15&quot;,
+      &quot;timestamp&quot;: &quot;2018-09-17T17:47:14.324Z&quot;
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

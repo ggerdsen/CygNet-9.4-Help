@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Well Test">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Retrieving Well Test Records</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Well Test.htm">Well Test</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Retrieving Well Test Records</span>
+        </div>
+        <h2>Retrieving Well Test Records</h2>
+        <p>Any external system can retrieve well test records using the <a href="Well Test Components.htm#API">CygNet.API.WellTest</a>.</p>
+        <p>The CygNet.API.WellTest has two helper functions that can be used to retrieve well test records:</p>
+        <ul>
+            <li value="1">The <b>GetAllWellTests</b> function is supplied with starting and ending timestamps. The well test records are returned in a jagged dictionary object.</li>
+            <li value="2">The <b>GetWellTestsForWell</b> function takes in the well facility tags along with timestamps to retrieve the well test records.</li>
+        </ul>
+        <h3>Example</h3>
+        <p>The following C# code example demonstrates the use of these helper functions. Customize this example for your own system.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">public void GetWellTests()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">//First, we need to load the well test configuration into the WellTest object.</p>
+                    <p class="Code2">//A well-test configuration is a text-based XML string that can be loaded from</p>
+                    <p class="Code2">//either a local file path, a BSS file path, or a CygNet Point.  It is envisioned</p>
+                    <p class="Code2">//that the point-based storage method will be the method of choice.</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">//Create a WellTest object.  This object is located in CygNet.API.WellTest</p>
+                    <p class="Code2">WellTest wellTest = new WellTest();</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">//Example:  To load a configuration from a local path</p>
+                    <p class="Code2">//string localPath = @"X:\CygNet\Source\ToolkitAPIs\CygNet.API.WellTest\CygNet.API.WellTest.UnitTest\WellTestConfigSample.xml";</p>
+                    <p class="Code2">//bool localPathLoad = wellTest.Load(localPath, Helpers.FileSource.Local);</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">//Example:  To load a configuration from a BSS path</p>
+                    <p class="Code2">//string bssPath = @"C4PROD.BSS\WELLTEST\WellTestConfigSample.xml";</p>
+                    <p class="Code2">//bool bssPathLoad = wellTest.Load(bssPath, Helpers.FileSource.BSS);</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">//To load a configuration from a point path</p>
+                    <p class="Code2">string pointPath = @"C4PROD.UIS:WELLTEST_CONFIG_V3";</p>
+                    <p class="Code2">bool pointPathLoad = wellTest.Load(pointPath, Helpers.FileSource.Point);</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">//There are a couple of helper functions to get well tests.</p>
+                    <p class="Code2">//The first is to get all the well tests for a specified date range from all wells defined in the well test configuration.</p>
+                    <p class="Code2">if (pointPathLoad)</p>
+                    <p class="Code2">{</p>
+                    <p class="Code3">//Specify the date range</p>
+                    <p class="Code3">DateTime endDateTime = DateTime.Now;</p>
+                    <p class="Code3">DateTime startDateTime = endDateTime.AddDays(-2);</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">//Create a container to store the well test</p>
+                    <p class="Code3">//The first dictionary key value pair:</p>
+                    <p class="Code3">//     key:  The facility tag of the well (i.e. Site.Service::FacilityID)</p>
+                    <p class="Code3">//     value: List of well tests</p>
+                    <p class="Code3">//The second dictionary key value pair in the well test list:</p>
+                    <p class="Code3">//      key:  type of value (i.e. OIL, WATER, GAS, DURATION, DATETIME, or STATUS)</p>
+                    <p class="Code3">//      value:  the value for the type</p>
+                    <p class="Code3">//</p>
+                    <p class="Code3">//*** Note, this structure could change if we incorporate units into the well test record. ***</p>
+                    <p class="Code3">Dictionary&lt;string, List&lt;Dictionary&lt;string, string&gt;&gt;&gt; allWellTests = new Dictionary&lt;string, List&lt;Dictionary&lt;string, string&gt;&gt;&gt;();</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">//Issue the method to get all well tests</p>
+                    <p class="Code3">if (wellTest.GetAllWellTests(startDateTime, endDateTime, out allWellTests, out string error))</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">//Iterate each well</p>
+                    <p class="Code4">foreach (KeyValuePair&lt;string, List&lt;Dictionary&lt;string, string&gt;&gt;&gt; facilityWellTestContainer in allWellTests)</p>
+                    <p class="Code4">{</p>
+                    <p class="Code5">//Get the facility tag string</p>
+                    <p class="Code5">string facilityTagString = facilityWellTestContainer.Key;</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Iterate each well test for the facility</p>
+                    <p class="Code5">foreach (Dictionary&lt;string, string&gt; wellTestRecord in facilityWellTestContainer.Value)</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">//Process the well test record</p>
+                    <p class="Code6">&#160;</p>
+                    <p class="Code6">//Get the OIL value</p>
+                    <p class="Code6">string Oil = string.Empty;</p>
+                    <p class="Code6">if (wellTestRecord.ContainsKey("OIL"))</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">Oil = wellTestRecord["OIL"];</p>
+                    <p class="Code6">}</p>
+                    <p class="Code6">&#160;</p>
+                    <p class="Code6">//Get the WATER value</p>
+                    <p class="Code6">string Water = string.Empty;</p>
+                    <p class="Code6">if (wellTestRecord.ContainsKey("WATER"))</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">Water = wellTestRecord["WATER"];</p>
+                    <p class="Code6">}</p>
+                    <p class="Code6">&#160;</p>
+                    <p class="Code6">//Get the GAS value</p>
+                    <p class="Code6">string Gas = string.Empty;</p>
+                    <p class="Code6">if (wellTestRecord.ContainsKey("GAS"))</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">Gas = wellTestRecord["GAS"];</p>
+                    <p class="Code6">}</p>
+                    <p class="Code6">&#160;</p>
+                    <p class="Code6">//Get the DURATION value</p>
+                    <p class="Code6">string Duration = string.Empty;</p>
+                    <p class="Code6">if (wellTestRecord.ContainsKey("DURATION"))</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">Duration = wellTestRecord["DURATION"];</p>
+                    <p class="Code6">}</p>
+                    <p class="Code6">&#160;</p>
+                    <p class="Code6">//Get the STATUS value</p>
+                    <p class="Code6">string Status = string.Empty;</p>
+                    <p class="Code6">if (wellTestRecord.ContainsKey("STATUS"))</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">Status = wellTestRecord["STATUS"];</p>
+                    <p class="Code6">}</p>
+                    <p class="Code6">&#160;</p>
+                    <p class="Code6">//Get the DATETIME value</p>
+                    <p class="Code6">string DateTime = string.Empty;</p>
+                    <p class="Code6">if (wellTestRecord.ContainsKey("DATETIME"))</p>
+                    <p class="Code6">{</p>
+                    <p class="Code7">DateTime = wellTestRecord["DATETIME"];</p>
+                    <p class="Code6">}</p>
+                    <p class="Code5">}</p>
+                    <p class="Code4">}</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">else</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">//The method was not successful, look at the error string for details</p>
+                    <p class="Code3">}</p>
+                    <p class="Code2">}</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code2">//The second helper function is to retrieve the well tests for a specific well</p>
+                    <p class="Code2">if (pointPathLoad)</p>
+                    <p class="Code2">{</p>
+                    <p class="Code3">//Specify the date range</p>
+                    <p class="Code3">DateTime endDateTime = DateTime.Now;</p>
+                    <p class="Code3">DateTime startDateTime = endDateTime.AddDays(-7);</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">//Specify well facility tag string</p>
+                    <p class="Code3">string facilityTagString = "C4PROD.UIS::AMANDA_WL";</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">//Create a container to store the well test</p>
+                    <p class="Code3">//This is a list of dictionary key value pairs for each well test</p>
+                    <p class="Code3">//The dictionary key value pair in the well test list:</p>
+                    <p class="Code3">//      key:  type of value (i.e. OIL, WATER, GAS, DURATION, DATETIME, or STATUS)</p>
+                    <p class="Code3">//      value:  the value for the type</p>
+                    <p class="Code3">//</p>
+                    <p class="Code3">//*** Note, this structure could change if we incorporate units into the well test record. ***</p>
+                    <p class="Code3">List&lt;Dictionary&lt;string, string&gt;&gt; wellTests = new List&lt;Dictionary&lt;string, string&gt;&gt;();</p>
+                    <p class="Code3">&#160;</p>
+                    <p class="Code3">//Issue the method to get all well tests for specified well</p>
+                    <p class="Code3">if (wellTest.GetWellTestsForWell(facilityTagString, startDateTime, endDateTime, out wellTests, out string error))</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">//Iterate each well test for the facility</p>
+                    <p class="Code4">foreach (Dictionary&lt;string, string&gt; wellTestRecord in wellTests)</p>
+                    <p class="Code4">{</p>
+                    <p class="Code5">//Process the well test record</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Get the OIL value</p>
+                    <p class="Code5">string Oil = string.Empty;</p>
+                    <p class="Code5">if (wellTestRecord.ContainsKey("OIL"))</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">Oil = wellTestRecord["OIL"];</p>
+                    <p class="Code5">}</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Get the WATER value</p>
+                    <p class="Code5">string Water = string.Empty;</p>
+                    <p class="Code5">if (wellTestRecord.ContainsKey("WATER"))</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">Water = wellTestRecord["WATER"];</p>
+                    <p class="Code5">}</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Get the GAS value</p>
+                    <p class="Code5">string Gas = string.Empty;</p>
+                    <p class="Code5">if (wellTestRecord.ContainsKey("GAS"))</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">Gas = wellTestRecord["GAS"];</p>
+                    <p class="Code5">}</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Get the DURATION value</p>
+                    <p class="Code5">string Duration = string.Empty;</p>
+                    <p class="Code5">if (wellTestRecord.ContainsKey("DURATION"))</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">Duration = wellTestRecord["DURATION"];</p>
+                    <p class="Code5">}</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Get the STATUS value</p>
+                    <p class="Code5">string Status = string.Empty;</p>
+                    <p class="Code5">if (wellTestRecord.ContainsKey("STATUS"))</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">Status = wellTestRecord["STATUS"];</p>
+                    <p class="Code5">}</p>
+                    <p class="Code5">&#160;</p>
+                    <p class="Code5">//Get the DATETIME value</p>
+                    <p class="Code5">string DateTime = string.Empty;</p>
+                    <p class="Code5">if (wellTestRecord.ContainsKey("DATETIME"))</p>
+                    <p class="Code5">{</p>
+                    <p class="Code6">DateTime = wellTestRecord["DATETIME"];</p>
+                    <p class="Code5">}</p>
+                    <p class="Code4">}</p>
+                    <p class="Code3">}</p>
+                    <p class="Code3">else</p>
+                    <p class="Code3">{</p>
+                    <p class="Code4">//The method was not successful, look at the error string for details</p>
+                    <p class="Code3">}</p>
+                    <p class="Code2">}</p>
+                    <p class="Code">}</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

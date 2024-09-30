@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Line Pack|Configuring Line Pack|Configuring Calculation Settings|Line Pack Formulas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Line Pack Formulas - Petroleum Liquids</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Line Pack.htm">Line Pack</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Line Pack.htm">Configuring Line Pack</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Configuring Calculation Settings.htm">Configuring Calculation Settings</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Line Pack Formulas.htm">Line Pack Formulas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Petroleum Liquids</span>
+        </div>
+        <h2>Petroleum Liquids Formula</h2>
+        <p>The CygNet Line Pack engine calculations for petroleum liquids comply with the API standards published in the following standards document: <i>Manual of Petroleum Measurement Standards</i>, Chapter 11 — Physical Properties Data, Section 1 — Temperature and Pressure Volume Correction Factors for Generalized Crude Oils, Refined Products, and Lubricating Oils. Adjunct to: ASTM D 1250-04 and IP 200/04. Measurement Coordination October 2002. May 2004. Addendum 1, September 2007.</p>
+        <p>Depending on the variables the user configures to be calculated, appropriate calculations are made and the results are written out to the various Line Pack points. As the formula used to calculate estimated line pack volume for petroleum liquids is very complex, the following describes the calculation steps in a simplified manner.</p>
+        <p>See the following subsections below for more information:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Assumptions" class="selected">Assumptions</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Diagram" class="selected">Calculation Flow Diagram</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Calculation_Steps" class="selected">Calculation Steps</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Formula_Inputs" class="selected">Formula Inputs Reference</a>
+            </li>
+            <li value="5"><a href="#Formula_Outputs" class="selected">Formula Outputs Reference</a>
+            </li>
+        </ul>
+        <h3><a name="Assumptions"></a>Assumptions</h3>
+        <p>The following inputs must be provided to perform all calculations:</p>
+        <ul>
+            <li value="1">Observed density</li>
+            <li value="2">Observed temperature at which observed density was measured</li>
+            <li value="3">Observed pressure at which observed density was measured</li>
+            <li value="4">Either a single pair of inlet and outlet temperatures, or multiple temperature values at different points on the pipeline segment</li>
+            <li value="5">Either a single pair of inlet and outlet pressures, or multiple pressure values at different points on the pipeline segment</li>
+            <li value="6">Standard temperature at which the liquids line pack volume will be calculated</li>
+            <li value="7">Standard pressure at which the liquids line pack volume will be calculated</li>
+            <li value="8">Liquids commodity type or thermal expansion factor at base condition (60°F and 0 psig)</li>
+            <li value="9">Pipeline segment volume based either on the segment’s configured length and diameter or a user-configured volume</li>
+            <li value="10">Optionally provide inlet and outlet Maximum Allowable Operating Pressure (MAOP), or provide multiple MAOP readings at different points on the pipeline segment</li>
+        </ul>
+        <p>Also see <a href="#Formula_Inputs" class="selected">Formula Inputs Reference</a> below.</p>
+        <h3><a name="Diagram"></a>Calculation Flow Diagram</h3>
+        <p>The following diagram shows a graphical representation of the flow of calculations for the petroleum liquids line pack formula. Click the following image to see an enlarged diagram:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Line Pack/Liquids_Formula.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="585" data-mc-height="485" src="../../Resources/Images/Line Pack/Liquids_Formula_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <h3><a name="Calculation_Steps"></a>Calculation Steps</h3>
+        <h4>Step 1</h4>
+        <p>Using the <i>API 11.1 Observed to Base</i> formula, calculate Base Density with inputs: Observed Temperature, Observed Pressure, Observed Density, and Commodity Group (or Alpha 60).</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Intermediate Output</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">ρ<span style="vertical-align: sub;">60</span></td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Density at base conditions 60°F and 0 psig</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 2</h4>
+        <p>Calculate the Average Temperature, Average Pressure and Average MAOP for the pipeline segment using <a href="Configuring Calculation Settings.htm#Formulas">selected formulas</a> on Temperature, Pressure, and MAOP readings at pipeline segment (inlet and outlet, or multiple).</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Intermediate Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <p>T<span style="vertical-align: sub;">,a</span></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Average Pipeline Segment Temperature </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                        <p>P<span style="vertical-align: sub;">,a</span></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Average Pipeline Segment Pressure</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">
+                        <p>MAOP<span style="vertical-align: sub;">,a</span></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">Average Pipeline Segment MAOP</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 3</h4>
+        <p>Convert from Base to Average conditions using the <i>API 11.1 Base to Alternate</i> formula with inputs: Average Pipeline Segment Temperature, Average Pipeline Segment Pressure, Base Density, Pipeline Segment Volume, and Commodity Group (or Alpha 60).</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Intermediate Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">C<span style="vertical-align: sub;">TL,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Volume correction factor due to temperature at pipeline segment average conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">C<span style="vertical-align: sub;">PL,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Volume correction factor due to pressure at pipeline segment average conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">F<span style="vertical-align: sub;">P,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Scaled compressibility factor at pipeline segment average conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">C<span style="vertical-align: sub;">TPL,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Combined volume correction factor due to temperature and pressure at pipeline segment average conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                        <p>ρ<span style="vertical-align: sub;">,a</span></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Density at pipeline segment average conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="text-align: center;">V<span style="vertical-align: sub;">60</span></td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">Volume at base conditions (60°F and 0 psig)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 4</h4>
+        <p>Convert from Base to Standard conditions using the <i>API 11.1 Base to Alternate</i> formula with inputs: Standard Temperature, Standard Pressure, Base Density, and Commodity Group (or Alpha 60).</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 100px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Intermediate Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">C<span style="vertical-align: sub;">TL,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Volume correction factor due to temperature at standard conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">C<span style="vertical-align: sub;">PL,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Volume correction factor due to pressure at standard conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">F<span style="vertical-align: sub;">P,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Scaled compressibility factor at standard conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">C<span style="vertical-align: sub;">TPL,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Combined volume correction factor due to temperature and pressure at standard conditions</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="text-align: center;">ρ<span style="vertical-align: sub;">,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">Density at standard conditions</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 5</h4>
+        <p>Calculate <b style="font-style: italic;">Line Pack Volume</b> and <b style="font-style: italic;">Line Pack Mass</b>.</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b style="font-style: italic;">Line Pack Volume</b> (at standard conditions)</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1"> (Volume at base conditions) / (Combined volume correction factor due to temperature and pressure at standard conditions)</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2"><b style="font-style: italic;">Line Pack Mass</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2"> (Line Pack Volume) * (Density at standard conditions)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Step 6</h4>
+        <p>Convert from Base to MAOP conditions using the <i>API 11.1 Base to Alternate</i> formula with inputs: Pipeline Segment Average Temperature, Pipeline Segment Average MAOP, Base Density, Pipeline Segment Volume and Commodity Group (or Alpha 60).</p>
+        <p>
+            <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+                <col class="TableStyle-HelpTable2-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-HelpTable2-Head-Header1">
+                        <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-HelpTable2-Body-Body1">
+                        <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                            <p>No persisted outputs from this step. But the calculated <i>MAOP Volume at base conditions</i> will be used in the next step.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <h4>Step 7</h4>
+        <p>Calculate <b style="font-style: italic;">MAOP Line Pack Volume</b> and <b style="font-style: italic;">MAOP Line Pack Mass</b>.</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b style="font-style: italic;">MAOP Line Pack Volume</b> (at standard conditions)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">(MAOP Volume at base conditions)  / (Combined volume correction factor due to temperature and pressure at standard conditions)</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2"><b style="font-style: italic;">MAOP Line Pack Mass</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">(MAOP Line Pack Volume) * (Density at standard conditions)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Formula_Inputs"></a>Formula Inputs Reference</h3>
+        <p>The Line Pack formula for petroleum liquids uses the following inputs to its calculation.</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Inputs/Intermediate Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Symbol</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Units</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Alpha 60 </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;"> <span style="font-family: 'Symbol'">a</span><span style="vertical-align: sub;">60</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Pre-calculated 60°F thermal expansion factor (used if Commodity Group not given)	</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">°F<span style="vertical-align: super;">-1</span></td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Commodity Group	</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">none</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">	Commodity group type describing liquid (used if <span style="font-family: 'Symbol'">a</span> 60 not input)</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Density, Observed	</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">ρ<span style="vertical-align: sub;">o</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Density at observed conditions  t<span style="vertical-align: sub;">o</span> and P<span style="vertical-align: sub;">o</span></td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">	kg/m³</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">MAOP, Inlet	</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">MAOP<span style="vertical-align: sub;">1</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">MAOP input 1 at the inlet (upstream) end of the pipeline segment	</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">psig</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">MAOP, Outlet	</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">MAOP<span style="vertical-align: sub;">2</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">MAOP input 2 at the outlet (downstream) end of the pipeline segment</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">psig</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Pipeline Segment Volume	</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">V<sub>seg</sub></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Volume of the pipeline segment based either on the segment’s configured length and diameter or a user-configured volume	</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">MCF</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Pressure, Inlet</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">P<span style="vertical-align: sub;">1</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Pressure input 1 at the inlet (upstream) end of the pipeline segment</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">psig</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Pressure, Outlet</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">P<span style="vertical-align: sub;">2</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Pressure input 2 at the outlet (downstream) end of the pipeline segment</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">psig</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Pressure, Observed</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">P<span style="vertical-align: sub;">o</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Pressure at which the observed density was measured</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">psig</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Pressure, Standard	</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">P</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Standard pressure at which density is desired	</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">psig</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Temperature, Inlet</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">T<span style="vertical-align: sub;">1</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Temperature input 1 at the inlet (upstream) end of the pipeline segment</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">°F</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Temperature, Outlet</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">T<span style="vertical-align: sub;">2</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Temperature input 2 at the outlet (downstream) end of the pipeline segment</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">°F</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Temperature, Observed 	</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">t<span style="vertical-align: sub;">o</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Temperature at which the observed density was measured</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">°F</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Temperature Standard</td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2" style="text-align: center;">t</td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Standard temperature at which density is desired</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2" style="text-align: center;">°F</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Formula_Outputs"></a>Formula Outputs Reference</h3>
+        <p>The Line Pack formula for petroleum liquids calculates the following output variables as part of its calculation.</p>
+        <table style="width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Outputs</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1" style="text-align: center;">Units</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">C<span style="vertical-align: sub;">PL,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Volume correction factor due to pressure at pipeline segment average conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">C<span style="vertical-align: sub;">PL</span>,s</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Volume correction factor due to pressure at standard conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">C<span style="vertical-align: sub;">TL,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Volume correction factor due to temperature at pipeline segment average conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">C<span style="vertical-align: sub;">TL,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Volume correction factor due to temperature at standard conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">C<span style="vertical-align: sub;">TPL,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Combined volume correction factor due to temperature and pressure at pipeline segment average conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">C<span style="vertical-align: sub;">TPL,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Combined volume correction factor due to temperature and pressure at standard conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">N/A</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Density, Average</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Density at pipeline segment average conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">kg/m³</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Density, Base</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Density at base conditions (60°F and 0 psig) </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">kg/m³</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Density, Standard</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Density at standard conditions t and P</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">	kg/m³</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">F<span style="vertical-align: sub;">P,a</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Scaled compressibility factor at pipeline segment average conditions	</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">Psi<span style="vertical-align: super;">-1</span></td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">F<span style="vertical-align: sub;">P,s</span></td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Scaled compressibility factor at the standard temperature</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">Psi<span style="vertical-align: super;">-1</span></td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Line Pack Mass </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>Line Pack Mass</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">lbs</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Line Pack Volume </td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>Line Pack Volume at standard conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">MCF</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">MAOP Line Pack Mass</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p>MAOP Line Pack Mass</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="text-align: center;">lbs</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">MAOP Line Pack Volume</td>
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>MAOP Line Pack Volume at standard conditions</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1" style="text-align: center;">MCF</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">V<span style="vertical-align: sub;">60</span></td>
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Volume at base conditions (60°F and 0 psig)</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2" style="text-align: center;">
+                        <p>same set of units as V<sub>seg</sub></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History|History Data|History Reporting">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Reporting Options</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/Caption.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Data.htm">History Data</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="History Reporting.htm">History Reporting</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Reporting Options</span>
+        </div>
+        <h2>Reporting Options</h2>
+        <p>History is normally reported on an exception basis; that is, a record is written to the historian only if the point’s value or status has changed. Status includes its reliability and alarm bits.</p>
+        <p>You can change this reporting model using additional reporting options, such as the <b>Maximum reporting interval</b>, <b>Minimum evaluation time</b>, and <b>Force evaluation on update without changed value</b> options of the point's configuration record.</p>
+        <table class="TableStyle-Caption" style="mc-table-style: url('../../Resources/TableStyles/Caption.css');margin-left: 0;margin-right: auto;" cellspacing="0">
+            <col class="TableStyle-Caption-Column-Column1" style="width: 426px;" />
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">
+                    <img src="../../Resources/Images/History/PNT History - Reporting options.png" />
+                </td>
+            </tr>
+            <tr class="TableStyle-Caption-Body-Body1">
+                <td class="TableStyle-Caption-BodyD-Column1-Body1">Setting these reporting options will change <br />how the data is reported to the VHS				</td>
+            </tr>
+        </table>
+        <h3><a name="Maximum"></a>Maximum Reporting Interval</h3>
+        <p>The <b>Maximum reporting interval</b> setting specifies the maximum update time interval (in minutes) for reporting the current value to the historian. For a point that is configured with this setting, the CVS will always report a new value to the VHS, if the time interval between the last value reported to the VHS and the new value <i>exceeds</i> the configured maximum reporting interval. Two reporting actions are provided:</p>
+        <ul>
+            <li value="1"><b>Report next value</b> — report the next new value that comes in to the CVS</li>
+            <li value="2"><b>Force current value</b> — force the current value to be reported to the VHS, even if there is no change in value or status from the last value.</li>
+        </ul>
+        <p>This setting is useful for points that have infrequent value or status changes, but don’t require <b>Force evaluation on update</b>. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Notes:</span>
+            </p>
+            <p class="Note"><b>Maximum reporting interval</b> (maximumreportinginterval) replaced <b>Force Period</b> (forceperiod), which is now obsolete, although the old attribute has been retained for backwards compatibility.</p>
+            <p class="Note"><b>Force current value</b> (forcecurrentval) replaced <b>Force History</b> (forcehistory), which is now obsolete, although the old attribute has been retained for backwards compatibility.</p>
+        </div>
+        <h3><a name="Minimum"></a>Minimum Evaluation Time</h3>
+        <p>The <b>Minimum evaluation time</b> setting specifies the minimum update time interval (in seconds) for evaluating whether a new value will be reported to the VHS. For a point that is configured with this setting, the CVS will <i>not</i> report a value to the VHS, unless the time interval between the last evaluated value reported to the VHS and the new value <i>exceeds</i> the configured minimum evaluation time. </p>
+        <p>Minimum evaluation time is important when using <a href="CygNet Swinging Door Compression.htm">CygNet Swinging Door (CSD) compression</a>. When CSD compression is configured to be performed for a point, a new value will be reported to the VHS, assuming any configured <b>Minimum evaluation time</b> interval setting has been exceeded, when the slope of the line calculated between the last value reported to the VHS and the new value falls outside the slope <b>Deviation</b> range.</p>
+        <p>Use <b>Minimum evaluation time</b> with care. It is best used for points that report frequently and you want to save limited data portraying a representative trend curve.</p>
+        <p class="Example">Example</p>
+        <p class="Indent">By setting the minimum evaluation time to 10 seconds, the system waits to see the next value that comes in to the CVS. CygNet will then evaluate whether to report the value to the VHS, and then wait another 10 seconds from last the event to evaluate again, even if last evaluation was not to report the value to the VHS.</p>
+        <h3><a name="Force"></a>Force Evaluation</h3>
+        <p>The <b>Force evaluation on update without changed value</b> option forces an evaluation of each new value for reporting to the VHS, regardless of whether the point’s value or status has changed. Force evaluation forces values that look like repeats to be considered. This is useful when you require a value for every poll. However, by configuring compression you can fine tune how much data is reported by enabling the <b>Minimum evaluation time</b> and <b>Deviation</b> settings.</p>
+        <p>If this setting is not selected,  the point will be reported to the VHS by exception only (value or status change).</p>
+        <p class="Example">Example</p>
+        <p class="Indent">With force evaluation disabled, any new value that is unchanged from the previous value (except for its timestamp) is ignored. These incoming values look like repeats, which are considered unimportant and therefore not reported to the VHS. A tank reporting its level every 15 minutes may report identical values, which are considered repeats and thus not reported.</p>
+        <p>The only exception to these settings will be for status bit changes from a previous value, which will override all configured settings and thus be reported.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> <b>Force evaluation on update without changed values</b> (forceevaluationonupdate) replaced <b>Force History On Update</b> (forcehistoryonupdate), which is now obsolete, although the old attribute has been retained for backwards compatibility.</p>
+        </div>
+        <h3>History Data Groups</h3>
+        <p>Certain data groups retrieve an array of data for a point, for example, a data group that returns an average value for each minute of an hour or a data group that returns an accumulated value for each hour of the day. When these points report data to the VHS, all of the data in the array is reported to the VHS, even if the point is configured to report by exception and all of the values remain unchanged.</p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

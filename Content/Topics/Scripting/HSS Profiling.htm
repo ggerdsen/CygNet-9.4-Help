@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Scripting|CygNet Scripting Guide|HyperPoint Scripting">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>HSS Profiling</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Scripting.htm">Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Scripting Guide.htm">CygNet Scripting Guide</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="HyperPoint Scripting.htm">HyperPoint Scripting</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HSS Profiling</span>
+        </div>
+        <h2>HSS Profiling</h2>
+        <p>HSS profiling is used to assist with troubleshooting HyperPoint Scripts in the CygNet HyperPoint Scripting Service (HSS).  HSS profiling allows scripts to report their events to an individual log file that is separate from the HSS service log file.</p>
+        <h3>Enabling HSS Profiling</h3>
+        <p>To use HSS profiling, you must enable the LOGMASK_SCRIPT keyword in the <a href="../Service Configuration Keywords/HSS Configuration File Keywords.htm#LOGMASK">HSS configuration file</a> (Hss.cfg) and add the desired profile option(s) from the table below. After saving the Hss.cfg file, stop and restart the service for the change to become effective, since the service reads the file only at startup.</p>
+        <p>For more information about modifying the HSS configuration file, see  <a href="../Services/Service Configuration Files.htm">Service Configuration Files</a>.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>LOGMASK_SCRIPT&#160;Keyword Option</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>MIN_TRACE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enables basic debug logging mode.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>MAX_TRACE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enables verbose debug logging mode.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>PROFILE_MIN</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Enables minimum performance profile logging mode.  Displays the end time of an item coming out of scope or completing runtime.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>PROFILE_MAX</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>Enables maximum performance profile logging mode.  Displays the begin and end time of items coming in or out of scope.</p>
+                </td>
+            </tr>
+        </table>
+        <h3>Point Configuration</h3>
+        <p>The HyperPoint features for a point must be enabled for a point to use the HSS scripting methods. See <a href="Creating and Configuring a HyperPoint.htm">Creating and Configuring a HyperPoint</a> for more information. </p>
+        <ol>
+            <li value="1">Open the <b>PNT Editor</b> for the selected point.</li>
+            <li value="2">On the <b>General</b> page, click <b>Edit</b>.</li>
+            <li value="3">Select the <b>HyperPoint</b> check box to indicate that the point is a HyperPoint. This will cause the <b>HyperPoint</b> page to appear in the dialog box. </li>
+            <li value="4">Select the <b>Activate script</b> check box. <b>Activate script</b> must be enabled for scripting on the point to be active. </li>
+            <li value="5">Select the <b>HyperPoint</b> page for the point to be configured.</li>
+            <li value="6">Under <b>HyperPoint setup</b>, select the <b>HyperPoint type</b> from the drop-down menu. See <a href="../Points/PNT Editor - HyperPoint Page.htm">PNT Editor - HyperPoint Page </a>for more information.</li>
+            <li value="7">The <b>Script text</b> section displays the script currently contained in the HyperPoint. Click <b>Edit</b> to display the script editor to create custom script event options for the selected point. The event options available in the script editor event drop-down menu are <a href="CxScript HyperPoint Events.htm#OnInitializeEx">OnInitializeEx</a>, <a href="CxScript HyperPoint Events.htm#OnPointChange">OnPointChange</a>, <a href="CxScript HyperPoint Events.htm#OnTerminateEx">OnTerminateEx</a>, and <a href="CxScript HyperPoint Events.htm#OnTimer">OnTimer</a>. For more information, see <a href="CxScript HyperPoint Events.htm">HyperPoint Events</a>.</li>
+            <li value="8">The <b>Simulation test</b> section contains the simulation controls. To test the script, use these controls (<b>Run</b>, <b>Pause</b>, <b>Stop</b>, and <b>Clear Status</b>) before putting the script to use.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> The Current Value Service of the point must be a service for which scripting is enabled.</p>
+        </div>
+        <h3><a name="LogManager"></a>Log Manager Methods</h3>
+        <p>In the script editor, the following methods can be used with the available event options  to assist with profiling options. See <a href="../CygNet Studio/LogManager Methods.htm">LogManager Methods</a> for more information.</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">
+                        <p>LogManager Method</p>
+                    </th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LogManager.GetProfiler("message")</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>GetProfiler</b> method writes a profile message to the scripting log file. Returns an object that logs a profile timing message on creation and deletion (object goes in or out of scope). On creation PROFILE_MAX must be set and on deletion (object goes out of scope) PROFILE_MIN must be set.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LogManager.LogAll("message")</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>LogAll</b> method writes the message string to the scripting log file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>LogManager.LogMin("message")</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The <b>LogMin</b> method writes the message string to the scripting log file if MIN_TRACE is set in the HSS service configuration file.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>LogManager.LogMax("message")</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The <b>LogMax</b> method writes the message string to the scripting log file  if MAX_TRACE is set in the HSS service configuration file.</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Logging the HSS Profile  Data</h3>
+        <p>Output of the script is captured and displayed in log file(s) located in the working HSS service directory. The HSS profile log files are generated separately from the HSS service log file to keep the profiling items and the HSS service items separate.</p>
+        <p>The HSS profiling log file is created automatically and follows the log file naming convention below. The HSS service log file's naming convention is also shown to illustrate the difference.</p>
+        <h4>HSS Profiling Log File</h4>
+        <p>The log file is &lt;service_name&gt;_Script&lt;sequence_number&gt;. log, where &lt;service_name&gt; is the name of the service.</p>
+        <p class="Indent"><b>Example</b>: HSS_Script001.log</p>
+        <h4>HSS Service Log File</h4>
+        <p>The HSS service log file is used to capture and trace items on the HSS service. It follows the naming convention below.</p>
+        <p class="Indent"><b>Example</b>: HSS001.log</p>
+        <h3>Reading Profile Log Files</h3>
+        <p>Log files, located in the HSS service folder, can be viewed by double clicking on the log file.</p>
+        <p>CygNet also has a utility that is designed to ease the view of displaying items in a log file.  The <a href="../Logging/Log File Viewer Utility.htm">Log File Viewer</a> utility,  located in the <b>CygNet\Utilities</b> directory, allows you to open, print, and search/filter for data within any log file  to assist or aid in troubleshooting. </p>
+        <h3>Troubleshooting HSS Scripts</h3>
+        <p>The generated HSS profile log files can assist in troubleshooting HSS scripts. For example, if the Hss.cfg file is configured with the minimal log settings (MIN_TRACE) to capture only the basic debug items, but the scripting method contains both <b>LogMin</b> and <b>LogMax</b> items in the HyperPoint, only the minimal information will be collected in the HSS_Script001.log file due to the settings in the Hss.cfg file. </p>
+        <p>The following is an example section of an HSS Script with both <b>LogManager.LogMin</b> and <b>LogManager.LogMax</b> configured.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">LogManager.LogMin("Begin OnInEx Log Min(LogMin)")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">LogManager.LogMax("Begin OnInEx Log Max(LogMax)")</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">points.AddPoint "MYSITE.HSS::TEST.TESTUDC", this</p>
+                    <p class="Code">points.AddPoint "MYSITE.HSS::TEST.TESTUDC2"</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">This.Value = "Init end"</p>
+                </td>
+            </tr>
+        </table>
+        <p>To collect more logging data to troubleshoot the HSS script for the point in question, you could add PROFILE_MIN and PROFILE_MAX to the existing LOGMASK_SCRIPT keyword in the Hss.cfg file, save the  file, and restart the HSS service for the changes to take effect. Logging would then be enabled to display maximum logging to assist in troubleshooting, without editing any HSS HyperPoint scripts.  The additions will create entries in the log file at the start of a script runtime (in scope) and at the end time of a script runtime (out of scope). </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

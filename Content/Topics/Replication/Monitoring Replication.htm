@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Replication|Replication Overview">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Monitoring Replication</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Replication.htm">Replication</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Replication Overview.htm">Replication Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Monitoring Replication</span>
+        </div>
+        <h2>Monitoring Replication</h2>
+        <p>There are many SVCMON UDCs that can be used to monitor replication. SVCMON points can be created for your Source Service, your Replicated Service(s), or for both your Source and Replicated Service(s) using the <a href="../Service Monitoring/CygNet ServiceMon Administration Utility.htm">CygNet ServiceMon Administration</a> utility. The system replication info items upon which these UDCs are based can be viewed for each service on the <b>Replication</b> page of the <a href="../CygNet Explorer/Viewing Service Details.htm">CygNet Service Information</a> dialog box.</p>
+        <p>See <a href="../Service Monitoring/Info Items - Replication.htm">Replication Info Items</a> for status information about replicating (source) and replicated (destination) services. Also see <a href="VHS Replication - Monitoring.htm">Monitoring VHS Replication</a>.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> It is recommended that the SVCMON timer be set for no more than five seconds.</p>
+        </div>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 200px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Info Item</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">SVCMON UDC</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Create on Source or Replicated Service</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_GUID">CHANGE_QUEUE_GUID</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>This value indicates a randomly-generated globally unique identifier (GUID) that is used along with the change queue initialization time (<a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_INITED">CHANGE_QUEUE_INITED</a>) to uniquely identify a change queue. A replicating service uses both the GUID and the change queue initialization time as part of the change queue pointer to the source. In a redundant environment with multiple replicating services this combination more accurately indicates when to do an incremental resync. Applies to DBS and VHS services only.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p style="text-align: center;">-</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Source</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_NEWEST">CHANGE_QUEUE_NEWEST</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>A numeric value representing the ID (sequence number) of the most recent change added to the change queue. When replication is up to date, this value for the source service will match the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_LAST_SEQ">REPL_LAST_SEQ</a>  value on the replicated service.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This info item is displayed on both the <a href="../Service Monitoring/Info Items - Replication.htm">Replication</a> page and the <a href="../Service Monitoring/Info Items - Service Specific.htm">Service Specific (CAS, CVS, DBS, VHS)</a> page.</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMDBSSEQC</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Source
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_INITED">CHANGE_QUEUE_INITED</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>This value represents the timestamp when the change queue was first initialized. A change in this value indicates the source service’s change queue has been reinitialized and queued changes may have been lost. When this happens for the CAS, CVS, and DBS service types, a full resynchronization is performed by the replicated service. When replication is up to date, this value for the source service will match the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_SRC_CHG_Q_INIT">REPL_SRC_CHG_Q_INIT</a> value on the replicated service. (For VHS services, the info item <a href="../Service Monitoring/Info Items - Service Specific.htm#VHS_QUEUE_INIT_TIME">VHS_QUEUE_INIT_TIME</a> represents the same value.)</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This value and the <a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_GUID">CHANGE_QUEUE_GUID</a> are used together to more accurately identify the change queue pointer in a redundant environment with multiple replicating services.</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>SVMCASCQIN</p>
+                    <p>SVMCVSCQIN</p>
+                    <p>SVMDBSCQIN</p>
+                    <p>SVMVHSCQIN</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Source
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_SIZE">CHANGE_QUEUE_SIZE</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The configured size of the service change queue. This is the number of changes the service will store to answer replication requests before expiring the oldest changes.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This info item is displayed on both the <a href="../Service Monitoring/Info Items - Replication.htm">Replication</a> page and the <a href="../Service Monitoring/Info Items - Service Specific.htm">Service Specific (CAS, CVS, DBS, VHS)</a> page.</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMVHSCQSZ</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Source
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Monitoring/Info Items - Machine Performance.htm#DISK_QUEUE_LENGTH">DISK_QUEUE_LENGTH</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The number of pending reads and writes to the disk on which the service's main data files reside. This corresponds to the <b>Avg. Disk Queue Length</b> Performance Monitor statistic for the PhysicalDisk you are monitoring (for example, 1C:, 1D:, etc.).</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This info item is displayed on the <a href="../Service Monitoring/Info Items - Machine Performance.htm#DISK_QUEUE_LENGTH">Machine Performance</a> page.</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">SVMADQLC</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Both
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Monitoring/Info Items - Process Performance.htm#PRCNT_CPU_TIME">PRCNT_CPU_TIME</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The average percent of CPU time dedicated to the service. Valid range <b>0%</b> to <b>100%</b>.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">SVMPCTCPUT</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Both
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#REPL_CHECK_INTERVAL">REPL_CHECK_INTERVAL</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The interval (in seconds) that a replicated service will check the source change queue for new updates. If the service is not replicating REPL_CHECK_INTERVAL will respond with an empty string.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>SVMVHSRINT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a name="REPL_DELAY"></a><a href="../Service Monitoring/Info Items - Replication.htm#REPL_DELAY">REPL_DELAY</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Indicates the current replication delay. The value is the time (in seconds) since the service was last fully in sync, or blank if the service not replicating. The time is calculated as the delta between "now" and the time the last completed sync ended. Does not apply to the ARS or the RSM.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMCASRPDL</p>
+                    <p>SVMCVSRPDL</p>
+                    <p>SVMDBSRPDL</p>
+                    <p>SVMVHSRPDL</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="REPL_DELAY_MAX"></a><a href="../Service Monitoring/Info Items - Replication.htm#REPL_DELAY_MAX">REPL_DELAY_MAX</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Indicates an acceptable replication delay. The value equals the <b>REPL_DELAY_MAX</b> keyword in the service configuration file. Does not apply to the ARS or the RSM.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>SVMCASRPDM</p>
+                    <p>SVMCVSRPDM</p>
+                    <p>SVMDBSRPDM</p>
+                    <p>SVMVHSRPDM</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Monitoring/Info Items - Replication.htm#REPL_INT_VAL_STATE"><a name="REPL_INT_VAL_STATE"></a>REPL_INT_VAL_STATE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Indicates the internal replication validation state of the service. The values include:</p>
+                    <ul class="table">
+                        <li value="1"><b>Not repl</b> — If the service is not replicating.</li>
+                        <li value="2"><b>Initializing</b> — Validation is initializing.</li>
+                        <li value="3"><b>Normal</b> — Validation has run and is no errors have been detected.</li>
+                        <li value="4"><b>Delayed</b> — Validation is delayed for some reason.</li>
+                        <li value="5"><b>Error</b> – The validation service has detected replication errors.</li>
+                        <li value="6"><b>Fixing errors</b> — The validation service is fixing detected replication errors.</li>
+                        <li value="7"><b>Source error</b> — The replication source is not available.</li>
+                    </ul>
+                    <p>Does not apply to the ARS or the RSM.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMCASRPIS</p>
+                    <p>SVMCVSRPIS</p>
+                    <p>SVMDBSRPIS</p>
+                    <p>SVMVHSRPIS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#REPL_LAST_SEQ">REPL_LAST_SEQ</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The value represents the ID of the last change queue entry retrieved from the source service and committed to the replicated service. When replication is up to date, this value for the replicated service will match the <a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_NEWEST">CHANGE_QUEUE_NEWEST</a> value on the source service. For VHS services, the legacy info item <a href="../Service Monitoring/Info Items - Replication.htm#VHS_REPL_LAST_SEQ">VHS_REPL_LAST_SEQ</a> represents the same value.  </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>SVMCASRPCN</p>
+                    <p>SVMCVSRPCN</p>
+                    <p>SVMDBSRPCN</p>
+                    <p>SVMVHSRLSQ</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#REPL_MESSAGE_ERRORS">REPL_MESSAGE_ERRORS
+</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The number of replication messaging errors. (Applies only to first forwarded destination for VHS services.)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMREPMSGE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#REPL_NETWORK_ERRORS">REPL_NETWORK_ERRORS</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Number of replication network messaging errors (Applies only to first forwarded destination for VHS services.)</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>SVMREPDCLE</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#REPL_SOURCE">REPL_SOURCE</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>The source service name from which the replicated service is requesting changes.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMVHSRSRC</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Monitoring/Info Items - Replication.htm#REPL_SRC_CHG_GUID">REPL_SRC_CHG_GUID</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>This value is only relevant for replicated services. The value indicates a randomly-generated globally unique identifier (GUID) that is used along with the source service's change queue initialization time (<a href="../Service Monitoring/Info Items - Replication.htm#REPL_SRC_CHG_Q_INIT">REPL_SRC_CHG_Q_INIT</a>)  to uniquely identify a change queue. A replicating service uses both the GUID and the change queue initialization time as part of the change queue pointer to the source. In a redundant environment with multiple replicating services this combination more accurately indicates when to do an incremental resync. Applies to DBS and VHS services only.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>-</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Replicated</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p><a href="../Service Monitoring/Info Items - Replication.htm#REPL_SRC_CHG_Q_INIT">REPL_SRC_CHG_Q_INIT</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>This value is only relevant for replicated services. The value represents the timestamp when the source service’s change queue was first initialized. A change in this value indicates the source service’s change queue has been reinitialized and queued changes may have been lost.  When this happens for the CAS, CVS, and DBS service types, a full resynchronization is performed by the replicated service. When replication is up to date, this value for the replicated service will match the <a href="../Service Monitoring/Info Items - Replication.htm#CHANGE_QUEUE_INITED">CHANGE_QUEUE_INITED</a> value on the source service.</p>
+                    <div class="Note">
+                        <p><span class="NoteHeading">Note:</span> This value and the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_SRC_CHG_GUID">REPL_SRC_CHG_GUID</a> are used together to more accurately identify the change queue pointer in a redundant environment with multiple replicating services.</p>
+                    </div>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMCASRPCT</p>
+                    <p>SVMCVSRPCT</p>
+                    <p>SVMDBSRPCT</p>
+                    <p>SVMVHSRPCT</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a name="REPL_STATUS"></a><a href="../Service Monitoring/Info Items - Replication.htm#REPL_STATUS">REPL_STATUS</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Indicates the current replication status of the service. The values include:</p>
+                    <ul class="table">
+                        <li value="1"><b>Not repl</b> — If the service is not replicating.</li>
+                        <li value="2"><b>Waiting</b> — The service is waiting to start the next sync cycle.</li>
+                        <li value="3"><b>Incr sync</b> — Incremental sync, processing just the changes that have occurred on the replication source.</li>
+                        <li value="4"><b>Full sync</b> — Only happens the first time, or when the initialization time in the source changes.</li>
+                        <li value="5"><b>Full compare</b> <b>—</b> Problems have been found, look for differences, and send tickle message to the replication source.</li>
+                        <li value="6"><b>Processing</b> <b>–</b> Replication is in process.</li>
+                    </ul>
+                    <p>Does not apply to the ARS or the RSM.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>SVMCASRPST</p>
+                    <p>SVMCVSRPST</p>
+                    <p>SVMDBSRPST</p>
+                    <p>SVMVHSRPST</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Replicated
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><a href="../Service Monitoring/Info Items - Replication.htm#REPL_SUMMARY_STATE"><a name="REPL_SUMMARY_STATE"></a>REPL_SUMMARY_STATE</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>Indicates the summary replication state of the service. The values include:</p>
+                    <ul class="table">
+                        <li value="1"><b>Unknown</b> — if the service not replicating.</li>
+                        <li value="2"><b>Valid</b> — The summary state is "Valid" if the <a href="../Service Monitoring/Info Items - Replication.htm#REPL_INT_VAL_STATE">REPL_INT_VAL_STATE</a> info item is "Normal."</li>
+                        <li value="3"><b>Invalid</b> — The summary replication state is invalid.</li>
+                    </ul>
+                    <p>Does not apply to the ARS or the RSM.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>SVMCASRPSS</p>
+                    <p>SVMCVSRPSS</p>
+                    <p>SVMDBSRPSS</p>
+                    <p>SVMVHSRPSS</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">Replication</td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><a href="../Service Monitoring/Info Items - Machine Performance.htm#TOT_DISK_QUE_LENGTH">TOT_DISK_QUE_LENGTH</a>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>The number of pending reads and writes to all the disks in the machine. This corresponds to the <b>PhysicalDisk(_Total)\Avg. Disk Queue Length</b> Performance Monitor disk queue length.</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">SVMADQLT</td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Both
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

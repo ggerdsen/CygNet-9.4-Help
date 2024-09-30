@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Enterprise Objects|Enterprise Operations|CygNet Native Operations">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Alarm History Operations</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Enterprise Objects.htm">Enterprise Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Enterprise Operations.htm">Enterprise Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="CygNet Native Operations.htm">CygNet Native Operations</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Alarm History</span>
+        </div>
+        <h2>Alarm History Operations</h2>
+        <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Read Operations</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p><a href="#GetAlarm" class="selected">GetAlarmHistory</a>
+                    </p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Returns alarm history records for the specified points based on the parameters for date range and maximum history records. </p>
+                </td>
+            </tr>
+        </table>
+        <h3><a name="GetAlarm"></a>GetAlarmHistory</h3>
+        <p>Given a point tag and optional maximum value count and time range specifiers, this operation returns the alarm state transition history for the specified point. If the number of matching values exceeds the maximum specified, the response XML will include a special element with continuation information. To continue the operation, the same request must then be repeated, with the additional inclusion of the continuation element from the last request. The return XML will indicate success or failure.</p>
+        <h4>Usage</h4>
+        <p>The following table lists and describes all of the child elements of the request node (&lt;<i>GetAlarmHistoryReq</i>&gt;).</p>
+        <table style="margin-left: 0;margin-right: auto;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Element Name</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required?</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>Tag</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The point tag for which to retrieve alarm history.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>HistoryParameters</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>A set of parameters which specify the maximum number of entries to return, the time range for alarms to retrieve, and, if applicable, the time of the next entry to retrieve (if the request is a continuation from a previous request).</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>AttrsToExport</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>Indicates which alarm attributes to include  in the response.</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Examples</h4>
+        <h5>Request</h5>
+        <p>The following example represents the first request in a series of continuations.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code"> xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721" &gt;</p>
+                    <p class="Code2">&lt;GetAlarmHistoryReq&gt;</p>
+                    <p class="Code3">&lt;Tag&gt;CYGDEMO.SVCMON.00001740&lt;/Tag&gt;</p>
+                    <p class="Code3">&lt;HistoryParameters&gt;</p>
+                    <p class="Code4">&lt;EarliestTime&gt;2011-10-06T00:00:00Z&lt;/EarliestTime&gt;</p>
+                    <p class="Code4">&lt;LatestTime&gt;2011-10-07T00:00:00Z&lt;/LatestTime&gt;</p>
+                    <p class="Code4">&lt;MaxEntries&gt;4&lt;/MaxEntries&gt;</p>
+                    <p class="Code3">&lt;/HistoryParameters&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;EventCategory/&gt;</p>
+                    <p class="Code4">&lt;PointValue/&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code2">&lt;/GetAlarmHistoryReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response, including a continuation element (&lt;<i>NextEntry</i>&gt;).</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;GetAlarmHistoryResp&gt;</p>
+                    <p class="Code3">&lt;AlarmHistoryEntry&gt;</p>
+                    <p class="Code4">&lt;EventCategory&gt;SET&lt;/EventCategory&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition&gt;Analog High Alarm&lt;/AlarmCondition&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;27.0289149252776&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-10-06T01:46:34.102&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/AlarmHistoryEntry&gt;</p>
+                    <p class="Code3">&lt;AlarmHistoryEntry&gt;</p>
+                    <p class="Code4">&lt;EventCategory&gt;RESET&lt;/EventCategory&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition&gt;Analog High Alarm&lt;/AlarmCondition&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;2.65476451170645&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-10-06T01:46:44.102&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/AlarmHistoryEntry&gt;</p>
+                    <p class="Code3">&lt;AlarmHistoryEntry&gt;</p>
+                    <p class="Code4">&lt;EventCategory&gt;ACK&lt;/EventCategory&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition&gt;Analog High Alarm&lt;/AlarmCondition&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;2.65476451170645&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-10-06T01:46:44.102&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/AlarmHistoryEntry&gt;</p>
+                    <p class="Code3">&lt;AlarmHistoryEntry&gt;</p>
+                    <p class="Code4">&lt;EventCategory&gt;CLEAR&lt;/EventCategory&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition&gt;Analog High Alarm&lt;/AlarmCondition&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;2.65476451170645&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-10-06T01:46:44.102&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/AlarmHistoryEntry&gt;</p>
+                    <p class="Code3">&lt;NextEntry&gt;</p>
+                    <p class="Code4">&lt;Time&gt;2011-10-06T09:56:18.627Z&lt;/Time&gt;</p>
+                    <p class="Code3">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-10-06T18:35:52.468Z" exec_duration="PT4.853S"&gt;&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/GetAlarmHistoryResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Request</h5>
+        <p>The following example represents the next request in a series of continuations, based on the &lt;<i>NextEntry</i>&gt; element from the above response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations</p>
+                    <p class="Code"> xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721" &gt;</p>
+                    <p class="Code2">&lt;GetAlarmHistoryReq&gt;</p>
+                    <p class="Code3">&lt;Tag&gt;CYGDEMO.SVCMON.00001740&lt;/Tag&gt;</p>
+                    <p class="Code3">&lt;HistoryParameters&gt;</p>
+                    <p class="Code4">&lt;EarliestTime&gt;2011-10-06T00:00:00Z&lt;/EarliestTime&gt;</p>
+                    <p class="Code4">&lt;LatestTime&gt;2011-10-07T00:00:00Z&lt;/LatestTime&gt;</p>
+                    <p class="Code4">&lt;MaxEntries&gt;4&lt;/MaxEntries&gt;</p>
+                    <p class="Code4">&lt;NextEntry&gt;</p>
+                    <p class="Code5">&lt;Time&gt;2011-10-06T09:56:18.627Z&lt;/Time&gt;</p>
+                    <p class="Code4">&lt;/NextEntry&gt;</p>
+                    <p class="Code3">&lt;/HistoryParameters&gt;</p>
+                    <p class="Code3">&lt;AttrsToExport&gt;</p>
+                    <p class="Code4">&lt;EventCategory/&gt;</p>
+                    <p class="Code4">&lt;PointValue/&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition/&gt;</p>
+                    <p class="Code3">&lt;/AttrsToExport&gt;</p>
+                    <p class="Code2">&lt;/GetAlarmHistoryReq&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <h5>Response</h5>
+        <p>The following example represents a successful response, continuing from the time specified in the &lt;<i>NextEntry</i>&gt; element in the above request.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects721"&gt;</p>
+                    <p class="Code2">&lt;GetAlarmHistoryResp&gt;</p>
+                    <p class="Code3">&lt;AlarmHistoryEntry&gt;</p>
+                    <p class="Code4">&lt;EventCategory&gt;RESET&lt;/EventCategory&gt;</p>
+                    <p class="Code4">&lt;AlarmCondition&gt;&lt;/AlarmCondition&gt;</p>
+                    <p class="Code4">&lt;PointValue&gt;0.31122398366699&lt;/PointValue&gt;</p>
+                    <p class="Code4">&lt;PointTimestamp&gt;2011-10-06T09:56:18.627Z&lt;/PointTimestamp&gt;</p>
+                    <p class="Code3">&lt;/AlarmHistoryEntry&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="true" resp_timestamp="2011-10-06T18:36:57.031Z" exec_duration="PT0.614S"&gt;&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/GetAlarmHistoryResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table>
+        <p>The following example represents an unsuccessful response.</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+                    <p class="Code">&lt;CygNetEnterpriseOperations </p>
+                    <p class="Code">xmlns="http://CygNetSCADA.com/Schemas/CygNetEnterpriseObjects730"&gt;</p>
+                    <p class="Code2">&lt;GetAlarmHistoryResp&gt;</p>
+                    <p class="Code3">&lt;OperationResults success="false" resp_timestamp="2011-07-30T22:13:26.155Z" exec_duration="PT0.0035"&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50003"&gt;Security check failed for ACS application ENTOPS and event ACCESS0&lt;/OperationResult&gt;</p>
+                    <p class="Code4">&lt;OperationResult type="ERROR" code="50208"&gt;You are not permitted to execute this operation&lt;/OperationResult&gt;</p>
+                    <p class="Code3">&lt;/OperationResults&gt;</p>
+                    <p class="Code2">&lt;/GetAlarmHistoryResp&gt;</p>
+                    <p class="Code">&lt;/CygNetEnterpriseOperations&gt;</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

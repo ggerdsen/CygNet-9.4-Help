@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Using TheFrame/TheView">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Interprocess Communication</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using TheFrame TheView.htm">Using TheFrame/TheView</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Interprocess Communication</span>
+        </div>
+        <h2>Interprocess Communication</h2>
+        <p>Different instances of CygNet Studio and CygNet Vision on the same computer can efficiently communicate with each other via the <b>SendSharedMessage</b> script method and <b>EventSharedMessageReceived</b> event.</p>
+        <h3><b>SendSharedMessage Method</b>
+        </h3>
+        <p>The <b>SendSharedMessage</b> method on the <a href="TheFrame TheView2.htm">TheView</a> sends a message to another instance of CygNet Studio or CygNet Vision. The method contains three parameters: </p>
+        <h6>Parameters</h6>
+        <table style="width: 800px;caption-side: top;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 150px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col style="width: 50px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1" style="text-align: center;">Required</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>messageId</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>The ID used to categorize the message.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body2">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                    <p>data</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="text-align: center;">
+                    <p>Yes</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                    <p>The body of the message.</p>
+                </td>
+            </tr>
+            <tr class="TableStyle-HelpTable2-Body-Body1">
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                    <p>true/false</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyE-Column1-Body1" style="text-align: center;">
+                    <p>No</p>
+                </td>
+                <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                    <p>An optional Boolean parameter to indicate whether or not the application sender instance should also receive the shared message (<code>true </code>or <code>false</code>). </p>
+                    <p>
+                        <ul class="table">
+                            <li value="1">If set to <code>true </code>then all the Studio/Vision instances will receive the shared message including the sender instance. </li>
+                            <li value="2">If  set to <code>false </code>then all the Studio/Vision instances will receive the shared message <i>except</i> the sender instance.</li>
+                        </ul>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <p>See <a href="Methods.htm#SendSharedMessage">SendSharedMessage</a> for more information.</p>
+        <h3><b>EventSharedMessageReceived Event</b>
+        </h3>
+        <p>The <b>EventSharedMessageReceived</b> event on <a href="TheFrame TheView2.htm">TheFrame/TheView</a> can receive a message sent from another instance of CygNet Studio or CygNet Vision by the <a href="Methods.htm#SendSharedMessage">SendSharedMessage</a> method of TheView.</p>
+        <p>See <a href="Events.htm#EventSharedMessageReceived">EventSharedMessageReceived</a> for more information.</p>
+        <h3><a name="Nested"></a>Nested Views</h3>
+        <p>Interprocess communication between nested views and their parent screens work in the following way:</p>
+        <ul>
+            <li value="1">When a parent screen sends a message and the optional Boolean parameter is set to <code>false </code>(to not to send the message to itself), the message <u>will not be</u> sent to any nested views contained within the sending parent screen.</li>
+            <li value="2">When a parent screen sends a message and the Boolean parameter is set to <code>true</code>, the message <u>will be</u> sent to any nested views contained within the sending parent screen.</li>
+            <li value="3">When a nested view sends a message, the message <u>will always be</u> sent to the parent screen holding the nested view, regardless of the Boolean setting (<code>true</code>, <code>false</code>, or not specified).</li>
+        </ul>
+        <h3>Script Example</h3>
+        <p>The following code example will send a message to all CygNet Studio and CygNet Vision instances running on the same computer. The message has a <code>messageId </code>that can be used to categorize the message, a body (<code>data</code>) that contains the necessary information to be shared, and a Boolean handler (<code>false</code>) to indicate that all the CygNet Studio and CygNet Vision instances can receive the shared message <i>except</i> the sender instance.</p>
+        <p>In this example, we're sending the ID of "CHANGE_LEVEL1_FACILITY" which could be interpreted by the receiver instance to change the facility on a particular type of screen to whatever is sent in the body ("MYSITE.UIS::MY_WELL").</p>
+        <h4>Sender Screen</h4>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">'(Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Sub SendIPCMessage(messageId, data)</p>
+                    <p class="Code3">' send a message to all other Studio/Vision instances running on this machine</p>
+                    <p class="Code3">TheView.SendSharedMessage messageId, data, false</p>
+                    <p class="Code2">End Sub</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code">'End of (Declarations)</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">…</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code">Sub SendSharedMessageButton_EventClick()</p>
+                    <p class="Code">&#160;</p>
+                    <p class="Code2">Dim This : Set This = SendSharedMessageButton</p>
+                    <p class="Code2">SendIPCMessage("CHANGE_LEVEL1_FACILITY", "MYSITE.UIS::MY_WELL")</p>
+                    <p class="Code2">&#160;</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <h4>Receiver Screen</h4>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub TheView_EventSharedMessageReceived(MessageID, Data)</p>
+                    <p class="Code2">' receive message</p>
+                    <p class="Code2">Dim This : Set This = TheView</p>
+                    <p class="Code2">If MessageID = "CHANGE_LEVEL1_FACILITY" Then</p>
+                    <p class="Code3">TheView.Facility = Data</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

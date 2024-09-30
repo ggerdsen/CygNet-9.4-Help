@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Canvas.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Canvas|Scripting in Canvas">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Describes how to communicate between screens using the Canvas UI and via script using the the SendBroadcastMessage method." /><title>Interscreen Communication</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Canvas_Overview/Canvas.htm">Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting_in_Canvas.htm">Scripting in Canvas</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Interscreen Communication</span>
+        </div>
+        <h2><a name="aanchor205"></a>
+            <MadCap:concept term="Canvas Controls;Canvas Scripting" />Interscreen Communication</h2>
+        <p><span class="GeneralProduct_Short">Canvas</span> provides a sophisticated broadcast feature that allows you to manipulate and pass the SiteService and facility from one screen to another using the <span class="GeneralProduct_Short">Canvas</span> user interface without writing script.</p>
+        <p>Additionally, you can pass a message or information relevant to your workflow from screen to screen with some simple scripting, using the <b>Broadcast Message</b> feature.</p>
+        <p>There are three types of broadcasts in <span class="GeneralProduct_Short">Canvas</span> that facilitate interscreen communication. Each is described below:</p>
+        <ol>
+            <li value="1"><a href="#UI_Broadcast" class="selected">SiteService broadcast</a>
+            </li>
+            <li value="2"><a href="#UI_Broadcast" class="selected">Facilities broadcast</a>
+            </li>
+            <li value="3"><a href="#Message_Broadcast" class="selected">Message broadcast via script</a>
+            </li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This feature is different from the CygNet Broadcast option available in CygNet Studio and CygNet Explorer.</p>
+        </div>
+        <h3><a name="UI_Broadcast"></a>Broadcast SiteService and Facilities Via the <span class="GeneralProduct_Short">Canvas</span> User Interface</h3>
+        <p>The <b>Broadcast SiteService</b> and <b>Broadcast facilities</b> properties available in the <a href="../Using_Canvas/Pane_Properties.htm">Properties</a> pane of the screen allow you to drive the SiteService or facilities in one screen from another screen.</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0" summary="Screen Broadcast Properties">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Broadcast facilities</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>
+                            <p>The <b>Broadcast facilities</b> check box indicates whether to notify other screens when this screen's facility selection changes. When enabled, and when a screen's facility selection changes, <span class="GeneralProduct_Short">Canvas</span> will broadcast the list of facilities out to all other screens open in the application that are configured to source their facility from <b>&lt;Broadcast&gt;</b>.</p>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p><b>Broadcast SiteService</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>
+                            <p>The <b>Broadcast SiteService</b> check box indicates whether to notify other screens when this screen's SiteService selection changes. When enabled, and when a screen's SiteService selection changes, <span class="GeneralProduct_Short">Canvas</span> will broadcast the SiteService out to all other screens open in the application that are configured to source their SiteService from <b>&lt;Broadcast&gt;</b>.</p>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Broadcast Example</p>
+        <p>The following example demonstrates this passing of facilities between screens:</p>
+        <ol>
+            <li value="1">Create a screen, which functions as a navigation screen. Any screen can be configured to receive its SiteService or facility from any SiteService or facility sender on the screen.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">At the screen level enable <b>Broadcast facilities</b> and <b>Broadcast SiteService</b> in the Properties pane.</li>
+            <li value="2">Add a <a href="../Using_Canvas_Controls/Tag_Chooser.htm"><a href="../Using_Canvas_Controls/Tag_Chooser.htm">tag chooser</a></a> control, which will be set to control the facility of the screen.</li>
+            <li value="3">Configure the <a href="../Using_Canvas_Controls/Tag_Chooser.htm"><a href="../Using_Canvas_Controls/Tag_Chooser_Config.htm">tag chooser</a></a> hierarchy and filter facilities.</li>
+            <li value="4">At the screen level configure the <b>Facility</b> to source its facility from the tag chooser.</li>
+        </ol>
+        <ol start="2">
+            <li value="2">Create a second screen, which functions as the recipient screen.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">At the screen level configure the <b>Facility</b> to source its facility from <b>&lt;Broadcast&gt;</b>.</li>
+            <li value="2">At the screen level configure the <b>SiteService</b> to source its SiteService from <b>&lt;Broadcast&gt;</b>.</li>
+            <li value="3">Add one or more text tools and configure the <b>SiteService</b> and <b>Facility</b> on each tool to source from the screen. </li>
+            <li value="4">Also configure a <b>UDC</b> that you know is available on the filtered facilities for each text tool.</li>
+            <li value="5">Add other controls, such as a grid, and configure its <b>SiteService</b> and <b>Row configuration</b> to source from the screen.</li>
+            <li value="6">Configure some columns to display facilities or points.</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Save both screens.</li>
+            <li value="4">Start <a href="../Using_Canvas_View/Getting_Started_with_Canvas_View.htm"><span class="GeneralProduct_View_Short">Canvas View</span></a> and open both screens.</li>
+            <li value="5">Optionally, position the screens as desired and save the view as a <a href="../Using_Canvas_View/Getting_Started_with_Canvas_View.htm#Layout">layout</a> for future use.</li>
+            <li value="6">In the navigation screen use the tag chooser to navigate through the facility hierarchy. Select any parent facility or child facility and <span class="GeneralProduct_Short">Canvas</span> will broadcast the facility changes to the second screen, and change the contents of the text tool and grid as each receive the facility selection from the navigation screen.</li>
+        </ol>
+        <p>In this example we see one screen driving the contents of another screen. The first navigation screen will broadcast its facility change and <span class="GeneralProduct_Short">Canvas</span> will detect that the facility has changed and will look for all open screens that are configured to receive their source via <b>&lt;Broadcast&gt;</b>. The second screen will detect that its facility source is inherited from <b>&lt;Broadcast&gt; </b>and the text tool and grid contained within are configured to get their facility from the navigation screen. The order in which the facilities are passed is as follows: </p>
+        <p class="Indent">1. Select facility on tag chooser &gt; 2. Broadcast to navigation screen &gt; 3. Send to <span class="GeneralProduct_Short">Canvas</span> application &gt; 4. Received on the receiving screen &gt; 5. Display facility on the tool and grid controls</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Broadcasting facilities from one screen to another">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p>
+                            <img src="../../Resources/Images/Controls/Interscreen_Comm1.png" alt="Broadcasting facilities from one screen to another" title="Broadcasting facilities from one screen to another" />
+                        </p>
+                        <p class="Caption">Broadcasting facilities from one screen to another</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>One Caveat about Lists of Facilities</h4>
+        <p>It is important to note that the screen, text tool, and chart only store a single facility, while grids can receive multiple facilities. This is important because if a control is sourced from the screen, and it is capable of receiving multiple facilities, the control needs to know <i>which</i> facility it is receiving.</p>
+        <p>When a screen is notified that there has been a change in facilities and it receives the list of facilities, the screen takes the <i>first</i> facility in the list of possible facilities, and uses that facility for itself, but then passes the whole list on to the next receiver in the path. So, when a facility is selected on a tag chooser, and the screen is getting the list from the tag chooser, it gets the whole list of facilities, saves the <i>first</i> one, and then passes the whole list onto the application, which then sends the whole list onto the next screen, which then picks the <i>first</i> facility and passes the whole list onto other controls on the screen. In the example above, the text tool will receive the whole list, but the text tool only cares about the <i>first</i> facility. The grid will receive the whole list of facilities.</p>
+        <p>The Broadcast feature is a way to support controls that care about a single selection (screen, text tool, chart) and controls that care about multiple selections (grid) with the same selection at the source. While facility source selection is more obvious due to the large number of facilities in a CygNet system, SiteService source selection behaves in the same way.</p>
+        <p>The only SiteService sender control is the screen, but you can accomplish the sending of SiteService to the screen and other controls via script, shown below.</p>
+        <h3><a name="Message_Broadcast"></a>Broadcast a Message Via Script</h3>
+        <p><span class="GeneralProduct_Short">Canvas</span> provides an option to pass messages to or manipulate objects on other open screens. This is accomplished via script using the <b>SendMessageBroadcast</b> method on the sending screen and the <b>BroadcastMessageReceived</b> event on the receiving screen.</p>
+        <p>For example, a button can be scripted to fire a broadcast message when clicked, which will send a message string and a screen's properties out to any open screens that are scripted to receive the message and passed objects.</p>
+        <h3>SendMessageBroadcast method</h3>
+        <p>The <a href="../Using_Canvas_Controls/Screen_Events.htm">SendMessageBroadcast</a> method is performed on the Screen object.</p>
+        <h4>Syntax</h4>
+        <p class="Syntax">Objects.Screen.SendMessageBroadcast("String", Objects.Screen);</p>
+        <h4>Parameters</h4>
+        <p>There are two parameters that must be passed in via the <b>SendMessageBroadcast </b>method:</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;" class="TableStyle-HelpTable2" cellspacing="0" summary="Screen SendMessageBroadcast method Parameters">
+            <col class="TableStyle-HelpTable2-Column-Column1" style="width: 20%;" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameters</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p>String</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The string identifies what the message is about.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">
+                        <p>Object</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>The object contains the value of the message, but it can be anything you want to send.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Example">Example — SendMessageBroadcast</p>
+        <p>The following example code shows the script required to drive the two buttons on the navigation screen:</p>
+        <ol>
+            <li value="1">passing in a different SiteService (BOB.UIS) to the screen, which could be broadcast to other screens</li>
+            <li value="2">broadcasting a message ("This is my message to you!") to any open screen set to receive the broadcast </li>
+        </ol>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Button2.Click += new EventHandler(this.Button2_Click);</p>
+                    <p class="Code2">Objects.Button1.Click += new EventHandler(this.Button1_Click);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Button1</p>
+                    <p class="Code">private void Button1_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.SiteService.SiteService = "BOB.UIS";</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                    <p class="Code">#region Button2</p>
+                    <p class="Code">private void Button2_Click(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">Objects.Screen.SendMessageBroadcast("This is my message to you!", Objects.Screen);</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <h3>BroadcastMessageReceived event</h3>
+        <p>The mechanism by which <span class="GeneralProduct_Short">Canvas</span> accesses the message string and the sending screen object is the <a href="../Using_Canvas_Controls/Screen_Events.htm">BroadcastMessageReceived</a> event on the receiving screen.</p>
+        <p class="Example">Example — BroadcastMessageReceived</p>
+        <p>The following example code shows the script on the second screen, which receives the broadcast message from the navigation screen, and manipulates a property back on the navigation screen. The receiving screen has access to a string field  (<code>MessageText</code>) and an object field (<code>Data</code>). It takes the message string and puts it in the text tool, displaying the broadcast message from the navigation screen in the second screen. The <code>Data</code> object knows about the screen properties (<code>CanvasScreenPropertiesViewModel</code>), which then changes the screen property's object (<code>BackgroundColor</code>) of the navigation screen to pink, then green, then pink.</p>
+        <p>So when the <b>Broadcast Message</b> button is clicked, <span class="GeneralProduct_Short">Canvas</span> will fire a broadcast message, and send the string and the navigation screen's properties to all open screens that have the <b>BroadcastMessageReceived</b> event implemented. The second screen will receive the message, change the value of the text tool, and change the sending screen's background color. While the background color is changed on the navigation screen, it is actually being manipulated by script that is executing over on the second screen.</p>
+        <table class="Code" summary="Code example">
+            <tr>
+                <td>
+                    <p class="Code">public ScreenClass()</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">// control event handler code goes here -- do not modify</p>
+                    <p class="Code2">Objects.Screen.BroadcastMessageReceived += new EventHandler(this.Screen_BroadcastMessageReceived);</p>
+                    <p class="Code2">// add your custom initialization code here</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#region Screen</p>
+                    <p class="Code">private void Screen_BroadcastMessageReceived(object sender, EventArgs args)</p>
+                    <p class="Code">{</p>
+                    <p class="Code2">var messageInfo = args as BroadcastMessageEventArgs;</p>
+                    <p class="Code2">Objects.MessageText.Text = messageInfo.Message;</p>
+                    <p class="Code2">var navigationScreen = messageInfo.Data as CanvasScreenPropertiesViewModel;</p>
+                    <p class="Code2">if (navigationScreen.BackgroundColor != "Pink")</p>
+                    <p class="Code2">{</p>
+                    <p class="Code2">navigationScreen.BackgroundColor = "Pink";</p>
+                    <p class="Code2">}</p>
+                    <p class="Code2">else</p>
+                    <p class="Code2">{</p>
+                    <p class="Code2">navigationScreen.BackgroundColor = "Green";</p>
+                    <p class="Code2">}</p>
+                    <p class="Code">}</p>
+                    <p class="Code">#endregion</p>
+                </td>
+            </tr>
+        </table>
+        <p>The order in which the message and object are passed is as follows: </p>
+        <p class="Indent">1. Click button &gt; 2. Broadcast to navigation screen &gt; 3. Send to <span class="GeneralProduct_Short">Canvas</span> application &gt; 4. Received on the receiving screen &gt; 5. Display message in text tool and manipulate background color on navigation screen</p>
+        <table style="margin-left: 0;margin-right: auto;" summary="Sample SendMessageBroadcast and BroadcastMessageReceived">
+            <col />
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <p>
+                            <img src="../../Resources/Images/Controls/Interscreen_Comm2.png" alt="SendMessageBroadcast and BroadcastMessageReceived" title="SendMessageBroadcast and BroadcastMessageReceived" />
+                        </p>
+                        <p class="Caption">SendMessageBroadcast and BroadcastMessageReceived</p>
+                        <p class="Caption"> passing a message and object (property change)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Buttons Icons/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/General/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="GeneralCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

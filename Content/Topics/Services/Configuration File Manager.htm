@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Services|Service Configuration Files|Service Configuration Utilities">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuration File Manager</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Services.htm">Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Service Configuration Files.htm">Service Configuration Files</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Service Configuration Utilities.htm">Service Configuration Utilities</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuration File Manager</span>
+        </div>
+        <h2>CygNet Config File Manager</h2>
+        <p>The <b>CygNet Config File Manager</b> is a  configuration file management tool used to centrally manage all configuration files in your CygNet system (from both local and remote servers) even if you aren’t currently running the application on the host server. The tool will allow you to edit (via manual and mass-modification options) and validate your configuration files in one central location. The application can be used to perform the following actions:</p>
+        <ul>
+            <li value="1">Update all configuration files running on the local server with keywords and values for the current CygNet Software release. This may include adding new keywords, removing obsolete keywords, and updating keyword values as necessary. See <a href="Configuration File Manager - Migrating Files.htm">Migrate configuration files</a>.</li>
+            <li value="2">Retrieve and edit keywords in configuration files running on the local server. See <a href="Configuration File Manager - Loading Config Files.htm#local">Edit local configuration files</a> and <a href="Configuration File Manager - Editing Keywords.htm">Editing Keywords</a>.</li>
+            <li value="3">Retrieve and edit keywords in configuration files from live services running anywhere in your CygNet environment. This feature simplifies the task of editing multiple configuration files for users of Replication, Failover, and Redundancy. See <a href="Configuration File Manager - Loading Config Files.htm#remote">Edit remote configuration files</a> and <a href="Configuration File Manager - Editing Keywords.htm">Editing Keywords</a>.</li>
+            <li value="4">Import keyword values from or export keyword values to a CSV file for external modification. See <a href="Configuration File Manager - Editing Keywords.htm#Import">Import and Export Keywords</a>.</li>
+            <li value="5">Validate keyword values in configuration files from your local and remote services. See <a href="Configuration File Manager - Validating.htm">Validating Keywords</a>.</li>
+            <li value="6">Automatically restart remote services (all services except RSM and ARS). See <a href="Configuration File Manager - Finishing.htm#Restarti">Restarting Services</a>.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> If you make a change to a configuration file using this utility, you must stop and <a href="Configuration File Manager - Finishing.htm#Restarti">restart</a> the service(s) for the change to become effective. Each service reads the file only at startup.</p>
+        </div>
+        <p>All files to which changes are made are stored in their respective directories as backups. See <a href="#Restorin" class="selected">Restoring Backup Files</a> below.</p>
+        <p>See the SVCINFO Security Event for the applicable CygNet Service in the <a href="../Security/Security Reference.htm">Security Reference</a> topics for more information about security access levels for performing certain tasks using the <b>CygNet Config File Manager</b>.</p>
+        <p class="HeadingProcedure">To Start CygNet File Manager</p>
+        <p>The <b>CygNet Config File Manager</b> is stored in the <b>CygNet\Bin</b> directory (ConfigFileMgr.exe) on the host server. To start the utility, use Windows Explorer to browse to the directory and double-click the program icon.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Important:</span> The <b>CygNet Config File Manager</b> requires the Microsoft .NET Framework  is installed on the computer where the application is run,  in accordance with the <a href="../../Resources/PDF_Repository/CygNet_94_System_Requirements.pdf" target="_blank"><i>CygNet System Requirements</i></a> document.</p>
+        </div>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> You can also set up this utility to be installed and launched (started) via <b>CygNet Client Installer</b> so that the application can be version managed. See <a href="../Version Management/Version Management Overview.htm">Version Management</a> for instructions on how to do this.</p>
+        </div>
+        <p>The Config File Manager is version-specific. Be sure that you use the correct  version for your system. </p>
+        <p>Click the following images to see sample Config File Manager windows:</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Services/cfm_root.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="750" data-mc-height="690" src="../../Resources/Images/Services/cfm_root_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a> <a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Services/cfm_main.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="1025" data-mc-height="831" src="../../Resources/Images/Services/cfm_main_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a> <![CDATA[ ]]></p>
+        <h3>Config File Manager Options</h3>
+        <p>When you start the Config File Manager there are four options on the load page. Each option is described in subsequent topics.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="Configuration File Manager - Loading Config Files.htm#remote">Edit remote configuration files</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="Configuration File Manager - Loading Config Files.htm#local">Edit local configuration files</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="Configuration File Manager - Migrating Files.htm">Migrate configuration files</a>
+            </li>
+            <li class="HyperlinkList" value="4">Exit</li>
+        </ul>
+        <h3><a name="Restorin"></a>Restoring Backup Files</h3>
+        <p>The Config File Manager does not include an <b>Undo</b> option, but all configuration files are saved as backups, and can be manually restored if needed. When a configuration file is updated, the old version is saved with the same file name, but with "bk1" appended as the extension. This stands for "Backup 1." If a bk1 file already exists for the configuration file, this file is incremented to bk2, and so on. Up to nine backup files can be stored in the directory for a single configuration file.</p>
+        <p>Backup files can be viewed in a text editor such as Notepad. To restore a backup file as the configuration file, delete the current configuration file (.cfg file), then remove the ".bkx" extension from the backup file (where x is the number of the backup file that you want to restore), so that its extension is ".cfg" again. </p>
+        <h3>Log File Format</h3>
+        <p>Logged information for the Config File Manager is written to the ConfigFileMgr001.csv file stored in the <b>CygNet\Bin</b> directory on the host server. Note that a comma-separated values file is best viewed using a spreadsheet program such as Microsoft Excel.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Loading Config Files.htm" class="More">Loading Configuration Files</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Migrating Files.htm" class="More">Migrating Files</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Filtering.htm" class="More">Filtering Configuration Files and Keywords</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Editing Keywords.htm" class="More">Editing Keywords</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Editing Special Action Keywords.htm" class="More">Editing Special Action Keywords</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Validating.htm" class="More">Validating Keywords</a>
+        </p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a href="Configuration File Manager - Finishing.htm" class="More">Finishing Keyword Replacement</a>
+        </p><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

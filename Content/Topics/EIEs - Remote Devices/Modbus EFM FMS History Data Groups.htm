@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Devices|Remote Devices|Modbus EFM EIE">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Modbus EFM EIE – FMS History Data Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../Devices/Devices.htm">Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="EIE Remote Devices.htm">Remote Devices</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Modbus EFM EIE.htm">Modbus EFM EIE</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">FMS History Data Groups</span>
+        </div>
+        <h2>FMS History Data Groups</h2>
+        <p>FMS history data groups are used to send historical data to FMS.  Multiple instances of an <b>FmsHist</b> data group in a device template file are possible. They get their data from one or more Enron history data groups (that is, data groups where <a href="DataGroup Element.htm#dgCat">dgCat="enronHistory"</a>).</p>
+        <p>At least one <a href="Modbus Realflo Enron History Data Groups.htm">Enron history</a> support data group must be defined. If more than one is defined, only the first support data group instantiated for a device is used. Support data groups are found in the <b>supportDg</b> element of your sample template. Mapping between FMS history data group element and FMS data items is within the <b>histItems</b> section of <a href="fmsMaps and gmrMaps.htm">fmsMaps</a> in the device template file. See also <a href="FMS History Items.htm">FMS History Items</a>.</p>
+        <p>FMS history data groups use a maximum of 10 characters for their name. The first 7 of which characters must be <b>FmsHist</b>. The last 3 characters are entirely free-form. For example, <b>FmsHistH</b> could signify FMS hourly history.</p>
+        <p>The <b>TmOrient</b> data group element does not appear in a device template file, but it commonly appears as part of a DDS transaction in the <a href="../Devices/CygNet DDS Viewer Utility.htm">CygNet DDS Viewer  utility</a> (DdsViewer.exe). This element indicates whether a device supplies history in leading or trailing time. If its value is 1, the history record uses leading time. If its value is 2, the history record uses trailing time.</p>
+        <p>For more information, see the following subsections:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Example" class="selected">Example</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Structural" class="selected">Structure and Components</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#ToCreate" class="selected">To Create a Data Group</a>
+            </li>
+        </ul>
+        <p>For more information about working with device template files, see <a href="Device Template Files.htm">Device Template Files</a>.</p>
+        <p class="Example"><a name="Example"></a>Example</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see an example of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code2">&#160;</p>
+                            <p class="Code">&lt;FmsHistH niceName="FMS Hourly History" baseOrd="1" maxCnt="4" <span style="background-color: #b0c4de;">recordMinutes="60"</span> <span style="background-color: #b0c4de;">histType="GM"</span>&gt;</p>
+                            <p class="Code2">&lt;dgElements/&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;supportDg&gt;</span>
+                            </p>
+                            <p class="Code3">&lt;EnrHrly <span style="background-color: #b0c4de;">required="true"</span>/&gt;</p>
+                            <p class="Code2"><span style="background-color: #b0c4de;">&lt;/supportDg&gt;</span>
+                            </p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;SDate desc="Start Device Date/Time" required="true"/&gt;</p>
+                            <p class="Code3">&lt;EDate desc="End Device Date/Time" required="true"/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/FmsHistH&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="Example"><a name="Structural"></a>Structure and Components</p>
+        <table class="Code">
+            <tr>
+                <td>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Click here to see the structure and components of the data group</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;!-- To get FMS history, you must include both the <b>histType</b> and <b>recordMinutes</b> attributes along with their respective values. Any Enron history data group (where dgCat="enronHistory") can be identified as a support data group. --&gt;</p>
+                            <p class="Code">&#160;</p>
+                            <p class="Code">&lt;FmsHist  <a href="DataGroup Element.htm#recordMinutes">recordMinutes=""</a> <a href="DataGroup Element.htm#histType">histType=""</a> <a href="DataGroup Element.htm#tmFormat">tmFormat=""</a>&gt;</p>
+                            <p class="Code2">&lt;dgElements/&gt;</p>
+                            <p class="Code2">&lt;supportDg&gt;</p>
+                            <p class="Code3">&lt;<i>SupportDataGroup </i><a href="supportDg Element.htm#required">required="true"</a>/&gt;</p>
+                            <p class="Code2">&lt;/supportDg&gt;</p>
+                            <p class="Code2">&lt;uccRecvParms&gt;</p>
+                            <p class="Code3">&lt;<i>UISParameter</i>/&gt;</p>
+                            <p class="Code2">&lt;/uccRecvParms&gt;</p>
+                            <p class="Code">&lt;/FmsHist&gt;</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="HeadingProcedure"><a name="ToCreate"></a>To Create a Data Group</p>
+        <ol>
+            <li value="1">Using a text editor or XML editor, open the device template file to which you want to add data groups.</li>
+            <li value="2">Define a new data group.<ol style="list-style-type: lower-alpha;"><li value="1">Define a <a href="supportDg Element.htm">supportDg</a> element.</li><li value="2">Define all support data groups from which you require data.</li><li value="3">Define a <a href="dgElements Element.htm">dgElements</a> element.</li><li value="4">Define a <a href="uccRecvParms uccSendParms Elements.htm">uccRecvParms</a> element in the data group.</li><li value="5">Define one or more <a href="RecParmName SendParmName Elements.htm"><i>RecParmName</i></a> elements.</li></ol></li>
+            <li value="3">Define any other required data groups.</li>
+            <li value="4"><a href="Validating Templates.htm">Validate and load</a> your template.</li>
+        </ol><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

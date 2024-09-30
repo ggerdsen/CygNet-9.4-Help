@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>POST api/v1/facilities/{facilityTag}/relatives</title>
+    
+</head>
+<body>
+    
+
+<link type="text/css" href="../../Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                <a href="../../Help.html">Help Page Home</a>
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        
+<h1>POST api/v1/facilities/{facilityTag}/relatives</h1>
+<div>
+    <p>Retrieves the requested relative facility tags</p>
+
+	<p><b>CygNet Access Requirements</b></p>
+	
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet ACS security: BRDGAPI ACCESS 1</p>
+	        <p>&nbsp;&nbsp;&nbsp;&nbsp;CygNet Bridge API license type: Base</p>
+    <h2>Request Information</h2>
+
+    <h3>URI Parameters</h3>
+        <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">facilityTag</td>
+                    <td class="parameter-documentation">
+                        <p>CygNet facility tag (Site.Service::FacilityId)</p>
+                    </td>
+                    <td class="parameter-type">
+                        string
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+
+    <h3>Body Parameters</h3>
+
+    <p>Request object for retrieving relative facilities</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">relatives</td>
+                    <td class="parameter-documentation">
+                        <p>List of reference path names for which to get relative facilities</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of string
+
+                    </td>
+                    <td class="parameter-annotations">
+                                <p>Required</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Request Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;relatives&quot;: [
+    &quot;Well&quot;,
+    &quot;Plunger&quot;,
+    &quot;Gas Meter&quot;,
+    &quot;Compressor&quot;
+  ]
+}
+</pre>
+        </div>
+</div>
+    <h2>Response Information</h2>
+
+    <h3>Resource Description</h3>
+
+    <p>Facility tag of the relative facility</p>
+
+    <table class="help-page-table">
+        <thead>
+            <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="parameter-name">relativeFacilities</td>
+                    <td class="parameter-documentation">
+                        <p>List of relative facilities</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=RelativeFacilityDTO.html">RelativeFacilityDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="parameter-name">errors</td>
+                    <td class="parameter-documentation">
+                        <p>List of relative facility errors</p>
+                    </td>
+                    <td class="parameter-type">
+                                Collection of <a href="../ResourceModel@modelName=RelativeFacilityErrorPairDTO.html">RelativeFacilityErrorPairDTO</a>
+
+                    </td>
+                    <td class="parameter-annotations">
+                            <p>None</p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+
+
+        <h3>Response Formats</h3>
+
+<div>
+        <h4 class="sample-header">application/json, text/json</h4>
+        <div class="sample-content">
+            <span><b>Sample:</b></span>
+<pre class="wrapped">
+{
+  &quot;relativeFacilities&quot;: [
+    {
+      &quot;relationship&quot;: &quot;Plunger&quot;,
+      &quot;relative&quot;: &quot;CYGSITE.UIS::ASH_PL&quot;
+    },
+    {
+      &quot;relationship&quot;: &quot;Gas Meter&quot;,
+      &quot;relative&quot;: &quot;CYGSITE.UIS::ASH_GM&quot;
+    },
+    {
+      &quot;relationship&quot;: &quot;Compressor&quot;,
+      &quot;relative&quot;: &quot;CYGSITE.UIS::COLFAX_CDP&quot;
+    }
+  ],
+  &quot;errors&quot;: [
+    {
+      &quot;relationship&quot;: &quot;Well&quot;,
+      &quot;error&quot;: &quot;No relative facility found&quot;
+    }
+  ]
+}
+</pre>
+        </div>
+</div>
+</div>
+
+    </section>
+</div>
+
+</body>
+</html>

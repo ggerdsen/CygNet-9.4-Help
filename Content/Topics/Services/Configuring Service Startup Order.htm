@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Services|Service Management">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Service Startup and Shutdown Order</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Services.htm">Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Service Management.htm">Service Management</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Service Startup and Shutdown Order</span>
+        </div>
+        <h2>Configuring Service Startup and Shutdown Order</h2>
+        <p>You can easily configure the startup and shutdown order for services owned by any RSM using the <b>Service Group Editor</b>. The editor can be used to start a subset of services belonging to an RSM, and then wait for them to reach a steady state before starting the rest of the services. Alternately you can stop a subset of services belonging to an RSM, and then wait for them to reach a steady state before stopping the rest of the services.</p>
+        <p>Service startup and shutdown order is stored in the Service Definitions file (<a href="#SvcDef" class="selected">SvcDef.Rsx</a>), found in the <b>CygNet\RSM\</b> service directory. </p>
+        <p>Click on the following image to see an example <b>Service Group Editor</b>.</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Services/Service_Groups.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="520" data-mc-height="896" src="../../Resources/Images/Services/Service_Groups_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a> <![CDATA[ ]]></p>
+        <p class="HeadingProcedure">To Change Service Startup and Shutdown Order</p>
+        <ol>
+            <li value="1">Using CygNet Explorer, open the Remote Service Manager (RSM), which must be running.</li>
+            <li value="2">Right-click in the white space of the RSM service pane and select <b>Configure Service Groups</b> from the context menu to open the <b>Service Group Editor</b>. The editor displays the services owned by the RSM, which are listed in a series of <b>Service Groups</b>. Each group of services will startup (or stopped) after the previous group has started (or stopped).</li>
+            <li value="3">To create a new service group, select one or more services, right-click and select <b>Create group <i>n</i> with selected service(s)</b>. A new service group will be created and the selected services will be moved to that group.</li>
+            <li value="4">To move one or more services to another service group, select the services, right-click and select <b>Move to group <i>n</i></b> where <i>n</i> is the group you want to move the selected services.</li>
+            <li value="5">Specify a <b>Group name</b> for each service group.</li>
+            <li value="6">Specify the <b>Max wait time (seconds):</b> for each service group. This value indicates the maximum amount of time in seconds you are willing to wait for the services in that group to startup or shutdown before moving on to the next group. The default value is 30 seconds.</li>
+        </ol>
+        <h3><b>Startup and Shutdown Notes</b>
+        </h3>
+        <p>Once configured the services will start or stop according to the setup specified in the <b>Service Group Editor</b>:</p>
+        <ul>
+            <li value="1"> The RSM will start and stop services per their configured group.</li>
+            <li value="2">If services are stopped, they will startup in the top-to-bottom order. On startup, the RSM will wait for all the services in a group to exit the "starting" state, or the <b>Max wait time</b>  to elapse, before starting the next group.</li>
+            <li value="3">If services are running, they will shutdown in the bottom-to-top order. On shutdown, the RSM will wait for all the services in a group to stop, or the <b>Max wait time</b>  to elapse, before stopping the next group.</li>
+            <li value="4"> The services within each group will start or stop in parallel.</li>
+            <li value="5">If the RSM owns any ARS services, they are not displayed in any service groups, since the ARS is always the first service to start and the last service to stop.</li>
+            <li value="6">You can't reorder services within a service group. If you want a particular service to start (or stop) before (or after) another service, move it to a separate group.</li>
+            <li value="7">The <b>Start</b> column in the RSM Service Pane indicates the startup goup number for each service, not its order in the <b>Service Definitions</b> file. The ARS displays a "0" since it is not part of a startup group.</li>
+        </ul>
+        <h3><a name="SvcDef"></a>SvcDef.Rsx</h3>
+        <p><b>SvcDef.Rsx</b> is the RSM database file, also called the Service Definitions file.&#160;This XML file lists the services in the order they will be started or stopped by the RSM. If necessary, you can edit this file using a text or XML editor to change the order, although best practice recommends using the configuration method described above.</p>
+        <h3>Automatic Shutdown of Services</h3>
+        <p>You may find it useful to have a means of shutting down one or more CygNet services without requiring user intervention outside a failover scenario.  Each of the following methods requires an external trigger to initiate the shutdown, such as a command from a battery backup’s control software or a failover script.</p>
+        <p>Perform one of the following options to initiate an automatic shutdown of CygNet services:</p>
+        <ul>
+            <li value="1">Use the <a href="../Scripting/CxHmiRsm CxRsmCtl Methods.htm">CxRsmCtl Methods</a>.</li>
+            <li value="2">Use the <a href="../Utilities/SCADA Utilities.htm#RsmControlSvc">RSM Control Service</a> utility.</li>
+            <li value="3">Use the command line's built-in <b>Service Control</b> function, for example, <code>sc stop MYSITE.RSM Service</code>. </li>
+        </ul>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

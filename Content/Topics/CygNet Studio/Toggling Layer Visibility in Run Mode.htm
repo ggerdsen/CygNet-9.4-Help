@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Studio|Scripting in CygNet Studio|Scripting Examples">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Toggling Layer Visibility in Run Mode</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Studio.htm">CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting in CygNet Studio.htm">Scripting in CygNet Studio</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Scripting Examples.htm">Scripting Examples</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Toggling Layer Visibility in Run Mode</span>
+        </div>
+        <h2>Toggling Layer Visibility in Run Mode</h2>
+        <p>Placing objects logically on different layers can enable the user to make certain layers invisible while not working with them. </p>
+        <p>The following example uses a button on a screen to toggle the visibility of a layer containing a Tank Control and a Text control.</p>
+        <p class="HeadingProcedure">To Toggle Layer Visibility in Run Mode</p>
+        <ol start="1">
+            <li value="1">Create a new Studio screen.</li>
+            <li value="2">First set up the layers on the View. </li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Press F4 (or go to <b>Layout &gt; Layers</b>) to open the <b>Layers</b> dialog box.</li>
+            <li value="2">Add a new layer and name it "Tank Layer."</li>
+            <li value="3">Leave the default layer ("Default") selected.</li>
+        </ol>
+        <ol start="3">
+            <li value="3">Add a Standard Button to the View. In its (<b>ObjectCode</b>) field, type "btnShowHide." Set the <b>Text</b> property of the button to "Hide Tank." Set the <b>[ButtonType]</b> property to Standard. Ensure its <b>Layer</b> property is set to Default.</li>
+            <li value="4">Add a Tank Control to the View. Set its <b>Layer</b> property to Tank Layer.</li>
+            <li value="5">Add a Text control to the View. Set its <b>Layer</b> property to Tank Layer, and its <b>[DisplayItem]</b> property to Text.</li>
+            <li value="6">Add script to toggle layer visibility.</li>
+        </ol>
+        <ol start="1" class="Lower_alpha">
+            <li value="1">Open the Script Editor and navigate to btnShowHide <b>EventClick</b> event.</li>
+            <li value="2">Enter the following script. This script checks the current visibility of the "Tank Layer" layer, then toggles it. It also updates the text of the Button to the relevant command.</li>
+        </ol>
+        <table class="Code">
+            <tr>
+                <td>
+                    <p class="Code">Sub btnShowHide_EventClick()</p>
+                    <p class="Code">Dim This : Set This = btnShowHide</p>
+                    <p class="Code2">If TheView.Layer("Tank Layer") = True Then</p>
+                    <p class="Code3">TheView.Layer("Tank Layer") = False</p>
+                    <p class="Code3">This.Text = "Show Tank"</p>
+                    <p class="Code2">Else</p>
+                    <p class="Code3">TheView.Layer("Tank Layer") = True</p>
+                    <p class="Code3">This.Text = "Hide Tank"</p>
+                    <p class="Code2">End If</p>
+                    <p class="Code">End Sub</p>
+                </td>
+            </tr>
+        </table>
+        <ol start="7">
+            <li value="7">Save the screen and switch to <b>Run</b> mode to test the <b>Show/Hide</b> button.</li>
+        </ol>
+        <p>The visibility of individual objects can be controlled through script using their respective Visible properties. Layer visibility can be more practical for controlling visibility of multiple objects, as in the above example. Another application of layer visibility is a screen that includes a type of "Edit mode," allowing the user to update properties in the system, then apply them. Switching into Edit mode would make these editing controls visible, and clicking an <b>Apply</b> button would hide them again and apply any changes. </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

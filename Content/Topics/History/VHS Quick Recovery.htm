@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="History">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>VHS Quick Recovery</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="History.htm">History</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">VHS Quick Recovery</span>
+        </div>
+        <h2>VHS Quick Recovery</h2>
+        <p>The VHS Quick Recovery feature is designed to reduce service downtime in the event of an abnormal shutdown or database corruption. It allows the VHS service to restart immediately after failure, to become operational and begin receiving values from the current value services immediately. This feature eliminates the need to run the <a href="VHS Check Utility.htm">VHS Check Utility</a> before restarting the service, which may take a prohibitively long time depending on the size of your database. It also eliminates the need to set up and run a temporary VHS while <b>VHS Check</b> is running.</p>
+        <p>VHS Quick Recovery is triggered during startup if the datastore fails to initialize. This scenario would likely be the result of hard drive failure or data corruption. In the event of an abnormal shutdown, ESE-based datastores are able to fully recover all flushed transactions without a need to run <b>VHS Check</b> to validate database integrity. See <a href="../Data Storage for DBS-Based Services/How ESE Works.htm">How ESE Works</a> for more details.</p>
+        <p>When VHS Quick Recovery is triggered it will archive off the old "dirty" database, which may contain data corruption. The service will start with a new database and will immediately begin writing values from the current value services to this new clean database. Recent changes on the archived <a href="VHS Change Queue.htm">VHS Change Queue</a> will be imported into the new database as long as the data passes data integrity checks. If <a href="VHS Journal Files.htm">VHS Journal Files</a> have been created and saved for the service, data contained with them can also be imported into the clean database using the <a href="VHS Recovery Utility.htm">VHS Recovery Utility</a> to restore the most recent data that was contained in the VHS prior to the service failure. Uncorrupted data from a "dirty" datastore can be recovered manually and transferred to the new database using the <b>VHS Recovery</b> utility.</p>
+        <p>When the service shuts down abnormally, the Quick Recovery process will not begin until the service is restarted. This can be done manually, or the service can be configured to restart automatically using <a href="../Automatic Service Recovery/Automatic Service Recovery.htm">Automatic Service Recovery</a>. It may be useful to configure the service to restart automatically in the event the shutdown occurs at a time when it is inconvenient to restart the service manually. If you wish to configure automatic service recovery for the VHS service, see <a href="../Automatic Service Recovery/Configuring Automatic Service Recovery for the VHS.htm">Configuring Automatic Service Recovery for the VHS</a>.</p>
+        <p>If VHS Quick Recovery is enabled, the service cannot be configured to automatically run the <a href="VHS Check Utility.htm">VHS Check Utility</a>. <span class="CygNetVariablesSoftwareName">CygNet Software</span> recommends that you do not run the VHS Check utility on a "dirty" database.</p>
+        <h3>Configuring VHS Quick Recovery</h3>
+        <p>Quick Recovery is enabled on the VHS with by setting the <b>QUICK_RECOVERY_ENABLED</b> VHS configuration file keyword to <b>TRUE</b>. See <a href="../Service Configuration Keywords/VHS Configuration File Keywords.htm#Quick">VHS Configuration File Keywords</a> for more information.</p>
+        <p>You can configure a point with the SVCMON UDC, <a href="../Service Monitoring/Info Items - Service Specific.htm#QR">SVMVHSQRSU</a> to track whether or not Quick Recovery was triggered when the VHS started up.</p>
+        <hr />
+        <p class="More">More:
+		</p>
+        <p class="HyperlinkList">
+            <img src="../../Resources/Images/Shared Images/arrow.gif" class="More_arrow" title="Arrow" alt="Arrow" /><a class="More" href="VHS Quick Recovery Actions.htm">VHS Quick Recovery Actions</a>
+        </p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

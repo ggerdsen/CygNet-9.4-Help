@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Notifications|Notifications Overview|Notification Address Types">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>CygNet Notification Plugin Interface</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Notifications.htm">Notifications</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Notifications Overview.htm">Notifications Overview</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Notification Address Types.htm">Notification Address Types</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">CygNet Notification Plugin Interface</span>
+        </div>
+        <h2>CygNet Notification Plugin Interface</h2>
+        <p><span class="CygNetVariablesSoftwareName">CygNet Software</span> provides an extensible .NET "plugin" interface that developers may use to implement their own custom .NET assemblies to enhance the capabilities of the General Notification Service (GNS). Some plugin examples might include:</p>
+        <ul>
+            <li value="1">a plugin that sends CygNet notification messages to a third-party push notification service, such as Microsoft Azure Push Notification Service, or Apple Push Notification Service, which in turn forwards the notifications to a mobile phone or tablet</li>
+            <li value="2">a plugin that forwards CygNet notification messages to third-party enterprise middleware</li>
+            <li value="3">a plugin that sends CygNet notification messages as cloud-based voice callouts</li>
+        </ul>
+        <p>Notifications are configured in the Point Service (PNT), and triggered by the Current Value Service (CVS) during point processing as configurable bit values change.  For bits that are configured to <b>Report to GNS</b>, when a bit value is set, the real-time record details are sent to the GNS so that it may begin the notification process. Any given notification may be sent to a number of configured recipients whose addresses are specified in the GNS. </p>
+        <p>Historically, GNS address type options have been static (Voice Address, SMTP Mail Message, etc.), and all notifications have been transmitted by the GNS. CygNet administrators now have the ability to install and configure custom notification plugins, specify a new address type for the custom plugin, and configure a GNS notification record with the new address type. If a notification address is of the custom <i>Notification Plugin Type</i>, the callout message is passed from the GNS, through the custom plugin, and out to the recipient's address (phone number, email, or a custom address required by the installed plugin) for display on the recipient's device or computer. A given GNS may be configured to use multiple plugins and plugin address types.</p>
+        <p>Notifications processed via the plugin can be configured to require acknowledgment. The acknowledgment state will be returned, or not, based on the design of the plugin. If a plugin does allow acknowledgment for a notification, the acknowledgment ID (Ack ID) will be returned to the GNS when the call to the custom plugin .NET assembly returns. Alternatively, a plugin may be implemented to not send an acknowledgment for a notification back to the GNS.</p>
+        <p>In order to protect the GNS from potentially misbehaving plugins, the GNS does not interact directly with the custom plugin .NET assemblies.  Instead, the GNS instructs an application called <b>CygNotify.exe</b> to send notifications to the custom plugins.  In this way, if the custom plugin inadvertently causes an application to crash, only that instance of <b>CygNotify</b> will exit, while the originating GNS process will be unaffected.</p>
+        <p>The GNS plugin interface uses standard GNS security events. Configuration errors can be monitored via a system info item. The interface and supporting files will be fully replicated as part of any GNS replication process.</p>
+        <p>The following diagram illustrates the plugin interface with three hypothetical plugin samples (click the following image to see an enlarged diagram):</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Notifications/Notification_Plugin_Diagram.png" data-mc-popup-alt="Click for more information"><img class="MCPopupThumbnail img imgThumbnail_Image" data-mc-width="625" data-mc-height="604" src="../../Resources/Images/Notifications/Notification_Plugin_Diagram_thumb_0_48.png" alt="Click for more information" title="Click for more information" tabindex="" /></a>
+        </p>
+        <p>For more information, see the following subsections:</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Install" class="selected">Installing a Custom Notification Plugin</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Notifica" class="selected">Configuring the Notification Plugin Manager</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Configur" class="selected">Configuring the Notification Plugin Address Type</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Acknowle" class="selected">Acknowledging a Plugin Notification</a>
+            </li>
+            <li class="HyperlinkList" value="5"><a href="#CygNotify" class="selected">CygNotify Command-Line Options</a>
+            </li>
+            <li class="HyperlinkList" value="6"><a href="#Monitor" class="selected">Monitor Plugin Errors and Validation State</a>
+            </li>
+        </ul>
+        <h3><a name="Install"></a>Installing a Custom Notification Plugin</h3>
+        <p>Installation of a custom notification plugin requires some manual steps for a CygNet administrator.</p>
+        <p class="HeadingProcedure">To Install a Notification Plugin</p>
+        <ol>
+            <li value="1">Copy the plugin assembly file(s) to the <b>CygNet\Services\GNS\Plugins\&lt;plugin&gt;</b> directory. Each plugin requires its own dedicated directory and the path is always relative to the host GNS. The <b>Plugins\</b> directory is created when the GNS starts.</li>
+            <li value="2">Copy the CygNet.API .NET files (listed below) to the <b>CygNet\Services\GNS\Plugins\</b> directory. This step is <i>not</i> required if you are doing a new installation of CygNet.</li>
+            <li value="3">Verify that the <b>CygNotify.exe</b> is in the <b>CygNet\Services\GNS\Plugins\</b> directory.</li>
+            <li value="4">Configure the plugin properties via the <b>Notification Plugin Manager</b> in the GNS, described <a href="#Notifica" class="selected">below</a>.</li>
+        </ol>
+        <p>The  following folders and files are required by the notification plugin process and are found in the <b>CygNet\Services\GNS\</b> directory except where noted:</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Folder or File</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>PluginData\</b> and <b>PluginData\temp\</b></p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>A housekeeping directory with special permissions where the CygNotify process may read, write, and delete files as the plugin is functioning.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Plugins\</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The directory where all custom plugins are stored.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Plugins\&lt;</b><i style="font-weight: bold;">plugin</i><b>&gt;\&lt;</b><i style="font-weight: bold;">plugin</i><b>&gt;.dll</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The directory where the custom  plugin assembly file(s) are stored. Plugins may have custom configuration files, assembly dependencies, or other assets. </p>
+                        <p>Each plugin requires its own dedicated directory and the path is always relative to the host GNS. The default path is <b>CygNet\Services\GNS\Plugins\</b>. The <b>Plugins\</b> directory is created when the GNS starts. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>&lt;</b><i style="font-weight: bold;">plugin</i><b>&gt;.dll</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The custom  plugin assembly file(s). The path to the plugin, its <b>Address Type</b>, and other properties are configured in the <b>Notification Plugin Manager</b> in the GNS. See <a href="#Notifica" class="selected">below</a>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>CygNet.API .NET libraries</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The CygNet.API .NET libraries required by the plugin include:</p>
+                        <ul class="table">
+                            <li value="1">CygNet.API.Core.dll</li>
+                            <li value="2">CygNet.API.Core32.dll</li>
+                            <li value="3">CygNet.API.Core64.dll</li>
+                            <li value="4">CygNet.API.Facilities.dll</li>
+                            <li value="5">CygNet.API.Facilities32.dll</li>
+                            <li value="6">CygNet.API.Facilities64.dll</li>
+                            <li value="7">CygNet.API.Points.dll</li>
+                            <li value="8">CygNet.API.Points32.dll</li>
+                            <li value="9">CygNet.API.Points64.dll</li>
+                            <li value="10">CygNet.Core.dll</li>
+                            <li value="11">CygNet.Core32.dll</li>
+                            <li value="12">CygNet.Core64.dll</li>
+                            <li value="13">CygNet.Data.Core.dll</li>
+                            <li value="14">CygNet.Data.Facilities.dll</li>
+                            <li value="15">CygNet.Data.Points.dll</li>
+                            <li value="16">CygNet.Notifications.dll</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Notes:</span>
+                            </p>
+                            <p class="Note"><b>New Installation</b> — The CygNet SCADA Services Setup program will automatically install these files to the <b>GNS\Plugins\</b> directory.</p>
+                            <p class="Note"><b>Upgrade</b> — If you are upgrading, these files must be copied manually from the <b>CygNet\Bin\</b> directory to the <b>GNS\Plugins\</b> directory.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>CygNet.Notifications.dll</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>A .NET assembly file that defines the CygNet plugin interface and describes the data that will be passed from the GNS through the  plugin to the recipient. This file is stored in the <b>GNS\Plugins\</b> directory; do not move or delete it.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>CygNotify.exe</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The GNS will spawn a <b>CygNotify</b> process for each plugin-type notification. This executable file is stored in the <b>GNS\Plugins\</b> directory; do not move or delete it. Verify that this file is in the <b>GNS\Plugins\</b> directory.</p>
+                        <p>See <a href="#CygNotify" class="selected">CygNotify Command-Line Parameters</a> for details on running and validating a plugin from the command-line.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>CygNotify.exe.config</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The CygNotify.exe configuration file. This file is stored in the <b>GNS\Plugins\</b> directory; do not move or delete it.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1"><b>DCLND.dll</b> or <b>DCLND64.dll</b></td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>One of the following files is required, depending on the version you are running:</p>
+                        <ul class="table">
+                            <li value="1">
+                                The DCLND.dll file must be stored in the <b>CygNet\Support\</b> directory.
+</li>
+                            <li value="2">The DCLND64.dll file must be stored in the <b>CygNet\Support64\</b> directory.                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Notifica"></a>Configuring the Notification Plugin Manager</h3>
+        <p>Once the necessary plugin files are installed, configuration of each custom plugin is completed via the <b>Notification Plugin Manager</b> in the GNS.</p>
+        <p>
+            <img src="../../Resources/Images/Notifications/Notification_Plugin_Manager.png" /> </p>
+        <p class="HeadingProcedure">To Configure and Validate Custom Notification Plugin Properties</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, right-click in the GNS pane and select <b>View Notification Plugin Manager</b>. The <b>GNS Notification Plugin Manager</b> dialog box will display all configured plugins for this GNS.</li>
+            <li value="2">Click <b>Add...</b> to configure a new plugin, select a previously configured plugin and click <b>Edit...</b> (or double click), or click <b>Delete</b> to remove a plugin.</li>
+            <li value="3">For a new or existing plugin, set the address type, notification name, full and relative notification file path, regular expression, maximum parallel notifications, and notification time limit. Each field is defined <a href="#Notifica2" class="selected">below</a>.</li>
+            <li value="4">Click <b>Save</b> to save properties for the plugin.</li>
+            <li value="5">Click <b>Errors</b> to show any configuration errors for a selected plugin.</li>
+            <li value="6">Click <b>Validate plugins</b> to validate the plugin configuration, verify that all required assemblies are in the specified location (including on a replicated site), and validate that the plugins and any dependencies can load.</li>
+            <li value="7">Click <b>Close</b> to close the <b>GNS Notification Plugin Manager</b>.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> See the GNS <a href="../Security/General Notification Service GNS.htm#SVCINFO">SVCINFO Security Event</a> for information about security access levels for validating plugins immediately. </p>
+        </div>
+        <h4><a name="Notifica2"></a>Notification Plugin Manager Properties</h4>
+        <p>The properties on the <b>GNS Notification Plugin Manager</b> dialog box are described in the following table.</p>
+        <table style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Address type</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The two-character address type associated with the plugin. The address type must start with "Z".</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Notification name</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The name of the plugin address type. This notification name is listed in the drop-down menu when configuring the address record type in the GNS.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Full notification file path</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This read-only field displays the full path to the directory where the plugin assembly file(s) are stored. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Relative notification file path</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The relative path to the directory where the custom  plugin assembly file(s) are stored.  Each plugin requires its own dedicated directory and the path is relative to the host GNS. The <b>Plugins\</b> directory is created when the GNS starts. The default path is <b>CygNet\Services\GNS\Plugins\</b>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1"><b>Regular expression</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>This field defines the acceptable address for the notification plugin as a regular expression.   For example, just as the address for an SMTP Mail Message must be an email address, you can use a regular expression to enforce a rule for the notification plugin address. The default value is ".*"</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">
+                        <p><b>Max parallel notifications</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>The maximum number of push notifications that can be processed at the same time. Accepted values are 1 - 8, with a default value of 1.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">
+                        <p><b>Notification time limit</b>
+                        </p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>The maximum amount of time (in seconds) the plugin has to handle the notification, to avoid negatively impacting other notifications. Accepted values are 60 seconds (1 minutes) - 3600 seconds (1 hour), with a default of 600 seconds (10 minutes).</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2"><b>Errors</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Click to show any configuration or validation errors for a selected plugin.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1"><b>Validate plugins</b>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Click to validate the plugin configuration, verify that all required assemblies are in the specified location (including on a replicated site), and validate that the plugin and any dependencies can load. See <a href="#Monitor" class="selected">Monitor Plugin Errors and Validation State</a> below for related info items.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Configur"></a>Configuring the Notification Plugin Address Type</h3>
+        <p>Once the plugin is configured in the <b>GNS Notification Plugin Manager</b>, the plugin address type and message is configured in the GNS record.</p>
+        <p>
+            <img src="../../Resources/Images/Notifications/Notification_Plugin_Type.png" />
+        </p>
+        <p class="HeadingProcedure">To Configure a Notification Message for Custom Plugin Address Type</p>
+        <ol start="1">
+            <li value="1">Using CygNet Explorer, right-click in the GNS pane and configure a new <a href="Configuring a GNS Record.htm">GNS&#160;record</a> and description.</li>
+            <li value="2">Configure an <a href="Configuring an Address Record.htm">Address Record</a>.</li>
+            <li value="3">In the <b>Type</b> box, select the <a href="Notification Address Types.htm">notification plugin type</a>. The * indicates that the type is a notification plugin type.</li>
+            <li value="4">Configure the address of the recipient and any message handling rules (acknowledgment, resend, blackouts, rule propagation, report alarm clear), described <a href="Configuring an Address Record.htm">here</a>.</li>
+            <li value="5">Configure the <a href="Defining an Event Record and Configuring Messages.htm">notification plugin message</a>.</li>
+            <li value="6">Click <b>OK</b> to save the recipient information.</li>
+            <li value="7">Click <b>OK</b> to save the notification record.</li>
+            <li value="8">Associate  an event notification with the desired points’ appropriate <a href="../Points/Understanding the CvsMetadata File.htm">configurable bits in the PNT</a>.</li>
+        </ol>
+        <h3><a name="Acknowle"></a>Acknowledging a Plugin Notification</h3>
+        <p>The standard acknowledgment mechanisms for CygNet notifications are available for notifications delivered by the notification plugin, including <a href="Acknowledging Notifications.htm">acknowledgment</a> via:</p>
+        <ul>
+            <li value="1">CygNet Studio screen            </li>
+            <li value="2">GNS Queue in CygNet Explorer            </li>
+            <li value="3">Email            </li>
+            <li value="4">Text Message (SMS)            </li>
+            <li value="5">Phone            </li>
+        </ul>
+        <p>Acknowledgment via email and SMS require some additional system configuration. See <a href="Acknowledging Notifications Via Email.htm">Acknowledging Notifications Via Email</a> for more information.</p>
+        <h3><a name="CygNotify"></a>CygNotify Command-Line Options</h3>
+        <p>The CygNotify.exe process supports the following command-line parameters for running and validating the notification plugin.</p>
+        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">/load_only</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p><b>/load_only</b> verifies that the given plugin path points to a valid, loadable plugin. The plugin dll must be specified using the <b>/plugin</b> parameter.</p>
+                        <p class="Example">Example</p>
+                        <p>The following command will run the plugin validation steps:</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">C:\CygNet\Services\GNS\Plugins\CygNotify.exe /p=<i>PathToPluginDll</i> /load_only</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2" style="background-color: #ffffff;">
+                        <p>/p or /plugin</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2" style="background-color: #ffffff;">
+                        <p><b>/plugin</b> specifies the path to the plugin dll.</p>
+                        <p class="Example">Example</p>
+                        <p>The following command will run the notification plugin:</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">C:\CygNet\Services\GNS\Plugins\CygNotify.exe /p=<i>PathToPluginDll</i> PathToNotificationXmlFile</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> The "=" between the "/p" and the "PathToPluginDll" is optional.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1" style="background-color: #ffffff;">
+                        <p>/v or /validate</p>
+                    </td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1" style="background-color: #ffffff;">
+                        <p><b>/validate</b> runs the plugin validation steps from the command line. The plugin dll must be specified using the <b>/plugin</b> parameter. </p>
+                        <p class="Example">Example</p>
+                        <p>The following command will run the plugin validation steps:</p>
+                        <table class="Code">
+                            <tr>
+                                <td>
+                                    <p class="Code">C:\CygNet\Services\GNS\Plugins\CygNotify.exe /p=<i>PathToPluginDll</i> /v</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a name="Monitor"></a>Monitor Plugin Errors and Validation State</h3>
+        <p>The following GNS system info items are available for monitoring the condition of the plugin:</p>
+        <ul>
+            <li value="1"><b>GNS_PLUGIN_CFG_ERRS</b> (Nice name: <b>Notif plugin cfg errors</b>) displays the number of plugin configuration errors in your system</li>
+            <li value="2"><b>GNS_PLUGIN_VAL_STATE</b> (Nice name: <b>Notif plugin val state</b>) shows the plugin validation state and allows plugin validation to be run on-demand</li>
+        </ul><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

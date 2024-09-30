@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Service Monitoring|Service Monitoring (SVCMON) Points">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>SVCMON Terminology</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="Service Monitoring.htm">Service Monitoring</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Service Monitoring SVCMON Points.htm">Service Monitoring (SVCMON) Points</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">SVCMON Terminology</span>
+        </div>
+        <h2>SVCMON Terminology</h2>
+        <p>There are a number of terms specific to the SVCMON and its Administration utility. A basic understanding of these terms will help you when working with Service Monitoring applications in CygNet.</p>
+        <ul>
+            <li class="HyperlinkList" value="1"><a href="#Info" class="selected">Info Item</a>
+            </li>
+            <li class="HyperlinkList" value="2"><a href="#Point" class="selected">Point Templates</a>
+            </li>
+            <li class="HyperlinkList" value="3"><a href="#Timers" class="selected">Timers</a>
+            </li>
+            <li class="HyperlinkList" value="4"><a href="#Calculat" class="selected">Calculated Points</a>
+            </li>
+        </ul>
+        <h3><a name="Info"></a>Info Item</h3>
+        <p>An <a href="Info Items.htm">Info Item</a> is a piece of information about the system. There are many info items available in the system ranging from host server machine statistics, such as memory and disk space usage, to service configuration statistics, such as General Notification Service (GNS) pending notifications or the Value History Service (VHS) value file size. The <a href="../CygNet Explorer/Viewing Service Details.htm">Service Details View</a> in CygNet Explorer displays info items and their values.</p>
+        <p>Most info items have a corresponding SVCMON UDC. By creating points for these SVCMON UDCs you can easily monitor Info Item values and utilize point features such as alarming or reporting to history (VHS). All SVCMON UDCs begin with the letters SVM.</p>
+        <p>Some of these SVCMON UDCs that represent info items are specific to sites, while others are specific to service types. Most are applicable to all service types. For example, the "site status" UDC (<a href="SVCMON UDCs.htm">SVMSTST</a>) is applicable only to CygNet sites. This UDC monitors the health of a site as a whole. The "value file percentage full" UDC (SVMVHSVFPF) is applicable only to the Value History Service. It monitors the percentage full of the disk space allocated to the VHS. The "total CPU usage" UDC (SVMTCPUU) can be applied to any service. It monitors the CPU usage of the host server.</p>
+        <p>See <a href="Info Items.htm">Info Items</a> for a list of available info items and their corresponding SVCMON UDCs.</p>
+        <h3><a name="Point"></a>Point Templates</h3>
+        <p>Another type of SVCMON tag is a <b>point template</b>. A point template is a UDC-specific point stored in the Point Service. All point templates have a Facility of ~TEMPLATE and the UDC is the SVCMON UDC (for example, SVMTCPUU which represents total CPU usage).</p>
+        <p>Point templates can be applied to any SVCMON point that uses the same UDC as the point template. Point templates can be applied to SVCMON points that monitor info items, timers, and calculated SVCMON points. They can be applied at the time the points are created or anytime thereafter, even if the tags were not initially based on the template.</p>
+        <p>Note that the <b>Status</b> property of a point template (in the Point Service) is set to <b>Inactive</b>. As such, the tag is listed in the PNT but not SVCMON. There is no need to change this setting.</p>
+        <h3><a name="Timers"></a>Timers</h3>
+        <p><b>Timers</b> define the update rates for SVCMON points. A timer has one interval, and all points added to that timer are polled at that interval. Any number of timers can be defined, and you can associate any SVCMON point with any timer. The maximum update rate is 1 second.</p>
+        <p>The CygNet ServiceMon Administration utility creates a default timer which has an update rate of 60 seconds. All new SVCMON points are automatically assigned to this timer. Points can be reassigned to other timers, and the update rate of the default timer can be changed.</p>
+        <h3><a name="Calculat"></a>Calculated Points</h3>
+        <p><b>Calculated points</b> are based on the raw values returned by standard SVCMON points. Calculated points can represent rates, deltas, or scaled value of the raw value. Multiple calculated points can be based on the same raw value.</p>
+        <p>SVCMON calculated points are not HyperPoint Scripting Service points. The algorithms are defined in SVCMON.</p>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

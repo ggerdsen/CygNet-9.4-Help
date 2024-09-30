@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en" xml:lang="en" data-mc-search-type="Stem" data-mc-help-system-file-name="CygNet.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="CygNet Measurement|FMS Explorer|Commands Menu|Managing Node Commands">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Export: Flow-Cal Transaction Queue Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/TableStyles/HelpTable2.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/NoBorder8.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/HTML5.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="CygNet Measurement.htm">CygNet Measurement</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="FMS Explorer.htm">FMS Explorer</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Using the Commands Menu.htm">Commands Menu</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="Managing Node Commands.htm">Managing Node Commands</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Export: Flow-Cal Transaction Queue</span>
+        </div>
+        <h2>Configuring Export: Flow-Cal Transaction Queue Commands</h2>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> This command is provided as an optional feature, for gas devices. For this command to function, several <a href="#Command" class="selected">requirements</a> must be met.</p>
+        </div>
+        <p>If installed, use the <b>Export: Flow-Cal Transaction Queue</b> command to export  raw periodic data records for a defined time range from FMS to a specified Flow-Cal database. Data that is not from a raw data source, e.g. has been imported into FMS via .csv files (categorized as a "User file" source), is not included in the export.</p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> It is strongly recommended that the specified time range for the command include only record spans with fully collected data.</p>
+        </div>
+        <p>See <a href="FMS Commands.htm">FMS Commands</a> and <a href="Command Parameters - Export Flow-Cal Transaction Queue.htm">Export to Flow-Cal Transaction Queue</a> for more information about using this command via CygNet Explorer (MSS).</p>
+        <p>See <a href="Scheduling FMS Command Tasks in the MSS.htm">Scheduling FMS Command Tasks in the MSS</a> for more information about scheduling commands.</p>
+        <p>See <a href="FMS ActiveX Controls.htm">FMS ActiveX Controls</a> and <a href="../Scripting/CxHmiFms.htm">CxHmiFms</a> for more information about using commands via FMS ActiveX controls on CygNet Studio or CygNet Vision screens.</p>
+        <p>See <a href="../Scripting/CxFms.htm">CxFms</a> for more information about scripting commands.</p>
+        <h3><a name="Command"></a>Command Requirements</h3>
+        <p>To enable the command to export raw data to a Flow-Cal database transaction queue, and see the command listed in command management options, the following elements must be present.</p>
+        <ul>
+            <li value="1"><b>Flow-Cal Database connection</b> - A Flow-Cal database (for example, Oracle) must be installed, with database connectivity available to the FMS service. The database connection is defined in the FMS service configuration file (<b>CygNet\Services\FMS\fms.cfg</b>) via Database Info keywords. See <a href="../Service Configuration Keywords/FMS Configuration File Keywords.htm#FCDB_Oracle">FMS Configuration File Keywords</a> for more information about configuring the Database Info Keywords to support the Flow-Cal database connection.  </li>
+            <li value="2"><b>Flow-Cal Database client</b> - A Flow-Cal database client (for example, Oracle client) must be installed on the computer hosting your FMS service (your client computer) and available to the FMS service. See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation of the Oracle Database client.  </li>
+            <li value="3"><b>Flow-Cal Export DLL</b> - CygNet Measurement provides an optional DLL file that must be installed on your system to support data exports from FMS to Flow-Cal. The file (<b>CxFmsFlowCalExport.dll</b>) must be installed and registered  in the <b>CygNet\Support</b> folder on the  computer hosting your FMS service.  See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation and registration of the export DLL file.</li>
+            <li value="4"><b>Flow-Cal Export CDF</b> - CygNet Measurement provides a  command definition file (CDF) that must be installed on your system to define how raw periodic data is exported from FMS to a Flow-Cal database transaction queue. The CDF contains the data item mappings and actions necessary to execute the export command and send data to  the corresponding Flow-Cal database version and type, and the file can be customized to define how the data items are handled. The specific CDF file (<b>ExportFlowCalDb.cdf</b>) must be included in the <b>CygNet\Services\FMS\CommandDefs</b> folder on your host server.  See <a href="Installing CygNet Measurement.htm#5.">Installing CygNet Measurement</a> for more information about installation and registration of the export CDF file. See <a href="#Editing" class="selected">Editing or Customizing the Command Definition File</a> for more information about using and modifying the CDF file.</li>
+        </ul>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Refer to Flow-Cal documentation and/or contact your Flow-Cal representative for the most current information about database connection requirements, and specific Flow-Cal configuration details.</p>
+        </div>
+        <h3>Configuring an Export: Flow-Cal Transaction Queue Command</h3>
+        <p>If desired (optional), first <a href="#Editing" class="selected">edit or customize item mappings in the command definition file</a>.</p>
+        <p>Use the following procedure to configure Flow-Cal database transaction queue exports. </p>
+        <p class="HeadingProcedure">To Configure an Export: Flow-Cal Transaction Queue Command</p>
+        <ol>
+            <li value="1">Open the <b>Command</b> menu in FMS Explorer.</li>
+            <li value="2">Click <b>Manage</b> to access the <b>FMS Command Definitions</b> dialog box and then click <b>Add</b> to access the <b>Create New FMS Command Definition</b> dialog box.
+    <p><img src="../../Resources/Images/CygNet Measurement/Create_Command_Export_Flow-Cal_Transaction_Queue.png" /></p></li>
+            <li value="3">Define the <a href="#Device2" class="selected">command definition properties</a>.</li>
+        </ol>
+        <ol class="Lower_alpha">
+            <li value="1">Type a <b>Name</b> for the command into the text box. Maximum character count is 50.</li>
+            <li value="2">Select the <b>Command type</b> from the drop-down menu.</li>
+            <li value="3">Select a processing <b>Priority</b> from the drop-down menu.</li>
+            <li value="4">Select a <b>Logging</b> level from the drop-down menu. </li>
+            <li value="5">Click to select/clear the check box to <b>Prompt when command runs</b>. </li>
+        </ol>
+        <ol start="4">
+            <li value="4">Define the <a href="#Device" class="selected">command parameters</a>. The parameters for the Export: Flow-Cal Transaction Queue command are described in the <b>Command parameters</b> box, which includes the <b>Description</b>, a <b>Required?</b> indicator, and a configurable <b>Value</b> field. Set the value for each required and each desired optional parameter, as indicated in its <b>Value</b> field.</li>
+        </ol>
+        <ol start="5">
+            <li value="5">Click <b>Create New</b>. The new command will appear in the list of FMS Command Definitions.</li>
+        </ol>
+        <h3><a name="Device2"></a>Command Definition Properties</h3>
+        <p>The following command definition properties apply to Export: Flow-Cal Transaction Queue commands. </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');margin-left: 0;margin-right: auto;caption-side: top;width: 800px;" class="TableStyle-HelpTable2" cellspacing="0">
+            <col style="width: 210px;" class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Property</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Name</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">Type in a <b>Name</b> for the new command.</td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Command type</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the desired <b>Command type</b> from the drop-down menu.</p>
+                        <p>See <a href="FMS Commands.htm">FMS Commands</a> for more information about available command types.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Priority</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select a processing queue <b>Priority</b> for the command from the drop-down menu. </p>
+                        <p>Options from least to greatest priority are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> level</li>
+                            <li value="2"><b>Medium</b> level</li>
+                            <li value="3"><b>High</b> level</li>
+                            <li value="4"><b>User</b> initiated transaction</li>
+                            <li value="5"><b>Admin</b> initiated transaction</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level processing queue priority.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Logging</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select a <b>Logging</b> level for the command results from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1"><b>Low</b> - displays errors</li>
+                            <li value="2"><b>Medium</b> - displays errors and warnings</li>
+                            <li value="3"><b>High</b> - displays errors, warnings, and status</li>
+                        </ul>
+                        <p>Default value is <b>Low</b> level logging when scheduling a command in the MSS. </p>
+                        <p>Default value is <b>High</b> level logging when creating or running an ad-hoc command in FMS Explorer.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body1">Prompt when command runs</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body1">
+                        <p>Click to select/clear the check box to <b>Prompt when command runs</b>. Selecting this option means you will receive a prompt asking if you want to modify the parameters before the command is executed.</p>
+                        <p>&#160;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3><a name="Device"></a>Command Parameters</h3>
+        <p>The following command parameters apply to Export: Flow-Cal Transaction Queue commands when creating or editing commands via FMS Explorer. </p>
+        <table class="TableStyle-HelpTable2" style="margin-left: 0;margin-right: auto;width: 800px;mc-table-style: url('../../Resources/TableStyles/HelpTable2.css');" cellspacing="0">
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <col class="TableStyle-HelpTable2-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-HelpTable2-Head-Header1">
+                    <th class="TableStyle-HelpTable2-HeadE-Column1-Header1">Description</th>
+                    <th class="TableStyle-HelpTable2-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Date format</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the desired date format from the drop-down menu. </p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Device</li>
+                            <li value="2">Contract</li>
+                            <li value="3">Local</li>
+                        </ul>
+                        <p>Default value is Device time.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Start date/time</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>Select the beginning date and time of the range for which to export device records. </p>
+                        <p>Click <b>...</b> to access the <b>Select Date and Time</b> dialog box.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> It is strongly recommended that the specified time range for the command include only record spans with fully collected data.</p>
+                        </div>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                        <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">End date/time</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the ending date and time of the range for which to export device records.</p>
+                        <p>Click <b>...</b> to access the <b>Select Date and Time</b> dialog box.</p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> It is strongly recommended that the specified time range for the command include only record spans with fully collected data.</p>
+                        </div>
+                        <p>See <a href="../Date and Time/Selecting Date and Time.htm">Selecting Date and Time</a> for more information.</p>
+                        <p>See <a href="#Note" class="selected">Note</a> below this table.</p>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">PM data requirement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>For periodic data, select whether to export periodic metering data, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Always export</li>
+                            <li value="2">Never export</li>
+                            <li value="3">Required to perform export (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">PQ data requirement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>For periodic data, select whether to export periodic quality data, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Always export</li>
+                            <li value="2">Never export</li>
+                            <li value="3">Required to perform export (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Event data requirement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>For periodic data, select whether to export event data, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Always export</li>
+                            <li value="2">Never export</li>
+                            <li value="3">Required to perform export (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">Alarm data requirement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>For periodic data, select whether to export alarm data, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Always export</li>
+                            <li value="2">Never export</li>
+                            <li value="3">Required to perform export (See <a href="#*" class="selected">*Note</a> below this table)</li>
+                        </ul>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body2">Config data requirement</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body2">
+                        <p>For periodic data, select whether to export configuration data, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">Always export</li>
+                            <li value="2">Never export</li>
+                            <li value="3">Exclude from export if missing events</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Be careful to require <b>Configuration</b> data only if the Node  supports history data types that utilize configuration data. </p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body1">
+                    <td class="TableStyle-HelpTable2-BodyE-Column1-Body1">File format version</td>
+                    <td class="TableStyle-HelpTable2-BodyD-Column1-Body1">
+                        <p>Select the version of the Flow-Cal database used for the export, from the options in the drop-down menu.</p>
+                        <p>Options are as follows.</p>
+                        <ul class="table">
+                            <li value="1">1.0 (supports periodic data)</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> Alternatively, Flow-Cal version can be configured in the .cdf (command definition file) if desired.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-HelpTable2-Body-Body2">
+                    <td class="TableStyle-HelpTable2-BodyB-Column1-Body2">Data exported  flag</td>
+                    <td class="TableStyle-HelpTable2-BodyA-Column1-Body2">
+                        <p>Select whether to flag device records as "exported" in the database, from the options in the drop-down menu. </p>
+                        <div class="Note">
+                            <p><span class="NoteHeading">Note:</span> When a "Use flag" option is selected, the Data Exported flag is applied to the entire record, regardless of how many data type(s) are selected for export.</p>
+                            <p>Options are as follows.</p>
+                        </div>
+                        <ul class="table">
+                            <li value="1">Ignore flag </li>
+                            <li value="2">Use flag; always update</li>
+                            <li value="3">Use flag; only update if data complete*</li>
+                        </ul>
+                        <div class="Note">
+                            <p><span class="NoteHeading">*Note:</span> <![CDATA[ ]]></p>
+                            <p class="TableNote">When this option is selected, the Data Exported flag is set only for records that contain data, and for which data collection (all supported types) is complete.</p>
+                            <p class="TableNote">When exporting partial records (e.g. you are only exporting PM data at this time), it is recommended to use the "Ignore flag" option, preserving the option to flag the record at a later time, when the remaining record data types are exported.</p>
+                        </div>
+                        <p>This parameter is required.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="Note"><a name="Note"></a>
+            <p><span class="NoteHeading">Note:</span> When using relative (rather than absolute) date/time, if both the start and end date/time have hour, minute, and second values of <b>00</b>, or if both are set to midnight, an additional day will be added to the date at the end of the range. This occurs because the service assumes the start of the day for the starting date/time and the end of the day for the ending date/time in these circumstances. Therefore requesting a time range from T to T will yield one day of data, and from T-1 to T will yield two days of data.  If only one day of data is desired when using relative date/time, the start and end date/times must therefore be the same. If any of the start or end date/time hour, minute, or second values are specified as a value other than zero (or midnight) however, the range will be used as specified.</p>
+        </div>
+        <div class="Note"><a name="*"></a>
+            <p><span class="NoteHeading">*Note:</span> If this option is selected and no associated history data is available (<b>Collection Details</b> value does not equal <b>[blank]</b>), the command will fail. See <a href="CygNet Measurement Concepts.htm#Collecti">Collection Details</a> in the <u>CygNet Measurement Concepts</u> topic for more information.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <h3>Editing or Deleting an Export: Flow-Cal Transaction Queue Command</h3>
+        <p>See <a href="Managing Node Commands.htm">Managing Node Commands</a> for information about editing or deleting this command. </p>
+        <h3>Running an Export: Flow-Cal Transaction Queue Command</h3>
+        <p>See <a href="Running Node Commands.htm">Running Node Commands</a> for information about running this command.</p>
+        <h3><a name="Editing"></a>Editing or Customizing the Command Definition File</h3>
+        <p>If you want to change specific data item mappings, use the following procedure to edit or customize the command definition file (CDF), before executing the Flow-Cal transaction queue data export command. </p>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> When you override a CDF mapping, you generally want to ensure that each newly mapped item is mapped to a field that uses the same <a href="FMS Data Items Units.htm">unit set</a> as the new item. If you decide to map an item requiring units  to a unitless field in the file however, the mapping will still be valid - but the value reported from the device will appear exactly as read, and will not be associated with a unit set. Values are not converted in the file when they are sent to a unitless field.</p>
+        </div>
+        <ol>
+            <li value="1">On your host server, in the <b>CygNet\Services\FMS\CommandDefs</b> folder, find the <b>ExportFlowCalDB.cdf</b> (command definition) file. Verify that the word "Sample" has been removed from the file name (this was likely already done at <a href="Installing CygNet Measurement.htm#5.">installation</a> of the CDF) so that the file will be recognized by the FMS service, and then open the file.</li>
+            <li value="2">Locate the FlowCalDatabase section of the file corresponding to the correct Flow-Cal database version for the export, e.g. 1.0.</li>
+            <li value="3">
+                <p>Optionally add, verify or edit the <b>TimeOrientation</b> value to align timestamps as desired. Options are Leading (all records oriented to the beginning of the record span), Trailing (all records oriented to the end of the record span), or Native (records oriented as configured at the device). Default behavior is Native time orientation, and PM when both PM and PQ data is present. </p>
+                <div class="Note">
+                    <p><span class="NoteHeading">Note:</span> The Leading or Trailing time orientation override is unable to adjust to handle Daylight Saving Time (DST) changes that originate from the device.</p>
+                </div>
+                <p>If used, include the TimeOrientation element in the CDF as in the following example.</p>
+                <table class="Code">
+                    <tr>
+                        <td>
+                            <p class="Code">&lt;ExportFlowCalDatabase&gt;</p>
+                            <p class="Code2">&lt;FlowCalDatabase DisplayIdentifier="1.0" Version ="1.0" TimeOrientation="Leading"&gt;</p>
+                            <p class="Code3">&lt;Common&gt;</p>
+                            <p class="Code3">. . .</p>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            <li value="4">Verify or edit the Node identifier for the export. In the <b>&lt;Common&gt; &lt;SOURCE_ID&gt;</b> section, optionally edit the Node identifier using a value of either NodeName or NodeDesc. If any other value is used, the command will fail. If no value is used (it is left blank), NodeName will be used by default.</li>
+            <li value="5">Edit mappings as desired. In the <b>&lt;FC_TRANSACTION_QUEUE&gt;</b> and <b>&lt;FC_TRANSACTION_SNAPSHOT&gt;</b> sections, edit specific data item mappings, tokens, and/or values as desired, within each section of the file. See <a href="../EIEs - Remote Devices/EFM Data Items.htm">EFM Data Items</a> (FMS Alarm Items, FMS Configuration Items, FMS Event Items, and FMS History Items) in the Devices section for more information about specific FMS data items pertaining to each section.<ul><li value="1">In the <b>&lt;FC_TRANSACTION_QUEUE&gt; &lt;Events&gt;</b> section, some event data items are associated with configuration item values, and do not have equivalent Flow-Cal configuration item mappings. These items can be mapped to unused custom  Flow-Cal fields   <b>USER_FIELD_S11</b> through <b>USER_FIELD_S30</b>, as described in <a href="#EventsMapping" class="selected">step 6</a>.</li><li value="2">In the <b>&lt;FC_TRANSACTION_QUEUE&gt; &lt;PeriodicHistory&gt; &lt;GQSource&gt;</b> section, listed mappings and values apply only to Chromatograph Nodes.</li></ul></li>
+        </ol>
+        <ol start="5">
+            <li value="5">Sometimes multiple items map to the same field, that accommodates only one item mapping. In this case the first value found in the CDF file with a corresponding valid value will be used. For example, when mapping <b>K_Factor</b> values to the field provided, the value returned (e.g. eFMS_CFG_GAS_K_FACTOR_MASS, eFMS_CFG_LIQUID_K_FACTOR_VOLUME, etc.) maps to the same field, so the first mapped value will be used.</li>
+            <li value="6">Edit custom data item mappings as desired. Custom FMS data items and/or tokens can be mapped to the following Flow-Cal fields. 
+               	<ul><li value="1">In the <b>&lt;FC_TRANSACTION_QUEUE&gt; &lt;PeriodicHistory&gt;</b> section, custom FMS items can be mapped to the following Flow-Cal fields.</li></ul><ul class="Circle"><li value="1">Flow-Cal fields  <b>USER_FIELD_V0</b> through <b>USER_FIELD_V7</b> can have mappings of any valid FMS gas PV item that resolves to a numeric value.</li></ul><ul class="Square"><li value="1">Flow-Cal fields <b>USER_FIELD_V0</b> through <b>USER_FIELD_V4</b> have default mappings of FMS History items <b>eFMS_PV_PM_CUSTOM1</b> through <b>eFMS_PV_PM_CUSTOM5</b>.</li></ul><ul class="Circle"><li value="1">Flow-Cal fields <b>USER_FIELD_S8</b> through <b>USER_FIELD_S9</b> can have mappings of any valid FMS gas PV item that resolves to a string value. Alternatively, they can have mappings of any valid FMS token containing facility information (<b>RemoteDeviceType</b>, <b>PollingFac_Attr0</b> through <b>PollingFac_Attr29</b>, <b>PollingFac_Table0</b> through <b>PollingFac_Table29</b>, or <b>PollingFac_YesNo0</b> through <b>PollingFac_YesNo19</b>).</li></ul><ul><li value="1">In the <b>&lt;FC_TRANSACTION_SNAPSHOT&gt;</b> section, custom FMS items can be mapped to the following Flow-Cal fields.</li></ul><ul class="Circle"><li value="1"><a name="EventsMapping"></a>Flow-Cal fields <b>CFG_USER_FIELD_S01</b> through <b>CFG_USER_FIELD_S30</b> can have mappings of any valid FMS Configuration data item that resolves to a string value. Alternatively, they can have mappings of any valid FMS token containing facility information (<b>RemoteDeviceType</b>, <b>PollingFac_Attr0</b> through <b>PollingFac_Attr29</b>, <b>PollingFac_Table0</b> through <b>PollingFac_Table29</b>, or <b>PollingFac_YesNo0</b> through <b>PollingFac_YesNo19</b>).</li></ul><ul class="Square"><li value="1">Flow-Cal fields <b>CFG_USER_FIELD_S01</b> through <b>CFG_USER_FIELD_S10</b> have default mappings of FMS Configuration data items <b>eFMS_CFG_CUSTOM1</b> through <b>eFMS_CFG_CUSTOM10</b>.</li></ul></li>
+            <li value="7"><b>Save</b> and close the edited <b>ExportFlowCalDB.cdf</b> file.</li>
+        </ol>
+        <div class="Note">
+            <p><span class="NoteHeading">Note:</span> Problems that arise while processing a command definition file are logged to the <b>Services &gt; FMS</b> log file.</p>
+        </div><a href="#top" class="selected"><img src="../../Resources/Images/Shared Images/Arrow_top.png" style="float: right;padding-top: 6px;padding-right: 2px;padding-bottom: 2px;" title="Back to top" alt="Back to top" /></a>
+        <hr width="100%" size="1" />
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/NoBorder8.css');" summary="MasterFooter" class="TableStyle-NoBorder8" cellspacing="0">
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <col class="TableStyle-NoBorder8-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-NoBorder8-Body-Body1">
+                    <td class="TableStyle-NoBorder8-BodyB-Column1-Body1">
+                        <p><a href="mailto:softwaredocs.feedback@weatherford.com?subject=Documentation%20feedback"><img src="../../Resources/Images/Shared Images/Feedback_footer.png" alt="Let us know how we can improve this topic." title="Let us know how we can improve this topic." class="Inline" /></a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-NoBorder8-BodyA-Column1-Body1">
+                        <p class="MasterFooterContact"><a href="https://www.weatherford.com/en/products-and-services/production/production-4-0/iot-scada-platform//" target="_blank"><img src="../../Resources/Images/Shared Images/WFT_31x21.png" alt="CygNet at weatherford.com" title="CygNet at weatherford.com" /></a>
+                        </p>
+                        <p class="MasterFooterContact">© <span class="CygNetVariablesCurrentYear">2020</span> Weatherford. All rights reserved.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
